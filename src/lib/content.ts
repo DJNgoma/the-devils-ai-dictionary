@@ -1,8 +1,6 @@
-import fs from "node:fs/promises";
-import path from "node:path";
 import { cache } from "react";
-import matter from "gray-matter";
 import { z } from "zod";
+import rawEntries from "@/generated/entries.generated.json";
 import {
   categoryDefinitions,
   featuredEntrySlug,
@@ -13,8 +11,6 @@ import {
   type TechnicalDepth,
 } from "@/lib/site";
 import { slugify, uniqueBy } from "@/lib/utils";
-
-const entriesDirectory = path.join(process.cwd(), "content", "entries");
 const categoryTitleSet = new Set<string>(
   categoryDefinitions.map(({ title }) => title),
 );
@@ -59,6 +55,12 @@ const entryFrontmatterSchema = z.object({
     .enum(["rag", "embeddings", "context-window", "function-calling", "mcp"])
     .optional(),
 });
+
+const entryDocumentSchema = entryFrontmatterSchema.extend({
+  body: z.string().default(""),
+});
+
+const generatedEntriesSchema = z.array(entryDocumentSchema);
 
 export type Entry = z.infer<typeof entryFrontmatterSchema> & {
   body: string;
@@ -116,29 +118,19 @@ function buildSearchText(frontmatter: z.infer<typeof entryFrontmatterSchema>) {
     .join(" ")
     .trim();
 }
-
-async function readEntryFile(filename: string): Promise<Entry> {
-  const source = await fs.readFile(path.join(entriesDirectory, filename), "utf8");
-  const { data, content } = matter(source);
-  const parsed = entryFrontmatterSchema.parse(data);
-
-  validateCategories(parsed.categories, parsed.slug);
-
-  return {
-    ...parsed,
-    body: content.trim(),
-    categorySlugs: parsed.categories.map((category) => slugify(category)),
-    url: `/dictionary/${parsed.slug}`,
-    searchText: buildSearchText(parsed),
-  };
-}
+const entryDocuments = generatedEntriesSchema.parse(rawEntries);
 
 export const getAllEntries = cache(async () => {
-  const files = (await fs.readdir(entriesDirectory))
-    .filter((file) => file.endsWith(".mdx"))
-    .sort();
+  const entries = entryDocuments.map((document) => {
+    validateCategories(document.categories, document.slug);
 
-  const entries = await Promise.all(files.map(readEntryFile));
+    return {
+      ...document,
+      categorySlugs: document.categories.map((category) => slugify(category)),
+      url: `/dictionary/${document.slug}`,
+      searchText: buildSearchText(document),
+    };
+  });
 
   return entries.sort((left, right) => left.title.localeCompare(right.title));
 });

@@ -21,6 +21,7 @@ The project is deliberately not a SaaS dashboard. It is structured as an online 
 - TypeScript
 - Tailwind CSS v4
 - File-based entry content in `content/entries/*.mdx`
+- Generated content index for runtime-safe entry loading
 - Frontmatter parsing with `gray-matter`
 - Client-side local search with `flexsearch`
 - Static generation where possible
@@ -50,6 +51,10 @@ content/entries/                 Dictionary entries in MDX with frontmatter
 docs/content-authoring.md        Editorial and schema guide
 src/app/                         App Router pages, metadata routes, OG images
 src/components/                  UI components, search explorer, reading layout
+scripts/generate-content-index.mjs
+                                 Builds the generated entry index from MDX
+src/generated/entries.generated.json
+                                 Generated content manifest consumed at runtime
 src/lib/content.ts               Content parsing, related-term logic, listing helpers
 src/lib/site.ts                  Site config, navigation, category definitions
 src/lib/metadata.ts              Metadata helpers and canonical URL utilities
@@ -108,6 +113,8 @@ npm run typecheck
 npm run build
 ```
 
+`npm run dev` and `npm run build` both regenerate the content index automatically before Next starts.
+
 For the full editorial and schema guide, see [docs/content-authoring.md](docs/content-authoring.md).
 
 ## Search and filters
@@ -165,6 +172,7 @@ Files added for the Cloudflare path:
 Notes:
 
 - Keep using `npm run dev` for ordinary local development. Use `npm run preview:cf` when you want to test the Cloudflare runtime specifically.
+- The app no longer relies on runtime filesystem reads for dictionary content. Entries are compiled into `src/generated/entries.generated.json` during `npm run dev` and `npm run build`, which is much less sentimental and considerably more compatible with Workers.
 - `NEXT_PUBLIC_SITE_URL` still matters for canonical URLs, Open Graph metadata, and sitemap output. Set it to the final Workers or custom domain at build time.
 - This deploys to Cloudflare Workers, not Vercel. Yes, the Next.js app can live somewhere other than its birthplace. The custody dispute remains philosophical.
 

@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "content:build": "node scripts/generate-content-index.mjs",
+    "predev": "npm run content:build",
+    "prebuild": "npm run content:build",
     "dev": "next dev",
     "build": "next build",
     "build:cf": "opennextjs-cloudflare build",
@@ -19,7 +22,7 @@
     "clsx": "^2.1.1",
     "flexsearch": "^0.8.212",
     "gray-matter": "^4.0.3",
-    "next": "16.2.0",
+    "next": "16.1.7",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "tailwind-merge": "^3.5.0",
@@ -31,7 +34,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.0",
+    "eslint-config-next": "16.1.7",
     "tailwindcss": "^4",
     "typescript": "^5",
     "wrangler": "^4.75.0"
