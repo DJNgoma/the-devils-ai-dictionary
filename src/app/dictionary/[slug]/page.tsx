@@ -15,7 +15,7 @@ import {
   hypeLevelLabels,
   technicalDepthLabels,
 } from "@/lib/site";
-import { formatDate } from "@/lib/utils";
+import { formatDate, slugify } from "@/lib/utils";
 
 type EntryPageProps = {
   params: Promise<{
@@ -67,7 +67,21 @@ export default async function EntryPage({ params }: EntryPageProps) {
     notFound();
   }
 
-  const relatedEntries = await getRelatedEntries(entry);
+  const [allEntries, relatedEntries] = await Promise.all([
+    getAllEntries(),
+    getRelatedEntries(entry),
+  ]);
+  const seeAlso = entry.seeAlso.map((label) => {
+    const matchingEntry = allEntries.find(
+      (candidate) =>
+        candidate.slug === label || candidate.slug === slugify(label),
+    );
+
+    return {
+      label,
+      href: matchingEntry?.url,
+    };
+  });
 
   return (
     <div className="reading-shell space-y-10">
@@ -156,6 +170,27 @@ export default async function EntryPage({ params }: EntryPageProps) {
             ))}
           </ul>
         </Section>
+        {seeAlso.length > 0 ? (
+          <Section title="See also">
+            <div className="flex flex-wrap gap-2">
+              {seeAlso.map((item) =>
+                item.href ? (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="chip hover:border-accent hover:text-accent"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <span key={item.label} className="chip">
+                    {item.label}
+                  </span>
+                ),
+              )}
+            </div>
+          </Section>
+        ) : null}
         {entry.note ? (
           <Section title="Context note">
             <p>{entry.note}</p>

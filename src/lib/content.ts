@@ -42,6 +42,7 @@ const entryFrontmatterSchema = z.object({
   example: z.string(),
   askNext: z.array(z.string()).nonempty(),
   related: z.array(z.string()).default([]),
+  seeAlso: z.array(z.string()).default([]),
   difficulty: z.enum(["beginner", "intermediate", "advanced"]),
   technicalDepth: z.enum(technicalDepthOptions),
   hypeLevel: z.enum(hypeLevelOptions),
@@ -108,6 +109,7 @@ function buildSearchText(frontmatter: z.infer<typeof entryFrontmatterSchema>) {
     frontmatter.practicalMeaning,
     frontmatter.example,
     frontmatter.askNext.join(" "),
+    frontmatter.seeAlso.join(" "),
     frontmatter.note ?? "",
     frontmatter.vendorReferences.join(" "),
   ]

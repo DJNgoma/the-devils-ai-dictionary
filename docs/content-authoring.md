@@ -44,6 +44,9 @@ askNext:
 related:
   - "inference"
   - "latency"
+seeAlso:
+  - "Reasoning"
+  - "Latency"
 difficulty: "intermediate"
 technicalDepth: "medium"
 hypeLevel: "low"
@@ -74,6 +77,7 @@ Optional short editorial aside.
 Use the exact category titles defined in [`src/lib/site.ts`](../src/lib/site.ts):
 
 - Core concepts
+- Cultural terms
 - Model building
 - Model usage
 - Agents and workflows
@@ -145,6 +149,12 @@ Optional. Current built-in diagram keys:
 
 - use diagnostic questions
 - these should help a reader interrogate claims in meetings or product reviews
+
+### `seeAlso`
+
+- optional human-readable adjacent terms
+- use this when you want to preserve named references even if some entries are not published yet
+- published entries with matching slugs will render as links automatically
 
 ## Before publishing a new term
 

@@ -54,6 +54,11 @@ export const categoryDefinitions = [
       "Terms people use as if they were self-explanatory, usually before the definitions start fraying.",
   },
   {
+    title: "Cultural terms",
+    description:
+      "The social weirdness around AI: belief, taste, cringe, status games, and the internet behaving as it usually does when handed a new machine.",
+  },
+  {
     title: "Model building",
     description:
       "How models are trained, tuned, evaluated, and occasionally overpraised.",

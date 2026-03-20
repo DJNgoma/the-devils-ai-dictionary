@@ -71,6 +71,7 @@ Each entry lives in its own `.mdx` file under `content/entries/` and supports:
 - `example`
 - `askNext`
 - `related`
+- `seeAlso`
 - `difficulty`
 - `technicalDepth`
 - `hypeLevel`
@@ -88,6 +89,8 @@ Related terms work in two layers:
 
 1. Manual links from the `related` frontmatter field
 2. Automatic fallback based on shared categories, tags, difficulty, and technical depth
+
+Use `seeAlso` when you want the entry page to preserve a human-readable list of adjacent terms, even if some of those terms are not published entries yet.
 
 ## Adding a new term
 
