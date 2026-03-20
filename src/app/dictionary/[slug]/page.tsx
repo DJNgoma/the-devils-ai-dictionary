@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Badge } from "@/components/badge";
 import { EntryCard } from "@/components/entry-card";
 import { MdxContent } from "@/components/mdx-content";
+import { SavePlaceButton } from "@/components/save-place-button";
 import { TermDiagram } from "@/components/term-diagram";
 import {
   getAllEntries,
@@ -107,6 +108,20 @@ export default async function EntryPage({ params }: EntryPageProps) {
           <span>Published {formatDate(entry.publishedAt)}</span>
           <span>Updated {formatDate(entry.updatedAt)}</span>
           {entry.aliases.length > 0 ? <span>Also known as {entry.aliases.join(", ")}</span> : null}
+        </div>
+        <div className="flex flex-wrap gap-3">
+          <SavePlaceButton
+            href={entry.url}
+            title={entry.title}
+            label="Dictionary entry"
+            description={entry.devilDefinition}
+          />
+          <Link
+            href="/book"
+            className="rounded-full border border-line px-4 py-2.5 text-sm font-medium text-foreground hover:border-accent hover:text-accent"
+          >
+            Back to the book
+          </Link>
         </div>
         {entry.warningLabel ? (
           <div className="rounded-[1.25rem] border border-dashed border-danger/30 bg-[color:rgba(166,59,50,0.06)] px-5 py-4 text-sm leading-7 text-danger">

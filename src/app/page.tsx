@@ -3,6 +3,7 @@ import { CategoryGrid } from "@/components/category-grid";
 import { EntryCard } from "@/components/entry-card";
 import { FeaturedEntry } from "@/components/featured-entry";
 import { LetterGrid } from "@/components/letter-grid";
+import { ResumeReadingCard } from "@/components/resume-reading-card";
 import { SearchBox } from "@/components/search-box";
 import {
   getCategoryStats,
@@ -51,6 +52,12 @@ export default async function HomePage() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
+                href="/random"
+                className="rounded-full border border-line px-5 py-3 text-sm font-medium text-foreground hover:border-accent hover:text-accent"
+              >
+                Random entry
+              </Link>
+              <Link
                 href="/book"
                 className="rounded-full bg-accent px-5 py-3 text-sm font-medium text-white hover:translate-y-[-1px] hover:opacity-92"
               >
@@ -63,6 +70,7 @@ export default async function HomePage() {
                 Browse the dictionary
               </Link>
             </div>
+            <ResumeReadingCard className="mt-6 max-w-2xl" compact />
           </div>
           <aside className="surface p-5 sm:p-6">
             <p className="font-mono text-xs uppercase tracking-[0.24em] text-foreground-soft">

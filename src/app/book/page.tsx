@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { EntryCard } from "@/components/entry-card";
+import { ResumeReadingCard } from "@/components/resume-reading-card";
+import { SavePlaceButton } from "@/components/save-place-button";
 import { getEntryBySlug, getSearchableEntries } from "@/lib/content";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -32,7 +34,23 @@ export default async function BookPage() {
           wander by category, or read it front to back until the jargon starts
           looking less inevitable.
         </p>
+        <div className="flex flex-wrap gap-3">
+          <SavePlaceButton
+            href="/book"
+            title="The Devil's AI Dictionary"
+            label="Book landing page"
+            description="A field guide for people already in the room."
+          />
+          <Link
+            href="/random"
+            className="rounded-full border border-line px-4 py-2.5 text-sm font-medium text-foreground hover:border-accent hover:text-accent"
+          >
+            Random entry
+          </Link>
+        </div>
       </section>
+
+      <ResumeReadingCard hideIfCurrentHref="/book" />
 
       <section className="surface-strong p-6 sm:p-8">
         <div className="book-prose">
