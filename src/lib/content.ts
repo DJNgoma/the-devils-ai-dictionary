@@ -1,72 +1,42 @@
 import { cache } from "react";
-import { z } from "zod";
-import rawEntries from "@/generated/entries.generated.json";
-import {
-  categoryDefinitions,
-  featuredEntrySlug,
-  hypeLevelOptions,
-  technicalDepthOptions,
-  type Difficulty,
-  type HypeLevel,
-  type TechnicalDepth,
-} from "@/lib/site";
-import { slugify, uniqueBy } from "@/lib/utils";
-const categoryTitleSet = new Set<string>(
-  categoryDefinitions.map(({ title }) => title),
-);
+import generatedData from "@/generated/entries.generated.json";
+import type { Difficulty, HypeLevel, TechnicalDepth } from "@/lib/site";
 
-const translationSchema = z.object({
-  label: z.string(),
-  text: z.string(),
-});
+/* ---------- types ---------- */
 
-const entryFrontmatterSchema = z.object({
-  title: z.string(),
-  slug: z.string(),
-  letter: z
-    .string()
-    .min(1)
-    .max(1)
-    .transform((value) => value.toUpperCase()),
-  categories: z.array(z.string()).nonempty(),
-  aliases: z.array(z.string()).default([]),
-  devilDefinition: z.string(),
-  plainDefinition: z.string(),
-  whyExists: z.string(),
-  misuse: z.string(),
-  practicalMeaning: z.string(),
-  example: z.string(),
-  askNext: z.array(z.string()).nonempty(),
-  related: z.array(z.string()).default([]),
-  seeAlso: z.array(z.string()).default([]),
-  difficulty: z.enum(["beginner", "intermediate", "advanced"]),
-  technicalDepth: z.enum(technicalDepthOptions),
-  hypeLevel: z.enum(hypeLevelOptions),
-  isVendorTerm: z.boolean().default(false),
-  publishedAt: z.string(),
-  updatedAt: z.string(),
-  warningLabel: z.string().optional(),
-  vendorReferences: z.array(z.string()).default([]),
-  note: z.string().optional(),
-  tags: z.array(z.string()).default([]),
-  misunderstoodScore: z.number().int().min(1).max(5).default(3),
-  translations: z.array(translationSchema).default([]),
-  diagram: z
-    .enum(["rag", "embeddings", "context-window", "function-calling", "mcp"])
-    .optional(),
-});
-
-const entryDocumentSchema = entryFrontmatterSchema.extend({
-  body: z.string().default(""),
-});
-
-const generatedEntriesSchema = z.array(entryDocumentSchema);
-
-export type Entry = z.infer<typeof entryFrontmatterSchema> & {
+export type Entry = {
+  title: string;
+  slug: string;
+  letter: string;
+  categories: string[];
+  aliases: string[];
+  devilDefinition: string;
+  plainDefinition: string;
+  whyExists: string;
+  misuse: string;
+  practicalMeaning: string;
+  example: string;
+  askNext: string[];
+  related: string[];
+  seeAlso: string[];
+  difficulty: Difficulty;
+  technicalDepth: TechnicalDepth;
+  hypeLevel: HypeLevel;
+  isVendorTerm: boolean;
+  publishedAt: string;
+  updatedAt: string;
+  warningLabel?: string;
+  vendorReferences: string[];
+  note?: string;
+  tags: string[];
+  misunderstoodScore: number;
+  translations: { label: string; text: string }[];
+  diagram?: "rag" | "embeddings" | "context-window" | "function-calling" | "mcp";
   body: string;
   categorySlugs: string[];
   url: string;
   searchText: string;
+  relatedSlugs: string[];
 };
 
 export type SearchableEntry = Pick<
@@ -88,198 +58,87 @@ export type SearchableEntry = Pick<
   searchText: string;
 };
 
-function validateCategories(categories: string[], slug: string) {
-  for (const category of categories) {
-    if (!categoryTitleSet.has(category)) {
-      throw new Error(
-        `Unknown category "${category}" in ${slug}. Use one of the defined category titles.`,
-      );
-    }
-  }
-}
+/* ---------- pre-computed data (all heavy work done at build time) ---------- */
 
-function buildSearchText(frontmatter: z.infer<typeof entryFrontmatterSchema>) {
-  return [
-    frontmatter.title,
-    frontmatter.aliases.join(" "),
-    frontmatter.categories.join(" "),
-    frontmatter.tags.join(" "),
-    frontmatter.devilDefinition,
-    frontmatter.plainDefinition,
-    frontmatter.whyExists,
-    frontmatter.misuse,
-    frontmatter.practicalMeaning,
-    frontmatter.example,
-    frontmatter.askNext.join(" "),
-    frontmatter.seeAlso.join(" "),
-    frontmatter.note ?? "",
-    frontmatter.vendorReferences.join(" "),
-  ]
-    .join(" ")
-    .trim();
-}
-const entryDocuments = generatedEntriesSchema.parse(rawEntries);
+const entries = generatedData.entries as Entry[];
+const entryBySlug = new Map(entries.map((entry) => [entry.slug, entry]));
 
-export const getAllEntries = cache(async () => {
-  const entries = entryDocuments.map((document) => {
-    validateCategories(document.categories, document.slug);
+/* ---------- public API (all effectively zero-cost reads) ---------- */
 
-    return {
-      ...document,
-      categorySlugs: document.categories.map((category) => slugify(category)),
-      url: `/dictionary/${document.slug}`,
-      searchText: buildSearchText(document),
-    };
-  });
-
-  return entries.sort((left, right) => left.title.localeCompare(right.title));
+export const getAllEntries = cache(async (): Promise<Entry[]> => {
+  return entries;
 });
 
 export const getEntryBySlug = cache(async (slug: string) => {
-  const entries = await getAllEntries();
-  return entries.find((entry) => entry.slug === slug);
+  return entryBySlug.get(slug);
 });
 
 export async function getRelatedEntries(entry: Entry, limit = 3) {
-  const entries = await getAllEntries();
-  const manual = entry.related
-    .map((slug) => entries.find((candidate) => candidate.slug === slug))
-    .filter((candidate): candidate is Entry => Boolean(candidate));
-
-  const scored = entries
-    .filter((candidate) => candidate.slug !== entry.slug)
-    .map((candidate) => {
-      let score = 0;
-
-      const sharedCategories = candidate.categories.filter((category) =>
-        entry.categories.includes(category),
-      ).length;
-      const sharedTags = candidate.tags.filter((tag) =>
-        entry.tags.includes(tag),
-      ).length;
-
-      score += sharedCategories * 4;
-      score += sharedTags * 2;
-
-      if (candidate.isVendorTerm === entry.isVendorTerm) {
-        score += 1;
-      }
-
-      if (candidate.technicalDepth === entry.technicalDepth) {
-        score += 1;
-      }
-
-      if (candidate.difficulty === entry.difficulty) {
-        score += 1;
-      }
-
-      return { candidate, score };
-    })
-    .filter(({ score }) => score > 0)
-    .sort((left, right) => {
-      if (right.score !== left.score) {
-        return right.score - left.score;
-      }
-
-      return left.candidate.title.localeCompare(right.candidate.title);
-    })
-    .map(({ candidate }) => candidate);
-
-  return uniqueBy([...manual, ...scored], (candidate) => candidate.slug).slice(
-    0,
-    limit,
-  );
+  return (entry.relatedSlugs ?? [])
+    .slice(0, limit)
+    .map((slug) => entryBySlug.get(slug))
+    .filter((e): e is Entry => Boolean(e));
 }
 
-export async function getRecentlyAddedEntries(limit = 4) {
-  const entries = await getAllEntries();
-
-  return [...entries]
-    .sort(
-      (left, right) =>
-        new Date(right.publishedAt).getTime() - new Date(left.publishedAt).getTime(),
-    )
-    .slice(0, limit);
+export async function getRecentlyAddedEntries(_limit = 4) {
+  return (generatedData.recentSlugs as string[])
+    .slice(0, _limit)
+    .map((slug) => entryBySlug.get(slug))
+    .filter((e): e is Entry => Boolean(e));
 }
 
-export async function getMostMisunderstoodEntries(limit = 4) {
-  const entries = await getAllEntries();
-
-  return [...entries]
-    .sort((left, right) => {
-      if (right.misunderstoodScore !== left.misunderstoodScore) {
-        return right.misunderstoodScore - left.misunderstoodScore;
-      }
-
-      return left.title.localeCompare(right.title);
-    })
-    .slice(0, limit);
+export async function getMostMisunderstoodEntries(_limit = 4) {
+  return (generatedData.misunderstoodSlugs as string[])
+    .slice(0, _limit)
+    .map((slug) => entryBySlug.get(slug))
+    .filter((e): e is Entry => Boolean(e));
 }
 
 export async function getFeaturedEntry() {
-  const entry = await getEntryBySlug(featuredEntrySlug);
-
+  const entry = entryBySlug.get(generatedData.featuredSlug);
   if (!entry) {
-    throw new Error(`Featured entry "${featuredEntrySlug}" was not found.`);
+    throw new Error(
+      `Featured entry "${generatedData.featuredSlug}" was not found.`,
+    );
   }
-
   return entry;
 }
 
 export async function getLetterStats() {
-  const entries = await getAllEntries();
-  const counts = new Map<string, number>();
-
-  for (const entry of entries) {
-    counts.set(entry.letter, (counts.get(entry.letter) ?? 0) + 1);
-  }
-
-  return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map((letter) => ({
-    letter,
-    count: counts.get(letter) ?? 0,
-    href: `/dictionary?letter=${letter}`,
-  }));
+  return generatedData.letterStats as {
+    letter: string;
+    count: number;
+    href: string;
+  }[];
 }
 
 export async function getCategoryStats() {
-  const entries = await getAllEntries();
-
-  return categoryDefinitions.map((category) => {
-    const slug = slugify(category.title);
-    const matchingEntries = entries.filter((entry) =>
-      entry.categorySlugs.includes(slug),
-    );
-
-    return {
-      ...category,
-      slug,
-      count: matchingEntries.length,
-      sampleTerms: matchingEntries.slice(0, 3).map((entry) => entry.title),
-    };
-  });
+  return generatedData.categoryStats as {
+    title: string;
+    slug: string;
+    description: string;
+    count: number;
+    sampleTerms: string[];
+  }[];
 }
 
 export async function getEntriesByCategorySlug(slug: string) {
-  const entries = await getAllEntries();
-
   return entries.filter((entry) => entry.categorySlugs.includes(slug));
 }
 
 export async function getSearchableEntries(): Promise<SearchableEntry[]> {
-  const entries = await getAllEntries();
-
   return entries.map((entry) => ({
     aliases: entry.aliases,
     categories: entry.categories,
     categorySlugs: entry.categorySlugs,
     devilDefinition: entry.devilDefinition,
-    difficulty: entry.difficulty as Difficulty,
-    hypeLevel: entry.hypeLevel as HypeLevel,
+    difficulty: entry.difficulty,
+    hypeLevel: entry.hypeLevel,
     isVendorTerm: entry.isVendorTerm,
     letter: entry.letter,
     plainDefinition: entry.plainDefinition,
     slug: entry.slug,
-    technicalDepth: entry.technicalDepth as TechnicalDepth,
+    technicalDepth: entry.technicalDepth,
     title: entry.title,
     warningLabel: entry.warningLabel,
     searchText: entry.searchText,
