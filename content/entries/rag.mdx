@@ -1,0 +1,49 @@
+---
+title: "RAG"
+slug: "rag"
+letter: "R"
+categories:
+  - "Retrieval and memory"
+  - "Agents and workflows"
+aliases:
+  - "retrieval-augmented generation"
+devilDefinition: |
+  A system for giving the model open-book conditions and then acting surprised that the book selection matters.
+plainDefinition: |
+  RAG stands for retrieval-augmented generation. It refers to a pattern in which a system retrieves relevant external information, usually documents or records, and inserts that information into the model's context before the model generates an answer.
+whyExists: |
+  Base models do not reliably know your internal documents, latest policies, or private data. RAG exists so a system can supplement the model with fresh, domain-specific, or proprietary information at query time.
+misuse: |
+  People describe almost any search-plus-model feature as RAG, even when retrieval quality is poor, documents are shoved into the prompt indiscriminately, or there is no meaningful grounding at all. Slapping documents near a model is not the same as building a reliable retrieval system.
+practicalMeaning: |
+  In practice it usually means chunking documents, creating embeddings, storing vectors, retrieving candidates, reranking or filtering them, and then deciding what enters the prompt. The model is only as grounded as those earlier steps allow.
+example: |
+  "The team said they had solved hallucinations with RAG. What they had actually solved was the first paragraph of the sales demo."
+askNext:
+  - "How are documents chunked, embedded, retrieved, and filtered?"
+  - "What evidence shows the retrieved material is actually relevant?"
+  - "What happens when retrieval fails or returns contradictory context?"
+related:
+  - "embeddings"
+  - "vector-database"
+  - "grounding"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-03-13"
+updatedAt: "2026-03-20"
+tags:
+  - "retrieval"
+  - "search"
+  - "context"
+misunderstoodScore: 5
+diagram: "rag"
+translations:
+  - label: "founder meaning"
+    text: "The practical way to make a general model look domain-aware."
+  - label: "what it usually means in reality"
+    text: "A search and context assembly problem sitting in front of a model call."
+---
+
+RAG is valuable because it is ordinary. It lets you improve answers with better retrieval, better curation, and better context handling rather than pretending the base model magically absorbed your SharePoint.

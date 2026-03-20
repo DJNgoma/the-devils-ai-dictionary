@@ -1,0 +1,48 @@
+---
+title: "Inference"
+slug: "inference"
+letter: "I"
+categories:
+  - "Model usage"
+  - "Infrastructure and deployment"
+aliases:
+  - "serving"
+devilDefinition: |
+  The part where the model stops being a research paper and starts being an invoice.
+plainDefinition: |
+  Inference is the process of running a trained model on new input to produce an output. For language models, that usually means taking tokens in, computing the next-token probabilities, and generating a response token by token.
+whyExists: |
+  The term distinguishes using a model from building one. Training changes weights. Inference uses those weights to do work on fresh data. The distinction matters because the technical constraints, costs, and risks are very different.
+misuse: |
+  People often use "inference" as a grand-sounding synonym for "the AI bit". That hides the practical questions. Inference is not magic reasoning dust. It is a serving workload with latency, throughput, reliability, and cost characteristics.
+practicalMeaning: |
+  In practice it usually means API calls, GPU time, queueing, prompt assembly, caching, streaming, rate limits, and a finance person eventually asking why the bot became expensive after launch. If your AI feature is live, inference is the meter running.
+example: |
+  "Training happened once in the background; inference happens every time a customer opens the feature and expects an answer in under two seconds."
+askNext:
+  - "What model is doing the inference, where is it running, and who pays per call?"
+  - "Is the bottleneck latency, throughput, quality, or context assembly?"
+  - "Can some of this workload be cached, batched, or offloaded to a smaller model?"
+related:
+  - "training"
+  - "latency"
+  - "tokens"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-03-07"
+updatedAt: "2026-03-20"
+tags:
+  - "serving"
+  - "latency"
+  - "cost"
+misunderstoodScore: 5
+translations:
+  - label: "founder meaning"
+    text: "The part customers can actually feel."
+  - label: "what it usually means in reality"
+    text: "A performance budget attached to compute, prompts, and product expectations."
+---
+
+If someone says a feature is "AI-powered", inference is usually the operational question hiding underneath. Not whether the model is clever in principle, but whether the system can answer quickly, cheaply, and often enough to survive contact with users.

@@ -1,0 +1,46 @@
+---
+title: "RLHF"
+slug: "rlhf"
+letter: "R"
+categories:
+  - "Model building"
+  - "Safety and evaluation"
+aliases:
+  - "reinforcement learning from human feedback"
+devilDefinition: |
+  Teaching a model to be more helpful, harmless, obedient, and occasionally more flattering to the scoring system than to reality.
+plainDefinition: |
+  RLHF stands for reinforcement learning from human feedback. Broadly, it refers to techniques in which human preference data or judgements are used to shape a model's behaviour, often by training a reward model and then optimising the model toward higher-scoring outputs.
+whyExists: |
+  Pretrained models are not automatically aligned with product expectations or human preferences. RLHF exists to steer behaviour toward responses people judge as more useful, safer, or more on-policy.
+misuse: |
+  It is often used as a fuzzy synonym for "we made the model nicer". That misses the actual mechanics and trade-offs. Preference optimisation can improve behaviour, but it can also encourage blandness, sycophancy, or reward-hacking if the signal is weak or narrow.
+practicalMeaning: |
+  In practice it usually means collecting preference judgements, training systems around those judgements, and accepting that you are operationalising a particular slice of human preference rather than discovering universal virtue.
+example: |
+  "The model became more polite after RLHF, but the team then had to check whether politeness had started to mask uncertainty rather than express it."
+askNext:
+  - "Whose preferences shaped the feedback signal?"
+  - "What trade-offs did the optimisation introduce: caution, verbosity, sycophancy, refusal?"
+  - "How is the post-RLHF behaviour being evaluated beyond anecdotal smoothness?"
+related:
+  - "training"
+  - "fine-tuning"
+  - "guardrails"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-03-09"
+updatedAt: "2026-03-20"
+tags:
+  - "preferences"
+  - "alignment"
+  - "reward model"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "A way of reshaping model behaviour using human judgements, with all the bias and objective-design questions that entails."
+---
+
+RLHF is not merely manners training. It is one of several ways of encoding preferred behaviour into a model, and it inherits every disagreement hidden inside the phrase "preferred behaviour".

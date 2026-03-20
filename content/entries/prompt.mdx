@@ -1,0 +1,49 @@
+---
+title: "Prompt"
+slug: "prompt"
+letter: "P"
+categories:
+  - "Model usage"
+  - "Core concepts"
+aliases:
+  - "instruction"
+  - "input prompt"
+devilDefinition: |
+  A politely worded attempt to steer a probability machine into behaving as if it has read the brief and cares.
+plainDefinition: |
+  A prompt is the input text, and sometimes structured context, provided to a model in order to shape its output. In LLM systems this can include instructions, examples, retrieved documents, tool results, formatting rules, and the user's actual request.
+whyExists: |
+  The term exists because the way you frame input materially affects output. Language models do not simply receive a question. They respond to the entire text context they are given.
+misuse: |
+  It gets treated either as wizardry or as trivia. Both are wrong. Prompt quality matters, but prompting is not a substitute for missing product design, missing data, or missing control logic. A good prompt cannot rescue a bad system forever.
+practicalMeaning: |
+  In practice it usually means the assembled context sent to the model: system instructions, user text, retrieved snippets, examples, tool schemas, output rules, and maybe the remnants of last week's prompt experiments still haunting production.
+example: |
+  "The issue was not that the model was weak; the prompt was half policy manual, half legal disclaimer, and no longer resembled a usable instruction."
+askNext:
+  - "What exact context is being sent to the model?"
+  - "Which parts of the prompt are fixed system behaviour versus user input?"
+  - "Is the prompt compensating for a missing tool, missing retrieval step, or missing product rule?"
+related:
+  - "prompt-engineering"
+  - "system-prompt"
+  - "context-window"
+difficulty: "beginner"
+technicalDepth: "low"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-03-05"
+updatedAt: "2026-03-20"
+tags:
+  - "instructions"
+  - "context"
+  - "input"
+misunderstoodScore: 4
+note: |
+  In image generation, "prompt" often refers to descriptive text steering the style or content of an output. In LLM products, it usually refers to the full assembled input context, not just the visible user message.
+translations:
+  - label: "what it usually means in reality"
+    text: "A carefully packed bag of instructions, examples, constraints, and context, all fighting for the model's attention."
+---
+
+The important operational question is rarely "what prompt did you type?" It is "what exactly did the system send?" Those are not always the same thing.

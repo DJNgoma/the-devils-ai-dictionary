@@ -1,0 +1,47 @@
+---
+title: "Embeddings"
+slug: "embeddings"
+letter: "E"
+categories:
+  - "Retrieval and memory"
+  - "Model usage"
+aliases:
+  - "vector embeddings"
+devilDefinition: |
+  The act of turning words, sentences, or images into coordinates so that "similar enough" can be calculated instead of argued about.
+plainDefinition: |
+  Embeddings are numerical vector representations of data, such as text or images, designed so that semantically similar items are located near one another in vector space. They are commonly used for retrieval, clustering, recommendation, and deduplication.
+whyExists: |
+  Exact keyword matching is often too brittle for messy human language. Embeddings exist so systems can compare meaning approximately rather than matching only literal words.
+misuse: |
+  They are sometimes spoken about as if they were compact containers of all meaning, truth, and business strategy. They are not. An embedding is useful geometry, not metaphysics. Its quality depends on the model, the data, the task, and the comparison method.
+practicalMeaning: |
+  In practice it usually means encoding text into vectors, storing those vectors somewhere searchable, and using nearest-neighbour techniques to find candidates that look semantically related. They are the quiet workhorses behind a lot of so-called magical retrieval.
+example: |
+  "The search improved after they switched from keywords to embeddings, not because the system got wiser, but because 'refund status' and 'where is my money' finally stopped looking unrelated."
+askNext:
+  - "What embedding model is being used, and for which task?"
+  - "How are similarity, ranking, and filtering being evaluated?"
+  - "What happens when semantically similar items are still operationally irrelevant?"
+related:
+  - "rag"
+  - "vector-database"
+  - "grounding"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-03-12"
+updatedAt: "2026-03-20"
+tags:
+  - "vectors"
+  - "similarity"
+  - "semantic search"
+misunderstoodScore: 5
+diagram: "embeddings"
+translations:
+  - label: "what it usually means in reality"
+    text: "A way of mapping data into numbers so retrieval can work by distance, not exact wording."
+---
+
+Embeddings are one of the best examples of AI becoming less mysterious when you describe them properly. They are not memory crystals. They are useful numerical representations with clear limits.

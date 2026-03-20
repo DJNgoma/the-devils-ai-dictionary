@@ -1,0 +1,47 @@
+---
+title: "Fine-tuning"
+slug: "fine-tuning"
+letter: "F"
+categories:
+  - "Model building"
+  - "Model usage"
+aliases:
+  - "supervised fine-tuning"
+  - "SFT"
+devilDefinition: |
+  Taking a large model and sending it to finishing school so it stops answering like the open internet and starts answering like your use case.
+plainDefinition: |
+  Fine-tuning is the process of further training a pre-existing model on a narrower dataset so that its behaviour shifts toward a specific domain, style, format, or task.
+whyExists: |
+  General-purpose models are broad, not bespoke. Fine-tuning exists for cases where prompting alone is too unstable, too expensive, or too weak to reliably shape behaviour.
+misuse: |
+  It is often sold as the universal answer whenever prompts disappoint. In reality, many problems blamed on a lack of fine-tuning are retrieval problems, product design problems, or evaluation problems. Fine-tuning can help, but it can also overfit and create fresh failure modes.
+practicalMeaning: |
+  In practice it usually means curating a task-specific dataset, deciding how much of the base model to adapt, training on that smaller dataset, and checking whether the resulting behaviour improved enough to justify the effort and operational complexity.
+example: |
+  "They did not fine-tune because the team loved custom models; they did it because the required output format had to be boringly consistent."
+askNext:
+  - "What behaviour are we trying to change that prompting cannot hold steady?"
+  - "What data will teach that behaviour without teaching unwanted shortcuts?"
+  - "How will we know the tuned model is better, not just narrower?"
+related:
+  - "training"
+  - "rlhf"
+  - "structured-outputs"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-03-03"
+updatedAt: "2026-03-20"
+tags:
+  - "adaptation"
+  - "specialisation"
+  - "dataset"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "A targeted attempt to move model behaviour with additional training rather than endless prompt cajoling."
+---
+
+Good fine-tuning is usually boring in the best way. It removes repeated prompt hacks and makes behaviour steadier. Bad fine-tuning makes a model narrower, more brittle, and harder to reason about.

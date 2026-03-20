@@ -1,0 +1,51 @@
+---
+title: "Agentic AI"
+slug: "agentic-ai"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Hype words and red-flag jargon"
+aliases:
+  - "agentic system"
+devilDefinition: |
+  The phrase people use when "workflow automation with a language model in the loop" felt too modest for the keynote.
+plainDefinition: |
+  "Agentic AI" usually refers to AI systems designed to pursue goals across multiple steps with some degree of planning, tool use, feedback, and adaptation. The useful version is about bounded autonomy. The overmarketed version is about implying general competence where there is mostly orchestration.
+whyExists: |
+  The term exists because some systems genuinely do more than answer once. They break tasks into steps, select tools, inspect outputs, and continue until they hit a stopping condition. That pattern deserved a label. It just did not deserve the entire investor imagination.
+misuse: |
+  It is abused whenever vendors want ordinary automation to sound frontier-adjacent. A brittle chain of prompts can be sold as agentic. So can a dashboard feature that merely triggers three API calls. The word now frequently signals aspiration more than architecture.
+practicalMeaning: |
+  In practice it usually means workflow software wrapped around a model: planning prompts, tool calls, retries, validation, memory, approval checkpoints, and cost controls. The question is not whether it feels agentic. The question is whether it is useful, bounded, and worth the extra failure surface.
+example: |
+  "Their agentic AI platform turned out to be a sensible approval workflow with retrieval, a model, and three places the system could politely stop pretending to know."
+askNext:
+  - "What autonomy does the system actually have?"
+  - "Which steps are deterministic software, and which steps depend on model judgement?"
+  - "Where are the stop conditions, approvals, and failure boundaries?"
+related:
+  - "agent"
+  - "orchestration"
+  - "guardrails"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "severe"
+isVendorTerm: false
+publishedAt: "2026-03-20"
+updatedAt: "2026-03-20"
+warningLabel: "Often a sales term first and a technical description second."
+tags:
+  - "automation"
+  - "autonomy"
+  - "marketing"
+misunderstoodScore: 5
+translations:
+  - label: "vendor meaning"
+    text: "Our software does more than one model call and would like a larger contract."
+  - label: "what it usually means in reality"
+    text: "A workflow with model-driven decision points, sometimes useful, often overstated."
+---
+
+The good question is not whether a system is agentic. The good question is whether the added autonomy meaningfully improves outcomes over a simpler, more inspectable design.
+
+If the answer is "mainly in the pitch deck", you have your diagnosis.

@@ -1,0 +1,49 @@
+---
+title: "Guardrails"
+slug: "guardrails"
+letter: "G"
+categories:
+  - "Safety and evaluation"
+  - "Agents and workflows"
+aliases:
+  - "AI guardrails"
+devilDefinition: |
+  The collection of fences, checks, filters, and sternly worded hopes designed to stop a model from wandering into places the product team cannot afford.
+plainDefinition: |
+  Guardrails are mechanisms used to constrain or monitor model behaviour, such as policy filters, tool permissions, schema validation, prompt rules, moderation systems, human approvals, or output checks.
+whyExists: |
+  Models are flexible in exactly the ways that make product owners nervous. Guardrails exist to narrow behaviour into something safe, compliant, or at least operationally manageable.
+misuse: |
+  The term gets invoked as though one moderation layer solves the entire problem. Real guardrails are layered, task-specific, and never total. A vague promise of guardrails often means someone has remembered risk late in the process and is trying to sound calmer than they feel.
+practicalMeaning: |
+  In practice it usually means a stack of constraints before, during, and after the model call: restricted tools, validation logic, refusal policies, monitoring, and human review for higher-risk actions. The strongest guardrail is often reducing what the system is allowed to do in the first place.
+example: |
+  "The useful guardrail was not the disclaimer. It was the rule that stopped the assistant from sending anything externally without a human sign-off."
+askNext:
+  - "What specific failure mode is each guardrail intended to catch?"
+  - "Which constraints happen before generation, during generation, and after generation?"
+  - "What evidence shows the current guardrails work on real edge cases?"
+related:
+  - "hallucination"
+  - "evals"
+  - "agentic-ai"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-03-15"
+updatedAt: "2026-03-20"
+warningLabel: "A vague promise of guardrails is not a safety strategy."
+tags:
+  - "safety"
+  - "controls"
+  - "permissions"
+misunderstoodScore: 5
+translations:
+  - label: "compliance meaning"
+    text: "The controls we hope will keep the system inside acceptable boundaries."
+  - label: "what it usually means in reality"
+    text: "A layered set of restrictions and checks, only as good as their coverage and enforcement."
+---
+
+Guardrails work best when paired with scope discipline. If you keep widening the task, you are also widening the space the guardrails must cover.

@@ -1,0 +1,48 @@
+---
+title: "Training"
+slug: "training"
+letter: "T"
+categories:
+  - "Model building"
+  - "Infrastructure and deployment"
+aliases:
+  - "model training"
+devilDefinition: |
+  The long, expensive ritual in which a machine studies vast piles of data until the bill becomes spiritual.
+plainDefinition: |
+  Training is the process of adjusting a model's weights using data and optimisation algorithms so that the model performs better on a task or distribution of tasks. In large models, this includes repeated forward and backward passes over massive datasets.
+whyExists: |
+  The term exists because models do not arrive preloaded with competence. Their behaviour is shaped by exposure to data, objective functions, optimisation choices, and huge amounts of compute.
+misuse: |
+  It gets used as if any change to a model counts as training. Not quite. Prompting is not training. Calling an API is not training. Even many "learning" product features are really retrieval, memory, or rule changes layered around a frozen model.
+practicalMeaning: |
+  In practice it usually means data pipelines, filtering, labelling, loss curves, GPUs, checkpoints, failed runs, parameter updates, evaluation cycles, and weeks or months of engineering effort. It is one of the least glamorous ways to spend a lot of money.
+example: |
+  "The team was not training a new model from scratch; they were fine-tuning an existing one and trying not to call both things innovation."
+askNext:
+  - "Are we talking about pretraining, fine-tuning, or some lighter adaptation method?"
+  - "What data is being used, and how is quality being checked?"
+  - "What changed in the weights, and how are you verifying the change was worth it?"
+related:
+  - "fine-tuning"
+  - "rlhf"
+  - "inference"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-03-06"
+updatedAt: "2026-03-20"
+tags:
+  - "weights"
+  - "optimisation"
+  - "compute"
+misunderstoodScore: 5
+translations:
+  - label: "investor meaning"
+    text: "A sign that the company sounds more foundational than it probably is."
+  - label: "engineer meaning"
+    text: "The place where data quality and optimisation choices come back to judge you."
+---
+
+One of the most useful distinctions in AI is simple: training changes the model; inference uses it. Many confused product conversations improve immediately once that sentence is said aloud.

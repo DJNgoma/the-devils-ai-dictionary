@@ -1,0 +1,48 @@
+---
+title: "Function Calling"
+slug: "function-calling"
+letter: "F"
+categories:
+  - "Agents and workflows"
+  - "Model usage"
+aliases:
+  - "tool calling"
+  - "tool invocation"
+devilDefinition: |
+  Giving the model permission to request an action, while reminding everyone that requesting an action is not the same as doing it safely.
+plainDefinition: |
+  Function calling is a pattern where a model is asked to produce structured arguments for a predefined tool or function, and the surrounding application then executes that tool in ordinary software.
+whyExists: |
+  Models are good at interpreting language but bad at directly mutating real systems without control. Function calling exists to separate decision-making about which action to take from the actual execution of that action.
+misuse: |
+  It gets described as if the model itself is performing the external action. Usually it is not. The model proposes the call. Your software validates it, executes it, and handles the consequences. If that surrounding code is sloppy, the elegance of the schema will not save you.
+practicalMeaning: |
+  In practice it usually means JSON schemas, argument validation, permission controls, retries, and post-tool reasoning. Useful systems treat function calling as structured intent, not an excuse to trust a model near production infrastructure.
+example: |
+  "The assistant did not refund the customer by itself; it produced a structured request, the service checked policy, and only then did the refund tool run."
+askNext:
+  - "Who validates the arguments before execution?"
+  - "What tools is the model allowed to call, and under what conditions?"
+  - "How are failures, partial successes, and risky actions surfaced?"
+related:
+  - "structured-outputs"
+  - "orchestration"
+  - "agent"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-03-14"
+updatedAt: "2026-03-20"
+tags:
+  - "tools"
+  - "json"
+  - "actions"
+misunderstoodScore: 5
+diagram: "function-calling"
+translations:
+  - label: "what it usually means in reality"
+    text: "The model emits a structured request; the real system still has to decide whether to trust, reject, or execute it."
+---
+
+Function calling is one of the clearest places where AI product language can mislead. The impressive part is not merely that the model chose a tool. The important part is whether the surrounding system kept that choice legible and safe.

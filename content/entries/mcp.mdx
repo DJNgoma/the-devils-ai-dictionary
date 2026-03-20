@@ -1,0 +1,49 @@
+---
+title: "MCP"
+slug: "mcp"
+letter: "M"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "Model Context Protocol"
+devilDefinition: |
+  A way of making tools and resources speak a common dialect so the assistant stops needing a bespoke adapter for every cupboard in the house.
+plainDefinition: |
+  MCP stands for Model Context Protocol. It is a protocol for exposing tools, resources, and related capabilities to AI clients in a standardised way, so assistants can discover and use external systems without each integration being entirely custom.
+whyExists: |
+  AI applications increasingly need access to files, APIs, documentation, databases, prompts, and tools. Without a shared protocol, every client-server pairing becomes its own integration project. MCP exists to reduce that fragmentation.
+misuse: |
+  It gets spoken about as though a protocol itself makes systems intelligent, secure, or interoperable by magic. It does not. Standardisation helps, but permissions, trust boundaries, authentication, and product design still matter more than the acronym.
+practicalMeaning: |
+  In practice it usually means exposing capabilities through a consistent interface so a client can list resources, call tools, and work with external context more systematically. The real value is reducing bespoke glue and making integrations more legible.
+example: |
+  "MCP did not solve the assistant's judgement problem. It solved the quieter and more useful problem of not writing one-off connectors forever."
+askNext:
+  - "Which tools and resources are exposed through the protocol?"
+  - "How are authentication, permissions, and auditability handled?"
+  - "What part of the integration problem is standardised, and what still remains application-specific?"
+related:
+  - "function-calling"
+  - "orchestration"
+  - "agent"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-03-16"
+updatedAt: "2026-03-20"
+tags:
+  - "protocol"
+  - "tools"
+  - "resources"
+misunderstoodScore: 4
+diagram: "mcp"
+translations:
+  - label: "engineer meaning"
+    text: "A standard way to expose capabilities so clients do not need a fresh bespoke contract every time."
+  - label: "what it usually means in reality"
+    text: "Less adapter sprawl, provided someone still does the hard work on security and product boundaries."
+---
+
+Protocols are boring in the most productive possible sense. They do not remove the need for judgement. They remove some of the repetitive integration labour that distracts from the judgement problem.

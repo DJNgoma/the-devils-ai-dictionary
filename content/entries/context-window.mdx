@@ -1,0 +1,50 @@
+---
+title: "Context Window"
+slug: "context-window"
+letter: "C"
+categories:
+  - "Model usage"
+  - "Retrieval and memory"
+aliases:
+  - "context length"
+  - "token window"
+devilDefinition: |
+  The finite desk space on which the model must juggle your instructions, your documents, your tool outputs, and its own reply without knocking anything important onto the floor.
+plainDefinition: |
+  The context window is the maximum amount of tokenised input and generated output a model can consider in a single run. Everything the model can directly attend to during that interaction has to fit inside that limit.
+whyExists: |
+  Models do not have unlimited working memory per request. The context window defines how much information can be included at once, which shapes prompting, retrieval, tool design, and output length.
+misuse: |
+  It gets marketed as if bigger always means smarter. A larger window can be useful, but it does not automatically produce better reasoning, better retrieval choices, or better prioritisation inside the context. Plenty of systems simply become wrong more expensively at longer lengths.
+practicalMeaning: |
+  In practice it usually means brutal trade-offs. System instructions, chat history, retrieved passages, tool schemas, user data, and the answer itself all compete for room. Product teams eventually discover that context is not just a capacity problem but an editorial problem.
+example: |
+  "The long-context model could technically hold the whole policy manual, but the useful version of the feature still depended on deciding which pages deserved a seat in the window."
+askNext:
+  - "What exactly is consuming the window in this workflow?"
+  - "Do we need more raw context or better selection of relevant context?"
+  - "How much room is being reserved for the model's answer or tool arguments?"
+related:
+  - "rag"
+  - "tokens"
+  - "grounding"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-03-10"
+updatedAt: "2026-03-20"
+tags:
+  - "long context"
+  - "attention"
+  - "prompt assembly"
+misunderstoodScore: 5
+diagram: "context-window"
+translations:
+  - label: "vendor meaning"
+    text: "Look how much text we can fit."
+  - label: "what it usually means in reality"
+    text: "A fixed budget that forces decisions about what deserves to be in the room."
+---
+
+Long context is helpful when it reduces the need for awkward chunking or repeated retrieval. It is less helpful when teams use it as permission to stop editing inputs.

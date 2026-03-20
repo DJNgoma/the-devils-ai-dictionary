@@ -1,0 +1,48 @@
+---
+title: "Structured Outputs"
+slug: "structured-outputs"
+letter: "S"
+categories:
+  - "Model usage"
+  - "Agents and workflows"
+aliases:
+  - "schema-constrained outputs"
+devilDefinition: |
+  The attempt to persuade a language model to stop writing essays when the system actually needs clean fields, valid JSON, and a little self-control.
+plainDefinition: |
+  Structured outputs are model responses constrained to a predefined schema or format, such as JSON objects with required fields and typed values, so downstream systems can parse and use them more reliably.
+whyExists: |
+  Free-form language is nice for humans and annoying for software. Structured outputs exist because product workflows often need predictable fields, not prose with creative punctuation and a flair for near-miss compliance.
+misuse: |
+  They get described as if a schema magically guarantees truth. It does not. Structured nonsense is still nonsense. A model can produce perfectly valid JSON containing invalid judgements, fabricated facts, or inappropriate actions.
+practicalMeaning: |
+  In practice it usually means schema definitions, validation layers, retries, and careful prompt design so the model returns machine-usable data. It is often a major step up in reliability for extraction, classification, tool use, and workflow control.
+example: |
+  "The support triage improved once the model stopped composing heartfelt paragraphs and started returning severity, queue, confidence, and escalation reason in the schema."
+askNext:
+  - "What schema is being enforced, and who validates it?"
+  - "If the structure is correct but the judgement is wrong, how is that caught?"
+  - "Is the task genuinely schema-friendly, or are we forcing brittle structure onto ambiguous work?"
+related:
+  - "function-calling"
+  - "tokens"
+  - "evals"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-03-18"
+updatedAt: "2026-03-20"
+tags:
+  - "json"
+  - "validation"
+  - "schemas"
+misunderstoodScore: 4
+translations:
+  - label: "engineer meaning"
+    text: "A way to make model outputs less annoying for software to consume."
+  - label: "what it usually means in reality"
+    text: "More parseable responses, not inherently more correct ones."
+---
+
+This is one of the most practically valuable patterns in modern AI systems because it reduces downstream chaos. It does not remove the need to evaluate the actual content.

@@ -1,0 +1,48 @@
+---
+title: "Grounding"
+slug: "grounding"
+letter: "G"
+categories:
+  - "Retrieval and memory"
+  - "Safety and evaluation"
+aliases:
+  - "grounded generation"
+devilDefinition: |
+  The effort to keep a model's answer attached to evidence rather than to whatever polished sentence was statistically easiest to generate.
+plainDefinition: |
+  Grounding refers to tying a model's output to external evidence, context, or real-world signals so that the answer is based on something more reliable than the model's prior patterns alone.
+whyExists: |
+  Language models can sound certain even when they are improvising. Grounding exists to improve faithfulness by connecting answers to documents, databases, observations, or tool results that bear on the question.
+misuse: |
+  It gets used as a prestige synonym for "we attached some documents". That is not enough. If the evidence is irrelevant, stale, contradictory, or ignored by the prompt design, the system is not meaningfully grounded.
+practicalMeaning: |
+  In practice it usually means retrieval, citation, tool outputs, or structured data being incorporated in a way that materially constrains the answer. Good grounding is less about adding more text and more about adding the right evidence with clear priority.
+example: |
+  "The grounded version of the assistant did not just answer more cautiously; it cited the actual policy entry it used and admitted when retrieval came back thin."
+askNext:
+  - "What source is the answer grounded in?"
+  - "How is the system encouraged or required to use that evidence faithfully?"
+  - "What happens when the evidence is missing, conflicting, or low quality?"
+related:
+  - "rag"
+  - "hallucination"
+  - "context-window"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-03-14"
+updatedAt: "2026-03-20"
+tags:
+  - "evidence"
+  - "retrieval"
+  - "faithfulness"
+misunderstoodScore: 4
+note: |
+  In some research contexts, grounding can refer more broadly to connecting model symbols to the world. In product discussions, it usually means anchoring outputs to evidence or tool results.
+translations:
+  - label: "what it usually means in reality"
+    text: "The answer has some evidentiary anchor outside the model's own priors, assuming the system uses that anchor properly."
+---
+
+Grounding is one of the most practical words in the field when used well. It is also one of the easiest to fake with decorative citations.

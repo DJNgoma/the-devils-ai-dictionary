@@ -1,0 +1,48 @@
+---
+title: "Orchestration"
+slug: "orchestration"
+letter: "O"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "workflow orchestration"
+devilDefinition: |
+  The noble art of arranging prompts, tools, retries, rules, and side effects so that a demo looks like intelligence rather than plumbing.
+plainDefinition: |
+  Orchestration is the software layer that coordinates model calls, tool use, retrieval, validation, branching logic, retries, and state across a workflow. It determines how the surrounding system manages the model, not what the model intrinsically knows.
+whyExists: |
+  Modern AI products are rarely a single model call. They are systems. Orchestration exists because useful behaviour often depends on ordering steps, handling failures, and deciding when to ask a model versus when to run conventional software.
+misuse: |
+  The term gets abused when simple glue code is dressed up as autonomous reasoning. Sometimes orchestration is just sensible application logic wearing a tuxedo because "if statements and APIs" sounded too ordinary for the pitch deck.
+practicalMeaning: |
+  In practice it usually means a chain of decisions around prompts, routing, tool permissions, schema checks, retrieval steps, model selection, human approvals, and error handling. Good orchestration makes systems reliable. Bad orchestration makes them busy.
+example: |
+  "The impressive part was not the model; it was the orchestration layer that knew when to search the docs, when to call billing, and when to stop pretending confidence."
+askNext:
+  - "What steps are being orchestrated, and which of them actually require a model?"
+  - "Where does state live between steps?"
+  - "What happens when a tool call fails, returns nonsense, or arrives too late?"
+related:
+  - "agent"
+  - "agentic-ai"
+  - "function-calling"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-03-09"
+updatedAt: "2026-03-20"
+tags:
+  - "workflow"
+  - "automation"
+  - "state"
+misunderstoodScore: 5
+translations:
+  - label: "founder meaning"
+    text: "The thing that turns one model call into something sellable."
+  - label: "what it usually means in reality"
+    text: "A coordination layer full of branching logic, safeguards, and operational compromises."
+---
+
+When people say a system is "agentic", there is often an orchestration story underneath doing most of the useful work. That is not a disappointment. It is how software works.

@@ -1,0 +1,46 @@
+---
+title: "Hallucination"
+slug: "hallucination"
+letter: "H"
+categories:
+  - "Safety and evaluation"
+  - "Model usage"
+aliases:
+  - "fabrication"
+devilDefinition: |
+  The moment a model says something false with the calm, polished confidence of a consultant who will never have to implement it.
+plainDefinition: |
+  In AI, a hallucination is an output that is incorrect, fabricated, unsupported, or inconsistent with the source material or task constraints. For language models, this can include made-up facts, invented citations, false summaries, or bogus tool arguments.
+whyExists: |
+  The term exists because generative models produce plausible sequences, not guaranteed truth. They can sound coherent while being wrong, especially when asked beyond their evidence, given poor context, or rewarded for fluent completion rather than faithful reporting.
+misuse: |
+  It gets used too loosely for every kind of model failure. Not every bad answer is a hallucination. Some outputs are simply outdated, misclassified, poorly retrieved, ambiguously prompted, or badly evaluated. Precision helps because the mitigation often depends on the failure mode.
+practicalMeaning: |
+  In practice it usually means you need better task design, stronger grounding, narrower permissions, tighter output constraints, or human review. It also means you should stop treating eloquence as a proxy for truth.
+example: |
+  "The model produced a five-paragraph answer, three invented legal references, and the exact tone of someone who hoped nobody would check."
+askNext:
+  - "Was the output unsupported by evidence, or was the evidence retrieval itself broken?"
+  - "What level of factual reliability does this workflow actually require?"
+  - "What safeguards exist before the answer reaches a customer, regulator, or executive?"
+related:
+  - "grounding"
+  - "evals"
+  - "guardrails"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-03-11"
+updatedAt: "2026-03-20"
+tags:
+  - "factuality"
+  - "errors"
+  - "reliability"
+misunderstoodScore: 5
+translations:
+  - label: "what it usually means in reality"
+    text: "The model generated something that sounds acceptable but does not survive contact with evidence."
+---
+
+Hallucinations are not shocking side effects of consciousness. They are ordinary failure modes of systems built to generate likely continuations. Treat them like engineering problems, not supernatural events.

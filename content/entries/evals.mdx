@@ -1,0 +1,47 @@
+---
+title: "Evals"
+slug: "evals"
+letter: "E"
+categories:
+  - "Safety and evaluation"
+  - "Model building"
+aliases:
+  - "evaluations"
+  - "evaluation suite"
+devilDefinition: |
+  The discipline of finding out whether the system works before reality does it for you in public.
+plainDefinition: |
+  Evals are structured evaluations used to measure model or system performance against defined criteria. They may include benchmark tasks, human review, automated checks, red-team cases, regression tests, or task-specific business metrics.
+whyExists: |
+  Models are stochastic, context-dependent, and often impressive right up until they are deployed. Evals exist to replace anecdote with repeatable evidence and to catch regressions when prompts, models, or orchestration change.
+misuse: |
+  The word gets thrown around when teams have a benchmark slide and a lot of faith. Real evals are continuous, tied to the actual task, and uncomfortable enough to surface failure. If the evaluation only confirms what the team already hoped, it may be marketing in a lab coat.
+practicalMeaning: |
+  In practice it usually means curated test sets, scored outputs, human raters, regression suites, production monitoring, and painful arguments about what "good enough" means for this use case. Good evals are part of product operations, not just research hygiene.
+example: |
+  "They thought the release was safe because the demo looked smoother. The evals later showed the new prompt quietly doubled the rate of invented citations."
+askNext:
+  - "What failure modes does this eval suite actually test?"
+  - "How often is it run, and what changes trigger regression checks?"
+  - "Are we measuring benchmark elegance or real task performance?"
+related:
+  - "hallucination"
+  - "guardrails"
+  - "rlhf"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-03-17"
+updatedAt: "2026-03-20"
+tags:
+  - "testing"
+  - "measurement"
+  - "regression"
+misunderstoodScore: 5
+translations:
+  - label: "what it usually means in reality"
+    text: "A disciplined way of checking whether the system still deserves confidence after you changed something."
+---
+
+The most revealing evals are usually the least glamorous ones: domain cases, nasty edge conditions, and boring regression checks that stop the product from drifting into fiction.

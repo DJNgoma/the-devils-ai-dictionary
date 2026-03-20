@@ -1,65 +1,154 @@
-import Image from "next/image";
+import Link from "next/link";
+import { CategoryGrid } from "@/components/category-grid";
+import { EntryCard } from "@/components/entry-card";
+import { FeaturedEntry } from "@/components/featured-entry";
+import { LetterGrid } from "@/components/letter-grid";
+import { SearchBox } from "@/components/search-box";
+import {
+  getCategoryStats,
+  getFeaturedEntry,
+  getLetterStats,
+  getMostMisunderstoodEntries,
+  getRecentlyAddedEntries,
+  getSearchableEntries,
+} from "@/lib/content";
+import { buildMetadata } from "@/lib/metadata";
 
-export default function Home() {
+export const metadata = buildMetadata({
+  title: "A sceptical field guide to AI language",
+  description:
+    "Browse sharp, plain-English definitions of AI terms, hype words, vendor labels, and operational realities.",
+  path: "/",
+});
+
+export default async function HomePage() {
+  const [featuredEntry, letters, categories, recentEntries, misunderstoodEntries, searchable] =
+    await Promise.all([
+      getFeaturedEntry(),
+      getLetterStats(),
+      getCategoryStats(),
+      getRecentlyAddedEntries(),
+      getMostMisunderstoodEntries(),
+      getSearchableEntries(),
+    ]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="page-shell space-y-16 py-10 sm:space-y-20 sm:py-14">
+      <section className="surface-strong overflow-hidden px-6 py-10 sm:px-8 sm:py-12">
+        <div className="editorial-grid gap-10">
+          <div>
+            <p className="page-kicker">Online book</p>
+            <h1 className="page-title mt-4">The Devil&apos;s AI Dictionary</h1>
+            <p className="mt-6 max-w-3xl text-xl leading-9 text-foreground">
+              A sceptical field guide to the language machines, marketers,
+              founders, and consultants use when they want to sound smarter than
+              they are.
+            </p>
+            <p className="mt-5 max-w-3xl text-lg leading-8 text-foreground-soft">
+              This is a reading experience for smart non-beginners: short entries,
+              dry punchlines, then the useful part. The goal is not to sneer at AI.
+              The goal is to separate capability from costume.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                href="/book"
+                className="rounded-full bg-accent px-5 py-3 text-sm font-medium text-white hover:translate-y-[-1px] hover:opacity-92"
+              >
+                Start with the book
+              </Link>
+              <Link
+                href="/dictionary"
+                className="rounded-full border border-line px-5 py-3 text-sm font-medium text-foreground hover:border-accent hover:text-accent"
+              >
+                Browse the dictionary
+              </Link>
+            </div>
+          </div>
+          <aside className="surface p-5 sm:p-6">
+            <p className="font-mono text-xs uppercase tracking-[0.24em] text-foreground-soft">
+              Why this exists
+            </p>
+            <p className="mt-4 text-lg leading-8 text-foreground">
+              AI jargon is now a tax on clear thought. This book tries to refund
+              some of it.
+            </p>
+            <p className="mt-4 text-sm leading-7 text-foreground-soft">
+              Search the collection, jump to a random entry, or read it like a
+              contrarian reference book. The entries are written to be useful in
+              meetings, product reviews, board decks, and the post-demo walk back.
+            </p>
+          </aside>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="mt-8">
+          <SearchBox defaultValue="" />
         </div>
-      </main>
+      </section>
+
+      <FeaturedEntry entry={featuredEntry} />
+
+      <section className="space-y-5">
+        <div className="labelled-rule">Browse by letter</div>
+        <LetterGrid letters={letters} />
+      </section>
+
+      <section className="space-y-5">
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <div className="labelled-rule">Categories</div>
+            <p className="mt-3 max-w-3xl text-lg leading-8 text-foreground-soft">
+              The site is organised like a reference book, not a product dashboard.
+              Start with the slice of the AI conversation you keep hearing badly.
+            </p>
+          </div>
+          <Link href="/categories" className="text-sm text-accent hover:text-foreground">
+            View all categories
+          </Link>
+        </div>
+        <CategoryGrid categories={categories} />
+      </section>
+
+      <section className="grid gap-8 xl:grid-cols-2">
+        <div className="space-y-5">
+          <div className="labelled-rule">Recently added</div>
+          <div className="grid gap-5">
+            {recentEntries.map((entry) => (
+              <EntryCard key={entry.slug} entry={entry} compact />
+            ))}
+          </div>
+        </div>
+        <div className="space-y-5">
+          <div className="labelled-rule">Most misunderstood</div>
+          <div className="grid gap-5">
+            {misunderstoodEntries.map((entry) => (
+              <EntryCard key={entry.slug} entry={entry} compact />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="surface px-6 py-8 sm:px-8">
+        <div className="editorial-grid gap-8">
+          <div>
+            <div className="labelled-rule">Project note</div>
+            <p className="mt-4 text-lg leading-8 text-foreground">
+              The editorial stance is simple: be funny enough to stay readable,
+              accurate enough to be useful, and sceptical enough to resist vendor
+              perfume.
+            </p>
+          </div>
+          <div className="space-y-4 text-sm leading-7 text-foreground-soft">
+            <p>
+              The collection currently includes {searchable.length} published sample
+              entries and is structured to grow without changing the architecture.
+            </p>
+            <p>
+              If a term has a precise technical meaning and a swampier marketing
+              meaning, both get named. If a term is mostly branding, that gets named
+              too.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

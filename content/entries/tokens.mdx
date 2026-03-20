@@ -1,0 +1,46 @@
+---
+title: "Tokens"
+slug: "tokens"
+letter: "T"
+categories:
+  - "Model usage"
+  - "Infrastructure and deployment"
+aliases:
+  - "token count"
+devilDefinition: |
+  The tiny units in which language models think, pricing pages charge, and context windows quietly run out of patience.
+plainDefinition: |
+  Tokens are chunks of text that a model processes as basic units. They are not the same as words or characters. Depending on the tokenizer, a word may be one token, several tokens, or part of a token sequence.
+whyExists: |
+  Models do not read text the way people do. They operate on tokenised sequences, and limits such as context size, speed, and pricing are usually expressed in tokens rather than words.
+misuse: |
+  People often say "one token equals one word", which is close enough for a dinner party and wrong enough to break a budget. The mismatch becomes especially annoying in multilingual text, code, JSON, and documents with lots of formatting noise.
+practicalMeaning: |
+  In practice it usually means three things: how much context you can fit, how long responses take, and how much the request costs. If your prompt, retrieved docs, tool schemas, and expected output all compete for space, tokens are the shared currency.
+example: |
+  "The feature failed less because the reasoning was poor and more because the prompt, schema, and four attached policy documents had eaten the token budget."
+askNext:
+  - "How many input and output tokens does the workflow typically use?"
+  - "What is consuming the token budget: user text, retrieval, examples, or structured schemas?"
+  - "Can the context be shortened without removing information the model genuinely needs?"
+related:
+  - "context-window"
+  - "inference"
+  - "structured-outputs"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-03-04"
+updatedAt: "2026-03-20"
+tags:
+  - "tokenisation"
+  - "budget"
+  - "cost"
+misunderstoodScore: 4
+translations:
+  - label: "finance meaning"
+    text: "The microscopic line items that add up into very real spend."
+---
+
+If you want a rule of thumb, use token counts for estimating budgets and constraints, not for sounding mystical. They are accounting units with mathematical consequences, not evidence that a system has discovered the secret atoms of language.

@@ -1,0 +1,46 @@
+---
+title: "Vector Database"
+slug: "vector-database"
+letter: "V"
+categories:
+  - "Retrieval and memory"
+  - "Infrastructure and deployment"
+aliases:
+  - "vector store"
+devilDefinition: |
+  A database marketed with unusual enthusiasm because "we store numerical similarity indexes" never raised venture money on its own.
+plainDefinition: |
+  A vector database is a system designed to store and query vector embeddings efficiently, usually to support similarity search and retrieval over large collections of items.
+whyExists: |
+  Standard databases can store vectors, but specialised systems often provide faster approximate nearest-neighbour search, filtering, indexing, and operational features tuned for embedding-driven retrieval workloads.
+misuse: |
+  It gets talked about as though adding a vector database automatically gives a product memory, understanding, or RAG competence. It does not. It gives you a place to store and search embeddings. The quality of the overall system still depends on chunking, retrieval logic, reranking, and task design.
+practicalMeaning: |
+  In practice it usually means one component in a retrieval stack: embeddings go in, candidate matches come out, and the rest of the application still has to decide whether those matches are relevant enough to trust.
+example: |
+  "They bought a vector database and briefly acted as if they had purchased understanding. A week later they discovered they had purchased infrastructure."
+askNext:
+  - "What embeddings are stored there, and how are they generated?"
+  - "What retrieval quality are we getting on real queries?"
+  - "Would a simpler search approach solve the problem just as well?"
+related:
+  - "embeddings"
+  - "rag"
+  - "grounding"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-03-12"
+updatedAt: "2026-03-20"
+tags:
+  - "retrieval"
+  - "similarity search"
+  - "ann"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "A specialised retrieval component, not a machine for injecting knowledge directly into a model's soul."
+---
+
+The most useful vector database conversations are delightfully unglamorous: indexing strategy, filtering, latency, freshness, and whether the retrieval quality is actually good enough to matter.
