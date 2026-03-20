@@ -32,10 +32,16 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+.dev.vars*
+!.dev.vars.example
 
 # vercel
 .vercel
+.wrangler
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# OpenNext for Cloudflare build output
+.open-next

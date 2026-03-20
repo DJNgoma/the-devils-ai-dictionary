@@ -38,6 +38,7 @@ Useful checks:
 npm run lint
 npm run typecheck
 npm run build
+npm run build:cf
 ```
 
 The app runs at [http://localhost:3000](http://localhost:3000).
@@ -140,7 +141,32 @@ This is a standard Next.js App Router project. Import the repo into Vercel and d
 
 ### Cloudflare
 
-The app is compatible with a normal Next.js deployment workflow. For Cloudflare Pages, use your preferred Next.js-on-Cloudflare adapter/runtime workflow and set `NEXT_PUBLIC_SITE_URL` to the production domain.
+This repo is now wired for Cloudflare Workers using `@opennextjs/cloudflare` and Wrangler.
+
+Install dependencies and preview the Workers build locally:
+
+```bash
+npm install
+npm run preview:cf
+```
+
+Deploy to Cloudflare Workers:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://<your-worker>.<your-subdomain>.workers.dev npm run deploy:cf
+```
+
+Files added for the Cloudflare path:
+
+- `wrangler.jsonc`
+- `open-next.config.ts`
+- `public/_headers`
+
+Notes:
+
+- Keep using `npm run dev` for ordinary local development. Use `npm run preview:cf` when you want to test the Cloudflare runtime specifically.
+- `NEXT_PUBLIC_SITE_URL` still matters for canonical URLs, Open Graph metadata, and sitemap output. Set it to the final Workers or custom domain at build time.
+- This deploys to Cloudflare Workers, not Vercel. Yes, the Next.js app can live somewhere other than its birthplace. The custody dispute remains philosophical.
 
 ## Editorial note
 
