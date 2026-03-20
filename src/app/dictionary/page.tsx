@@ -5,7 +5,7 @@ import { buildMetadata } from "@/lib/metadata";
 export const metadata = buildMetadata({
   title: "Dictionary browser",
   description:
-    "Browse the AI dictionary by letter, search across entries, and filter by category, depth, vendor terms, and hype.",
+    "Browse the AI dictionary by letter, search across entries, and filter by category, depth, and vendor context.",
   path: "/dictionary",
 });
 
@@ -15,7 +15,6 @@ type DictionaryPageProps = {
     category?: string | string[];
     difficulty?: string | string[];
     vendor?: string | string[];
-    hype?: string | string[];
     depth?: string | string[];
     letter?: string | string[];
   }>;
@@ -41,8 +40,7 @@ export default async function DictionaryPage({
         <h1 className="page-title">Browse the terms without the theatre</h1>
         <p className="page-intro">
           Search by term, alias, body text, or category. Then filter by difficulty,
-          technical depth, vendor baggage, or hype level if the room needs tighter
-          definitions.
+          technical depth, or vendor baggage if the room needs tighter definitions.
         </p>
       </section>
 
@@ -54,7 +52,6 @@ export default async function DictionaryPage({
         initialCategory={firstValue(params.category)}
         initialDifficulty={firstValue(params.difficulty)}
         initialVendor={firstValue(params.vendor)}
-        initialHype={firstValue(params.hype)}
         initialDepth={firstValue(params.depth)}
         initialLetter={firstValue(params.letter)}
       />

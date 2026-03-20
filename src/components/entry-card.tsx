@@ -1,10 +1,6 @@
 import Link from "next/link";
 import { Badge } from "@/components/badge";
-import {
-  difficultyLabels,
-  hypeLevelLabels,
-  technicalDepthLabels,
-} from "@/lib/site";
+import { difficultyLabels, technicalDepthLabels } from "@/lib/site";
 import type { SearchableEntry } from "@/lib/content";
 
 type EntryCardProps = {
@@ -19,17 +15,6 @@ export function EntryCard({ entry, compact = false }: EntryCardProps) {
         <Badge tone="accent">{entry.letter}</Badge>
         <Badge>{difficultyLabels[entry.difficulty]}</Badge>
         <Badge>{technicalDepthLabels[entry.technicalDepth]}</Badge>
-        <Badge
-          tone={
-            entry.hypeLevel === "severe"
-              ? "danger"
-              : entry.hypeLevel === "high"
-                ? "warning"
-                : "default"
-          }
-        >
-          {hypeLevelLabels[entry.hypeLevel]}
-        </Badge>
         {entry.isVendorTerm ? <Badge tone="success">Vendor term</Badge> : null}
       </div>
       <div className="mt-5 space-y-4">

@@ -225,14 +225,6 @@ select {
     @apply border-transparent bg-accent-soft text-accent;
   }
 
-  .chip-warning {
-    @apply border-transparent bg-[color:rgba(146,64,14,0.12)] text-warning;
-  }
-
-  .chip-danger {
-    @apply border-transparent bg-[color:rgba(166,59,50,0.12)] text-danger;
-  }
-
   .chip-success {
     @apply border-transparent bg-[color:rgba(38,89,74,0.12)] text-success;
   }

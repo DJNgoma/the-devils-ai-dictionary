@@ -65,13 +65,6 @@ export const technicalDepthLabels: Record<TechnicalDepth, string> = {
   high: "Deep",
 };
 
-export const hypeLevelLabels: Record<HypeLevel, string> = {
-  low: "Low hype",
-  medium: "Medium hype",
-  high: "High hype",
-  severe: "Red-flag jargon",
-};
-
 export const categoryDefinitions = [
   {
     title: "Core concepts",
@@ -117,11 +110,6 @@ export const categoryDefinitions = [
     title: "Infrastructure and deployment",
     description:
       "The machinery underneath the demo: compute, serving, throughput, and operational trade-offs.",
-  },
-  {
-    title: "Hype words and red-flag jargon",
-    description:
-      "Terms whose job is often to impress a room before they explain anything.",
   },
   {
     title: "Economics and operations of AI",

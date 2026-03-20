@@ -15,7 +15,6 @@ type SearchPageProps = {
     category?: string | string[];
     difficulty?: string | string[];
     vendor?: string | string[];
-    hype?: string | string[];
     depth?: string | string[];
   }>;
 };
@@ -50,7 +49,6 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         initialCategory={firstValue(params.category)}
         initialDifficulty={firstValue(params.difficulty)}
         initialVendor={firstValue(params.vendor)}
-        initialHype={firstValue(params.hype)}
         initialDepth={firstValue(params.depth)}
       />
     </div>

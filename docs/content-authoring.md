@@ -85,7 +85,6 @@ Use the exact category titles defined in [`src/lib/site.ts`](../src/lib/site.ts)
 - Product and vendor terms
 - Safety and evaluation
 - Infrastructure and deployment
-- Hype words and red-flag jargon
 - Economics and operations of AI
 
 ### Difficulty

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { BrandMark } from "@/components/brand-mark";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { navigation } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -21,13 +22,18 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-line bg-background/75 backdrop-blur-xl">
       <div className="page-shell flex flex-col gap-4 py-4 sm:py-5">
         <div className="flex items-center justify-between gap-4">
-          <Link href="/" className="group min-w-0">
-            <p className="font-mono text-[0.68rem] uppercase tracking-[0.28em] text-foreground-soft">
-              Field guide
-            </p>
-            <p className="truncate font-display text-xl font-semibold tracking-tight text-foreground group-hover:text-accent">
-              The Devil&apos;s AI Dictionary
-            </p>
+          <Link href="/" className="group flex min-w-0 items-center gap-3">
+            <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-accent text-white shadow-[0_10px_30px_rgba(178,85,47,0.22)]">
+              <BrandMark className="size-7" />
+            </span>
+            <span className="min-w-0">
+              <p className="font-mono text-[0.68rem] uppercase tracking-[0.28em] text-foreground-soft">
+                Field guide
+              </p>
+              <p className="truncate font-display text-xl font-semibold tracking-tight text-foreground group-hover:text-accent">
+                The Devil&apos;s AI Dictionary
+              </p>
+            </span>
           </Link>
           <div className="hidden md:block">
             <ThemeSwitcher />

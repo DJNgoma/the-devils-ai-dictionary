@@ -1,10 +1,19 @@
 import Link from "next/link";
+import { BrandMark } from "@/components/brand-mark";
 
 export function SiteFooter() {
   return (
     <footer className="border-t border-line">
       <div className="page-shell flex flex-col gap-6 py-8 sm:flex-row sm:items-end sm:justify-between">
         <div className="max-w-2xl">
+          <div className="flex items-center gap-3">
+            <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-accent text-white shadow-[0_10px_30px_rgba(178,85,47,0.18)]">
+              <BrandMark className="size-7" />
+            </span>
+            <p className="font-mono text-[0.68rem] uppercase tracking-[0.28em] text-foreground-soft">
+              The Devil&apos;s AI Dictionary
+            </p>
+          </div>
           <p className="font-display text-lg font-semibold tracking-tight text-foreground">
             Not anti-AI. Anti-verbal laundering.
           </p>

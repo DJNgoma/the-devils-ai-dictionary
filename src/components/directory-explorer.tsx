@@ -12,11 +12,7 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { EntryCard } from "@/components/entry-card";
 import type { SearchableEntry } from "@/lib/content";
-import {
-  difficultyLabels,
-  hypeLevelLabels,
-  technicalDepthLabels,
-} from "@/lib/site";
+import { difficultyLabels, technicalDepthLabels } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 type DirectoryExplorerProps = {
@@ -30,7 +26,6 @@ type DirectoryExplorerProps = {
   initialCategory?: string;
   initialDifficulty?: string;
   initialVendor?: string;
-  initialHype?: string;
   initialDepth?: string;
   initialLetter?: string;
 };
@@ -56,7 +51,6 @@ export function DirectoryExplorer({
   initialCategory = "all",
   initialDifficulty = "all",
   initialVendor = "all",
-  initialHype = "all",
   initialDepth = "all",
   initialLetter = "all",
 }: DirectoryExplorerProps) {
@@ -67,7 +61,6 @@ export function DirectoryExplorer({
   const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [activeDifficulty, setActiveDifficulty] = useState(initialDifficulty);
   const [activeVendor, setActiveVendor] = useState(initialVendor);
-  const [activeHype, setActiveHype] = useState(initialHype);
   const [activeDepth, setActiveDepth] = useState(initialDepth);
   const [activeLetter, setActiveLetter] = useState(initialLetter);
   const [results, setResults] = useState<SearchableEntry[]>(entries);
@@ -127,7 +120,6 @@ export function DirectoryExplorer({
               ? entry.isVendorTerm
               : !entry.isVendorTerm,
         )
-        .filter((entry) => (activeHype === "all" ? true : entry.hypeLevel === activeHype))
         .filter((entry) =>
           activeDepth === "all" ? true : entry.technicalDepth === activeDepth,
         )
@@ -141,7 +133,6 @@ export function DirectoryExplorer({
     activeCategory,
     activeDepth,
     activeDifficulty,
-    activeHype,
     activeLetter,
     activeVendor,
     deferredQuery,
@@ -167,10 +158,6 @@ export function DirectoryExplorer({
       params.set("vendor", activeVendor);
     }
 
-    if (activeHype !== "all") {
-      params.set("hype", activeHype);
-    }
-
     if (activeDepth !== "all") {
       params.set("depth", activeDepth);
     }
@@ -185,7 +172,6 @@ export function DirectoryExplorer({
     activeCategory,
     activeDepth,
     activeDifficulty,
-    activeHype,
     activeLetter,
     activeVendor,
     mode,
@@ -200,7 +186,6 @@ export function DirectoryExplorer({
       setActiveCategory("all");
       setActiveDifficulty("all");
       setActiveVendor("all");
-      setActiveHype("all");
       setActiveDepth("all");
       setActiveLetter("all");
     });
@@ -212,7 +197,6 @@ export function DirectoryExplorer({
     activeCategory !== "all" ||
     activeDifficulty !== "all" ||
     activeVendor !== "all" ||
-    activeHype !== "all" ||
     activeDepth !== "all" ||
     activeLetter !== "all";
 
@@ -268,18 +252,6 @@ export function DirectoryExplorer({
                 { value: "all", label: "All terms" },
                 { value: "vendor", label: "Vendor/product only" },
                 { value: "non-vendor", label: "Exclude vendor terms" },
-              ]}
-            />
-            <FilterSelect
-              label="Hype level"
-              value={activeHype}
-              onChange={(value) => setActiveHype(value)}
-              options={[
-                { value: "all", label: "Any hype level" },
-                ...Object.entries(hypeLevelLabels).map(([value, label]) => ({
-                  value,
-                  label,
-                })),
               ]}
             />
             <FilterSelect

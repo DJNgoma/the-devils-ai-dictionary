@@ -10,11 +10,7 @@ import {
   getRelatedEntries,
 } from "@/lib/content";
 import { buildMetadata } from "@/lib/metadata";
-import {
-  difficultyLabels,
-  hypeLevelLabels,
-  technicalDepthLabels,
-} from "@/lib/site";
+import { difficultyLabels, technicalDepthLabels } from "@/lib/site";
 import { formatDate, slugify } from "@/lib/utils";
 
 type EntryPageProps = {
@@ -93,17 +89,6 @@ export default async function EntryPage({ params }: EntryPageProps) {
           <Badge tone="accent">{entry.letter}</Badge>
           <Badge>{difficultyLabels[entry.difficulty]}</Badge>
           <Badge>{technicalDepthLabels[entry.technicalDepth]}</Badge>
-          <Badge
-            tone={
-              entry.hypeLevel === "severe"
-                ? "danger"
-                : entry.hypeLevel === "high"
-                  ? "warning"
-                  : "default"
-            }
-          >
-            {hypeLevelLabels[entry.hypeLevel]}
-          </Badge>
           {entry.isVendorTerm ? <Badge tone="success">Vendor term</Badge> : null}
           {entry.categories.map((category) => (
             <Badge key={category}>{category}</Badge>

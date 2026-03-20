@@ -56,8 +56,7 @@
     "slug": "agentic-ai",
     "letter": "A",
     "categories": [
-      "Agents and workflows",
-      "Hype words and red-flag jargon"
+      "Agents and workflows"
     ],
     "aliases": [
       "agentic system"
@@ -108,7 +107,6 @@
     "slug": "ai-psychosis",
     "letter": "A",
     "categories": [
-      "Hype words and red-flag jargon",
       "Core concepts"
     ],
     "aliases": [
@@ -333,8 +331,7 @@
     "letter": "C",
     "categories": [
       "Cultural terms",
-      "Safety and evaluation",
-      "Hype words and red-flag jargon"
+      "Safety and evaluation"
     ],
     "aliases": [
       "AI delusion",
@@ -765,8 +762,7 @@
     "letter": "D",
     "categories": [
       "Safety and evaluation",
-      "Cultural terms",
-      "Hype words and red-flag jargon"
+      "Cultural terms"
     ],
     "aliases": [
       "belief reinforcement loop",
@@ -882,7 +878,6 @@
     "letter": "E",
     "categories": [
       "Product and vendor terms",
-      "Hype words and red-flag jargon",
       "Cultural terms"
     ],
     "aliases": [
@@ -1088,7 +1083,6 @@
     "slug": "frontier-model",
     "letter": "F",
     "categories": [
-      "Hype words and red-flag jargon",
       "Model building"
     ],
     "aliases": [
@@ -1244,7 +1238,6 @@
     "letter": "G",
     "categories": [
       "Product and vendor terms",
-      "Hype words and red-flag jargon",
       "Economics and operations of AI"
     ],
     "aliases": [
@@ -1367,8 +1360,7 @@
     "letter": "G",
     "categories": [
       "Product and vendor terms",
-      "Model usage",
-      "Hype words and red-flag jargon"
+      "Model usage"
     ],
     "aliases": [
       "Grok app",
@@ -1639,7 +1631,6 @@
     "letter": "H",
     "categories": [
       "Product and vendor terms",
-      "Hype words and red-flag jargon",
       "Cultural terms"
     ],
     "aliases": [
@@ -2517,8 +2508,7 @@
     "letter": "R",
     "categories": [
       "Product and vendor terms",
-      "Model usage",
-      "Hype words and red-flag jargon"
+      "Model usage"
     ],
     "aliases": [
       "rabbit r1",
@@ -2813,7 +2803,6 @@
     "letter": "S",
     "categories": [
       "Cultural terms",
-      "Hype words and red-flag jargon",
       "Economics and operations of AI"
     ],
     "aliases": [
@@ -2868,7 +2857,6 @@
     "slug": "slop",
     "letter": "S",
     "categories": [
-      "Hype words and red-flag jargon",
       "Model usage",
       "Cultural terms"
     ],
@@ -3088,8 +3076,7 @@
     "letter": "T",
     "categories": [
       "Core concepts",
-      "Economics and operations of AI",
-      "Hype words and red-flag jargon"
+      "Economics and operations of AI"
     ],
     "aliases": [
       "judgement",
@@ -3431,7 +3418,6 @@
     "letter": "V",
     "categories": [
       "Cultural terms",
-      "Hype words and red-flag jargon",
       "Model usage"
     ],
     "aliases": [
@@ -3487,8 +3473,7 @@
     "slug": "xai",
     "letter": "X",
     "categories": [
-      "Product and vendor terms",
-      "Hype words and red-flag jargon"
+      "Product and vendor terms"
     ],
     "aliases": [
       "xAI company"

@@ -124,7 +124,6 @@ Search indexes term title, aliases, categories, and body text assembled from the
 - category
 - difficulty
 - vendor/product term
-- hype level
 - technical depth
 
 ## SEO and metadata
