@@ -1,0 +1,72 @@
+---
+title: "Cloudflare"
+slug: "cloudflare"
+letter: "C"
+categories:
+  - "Product and vendor terms"
+  - "Infrastructure and deployment"
+  - "Economics and operations of AI"
+aliases:
+  - "Cloudflare Workers"
+  - "Cloudflare Pages"
+  - "Cloudflare developer platform"
+devilDefinition: |
+  The company that looked at CDN, DNS, edge compute, storage, security, databases, AI inference, agents, and developer tooling and concluded, quite reasonably, that it would like all of those revenues at once.
+plainDefinition: |
+  Cloudflare is an infrastructure and developer-platform company spanning networking, security, CDN, DNS, storage, databases, and edge/serverless compute. In developer and AI conversations, it most often means Workers, Pages, R2, Durable Objects, AI bindings, and a broader pitch built around global edge execution, integrated platform primitives, and anti-lock-in rhetoric.
+whyExists: |
+  Because modern AI and web applications increasingly want three things at once: global distribution, programmable infrastructure, and fewer reasons to stitch together six vendors before lunch.
+misuse: |
+  By treating Cloudflare as either just a CDN or as a universal answer to every hosting argument. It is neither. It is a broad platform with real strengths in global distribution, integrated services, and cost posture, plus the usual trade-offs that come with choosing any large platform with strong opinions.
+practicalMeaning: |
+  In practice it usually means shipping frontends, Workers, APIs, automations, and edge-adjacent AI systems onto Cloudflare's network, often with R2, KV, D1, Durable Objects, or AI services close by. It also increasingly means buying into Cloudflare's argument that developers should not have to choose between framework convenience and platform portability.
+example: |
+  "They said they had moved to Cloudflare for edge performance. The fuller sentence was that they also wanted simpler global deployment, fewer egress anxieties, and less patience for framework rent."
+askNext:
+  - "Are we choosing Cloudflare for network reach, Workers, storage economics, security, or all of the above?"
+  - "Does the workload actually benefit from edge execution, or are we just flattering the architecture?"
+  - "Which Cloudflare primitives are we committing to: Workers, R2, KV, Durable Objects, D1, Pages, or AI bindings?"
+related:
+  - "vercel"
+  - "openclaw"
+  - "orchestration"
+  - "inference"
+seeAlso:
+  - "Vercel"
+  - "Workers"
+  - "R2"
+  - "Edge"
+  - "Pages"
+  - "Vinext"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: true
+publishedAt: "2026-03-20"
+updatedAt: "2026-03-20"
+vendorReferences:
+  - "Cloudflare Workers"
+  - "Cloudflare Pages"
+  - "R2"
+  - "Durable Objects"
+  - "AI bindings"
+tags:
+  - "edge"
+  - "workers"
+  - "r2"
+  - "developer platform"
+misunderstoodScore: 4
+translations:
+  - label: "founder meaning"
+    text: "Global performance, lower infra drama, and a chance to tell investors we chose the anti-lock-in side."
+  - label: "engineer meaning"
+    text: "A broad programmable edge platform with strong primitives, sharp edges of its own, and a habit of expanding into every adjacent layer."
+  - label: "what it usually means in reality"
+    text: "A serious alternative to framework-native hosting when you care about edge distribution, integrated infra services, and keeping one eye on cost structure."
+note: |
+  The latest public flare-up I could verify as of March 20, 2026 centres on Cloudflare's early-March 2026 vinext announcement: a Vite-based reimplementation of the Next.js API surface aimed first at Cloudflare Workers. Cloudflare frames this as portability and developer choice. Vercel frames the surrounding choice very differently.
+---
+
+Cloudflare's current posture in the developer market is not subtle. It wants to be seen not merely as the place traffic passes through, but as the place modern apps, agents, and AI workloads actually live.
+
+That matters for the Vercel rivalry. The argument is no longer just "whose hosting is faster?" It is "who gets to define the natural home of the modern full-stack app?"
