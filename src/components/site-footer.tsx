@@ -12,6 +12,17 @@ export function SiteFooter() {
             The Devil&apos;s AI Dictionary is built as an expandable digital book:
             sharp definitions first, reality checks immediately after.
           </p>
+          <p className="mt-2 text-sm leading-7 text-foreground-soft">
+            Co-authored by Daliso Ngoma,{" "}
+            <Link href="/dictionary/chatgpt" className="hover:text-foreground">
+              ChatGPT
+            </Link>
+            , and{" "}
+            <Link href="/dictionary/codex" className="hover:text-foreground">
+              Codex
+            </Link>
+            .
+          </p>
         </div>
         <div className="flex flex-wrap gap-4 text-sm text-foreground-soft">
           <Link href="/book" className="hover:text-foreground">

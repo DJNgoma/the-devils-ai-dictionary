@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
@@ -31,6 +32,18 @@ export default function AboutPage() {
             against terminology doing more work than the systems themselves. If a
             phrase has a legitimate technical meaning, the entry treats it seriously.
             If it is mostly branding, the entry says so.
+          </p>
+          <p>
+            The book was co-authored by Daliso Ngoma,{" "}
+            <Link href="/dictionary/chatgpt" className="link-underline text-foreground">
+              ChatGPT
+            </Link>
+            , and{" "}
+            <Link href="/dictionary/codex" className="link-underline text-foreground">
+              Codex
+            </Link>
+            . One brought the editorial point of view. The other two brought
+            patience, speed, and a healthy willingness to be edited.
           </p>
         </div>
       </section>
