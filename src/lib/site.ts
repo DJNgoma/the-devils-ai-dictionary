@@ -18,6 +18,31 @@ export const navigation = [
   { href: "/search", label: "Search" },
 ] as const;
 
+export const themeOptions = [
+  {
+    value: "book",
+    label: "Book",
+    swatches: ["#b2552f", "#26594a", "#f4efe6"],
+  },
+  {
+    value: "codex",
+    label: "Codex",
+    swatches: ["#0169cc", "#751ed9", "#ffffff"],
+  },
+  {
+    value: "absolutely",
+    label: "Absolutely",
+    swatches: ["#cc7d5e", "#f9f9f7", "#2d2d2b"],
+  },
+  {
+    value: "night",
+    label: "Night",
+    swatches: ["#e4864d", "#5ec9a1", "#12100d"],
+  },
+] as const;
+
+export type ThemeName = (typeof themeOptions)[number]["value"];
+
 export const featuredEntrySlug = "agentic-ai";
 
 export const difficultyOptions = ["beginner", "intermediate", "advanced"] as const;

@@ -64,14 +64,30 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const themeBootScript = `
+    try {
+      var theme = localStorage.getItem("site-theme");
+      var allowed = ["book", "codex", "absolutely", "night"];
+      document.documentElement.setAttribute(
+        "data-theme",
+        allowed.includes(theme) ? theme : "book"
+      );
+    } catch (error) {
+      document.documentElement.setAttribute("data-theme", "book");
+    }
+  `;
+
   return (
     <html
       lang="en"
       suppressHydrationWarning
       className={`${display.variable} ${body.variable} ${mono.variable} h-full antialiased`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+      </head>
       <body className="min-h-full">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider>
           <div className="site-chrome min-h-full">
             <SiteHeader />
             <main className="flex-1">{children}</main>

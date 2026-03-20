@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 import { navigation } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -30,7 +30,7 @@ export function SiteHeader() {
             </p>
           </Link>
           <div className="hidden md:block">
-            <ThemeToggle />
+            <ThemeSwitcher />
           </div>
         </div>
         <div className="flex flex-wrap items-center justify-between gap-3">
@@ -50,7 +50,7 @@ export function SiteHeader() {
             ))}
           </nav>
           <div className="md:hidden">
-            <ThemeToggle />
+            <ThemeSwitcher />
           </div>
         </div>
       </div>
