@@ -149,6 +149,11 @@ This is a standard Next.js App Router project. Import the repo into Vercel and d
 
 This repo is now wired for Cloudflare Workers using `@opennextjs/cloudflare` and Wrangler.
 
+Production hostnames:
+
+- Primary: `https://thedevilsaidictionary.com`
+- Redirect: `https://www.thedevilsaidictionary.com` -> `https://thedevilsaidictionary.com`
+
 Install dependencies and preview the Workers build locally:
 
 ```bash
@@ -159,21 +164,31 @@ npm run preview:cf
 Deploy to Cloudflare Workers:
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://<your-worker>.<your-subdomain>.workers.dev npm run deploy:cf
+npm run deploy:cf
 ```
 
 Files added for the Cloudflare path:
 
 - `wrangler.jsonc`
 - `open-next.config.ts`
+- `src/middleware.ts`
 - `public/_headers`
 
 Notes:
 
 - Keep using `npm run dev` for ordinary local development. Use `npm run preview:cf` when you want to test the Cloudflare runtime specifically.
 - The app no longer relies on runtime filesystem reads for dictionary content. Entries are compiled into `src/generated/entries.generated.json` during `npm run dev` and `npm run build`, which is much less sentimental and considerably more compatible with Workers.
-- `NEXT_PUBLIC_SITE_URL` still matters for canonical URLs, Open Graph metadata, and sitemap output. Set it to the final Workers or custom domain at build time.
+- `wrangler.jsonc` now pins `NEXT_PUBLIC_SITE_URL` to `https://thedevilsaidictionary.com` so canonical URLs, Open Graph metadata, and sitemap output stay on the apex domain during Workers deploys.
+- `wrangler.jsonc` publishes the Worker to the existing Cloudflare zone routes `thedevilsaidictionary.com/*` and `www.thedevilsaidictionary.com/*` instead of using Worker Custom Domains. This avoids collisions with existing DNS records in the zone.
+- `src/middleware.ts` permanently redirects the `www` hostname to the apex domain while preserving path and query string. The repo keeps the Edge middleware file because the current OpenNext Cloudflare adapter does not support the Node runtime `proxy.ts` path yet.
 - This deploys to Cloudflare Workers, not Vercel. Yes, the Next.js app can live somewhere other than its birthplace. The custody dispute remains philosophical.
+
+### Domain linking checklist
+
+1. Ensure `thedevilsaidictionary.com` is delegated to the Cloudflare account that owns the Worker deployment.
+2. Keep both `thedevilsaidictionary.com` and `www.thedevilsaidictionary.com` as proxied DNS records inside that zone.
+3. Deploy the Worker. The repo already declares both route bindings in `wrangler.jsonc`.
+4. Confirm the apex domain serves the site and that `www` redirects to the apex.
 
 ## Editorial note
 

@@ -189,6 +189,78 @@
       ]
     },
     {
+      "title": "AI Wrapper",
+      "slug": "ai-wrapper",
+      "letter": "A",
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Product and vendor terms"
+      ],
+      "aliases": [
+        "wrapper startup",
+        "thin wrapper",
+        "wrapper app"
+      ],
+      "devilDefinition": "A startup whose signature innovation is adding branding, billing, and investor adjectives to somebody else's capability.\n",
+      "plainDefinition": "A product or company built mainly by packaging existing model APIs with a narrower interface, workflow, or market focus.\n",
+      "whyExists": "Because base models are broad, raw, and inconveniently generic. Someone still has to choose a use case, shape the workflow, handle integration, and sell the result to people who do not want to assemble it themselves.\n",
+      "misuse": "By using \"wrapper\" as a complete dismissal. Some wrappers are flimsy tollbooths. Others are the only part customers actually need. The insult often tells you more about the speaker's ego than the product's margin.\n",
+      "practicalMeaning": "In practice it usually means a company racing to build distribution, workflow lock-in, and a reason to exist before the underlying capability becomes a menu item elsewhere.\n",
+      "example": "\"The pitch sounded profound until you realised the platform was an AI wrapper with a better landing page and a worse moat.\"\n",
+      "askNext": [
+        "What part of the value comes from workflow, distribution, or proprietary data rather than borrowed capability?",
+        "Would customers still care if the underlying model became cheaper tomorrow?",
+        "Is this packaging, product discipline, or merely markup with branding?"
+      ],
+      "related": [
+        "cursor",
+        "microsoft-copilot",
+        "scale-ai"
+      ],
+      "seeAlso": [
+        "Workflow software",
+        "Distribution",
+        "Enterprise tooling"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-25",
+      "updatedAt": "2026-03-25",
+      "tags": [
+        "startups",
+        "distribution",
+        "product strategy"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "founder meaning",
+          "text": "A product category where interface, sales, and workflow discipline matter more than pretending you invented the engine."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A business trying to turn borrowed capability into owned customer habit."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The sneer is often lazy. Customers buy solutions, not purity tests.",
+      "categorySlugs": [
+        "cultural-terms",
+        "economics-and-operations-of-ai",
+        "product-and-vendor-terms"
+      ],
+      "url": "/dictionary/ai-wrapper",
+      "searchText": "AI Wrapper wrapper startup thin wrapper wrapper app Cultural terms Economics and operations of AI Product and vendor terms startups distribution product strategy A startup whose signature innovation is adding branding, billing, and investor adjectives to somebody else's capability.\n A product or company built mainly by packaging existing model APIs with a narrower interface, workflow, or market focus.\n Because base models are broad, raw, and inconveniently generic. Someone still has to choose a use case, shape the workflow, handle integration, and sell the result to people who do not want to assemble it themselves.\n By using \"wrapper\" as a complete dismissal. Some wrappers are flimsy tollbooths. Others are the only part customers actually need. The insult often tells you more about the speaker's ego than the product's margin.\n In practice it usually means a company racing to build distribution, workflow lock-in, and a reason to exist before the underlying capability becomes a menu item elsewhere.\n \"The pitch sounded profound until you realised the platform was an AI wrapper with a better landing page and a worse moat.\"\n What part of the value comes from workflow, distribution, or proprietary data rather than borrowed capability? Would customers still care if the underlying model became cheaper tomorrow? Is this packaging, product discipline, or merely markup with branding? Workflow software Distribution Enterprise tooling",
+      "relatedSlugs": [
+        "cursor",
+        "microsoft-copilot",
+        "scale-ai"
+      ]
+    },
+    {
       "title": "Alexandr Wang",
       "slug": "alexandr-wang",
       "letter": "A",
@@ -399,6 +471,78 @@
         "qwen",
         "frontier-model",
         "openai"
+      ]
+    },
+    {
+      "title": "Benchmark Theatre",
+      "slug": "benchmark-theatre",
+      "letter": "B",
+      "categories": [
+        "Safety and evaluation",
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "leaderboard theatre",
+        "scoreboard theatre",
+        "benchmark chasing"
+      ],
+      "devilDefinition": "The ritual of treating a tidy score as proof that your messy product has become reliable.\n",
+      "plainDefinition": "The practice of using selective benchmark results, public leaderboards, or scripted evaluations as marketing theatre that outruns operational reality.\n",
+      "whyExists": "Because people need compressed ways to compare systems, and benchmarks are useful when they are honest about scope. The trouble starts when a score becomes a substitute for product evidence.\n",
+      "misuse": "By presenting benchmark wins as if they settle questions about usability, cost, robustness, or risk. They do not. They usually settle only the question of who curated the exam.\n",
+      "practicalMeaning": "In practice it usually means a product story with stronger charts than customer evidence, and a team quietly hoping nobody asks what happens outside the test harness.\n",
+      "example": "\"The deck had seven leaderboard slides and no answer to what the system did on a bad day. Classic benchmark theatre.\"\n",
+      "askNext": [
+        "What exact tasks and failure modes does the benchmark omit?",
+        "Was this result reproduced on the actual workflow or only in a curated harness?",
+        "What changed for users besides the slide quality?"
+      ],
+      "related": [
+        "evals",
+        "guardrails",
+        "pilot-purgatory"
+      ],
+      "seeAlso": [
+        "Public leaderboard",
+        "Red teaming",
+        "Acceptance criteria"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-25",
+      "updatedAt": "2026-03-25",
+      "tags": [
+        "evaluation",
+        "marketing",
+        "measurement"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "executive meaning",
+          "text": "A polished score that allows a strategic conclusion to arrive before the evidence does."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Performance signalling that may have only a passing relationship to live use."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The chart is usually real. The implied conclusion is where the acting starts.",
+      "categorySlugs": [
+        "safety-and-evaluation",
+        "cultural-terms",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/benchmark-theatre",
+      "searchText": "Benchmark Theatre leaderboard theatre scoreboard theatre benchmark chasing Safety and evaluation Cultural terms Economics and operations of AI evaluation marketing measurement The ritual of treating a tidy score as proof that your messy product has become reliable.\n The practice of using selective benchmark results, public leaderboards, or scripted evaluations as marketing theatre that outruns operational reality.\n Because people need compressed ways to compare systems, and benchmarks are useful when they are honest about scope. The trouble starts when a score becomes a substitute for product evidence.\n By presenting benchmark wins as if they settle questions about usability, cost, robustness, or risk. They do not. They usually settle only the question of who curated the exam.\n In practice it usually means a product story with stronger charts than customer evidence, and a team quietly hoping nobody asks what happens outside the test harness.\n \"The deck had seven leaderboard slides and no answer to what the system did on a bad day. Classic benchmark theatre.\"\n What exact tasks and failure modes does the benchmark omit? Was this result reproduced on the actual workflow or only in a curated harness? What changed for users besides the slide quality? Public leaderboard Red teaming Acceptance criteria",
+      "relatedSlugs": [
+        "evals",
+        "guardrails",
+        "pilot-purgatory"
       ]
     },
     {
@@ -844,6 +988,81 @@
       ]
     },
     {
+      "title": "Cursor",
+      "slug": "cursor",
+      "letter": "C",
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "Cursor editor",
+        "AI code editor"
+      ],
+      "devilDefinition": "A coding product that lets developers ship in minutes what used to take hours to understand.\n",
+      "plainDefinition": "Cursor is an AI-native code editor built around code generation, codebase search, editing, and task-oriented assistance inside a developer workflow.\n",
+      "whyExists": "Because software work contains a great deal of navigation, repetition, and local pattern matching that models can accelerate, at least until the bill arrives in the form of hidden regressions.\n",
+      "misuse": "By treating it as proof that software engineering has become mere prompt entry. Fast edits are real. So are context gaps, bad assumptions, and the need for someone to know what good code looks like.\n",
+      "practicalMeaning": "In practice it usually means shorter loops on routine code changes, more willingness to touch unfamiliar files, and a fresh need for review discipline because speed arrived before certainty.\n",
+      "example": "\"Cursor handled the refactor in ten minutes. Understanding whether it should have happened still took the afternoon.\"\n",
+      "askNext": [
+        "Did it reduce real engineering time or merely accelerate typo production at scale?",
+        "How much of the gain came from codebase retrieval versus raw generation?",
+        "Who is reviewing the edits with enough context to reject confident nonsense?"
+      ],
+      "related": [
+        "microsoft-copilot",
+        "prompt-engineer",
+        "rubber-stamp-review"
+      ],
+      "seeAlso": [
+        "Developer tooling",
+        "Code review",
+        "Local search"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "high",
+      "isVendorTerm": true,
+      "publishedAt": "2026-03-25",
+      "updatedAt": "2026-03-25",
+      "vendorReferences": [
+        "Tab",
+        "Composer",
+        "Agent"
+      ],
+      "tags": [
+        "coding",
+        "developer tools",
+        "productivity"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "developer meaning",
+          "text": "A force multiplier for familiar work and a temptation to move faster than your judgement."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "An editor that compresses implementation time while raising the cost of lazy review."
+        }
+      ],
+      "body": "The old bottleneck was typing. The new bottleneck is believing your own velocity.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "agents-and-workflows",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/cursor",
+      "searchText": "Cursor Cursor editor AI code editor Product and vendor terms Agents and workflows Economics and operations of AI coding developer tools productivity A coding product that lets developers ship in minutes what used to take hours to understand.\n Cursor is an AI-native code editor built around code generation, codebase search, editing, and task-oriented assistance inside a developer workflow.\n Because software work contains a great deal of navigation, repetition, and local pattern matching that models can accelerate, at least until the bill arrives in the form of hidden regressions.\n By treating it as proof that software engineering has become mere prompt entry. Fast edits are real. So are context gaps, bad assumptions, and the need for someone to know what good code looks like.\n In practice it usually means shorter loops on routine code changes, more willingness to touch unfamiliar files, and a fresh need for review discipline because speed arrived before certainty.\n \"Cursor handled the refactor in ten minutes. Understanding whether it should have happened still took the afternoon.\"\n Did it reduce real engineering time or merely accelerate typo production at scale? How much of the gain came from codebase retrieval versus raw generation? Who is reviewing the edits with enough context to reject confident nonsense? Developer tooling Code review Local search  Tab Composer Agent",
+      "relatedSlugs": [
+        "microsoft-copilot",
+        "prompt-engineer",
+        "rubber-stamp-review"
+      ]
+    },
+    {
       "title": "Dario Amodei",
       "slug": "dario-amodei",
       "letter": "D",
@@ -916,6 +1135,78 @@
         "anthropic",
         "claude",
         "guardrails"
+      ]
+    },
+    {
+      "title": "Deep Research",
+      "slug": "deep-research",
+      "letter": "D",
+      "categories": [
+        "Model usage",
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "research mode",
+        "AI research assistant",
+        "long-form research"
+      ],
+      "devilDefinition": "The modern convenience of replacing a difficult afternoon with forty citations and the same old conclusion.\n",
+      "plainDefinition": "A label for AI features that perform multi-step searching, reading, synthesis, and citation gathering to produce a more extensive research brief than an ordinary chat response.\n",
+      "whyExists": "Because ordinary prompts are a poor fit for questions that require source collection, cross-checking, and longer synthesis. Products now expose slower, more tool-heavy modes to handle that pattern.\n",
+      "misuse": "By selling it as a substitute for expertise, judgement, or primary-source reading. The machine can gather and summarise. It cannot relieve you of knowing what matters or what is missing.\n",
+      "practicalMeaning": "In practice it usually means a faster first pass on a topic, complete with enough apparent diligence to tempt people into skipping the part where they verify anything important.\n",
+      "example": "\"The deep research report was impressive right up to the moment someone who knew the industry noticed what it had quietly omitted.\"\n",
+      "askNext": [
+        "Which sources did it prioritise, and which did it never reach?",
+        "Did it cite well, or merely cite a lot?",
+        "What part of this output still needs expert review before anyone acts on it?"
+      ],
+      "related": [
+        "perplexity",
+        "rag",
+        "output-laundering"
+      ],
+      "seeAlso": [
+        "Source synthesis",
+        "Desk research",
+        "Analyst brief"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-25",
+      "updatedAt": "2026-03-25",
+      "tags": [
+        "research",
+        "search",
+        "synthesis"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "manager meaning",
+          "text": "A way to get a briefing quickly enough to sound prepared in the next meeting."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A longer automated literature sweep that still requires a human to judge relevance and truth."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "It is most dangerous when it feels thorough enough to skip the hard questions.",
+      "categorySlugs": [
+        "model-usage",
+        "agents-and-workflows",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/deep-research",
+      "searchText": "Deep Research research mode AI research assistant long-form research Model usage Agents and workflows Cultural terms research search synthesis The modern convenience of replacing a difficult afternoon with forty citations and the same old conclusion.\n A label for AI features that perform multi-step searching, reading, synthesis, and citation gathering to produce a more extensive research brief than an ordinary chat response.\n Because ordinary prompts are a poor fit for questions that require source collection, cross-checking, and longer synthesis. Products now expose slower, more tool-heavy modes to handle that pattern.\n By selling it as a substitute for expertise, judgement, or primary-source reading. The machine can gather and summarise. It cannot relieve you of knowing what matters or what is missing.\n In practice it usually means a faster first pass on a topic, complete with enough apparent diligence to tempt people into skipping the part where they verify anything important.\n \"The deep research report was impressive right up to the moment someone who knew the industry noticed what it had quietly omitted.\"\n Which sources did it prioritise, and which did it never reach? Did it cite well, or merely cite a lot? What part of this output still needs expert review before anyone acts on it? Source synthesis Desk research Analyst brief",
+      "relatedSlugs": [
+        "perplexity",
+        "rag",
+        "output-laundering"
       ]
     },
     {
@@ -1920,6 +2211,78 @@
       ]
     },
     {
+      "title": "Human in the Loop",
+      "slug": "human-in-the-loop",
+      "letter": "H",
+      "categories": [
+        "Economics and operations of AI",
+        "Agents and workflows",
+        "Safety and evaluation"
+      ],
+      "aliases": [
+        "HITL",
+        "human oversight",
+        "manual review"
+      ],
+      "devilDefinition": "The employee retained to absorb liability after management announces that the future requires fewer employees.\n",
+      "plainDefinition": "A workflow design in which a person reviews, approves, corrects, or intervenes in an automated system's output before or during action.\n",
+      "whyExists": "Because some decisions remain too costly, risky, or ambiguous to automate blindly. Human review is how organisations keep accountability attached to a named person rather than a press release.\n",
+      "misuse": "By invoking it as a magic safety phrase when the human is undertrained, overloaded, or expected to rubber-stamp machine output at impossible speed.\n",
+      "practicalMeaning": "In practice it usually means queues, review fatigue, awkward staffing maths, and the discovery that \"just have a human check it\" is not a design but a labour budget.\n",
+      "example": "\"They said the workflow was safe because it kept a human in the loop. The human, regrettably, was checking six hundred cases a day.\"\n",
+      "askNext": [
+        "What authority does the reviewer actually have to stop or change the system's output?",
+        "How many cases can one person review before judgement degrades into gesture?",
+        "Is the human improving quality, or merely carrying blame?"
+      ],
+      "related": [
+        "guardrails",
+        "pilot-purgatory",
+        "rubber-stamp-review"
+      ],
+      "seeAlso": [
+        "Escalation path",
+        "Manual approval",
+        "Operational risk"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-25",
+      "updatedAt": "2026-03-25",
+      "tags": [
+        "oversight",
+        "operations",
+        "labour"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "compliance meaning",
+          "text": "A reassuring phrase that sounds better than 'we still need staff to catch the machine's mistakes'."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A human checkpoint whose quality depends on staffing, authority, and time."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "If the loop is moving too quickly for thought, the human is decorative.",
+      "categorySlugs": [
+        "economics-and-operations-of-ai",
+        "agents-and-workflows",
+        "safety-and-evaluation"
+      ],
+      "url": "/dictionary/human-in-the-loop",
+      "searchText": "Human in the Loop HITL human oversight manual review Economics and operations of AI Agents and workflows Safety and evaluation oversight operations labour The employee retained to absorb liability after management announces that the future requires fewer employees.\n A workflow design in which a person reviews, approves, corrects, or intervenes in an automated system's output before or during action.\n Because some decisions remain too costly, risky, or ambiguous to automate blindly. Human review is how organisations keep accountability attached to a named person rather than a press release.\n By invoking it as a magic safety phrase when the human is undertrained, overloaded, or expected to rubber-stamp machine output at impossible speed.\n In practice it usually means queues, review fatigue, awkward staffing maths, and the discovery that \"just have a human check it\" is not a design but a labour budget.\n \"They said the workflow was safe because it kept a human in the loop. The human, regrettably, was checking six hundred cases a day.\"\n What authority does the reviewer actually have to stop or change the system's output? How many cases can one person review before judgement degrades into gesture? Is the human improving quality, or merely carrying blame? Escalation path Manual approval Operational risk",
+      "relatedSlugs": [
+        "guardrails",
+        "pilot-purgatory",
+        "rubber-stamp-review"
+      ]
+    },
+    {
       "title": "Human Taste",
       "slug": "human-taste",
       "letter": "H",
@@ -2121,7 +2484,7 @@
       "relatedSlugs": [
         "training",
         "tokens",
-        "alexandr-wang"
+        "reasoning-model"
       ]
     },
     {
@@ -2416,6 +2779,159 @@
         "mustafa-suleyman",
         "chatgpt",
         "agentic-ai"
+      ]
+    },
+    {
+      "title": "Microsoft Copilot",
+      "slug": "microsoft-copilot",
+      "letter": "M",
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "Copilot",
+        "Microsoft 365 Copilot",
+        "Copilot app"
+      ],
+      "devilDefinition": "Software sold as an assistant and deployed as a new layer of management: supervising the machine that was supposed to save you time.\n",
+      "plainDefinition": "Microsoft Copilot is Microsoft's umbrella brand for AI assistants and generative features across workplace and consumer products, including Microsoft 365, Windows, developer tools, and business software.\n",
+      "whyExists": "Because Microsoft wants AI to become the default interface layer across the software people already pay for, turning model access into subscription expansion and habitual workflow presence.\n",
+      "misuse": "By using \"Copilot\" as if it named one coherent product or guaranteed productivity. In reality it is a family resemblance: similar branding spread across many surfaces with uneven usefulness.\n",
+      "practicalMeaning": "In practice it usually means an AI sidebar, a drafting assistant, a meeting-summary machine, a permissions headache, and a fresh round of arguments about whether the licence justifies itself.\n",
+      "example": "\"The rollout promised a copilot for every employee. What most people got was a new button and one more thing to evaluate before sending an email.\"\n",
+      "askNext": [
+        "Which Copilot are we discussing, in which product, with which permissions and data access?",
+        "What measurable work improved after adoption rather than merely feeling more modern?",
+        "Is this replacing friction, or adding a branded detour to familiar tasks?"
+      ],
+      "related": [
+        "microsoft-ai",
+        "cursor",
+        "pilot-purgatory"
+      ],
+      "seeAlso": [
+        "Workplace assistant",
+        "Software bundle",
+        "Seat expansion"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "high",
+      "isVendorTerm": true,
+      "publishedAt": "2026-03-25",
+      "updatedAt": "2026-03-25",
+      "warningLabel": "Umbrella product label. Always ask which Copilot and in which software surface.",
+      "vendorReferences": [
+        "Microsoft 365 Copilot",
+        "Copilot Studio",
+        "Windows"
+      ],
+      "tags": [
+        "microsoft",
+        "workplace software",
+        "assistant"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "board meaning",
+          "text": "Proof that the office suite now has an AI strategy attached to it."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A branded assistant layer whose value depends heavily on product surface, permissions, and user patience."
+        }
+      ],
+      "note": "The important question is rarely whether Copilot exists. It is whether a specific Copilot meaningfully improves a specific workflow enough to survive the invoice.\n",
+      "body": "The branding suggests a tireless co-worker. The operating reality is closer to a software committee member.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "agents-and-workflows",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/microsoft-copilot",
+      "searchText": "Microsoft Copilot Copilot Microsoft 365 Copilot Copilot app Product and vendor terms Agents and workflows Economics and operations of AI microsoft workplace software assistant Software sold as an assistant and deployed as a new layer of management: supervising the machine that was supposed to save you time.\n Microsoft Copilot is Microsoft's umbrella brand for AI assistants and generative features across workplace and consumer products, including Microsoft 365, Windows, developer tools, and business software.\n Because Microsoft wants AI to become the default interface layer across the software people already pay for, turning model access into subscription expansion and habitual workflow presence.\n By using \"Copilot\" as if it named one coherent product or guaranteed productivity. In reality it is a family resemblance: similar branding spread across many surfaces with uneven usefulness.\n In practice it usually means an AI sidebar, a drafting assistant, a meeting-summary machine, a permissions headache, and a fresh round of arguments about whether the licence justifies itself.\n \"The rollout promised a copilot for every employee. What most people got was a new button and one more thing to evaluate before sending an email.\"\n Which Copilot are we discussing, in which product, with which permissions and data access? What measurable work improved after adoption rather than merely feeling more modern? Is this replacing friction, or adding a branded detour to familiar tasks? Workplace assistant Software bundle Seat expansion The important question is rarely whether Copilot exists. It is whether a specific Copilot meaningfully improves a specific workflow enough to survive the invoice.\n Microsoft 365 Copilot Copilot Studio Windows",
+      "relatedSlugs": [
+        "microsoft-ai",
+        "cursor",
+        "pilot-purgatory"
+      ]
+    },
+    {
+      "title": "Midjourney",
+      "slug": "midjourney",
+      "letter": "M",
+      "categories": [
+        "Product and vendor terms",
+        "Cultural terms",
+        "Model usage"
+      ],
+      "aliases": [
+        "Midjourney image model",
+        "MJ"
+      ],
+      "devilDefinition": "A picture factory for turning \"I have no visual taste\" into \"I have a campaign.\"\n",
+      "plainDefinition": "Midjourney is an image-generation product known for stylised visual output, rapid iteration, and strong adoption among designers, marketers, and hobbyists.\n",
+      "whyExists": "Because visual ideation is expensive, taste is unevenly distributed, and many people would like concept art, campaign imagery, or mood boards before hiring anyone who can draw.\n",
+      "misuse": "By treating it as either the death of design or the same thing as design. It is neither. It is a very powerful image engine whose output still requires selection, direction, and legal and brand judgement.\n",
+      "practicalMeaning": "In practice it usually means mood boards at industrial speed, more options than anyone needed, and a sudden premium on the human ability to reject what merely looks expensive.\n",
+      "example": "\"Midjourney gave the team one hundred glorious directions, which unfortunately left them needing a designer more than they had an hour earlier.\"\n",
+      "askNext": [
+        "Is the goal ideation, final artwork, or merely spectacle for a pitch deck?",
+        "Who is making the taste decisions after the model floods the room with options?",
+        "What rights, brand constraints, and production steps still sit outside the image generator?"
+      ],
+      "related": [
+        "multimodal",
+        "taste",
+        "human-taste"
+      ],
+      "seeAlso": [
+        "Concept art",
+        "Mood board",
+        "Creative direction"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "high",
+      "isVendorTerm": true,
+      "publishedAt": "2026-03-25",
+      "updatedAt": "2026-03-25",
+      "vendorReferences": [
+        "Image generation",
+        "Styles",
+        "Mood boards"
+      ],
+      "tags": [
+        "images",
+        "design",
+        "creative tools"
+      ],
+      "misunderstoodScore": 3,
+      "translations": [
+        {
+          "label": "marketing meaning",
+          "text": "A way to make the brand look visionary before the brand has decided what it believes."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "An image tool that dramatically lowers the cost of visual exploration while raising the need for editorial restraint."
+        }
+      ],
+      "body": "The machine can flood the page with possibility. Someone still has to decide which possibility deserves civilisation.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "cultural-terms",
+        "model-usage"
+      ],
+      "url": "/dictionary/midjourney",
+      "searchText": "Midjourney Midjourney image model MJ Product and vendor terms Cultural terms Model usage images design creative tools A picture factory for turning \"I have no visual taste\" into \"I have a campaign.\"\n Midjourney is an image-generation product known for stylised visual output, rapid iteration, and strong adoption among designers, marketers, and hobbyists.\n Because visual ideation is expensive, taste is unevenly distributed, and many people would like concept art, campaign imagery, or mood boards before hiring anyone who can draw.\n By treating it as either the death of design or the same thing as design. It is neither. It is a very powerful image engine whose output still requires selection, direction, and legal and brand judgement.\n In practice it usually means mood boards at industrial speed, more options than anyone needed, and a sudden premium on the human ability to reject what merely looks expensive.\n \"Midjourney gave the team one hundred glorious directions, which unfortunately left them needing a designer more than they had an hour earlier.\"\n Is the goal ideation, final artwork, or merely spectacle for a pitch deck? Who is making the taste decisions after the model floods the room with options? What rights, brand constraints, and production steps still sit outside the image generator? Concept art Mood board Creative direction  Image generation Styles Mood boards",
+      "relatedSlugs": [
+        "multimodal",
+        "taste",
+        "human-taste"
       ]
     },
     {
@@ -2925,6 +3441,225 @@
       ]
     },
     {
+      "title": "Output Laundering",
+      "slug": "output-laundering",
+      "letter": "O",
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "aliases": [
+        "laundered output",
+        "machine-backed opinion",
+        "AI laundering"
+      ],
+      "devilDefinition": "The corporate ritual of running your opinion through a machine so it returns wearing objectivity.\n",
+      "plainDefinition": "The act of using AI output to make a human preference, hunch, or decision appear more neutral, data-driven, or authoritative than it really is.\n",
+      "whyExists": "Because organisations enjoy the prestige of algorithmic distance. An answer feels less political, less personal, and less blameworthy once a system is seen to have produced it.\n",
+      "misuse": "By pretending the model independently discovered the conclusion when the framing, source selection, or prompt design all but guaranteed it.\n",
+      "practicalMeaning": "In practice it usually means a machine-generated report, ranking, or recommendation being used to formalise a decision management already wanted to make.\n",
+      "example": "\"They did not want the model's judgement. They wanted output laundering: a printable reason to do what they had already decided.\"\n",
+      "askNext": [
+        "Who framed the problem, selected the sources, and wrote the prompt?",
+        "Would the conclusion have surprised anyone involved?",
+        "Is the system informing the decision or deodorising it?"
+      ],
+      "related": [
+        "deep-research",
+        "rubber-stamp-review",
+        "prompt-engineer"
+      ],
+      "seeAlso": [
+        "Decision memo",
+        "Ranking system",
+        "Managerial cover"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-25",
+      "updatedAt": "2026-03-25",
+      "tags": [
+        "management",
+        "decision-making",
+        "authority"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "office meaning",
+          "text": "A way to sound impersonal while preserving all the old preferences."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Human judgement passed through a machine to acquire the costume of neutrality."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The machine did not remove politics. It merely gave them formatting.",
+      "categorySlugs": [
+        "cultural-terms",
+        "economics-and-operations-of-ai",
+        "model-usage"
+      ],
+      "url": "/dictionary/output-laundering",
+      "searchText": "Output Laundering laundered output machine-backed opinion AI laundering Cultural terms Economics and operations of AI Model usage management decision-making authority The corporate ritual of running your opinion through a machine so it returns wearing objectivity.\n The act of using AI output to make a human preference, hunch, or decision appear more neutral, data-driven, or authoritative than it really is.\n Because organisations enjoy the prestige of algorithmic distance. An answer feels less political, less personal, and less blameworthy once a system is seen to have produced it.\n By pretending the model independently discovered the conclusion when the framing, source selection, or prompt design all but guaranteed it.\n In practice it usually means a machine-generated report, ranking, or recommendation being used to formalise a decision management already wanted to make.\n \"They did not want the model's judgement. They wanted output laundering: a printable reason to do what they had already decided.\"\n Who framed the problem, selected the sources, and wrote the prompt? Would the conclusion have surprised anyone involved? Is the system informing the decision or deodorising it? Decision memo Ranking system Managerial cover",
+      "relatedSlugs": [
+        "deep-research",
+        "rubber-stamp-review",
+        "prompt-engineer"
+      ]
+    },
+    {
+      "title": "Perplexity",
+      "slug": "perplexity",
+      "letter": "P",
+      "categories": [
+        "Product and vendor terms",
+        "Model usage",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "Perplexity AI",
+        "answer engine"
+      ],
+      "devilDefinition": "A search product for people who found ten blue links too democratic and preferred one confident stranger.\n",
+      "plainDefinition": "Perplexity is an AI-first search and answer product that combines web retrieval, synthesis, and cited responses in a chat-style interface.\n",
+      "whyExists": "Because conventional search makes users do the synthesis themselves, while chat products taught people to expect a direct answer even when the subject deserved more caution.\n",
+      "misuse": "By treating a cited answer as the same thing as a trustworthy answer. Links help. They do not absolve the reader of checking whether the system chose sensible sources or summarised them honestly.\n",
+      "practicalMeaning": "In practice it usually means faster reconnaissance on a topic, fewer tabs, and a subtle transfer of editorial control from the user to the answer engine.\n",
+      "example": "\"Perplexity saved him half an hour of clicking, then cost him ten minutes of verifying that the neat summary had not quietly simplified the important part away.\"\n",
+      "askNext": [
+        "Which sources did it trust first, and why?",
+        "Is the answer good because it is accurate or because it is convenient?",
+        "Would you notice if it omitted the most inconvenient source?"
+      ],
+      "related": [
+        "deep-research",
+        "rag",
+        "context-window"
+      ],
+      "seeAlso": [
+        "Search engine",
+        "Answer engine",
+        "Citation layer"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": true,
+      "publishedAt": "2026-03-25",
+      "updatedAt": "2026-03-25",
+      "vendorReferences": [
+        "Search",
+        "Pro Search",
+        "Pages"
+      ],
+      "tags": [
+        "search",
+        "retrieval",
+        "consumer product"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "user meaning",
+          "text": "A quicker route from question to provisional answer, provided you remember it is still provisional."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A retrieval-heavy answer interface that compresses search and summarisation into one persuasive screen."
+        }
+      ],
+      "body": "The old problem with search was effort. The new problem is trusting whoever did the effort for you.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "model-usage",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/perplexity",
+      "searchText": "Perplexity Perplexity AI answer engine Product and vendor terms Model usage Cultural terms search retrieval consumer product A search product for people who found ten blue links too democratic and preferred one confident stranger.\n Perplexity is an AI-first search and answer product that combines web retrieval, synthesis, and cited responses in a chat-style interface.\n Because conventional search makes users do the synthesis themselves, while chat products taught people to expect a direct answer even when the subject deserved more caution.\n By treating a cited answer as the same thing as a trustworthy answer. Links help. They do not absolve the reader of checking whether the system chose sensible sources or summarised them honestly.\n In practice it usually means faster reconnaissance on a topic, fewer tabs, and a subtle transfer of editorial control from the user to the answer engine.\n \"Perplexity saved him half an hour of clicking, then cost him ten minutes of verifying that the neat summary had not quietly simplified the important part away.\"\n Which sources did it trust first, and why? Is the answer good because it is accurate or because it is convenient? Would you notice if it omitted the most inconvenient source? Search engine Answer engine Citation layer  Search Pro Search Pages",
+      "relatedSlugs": [
+        "deep-research",
+        "rag",
+        "context-window"
+      ]
+    },
+    {
+      "title": "Pilot Purgatory",
+      "slug": "pilot-purgatory",
+      "letter": "P",
+      "categories": [
+        "Economics and operations of AI",
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "pilot hell",
+        "proof-of-concept limbo",
+        "permanent pilot"
+      ],
+      "devilDefinition": "The budgetary afterlife in which every firm proves its boldness by never quite deploying anything.\n",
+      "plainDefinition": "A recurring organisational state in which AI initiatives remain stuck in trials, proofs of concept, and limited rollouts without becoming trusted, scaled operations.\n",
+      "whyExists": "Because demos are easier than deployment, sponsors like novelty more than process change, and real adoption usually requires data access, security review, staff enablement, governance, and someone to own the outcome.\n",
+      "misuse": "By calling endless experimentation strategy. A pilot is a learning phase. It becomes purgatory when the organisation wants the optics of innovation without paying the price of commitment.\n",
+      "practicalMeaning": "In practice it usually means many vendor meetings, a few polished demos, no durable workflow change, and a graveyard of licences nobody remembers approving.\n",
+      "example": "\"The company had twelve AI pilots and one AI workflow in production. Pilot purgatory was not a risk; it was the operating model.\"\n",
+      "askNext": [
+        "What concrete condition must be met for this pilot to graduate or die?",
+        "Who owns the workflow after the novelty budget runs out?",
+        "What operational change is the organisation avoiding by calling this an experiment?"
+      ],
+      "related": [
+        "microsoft-copilot",
+        "ai-wrapper",
+        "human-in-the-loop"
+      ],
+      "seeAlso": [
+        "Change management",
+        "Procurement",
+        "Operational rollout"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-25",
+      "updatedAt": "2026-03-25",
+      "tags": [
+        "pilots",
+        "adoption",
+        "operations"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "board meaning",
+          "text": "Visible evidence that the company is doing something with AI."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A holding pattern where experimentation replaces commitment."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The point of a pilot is to learn. The point of purgatory is apparently to keep learning forever.",
+      "categorySlugs": [
+        "economics-and-operations-of-ai",
+        "agents-and-workflows",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/pilot-purgatory",
+      "searchText": "Pilot Purgatory pilot hell proof-of-concept limbo permanent pilot Economics and operations of AI Agents and workflows Cultural terms pilots adoption operations The budgetary afterlife in which every firm proves its boldness by never quite deploying anything.\n A recurring organisational state in which AI initiatives remain stuck in trials, proofs of concept, and limited rollouts without becoming trusted, scaled operations.\n Because demos are easier than deployment, sponsors like novelty more than process change, and real adoption usually requires data access, security review, staff enablement, governance, and someone to own the outcome.\n By calling endless experimentation strategy. A pilot is a learning phase. It becomes purgatory when the organisation wants the optics of innovation without paying the price of commitment.\n In practice it usually means many vendor meetings, a few polished demos, no durable workflow change, and a graveyard of licences nobody remembers approving.\n \"The company had twelve AI pilots and one AI workflow in production. Pilot purgatory was not a risk; it was the operating model.\"\n What concrete condition must be met for this pilot to graduate or die? Who owns the workflow after the novelty budget runs out? What operational change is the organisation avoiding by calling this an experiment? Change management Procurement Operational rollout",
+      "relatedSlugs": [
+        "microsoft-copilot",
+        "ai-wrapper",
+        "human-in-the-loop"
+      ]
+    },
+    {
       "title": "Prompt",
       "slug": "prompt",
       "letter": "P",
@@ -2983,7 +3718,79 @@
       "relatedSlugs": [
         "context-window",
         "multimodal",
-        "sycophancy"
+        "reasoning-model"
+      ]
+    },
+    {
+      "title": "Prompt Engineer",
+      "slug": "prompt-engineer",
+      "letter": "P",
+      "categories": [
+        "Cultural terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "aliases": [
+        "prompt specialist",
+        "prompt designer",
+        "AI prompt engineer"
+      ],
+      "devilDefinition": "A person who discovered that giving clearer instructions becomes prestigious once the recipient is nonhuman.\n",
+      "plainDefinition": "A person who specialises in shaping prompts, examples, constraints, and interaction patterns to produce better results from AI systems.\n",
+      "whyExists": "Because generated output depends heavily on framing. Clear instructions, useful examples, and well-chosen constraints often matter more than people expect.\n",
+      "misuse": "By inflating careful prompting into a mystical profession or pretending it removes the need for domain expertise, testing, and workflow design.\n",
+      "practicalMeaning": "In practice it usually means part writer, part editor, part product thinker: someone trying to make a probabilistic system behave consistently enough for actual use.\n",
+      "example": "\"They hired a prompt engineer. What they really needed was someone to specify the task clearly enough that the rest of the team would stop contradicting itself.\"\n",
+      "askNext": [
+        "Are they improving prompts, examples, system constraints, or the workflow around them?",
+        "Can the approach produce repeatable gains, or is it artisanal luck with version numbers?",
+        "Would the task improve just as much if the humans were clearer with one another?"
+      ],
+      "related": [
+        "prompt",
+        "cursor",
+        "reasoning-model"
+      ],
+      "seeAlso": [
+        "Prompt design",
+        "Task specification",
+        "Editorial judgement"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-25",
+      "updatedAt": "2026-03-25",
+      "tags": [
+        "prompting",
+        "workflow",
+        "communication"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "recruiter meaning",
+          "text": "A modern job title for the old skill of specifying work clearly and spotting bad drafts quickly."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Someone improving outcomes by making instructions more explicit and usable."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The title sounds futuristic. The useful part is often ordinary professional clarity.",
+      "categorySlugs": [
+        "cultural-terms",
+        "agents-and-workflows",
+        "model-usage"
+      ],
+      "url": "/dictionary/prompt-engineer",
+      "searchText": "Prompt Engineer prompt specialist prompt designer AI prompt engineer Cultural terms Agents and workflows Model usage prompting workflow communication A person who discovered that giving clearer instructions becomes prestigious once the recipient is nonhuman.\n A person who specialises in shaping prompts, examples, constraints, and interaction patterns to produce better results from AI systems.\n Because generated output depends heavily on framing. Clear instructions, useful examples, and well-chosen constraints often matter more than people expect.\n By inflating careful prompting into a mystical profession or pretending it removes the need for domain expertise, testing, and workflow design.\n In practice it usually means part writer, part editor, part product thinker: someone trying to make a probabilistic system behave consistently enough for actual use.\n \"They hired a prompt engineer. What they really needed was someone to specify the task clearly enough that the rest of the team would stop contradicting itself.\"\n Are they improving prompts, examples, system constraints, or the workflow around them? Can the approach produce repeatable gains, or is it artisanal luck with version numbers? Would the task improve just as much if the humans were clearer with one another? Prompt design Task specification Editorial judgement",
+      "relatedSlugs": [
+        "prompt",
+        "cursor",
+        "reasoning-model"
       ]
     },
     {
@@ -3191,6 +3998,79 @@
       ]
     },
     {
+      "title": "Reasoning Model",
+      "slug": "reasoning-model",
+      "letter": "R",
+      "categories": [
+        "Core concepts",
+        "Model usage",
+        "Safety and evaluation"
+      ],
+      "aliases": [
+        "reasoning system",
+        "slow-thinking model",
+        "deliberative model"
+      ],
+      "devilDefinition": "A model marketed as thoughtful because it spends longer arranging its confidence.\n",
+      "plainDefinition": "A model or mode designed to spend more compute and intermediate steps on harder tasks so it can perform better on structured problems, multi-step work, or tool-heavy tasks.\n",
+      "whyExists": "Because not every prompt is a pattern-matching snack. Some tasks benefit when the system takes more time, explores alternatives, or uses tools before committing to an answer.\n",
+      "misuse": "By treating \"reasoning\" as a synonym for correctness, judgement, or wisdom. Extra deliberation can improve results, but it can also produce a longer route to the same wrong conclusion.\n",
+      "practicalMeaning": "In practice it usually means slower responses, higher cost, and better odds on thorny tasks if the problem is well framed and the evaluation is honest.\n",
+      "example": "\"They upgraded to the reasoning model and were delighted by the improved maths, right up to the point they asked it a vague strategic question.\"\n",
+      "askNext": [
+        "What kinds of tasks measurably improve when the system takes longer?",
+        "How much extra latency and cost are we accepting for that gain?",
+        "Is the task truly hard, or merely badly specified?"
+      ],
+      "related": [
+        "context-window",
+        "structured-outputs",
+        "deep-research"
+      ],
+      "seeAlso": [
+        "Deliberate mode",
+        "Tool use",
+        "Task difficulty"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-25",
+      "updatedAt": "2026-03-25",
+      "tags": [
+        "latency",
+        "performance",
+        "problem-solving"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "product meaning",
+          "text": "A premium mode for harder questions and a premium invoice for asking them."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A slower model path that can improve structured task performance without guaranteeing sound judgement."
+        }
+      ],
+      "note": "The phrase is useful if it names a measurable operating trade-off. It becomes perfume when it is used as a personality trait.\n",
+      "vendorReferences": [],
+      "body": "The machine may take longer. That does not mean it has become profound.",
+      "categorySlugs": [
+        "core-concepts",
+        "model-usage",
+        "safety-and-evaluation"
+      ],
+      "url": "/dictionary/reasoning-model",
+      "searchText": "Reasoning Model reasoning system slow-thinking model deliberative model Core concepts Model usage Safety and evaluation latency performance problem-solving A model marketed as thoughtful because it spends longer arranging its confidence.\n A model or mode designed to spend more compute and intermediate steps on harder tasks so it can perform better on structured problems, multi-step work, or tool-heavy tasks.\n Because not every prompt is a pattern-matching snack. Some tasks benefit when the system takes more time, explores alternatives, or uses tools before committing to an answer.\n By treating \"reasoning\" as a synonym for correctness, judgement, or wisdom. Extra deliberation can improve results, but it can also produce a longer route to the same wrong conclusion.\n In practice it usually means slower responses, higher cost, and better odds on thorny tasks if the problem is well framed and the evaluation is honest.\n \"They upgraded to the reasoning model and were delighted by the improved maths, right up to the point they asked it a vague strategic question.\"\n What kinds of tasks measurably improve when the system takes longer? How much extra latency and cost are we accepting for that gain? Is the task truly hard, or merely badly specified? Deliberate mode Tool use Task difficulty The phrase is useful if it names a measurable operating trade-off. It becomes perfume when it is used as a personality trait.",
+      "relatedSlugs": [
+        "context-window",
+        "structured-outputs",
+        "deep-research"
+      ]
+    },
+    {
       "title": "RLHF",
       "slug": "rlhf",
       "letter": "R",
@@ -3248,6 +4128,78 @@
         "training",
         "fine-tuning",
         "guardrails"
+      ]
+    },
+    {
+      "title": "Rubber-Stamp Review",
+      "slug": "rubber-stamp-review",
+      "letter": "R",
+      "categories": [
+        "Cultural terms",
+        "Agents and workflows",
+        "Safety and evaluation"
+      ],
+      "aliases": [
+        "cosmetic review",
+        "approval theatre",
+        "drive-by review"
+      ],
+      "devilDefinition": "The act of glancing at machine-made work just long enough to claim authorship when it succeeds and distance when it does not.\n",
+      "plainDefinition": "A low-effort human review process in which AI output is nominally checked but not meaningfully scrutinised before approval or use.\n",
+      "whyExists": "Because organisations want the reassurance of human oversight without paying the time cost required for real scrutiny.\n",
+      "misuse": "By presenting it as governance, safety, or quality control. A review that cannot catch obvious failure is not a safeguard. It is paperwork with eye contact.\n",
+      "practicalMeaning": "In practice it usually means reviewers overwhelmed by volume, lulled by polished prose, or quietly incentivised to approve faster than they can think.\n",
+      "example": "\"The policy required human review. Rubber-stamp review was how the target throughput made that requirement fictional.\"\n",
+      "askNext": [
+        "How much time does the reviewer have per item, and what evidence can they actually inspect?",
+        "What error rate would this review process realistically catch?",
+        "Is approval being measured as quality control or queue clearance?"
+      ],
+      "related": [
+        "output-laundering",
+        "human-in-the-loop",
+        "prompt-engineer"
+      ],
+      "seeAlso": [
+        "Manual approval",
+        "Quality gate",
+        "Throughput target"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-25",
+      "updatedAt": "2026-03-25",
+      "tags": [
+        "review",
+        "governance",
+        "oversight"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "operations meaning",
+          "text": "A review step designed to preserve accountability language without preserving much accountability."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A nominal check too shallow to deserve the name."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "Oversight is not measured by whether a human touched the screen.",
+      "categorySlugs": [
+        "cultural-terms",
+        "agents-and-workflows",
+        "safety-and-evaluation"
+      ],
+      "url": "/dictionary/rubber-stamp-review",
+      "searchText": "Rubber-Stamp Review cosmetic review approval theatre drive-by review Cultural terms Agents and workflows Safety and evaluation review governance oversight The act of glancing at machine-made work just long enough to claim authorship when it succeeds and distance when it does not.\n A low-effort human review process in which AI output is nominally checked but not meaningfully scrutinised before approval or use.\n Because organisations want the reassurance of human oversight without paying the time cost required for real scrutiny.\n By presenting it as governance, safety, or quality control. A review that cannot catch obvious failure is not a safeguard. It is paperwork with eye contact.\n In practice it usually means reviewers overwhelmed by volume, lulled by polished prose, or quietly incentivised to approve faster than they can think.\n \"The policy required human review. Rubber-stamp review was how the target throughput made that requirement fictional.\"\n How much time does the reviewer have per item, and what evidence can they actually inspect? What error rate would this review process realistically catch? Is approval being measured as quality control or queue clearance? Manual approval Quality gate Throughput target",
+      "relatedSlugs": [
+        "output-laundering",
+        "human-in-the-loop",
+        "prompt-engineer"
       ]
     },
     {
@@ -3670,7 +4622,7 @@
       "relatedSlugs": [
         "agent",
         "orchestration",
-        "sam-altman"
+        "ai-wrapper"
       ]
     },
     {
@@ -3741,6 +4693,78 @@
         "chatbot-psychosis",
         "delusion-amplification",
         "hallucination"
+      ]
+    },
+    {
+      "title": "Synthetic Data",
+      "slug": "synthetic-data",
+      "letter": "S",
+      "categories": [
+        "Model building",
+        "Economics and operations of AI",
+        "Safety and evaluation"
+      ],
+      "aliases": [
+        "generated data",
+        "simulated data",
+        "AI-generated data"
+      ],
+      "devilDefinition": "Artificial evidence created to solve the inconvenient scarcity of real evidence, and occasionally to hide from it.\n",
+      "plainDefinition": "Data created or expanded through models, simulation, or rules to supplement scarce, sensitive, or expensive real-world examples.\n",
+      "whyExists": "Because real data can be expensive, private, dangerous, incomplete, or slow to collect. Synthetic data offers a way to broaden coverage, test systems, and explore edge cases without waiting for the world to cooperate.\n",
+      "misuse": "By treating it as a free replacement for reality. Useful synthetic data can extend a dataset. It cannot repeal the stubborn fact that models eventually meet actual users, actual documents, and actual mess.\n",
+      "practicalMeaning": "In practice it usually means bootstrapping scarce cases, filling scenario gaps, and trying to stretch data budgets without accidentally teaching the system a polished version of the wrong world.\n",
+      "example": "\"Synthetic data got the project moving. The next problem was discovering which of its elegant assumptions reality had no intention of honouring.\"\n",
+      "askNext": [
+        "Which real-world gaps is the synthetic data covering, and how will that coverage be validated?",
+        "What artefacts or biases might the generation process be introducing?",
+        "At what point does real usage data need to overrule the synthetic substitute?"
+      ],
+      "related": [
+        "scale-ai",
+        "evals",
+        "frontier-model"
+      ],
+      "seeAlso": [
+        "Simulation",
+        "Data quality",
+        "Edge cases"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-25",
+      "updatedAt": "2026-03-25",
+      "tags": [
+        "data",
+        "simulation",
+        "evaluation"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "budget meaning",
+          "text": "A way to buy more examples without paying the full price of finding them in nature."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Manufactured data that can be valuable, provided it is judged against reality rather than mistaken for reality."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The synthetic version is often cleaner than life. That is precisely why one should worry.",
+      "categorySlugs": [
+        "model-building",
+        "economics-and-operations-of-ai",
+        "safety-and-evaluation"
+      ],
+      "url": "/dictionary/synthetic-data",
+      "searchText": "Synthetic Data generated data simulated data AI-generated data Model building Economics and operations of AI Safety and evaluation data simulation evaluation Artificial evidence created to solve the inconvenient scarcity of real evidence, and occasionally to hide from it.\n Data created or expanded through models, simulation, or rules to supplement scarce, sensitive, or expensive real-world examples.\n Because real data can be expensive, private, dangerous, incomplete, or slow to collect. Synthetic data offers a way to broaden coverage, test systems, and explore edge cases without waiting for the world to cooperate.\n By treating it as a free replacement for reality. Useful synthetic data can extend a dataset. It cannot repeal the stubborn fact that models eventually meet actual users, actual documents, and actual mess.\n In practice it usually means bootstrapping scarce cases, filling scenario gaps, and trying to stretch data budgets without accidentally teaching the system a polished version of the wrong world.\n \"Synthetic data got the project moving. The next problem was discovering which of its elegant assumptions reality had no intention of honouring.\"\n Which real-world gaps is the synthetic data covering, and how will that coverage be validated? What artefacts or biases might the generation process be introducing? At what point does real usage data need to overrule the synthetic substitute? Simulation Data quality Edge cases",
+      "relatedSlugs": [
+        "scale-ai",
+        "evals",
+        "frontier-model"
       ]
     },
     {
@@ -4291,36 +5315,36 @@
     }
   ],
   "recentSlugs": [
-    "agentic-ai",
-    "alexandr-wang",
-    "arthur-mensch",
-    "chatbot-psychosis"
+    "ai-wrapper",
+    "benchmark-theatre",
+    "cursor",
+    "deep-research"
   ],
   "misunderstoodSlugs": [
     "agent",
     "agentic-ai",
     "ai-psychosis",
-    "chatbot-psychosis"
+    "benchmark-theatre"
   ],
   "letterStats": [
     {
       "letter": "A",
-      "count": 6,
+      "count": 7,
       "href": "/dictionary?letter=A"
     },
     {
       "letter": "B",
-      "count": 0,
+      "count": 1,
       "href": "/dictionary?letter=B"
     },
     {
       "letter": "C",
-      "count": 6,
+      "count": 7,
       "href": "/dictionary?letter=C"
     },
     {
       "letter": "D",
-      "count": 3,
+      "count": 4,
       "href": "/dictionary?letter=D"
     },
     {
@@ -4340,7 +5364,7 @@
     },
     {
       "letter": "H",
-      "count": 3,
+      "count": 4,
       "href": "/dictionary?letter=H"
     },
     {
@@ -4365,7 +5389,7 @@
     },
     {
       "letter": "M",
-      "count": 6,
+      "count": 8,
       "href": "/dictionary?letter=M"
     },
     {
@@ -4375,12 +5399,12 @@
     },
     {
       "letter": "O",
-      "count": 3,
+      "count": 4,
       "href": "/dictionary?letter=O"
     },
     {
       "letter": "P",
-      "count": 1,
+      "count": 4,
       "href": "/dictionary?letter=P"
     },
     {
@@ -4390,12 +5414,12 @@
     },
     {
       "letter": "R",
-      "count": 3,
+      "count": 5,
       "href": "/dictionary?letter=R"
     },
     {
       "letter": "S",
-      "count": 7,
+      "count": 8,
       "href": "/dictionary?letter=S"
     },
     {
@@ -4439,7 +5463,7 @@
       "title": "Core concepts",
       "description": "Terms people use as if they were self-explanatory, usually before the definitions start fraying.",
       "slug": "core-concepts",
-      "count": 7,
+      "count": 8,
       "sampleTerms": [
         "AI Psychosis",
         "Human Taste",
@@ -4450,18 +5474,18 @@
       "title": "Cultural terms",
       "description": "The social weirdness around AI: belief, taste, cringe, status games, and the internet behaving as it usually does when handed a new machine.",
       "slug": "cultural-terms",
-      "count": 15,
+      "count": 24,
       "sampleTerms": [
+        "AI Wrapper",
         "Alexandr Wang",
-        "Chatbot Psychosis",
-        "Dario Amodei"
+        "Benchmark Theatre"
       ]
     },
     {
       "title": "Model building",
       "description": "How models are trained, tuned, evaluated, and occasionally overpraised.",
       "slug": "model-building",
-      "count": 10,
+      "count": 11,
       "sampleTerms": [
         "Arthur Mensch",
         "Demis Hassabis",
@@ -4472,7 +5496,7 @@
       "title": "Model usage",
       "description": "What it means to actually run a model in production, where invoices and latency live.",
       "slug": "model-usage",
-      "count": 21,
+      "count": 27,
       "sampleTerms": [
         "Agent",
         "ChatGPT",
@@ -4483,7 +5507,7 @@
       "title": "Agents and workflows",
       "description": "Automation patterns, orchestration, and the difference between useful autonomy and stagecraft.",
       "slug": "agents-and-workflows",
-      "count": 11,
+      "count": 18,
       "sampleTerms": [
         "Agent",
         "Agentic AI",
@@ -4505,22 +5529,22 @@
       "title": "Product and vendor terms",
       "description": "Company names, product labels, and the branding haze around them.",
       "slug": "product-and-vendor-terms",
-      "count": 28,
+      "count": 33,
       "sampleTerms": [
+        "AI Wrapper",
         "Anthropic",
-        "Arthur Mensch",
-        "ChatGPT"
+        "Arthur Mensch"
       ]
     },
     {
       "title": "Safety and evaluation",
       "description": "Guardrails, tests, preferences, and the uncomfortable gap between lab scores and reality.",
       "slug": "safety-and-evaluation",
-      "count": 12,
+      "count": 17,
       "sampleTerms": [
         "Anthropic",
-        "Chatbot Psychosis",
-        "Dario Amodei"
+        "Benchmark Theatre",
+        "Chatbot Psychosis"
       ]
     },
     {
@@ -4538,13 +5562,13 @@
       "title": "Economics and operations of AI",
       "description": "Cost, labour, incentives, and the very unmagical business of running AI systems.",
       "slug": "economics-and-operations-of-ai",
-      "count": 17,
+      "count": 25,
       "sampleTerms": [
+        "AI Wrapper",
         "Alexandr Wang",
-        "Arthur Mensch",
-        "Cloudflare"
+        "Arthur Mensch"
       ]
     }
   ],
-  "featuredSlug": "agentic-ai"
+  "featuredSlug": "microsoft-copilot"
 }

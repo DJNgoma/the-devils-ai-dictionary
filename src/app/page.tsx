@@ -70,7 +70,7 @@ export default async function HomePage() {
                 Browse the dictionary
               </Link>
             </div>
-            <ResumeReadingCard className="mt-6 max-w-2xl" compact />
+            <ResumeReadingCard className="mt-6 max-w-2xl" compact hideIfCurrentHref="/" />
           </div>
           <aside className="surface p-5 sm:p-6">
             <p className="font-mono text-xs uppercase tracking-[0.24em] text-foreground-soft">

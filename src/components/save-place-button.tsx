@@ -18,13 +18,19 @@ export function SavePlaceButton({
   description,
   className,
 }: SavePlaceButtonProps) {
-  const { isReady, savedPlace, savePlace } = useBookmark();
+  const { isReady, savedPlace, savePlace, clearPlace } = useBookmark();
   const isCurrentPlace = savedPlace?.href === href;
 
   return (
     <button
       type="button"
-      onClick={() => savePlace({ href, title, label, description })}
+      onClick={() => {
+        if (isCurrentPlace) {
+          clearPlace();
+        } else {
+          savePlace({ href, title, label, description });
+        }
+      }}
       className={cn(
         "rounded-full border px-4 py-2.5 text-sm font-medium",
         isCurrentPlace
@@ -35,7 +41,7 @@ export function SavePlaceButton({
       aria-pressed={isCurrentPlace}
       disabled={!isReady}
     >
-      {isCurrentPlace ? "Saved here" : "Save this place"}
+      {isCurrentPlace ? "Unsave this place" : "Save this place"}
     </button>
   );
 }

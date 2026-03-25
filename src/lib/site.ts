@@ -43,7 +43,7 @@ export const themeOptions = [
 
 export type ThemeName = (typeof themeOptions)[number]["value"];
 
-export const featuredEntrySlug = "agentic-ai";
+export const featuredEntrySlug = "microsoft-copilot";
 
 export const difficultyOptions = ["beginner", "intermediate", "advanced"] as const;
 export const technicalDepthOptions = ["low", "medium", "high"] as const;

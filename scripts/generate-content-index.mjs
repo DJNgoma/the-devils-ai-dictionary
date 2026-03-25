@@ -94,7 +94,7 @@ const categoryDefinitions = [
 ];
 
 const categoryTitleSet = new Set(categoryDefinitions.map((c) => c.title));
-const featuredEntrySlug = "agentic-ai";
+const featuredEntrySlug = "microsoft-copilot";
 
 /* ---------- validation ---------- */
 

@@ -4,12 +4,47 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
-  useState,
+  useSyncExternalStore,
 } from "react";
 
 const STORAGE_KEY = "saved-reading-place";
+const BOOKMARK_CHANGE_EVENT = "saved-reading-place-change";
+const inMemoryStorage = new Map<string, string>();
+let cachedRawSavedPlace: string | null | undefined;
+let cachedParsedSavedPlace: SavedPlace | null = null;
+
+/* ---------- safe localStorage helpers ---------- */
+
+export function readStorage(key: string): string | null {
+  try {
+    return window.localStorage.getItem(key);
+  } catch {
+    return inMemoryStorage.get(key) ?? null;
+  }
+}
+
+export function writeStorage(key: string, value: string): void {
+  inMemoryStorage.set(key, value);
+
+  try {
+    window.localStorage.setItem(key, value);
+  } catch {
+    // Quota exceeded or access denied — state lives in memory only
+  }
+}
+
+export function removeStorage(key: string): void {
+  inMemoryStorage.delete(key);
+
+  try {
+    window.localStorage.removeItem(key);
+  } catch {
+    // Access denied — state lives in memory only
+  }
+}
+
+/* ---------- types ---------- */
 
 export type SavedPlace = {
   href: string;
@@ -30,7 +65,52 @@ type BookmarkContextValue = {
 
 const BookmarkContext = createContext<BookmarkContextValue | null>(null);
 
-function parseSavedPlace(rawValue: string | null): SavedPlace | null {
+function dispatchBookmarkChange() {
+  window.dispatchEvent(new Event(BOOKMARK_CHANGE_EVENT));
+}
+
+function getSavedPlaceSnapshot() {
+  const rawValue = readStorage(STORAGE_KEY);
+
+  if (rawValue === cachedRawSavedPlace) {
+    return cachedParsedSavedPlace;
+  }
+
+  cachedRawSavedPlace = rawValue;
+  cachedParsedSavedPlace = parseSavedPlace(rawValue);
+
+  return cachedParsedSavedPlace;
+}
+
+function subscribeToSavedPlace(onStoreChange: () => void) {
+  function handleStorageChange(event: StorageEvent) {
+    if (event.key !== STORAGE_KEY) {
+      return;
+    }
+
+    if (event.newValue === null) {
+      inMemoryStorage.delete(STORAGE_KEY);
+    } else {
+      inMemoryStorage.set(STORAGE_KEY, event.newValue);
+    }
+
+    onStoreChange();
+  }
+
+  window.addEventListener("storage", handleStorageChange);
+  window.addEventListener(BOOKMARK_CHANGE_EVENT, onStoreChange);
+
+  return () => {
+    window.removeEventListener("storage", handleStorageChange);
+    window.removeEventListener(BOOKMARK_CHANGE_EVENT, onStoreChange);
+  };
+}
+
+function subscribeToHydration() {
+  return () => {};
+}
+
+export function parseSavedPlace(rawValue: string | null): SavedPlace | null {
   if (!rawValue) {
     return null;
   }
@@ -61,13 +141,12 @@ function parseSavedPlace(rawValue: string | null): SavedPlace | null {
 }
 
 export function BookmarkProvider({ children }: { children: React.ReactNode }) {
-  const [savedPlace, setSavedPlace] = useState<SavedPlace | null>(null);
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    setSavedPlace(parseSavedPlace(window.localStorage.getItem(STORAGE_KEY)));
-    setIsReady(true);
-  }, []);
+  const isReady = useSyncExternalStore(subscribeToHydration, () => true, () => false);
+  const savedPlace = useSyncExternalStore(
+    subscribeToSavedPlace,
+    getSavedPlaceSnapshot,
+    () => null,
+  );
 
   const savePlace = useCallback((place: SavePlaceInput) => {
     const nextPlace: SavedPlace = {
@@ -75,13 +154,13 @@ export function BookmarkProvider({ children }: { children: React.ReactNode }) {
       savedAt: new Date().toISOString(),
     };
 
-    setSavedPlace(nextPlace);
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(nextPlace));
+    writeStorage(STORAGE_KEY, JSON.stringify(nextPlace));
+    dispatchBookmarkChange();
   }, []);
 
   const clearPlace = useCallback(() => {
-    setSavedPlace(null);
-    window.localStorage.removeItem(STORAGE_KEY);
+    removeStorage(STORAGE_KEY);
+    dispatchBookmarkChange();
   }, []);
 
   const value = useMemo(
