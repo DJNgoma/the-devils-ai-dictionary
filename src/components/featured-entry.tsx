@@ -24,13 +24,13 @@ export function FeaturedEntry({ entry }: FeaturedEntryProps) {
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               href={`/dictionary/${entry.slug}`}
-              className="rounded-full bg-accent px-5 py-3 text-sm font-medium text-white hover:translate-y-[-1px] hover:opacity-92"
+              className="button button-primary"
             >
               Read the entry
             </Link>
             <Link
               href="/dictionary"
-              className="rounded-full border border-line px-5 py-3 text-sm font-medium text-foreground hover:border-accent hover:text-accent"
+              className="button button-secondary"
             >
               Browse the dictionary
             </Link>

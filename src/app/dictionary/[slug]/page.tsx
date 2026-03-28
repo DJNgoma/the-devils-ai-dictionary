@@ -118,7 +118,7 @@ export default async function EntryPage({ params }: EntryPageProps) {
           />
           <Link
             href="/book"
-            className="rounded-full border border-line px-4 py-2.5 text-sm font-medium text-foreground hover:border-accent hover:text-accent"
+            className="button button-secondary"
           >
             Back to the book
           </Link>

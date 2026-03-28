@@ -19,7 +19,7 @@ export function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-background/75 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 hidden border-b border-line bg-background/75 backdrop-blur-xl md:block">
       <div className="page-shell flex flex-col gap-4 py-4 sm:py-5">
         <div className="flex items-center justify-between gap-4">
           <Link href="/" className="group flex min-w-0 items-center gap-3">

@@ -21,6 +21,128 @@ export const navigation = [
   { href: "/search", label: "Search" },
 ] as const;
 
+export const mobilePrimaryNavigation = [
+  {
+    id: "home",
+    href: "/",
+    label: "Home",
+    icon: "home",
+  },
+  {
+    id: "browse",
+    href: "/dictionary",
+    label: "Browse",
+    icon: "book",
+  },
+  {
+    id: "search",
+    href: "/search",
+    label: "Search",
+    icon: "search",
+  },
+  {
+    id: "saved",
+    href: "/saved",
+    label: "Saved",
+    icon: "bookmark",
+  },
+] as const;
+
+export const mobileSecondaryNavigation = [
+  { href: "/book", label: "Book" },
+  { href: "/categories", label: "Categories" },
+  { href: "/how-to-read", label: "Guide" },
+  { href: "/about", label: "About" },
+  { href: "/random", label: "Random" },
+] as const;
+
+export type MobilePrimaryNavItem = (typeof mobilePrimaryNavigation)[number];
+export type MobilePrimaryNavId = MobilePrimaryNavItem["id"];
+
+export function getMobilePrimaryNavId(pathname: string): MobilePrimaryNavId {
+  if (pathname === "/search" || pathname.startsWith("/search/")) {
+    return "search";
+  }
+
+  if (pathname === "/saved" || pathname.startsWith("/saved/")) {
+    return "saved";
+  }
+
+  if (
+    pathname === "/dictionary" ||
+    pathname.startsWith("/dictionary/") ||
+    pathname === "/categories" ||
+    pathname.startsWith("/categories/")
+  ) {
+    return "browse";
+  }
+
+  return "home";
+}
+
+export function isMobilePrimaryNavActive(
+  pathname: string,
+  navId: MobilePrimaryNavId,
+) {
+  return getMobilePrimaryNavId(pathname) === navId;
+}
+
+export function getMobileChromeTitle(pathname: string) {
+  if (pathname === "/saved") {
+    return "Saved";
+  }
+
+  if (pathname === "/search") {
+    return "Search";
+  }
+
+  if (pathname === "/dictionary") {
+    return "Browse";
+  }
+
+  if (pathname.startsWith("/dictionary/")) {
+    return "Entry";
+  }
+
+  if (pathname === "/categories") {
+    return "Categories";
+  }
+
+  if (pathname.startsWith("/categories/")) {
+    return "Category";
+  }
+
+  if (pathname === "/book") {
+    return "Book";
+  }
+
+  if (pathname === "/how-to-read") {
+    return "Guide";
+  }
+
+  if (pathname === "/about") {
+    return "About";
+  }
+
+  if (pathname === "/random") {
+    return "Random";
+  }
+
+  return "The Devil's AI Dictionary";
+}
+
+export function getMobileBackHref(pathname: string) {
+  if (pathname.startsWith("/dictionary/")) {
+    return "/dictionary";
+  }
+
+  if (pathname.startsWith("/categories/")) {
+    return "/categories";
+  }
+
+  return null;
+}
+
 export const themeOptions = [
   {
     value: "book",

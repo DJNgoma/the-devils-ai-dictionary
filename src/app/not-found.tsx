@@ -15,13 +15,13 @@ export default function NotFound() {
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link
             href="/dictionary"
-            className="rounded-full bg-accent px-5 py-3 text-sm font-medium text-white"
+            className="button button-primary"
           >
             Browse dictionary
           </Link>
           <Link
             href="/search"
-            className="rounded-full border border-line px-5 py-3 text-sm font-medium text-foreground"
+            className="button button-secondary"
           >
             Search
           </Link>

@@ -43,7 +43,7 @@ export default async function BookPage() {
           />
           <Link
             href="/random"
-            className="rounded-full border border-line px-4 py-2.5 text-sm font-medium text-foreground hover:border-accent hover:text-accent"
+            className="button button-secondary"
           >
             Random entry
           </Link>
@@ -127,13 +127,13 @@ export default async function BookPage() {
           <div className="flex flex-wrap gap-3">
             <Link
               href="/how-to-read"
-              className="rounded-full bg-accent px-5 py-3 text-sm font-medium text-white"
+              className="button button-primary"
             >
               How to read this dictionary
             </Link>
             <Link
               href="/dictionary"
-              className="rounded-full border border-line px-5 py-3 text-sm font-medium text-foreground"
+              className="button button-secondary"
             >
               Browse entries
             </Link>

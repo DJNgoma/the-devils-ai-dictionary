@@ -4,7 +4,7 @@ import { siteConfig } from "@/lib/site";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-line">
+    <footer className="hidden border-t border-line md:block">
       <div className="page-shell flex flex-col gap-6 py-8 sm:flex-row sm:items-end sm:justify-between">
         <div className="max-w-2xl">
           <div className="flex items-center gap-3">

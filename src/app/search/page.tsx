@@ -10,17 +10,7 @@ export const metadata = buildMetadata({
   path: "/search",
 });
 
-type SearchPageProps = {
-  searchParams?: Promise<{
-    q?: string | string[];
-    category?: string | string[];
-    difficulty?: string | string[];
-    vendor?: string | string[];
-    depth?: string | string[];
-  }>;
-};
-
-export default async function SearchPage(_props: SearchPageProps) {
+export default async function SearchPage() {
   const [entries, categories] = await Promise.all([
     getSearchableEntries(),
     getCategoryStats(),

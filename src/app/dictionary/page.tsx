@@ -10,18 +10,7 @@ export const metadata = buildMetadata({
   path: "/dictionary",
 });
 
-type DictionaryPageProps = {
-  searchParams?: Promise<{
-    q?: string | string[];
-    category?: string | string[];
-    difficulty?: string | string[];
-    vendor?: string | string[];
-    depth?: string | string[];
-    letter?: string | string[];
-  }>;
-};
-
-export default async function DictionaryPage(_props: DictionaryPageProps) {
+export default async function DictionaryPage() {
   const [entries, categories] = await Promise.all([
     getSearchableEntries(),
     getCategoryStats(),

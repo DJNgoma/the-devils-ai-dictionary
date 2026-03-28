@@ -10,6 +10,7 @@ import {
   useTransition,
 } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { AppSheet } from "@/components/app-sheet";
 import { EntryCard } from "@/components/entry-card";
 import type { SearchableEntry } from "@/lib/content";
 import { difficultyLabels, technicalDepthLabels } from "@/lib/site";
@@ -75,6 +76,7 @@ export function DirectoryExplorer({
     () => searchParams.get("letter") ?? initialLetter,
   );
   const [results, setResults] = useState<SearchableEntry[]>(entries);
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const deferredQuery = useDeferredValue(query.trim());
   const searchStoreRef = useRef<EntryIndexStore | null>(null);
 
@@ -210,11 +212,69 @@ export function DirectoryExplorer({
     activeVendor !== "all" ||
     activeDepth !== "all" ||
     activeLetter !== "all";
+  const activeFilterCount =
+    (query.trim() ? 1 : 0) +
+    (activeCategory !== "all" ? 1 : 0) +
+    (activeDifficulty !== "all" ? 1 : 0) +
+    (activeVendor !== "all" ? 1 : 0) +
+    (activeDepth !== "all" ? 1 : 0) +
+    (activeLetter !== "all" ? 1 : 0);
+  const activeFilters = [
+    query.trim()
+      ? {
+          key: "query",
+          label: `Search: ${query.trim()}`,
+          clear: () => setQuery(""),
+        }
+      : null,
+    activeCategory !== "all"
+      ? {
+          key: "category",
+          label:
+            categories.find((category) => category.slug === activeCategory)?.title ??
+            "Category",
+          clear: () => setActiveCategory("all"),
+        }
+      : null,
+    activeDifficulty !== "all"
+      ? {
+          key: "difficulty",
+          label: difficultyLabels[activeDifficulty as keyof typeof difficultyLabels],
+          clear: () => setActiveDifficulty("all"),
+        }
+      : null,
+    activeVendor !== "all"
+      ? {
+          key: "vendor",
+          label: activeVendor === "vendor" ? "Vendor only" : "No vendor terms",
+          clear: () => setActiveVendor("all"),
+        }
+      : null,
+    activeDepth !== "all"
+      ? {
+          key: "depth",
+          label:
+            technicalDepthLabels[activeDepth as keyof typeof technicalDepthLabels],
+          clear: () => setActiveDepth("all"),
+        }
+      : null,
+    activeLetter !== "all"
+      ? {
+          key: "letter",
+          label: `Letter ${activeLetter}`,
+          clear: () => setActiveLetter("all"),
+        }
+      : null,
+  ].filter(Boolean) as Array<{
+    key: string;
+    label: string;
+    clear: () => void;
+  }>;
 
   return (
     <section className="space-y-8">
-      <div className="surface-strong p-5 sm:p-6">
-        <div className="grid gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+      <div className="surface-strong p-4 sm:p-6">
+        <div className="space-y-4 md:hidden">
           <label className="flex flex-col gap-2">
             <span className="font-mono text-xs uppercase tracking-[0.22em] text-foreground-soft">
               Search
@@ -222,12 +282,91 @@ export function DirectoryExplorer({
             <input
               type="search"
               value={query}
+              autoComplete="off"
+              inputMode="search"
               onChange={(event) => {
                 const nextValue = event.target.value;
                 startTransition(() => setQuery(nextValue));
               }}
               placeholder="Search by term, alias, category, or explanation"
-              className="rounded-3xl border border-line bg-surface px-4 py-3 text-base text-foreground placeholder:text-foreground-soft/80 focus:outline-none"
+              className="field-input text-base placeholder:text-foreground-soft/80"
+            />
+          </label>
+          <div className="flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={() => setIsFiltersOpen(true)}
+              className="button button-secondary"
+            >
+              Filters
+              {activeFilterCount > 0 ? ` (${activeFilterCount})` : ""}
+            </button>
+            {filterIsActive ? (
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="button button-ghost"
+              >
+                Clear all
+              </button>
+            ) : null}
+          </div>
+
+          {activeFilters.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {activeFilters.map((filter) => (
+                <button
+                  key={filter.key}
+                  type="button"
+                  onClick={filter.clear}
+                  className="chip chip-accent"
+                >
+                  {filter.label} x
+                </button>
+              ))}
+            </div>
+          ) : null}
+
+          {mode === "dictionary" ? (
+            <div className="border-t border-line pt-4">
+              <p className="font-mono text-xs uppercase tracking-[0.22em] text-foreground-soft">
+                Browse by letter
+              </p>
+              <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
+                {["all", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")].map((letter) => (
+                  <button
+                    key={letter}
+                    type="button"
+                    onClick={() => setActiveLetter(letter)}
+                    className={cn(
+                      "chip shrink-0 whitespace-nowrap",
+                      activeLetter === letter && "chip-accent border-accent",
+                    )}
+                  >
+                    {letter === "all" ? "All letters" : letter}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : null}
+        </div>
+
+        <div className="hidden gap-5 lg:grid lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+          <label className="flex flex-col gap-2">
+            <span className="font-mono text-xs uppercase tracking-[0.22em] text-foreground-soft">
+              Search
+            </span>
+            <input
+              type="search"
+              value={query}
+              autoComplete="off"
+              inputMode="search"
+              onChange={(event) => {
+                const nextValue = event.target.value;
+                startTransition(() => setQuery(nextValue));
+              }}
+              placeholder="Search by term, alias, category, or explanation"
+              className="field-input"
             />
           </label>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -281,15 +420,16 @@ export function DirectoryExplorer({
               <button
                 type="button"
                 onClick={clearFilters}
-                className="w-full rounded-3xl border border-line px-4 py-3 text-sm font-medium text-foreground hover:border-accent hover:text-accent"
+                className="button button-secondary w-full"
               >
                 Clear filters
               </button>
             </div>
           </div>
         </div>
+
         {mode === "dictionary" ? (
-          <div className="mt-5 border-t border-line pt-5">
+          <div className="mt-5 hidden border-t border-line pt-5 md:block">
             <p className="font-mono text-xs uppercase tracking-[0.22em] text-foreground-soft">
               Browse by letter
             </p>
@@ -312,8 +452,84 @@ export function DirectoryExplorer({
         ) : null}
       </div>
 
+      <AppSheet
+        id={`${mode}-filters`}
+        open={isFiltersOpen}
+        onClose={() => setIsFiltersOpen(false)}
+        title="Refine results"
+        description="Adjust category, difficulty, vendor, and depth for this index."
+      >
+        <div className="grid gap-4">
+          <FilterSelect
+            label="Category"
+            value={activeCategory}
+            onChange={(value) => setActiveCategory(value)}
+            options={[
+              { value: "all", label: "All categories" },
+              ...categories.map((category) => ({
+                value: category.slug,
+                label: category.title,
+              })),
+            ]}
+          />
+          <FilterSelect
+            label="Difficulty"
+            value={activeDifficulty}
+            onChange={(value) => setActiveDifficulty(value)}
+            options={[
+              { value: "all", label: "Any difficulty" },
+              ...Object.entries(difficultyLabels).map(([value, label]) => ({
+                value,
+                label,
+              })),
+            ]}
+          />
+          <FilterSelect
+            label="Vendor term"
+            value={activeVendor}
+            onChange={(value) => setActiveVendor(value)}
+            options={[
+              { value: "all", label: "All terms" },
+              { value: "vendor", label: "Vendor/product only" },
+              { value: "non-vendor", label: "Exclude vendor terms" },
+            ]}
+          />
+          <FilterSelect
+            label="Technical depth"
+            value={activeDepth}
+            onChange={(value) => setActiveDepth(value)}
+            options={[
+              { value: "all", label: "Any depth" },
+              ...Object.entries(technicalDepthLabels).map(([value, label]) => ({
+                value,
+                label,
+              })),
+            ]}
+          />
+          <div className="flex flex-wrap gap-3 pt-2">
+            <button
+              type="button"
+              onClick={() => setIsFiltersOpen(false)}
+              className="button button-primary"
+            >
+              Done
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                clearFilters();
+                setIsFiltersOpen(false);
+              }}
+              className="button button-secondary"
+            >
+              Clear all
+            </button>
+          </div>
+        </div>
+      </AppSheet>
+
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-sm text-foreground-soft">
+        <p className="text-sm text-foreground-soft" aria-live="polite">
           {results.length} {results.length === 1 ? "entry" : "entries"}
           {filterIsActive ? " match your search." : " in the dictionary."}
         </p>
@@ -335,7 +551,7 @@ export function DirectoryExplorer({
           </p>
           <Link
             href="/random"
-            className="mt-6 inline-flex rounded-full bg-accent px-5 py-3 text-sm font-medium text-white"
+            className="button button-primary mt-6"
           >
             Random entry
           </Link>
@@ -389,7 +605,7 @@ function FilterSelect({
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="rounded-3xl border border-line bg-surface px-4 py-3 text-sm text-foreground focus:outline-none"
+        className="field-select"
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>

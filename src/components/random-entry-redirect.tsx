@@ -35,7 +35,7 @@ export function RandomEntryRedirect({ slugs }: RandomEntryRedirectProps) {
         <div className="mt-6">
           <Link
             href="/dictionary"
-            className="rounded-full bg-accent px-5 py-3 text-sm font-medium text-white hover:translate-y-[-1px] hover:opacity-92"
+            className="button button-primary"
           >
             Browse the dictionary
           </Link>

@@ -10,27 +10,27 @@ type EntryCardProps = {
 
 export function EntryCard({ entry, compact = false }: EntryCardProps) {
   return (
-    <article className="surface group h-full p-5 sm:p-6">
+    <Link
+      href={`/dictionary/${entry.slug}`}
+      className="surface group block h-full p-4 sm:p-5"
+    >
       <div className="flex flex-wrap items-center gap-2">
         <Badge tone="accent">{entry.letter}</Badge>
         <Badge>{difficultyLabels[entry.difficulty]}</Badge>
         <Badge>{technicalDepthLabels[entry.technicalDepth]}</Badge>
         {entry.isVendorTerm ? <Badge tone="success">Vendor term</Badge> : null}
       </div>
-      <div className="mt-5 space-y-4">
+      <div className="mt-4 space-y-3">
         <div>
-          <Link
-            href={`/dictionary/${entry.slug}`}
-            className="font-display text-2xl font-semibold tracking-tight text-foreground group-hover:text-accent"
-          >
+          <p className="font-display text-[1.38rem] font-semibold tracking-tight text-foreground group-hover:text-accent">
             {entry.title}
-          </Link>
-          <p className="mt-2 text-base leading-7 text-foreground-soft">
+          </p>
+          <p className="mt-2 text-sm leading-6 text-foreground-soft sm:text-base sm:leading-7">
             {entry.devilDefinition}
           </p>
         </div>
         {!compact ? (
-          <p className="text-sm leading-7 text-foreground-soft/90">
+          <p className="hidden text-sm leading-7 text-foreground-soft/90 md:block">
             {entry.plainDefinition}
           </p>
         ) : null}
@@ -47,6 +47,6 @@ export function EntryCard({ entry, compact = false }: EntryCardProps) {
           ))}
         </div>
       </div>
-    </article>
+    </Link>
   );
 }

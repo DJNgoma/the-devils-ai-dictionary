@@ -35,7 +35,7 @@ export function ResumeReadingCard({
   }
 
   return (
-    <div className={cn("surface p-5 sm:p-6", compact && "p-4 sm:p-5", className)}>
+    <div className={cn("surface p-4 sm:p-5", compact && "p-4", className)}>
       <p className="font-mono text-xs uppercase tracking-[0.22em] text-foreground-soft">
         Saved place
       </p>
@@ -53,14 +53,14 @@ export function ResumeReadingCard({
       <div className="mt-5 flex flex-wrap gap-3">
         <Link
           href={savedPlace.href}
-          className="rounded-full bg-accent px-4 py-2.5 text-sm font-medium text-white hover:translate-y-[-1px] hover:opacity-92"
+          className="button button-primary"
         >
           Resume reading
         </Link>
         <button
           type="button"
           onClick={clearPlace}
-          className="rounded-full border border-line px-4 py-2.5 text-sm font-medium text-foreground hover:border-accent hover:text-accent"
+          className="button button-secondary"
         >
           Clear saved place
         </button>

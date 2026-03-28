@@ -53,3 +53,11 @@ next-env.d.ts
 
 # swift package build output
 /shared/swift-core/.build/
+
+# IDE and agent configs (Blitz, Codex, etc.)
+ios/App/.agents/
+ios/App/.blitz/
+ios/App/.codex/
+ios/App/.mcp.json
+ios/App/opencode.json
+ios/App/backend/

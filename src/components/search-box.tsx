@@ -21,13 +21,12 @@ export function SearchBox({
           type="search"
           defaultValue={defaultValue}
           placeholder={placeholder}
+          autoComplete="off"
+          inputMode="search"
           className="min-w-0 flex-1 bg-transparent text-base text-foreground placeholder:text-foreground-soft/80 focus:outline-none"
           aria-label="Search dictionary"
         />
-        <button
-          type="submit"
-          className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-white hover:translate-y-[-1px] hover:opacity-92"
-        >
+        <button type="submit" className="button button-primary shrink-0">
           Search
         </button>
       </div>
