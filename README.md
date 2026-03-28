@@ -66,6 +66,12 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 - Native follow-on roadmap and shared Swift boundary: [docs/mobile/native-roadmap.md](docs/mobile/native-roadmap.md)
 - Solo-dev release and QA checklists: [docs/mobile/checklists.md](docs/mobile/checklists.md)
 
+### Tested devices
+
+- Android Emulator, API 35, arm64
+- Samsung Galaxy A30s (`SM-A307FN`), Android 11 / API 30, Android System WebView 87.0.4280.141
+- Google Pixel 5, Android 13 / API 33, Android System WebView 103.0.5060.71
+
 ## Project structure
 
 ```text
