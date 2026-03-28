@@ -34,7 +34,16 @@ export default function AboutPage() {
             If it is mostly branding, the entry says so.
           </p>
           <p>
-            The book was co-authored by Daliso Ngoma,{" "}
+            The book was co-authored by{" "}
+            <a
+              href="https://daliso.com"
+              target="_blank"
+              rel="noreferrer"
+              className="link-underline text-foreground"
+            >
+              Daliso Ngoma
+            </a>
+            ,{" "}
             <Link href="/dictionary/chatgpt" className="link-underline text-foreground">
               ChatGPT
             </Link>

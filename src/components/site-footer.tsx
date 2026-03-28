@@ -22,7 +22,16 @@ export function SiteFooter() {
             sharp definitions first, reality checks immediately after.
           </p>
           <p className="mt-2 text-sm leading-7 text-foreground-soft">
-            Co-authored by Daliso Ngoma,{" "}
+            Co-authored by{" "}
+            <a
+              href="https://daliso.com"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-foreground"
+            >
+              Daliso Ngoma
+            </a>
+            ,{" "}
             <Link href="/dictionary/chatgpt" className="hover:text-foreground">
               ChatGPT
             </Link>

@@ -1,0 +1,55 @@
+---
+title: "Latency"
+slug: "latency"
+letter: "L"
+categories:
+  - "Model usage"
+  - "Infrastructure and deployment"
+  - "Economics and operations of AI"
+aliases:
+  - "response delay"
+  - "wait time"
+  - "lag"
+devilDefinition: |
+  The awkward silence between "look how magical this is" and the user deciding they no longer care.
+plainDefinition: |
+  Latency is the elapsed time between making a request to a system and receiving a usable response.
+whyExists: |
+  AI systems do not merely need to be correct enough. They need to respond quickly enough for the surrounding workflow, interface, and patience of the person waiting.
+misuse: |
+  By treating latency as a minor engineering detail that can be apologised away with a loading spinner. People are far more forgiving of imperfection than of delay that breaks the rhythm of work.
+practicalMeaning: |
+  In practice it usually means the difference between a feature that feels helpful and one that feels like a committee meeting. Model size, retrieval, tool calls, routing, and output length all conspire to make waiting expensive.
+example: |
+  "The model was accurate, elegant, and two seconds too slow, which is another way of saying it was losing."
+askNext:
+  - "What is the maximum delay this workflow can tolerate before people route around it?"
+  - "Which part of the pipeline is slow: model time, retrieval, tools, or post-processing?"
+  - "Are we paying for higher capability when the real problem is response speed?"
+related:
+  - "tokens"
+  - "reasoning-model"
+  - "function-calling"
+seeAlso:
+  - "User experience"
+  - "Response time"
+  - "Throughput"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-03-28"
+updatedAt: "2026-03-28"
+tags:
+  - "speed"
+  - "performance"
+  - "ux"
+misunderstoodScore: 4
+translations:
+  - label: "product meaning"
+    text: "The hidden tax that decides whether intelligence feels useful or merely impressive."
+  - label: "what it usually means in reality"
+    text: "How long the system makes someone wait before it becomes usable."
+---
+
+People will tolerate a surprising amount of nonsense from software. They are less generous with software that makes them hover.

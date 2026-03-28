@@ -1,0 +1,54 @@
+---
+title: "Zero-Shot"
+slug: "zero-shot"
+letter: "Z"
+categories:
+  - "Core concepts"
+  - "Model usage"
+  - "Agents and workflows"
+aliases:
+  - "zero-shot prompting"
+  - "no-example prompting"
+devilDefinition: |
+  Asking the system to improvise on first contact and congratulating yourself when probability looks like generality.
+plainDefinition: |
+  Zero-shot refers to asking a model to perform a task without giving task-specific examples in the prompt.
+whyExists: |
+  It is useful to distinguish between tasks a model can handle from instructions alone and tasks that need demonstrations, schemas, retrieval, or tighter scaffolding.
+misuse: |
+  By treating zero-shot success as proof of broad understanding rather than a description of prompt setup. Many so-called zero-shot wins rely on hidden context, careful wording, or tasks that were never especially demanding.
+practicalMeaning: |
+  In practice it usually means the cheapest first attempt. If the task is routine and the instructions are clear, zero-shot can be enough. If the task is messy, high-stakes, or structurally ambiguous, it often becomes a polite way to under-specify the work.
+example: |
+  "They celebrated the zero-shot result right up to the point where the real workflow arrived with edge cases and an invoice."
+askNext:
+  - "Is the task genuinely being done from instructions alone, or is other hidden scaffolding doing the work?"
+  - "What examples, schemas, or retrieval would reduce failure without much extra cost?"
+  - "Are we calling this zero-shot because it is elegant, or because we have not designed the workflow yet?"
+related:
+  - "prompt"
+  - "structured-outputs"
+  - "reasoning-model"
+seeAlso:
+  - "Prompting"
+  - "Few-shot"
+  - "Task specification"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-03-28"
+updatedAt: "2026-03-28"
+tags:
+  - "prompting"
+  - "examples"
+  - "workflow"
+misunderstoodScore: 4
+translations:
+  - label: "demo meaning"
+    text: "A neat way to show breadth before anyone asks what the production version needs."
+  - label: "what it usually means in reality"
+    text: "A task attempted without task-specific examples, for better or worse."
+---
+
+Zero-shot is attractive because it feels like generality. It is also attractive because it postpones the adult work of specifying the task properly.

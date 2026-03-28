@@ -2483,8 +2483,8 @@
       "searchText": "Inference serving Model usage Infrastructure and deployment serving latency cost The part where the model stops being a research paper and starts being an invoice.\n Inference is the process of running a trained model on new input to produce an output. For language models, that usually means taking tokens in, computing the next-token probabilities, and generating a response token by token.\n The term distinguishes using a model from building one. Training changes weights. Inference uses those weights to do work on fresh data. The distinction matters because the technical constraints, costs, and risks are very different.\n People often use \"inference\" as a grand-sounding synonym for \"the AI bit\". That hides the practical questions. Inference is not magic reasoning dust. It is a serving workload with latency, throughput, reliability, and cost characteristics.\n In practice it usually means API calls, GPU time, queueing, prompt assembly, caching, streaming, rate limits, and a finance person eventually asking why the bot became expensive after launch. If your AI feature is live, inference is the meter running.\n \"Training happened once in the background; inference happens every time a customer opens the feature and expects an answer in under two seconds.\"\n What model is doing the inference, where is it running, and who pays per call? Is the bottleneck latency, throughput, quality, or context assembly? Can some of this workload be cached, batched, or offloaded to a smaller model?",
       "relatedSlugs": [
         "training",
-        "tokens",
-        "reasoning-model"
+        "latency",
+        "tokens"
       ]
     },
     {
@@ -2560,6 +2560,222 @@
         "training",
         "inference",
         "frontier-model"
+      ]
+    },
+    {
+      "title": "Knowledge Cutoff",
+      "slug": "knowledge-cutoff",
+      "letter": "K",
+      "categories": [
+        "Core concepts",
+        "Model usage",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "cutoff date",
+        "knowledge date",
+        "model cutoff"
+      ],
+      "devilDefinition": "The calendar line after which the model becomes a gifted historical novelist.\n",
+      "plainDefinition": "A knowledge cutoff is the latest point in time reflected in a model's internal knowledge without fresh retrieval or live access to newer information.\n",
+      "whyExists": "Models are built from data gathered during a finite period. However broad that period was, it still ends somewhere, which means the model's default knowledge eventually becomes stale.\n",
+      "misuse": "By treating the cutoff as either a precise magical boundary or as something that no longer matters because the interface looks current. A model can sound up to date long after its internal map stopped being refreshed.\n",
+      "practicalMeaning": "In practice it usually means any question about recent events, changing laws, product releases, prices, or people who change jobs needs fresh sources instead of trusting the model's memory and posture.\n",
+      "example": "\"The answer sounded current until someone checked the date. It was confidence wearing a knowledge cutoff.\"\n",
+      "askNext": [
+        "What information in this workflow changes often enough to outrun the model's built-in knowledge?",
+        "Is the system using fresh retrieval, or merely sounding well informed about the past?",
+        "How would we notice if the answer stopped at last year's world?"
+      ],
+      "related": [
+        "deep-research",
+        "perplexity",
+        "grounding"
+      ],
+      "seeAlso": [
+        "Current information",
+        "Recency",
+        "Grounding"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "low",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-28",
+      "updatedAt": "2026-03-28",
+      "tags": [
+        "recency",
+        "freshness",
+        "model knowledge"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "user meaning",
+          "text": "The moment where the system's memory stops and its style keeps going."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A built-in date limit on what the model can know without outside help."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The problem is not that models have a past. The problem is that they rarely announce it at the exact moment you most need them to.",
+      "categorySlugs": [
+        "core-concepts",
+        "model-usage",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/knowledge-cutoff",
+      "searchText": "Knowledge Cutoff cutoff date knowledge date model cutoff Core concepts Model usage Cultural terms recency freshness model knowledge The calendar line after which the model becomes a gifted historical novelist.\n A knowledge cutoff is the latest point in time reflected in a model's internal knowledge without fresh retrieval or live access to newer information.\n Models are built from data gathered during a finite period. However broad that period was, it still ends somewhere, which means the model's default knowledge eventually becomes stale.\n By treating the cutoff as either a precise magical boundary or as something that no longer matters because the interface looks current. A model can sound up to date long after its internal map stopped being refreshed.\n In practice it usually means any question about recent events, changing laws, product releases, prices, or people who change jobs needs fresh sources instead of trusting the model's memory and posture.\n \"The answer sounded current until someone checked the date. It was confidence wearing a knowledge cutoff.\"\n What information in this workflow changes often enough to outrun the model's built-in knowledge? Is the system using fresh retrieval, or merely sounding well informed about the past? How would we notice if the answer stopped at last year's world? Current information Recency Grounding",
+      "relatedSlugs": [
+        "deep-research",
+        "perplexity",
+        "grounding"
+      ]
+    },
+    {
+      "title": "Latency",
+      "slug": "latency",
+      "letter": "L",
+      "categories": [
+        "Model usage",
+        "Infrastructure and deployment",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "response delay",
+        "wait time",
+        "lag"
+      ],
+      "devilDefinition": "The awkward silence between \"look how magical this is\" and the user deciding they no longer care.\n",
+      "plainDefinition": "Latency is the elapsed time between making a request to a system and receiving a usable response.\n",
+      "whyExists": "AI systems do not merely need to be correct enough. They need to respond quickly enough for the surrounding workflow, interface, and patience of the person waiting.\n",
+      "misuse": "By treating latency as a minor engineering detail that can be apologised away with a loading spinner. People are far more forgiving of imperfection than of delay that breaks the rhythm of work.\n",
+      "practicalMeaning": "In practice it usually means the difference between a feature that feels helpful and one that feels like a committee meeting. Model size, retrieval, tool calls, routing, and output length all conspire to make waiting expensive.\n",
+      "example": "\"The model was accurate, elegant, and two seconds too slow, which is another way of saying it was losing.\"\n",
+      "askNext": [
+        "What is the maximum delay this workflow can tolerate before people route around it?",
+        "Which part of the pipeline is slow: model time, retrieval, tools, or post-processing?",
+        "Are we paying for higher capability when the real problem is response speed?"
+      ],
+      "related": [
+        "tokens",
+        "reasoning-model",
+        "function-calling"
+      ],
+      "seeAlso": [
+        "User experience",
+        "Response time",
+        "Throughput"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "low",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-28",
+      "updatedAt": "2026-03-28",
+      "tags": [
+        "speed",
+        "performance",
+        "ux"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "product meaning",
+          "text": "The hidden tax that decides whether intelligence feels useful or merely impressive."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "How long the system makes someone wait before it becomes usable."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "People will tolerate a surprising amount of nonsense from software. They are less generous with software that makes them hover.",
+      "categorySlugs": [
+        "model-usage",
+        "infrastructure-and-deployment",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/latency",
+      "searchText": "Latency response delay wait time lag Model usage Infrastructure and deployment Economics and operations of AI speed performance ux The awkward silence between \"look how magical this is\" and the user deciding they no longer care.\n Latency is the elapsed time between making a request to a system and receiving a usable response.\n AI systems do not merely need to be correct enough. They need to respond quickly enough for the surrounding workflow, interface, and patience of the person waiting.\n By treating latency as a minor engineering detail that can be apologised away with a loading spinner. People are far more forgiving of imperfection than of delay that breaks the rhythm of work.\n In practice it usually means the difference between a feature that feels helpful and one that feels like a committee meeting. Model size, retrieval, tool calls, routing, and output length all conspire to make waiting expensive.\n \"The model was accurate, elegant, and two seconds too slow, which is another way of saying it was losing.\"\n What is the maximum delay this workflow can tolerate before people route around it? Which part of the pipeline is slow: model time, retrieval, tools, or post-processing? Are we paying for higher capability when the real problem is response speed? User experience Response time Throughput",
+      "relatedSlugs": [
+        "tokens",
+        "reasoning-model",
+        "function-calling"
+      ]
+    },
+    {
+      "title": "LLM",
+      "slug": "llm",
+      "letter": "L",
+      "categories": [
+        "Core concepts",
+        "Model building",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "large language model",
+        "language model"
+      ],
+      "devilDefinition": "A statistical text engine promoted from autocomplete to corporate metaphysics.\n",
+      "plainDefinition": "LLM stands for large language model: a model trained to predict and generate language, often across many tasks involving text, code, and increasingly tools and multimodal inputs.\n",
+      "whyExists": "The field needed a short label for the class of large generative models that sit underneath much of the current AI boom. The acronym is easier to say than the architecture, which is part of its success.\n",
+      "misuse": "By using LLM as a synonym for AI, intelligence, or product value. An LLM can be the engine inside a useful system, but the acronym by itself explains very little about whether the result is accurate, safe, or worth paying for.\n",
+      "practicalMeaning": "In practice it usually means a flexible language-and-code engine that can draft, classify, summarise, translate, search, and bluff, depending on how it is prompted, constrained, and surrounded by everything else.\n",
+      "example": "\"They said the product was powered by an LLM as though naming the engine answered the question of whether the vehicle was heading anywhere sensible.\"\n",
+      "askNext": [
+        "What specific model behaviour matters here beyond the presence of an LLM?",
+        "What surrounding retrieval, tooling, or controls make the system useful?",
+        "Is the acronym explaining the product, or merely decorating it?"
+      ],
+      "related": [
+        "tokens",
+        "frontier-model",
+        "reasoning-model"
+      ],
+      "seeAlso": [
+        "Large language model",
+        "Generative model",
+        "Model class"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-28",
+      "updatedAt": "2026-03-28",
+      "tags": [
+        "language models",
+        "acronyms",
+        "generative ai"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "board meaning",
+          "text": "The machine layer whose name is now expected to confer strategic seriousness."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A broad class of models for generating and manipulating language, not a guarantee of product merit."
+        }
+      ],
+      "note": "The acronym is useful as shorthand. It becomes perfume when treated as an explanation rather than a category.\n",
+      "vendorReferences": [],
+      "body": "The market loves initials because they compress complexity into something that can fit on a slide and survive a budget meeting.",
+      "categorySlugs": [
+        "core-concepts",
+        "model-building",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/llm",
+      "searchText": "LLM large language model language model Core concepts Model building Cultural terms language models acronyms generative ai A statistical text engine promoted from autocomplete to corporate metaphysics.\n LLM stands for large language model: a model trained to predict and generate language, often across many tasks involving text, code, and increasingly tools and multimodal inputs.\n The field needed a short label for the class of large generative models that sit underneath much of the current AI boom. The acronym is easier to say than the architecture, which is part of its success.\n By using LLM as a synonym for AI, intelligence, or product value. An LLM can be the engine inside a useful system, but the acronym by itself explains very little about whether the result is accurate, safe, or worth paying for.\n In practice it usually means a flexible language-and-code engine that can draft, classify, summarise, translate, search, and bluff, depending on how it is prompted, constrained, and surrounded by everything else.\n \"They said the product was powered by an LLM as though naming the engine answered the question of whether the vehicle was heading anywhere sensible.\"\n What specific model behaviour matters here beyond the presence of an LLM? What surrounding retrieval, tooling, or controls make the system useful? Is the acronym explaining the product, or merely decorating it? Large language model Generative model Model class The acronym is useful as shorthand. It becomes perfume when treated as an explanation rather than a category.",
+      "relatedSlugs": [
+        "tokens",
+        "frontier-model",
+        "reasoning-model"
       ]
     },
     {
@@ -3717,8 +3933,8 @@
       "searchText": "Prompt instruction input prompt Model usage Core concepts instructions context input A politely worded attempt to steer a probability machine into behaving as if it has read the brief and cares.\n A prompt is the input text, and sometimes structured context, provided to a model in order to shape its output. In LLM systems this can include instructions, examples, retrieved documents, tool results, formatting rules, and the user's actual request.\n The term exists because the way you frame input materially affects output. Language models do not simply receive a question. They respond to the entire text context they are given.\n It gets treated either as wizardry or as trivia. Both are wrong. Prompt quality matters, but prompting is not a substitute for missing product design, missing data, or missing control logic. A good prompt cannot rescue a bad system forever.\n In practice it usually means the assembled context sent to the model: system instructions, user text, retrieved snippets, examples, tool schemas, output rules, and maybe the remnants of last week's prompt experiments still haunting production.\n \"The issue was not that the model was weak; the prompt was half policy manual, half legal disclaimer, and no longer resembled a usable instruction.\"\n What exact context is being sent to the model? Which parts of the prompt are fixed system behaviour versus user input? Is the prompt compensating for a missing tool, missing retrieval step, or missing product rule?  In image generation, \"prompt\" often refers to descriptive text steering the style or content of an output. In LLM products, it usually refers to the full assembled input context, not just the visible user message.",
       "relatedSlugs": [
         "context-window",
-        "multimodal",
-        "reasoning-model"
+        "knowledge-cutoff",
+        "multimodal"
       ]
     },
     {
@@ -5037,6 +5253,149 @@
       ]
     },
     {
+      "title": "Unlearning",
+      "slug": "unlearning",
+      "letter": "U",
+      "categories": [
+        "Model building",
+        "Safety and evaluation",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "machine unlearning",
+        "selective forgetting"
+      ],
+      "devilDefinition": "The promise that a model can forget one thing without anyone asking what else it must misremember along the way.\n",
+      "plainDefinition": "Unlearning refers to techniques aimed at removing or reducing the influence of particular data, examples, or behaviours from a model after it has already been built.\n",
+      "whyExists": "Because privacy requests, legal obligations, harmful content, and contaminated data do not politely arrive before the model is built. Organisations want ways to retract influence without starting from zero.\n",
+      "misuse": "By marketing unlearning as exact surgical erasure. In reality it is often approximate, hard to verify, and bound up with trade-offs in performance, evidence, and what counts as having truly forgotten.\n",
+      "practicalMeaning": "In practice it usually means expensive technical work plus an even more expensive verification question: how do you prove a system no longer knows something it was once shaped by?\n",
+      "example": "\"They wanted unlearning to behave like deleting a file. The model, regrettably, had learned in the more inconvenient way.\"\n",
+      "askNext": [
+        "What exactly is being removed: data influence, output behaviour, or a reproducible response pattern?",
+        "How will the team verify forgetting rather than merely hiding the symptom?",
+        "Is selective repair cheaper than rebuilding or constraining the system another way?"
+      ],
+      "related": [
+        "guardrails",
+        "synthetic-data",
+        "rlhf"
+      ],
+      "seeAlso": [
+        "Deletion request",
+        "Selective forgetting",
+        "Verification"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "high",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-28",
+      "updatedAt": "2026-03-28",
+      "tags": [
+        "privacy",
+        "removal",
+        "verification"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "legal meaning",
+          "text": "A hopeful answer to the question of how one retracts influence from a model that has already absorbed it."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A technically messy attempt to reduce the impact of data or behaviours after the fact."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "Forgetting is easy when there was never memory. It is harder when the memory has become weights, correlations, and business promises.",
+      "categorySlugs": [
+        "model-building",
+        "safety-and-evaluation",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/unlearning",
+      "searchText": "Unlearning machine unlearning selective forgetting Model building Safety and evaluation Economics and operations of AI privacy removal verification The promise that a model can forget one thing without anyone asking what else it must misremember along the way.\n Unlearning refers to techniques aimed at removing or reducing the influence of particular data, examples, or behaviours from a model after it has already been built.\n Because privacy requests, legal obligations, harmful content, and contaminated data do not politely arrive before the model is built. Organisations want ways to retract influence without starting from zero.\n By marketing unlearning as exact surgical erasure. In reality it is often approximate, hard to verify, and bound up with trade-offs in performance, evidence, and what counts as having truly forgotten.\n In practice it usually means expensive technical work plus an even more expensive verification question: how do you prove a system no longer knows something it was once shaped by?\n \"They wanted unlearning to behave like deleting a file. The model, regrettably, had learned in the more inconvenient way.\"\n What exactly is being removed: data influence, output behaviour, or a reproducible response pattern? How will the team verify forgetting rather than merely hiding the symptom? Is selective repair cheaper than rebuilding or constraining the system another way? Deletion request Selective forgetting Verification",
+      "relatedSlugs": [
+        "guardrails",
+        "synthetic-data",
+        "rlhf"
+      ]
+    },
+    {
+      "title": "Unstructured Data",
+      "slug": "unstructured-data",
+      "letter": "U",
+      "categories": [
+        "Economics and operations of AI",
+        "Retrieval and memory",
+        "Agents and workflows"
+      ],
+      "aliases": [
+        "messy data",
+        "document data",
+        "free-form data"
+      ],
+      "devilDefinition": "The corporate sediment of PDFs, emails, notes, decks, and chats from which every AI strategy promises to extract wisdom before discovering permissions.\n",
+      "plainDefinition": "Unstructured data is information that does not live in neat rows and columns, such as documents, transcripts, images, emails, slide decks, tickets, chats, and other free-form material.\n",
+      "whyExists": "Because most organisations store more knowledge in messy artefacts than in clean databases. AI interest in unstructured data is really interest in the inconvenient majority of what companies actually know.\n",
+      "misuse": "By speaking as though ingesting everything automatically creates insight. In reality it creates a fresh collection of problems involving access, cleanup, ranking, duplication, provenance, and whether the documents deserved trust in the first place.\n",
+      "practicalMeaning": "In practice it usually means the real raw material for retrieval systems, copilots, and internal search, along with the operational discovery that file shares contain both the truth and several obsolete versions of it.\n",
+      "example": "\"The pilot was built on unstructured data, which sounded exciting until the team found six contradictory policy PDFs and a folder named final-final-use-this.\"\n",
+      "askNext": [
+        "Which sources are authoritative rather than merely available?",
+        "How are permissions, duplication, and staleness being handled before retrieval begins?",
+        "What part of this data deserves structure instead of magical summarisation?"
+      ],
+      "related": [
+        "rag",
+        "vector-database",
+        "deep-research"
+      ],
+      "seeAlso": [
+        "Document corpus",
+        "Retrieval",
+        "Knowledge management"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-28",
+      "updatedAt": "2026-03-28",
+      "tags": [
+        "documents",
+        "retrieval",
+        "enterprise data"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "enterprise meaning",
+          "text": "The pile of internal material everyone ignored until AI made it sound monetisable."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "The messy majority of organisational knowledge that lives outside tidy schemas."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The fantasy is that the documents contain the answer. The reality is that they contain a bureaucracy, a timeline, and three generations of contradiction.",
+      "categorySlugs": [
+        "economics-and-operations-of-ai",
+        "retrieval-and-memory",
+        "agents-and-workflows"
+      ],
+      "url": "/dictionary/unstructured-data",
+      "searchText": "Unstructured Data messy data document data free-form data Economics and operations of AI Retrieval and memory Agents and workflows documents retrieval enterprise data The corporate sediment of PDFs, emails, notes, decks, and chats from which every AI strategy promises to extract wisdom before discovering permissions.\n Unstructured data is information that does not live in neat rows and columns, such as documents, transcripts, images, emails, slide decks, tickets, chats, and other free-form material.\n Because most organisations store more knowledge in messy artefacts than in clean databases. AI interest in unstructured data is really interest in the inconvenient majority of what companies actually know.\n By speaking as though ingesting everything automatically creates insight. In reality it creates a fresh collection of problems involving access, cleanup, ranking, duplication, provenance, and whether the documents deserved trust in the first place.\n In practice it usually means the real raw material for retrieval systems, copilots, and internal search, along with the operational discovery that file shares contain both the truth and several obsolete versions of it.\n \"The pilot was built on unstructured data, which sounded exciting until the team found six contradictory policy PDFs and a folder named final-final-use-this.\"\n Which sources are authoritative rather than merely available? How are permissions, duplication, and staleness being handled before retrieval begins? What part of this data deserves structure instead of magical summarisation? Document corpus Retrieval Knowledge management",
+      "relatedSlugs": [
+        "rag",
+        "vector-database",
+        "deep-research"
+      ]
+    },
+    {
       "title": "Vector Database",
       "slug": "vector-database",
       "letter": "V",
@@ -5253,6 +5612,148 @@
       ]
     },
     {
+      "title": "Weights",
+      "slug": "weights",
+      "letter": "W",
+      "categories": [
+        "Core concepts",
+        "Model building",
+        "Infrastructure and deployment"
+      ],
+      "aliases": [
+        "model weights",
+        "parameters"
+      ],
+      "devilDefinition": "The dense pile of numbers that turns \"just an algorithm\" into property, infrastructure, and geopolitical gossip.\n",
+      "plainDefinition": "Weights are the learned numerical parameters inside a model. They are what the model ends up using to make predictions and generate outputs after it has been built.\n",
+      "whyExists": "Because a model is not merely an idea on paper. It becomes operational through the learned values that encode its statistical behaviour.\n",
+      "misuse": "By treating weights as synonymous with understanding, openness, or a complete product. Having access to weights matters, but it does not by itself explain data provenance, system quality, tooling, safety controls, or whether the thing belongs anywhere near production.\n",
+      "practicalMeaning": "In practice it usually means portability, distribution, storage, deployment constraints, adaptation, and endless arguments over whether access to weights counts as openness or merely a different pricing model.\n",
+      "example": "\"They said the weights were available as though that settled the harder questions about trust, licensing, and whether anyone should deploy them unescorted.\"\n",
+      "askNext": [
+        "What can actually be done with the weights in this setting: inspect, adapt, host, or merely admire?",
+        "Which parts of the system remain opaque even if the weights are accessible?",
+        "Is the strategic value here the model's behaviour, the rights around it, or the ability to run it yourself?"
+      ],
+      "related": [
+        "fine-tuning",
+        "frontier-model",
+        "multimodal"
+      ],
+      "seeAlso": [
+        "Parameters",
+        "Open weights",
+        "Model hosting"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-28",
+      "updatedAt": "2026-03-28",
+      "tags": [
+        "parameters",
+        "hosting",
+        "openness"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "operator meaning",
+          "text": "The part of the model you can move, adapt, and argue about owning."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "The learned numeric state that gives a built model its behaviour."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "People talk as though access to weights resolves philosophy. It usually just moves the argument to licensing, cost, and who now has to operate the thing.",
+      "categorySlugs": [
+        "core-concepts",
+        "model-building",
+        "infrastructure-and-deployment"
+      ],
+      "url": "/dictionary/weights",
+      "searchText": "Weights model weights parameters Core concepts Model building Infrastructure and deployment parameters hosting openness The dense pile of numbers that turns \"just an algorithm\" into property, infrastructure, and geopolitical gossip.\n Weights are the learned numerical parameters inside a model. They are what the model ends up using to make predictions and generate outputs after it has been built.\n Because a model is not merely an idea on paper. It becomes operational through the learned values that encode its statistical behaviour.\n By treating weights as synonymous with understanding, openness, or a complete product. Having access to weights matters, but it does not by itself explain data provenance, system quality, tooling, safety controls, or whether the thing belongs anywhere near production.\n In practice it usually means portability, distribution, storage, deployment constraints, adaptation, and endless arguments over whether access to weights counts as openness or merely a different pricing model.\n \"They said the weights were available as though that settled the harder questions about trust, licensing, and whether anyone should deploy them unescorted.\"\n What can actually be done with the weights in this setting: inspect, adapt, host, or merely admire? Which parts of the system remain opaque even if the weights are accessible? Is the strategic value here the model's behaviour, the rights around it, or the ability to run it yourself? Parameters Open weights Model hosting",
+      "relatedSlugs": [
+        "fine-tuning",
+        "frontier-model",
+        "multimodal"
+      ]
+    },
+    {
+      "title": "World Model",
+      "slug": "world-model",
+      "letter": "W",
+      "categories": [
+        "Core concepts",
+        "Model building",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "internal world model",
+        "predictive model of the world"
+      ],
+      "devilDefinition": "The flattering phrase for a system that appears to know enough structure for humans to start projecting philosophy onto it.\n",
+      "plainDefinition": "A world model is an internal representation that helps a system predict how states, objects, actions, or events relate to one another over time.\n",
+      "whyExists": "The term exists because systems that can anticipate structure, consequence, and continuity often perform better than systems that merely react to the next local cue.\n",
+      "misuse": "By treating any evidence of internal structure as proof of deep understanding, common sense, or machine comprehension of life itself. The phrase is often used at exactly the point where caution should become more fashionable.\n",
+      "practicalMeaning": "In practice it usually means a model has learned enough regularity to predict useful consequences, not that it has joined the human condition. It is a technical claim that acquires mystical overtones the moment it leaves the lab.\n",
+      "example": "\"Someone said world model and the meeting immediately upgraded from product review to metaphysical salon.\"\n",
+      "askNext": [
+        "What specific predictive behaviour suggests a useful internal model rather than clever pattern matching?",
+        "How much of the claim comes from experiments, and how much from the romance of the phrase?",
+        "Does the system actually plan better, or do we simply enjoy the story more?"
+      ],
+      "related": [
+        "multimodal",
+        "reasoning-model",
+        "frontier-model"
+      ],
+      "seeAlso": [
+        "Planning",
+        "Prediction",
+        "Internal representation"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-28",
+      "updatedAt": "2026-03-28",
+      "tags": [
+        "prediction",
+        "representation",
+        "hype"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "research meaning",
+          "text": "A claim that the system has learned structured regularities useful for prediction and planning."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A technical idea that often acquires grander implications once it reaches the public."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "Some phrases arrive in public life already overpromoted. This one barely waits to leave the paper.",
+      "categorySlugs": [
+        "core-concepts",
+        "model-building",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/world-model",
+      "searchText": "World Model internal world model predictive model of the world Core concepts Model building Cultural terms prediction representation hype The flattering phrase for a system that appears to know enough structure for humans to start projecting philosophy onto it.\n A world model is an internal representation that helps a system predict how states, objects, actions, or events relate to one another over time.\n The term exists because systems that can anticipate structure, consequence, and continuity often perform better than systems that merely react to the next local cue.\n By treating any evidence of internal structure as proof of deep understanding, common sense, or machine comprehension of life itself. The phrase is often used at exactly the point where caution should become more fashionable.\n In practice it usually means a model has learned enough regularity to predict useful consequences, not that it has joined the human condition. It is a technical claim that acquires mystical overtones the moment it leaves the lab.\n \"Someone said world model and the meeting immediately upgraded from product review to metaphysical salon.\"\n What specific predictive behaviour suggests a useful internal model rather than clever pattern matching? How much of the claim comes from experiments, and how much from the romance of the phrase? Does the system actually plan better, or do we simply enjoy the story more? Planning Prediction Internal representation",
+      "relatedSlugs": [
+        "multimodal",
+        "reasoning-model",
+        "frontier-model"
+      ]
+    },
+    {
       "title": "xAI",
       "slug": "xai",
       "letter": "X",
@@ -5312,13 +5813,228 @@
         "qwen",
         "frontier-model"
       ]
+    },
+    {
+      "title": "Yann LeCun",
+      "slug": "yann-lecun",
+      "letter": "Y",
+      "categories": [
+        "Product and vendor terms",
+        "Model building",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "Yann",
+        "Meta chief AI scientist"
+      ],
+      "devilDefinition": "The prominent researcher most likely to answer AI melodrama with a technical correction and a shrug.\n",
+      "plainDefinition": "Yann LeCun is a Turing Award-winning researcher and Meta's chief AI scientist, known for foundational work in deep learning and for public scepticism toward the more theatrical claims surrounding advanced AI.\n",
+      "whyExists": "Because names in AI often function as positions in an argument. Invoking Yann usually signals a preference for research realism, engineering confidence, open technical debate, and a lower appetite for civilisational drum rolls.\n",
+      "misuse": "By treating his scepticism as proof that major risks are imaginary, or treating his confidence as mere complacency. He is better understood as a durable counterweight to the field's taste for apocalyptic inflation.\n",
+      "practicalMeaning": "In practice it usually means the conversation is shifting away from mystique and toward questions of architecture, learning, world models, and whether the loudest timeline claims deserve fewer headlines than they get.\n",
+      "example": "\"Once Yann entered the thread, the tone changed from prophecy to argument, which was healthy if less marketable.\"\n",
+      "askNext": [
+        "Is his name being invoked for technical substance or merely as anti-doom theatre?",
+        "Does the claim concern research direction, open access, or arguments about capability timelines?",
+        "Are we borrowing his scepticism instead of making the case ourselves?"
+      ],
+      "related": [
+        "frontier-model",
+        "world-model",
+        "multimodal"
+      ],
+      "seeAlso": [
+        "Meta AI",
+        "World Model",
+        "Research culture"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-28",
+      "updatedAt": "2026-03-28",
+      "tags": [
+        "leadership",
+        "research",
+        "skepticism"
+      ],
+      "misunderstoodScore": 3,
+      "translations": [
+        {
+          "label": "debate meaning",
+          "text": "A shorthand for the camp that finds much AI grandiosity premature, theatrical, or technically loose."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A person-shaped proxy for a more sceptical and engineering-heavy reading of AI progress."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "Prestige can be abused in both directions. Some people borrow it to inflate the future. Others borrow it to sound calmer than their own argument deserves.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "model-building",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/yann-lecun",
+      "searchText": "Yann LeCun Yann Meta chief AI scientist Product and vendor terms Model building Cultural terms leadership research skepticism The prominent researcher most likely to answer AI melodrama with a technical correction and a shrug.\n Yann LeCun is a Turing Award-winning researcher and Meta's chief AI scientist, known for foundational work in deep learning and for public scepticism toward the more theatrical claims surrounding advanced AI.\n Because names in AI often function as positions in an argument. Invoking Yann usually signals a preference for research realism, engineering confidence, open technical debate, and a lower appetite for civilisational drum rolls.\n By treating his scepticism as proof that major risks are imaginary, or treating his confidence as mere complacency. He is better understood as a durable counterweight to the field's taste for apocalyptic inflation.\n In practice it usually means the conversation is shifting away from mystique and toward questions of architecture, learning, world models, and whether the loudest timeline claims deserve fewer headlines than they get.\n \"Once Yann entered the thread, the tone changed from prophecy to argument, which was healthy if less marketable.\"\n Is his name being invoked for technical substance or merely as anti-doom theatre? Does the claim concern research direction, open access, or arguments about capability timelines? Are we borrowing his scepticism instead of making the case ourselves? Meta AI World Model Research culture",
+      "relatedSlugs": [
+        "frontier-model",
+        "world-model",
+        "multimodal"
+      ]
+    },
+    {
+      "title": "Zero Data Retention",
+      "slug": "zero-data-retention",
+      "letter": "Z",
+      "categories": [
+        "Economics and operations of AI",
+        "Safety and evaluation",
+        "Model usage"
+      ],
+      "aliases": [
+        "ZDR",
+        "no retention",
+        "retention-free mode"
+      ],
+      "devilDefinition": "The promise that your prompts may pass through the machine without joining its afterlife.\n",
+      "plainDefinition": "Zero data retention is a provider policy or product setting indicating that prompts and outputs are not stored for model improvement or long-term retention beyond limited operational handling.\n",
+      "whyExists": "Because enterprise buyers, regulated industries, and anyone with a functioning sense of self-preservation want stronger assurances about where sensitive inputs end up after an AI request is made.\n",
+      "misuse": "By treating it as a synonym for perfect secrecy. A zero-retention promise usually lives inside a wider reality of transient processing, abuse monitoring, metadata, contracts, and implementation details people discover only after reading the fine print.\n",
+      "practicalMeaning": "In practice it usually means a procurement checkbox with real value, provided someone also asks about logs, sub-processors, retention exceptions, and whether the promise applies across every feature being sold under the same cheerful brand.\n",
+      "example": "\"The security team relaxed at zero data retention, then tensed again when the discussion moved from slogan to specifics.\"\n",
+      "askNext": [
+        "Does the promise cover prompts, outputs, logs, attachments, and every relevant product surface?",
+        "What operational or abuse-monitoring exceptions still exist?",
+        "Is the policy a contractual guarantee, a best-effort setting, or a line in a landing page?"
+      ],
+      "related": [
+        "guardrails",
+        "unstructured-data",
+        "microsoft-copilot"
+      ],
+      "seeAlso": [
+        "Privacy",
+        "Data handling",
+        "Enterprise controls"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-28",
+      "updatedAt": "2026-03-28",
+      "warningLabel": "Useful promise. Not a substitute for reading the retention details around logs, attachments, and exceptions.",
+      "tags": [
+        "privacy",
+        "procurement",
+        "enterprise"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "buyer meaning",
+          "text": "A line item that can make legal and security conversations somewhat less apocalyptic."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A constrained non-retention policy whose exact safety depends on the surrounding details."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "Most privacy language sounds best at banner height. The truth usually begins one scroll lower.",
+      "categorySlugs": [
+        "economics-and-operations-of-ai",
+        "safety-and-evaluation",
+        "model-usage"
+      ],
+      "url": "/dictionary/zero-data-retention",
+      "searchText": "Zero Data Retention ZDR no retention retention-free mode Economics and operations of AI Safety and evaluation Model usage privacy procurement enterprise The promise that your prompts may pass through the machine without joining its afterlife.\n Zero data retention is a provider policy or product setting indicating that prompts and outputs are not stored for model improvement or long-term retention beyond limited operational handling.\n Because enterprise buyers, regulated industries, and anyone with a functioning sense of self-preservation want stronger assurances about where sensitive inputs end up after an AI request is made.\n By treating it as a synonym for perfect secrecy. A zero-retention promise usually lives inside a wider reality of transient processing, abuse monitoring, metadata, contracts, and implementation details people discover only after reading the fine print.\n In practice it usually means a procurement checkbox with real value, provided someone also asks about logs, sub-processors, retention exceptions, and whether the promise applies across every feature being sold under the same cheerful brand.\n \"The security team relaxed at zero data retention, then tensed again when the discussion moved from slogan to specifics.\"\n Does the promise cover prompts, outputs, logs, attachments, and every relevant product surface? What operational or abuse-monitoring exceptions still exist? Is the policy a contractual guarantee, a best-effort setting, or a line in a landing page? Privacy Data handling Enterprise controls",
+      "relatedSlugs": [
+        "guardrails",
+        "unstructured-data",
+        "microsoft-copilot"
+      ]
+    },
+    {
+      "title": "Zero-Shot",
+      "slug": "zero-shot",
+      "letter": "Z",
+      "categories": [
+        "Core concepts",
+        "Model usage",
+        "Agents and workflows"
+      ],
+      "aliases": [
+        "zero-shot prompting",
+        "no-example prompting"
+      ],
+      "devilDefinition": "Asking the system to improvise on first contact and congratulating yourself when probability looks like generality.\n",
+      "plainDefinition": "Zero-shot refers to asking a model to perform a task without giving task-specific examples in the prompt.\n",
+      "whyExists": "It is useful to distinguish between tasks a model can handle from instructions alone and tasks that need demonstrations, schemas, retrieval, or tighter scaffolding.\n",
+      "misuse": "By treating zero-shot success as proof of broad understanding rather than a description of prompt setup. Many so-called zero-shot wins rely on hidden context, careful wording, or tasks that were never especially demanding.\n",
+      "practicalMeaning": "In practice it usually means the cheapest first attempt. If the task is routine and the instructions are clear, zero-shot can be enough. If the task is messy, high-stakes, or structurally ambiguous, it often becomes a polite way to under-specify the work.\n",
+      "example": "\"They celebrated the zero-shot result right up to the point where the real workflow arrived with edge cases and an invoice.\"\n",
+      "askNext": [
+        "Is the task genuinely being done from instructions alone, or is other hidden scaffolding doing the work?",
+        "What examples, schemas, or retrieval would reduce failure without much extra cost?",
+        "Are we calling this zero-shot because it is elegant, or because we have not designed the workflow yet?"
+      ],
+      "related": [
+        "prompt",
+        "structured-outputs",
+        "reasoning-model"
+      ],
+      "seeAlso": [
+        "Prompting",
+        "Few-shot",
+        "Task specification"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-03-28",
+      "updatedAt": "2026-03-28",
+      "tags": [
+        "prompting",
+        "examples",
+        "workflow"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "demo meaning",
+          "text": "A neat way to show breadth before anyone asks what the production version needs."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A task attempted without task-specific examples, for better or worse."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "Zero-shot is attractive because it feels like generality. It is also attractive because it postpones the adult work of specifying the task properly.",
+      "categorySlugs": [
+        "core-concepts",
+        "model-usage",
+        "agents-and-workflows"
+      ],
+      "url": "/dictionary/zero-shot",
+      "searchText": "Zero-Shot zero-shot prompting no-example prompting Core concepts Model usage Agents and workflows prompting examples workflow Asking the system to improvise on first contact and congratulating yourself when probability looks like generality.\n Zero-shot refers to asking a model to perform a task without giving task-specific examples in the prompt.\n It is useful to distinguish between tasks a model can handle from instructions alone and tasks that need demonstrations, schemas, retrieval, or tighter scaffolding.\n By treating zero-shot success as proof of broad understanding rather than a description of prompt setup. Many so-called zero-shot wins rely on hidden context, careful wording, or tasks that were never especially demanding.\n In practice it usually means the cheapest first attempt. If the task is routine and the instructions are clear, zero-shot can be enough. If the task is messy, high-stakes, or structurally ambiguous, it often becomes a polite way to under-specify the work.\n \"They celebrated the zero-shot result right up to the point where the real workflow arrived with edge cases and an invoice.\"\n Is the task genuinely being done from instructions alone, or is other hidden scaffolding doing the work? What examples, schemas, or retrieval would reduce failure without much extra cost? Are we calling this zero-shot because it is elegant, or because we have not designed the workflow yet? Prompting Few-shot Task specification",
+      "relatedSlugs": [
+        "prompt",
+        "structured-outputs",
+        "reasoning-model"
+      ]
     }
   ],
   "recentSlugs": [
-    "ai-wrapper",
-    "benchmark-theatre",
-    "cursor",
-    "deep-research"
+    "knowledge-cutoff",
+    "latency",
+    "llm",
+    "unlearning"
   ],
   "misunderstoodSlugs": [
     "agent",
@@ -5379,12 +6095,12 @@
     },
     {
       "letter": "K",
-      "count": 0,
+      "count": 1,
       "href": "/dictionary?letter=K"
     },
     {
       "letter": "L",
-      "count": 0,
+      "count": 2,
       "href": "/dictionary?letter=L"
     },
     {
@@ -5429,7 +6145,7 @@
     },
     {
       "letter": "U",
-      "count": 0,
+      "count": 2,
       "href": "/dictionary?letter=U"
     },
     {
@@ -5439,7 +6155,7 @@
     },
     {
       "letter": "W",
-      "count": 0,
+      "count": 2,
       "href": "/dictionary?letter=W"
     },
     {
@@ -5449,12 +6165,12 @@
     },
     {
       "letter": "Y",
-      "count": 0,
+      "count": 1,
       "href": "/dictionary?letter=Y"
     },
     {
       "letter": "Z",
-      "count": 0,
+      "count": 2,
       "href": "/dictionary?letter=Z"
     }
   ],
@@ -5463,18 +6179,18 @@
       "title": "Core concepts",
       "description": "Terms people use as if they were self-explanatory, usually before the definitions start fraying.",
       "slug": "core-concepts",
-      "count": 8,
+      "count": 13,
       "sampleTerms": [
         "AI Psychosis",
         "Human Taste",
-        "Multimodal"
+        "Knowledge Cutoff"
       ]
     },
     {
       "title": "Cultural terms",
       "description": "The social weirdness around AI: belief, taste, cringe, status games, and the internet behaving as it usually does when handed a new machine.",
       "slug": "cultural-terms",
-      "count": 24,
+      "count": 28,
       "sampleTerms": [
         "AI Wrapper",
         "Alexandr Wang",
@@ -5485,7 +6201,7 @@
       "title": "Model building",
       "description": "How models are trained, tuned, evaluated, and occasionally overpraised.",
       "slug": "model-building",
-      "count": 11,
+      "count": 16,
       "sampleTerms": [
         "Arthur Mensch",
         "Demis Hassabis",
@@ -5496,7 +6212,7 @@
       "title": "Model usage",
       "description": "What it means to actually run a model in production, where invoices and latency live.",
       "slug": "model-usage",
-      "count": 27,
+      "count": 31,
       "sampleTerms": [
         "Agent",
         "ChatGPT",
@@ -5507,7 +6223,7 @@
       "title": "Agents and workflows",
       "description": "Automation patterns, orchestration, and the difference between useful autonomy and stagecraft.",
       "slug": "agents-and-workflows",
-      "count": 18,
+      "count": 20,
       "sampleTerms": [
         "Agent",
         "Agentic AI",
@@ -5518,7 +6234,7 @@
       "title": "Retrieval and memory",
       "description": "How systems fetch context, store traces, and pretend they remember you.",
       "slug": "retrieval-and-memory",
-      "count": 5,
+      "count": 6,
       "sampleTerms": [
         "Context Window",
         "Embeddings",
@@ -5529,7 +6245,7 @@
       "title": "Product and vendor terms",
       "description": "Company names, product labels, and the branding haze around them.",
       "slug": "product-and-vendor-terms",
-      "count": 33,
+      "count": 34,
       "sampleTerms": [
         "AI Wrapper",
         "Anthropic",
@@ -5540,7 +6256,7 @@
       "title": "Safety and evaluation",
       "description": "Guardrails, tests, preferences, and the uncomfortable gap between lab scores and reality.",
       "slug": "safety-and-evaluation",
-      "count": 17,
+      "count": 19,
       "sampleTerms": [
         "Anthropic",
         "Benchmark Theatre",
@@ -5551,7 +6267,7 @@
       "title": "Infrastructure and deployment",
       "description": "The machinery underneath the demo: compute, serving, throughput, and operational trade-offs.",
       "slug": "infrastructure-and-deployment",
-      "count": 15,
+      "count": 17,
       "sampleTerms": [
         "Alexandr Wang",
         "Cloudflare",
@@ -5562,7 +6278,7 @@
       "title": "Economics and operations of AI",
       "description": "Cost, labour, incentives, and the very unmagical business of running AI systems.",
       "slug": "economics-and-operations-of-ai",
-      "count": 25,
+      "count": 29,
       "sampleTerms": [
         "AI Wrapper",
         "Alexandr Wang",

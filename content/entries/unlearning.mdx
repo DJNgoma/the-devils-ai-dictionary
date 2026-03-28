@@ -1,0 +1,54 @@
+---
+title: "Unlearning"
+slug: "unlearning"
+letter: "U"
+categories:
+  - "Model building"
+  - "Safety and evaluation"
+  - "Economics and operations of AI"
+aliases:
+  - "machine unlearning"
+  - "selective forgetting"
+devilDefinition: |
+  The promise that a model can forget one thing without anyone asking what else it must misremember along the way.
+plainDefinition: |
+  Unlearning refers to techniques aimed at removing or reducing the influence of particular data, examples, or behaviours from a model after it has already been built.
+whyExists: |
+  Because privacy requests, legal obligations, harmful content, and contaminated data do not politely arrive before the model is built. Organisations want ways to retract influence without starting from zero.
+misuse: |
+  By marketing unlearning as exact surgical erasure. In reality it is often approximate, hard to verify, and bound up with trade-offs in performance, evidence, and what counts as having truly forgotten.
+practicalMeaning: |
+  In practice it usually means expensive technical work plus an even more expensive verification question: how do you prove a system no longer knows something it was once shaped by?
+example: |
+  "They wanted unlearning to behave like deleting a file. The model, regrettably, had learned in the more inconvenient way."
+askNext:
+  - "What exactly is being removed: data influence, output behaviour, or a reproducible response pattern?"
+  - "How will the team verify forgetting rather than merely hiding the symptom?"
+  - "Is selective repair cheaper than rebuilding or constraining the system another way?"
+related:
+  - "guardrails"
+  - "synthetic-data"
+  - "rlhf"
+seeAlso:
+  - "Deletion request"
+  - "Selective forgetting"
+  - "Verification"
+difficulty: "intermediate"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-03-28"
+updatedAt: "2026-03-28"
+tags:
+  - "privacy"
+  - "removal"
+  - "verification"
+misunderstoodScore: 5
+translations:
+  - label: "legal meaning"
+    text: "A hopeful answer to the question of how one retracts influence from a model that has already absorbed it."
+  - label: "what it usually means in reality"
+    text: "A technically messy attempt to reduce the impact of data or behaviours after the fact."
+---
+
+Forgetting is easy when there was never memory. It is harder when the memory has become weights, correlations, and business promises.
