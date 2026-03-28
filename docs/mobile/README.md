@@ -20,5 +20,7 @@ npm run swift-core:test
 ## Runbooks
 
 - [Android Capacitor delivery](./android-capacitor.md)
+- [iOS push and watch v1](./ios-watch-push-v1.md)
+- [Mobile design system](./design-system.md)
 - [Native follow-on roadmap](./native-roadmap.md)
 - [Store, signing, and QA checklists](./checklists.md)

@@ -58,6 +58,8 @@ next-env.d.ts
 ios/App/.agents/
 ios/App/.blitz/
 ios/App/.codex/
+ios/App/.claude/
+ios/App/CLAUDE.md
 ios/App/.mcp.json
 ios/App/opencode.json
 ios/App/backend/

@@ -68,6 +68,16 @@ final class DevilsAIDictionaryCoreTests: XCTestCase {
         XCTAssertTrue(filtered.allSatisfy(\.isVendorTerm))
     }
 
+    func testRandomEntryCanExcludeCurrentSlug() throws {
+        let catalog = try loadCatalog()
+        let excluded = catalog.featuredSlug
+
+        let randomEntry = catalog.randomEntry(excluding: excluded)
+
+        XCTAssertNotNil(randomEntry)
+        XCTAssertNotEqual(randomEntry?.slug, excluded)
+    }
+
     func testBookmarkRecordRoundTripsWithWebShape() throws {
         let bookmark = BookmarkRecord(
             href: "/dictionary/agent",
@@ -81,5 +91,37 @@ final class DevilsAIDictionaryCoreTests: XCTestCase {
         let decoded = try JSONDecoder().decode(BookmarkRecord.self, from: data)
 
         XCTAssertEqual(decoded, bookmark)
+    }
+
+    func testCurrentWordRecordRoundTrips() throws {
+        let catalog = try loadCatalog()
+        let entry = try XCTUnwrap(catalog.featuredEntry())
+        let record = CurrentWordRecord(
+            entry: entry,
+            updatedAt: "2026-03-28T10:00:00Z",
+            source: .notificationTap
+        )
+
+        let data = try JSONEncoder().encode(record)
+        let decoded = try JSONDecoder().decode(CurrentWordRecord.self, from: data)
+
+        XCTAssertEqual(decoded, record)
+    }
+
+    func testSyncPayloadRejectsStaleCatalogVersion() {
+        let payload = CurrentWordSyncPayload(
+            catalogVersion: "catalog-a",
+            currentWord: CurrentWordRecord(
+                slug: "agent",
+                title: "Agent",
+                devilDefinition: "Devil definition",
+                plainDefinition: "Plain definition",
+                updatedAt: "2026-03-28T10:00:00Z",
+                source: .phoneSync
+            )
+        )
+
+        XCTAssertFalse(payload.isCompatible(with: "catalog-b"))
+        XCTAssertTrue(payload.isCompatible(with: "catalog-a"))
     }
 }

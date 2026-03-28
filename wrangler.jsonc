@@ -32,6 +32,15 @@
       "service": "devils-ai-dictionary"
     }
   ],
+  "d1_databases": [
+    {
+      "binding": "PUSH_INSTALLATIONS_DB",
+      "database_name": "devils-ai-dictionary-push-installations",
+      "database_id": "1ab1ab45-21a1-4a73-bfac-396e57ae18e9",
+      "preview_database_id": "1ab1ab45-21a1-4a73-bfac-396e57ae18e9",
+      "migrations_dir": "migrations"
+    }
+  ],
   "observability": {
     "enabled": true
   }

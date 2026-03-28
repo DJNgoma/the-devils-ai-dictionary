@@ -46,6 +46,67 @@ public struct BookmarkRecord: Codable, Equatable, Sendable {
     }
 }
 
+public enum CurrentWordSource: String, Codable, CaseIterable, Sendable {
+    case seeded
+    case manualRefresh
+    case notificationTap
+    case phoneSync
+}
+
+public struct CurrentWordRecord: Codable, Equatable, Sendable {
+    public let slug: String
+    public let title: String
+    public let devilDefinition: String
+    public let plainDefinition: String
+    public let warningLabel: String?
+    public let updatedAt: String
+    public let source: CurrentWordSource
+
+    public init(
+        slug: String,
+        title: String,
+        devilDefinition: String,
+        plainDefinition: String,
+        warningLabel: String? = nil,
+        updatedAt: String,
+        source: CurrentWordSource
+    ) {
+        self.slug = slug
+        self.title = title
+        self.devilDefinition = devilDefinition
+        self.plainDefinition = plainDefinition
+        self.warningLabel = warningLabel
+        self.updatedAt = updatedAt
+        self.source = source
+    }
+
+    public init(entry: Entry, updatedAt: String, source: CurrentWordSource) {
+        self.init(
+            slug: entry.slug,
+            title: entry.title,
+            devilDefinition: entry.devilDefinition,
+            plainDefinition: entry.plainDefinition,
+            warningLabel: entry.warningLabel,
+            updatedAt: updatedAt,
+            source: source
+        )
+    }
+}
+
+public struct CurrentWordSyncPayload: Codable, Equatable, Sendable {
+    public let catalogVersion: String
+    public let currentWord: CurrentWordRecord
+
+    public init(catalogVersion: String, currentWord: CurrentWordRecord) {
+        self.catalogVersion = catalogVersion
+        self.currentWord = currentWord
+    }
+
+    public func isCompatible(with catalogVersion: String) -> Bool {
+        self.catalogVersion == catalogVersion
+    }
+}
+
 public struct Entry: Codable, Equatable, Sendable {
     public let title: String
     public let slug: String
@@ -148,6 +209,23 @@ public struct DictionaryCatalog: Codable, Equatable, Sendable {
 
     public func featuredEntry() -> Entry? {
         entry(slug: featuredSlug)
+    }
+
+    public func randomEntry(excluding excludedSlug: String? = nil) -> Entry? {
+        let candidates = entries.filter { entry in
+            guard let excludedSlug else {
+                return true
+            }
+
+            return entry.slug != excludedSlug
+        }
+
+        guard !candidates.isEmpty else {
+            return nil
+        }
+
+        let index = Int.random(in: 0..<candidates.count)
+        return candidates[index]
     }
 
     public func recentEntries(limit: Int = 4) -> [Entry] {

@@ -39,6 +39,7 @@ Useful checks:
 ```bash
 npm run lint
 npm run typecheck
+npm run verify:ci
 npm run build
 npm run build:mobile
 npm run android:build:debug
@@ -63,14 +64,24 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 - The repo can produce bundled iOS and Android apps via Capacitor from the same static export.
 - iOS distribution notes: [docs/ios-testflight.md](docs/ios-testflight.md)
 - Android setup, release, and Play testing notes: [docs/mobile/android-capacitor.md](docs/mobile/android-capacitor.md)
+- iOS push and Apple Watch companion runbook: [docs/mobile/ios-watch-push-v1.md](docs/mobile/ios-watch-push-v1.md)
 - Native follow-on roadmap and shared Swift boundary: [docs/mobile/native-roadmap.md](docs/mobile/native-roadmap.md)
 - Solo-dev release and QA checklists: [docs/mobile/checklists.md](docs/mobile/checklists.md)
+- Mobile design system and shell rules: [docs/mobile/design-system.md](docs/mobile/design-system.md)
 
 ### Tested devices
 
 - Android Emulator, API 35, arm64
 - Samsung Galaxy A30s (`SM-A307FN`), Android 11 / API 30, Android System WebView 87.0.4280.141
 - Google Pixel 5, Android 13 / API 33, Android System WebView 103.0.5060.71
+
+### Design & Mobile UX
+
+- Mobile is now the primary shell inside Capacitor. The desktop header remains on larger screens, while phones use a compact app bar and a bottom navigation bar for `Home`, `Browse`, `Search`, and `Saved`.
+- Safe areas are handled explicitly for iOS and Android. The app relies on Capacitor 8 `SystemBars` CSS inset injection as a fallback for older Android WebViews where raw `env(safe-area-inset-*)` values are unreliable.
+- Search and dictionary filtering are phone-first: the search field stays visible, while secondary filters move into a bottom sheet to preserve thumb reach and reading space.
+- Surface treatments are intentionally lighter on mobile than desktop. This keeps the editorial identity without asking Samsung A30s-class hardware to render a blur festival every time a card scrolls past.
+- The current web shell is structured to map cleanly to future native SwiftUI and Compose shells. Navigation semantics, saved-place behavior, and token names are meant to survive that handoff.
 
 ## Project structure
 

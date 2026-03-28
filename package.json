@@ -2,6 +2,9 @@
   "name": "devils-ai-dictionary",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "homepage": "https://thedevilsaidictionary.com",
   "repository": {
     "type": "git",
@@ -16,7 +19,7 @@
     "prebuild": "npm run content:build",
     "dev": "next dev",
     "build": "next build",
-    "build:mobile": "NEXT_OUTPUT_MODE=export next build",
+    "build:mobile": "mv src/app/api src/app/_api-server-only 2>/dev/null; NEXT_OUTPUT_MODE=export next build; STATUS=$?; mv src/app/_api-server-only src/app/api 2>/dev/null; exit $STATUS",
     "build:cf": "opennextjs-cloudflare build",
     "preview:cf": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy:cf": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
@@ -40,10 +43,13 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
+    "verify:ci": "npm run lint && npm run typecheck && npm run test && npm run build && npm run build:mobile",
     "swift-core:test": "swift test --package-path shared/swift-core"
   },
   "dependencies": {
+    "@capacitor/app": "^8.1.0",
     "@capacitor/core": "^8.3.0",
+    "@capacitor/keyboard": "^8.0.2",
     "@opennextjs/cloudflare": "^1.17.1",
     "clsx": "^2.1.1",
     "flexsearch": "^0.8.212",
