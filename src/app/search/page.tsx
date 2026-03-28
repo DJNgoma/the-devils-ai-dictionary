@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { DirectoryExplorer } from "@/components/directory-explorer";
 import { getCategoryStats, getSearchableEntries } from "@/lib/content";
 import { buildMetadata } from "@/lib/metadata";
@@ -10,7 +11,7 @@ export const metadata = buildMetadata({
 });
 
 type SearchPageProps = {
-  searchParams: Promise<{
+  searchParams?: Promise<{
     q?: string | string[];
     category?: string | string[];
     difficulty?: string | string[];
@@ -19,12 +20,7 @@ type SearchPageProps = {
   }>;
 };
 
-function firstValue(value?: string | string[]) {
-  return Array.isArray(value) ? value[0] : value;
-}
-
-export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const params = await searchParams;
+export default async function SearchPage(_props: SearchPageProps) {
   const [entries, categories] = await Promise.all([
     getSearchableEntries(),
     getCategoryStats(),
@@ -41,16 +37,21 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         </p>
       </section>
 
-      <DirectoryExplorer
-        entries={entries}
-        categories={categories.map(({ title, slug }) => ({ title, slug }))}
-        mode="search"
-        initialQuery={firstValue(params.q)}
-        initialCategory={firstValue(params.category)}
-        initialDifficulty={firstValue(params.difficulty)}
-        initialVendor={firstValue(params.vendor)}
-        initialDepth={firstValue(params.depth)}
-      />
+      <Suspense fallback={<DirectoryExplorerFallback />}>
+        <DirectoryExplorer
+          entries={entries}
+          categories={categories.map(({ title, slug }) => ({ title, slug }))}
+          mode="search"
+        />
+      </Suspense>
+    </div>
+  );
+}
+
+function DirectoryExplorerFallback() {
+  return (
+    <div className="surface p-8 text-center text-sm text-foreground-soft">
+      Loading the index.
     </div>
   );
 }

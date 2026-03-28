@@ -39,6 +39,7 @@ Useful checks:
 npm run lint
 npm run typecheck
 npm run build
+npm run build:mobile
 npm run build:cf
 ```
 
@@ -53,6 +54,11 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 - GitHub: [DJNgoma/the-devils-ai-dictionary](https://github.com/DJNgoma/the-devils-ai-dictionary)
 - License: [MIT](LICENSE)
 - Contributions: see [CONTRIBUTING.md](CONTRIBUTING.md) for terms-only pull requests and term suggestions
+
+## iOS app
+
+- The repo can produce a bundled iOS app via Capacitor for TestFlight.
+- See [docs/ios-testflight.md](docs/ios-testflight.md) for setup, sync, and archive steps.
 
 ## Project structure
 

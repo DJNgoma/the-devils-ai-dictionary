@@ -1,10 +1,17 @@
 import type { NextConfig } from "next";
 import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 
-initOpenNextCloudflareForDev();
+const isMobileExport = process.env.NEXT_OUTPUT_MODE === "export";
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+if (process.env.NODE_ENV === "development" && !isMobileExport) {
+  initOpenNextCloudflareForDev();
+}
+
+const nextConfig: NextConfig = isMobileExport
+  ? {
+      output: "export",
+      trailingSlash: true,
+    }
+  : {};
 
 export default nextConfig;

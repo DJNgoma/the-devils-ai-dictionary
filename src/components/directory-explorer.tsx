@@ -9,7 +9,7 @@ import {
   useState,
   useTransition,
 } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { EntryCard } from "@/components/entry-card";
 import type { SearchableEntry } from "@/lib/content";
 import { difficultyLabels, technicalDepthLabels } from "@/lib/site";
@@ -56,13 +56,24 @@ export function DirectoryExplorer({
 }: DirectoryExplorerProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
-  const [query, setQuery] = useState(initialQuery);
-  const [activeCategory, setActiveCategory] = useState(initialCategory);
-  const [activeDifficulty, setActiveDifficulty] = useState(initialDifficulty);
-  const [activeVendor, setActiveVendor] = useState(initialVendor);
-  const [activeDepth, setActiveDepth] = useState(initialDepth);
-  const [activeLetter, setActiveLetter] = useState(initialLetter);
+  const [query, setQuery] = useState(() => searchParams.get("q") ?? initialQuery);
+  const [activeCategory, setActiveCategory] = useState(
+    () => searchParams.get("category") ?? initialCategory,
+  );
+  const [activeDifficulty, setActiveDifficulty] = useState(
+    () => searchParams.get("difficulty") ?? initialDifficulty,
+  );
+  const [activeVendor, setActiveVendor] = useState(
+    () => searchParams.get("vendor") ?? initialVendor,
+  );
+  const [activeDepth, setActiveDepth] = useState(
+    () => searchParams.get("depth") ?? initialDepth,
+  );
+  const [activeLetter, setActiveLetter] = useState(
+    () => searchParams.get("letter") ?? initialLetter,
+  );
   const [results, setResults] = useState<SearchableEntry[]>(entries);
   const deferredQuery = useDeferredValue(query.trim());
   const searchStoreRef = useRef<EntryIndexStore | null>(null);

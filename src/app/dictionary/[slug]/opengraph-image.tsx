@@ -1,6 +1,8 @@
 import { ImageResponse } from "next/og";
 import { EntryShareCard } from "@/components/og-card";
-import { getEntryBySlug } from "@/lib/content";
+import { getAllEntries, getEntryBySlug } from "@/lib/content";
+
+export const dynamic = "force-static";
 
 export const size = {
   width: 1200,
@@ -8,6 +10,11 @@ export const size = {
 };
 
 export const contentType = "image/png";
+
+export async function generateStaticParams() {
+  const entries = await getAllEntries();
+  return entries.map(({ slug }) => ({ slug }));
+}
 
 type EntryOgImageProps = {
   params: Promise<{

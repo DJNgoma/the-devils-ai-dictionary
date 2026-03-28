@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { getAllEntries, getCategoryStats } from "@/lib/content";
 import { absoluteUrl } from "@/lib/metadata";
 
+export const dynamic = "force-static";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [entries, categories] = await Promise.all([
     getAllEntries(),

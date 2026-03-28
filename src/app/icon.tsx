@@ -1,6 +1,8 @@
 import { ImageResponse } from "next/og";
 import { BrandMark } from "@/components/brand-mark";
 
+export const dynamic = "force-static";
+
 export const size = {
   width: 512,
   height: 512,

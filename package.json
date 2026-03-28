@@ -16,10 +16,15 @@
     "prebuild": "npm run content:build",
     "dev": "next dev",
     "build": "next build",
+    "build:mobile": "NEXT_OUTPUT_MODE=export next build",
     "build:cf": "opennextjs-cloudflare build",
     "preview:cf": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy:cf": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "upload:cf": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "ios:assets": "npx @capacitor/assets generate --ios --iconBackgroundColor '#ff5b2c' --iconBackgroundColorDark '#140904' --splashBackgroundColor '#f4efe6' --splashBackgroundColorDark '#12100d'",
+    "ios:sync": "npm run build:mobile && npx cap sync ios",
+    "ios:open": "npx cap open ios",
+    "ios:prepare": "npm run ios:assets && npm run ios:sync",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "start": "next start",
     "lint": "eslint",
@@ -28,6 +33,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@capacitor/core": "^8.3.0",
     "@opennextjs/cloudflare": "^1.17.1",
     "clsx": "^2.1.1",
     "flexsearch": "^0.8.212",
@@ -39,6 +45,9 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^8.3.0",
+    "@capacitor/ios": "^8.3.0",
     "@tailwindcss/postcss": "^4",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
