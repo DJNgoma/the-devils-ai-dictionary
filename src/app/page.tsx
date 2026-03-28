@@ -3,6 +3,7 @@ import { CategoryGrid } from "@/components/category-grid";
 import { EntryCard } from "@/components/entry-card";
 import { FeaturedEntry } from "@/components/featured-entry";
 import { LetterGrid } from "@/components/letter-grid";
+import { NativePushPrompt } from "@/components/native-push-prompt";
 import { ResumeReadingCard } from "@/components/resume-reading-card";
 import { SearchBox } from "@/components/search-box";
 import {
@@ -53,23 +54,24 @@ export default async function HomePage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/random"
-                className="rounded-full border border-line px-5 py-3 text-sm font-medium text-foreground hover:border-accent hover:text-accent"
+                className="button button-secondary"
               >
                 Random entry
               </Link>
               <Link
                 href="/book"
-                className="rounded-full bg-accent px-5 py-3 text-sm font-medium text-white hover:translate-y-[-1px] hover:opacity-92"
+                className="button button-primary"
               >
                 Start with the book
               </Link>
               <Link
                 href="/dictionary"
-                className="rounded-full border border-line px-5 py-3 text-sm font-medium text-foreground hover:border-accent hover:text-accent"
+                className="button button-secondary"
               >
                 Browse the dictionary
               </Link>
             </div>
+            <NativePushPrompt />
             <ResumeReadingCard className="mt-6 max-w-2xl" compact hideIfCurrentHref="/" />
           </div>
           <aside className="surface p-5 sm:p-6">

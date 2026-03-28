@@ -1,6 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, IBM_Plex_Mono, Source_Serif_4 } from "next/font/google";
 import { BookmarkProvider } from "@/components/bookmark-provider";
+import { MobileAppBar } from "@/components/mobile-app-bar";
+import { MobileBottomNav } from "@/components/mobile-bottom-nav";
+import { MobileShellController } from "@/components/mobile-shell-controller";
+import { NativeCurrentWordBridge } from "@/components/native-current-word-bridge";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -34,6 +38,11 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
+  appleWebApp: {
+    capable: true,
+    title: siteConfig.shortName,
+    statusBarStyle: "default",
+  },
   alternates: {
     canonical: absoluteUrl("/"),
   },
@@ -58,6 +67,18 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [absoluteUrl("/opengraph-image")],
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  interactiveWidget: "resizes-content",
+  colorScheme: "light dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f4efe6" },
+    { media: "(prefers-color-scheme: dark)", color: "#12100d" },
+  ],
 };
 
 export default function RootLayout({
@@ -90,11 +111,16 @@ export default function RootLayout({
       <body className="min-h-full">
         <ThemeProvider>
           <BookmarkProvider>
-            <div className="site-chrome min-h-full">
-              <SiteHeader />
-              <main className="flex-1">{children}</main>
-              <SiteFooter />
-            </div>
+            <MobileShellController>
+              <NativeCurrentWordBridge />
+              <div className="site-chrome min-h-full">
+                <SiteHeader />
+                <MobileAppBar />
+                <main className="app-shell-main flex-1">{children}</main>
+                <SiteFooter />
+                <MobileBottomNav />
+              </div>
+            </MobileShellController>
           </BookmarkProvider>
         </ThemeProvider>
       </body>
