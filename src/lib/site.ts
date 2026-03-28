@@ -7,6 +7,9 @@ export const siteConfig = {
     "A sceptical field guide to the language machines, marketers, founders, and consultants use when they want to sound smarter than they are.",
   url:
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://thedevilsaidictionary.com",
+  repoUrl: "https://github.com/DJNgoma/the-devils-ai-dictionary",
+  contributeUrl:
+    "https://github.com/DJNgoma/the-devils-ai-dictionary/blob/main/CONTRIBUTING.md",
 };
 
 export const navigation = [

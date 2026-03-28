@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { buildMetadata } from "@/lib/metadata";
+import { siteConfig } from "@/lib/site";
 
 export const metadata = buildMetadata({
   title: "About this book",
@@ -53,6 +54,28 @@ export default function AboutPage() {
             </Link>
             . One brought the editorial point of view. The other two brought
             patience, speed, and a healthy willingness to be edited.
+          </p>
+          <p>
+            The source now lives in public at{" "}
+            <a
+              href={siteConfig.repoUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="link-underline text-foreground"
+            >
+              GitHub
+            </a>
+            . If the book has missed a term, you can open a pull request or start
+            with the{" "}
+            <a
+              href={siteConfig.contributeUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="link-underline text-foreground"
+            >
+              contribution guide
+            </a>
+            .
           </p>
         </div>
       </section>

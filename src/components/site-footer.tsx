@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BrandMark } from "@/components/brand-mark";
+import { siteConfig } from "@/lib/site";
 
 export function SiteFooter() {
   return (
@@ -55,6 +56,22 @@ export function SiteFooter() {
           <Link href="/search" className="hover:text-foreground">
             Search
           </Link>
+          <a
+            href={siteConfig.repoUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-foreground"
+          >
+            GitHub
+          </a>
+          <a
+            href={siteConfig.contributeUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-foreground"
+          >
+            Contribute a term
+          </a>
         </div>
       </div>
     </footer>

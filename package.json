@@ -2,6 +2,14 @@
   "name": "devils-ai-dictionary",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://thedevilsaidictionary.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DJNgoma/the-devils-ai-dictionary.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DJNgoma/the-devils-ai-dictionary/issues"
+  },
   "scripts": {
     "content:build": "node scripts/generate-content-index.mjs",
     "predev": "npm run content:build",

@@ -1,0 +1,38 @@
+name: Suggest a term
+description: Suggest a missing term for The Devil's AI Dictionary
+title: "Term suggestion: "
+labels:
+  - term-suggestion
+body:
+  - type: input
+    id: term
+    attributes:
+      label: Proposed term
+      description: What term do you think the dictionary is missing?
+      placeholder: Zero-something, some new product label, some cursed management phrase
+    validations:
+      required: true
+  - type: textarea
+    id: why-now
+    attributes:
+      label: Why it belongs now
+      description: Why does this term deserve an entry in the current AI conversation?
+      placeholder: Explain the cultural, technical, or business reason this term matters.
+    validations:
+      required: true
+  - type: textarea
+    id: meaning
+    attributes:
+      label: What people usually mean by it
+      description: Give the practical or cultural meaning, not a textbook definition.
+      placeholder: What uncomfortable reality sits underneath the term?
+    validations:
+      required: true
+  - type: textarea
+    id: examples
+    attributes:
+      label: Where you keep seeing it
+      description: Link examples, products, articles, decks, or screenshots if helpful.
+      placeholder: Drop a few references or contexts where the term keeps showing up.
+    validations:
+      required: false

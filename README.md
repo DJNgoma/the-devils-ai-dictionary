@@ -44,10 +44,21 @@ npm run build:cf
 
 The app runs at [http://localhost:3000](http://localhost:3000).
 
+## Repository conventions
+
+- Commit subjects should follow the dry, book-aware house style documented in [docs/commit-message-style.md](docs/commit-message-style.md).
+
+## Public repo
+
+- GitHub: [DJNgoma/the-devils-ai-dictionary](https://github.com/DJNgoma/the-devils-ai-dictionary)
+- License: [MIT](LICENSE)
+- Contributions: see [CONTRIBUTING.md](CONTRIBUTING.md) for terms-only pull requests and term suggestions
+
 ## Project structure
 
 ```text
 content/entries/                 Dictionary entries in MDX with frontmatter
+docs/commit-message-style.md     Commit-subject tone guide and history audit
 docs/content-authoring.md        Editorial and schema guide
 src/app/                         App Router pages, metadata routes, OG images
 src/components/                  UI components, search explorer, reading layout
