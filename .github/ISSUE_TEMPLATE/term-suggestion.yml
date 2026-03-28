@@ -1,8 +1,6 @@
 name: Suggest a term
 description: Suggest a missing term for The Devil's AI Dictionary
 title: "Term suggestion: "
-labels:
-  - term-suggestion
 body:
   - type: input
     id: term
