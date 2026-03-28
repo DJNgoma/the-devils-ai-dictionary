@@ -93,3 +93,16 @@ If those values are absent, release builds still complete with debug signing so 
 - Confirm theme persistence after relaunch.
 - Check external links leave the app correctly.
 - Watch search responsiveness and scrolling on the physical device before moving to open testing.
+
+## Pixel 5 spot-check
+
+- Install the same signed release APK on Android 13 / API 33.
+- Repeat the offline cold-launch check.
+- Manually tap through Home, Dictionary, Categories, Search, Random, and at least one entry detail page.
+- Confirm bookmark persistence after force-close and relaunch.
+- Confirm theme persistence after relaunch.
+
+## Physical-device note
+
+- `adb` install, launch, screenshots, and crash-buffer checks are reliable.
+- WebView tap automation is not reliable enough on physical devices to replace manual navigation and persistence QA, so keep those checks in the release todo.

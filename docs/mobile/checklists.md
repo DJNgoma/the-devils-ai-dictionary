@@ -26,13 +26,20 @@
 ## QA before wider testing
 
 - Offline cold launch after install
+- Manual physical-device route sweep inside the WebView for Home, Dictionary, Categories, Search, Random, and entry detail
 - Bookmark persistence across relaunch
 - Theme persistence across relaunch
+- Bookmark persistence on Samsung A30s and Pixel 5 after force-close and relaunch
+- Theme persistence on Samsung A30s and Pixel 5 after relaunch
 - Search responsiveness on Samsung A30s
+- Search and random-entry flow on Samsung A30s and Pixel 5
 - External link handling
 - Orientation and notch-safe layout sanity checks
 - Internal test install path
 - Open test install path
+
+Notes:
+`adb` screenshots and launch checks are reliable, but WebView tap automation is not consistent enough on physical devices to replace manual route and persistence QA.
 
 ## Solo-dev defaults
 
