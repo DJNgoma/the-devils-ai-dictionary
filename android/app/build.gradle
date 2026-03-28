@@ -1,0 +1,110 @@
+import groovy.json.JsonSlurper
+
+apply plugin: 'com.android.application'
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('keystore.properties')
+if (keystorePropertiesFile.exists()) {
+    keystorePropertiesFile.withInputStream { keystoreProperties.load(it) }
+}
+
+def packageJson = new JsonSlurper().parse(file('../../package.json'))
+def appVersionName = (findProperty('APP_VERSION_NAME')
+    ?: System.getenv('APP_VERSION_NAME')
+    ?: packageJson.version
+    ?: '0.1.0').toString()
+def appVersionCode = ((findProperty('APP_VERSION_CODE')
+    ?: System.getenv('APP_VERSION_CODE')
+    ?: '1') as String).toInteger()
+
+def releaseStoreFilePath = findProperty('RELEASE_STORE_FILE')
+    ?: keystoreProperties['RELEASE_STORE_FILE']
+    ?: System.getenv('ANDROID_KEYSTORE_FILE')
+def releaseStorePassword = findProperty('RELEASE_STORE_PASSWORD')
+    ?: keystoreProperties['RELEASE_STORE_PASSWORD']
+    ?: System.getenv('ANDROID_KEYSTORE_PASSWORD')
+def releaseKeyAlias = findProperty('RELEASE_KEY_ALIAS')
+    ?: keystoreProperties['RELEASE_KEY_ALIAS']
+    ?: System.getenv('ANDROID_KEY_ALIAS')
+def releaseKeyPassword = findProperty('RELEASE_KEY_PASSWORD')
+    ?: keystoreProperties['RELEASE_KEY_PASSWORD']
+    ?: System.getenv('ANDROID_KEY_PASSWORD')
+def hasReleaseSigning = [
+    releaseStoreFilePath,
+    releaseStorePassword,
+    releaseKeyAlias,
+    releaseKeyPassword,
+].every { it }
+
+android {
+    namespace = "com.djngoma.devilsaidictionary"
+    compileSdk = rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "com.djngoma.devilsaidictionary"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode appVersionCode
+        versionName appVersionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        aaptOptions {
+             // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
+             // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61
+            ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
+        }
+    }
+    signingConfigs {
+        release {
+            if (hasReleaseSigning) {
+                storeFile rootProject.file(releaseStoreFilePath)
+                storePassword releaseStorePassword
+                keyAlias releaseKeyAlias
+                keyPassword releaseKeyPassword
+            }
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig hasReleaseSigning ? signingConfigs.release : signingConfigs.debug
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+repositories {
+    flatDir{
+        dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
+    implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"
+    implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
+    implementation project(':capacitor-android')
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
+    implementation project(':capacitor-cordova-android-plugins')
+}
+
+apply from: 'capacitor.build.gradle'
+
+if (!hasReleaseSigning) {
+    logger.lifecycle(
+        'Release signing credentials not found; release builds will use debug signing. ' +
+        'Provide RELEASE_STORE_FILE / RELEASE_STORE_PASSWORD / RELEASE_KEY_ALIAS / ' +
+        'RELEASE_KEY_PASSWORD via android/keystore.properties or environment variables ' +
+        'for Play-ready artifacts.'
+    )
+}
+
+try {
+    def servicesJSON = file('google-services.json')
+    if (servicesJSON.text) {
+        apply plugin: 'com.google.gms.google-services'
+    }
+} catch(Exception e) {
+    logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
+}

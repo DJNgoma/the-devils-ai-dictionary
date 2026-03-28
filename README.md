@@ -20,6 +20,7 @@ The project is deliberately not a SaaS dashboard. It is structured as an online 
 - Next.js 16 App Router
 - TypeScript
 - Tailwind CSS v4
+- Capacitor shells for iOS and Android distribution
 - File-based entry content in `content/entries/*.mdx`
 - Generated content index for runtime-safe entry loading
 - Frontmatter parsing with `gray-matter`
@@ -40,6 +41,8 @@ npm run lint
 npm run typecheck
 npm run build
 npm run build:mobile
+npm run android:build:debug
+npm run swift-core:test
 npm run build:cf
 ```
 
@@ -55,10 +58,13 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 - License: [MIT](LICENSE)
 - Contributions: see [CONTRIBUTING.md](CONTRIBUTING.md) for terms-only pull requests and term suggestions
 
-## iOS app
+## Mobile apps
 
-- The repo can produce a bundled iOS app via Capacitor for TestFlight.
-- See [docs/ios-testflight.md](docs/ios-testflight.md) for setup, sync, and archive steps.
+- The repo can produce bundled iOS and Android apps via Capacitor from the same static export.
+- iOS distribution notes: [docs/ios-testflight.md](docs/ios-testflight.md)
+- Android setup, release, and Play testing notes: [docs/mobile/android-capacitor.md](docs/mobile/android-capacitor.md)
+- Native follow-on roadmap and shared Swift boundary: [docs/mobile/native-roadmap.md](docs/mobile/native-roadmap.md)
+- Solo-dev release and QA checklists: [docs/mobile/checklists.md](docs/mobile/checklists.md)
 
 ## Project structure
 
@@ -66,6 +72,9 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 content/entries/                 Dictionary entries in MDX with frontmatter
 docs/commit-message-style.md     Commit-subject tone guide and history audit
 docs/content-authoring.md        Editorial and schema guide
+docs/mobile/                     Mobile runbooks, release guides, and checklists
+native/                          Future native iOS and Android app homes
+shared/swift-core/               Shared Swift package for read-only domain logic
 src/app/                         App Router pages, metadata routes, OG images
 src/components/                  UI components, search explorer, reading layout
 scripts/generate-content-index.mjs

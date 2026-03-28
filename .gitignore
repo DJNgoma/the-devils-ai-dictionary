@@ -45,3 +45,11 @@ next-env.d.ts
 
 # OpenNext for Cloudflare build output
 .open-next
+
+# mobile signing material
+/android/keystore.properties
+/android/app/*.jks
+/android/app/*.keystore
+
+# swift package build output
+/shared/swift-core/.build/
