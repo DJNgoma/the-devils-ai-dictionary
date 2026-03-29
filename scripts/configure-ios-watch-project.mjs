@@ -424,14 +424,24 @@ const watchExtensionTargetUuid = ensureTarget(
   "com.djngoma.devilsaidictionary.watchkitapp.watchkitextension",
 );
 
-const currentWordPluginFile = ensureFileInGroup(project, appGroupKey, {
-  desiredPath: "CurrentWordPlugin.swift",
-  legacyPaths: ["App/CurrentWordPlugin.swift"],
+const nativeDictionaryModelFile = ensureFileInGroup(project, appGroupKey, {
+  desiredPath: "NativeDictionaryModel.swift",
+  legacyPaths: ["App/NativeDictionaryModel.swift"],
   lastKnownFileType: "sourcecode.swift",
 });
-const dictionaryBridgeViewControllerFile = ensureFileInGroup(project, appGroupKey, {
-  desiredPath: "DictionaryBridgeViewController.swift",
-  legacyPaths: ["App/DictionaryBridgeViewController.swift"],
+const nativeUIFile = ensureFileInGroup(project, appGroupKey, {
+  desiredPath: "NativeUI.swift",
+  legacyPaths: ["App/NativeUI.swift"],
+  lastKnownFileType: "sourcecode.swift",
+});
+const nativeDictionaryRootViewFile = ensureFileInGroup(project, appGroupKey, {
+  desiredPath: "NativeDictionaryRootView.swift",
+  legacyPaths: ["App/NativeDictionaryRootView.swift"],
+  lastKnownFileType: "sourcecode.swift",
+});
+const nativeEntryDetailViewFile = ensureFileInGroup(project, appGroupKey, {
+  desiredPath: "NativeEntryDetailView.swift",
+  legacyPaths: ["App/NativeEntryDetailView.swift"],
   lastKnownFileType: "sourcecode.swift",
 });
 const phoneCurrentWordManagerFile = ensureFileInGroup(project, appGroupKey, {
@@ -504,16 +514,14 @@ setGroupChildren(project, sharedAppleGroupKey, [
 ]);
 
 setGroupChildren(project, appGroupKey, [
-  "50379B222058CBB4000EE86E",
   "504EC3071FED79650016851F",
-  "504EC30B1FED79650016851F",
+  nativeDictionaryModelFile.fileRef,
+  nativeUIFile.fileRef,
+  nativeDictionaryRootViewFile.fileRef,
+  nativeEntryDetailViewFile.fileRef,
   "504EC30E1FED79650016851F",
   "504EC3101FED79650016851F",
   "504EC3131FED79650016851F",
-  "2FAD9762203C412B000D30F8",
-  "50B271D01FEDC1A000F3C39B",
-  currentWordPluginFile.fileRef,
-  dictionaryBridgeViewControllerFile.fileRef,
   phoneCurrentWordManagerFile.fileRef,
   "FA7D2814C3EB4EC8A6C7DADD",
 ]);
@@ -619,12 +627,20 @@ setPhaseFiles(project, appSources, [
     comment: "AppDelegate.swift in Sources",
   },
   {
-    fileRef: currentWordPluginFile.fileRef,
-    comment: "CurrentWordPlugin.swift in Sources",
+    fileRef: nativeDictionaryModelFile.fileRef,
+    comment: "NativeDictionaryModel.swift in Sources",
   },
   {
-    fileRef: dictionaryBridgeViewControllerFile.fileRef,
-    comment: "DictionaryBridgeViewController.swift in Sources",
+    fileRef: nativeUIFile.fileRef,
+    comment: "NativeUI.swift in Sources",
+  },
+  {
+    fileRef: nativeDictionaryRootViewFile.fileRef,
+    comment: "NativeDictionaryRootView.swift in Sources",
+  },
+  {
+    fileRef: nativeEntryDetailViewFile.fileRef,
+    comment: "NativeEntryDetailView.swift in Sources",
   },
   {
     fileRef: phoneCurrentWordManagerFile.fileRef,
@@ -650,24 +666,8 @@ setPhaseFiles(project, appResources, [
     comment: "LaunchScreen.storyboard in Resources",
   },
   {
-    fileRef: "50B271D01FEDC1A000F3C39B",
-    comment: "public in Resources",
-  },
-  {
     fileRef: "504EC30E1FED79650016851F",
     comment: "Assets.xcassets in Resources",
-  },
-  {
-    fileRef: "50379B222058CBB4000EE86E",
-    comment: "capacitor.config.json in Resources",
-  },
-  {
-    fileRef: "504EC30B1FED79650016851F",
-    comment: "Main.storyboard in Resources",
-  },
-  {
-    fileRef: "2FAD9762203C412B000D30F8",
-    comment: "config.xml in Resources",
   },
   {
     fileRef: entriesJsonFile.fileRef,

@@ -110,22 +110,7 @@ final class PhoneCurrentWordManager {
     }
 
     func handleIncomingURL(_ url: URL) -> Bool {
-        guard url.scheme == "devilsaidictionary" else {
-            return false
-        }
-
-        let components = url.pathComponents.filter { $0 != "/" }
-        let slug: String?
-
-        if url.host == "dictionary" {
-            slug = components.first
-        } else if components.first == "dictionary" {
-            slug = components.dropFirst().first
-        } else {
-            slug = nil
-        }
-
-        guard let slug,
+        guard let slug = navigationSlug(for: url),
               let record = catalogSnapshot?.currentWord(slug: slug, source: .phoneSync)
         else {
             return false
@@ -230,6 +215,28 @@ final class PhoneCurrentWordManager {
 
         if let slug = userInfo["dictionarySlug"] as? String, !slug.isEmpty {
             return slug
+        }
+
+        return nil
+    }
+
+    private func navigationSlug(for url: URL) -> String? {
+        let components = url.pathComponents.filter { $0 != "/" }
+
+        if url.scheme == "devilsaidictionary" {
+            if url.host == "dictionary" {
+                return components.first
+            }
+
+            if components.first == "dictionary" {
+                return components.dropFirst().first
+            }
+        }
+
+        if let host = url.host,
+           ["thedevilsaidictionary.com", "www.thedevilsaidictionary.com"].contains(host),
+           components.first == "dictionary" {
+            return components.dropFirst().first
         }
 
         return nil

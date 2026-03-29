@@ -7,18 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2FAD9763203C412B000D30F8 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD9762203C412B000D30F8 /* config.xml */; };
-		4D22ABE92AF431CB00220026 /* CapApp-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 4D22ABE82AF431CB00220026 /* CapApp-SPM */; };
-		50379B232058CBB4000EE86E /* capacitor.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 50379B222058CBB4000EE86E /* capacitor.config.json */; };
 		504EC3081FED79650016851F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
-		504EC30D1FED79650016851F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30B1FED79650016851F /* Main.storyboard in Resources */; };
 		504EC30F1FED79650016851F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30E1FED79650016851F /* Assets.xcassets */; };
 		504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard in Resources */; };
-		50B271D11FEDC1A000F3C39B /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
+		A11A0B1C2D3E4F5000010001 /* NativeDictionaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A0B1C2D3E4F5000010002 /* NativeDictionaryModel.swift */; };
+		A11A0B1C2D3E4F5000010003 /* NativeUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A0B1C2D3E4F5000010004 /* NativeUI.swift */; };
+		A11A0B1C2D3E4F5000010005 /* NativeDictionaryRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A0B1C2D3E4F5000010006 /* NativeDictionaryRootView.swift */; };
+		A11A0B1C2D3E4F5000010007 /* NativeEntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A0B1C2D3E4F5000010008 /* NativeEntryDetailView.swift */; };
 		4C0B203C19BD411DBC43E27E /* DictionaryWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 88C7C0B4CE4F4B34BB74EC8A /* DictionaryWatchApp.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DECE34D720984CE884047B06 /* DictionaryWatchExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E058C8A503E44D40ACD09FA4 /* DictionaryWatchExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		EB3946AA9E86414CA3B9F6D9 /* CurrentWordPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27955FF72800451196D9C411 /* CurrentWordPlugin.swift */; };
-		565614B669804A1FB72C5152 /* DictionaryBridgeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140558286F064C6A9290B7FD /* DictionaryBridgeViewController.swift */; };
 		F3D85ABA6B1B48A09F3AC84E /* PhoneCurrentWordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4AF14050814D11999B6715 /* PhoneCurrentWordManager.swift */; };
 		5F0EC474561C45C9850090BD /* DictionaryCatalogSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E48C54C79F480CA0278003 /* DictionaryCatalogSnapshot.swift */; };
 		DC5D3BA0CD7848EFAE1801CD /* CurrentWordStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3429C2B2DF6248EAA135B59A /* CurrentWordStorage.swift */; };
@@ -38,8 +35,6 @@
 		CD2D11091EE94F1CA596C31F /* entries.generated.json in Resources */ = {isa = PBXBuildFile; fileRef = A5EF882FAFD0470E9438EBAA /* entries.generated.json */; };
 		A647570E68AE442C9FF24C3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A37C6C20E014F8A9806E8AE /* Assets.xcassets */; };
 		CAB219FF9B3549F8B0EDF5F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30E1FED79650016851F /* Assets.xcassets */; };
-		A0E80AF0E85B42ACB6971187 /* CurrentWordPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E8DC7271B345F6B4D315F8 /* CurrentWordPlugin.swift */; };
-		B9234AE8E53741F4B4EEB80B /* DictionaryBridgeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0F618A43F746FEAF33BE78 /* DictionaryBridgeViewController.swift */; };
 		60A3AE5544024CDEA4CEE4FF /* PhoneCurrentWordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337FF8E79075480984753FBA /* PhoneCurrentWordManager.swift */; };
 		BB5A945B1EF2483A80427432 /* DictionaryCatalogSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0622FDF8F74772ABE4804F /* DictionaryCatalogSnapshot.swift */; };
 		A2F93C4880CB41FEB3A8655C /* CurrentWordStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2A300C91341149474E2A5 /* CurrentWordStorage.swift */; };
@@ -49,26 +44,22 @@
 		F2C4A63E72534F3299512A24 /* DictionaryWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC386EF29354A19B18722CB /* DictionaryWatchApp.swift */; };
 		A6ED907677464ACEAC1BD56F /* WatchCurrentWordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B3CB0F98754C0E8576F853 /* WatchCurrentWordModel.swift */; };
 		17486EF499F14BD99EC648E0 /* WatchCurrentWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A153B00D55D046249A1C0BC9 /* WatchCurrentWordView.swift */; };
-		EBA1F70F339F40E2AE480A7E /* CurrentWordPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27955FF72800451196D9C411 /* CurrentWordPlugin.swift */; };
-		F9D2B6B4070B4373BF0525A4 /* DictionaryBridgeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140558286F064C6A9290B7FD /* DictionaryBridgeViewController.swift */; };
 		3097D82564D14124ADEA5237 /* PhoneCurrentWordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4AF14050814D11999B6715 /* PhoneCurrentWordManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2FAD9762203C412B000D30F8 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
-		50379B222058CBB4000EE86E /* capacitor.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = capacitor.config.json; sourceTree = "<group>"; };
 		504EC3041FED79650016851F /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		504EC3071FED79650016851F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		504EC30C1FED79650016851F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		504EC30E1FED79650016851F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		504EC3111FED79650016851F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		504EC3131FED79650016851F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		50B271D01FEDC1A000F3C39B /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = "<group>"; };
+		A11A0B1C2D3E4F5000010002 /* NativeDictionaryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeDictionaryModel.swift; sourceTree = "<group>"; };
+		A11A0B1C2D3E4F5000010004 /* NativeUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeUI.swift; sourceTree = "<group>"; };
+		A11A0B1C2D3E4F5000010006 /* NativeDictionaryRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeDictionaryRootView.swift; sourceTree = "<group>"; };
+		A11A0B1C2D3E4F5000010008 /* NativeEntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEntryDetailView.swift; sourceTree = "<group>"; };
 		958DCC722DB07C7200EA8C5F /* debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = debug.xcconfig; path = ../debug.xcconfig; sourceTree = SOURCE_ROOT; };
 		88C7C0B4CE4F4B34BB74EC8A /* DictionaryWatchApp.app */ = {isa = PBXFileReference; name = "DictionaryWatchApp.app"; path = DictionaryWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; fileEncoding = undefined; explicitFileType = wrapper.application; includeInIndex = 0; };
 		E058C8A503E44D40ACD09FA4 /* DictionaryWatchExtension.appex */ = {isa = PBXFileReference; name = "DictionaryWatchExtension.appex"; path = DictionaryWatchExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; fileEncoding = undefined; explicitFileType = wrapper.app-extension; includeInIndex = 0; };
-		27955FF72800451196D9C411 /* CurrentWordPlugin.swift */ = {isa = PBXFileReference; name = "CurrentWordPlugin.swift"; path = CurrentWordPlugin.swift; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; includeInIndex = 0; };
-		140558286F064C6A9290B7FD /* DictionaryBridgeViewController.swift */ = {isa = PBXFileReference; name = "DictionaryBridgeViewController.swift"; path = DictionaryBridgeViewController.swift; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; includeInIndex = 0; };
 		DB4AF14050814D11999B6715 /* PhoneCurrentWordManager.swift */ = {isa = PBXFileReference; name = "PhoneCurrentWordManager.swift"; path = PhoneCurrentWordManager.swift; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; includeInIndex = 0; };
 		FA7D2814C3EB4EC8A6C7DADD /* App.entitlements */ = {isa = PBXFileReference; name = "App.entitlements"; path = App.entitlements; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		31E48C54C79F480CA0278003 /* DictionaryCatalogSnapshot.swift */ = {isa = PBXFileReference; name = "DictionaryCatalogSnapshot.swift"; path = DictionaryCatalogSnapshot.swift; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; includeInIndex = 0; };
@@ -81,8 +72,6 @@
 		262745DCE04C405C98020C99 /* DictionaryWatchApp.swift */ = {isa = PBXFileReference; name = "DictionaryWatchApp.swift"; path = DictionaryWatchApp.swift; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; includeInIndex = 0; };
 		E69D7BDD65F84247B51E31CE /* WatchCurrentWordModel.swift */ = {isa = PBXFileReference; name = "WatchCurrentWordModel.swift"; path = WatchCurrentWordModel.swift; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; includeInIndex = 0; };
 		CC95557AA5394A9D84B8E4C8 /* WatchCurrentWordView.swift */ = {isa = PBXFileReference; name = "WatchCurrentWordView.swift"; path = WatchCurrentWordView.swift; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; includeInIndex = 0; };
-		F0E8DC7271B345F6B4D315F8 /* CurrentWordPlugin.swift */ = {isa = PBXFileReference; path = CurrentWordPlugin.swift; sourceTree = "<group>"; lastKnownFileType = sourcecode.swift; };
-		7F0F618A43F746FEAF33BE78 /* DictionaryBridgeViewController.swift */ = {isa = PBXFileReference; path = DictionaryBridgeViewController.swift; sourceTree = "<group>"; lastKnownFileType = sourcecode.swift; };
 		337FF8E79075480984753FBA /* PhoneCurrentWordManager.swift */ = {isa = PBXFileReference; path = PhoneCurrentWordManager.swift; sourceTree = "<group>"; lastKnownFileType = sourcecode.swift; };
 		2DD36CC130044C3FB7F102B5 /* App.entitlements */ = {isa = PBXFileReference; path = App.entitlements; sourceTree = "<group>"; };
 		9B0622FDF8F74772ABE4804F /* DictionaryCatalogSnapshot.swift */ = {isa = PBXFileReference; path = DictionaryCatalogSnapshot.swift; sourceTree = "<group>"; lastKnownFileType = sourcecode.swift; };
@@ -100,7 +89,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D22ABE92AF431CB00220026 /* CapApp-SPM in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,16 +135,14 @@
 		504EC3061FED79650016851F /* App */ = {
 			isa = PBXGroup;
 			children = (
-				50379B222058CBB4000EE86E /* capacitor.config.json */,
 				504EC3071FED79650016851F /* AppDelegate.swift */,
-				504EC30B1FED79650016851F /* 504EC30B1FED79650016851F */,
+				A11A0B1C2D3E4F5000010002 /* NativeDictionaryModel.swift */,
+				A11A0B1C2D3E4F5000010004 /* NativeUI.swift */,
+				A11A0B1C2D3E4F5000010006 /* NativeDictionaryRootView.swift */,
+				A11A0B1C2D3E4F5000010008 /* NativeEntryDetailView.swift */,
 				504EC30E1FED79650016851F /* Assets.xcassets */,
 				504EC3101FED79650016851F /* 504EC3101FED79650016851F */,
 				504EC3131FED79650016851F /* Info.plist */,
-				2FAD9762203C412B000D30F8 /* config.xml */,
-				50B271D01FEDC1A000F3C39B /* public */,
-				27955FF72800451196D9C411 /* CurrentWordPlugin.swift */,
-				140558286F064C6A9290B7FD /* DictionaryBridgeViewController.swift */,
 				DB4AF14050814D11999B6715 /* PhoneCurrentWordManager.swift */,
 				FA7D2814C3EB4EC8A6C7DADD /* App.entitlements */,
 			);
@@ -224,7 +210,6 @@
 			);
 			name = App;
 			packageProductDependencies = (
-				4D22ABE82AF431CB00220026 /* CapApp-SPM */,
 			);
 			productName = App;
 			productReference = 504EC3041FED79650016851F /* App.app */;
@@ -305,7 +290,6 @@
 			);
 			mainGroup = 504EC2FB1FED79650016851F;
 			packageReferences = (
-				D4C12C0A2AAA248700AAC8A2 /* XCLocalSwiftPackageReference "CapApp-SPM" */,
 			);
 			productRefGroup = 504EC3051FED79650016851F /* Products */;
 			projectDirPath = "";
@@ -324,11 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */,
-				50B271D11FEDC1A000F3C39B /* public in Resources */,
 				504EC30F1FED79650016851F /* Assets.xcassets in Resources */,
-				50379B232058CBB4000EE86E /* capacitor.config.json in Resources */,
-				504EC30D1FED79650016851F /* Main.storyboard in Resources */,
-				2FAD9763203C412B000D30F8 /* config.xml in Resources */,
 				EEBB18DD53EB44E189114651 /* entries.generated.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -357,8 +337,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				504EC3081FED79650016851F /* AppDelegate.swift in Sources */,
-				EBA1F70F339F40E2AE480A7E /* CurrentWordPlugin.swift in Sources */,
-				F9D2B6B4070B4373BF0525A4 /* DictionaryBridgeViewController.swift in Sources */,
+				A11A0B1C2D3E4F5000010001 /* NativeDictionaryModel.swift in Sources */,
+				A11A0B1C2D3E4F5000010003 /* NativeUI.swift in Sources */,
+				A11A0B1C2D3E4F5000010005 /* NativeDictionaryRootView.swift in Sources */,
+				A11A0B1C2D3E4F5000010007 /* NativeEntryDetailView.swift in Sources */,
 				3097D82564D14124ADEA5237 /* PhoneCurrentWordManager.swift in Sources */,
 				BB5A945B1EF2483A80427432 /* DictionaryCatalogSnapshot.swift in Sources */,
 				A2F93C4880CB41FEB3A8655C /* CurrentWordStorage.swift in Sources */,
@@ -382,14 +364,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		504EC30B1FED79650016851F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				504EC30C1FED79650016851F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		504EC3101FED79650016851F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -704,21 +678,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCLocalSwiftPackageReference section */
-		D4C12C0A2AAA248700AAC8A2 /* XCLocalSwiftPackageReference "CapApp-SPM" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = "CapApp-SPM";
-		};
-/* End XCLocalSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		4D22ABE82AF431CB00220026 /* CapApp-SPM */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4C12C0A2AAA248700AAC8A2 /* XCLocalSwiftPackageReference "CapApp-SPM" */;
-			productName = "CapApp-SPM";
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		8322F8F290414794BE2FA76D /* Embed Watch Content */ = {

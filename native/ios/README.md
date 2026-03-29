@@ -1,9 +1,5 @@
 # native/ios
 
-Reserved for the future SwiftUI app.
+The shipping native iPhone app now lives in `ios/App/App`.
 
-Constraints:
-
-- keep bundle identifier `com.djngoma.devilsaidictionary`
-- consume the bundled content snapshot first
-- adopt `shared/swift-core` only for read-only domain logic
+This directory remains as a marker for the original follow-on plan, but the real source of truth for iOS is the existing Xcode target so the bundle identifier, watch companion, and push capabilities continue to upgrade in place.

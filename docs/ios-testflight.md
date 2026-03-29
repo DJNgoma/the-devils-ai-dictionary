@@ -1,6 +1,6 @@
 # iOS and TestFlight
 
-This repo ships the iOS app as a Capacitor wrapper around a statically exported build of the site. The native app bundles the generated `out/` directory, so it does not depend on a production webview URL at runtime.
+This repo now ships the iPhone app as a native SwiftUI client inside `ios/App/App`. It reads the bundled `src/generated/entries.generated.json` snapshot directly, so it does not depend on a production webview URL or a synced `out/` directory at runtime.
 
 ## First-time setup
 
@@ -10,13 +10,7 @@ This repo ships the iOS app as a Capacitor wrapper around a statically exported 
    npm install
    ```
 
-2. Create the native iOS project once:
-
-   ```bash
-   npx cap add ios
-   ```
-
-3. Generate icons and splash assets from `assets/logo.svg`:
+2. Generate icons and splash assets from `assets/logo.svg`:
 
    ```bash
    npm run ios:assets
@@ -24,7 +18,7 @@ This repo ships the iOS app as a Capacitor wrapper around a statically exported 
 
 ## Repeatable update flow
 
-When the web app changes and you want a fresh iOS build:
+When content or app code changes and you want a fresh iOS build:
 
 ```bash
 npm run ios:prepare
@@ -32,9 +26,8 @@ npm run ios:prepare
 
 That command:
 
-- statically exports the Next.js app into `out/`
-- syncs the bundled web assets into `ios/App/App/public`
-- updates Capacitor metadata for the iOS target
+- regenerates the bundled content snapshot
+- refreshes icons and splash assets for the native target
 
 Then open Xcode:
 
@@ -57,6 +50,6 @@ Inside Xcode:
 
 ## Notes
 
-- The remaining gate for an actual TestFlight upload is Apple signing and App Store Connect metadata, not the web bundle.
-- `npm run build:mobile` uses `NEXT_OUTPUT_MODE=export`, which turns the site into bundled static assets suitable for Capacitor.
+- The remaining gate for an actual TestFlight upload is Apple signing and App Store Connect metadata, not a web bundle sync.
+- `src/generated/entries.generated.json` is copied directly into the app target, so `npm run content:build` is the iOS content prerequisite.
 - The ordinary website deploy remains the Cloudflare path documented in the main README.
