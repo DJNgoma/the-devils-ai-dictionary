@@ -1,0 +1,22 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "5CND4GK432.com.djngoma.devilsaidictionary"
+        ],
+        "components": [
+          {
+            "/": "/dictionary/*",
+            "comment": "Entry deep links"
+          }
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": [
+      "5CND4GK432.com.djngoma.devilsaidictionary"
+    ]
+  }
+}

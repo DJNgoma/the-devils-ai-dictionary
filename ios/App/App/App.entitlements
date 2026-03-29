@@ -4,5 +4,10 @@
 <dict>
 	<key>aps-environment</key>
 	<string>$(APS_ENVIRONMENT)</string>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:thedevilsaidictionary.com</string>
+		<string>applinks:www.thedevilsaidictionary.com</string>
+	</array>
 </dict>
 </plist>
