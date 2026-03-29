@@ -2,7 +2,7 @@
 
 This repo now ships a first-pass Apple stack with:
 
-- APNs registration in the Capacitor iPhone host
+- APNs registration in the native iPhone app
 - a persisted native `CurrentWordRecord` store on phone and watch
 - watch sync through `WCSession.updateApplicationContext`
 - a Cloudflare D1-backed installation registry

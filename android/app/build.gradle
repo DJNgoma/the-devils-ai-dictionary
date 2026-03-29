@@ -1,6 +1,8 @@
 import groovy.json.JsonSlurper
 
 apply plugin: 'com.android.application'
+apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('keystore.properties')
@@ -35,10 +37,25 @@ def hasReleaseSigning = [
     releaseKeyAlias,
     releaseKeyPassword,
 ].every { it }
+def generatedNativeAssetsDir = "$buildDir/generated/native-assets"
 
 android {
     namespace = "com.djngoma.devilsaidictionary"
     compileSdk = rootProject.ext.compileSdkVersion
+
+    buildFeatures {
+        compose true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
+    }
+
+    kotlinOptions {
+        jvmTarget = '21'
+    }
+
     defaultConfig {
         applicationId "com.djngoma.devilsaidictionary"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -69,7 +86,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main.assets.srcDirs += [generatedNativeAssetsDir]
+    }
 }
+
+tasks.register('copyNativeCatalog', Copy) {
+    from('../../src/generated/entries.generated.json')
+    into(generatedNativeAssetsDir)
+}
+
+preBuild.dependsOn(tasks.named('copyNativeCatalog'))
 
 repositories {
     flatDir{
@@ -79,13 +107,26 @@ repositories {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "androidx.activity:activity-compose:$androidxActivityVersion"
     implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
     implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"
+    implementation "androidx.core:core-ktx:$androidxCoreVersion"
     implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
+    def composeBom = platform("androidx.compose:compose-bom:$composeBomVersion")
+    implementation composeBom
+    androidTestImplementation composeBom
+    implementation "androidx.compose.foundation:foundation"
+    implementation "androidx.compose.material:material-icons-extended"
+    implementation "androidx.compose.material3:material3"
+    implementation "androidx.compose.ui:ui"
+    implementation "androidx.compose.ui:ui-tooling-preview"
     implementation project(':capacitor-android')
+    debugImplementation "androidx.compose.ui:ui-tooling"
+    debugImplementation "androidx.compose.ui:ui-test-manifest"
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4"
     implementation project(':capacitor-cordova-android-plugins')
 }
 

@@ -16,7 +16,7 @@
 ## Store metadata
 
 - Android screenshots for phone portrait
-- iPhone screenshots for the current Capacitor shell
+- iPhone screenshots for the native iPhone app
 - Android feature graphic
 - short description
 - full description
@@ -26,7 +26,8 @@
 ## QA before wider testing
 
 - Offline cold launch after install
-- Manual physical-device route sweep inside the WebView for Home, Dictionary, Categories, Search, Random, and entry detail
+- Manual physical-device route sweep on native iPhone for Home, Browse, Search, Saved, random entry, and entry detail
+- Manual physical-device route sweep inside the Android WebView for Home, Dictionary, Categories, Search, Random, and entry detail
 - Bookmark persistence across relaunch
 - Theme persistence across relaunch
 - Bookmark persistence on Samsung A30s and Pixel 5 after force-close and relaunch
@@ -51,4 +52,4 @@ Notes:
 ## Backlog
 
 - Replace the deprecated Next.js `middleware` convention with the current `proxy` convention before the next major framework churn forces it.
-- Add native iOS and native Android CI jobs once those projects move beyond placeholders.
+- Add a native iOS CI build now that the phone app is real, and a native Android CI job once that project stops being a placeholder.

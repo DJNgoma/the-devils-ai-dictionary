@@ -1,6 +1,6 @@
 # Mobile design system
 
-This document is the working UI contract for the Capacitor shell and the future native replacements.
+This document is the shared mobile UI contract for the shipped native iPhone app and the Android web shell.
 
 ## Principles
 
@@ -9,7 +9,7 @@ This document is the working UI contract for the Capacitor shell and the future 
 - Editorial, but app-like
 - Low-friction thumb reach
 - Light enough for Samsung A30s-class hardware
-- Structured to map cleanly to SwiftUI and Compose later
+- Structured to map cleanly across SwiftUI today and Compose later
 
 ## Tokens
 
@@ -83,7 +83,7 @@ This document is the working UI contract for the Capacitor shell and the future 
 - Success: lightweight inline acknowledgement
 - Error: plain explanation plus recovery route
 
-## Capacitor shell rules
+## Android web-shell rules
 
 - Use `viewportFit: cover`
 - Use `interactiveWidget: resizes-content`

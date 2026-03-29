@@ -2,9 +2,9 @@
 
 This repo keeps the shipping web app at the root and treats mobile as three related tracks:
 
-- Capacitor iOS for near-term App Store delivery
+- native iPhone delivery in the existing `ios/App` target
 - Capacitor Android for near-term Play internal/open testing and direct APK installs
-- Native follow-on apps in `native/ios` and `native/android`, with shared read-only Swift domain logic in `shared/swift-core`
+- shared read-only Swift domain logic in `shared/swift-core`, with Android native still a future track
 
 ## One-command workflows
 

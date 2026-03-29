@@ -1,9 +1,9 @@
 # native/android
 
-Reserved for the future Kotlin/Compose app.
+Reserved for the eventual extraction of the Android native app into its own project.
 
-Constraints:
+For now, the active Android native migration lives inside the existing host app:
 
-- keep application ID `com.djngoma.devilsaidictionary`
-- use Kotlin and Compose for UI and app lifecycle
-- integrate `shared/swift-core` only through a narrow, low-churn interop layer
+- `android/app/src/main/java/com/djngoma/devilsaidictionary/nativeapp`
+
+That mirrors the current iOS migration pattern, where the native views also still live beside the shipped Capacitor host rather than in `native/ios`.

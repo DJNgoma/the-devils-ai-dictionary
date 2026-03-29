@@ -20,7 +20,7 @@ The project is deliberately not a SaaS dashboard. It is structured as an online 
 - Next.js 16 App Router
 - TypeScript
 - Tailwind CSS v4
-- Capacitor shells for iOS and Android distribution
+- Native SwiftUI iPhone app and a Capacitor Android shell
 - File-based entry content in `content/entries/*.mdx`
 - Generated content index for runtime-safe entry loading
 - Frontmatter parsing with `gray-matter`
@@ -61,7 +61,7 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 
 ## Mobile apps
 
-- The repo can produce bundled iOS and Android apps via Capacitor from the same static export.
+- The repo ships a native SwiftUI iPhone app and a Capacitor Android shell.
 - iOS distribution notes: [docs/ios-testflight.md](docs/ios-testflight.md)
 - Android setup, release, and Play testing notes: [docs/mobile/android-capacitor.md](docs/mobile/android-capacitor.md)
 - iOS push and Apple Watch companion runbook: [docs/mobile/ios-watch-push-v1.md](docs/mobile/ios-watch-push-v1.md)
@@ -77,11 +77,11 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 
 ### Design & Mobile UX
 
-- Mobile is now the primary shell inside Capacitor. The desktop header remains on larger screens, while phones use a compact app bar and a bottom navigation bar for `Home`, `Browse`, `Search`, and `Saved`.
-- Safe areas are handled explicitly for iOS and Android. The app relies on Capacitor 8 `SystemBars` CSS inset injection as a fallback for older Android WebViews where raw `env(safe-area-inset-*)` values are unreliable.
+- Mobile is now the primary shell. iPhone uses the native SwiftUI client, while Android still rides the Capacitor shell. Both keep the same `Home`, `Browse`, `Search`, and `Saved` information architecture.
+- Safe areas are handled explicitly on both platforms. Android still relies on Capacitor 8 `SystemBars` CSS inset injection as a fallback for older WebViews where raw `env(safe-area-inset-*)` values are unreliable.
 - Search and dictionary filtering are phone-first: the search field stays visible, while secondary filters move into a bottom sheet to preserve thumb reach and reading space.
 - Surface treatments are intentionally lighter on mobile than desktop. This keeps the editorial identity without asking Samsung A30s-class hardware to render a blur festival every time a card scrolls past.
-- The current web shell is structured to map cleanly to future native SwiftUI and Compose shells. Navigation semantics, saved-place behavior, and token names are meant to survive that handoff.
+- Navigation semantics, saved-place behavior, and token names are shared across the shipped native iPhone app and the Android web shell so the eventual Android native handoff stays boring.
 
 ## Project structure
 
@@ -90,7 +90,8 @@ content/entries/                 Dictionary entries in MDX with frontmatter
 docs/commit-message-style.md     Commit-subject tone guide and history audit
 docs/content-authoring.md        Editorial and schema guide
 docs/mobile/                     Mobile runbooks, release guides, and checklists
-native/                          Future native iOS and Android app homes
+ios/App/App/                    Native iPhone app target and SwiftUI shell
+native/                          Android native placeholder and historical mobile notes
 shared/swift-core/               Shared Swift package for read-only domain logic
 src/app/                         App Router pages, metadata routes, OG images
 src/components/                  UI components, search explorer, reading layout

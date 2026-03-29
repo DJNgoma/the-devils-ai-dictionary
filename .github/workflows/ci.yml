@@ -18,7 +18,7 @@ jobs:
       - run: npm ci
       - run: npm run verify:ci
 
-  capacitor-android:
+  android-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
