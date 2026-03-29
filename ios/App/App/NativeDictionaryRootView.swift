@@ -6,6 +6,7 @@ import DevilsAIDictionaryCore
 
 struct NativeDictionaryRootView: View {
     @StateObject private var model: NativeDictionaryModel
+    @ObservedObject private var themeManager = ThemeManager.shared
 
     init(model: NativeDictionaryModel) {
         _model = StateObject(wrappedValue: model)
@@ -50,6 +51,8 @@ struct NativeDictionaryRootView: View {
             .tag(NativeDictionaryModel.AppTab.saved)
         }
         .tint(NativePalette.accent)
+        .id(themeManager.current)
+        .preferredColorScheme(themeManager.current.colorScheme)
         .sheet(item: $model.activeSheet) { sheet in
             NavigationView {
                 switch sheet {
@@ -237,7 +240,7 @@ private struct NativeHomeView: View {
         .navigationTitle("Home")
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
-            NativeOverflowToolbar(model: model)
+            NativeOverflowToolbar(model: model, themeManager: .shared)
         }
     }
 }
@@ -328,7 +331,7 @@ private struct NativeBrowseView: View {
         .navigationTitle("Browse")
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
-            NativeOverflowToolbar(model: model)
+            NativeOverflowToolbar(model: model, themeManager: .shared)
         }
     }
 }
@@ -382,7 +385,7 @@ private struct NativeSearchView: View {
         .navigationBarTitleDisplayMode(.large)
         .searchable(text: $model.searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: "Look up the phrase before it colonises the meeting")
         .toolbar {
-            NativeOverflowToolbar(model: model)
+            NativeOverflowToolbar(model: model, themeManager: .shared)
         }
         .sheet(isPresented: $showFilters) {
             NavigationView {
@@ -468,7 +471,7 @@ private struct NativeSavedView: View {
         .navigationTitle("Saved")
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
-            NativeOverflowToolbar(model: model)
+            NativeOverflowToolbar(model: model, themeManager: .shared)
         }
     }
 }
@@ -749,6 +752,7 @@ private struct NativeMissingEntryView: View {
 
 private struct NativeOverflowToolbar: ToolbarContent {
     @ObservedObject var model: NativeDictionaryModel
+    @ObservedObject var themeManager: ThemeManager
 
     var body: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
@@ -767,6 +771,24 @@ private struct NativeOverflowToolbar: ToolbarContent {
 
                 Button("Random entry") {
                     model.openRandomEntry()
+                }
+
+                Divider()
+
+                Picker(selection: Binding(
+                    get: { themeManager.current },
+                    set: { themeManager.setTheme($0) }
+                )) {
+                    ForEach(SiteTheme.allCases) { theme in
+                        Label {
+                            Text(theme.label)
+                        } icon: {
+                            Image(systemName: theme == .night ? "moon" : "paintpalette")
+                        }
+                        .tag(theme)
+                    }
+                } label: {
+                    Label("Theme", systemImage: "paintpalette")
                 }
             } label: {
                 Image(systemName: "ellipsis.circle")

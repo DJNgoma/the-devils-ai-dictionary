@@ -5,80 +5,149 @@ import UIKit
 import DevilsAIDictionaryCore
 #endif
 
+// MARK: - Theme system
+
+enum SiteTheme: String, CaseIterable, Identifiable, Hashable {
+    case book, codex, absolutely, night
+
+    var id: String { rawValue }
+
+    var label: String {
+        switch self {
+        case .book: "Book"
+        case .codex: "Codex"
+        case .absolutely: "Absolutely"
+        case .night: "Night"
+        }
+    }
+
+    var colorScheme: ColorScheme {
+        self == .night ? .dark : .light
+    }
+
+    var swatches: (Color, Color, Color) {
+        switch self {
+        case .book: (Self.hex("b2552f"), Self.hex("26594a"), Self.hex("f4efe6"))
+        case .codex: (Self.hex("0169cc"), Self.hex("751ed9"), Self.hex("f3f8fd"))
+        case .absolutely: (Self.hex("cc7d5e"), Self.hex("f9f9f7"), Self.hex("2d2d2b"))
+        case .night: (Self.hex("e4864d"), Self.hex("5ec9a1"), Self.hex("12100d"))
+        }
+    }
+
+    static func hex(_ v: String) -> Color {
+        var rgb: UInt64 = 0
+        Scanner(string: v).scanHexInt64(&rgb)
+        return Color(
+            red: Double((rgb >> 16) & 0xFF) / 255,
+            green: Double((rgb >> 8) & 0xFF) / 255,
+            blue: Double(rgb & 0xFF) / 255
+        )
+    }
+}
+
+struct ThemeColorSet {
+    let paper: Color
+    let panel: Color
+    let panelStrong: Color
+    let border: Color
+    let accent: Color
+    let accentMuted: Color
+    let success: Color
+    let warning: Color
+    let mutedText: Color
+
+    static func palette(for theme: SiteTheme) -> ThemeColorSet {
+        switch theme {
+        case .book:
+            return ThemeColorSet(
+                paper: .hex("f4efe6"),
+                panel: .hex("fffbf5"),
+                panelStrong: .hex("efe7da"),
+                border: .hex("d4c2b0"),
+                accent: .hex("b2552f"),
+                accentMuted: .hex("f7e0cf"),
+                success: .hex("26594a"),
+                warning: .hex("a63b32"),
+                mutedText: .hex("65584c")
+            )
+        case .codex:
+            return ThemeColorSet(
+                paper: .hex("f3f8fd"),
+                panel: .hex("ffffff"),
+                panelStrong: .hex("e9f1f9"),
+                border: .hex("c4d5e8"),
+                accent: .hex("0169cc"),
+                accentMuted: .hex("d6e8f5"),
+                success: .hex("00a240"),
+                warning: .hex("e02e2a"),
+                mutedText: .hex("516273")
+            )
+        case .absolutely:
+            return ThemeColorSet(
+                paper: .hex("f6f3ee"),
+                panel: .hex("f9f9f7"),
+                panelStrong: .hex("f0ece4"),
+                border: .hex("ddd0c3"),
+                accent: .hex("cc7d5e"),
+                accentMuted: .hex("f5e2d6"),
+                success: .hex("00c853"),
+                warning: .hex("ff5f38"),
+                mutedText: .hex("6e685f")
+            )
+        case .night:
+            return ThemeColorSet(
+                paper: .hex("12100d"),
+                panel: .hex("1c1814"),
+                panelStrong: .hex("211c17"),
+                border: .hex("4a3d38"),
+                accent: .hex("e4864d"),
+                accentMuted: .hex("663019"),
+                success: .hex("5ec9a1"),
+                warning: .hex("f08a7d"),
+                mutedText: .hex("b8a893")
+            )
+        }
+    }
+}
+
+private extension Color {
+    static func hex(_ v: String) -> Color { SiteTheme.hex(v) }
+}
+
+@MainActor
+final class ThemeManager: ObservableObject {
+    static let shared = ThemeManager()
+
+    @Published private(set) var current: SiteTheme
+    @Published private(set) var colors: ThemeColorSet
+
+    private static let storageKey = "site-theme"
+
+    private init() {
+        let stored = UserDefaults.standard.string(forKey: Self.storageKey) ?? "book"
+        let theme = SiteTheme(rawValue: stored) ?? .book
+        current = theme
+        colors = ThemeColorSet.palette(for: theme)
+    }
+
+    func setTheme(_ theme: SiteTheme) {
+        current = theme
+        colors = ThemeColorSet.palette(for: theme)
+        UserDefaults.standard.set(theme.rawValue, forKey: Self.storageKey)
+    }
+}
+
+@MainActor
 enum NativePalette {
-    static let paper = Color(uiColor: UIColor { trait in
-        switch trait.userInterfaceStyle {
-        case .dark:
-            return UIColor(red: 0.09, green: 0.08, blue: 0.07, alpha: 1)
-        default:
-            return UIColor(red: 0.95, green: 0.93, blue: 0.89, alpha: 1)
-        }
-    })
-
-    static let panel = Color(uiColor: UIColor { trait in
-        switch trait.userInterfaceStyle {
-        case .dark:
-            return UIColor(red: 0.14, green: 0.12, blue: 0.10, alpha: 1)
-        default:
-            return UIColor(red: 0.99, green: 0.98, blue: 0.96, alpha: 1)
-        }
-    })
-
-    static let panelStrong = Color(uiColor: UIColor { trait in
-        switch trait.userInterfaceStyle {
-        case .dark:
-            return UIColor(red: 0.17, green: 0.14, blue: 0.12, alpha: 1)
-        default:
-            return UIColor(red: 0.93, green: 0.89, blue: 0.84, alpha: 1)
-        }
-    })
-
-    static let border = Color(uiColor: UIColor { trait in
-        switch trait.userInterfaceStyle {
-        case .dark:
-            return UIColor(red: 0.29, green: 0.25, blue: 0.22, alpha: 1)
-        default:
-            return UIColor(red: 0.83, green: 0.76, blue: 0.69, alpha: 1)
-        }
-    })
-
-    static let accent = Color(uiColor: UIColor { trait in
-        switch trait.userInterfaceStyle {
-        case .dark:
-            return UIColor(red: 0.93, green: 0.53, blue: 0.29, alpha: 1)
-        default:
-            return UIColor(red: 0.71, green: 0.32, blue: 0.16, alpha: 1)
-        }
-    })
-
-    static let accentMuted = Color(uiColor: UIColor { trait in
-        switch trait.userInterfaceStyle {
-        case .dark:
-            return UIColor(red: 0.40, green: 0.19, blue: 0.11, alpha: 1)
-        default:
-            return UIColor(red: 0.97, green: 0.88, blue: 0.80, alpha: 1)
-        }
-    })
-
-    static let success = Color(uiColor: UIColor { trait in
-        switch trait.userInterfaceStyle {
-        case .dark:
-            return UIColor(red: 0.42, green: 0.76, blue: 0.63, alpha: 1)
-        default:
-            return UIColor(red: 0.17, green: 0.42, blue: 0.35, alpha: 1)
-        }
-    })
-
-    static let warning = Color(uiColor: UIColor { trait in
-        switch trait.userInterfaceStyle {
-        case .dark:
-            return UIColor(red: 0.85, green: 0.42, blue: 0.34, alpha: 1)
-        default:
-            return UIColor(red: 0.61, green: 0.23, blue: 0.20, alpha: 1)
-        }
-    })
-
-    static let mutedText = Color(uiColor: UIColor.secondaryLabel)
+    static var paper: Color { ThemeManager.shared.colors.paper }
+    static var panel: Color { ThemeManager.shared.colors.panel }
+    static var panelStrong: Color { ThemeManager.shared.colors.panelStrong }
+    static var border: Color { ThemeManager.shared.colors.border }
+    static var accent: Color { ThemeManager.shared.colors.accent }
+    static var accentMuted: Color { ThemeManager.shared.colors.accentMuted }
+    static var success: Color { ThemeManager.shared.colors.success }
+    static var warning: Color { ThemeManager.shared.colors.warning }
+    static var mutedText: Color { ThemeManager.shared.colors.mutedText }
 }
 
 struct NativeCard<Content: View>: View {
