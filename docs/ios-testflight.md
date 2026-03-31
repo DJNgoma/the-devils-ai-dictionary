@@ -1,6 +1,6 @@
 # Apple app and TestFlight
 
-This repo now ships the Apple app as a native SwiftUI client inside `ios/App/App`. The single `App` target covers iPhone and iPad, and App Store Connect can make the same build available on Apple silicon Macs as `Designed for iPad`. The app reads the bundled `src/generated/entries.generated.json` snapshot directly, so it does not depend on a production webview URL or a synced `out/` directory at runtime.
+This repo now ships the Apple app as a native SwiftUI client inside `ios/App/App`. The Xcode project bundle is `ios/App/The Devil's AI Dictionary.xcodeproj`, and the main app target and scheme are both named `The Devil's AI Dictionary`. The app reads the bundled `src/generated/entries.generated.json` snapshot directly, so it does not depend on a production webview URL or a synced `out/` directory at runtime.
 
 ## First-time setup
 
@@ -41,11 +41,11 @@ Use these commands before opening Xcode if you want a repeatable local gate:
 
 ```bash
 npm run swift-core:test
-xcodebuild -showdestinations -project ios/App/App.xcodeproj -scheme App
-xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Debug -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
-xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Debug -destination 'platform=iOS Simulator,name=iPad Air 11-inch (M4)' CODE_SIGNING_ALLOWED=NO build
-xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Debug -destination 'id=<MY_MAC_DESTINATION_ID>' CODE_SIGNING_ALLOWED=NO build
-xcodebuild -project ios/App/App.xcodeproj -scheme DictionaryWatchApp -configuration Debug -destination 'generic/platform=watchOS Simulator' CODE_SIGNING_ALLOWED=NO build
+xcodebuild -showdestinations -project "ios/App/The Devil's AI Dictionary.xcodeproj" -scheme "The Devil's AI Dictionary"
+xcodebuild -project "ios/App/The Devil's AI Dictionary.xcodeproj" -scheme "The Devil's AI Dictionary" -configuration Debug -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
+xcodebuild -project "ios/App/The Devil's AI Dictionary.xcodeproj" -scheme "The Devil's AI Dictionary" -configuration Debug -destination 'platform=iOS Simulator,name=iPad Air 11-inch (M4)' CODE_SIGNING_ALLOWED=NO build
+xcodebuild -project "ios/App/The Devil's AI Dictionary.xcodeproj" -scheme "The Devil's AI Dictionary" -configuration Debug -destination 'id=<MY_MAC_DESTINATION_ID>' CODE_SIGNING_ALLOWED=NO build
+xcodebuild -project "ios/App/The Devil's AI Dictionary.xcodeproj" -scheme DictionaryWatchApp -configuration Debug -destination 'generic/platform=watchOS Simulator' CODE_SIGNING_ALLOWED=NO build
 ```
 
 Use `xcodebuild -showdestinations` to confirm the current iPad simulator name and to copy the `My Mac` destination ID for the `Designed for iPad` build.
@@ -56,7 +56,7 @@ Use [`docs/mobile/checklists.md`](./mobile/checklists.md) for the shared device 
 
 Inside Xcode:
 
-1. Open the `App` target in `ios/App`.
+1. Open the `The Devil's AI Dictionary` target in `ios/App`.
 2. Set your Apple Developer Team in `Signing & Capabilities`.
 3. Confirm the bundle identifier. This repo uses `com.djngoma.devilsaidictionary` by default.
 4. Set the marketing version and build number in the target settings.
