@@ -63,3 +63,10 @@ ios/App/CLAUDE.md
 ios/App/.mcp.json
 ios/App/opencode.json
 ios/App/backend/
+
+# local planning, export, and scratch artifacts
+.asc/
+.codex-workstreams.md
+BRANCH_WORKSTREAMS.local.md
+tmp/
+screenshots/ios/ipad/
