@@ -49,7 +49,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run ios:sync
-      - run: xcodebuild -project ios/App/App.xcodeproj -scheme App -destination "generic/platform=iOS Simulator" build CODE_SIGNING_ALLOWED=NO
+      - run: xcodebuild -project "ios/App/The Devil's AI Dictionary.xcodeproj" -scheme "The Devil's AI Dictionary" -destination "generic/platform=iOS Simulator" build CODE_SIGNING_ALLOWED=NO
 
   shared-swift-core:
     runs-on: macos-latest
