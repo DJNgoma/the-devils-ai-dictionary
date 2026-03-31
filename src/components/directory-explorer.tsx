@@ -5,6 +5,7 @@ import { Index } from "flexsearch";
 import {
   useDeferredValue,
   useEffect,
+  useEffectEvent,
   useRef,
   useState,
   useTransition,
@@ -41,6 +42,14 @@ type EntryIndexStore = {
   map: Map<string, SearchableEntry>;
 };
 
+type ActiveFilterKey =
+  | "query"
+  | "category"
+  | "difficulty"
+  | "vendor"
+  | "depth"
+  | "letter";
+
 function groupByLetter(entries: SearchableEntry[]) {
   return entries.reduce<Record<string, SearchableEntry[]>>((groups, entry) => {
     groups[entry.letter] ??= [];
@@ -72,21 +81,14 @@ export function DirectoryExplorer({
   const [activeLetter, setActiveLetter] = useState(initialLetter);
   const [results, setResults] = useState<SearchableEntry[]>(entries);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
-  const deferredQuery = useDeferredValue(query.trim());
+  const trimmedQuery = query.trim();
+  const deferredQuery = useDeferredValue(trimmedQuery);
   const searchStoreRef = useRef<EntryIndexStore | null>(null);
   const syncOriginRef = useRef<"local" | "url">("url");
   const searchParamState = normalizeDirectoryExplorerState(searchParams, {
     categorySlugs: categories.map((category) => category.slug),
     mode,
   });
-  const currentState = {
-    query: query.trim(),
-    category: activeCategory,
-    difficulty: activeDifficulty,
-    vendor: activeVendor,
-    depth: activeDepth,
-    letter: activeLetter,
-  };
 
   useEffect(() => {
     const index = new Index({
@@ -104,39 +106,54 @@ export function DirectoryExplorer({
     searchStoreRef.current = { index, map };
   }, [entries]);
 
+  const applySearchParamState = useEffectEvent(
+    (
+      nextState: ReturnType<typeof normalizeDirectoryExplorerState>,
+    ) => {
+      const currentState = {
+        query: trimmedQuery,
+        category: activeCategory,
+        difficulty: activeDifficulty,
+        vendor: activeVendor,
+        depth: activeDepth,
+        letter: activeLetter,
+      };
+
+      if (areDirectoryExplorerStatesEqual(currentState, nextState)) {
+        return;
+      }
+
+      syncOriginRef.current = "url";
+
+      if (nextState.query !== currentState.query) {
+        setQuery(nextState.query);
+      }
+
+      if (nextState.category !== currentState.category) {
+        setActiveCategory(nextState.category);
+      }
+
+      if (nextState.difficulty !== currentState.difficulty) {
+        setActiveDifficulty(nextState.difficulty);
+      }
+
+      if (nextState.vendor !== currentState.vendor) {
+        setActiveVendor(nextState.vendor);
+      }
+
+      if (nextState.depth !== currentState.depth) {
+        setActiveDepth(nextState.depth);
+      }
+
+      if (nextState.letter !== currentState.letter) {
+        setActiveLetter(nextState.letter);
+      }
+    },
+  );
+
   useEffect(() => {
-    const nextState = searchParamState;
-
-    if (areDirectoryExplorerStatesEqual(currentState, nextState)) {
-      return;
-    }
-
-    syncOriginRef.current = "url";
-
-    if (nextState.query !== currentState.query) {
-      setQuery(nextState.query);
-    }
-
-    if (nextState.category !== currentState.category) {
-      setActiveCategory(nextState.category);
-    }
-
-    if (nextState.difficulty !== currentState.difficulty) {
-      setActiveDifficulty(nextState.difficulty);
-    }
-
-    if (nextState.vendor !== currentState.vendor) {
-      setActiveVendor(nextState.vendor);
-    }
-
-    if (nextState.depth !== currentState.depth) {
-      setActiveDepth(nextState.depth);
-    }
-
-    if (nextState.letter !== currentState.letter) {
-      setActiveLetter(nextState.letter);
-    }
-  }, [currentState, searchParamState]);
+    applySearchParamState(searchParamState);
+  }, [searchParamState]);
 
   useEffect(() => {
     const store = searchStoreRef.current;
@@ -190,7 +207,19 @@ export function DirectoryExplorer({
     entries,
   ]);
 
+  const markLocalSync = () => {
+    syncOriginRef.current = "local";
+  };
+
   useEffect(() => {
+    const currentState = {
+      query: trimmedQuery,
+      category: activeCategory,
+      difficulty: activeDifficulty,
+      vendor: activeVendor,
+      depth: activeDepth,
+      letter: activeLetter,
+    };
     const nextSearch = serializeDirectoryExplorerState(
       currentState,
       mode,
@@ -212,16 +241,21 @@ export function DirectoryExplorer({
     const nextUrl = nextSearch ? `${pathname}?${nextSearch}` : pathname;
     router.replace(nextUrl, { scroll: false });
   }, [
-    currentState,
+    activeCategory,
+    activeDepth,
+    activeDifficulty,
+    activeLetter,
+    activeVendor,
     mode,
     pathname,
     router,
     searchParamState,
     searchParams,
+    trimmedQuery,
   ]);
 
   const clearFilters = () => {
-    syncOriginRef.current = "local";
+    markLocalSync();
     startTransition(() => {
       setQuery("");
       setActiveCategory("all");
@@ -230,6 +264,31 @@ export function DirectoryExplorer({
       setActiveDepth("all");
       setActiveLetter("all");
     });
+  };
+
+  const clearFilter = (key: ActiveFilterKey) => {
+    markLocalSync();
+
+    switch (key) {
+      case "query":
+        setQuery("");
+        return;
+      case "category":
+        setActiveCategory("all");
+        return;
+      case "difficulty":
+        setActiveDifficulty("all");
+        return;
+      case "vendor":
+        setActiveVendor("all");
+        return;
+      case "depth":
+        setActiveDepth("all");
+        return;
+      case "letter":
+        setActiveLetter("all");
+        return;
+    }
   };
 
   const grouped = groupByLetter(results);
@@ -241,21 +300,17 @@ export function DirectoryExplorer({
     activeDepth !== "all" ||
     activeLetter !== "all";
   const activeFilterCount =
-    (query.trim() ? 1 : 0) +
+    (trimmedQuery ? 1 : 0) +
     (activeCategory !== "all" ? 1 : 0) +
     (activeDifficulty !== "all" ? 1 : 0) +
     (activeVendor !== "all" ? 1 : 0) +
     (activeDepth !== "all" ? 1 : 0) +
     (activeLetter !== "all" ? 1 : 0);
   const activeFilters = [
-    query.trim()
+    trimmedQuery
       ? {
           key: "query",
-          label: `Search: ${query.trim()}`,
-          clear: () => {
-            syncOriginRef.current = "local";
-            setQuery("");
-          },
+          label: `Search: ${trimmedQuery}`,
         }
       : null,
     activeCategory !== "all"
@@ -264,30 +319,18 @@ export function DirectoryExplorer({
           label:
             categories.find((category) => category.slug === activeCategory)?.title ??
             "Category",
-          clear: () => {
-            syncOriginRef.current = "local";
-            setActiveCategory("all");
-          },
         }
       : null,
     activeDifficulty !== "all"
       ? {
           key: "difficulty",
           label: difficultyLabels[activeDifficulty as keyof typeof difficultyLabels],
-          clear: () => {
-            syncOriginRef.current = "local";
-            setActiveDifficulty("all");
-          },
         }
       : null,
     activeVendor !== "all"
       ? {
           key: "vendor",
           label: activeVendor === "vendor" ? "Vendor only" : "No vendor terms",
-          clear: () => {
-            syncOriginRef.current = "local";
-            setActiveVendor("all");
-          },
         }
       : null,
     activeDepth !== "all"
@@ -295,26 +338,17 @@ export function DirectoryExplorer({
           key: "depth",
           label:
             technicalDepthLabels[activeDepth as keyof typeof technicalDepthLabels],
-          clear: () => {
-            syncOriginRef.current = "local";
-            setActiveDepth("all");
-          },
         }
       : null,
     activeLetter !== "all"
       ? {
           key: "letter",
           label: `Letter ${activeLetter}`,
-          clear: () => {
-            syncOriginRef.current = "local";
-            setActiveLetter("all");
-          },
         }
       : null,
   ].filter(Boolean) as Array<{
-    key: string;
+    key: ActiveFilterKey;
     label: string;
-    clear: () => void;
   }>;
 
   return (
@@ -365,7 +399,7 @@ export function DirectoryExplorer({
                 <button
                   key={filter.key}
                   type="button"
-                  onClick={filter.clear}
+                  onClick={() => clearFilter(filter.key)}
                   className="chip chip-accent"
                 >
                   {filter.label} x

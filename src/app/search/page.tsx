@@ -20,10 +20,20 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     getSearchableEntries(),
     getCategoryStats(),
   ]);
-  const initialState = normalizeDirectoryExplorerState(await searchParams, {
-    categorySlugs: categories.map((category) => category.slug),
-    mode: "search",
-  });
+  const initialState =
+    process.env.NEXT_OUTPUT_MODE === "export"
+      ? {
+          category: "all",
+          depth: "all",
+          difficulty: "all",
+          letter: "all",
+          query: "",
+          vendor: "all",
+        }
+      : normalizeDirectoryExplorerState(await searchParams, {
+          categorySlugs: categories.map((category) => category.slug),
+          mode: "search",
+        });
 
   return (
     <div className="page-shell space-y-10">

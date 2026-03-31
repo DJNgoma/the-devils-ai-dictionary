@@ -28,10 +28,20 @@ export default async function DictionaryPage({
     getCategoryStats(),
     getLatestPublishedAt(),
   ]);
-  const initialState = normalizeDirectoryExplorerState(await searchParams, {
-    categorySlugs: categories.map((category) => category.slug),
-    mode: "dictionary",
-  });
+  const initialState =
+    process.env.NEXT_OUTPUT_MODE === "export"
+      ? {
+          category: "all",
+          depth: "all",
+          difficulty: "all",
+          letter: "all",
+          query: "",
+          vendor: "all",
+        }
+      : normalizeDirectoryExplorerState(await searchParams, {
+          categorySlugs: categories.map((category) => category.slug),
+          mode: "dictionary",
+        });
 
   return (
     <div className="page-shell space-y-10">

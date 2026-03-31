@@ -1,7 +1,7 @@
 import {
   difficultyOptions,
   technicalDepthOptions,
-} from "@/lib/site";
+} from "@/lib/content-catalog.mjs";
 
 export type DirectoryExplorerMode = "dictionary" | "search";
 

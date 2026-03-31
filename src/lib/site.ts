@@ -2,7 +2,6 @@ import { slugify } from "@/lib/utils";
 import {
   categoryDefinitions,
   difficultyOptions,
-  featuredEntrySlug,
   hypeLevelOptions,
   technicalDepthOptions,
 } from "@/lib/content-catalog.mjs";
