@@ -1,3 +1,7 @@
+/**
+ * www → apex redirect for Workers and Node deploys. Next 16 prefers `proxy.ts`;
+ * keep this file until OpenNext Cloudflare supports that convention (see README, Cloudflare deployment).
+ */
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
