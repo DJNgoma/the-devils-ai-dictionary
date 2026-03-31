@@ -1,6 +1,6 @@
 # Mobile design system
 
-This document is the shared mobile UI contract for the shipped native iPhone app and the transitional Android web shell.
+This document is the shared mobile UI contract for the shipped native iPhone app and the shipped native Android app.
 
 ## Principles
 
@@ -83,15 +83,14 @@ This document is the shared mobile UI contract for the shipped native iPhone app
 - Success: lightweight inline acknowledgement
 - Error: plain explanation plus recovery route
 
-## Android web-shell rules
+## Android native rules
 
-- Use `viewportFit: cover`
-- Use `interactiveWidget: resizes-content`
-- Use Capacitor `SystemBars` inset CSS fallback for Android WebView safe areas until the native Android app becomes the shipping path
-- Hide or get out of the way of the keyboard rather than fighting it
-- Handle Android hardware back explicitly: close sheets first, go back if possible, minimize the app at root
+- Use Compose and native window insets for safe areas, not WebView fallback CSS
+- Use edge-to-edge layouts with explicit inset handling around app bars, bottom bars, and sheets
+- Keep keyboard behavior native and predictable rather than trying to imitate a browser shell
+- Handle Android hardware back explicitly: close overlays first, return to `Home` from other tabs, and background the app at root
 
-## Native handoff
+## Shared handoff
 
 Keep shared:
 

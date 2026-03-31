@@ -4,7 +4,7 @@
 
 - Create the Google Play app record now with package `com.djngoma.devilsaidictionary`.
 - Create the App Store Connect record now with bundle ID `com.djngoma.devilsaidictionary`.
-- Keep both identifiers for the later native replacements so upgrades happen in place.
+- Keep both identifiers fixed so upgrades happen in place.
 
 ## Signing and backup
 
@@ -27,7 +27,7 @@
 
 - Offline cold launch after install
 - Manual physical-device route sweep on native iPhone for Home, Browse, Search, Saved, random entry, and entry detail
-- Manual physical-device route sweep inside the Android WebView for Home, Dictionary, Categories, Search, Random, and entry detail
+- Manual physical-device route sweep on native Android for Home, Browse, Search, Saved, random entry, and entry detail
 - Bookmark persistence across relaunch
 - Theme persistence across relaunch
 - Bookmark persistence on Samsung A30s and Pixel 5 after force-close and relaunch
@@ -40,11 +40,11 @@
 - Open test install path
 
 Notes:
-`adb` screenshots and launch checks are reliable, but WebView tap automation is not consistent enough on physical devices to replace manual route and persistence QA.
+`adb` screenshots and launch checks are reliable, so keep native route and persistence QA manual on physical devices.
 
 ## Solo-dev defaults
 
-- No analytics in v1
+- Cloudflare Web Analytics only in v1
 - No accounts in v1
 - No remote content sync in v1
 - Add crash reporting only if manual QA stops being enough
@@ -52,4 +52,6 @@ Notes:
 ## Backlog
 
 - Replace the deprecated Next.js `middleware` convention with the current `proxy` convention before the next major framework churn forces it.
-- Keep the native iOS CI build healthy, and add a native Android CI job once `native/android/` becomes a real project.
+- Keep the native iOS CI build healthy, and add a native Android CI job for the `android/` module.
+- Add Android HTTPS app links with `assetlinks.json` and host intent filters after the current Android pass settles.
+- Add Android-native share actions for dictionary entries and the daily-word surface.
