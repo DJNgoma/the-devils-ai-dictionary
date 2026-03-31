@@ -85,17 +85,11 @@ If those values are absent, release builds still complete with debug signing so 
 4. Promote the same app record to open testing when internal checks are clean.
 5. Keep the app record and package fixed so future extraction work does not change app identity.
 
-## Device checklist
+## Device notes
 
-- Samsung Galaxy A30s: install the release APK on Android 11 / API 30.
-- Samsung Galaxy A30s: test cold launch with airplane mode enabled after first install.
-- Samsung Galaxy A30s: test home, dictionary, categories, search, random, and entry detail.
-- Samsung Galaxy A30s: confirm bookmark persistence after force-close and relaunch.
-- Samsung Galaxy A30s: confirm theme persistence after relaunch.
-- Samsung Galaxy A30s: check external links leave the app correctly.
-- Samsung Galaxy A30s: watch search responsiveness and scrolling on the physical device before moving to open testing.
-- Pixel 5: install the same signed release APK on Android 13 / API 33.
-- Pixel 5: repeat the offline cold-launch check.
-- Pixel 5: manually tap through Home, Dictionary, Categories, Search, Random, and at least one entry detail page.
-- Pixel 5: confirm bookmark persistence after force-close and relaunch.
-- Pixel 5: confirm theme persistence after relaunch.
+Use the shared release checklist in [`checklists.md`](./checklists.md) for Android QA sign-off.
+
+Android-specific reminders:
+
+- Keep the physical-device sweep on both Samsung 3-button navigation and Pixel gesture navigation.
+- If a shared test device already has a differently signed build installed, use the signed release APK for install and upgrade checks instead of the debug build.

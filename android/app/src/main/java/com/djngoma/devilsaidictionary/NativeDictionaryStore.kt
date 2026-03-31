@@ -134,6 +134,17 @@ data class EntrySection(
     val entries: List<Entry>,
 )
 
+internal data class BackNavigationTransition(
+    val selectedTab: NativeTab,
+    val activeOverlay: NativeOverlay?,
+)
+
+internal data class DeepLinkTransition(
+    val selectedTab: NativeTab,
+    val activeOverlay: NativeOverlay.EntryDetail,
+    val currentWord: CurrentWordRecord,
+)
+
 data class DictionaryCatalog(
     val entries: List<Entry>,
     val recentSlugs: List<String>,
@@ -451,23 +462,21 @@ class NativeDictionaryStore(
         val slug = intent?.data?.toDictionarySlug() ?: return
         val entry = entry(slug) ?: return
 
-        persistCurrentWord(entry.toCurrentWord(CurrentWordSource.deepLink))
-        selectedTab = NativeTab.Browse
-        activeOverlay = NativeOverlay.EntryDetail(entry.slug)
+        val transition = buildDeepLinkTransition(entry)
+        persistCurrentWord(transition.currentWord)
+        selectedTab = transition.selectedTab
+        activeOverlay = transition.activeOverlay
     }
 
     fun handleBack(): Boolean {
-        if (activeOverlay != null) {
-            dismissOverlay()
-            return true
-        }
+        val transition = reduceBackNavigation(
+            selectedTab = selectedTab,
+            activeOverlay = activeOverlay,
+        ) ?: return false
 
-        if (selectedTab != NativeTab.Home) {
-            selectedTab = NativeTab.Home
-            return true
-        }
-
-        return false
+        selectedTab = transition.selectedTab
+        activeOverlay = transition.activeOverlay
+        return true
     }
 
     private fun loadCatalog() {
@@ -634,6 +643,34 @@ internal fun currentTimestamp(): String {
     formatter.timeZone = TimeZone.getTimeZone("UTC")
     return formatter.format(Date())
 }
+
+internal fun reduceBackNavigation(
+    selectedTab: NativeTab,
+    activeOverlay: NativeOverlay?,
+): BackNavigationTransition? {
+    if (activeOverlay != null) {
+        return BackNavigationTransition(
+            selectedTab = selectedTab,
+            activeOverlay = null,
+        )
+    }
+
+    if (selectedTab != NativeTab.Home) {
+        return BackNavigationTransition(
+            selectedTab = NativeTab.Home,
+            activeOverlay = null,
+        )
+    }
+
+    return null
+}
+
+internal fun buildDeepLinkTransition(entry: Entry): DeepLinkTransition =
+    DeepLinkTransition(
+        selectedTab = NativeTab.Browse,
+        activeOverlay = NativeOverlay.EntryDetail(entry.slug),
+        currentWord = entry.toCurrentWord(CurrentWordSource.deepLink),
+    )
 
 internal fun formatDisplayDate(raw: String): String {
     parseDate(raw)?.let { date ->

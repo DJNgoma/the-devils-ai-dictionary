@@ -114,4 +114,45 @@ class NativeDictionaryLogicTest {
 
         assertEquals("2026-03-15", catalog.latestPublishedAt)
     }
+
+    @Test
+    fun `buildDeepLinkTransition opens the entry detail from browse and updates current word`() {
+        val transition = buildDeepLinkTransition(sampleEntry)
+
+        assertEquals(NativeTab.Browse, transition.selectedTab)
+        assertEquals(
+            NativeOverlay.EntryDetail(sampleEntry.slug),
+            transition.activeOverlay,
+        )
+        assertEquals(sampleEntry.slug, transition.currentWord.slug)
+        assertEquals(sampleEntry.title, transition.currentWord.title)
+        assertEquals(CurrentWordSource.deepLink, transition.currentWord.source)
+    }
+
+    @Test
+    fun `reduceBackNavigation closes overlay before changing tabs`() {
+        val transition = reduceBackNavigation(
+            selectedTab = NativeTab.Search,
+            activeOverlay = NativeOverlay.EntryDetail(sampleEntry.slug),
+        )
+
+        assertEquals(NativeTab.Search, transition?.selectedTab)
+        assertNull(transition?.activeOverlay)
+    }
+
+    @Test
+    fun `reduceBackNavigation falls back to home before backgrounding`() {
+        val fromBrowse = reduceBackNavigation(
+            selectedTab = NativeTab.Browse,
+            activeOverlay = null,
+        )
+        val fromHome = reduceBackNavigation(
+            selectedTab = NativeTab.Home,
+            activeOverlay = null,
+        )
+
+        assertEquals(NativeTab.Home, fromBrowse?.selectedTab)
+        assertNull(fromBrowse?.activeOverlay)
+        assertNull(fromHome)
+    }
 }
