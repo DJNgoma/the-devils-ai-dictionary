@@ -1,18 +1,19 @@
 import Link from "next/link";
 import { CategoryGrid } from "@/components/category-grid";
 import { EntryCard } from "@/components/entry-card";
-import { FeaturedEntry } from "@/components/featured-entry";
+import { TodayWordCard } from "@/components/featured-entry";
 import { LetterGrid } from "@/components/letter-grid";
 import { ResumeReadingCard } from "@/components/resume-reading-card";
 import { SearchBox } from "@/components/search-box";
 import {
   getCategoryStats,
-  getFeaturedEntry,
+  getDailyWordSchedule,
   getLetterStats,
   getLatestPublishedAt,
   getMostMisunderstoodEntries,
   getRecentlyAddedEntries,
   getSearchableEntries,
+  getTodayWord,
 } from "@/lib/content";
 import { buildMetadata } from "@/lib/metadata";
 import { formatDate } from "@/lib/utils";
@@ -26,7 +27,8 @@ export const metadata = buildMetadata({
 
 export default async function HomePage() {
   const [
-    featuredEntry,
+    todayWord,
+    todayWordSchedule,
     letters,
     categories,
     latestPublishedAt,
@@ -35,7 +37,8 @@ export default async function HomePage() {
     searchable,
   ] =
     await Promise.all([
-      getFeaturedEntry(),
+      getTodayWord(),
+      getDailyWordSchedule(),
       getLetterStats(),
       getCategoryStats(),
       getLatestPublishedAt(),
@@ -103,7 +106,11 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <FeaturedEntry entry={featuredEntry} />
+      <TodayWordCard
+        entries={searchable}
+        schedule={todayWordSchedule}
+        initialEntry={todayWord}
+      />
 
       <section className="space-y-5">
         <div className="labelled-rule">Browse by letter</div>

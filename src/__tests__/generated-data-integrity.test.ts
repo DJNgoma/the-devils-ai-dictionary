@@ -19,6 +19,9 @@ const {
   misunderstoodSlugs,
   letterStats,
   categoryStats,
+  editorialTimeZone,
+  dailyWordStartDate,
+  dailyWordSlugs,
   featuredSlug,
   latestPublishedAt,
 } =
@@ -33,6 +36,9 @@ describe("generated data top-level structure", () => {
     expect(generatedData).toHaveProperty("misunderstoodSlugs");
     expect(generatedData).toHaveProperty("letterStats");
     expect(generatedData).toHaveProperty("categoryStats");
+    expect(generatedData).toHaveProperty("editorialTimeZone");
+    expect(generatedData).toHaveProperty("dailyWordStartDate");
+    expect(generatedData).toHaveProperty("dailyWordSlugs");
     expect(generatedData).toHaveProperty("featuredSlug");
     expect(generatedData).toHaveProperty("latestPublishedAt");
   });
@@ -146,6 +152,36 @@ describe("featuredSlug", () => {
     const allSlugs = new Set(entries.map((e) => e.slug));
     expect(typeof featuredSlug).toBe("string");
     expect(allSlugs.has(featuredSlug)).toBe(true);
+  });
+});
+
+describe("dailyWord schedule", () => {
+  it("uses the editorial timezone and covers every entry once", () => {
+    const allSlugs = new Set(entries.map((e) => e.slug));
+
+    expect(editorialTimeZone).toBe("Africa/Johannesburg");
+    expect(typeof dailyWordStartDate).toBe("string");
+    expect(Array.isArray(dailyWordSlugs)).toBe(true);
+    expect(dailyWordSlugs.length).toBe(entries.length);
+    expect(new Set(dailyWordSlugs).size).toBe(entries.length);
+    expect(dailyWordSlugs.every((slug) => allSlugs.has(slug))).toBe(true);
+  });
+
+  it("starts on the earliest published entry", () => {
+    const earliestPublishedAt = entries.reduce((earliest, entry) => {
+      if (!earliest) {
+        return entry.publishedAt;
+      }
+
+      return new Date(entry.publishedAt).getTime() < new Date(earliest).getTime()
+        ? entry.publishedAt
+        : earliest;
+    }, "");
+
+    expect(dailyWordStartDate).toBe(earliestPublishedAt);
+    expect(dailyWordSlugs[0]).toBe(
+      entries.find((entry) => entry.publishedAt === earliestPublishedAt)?.slug,
+    );
   });
 });
 

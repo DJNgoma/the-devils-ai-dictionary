@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Badge } from "@/components/badge";
 import { EntryCard } from "@/components/entry-card";
 import { MdxContent } from "@/components/mdx-content";
+import { OpenInIPhoneAppButton } from "@/components/open-in-iphone-app-button";
 import { SavePlaceButton } from "@/components/save-place-button";
 import { TermDiagram } from "@/components/term-diagram";
 import {
@@ -116,6 +117,7 @@ export default async function EntryPage({ params }: EntryPageProps) {
             label="Dictionary entry"
             description={entry.devilDefinition}
           />
+          <OpenInIPhoneAppButton slug={entry.slug} />
           <Link
             href="/book"
             className="button button-secondary"

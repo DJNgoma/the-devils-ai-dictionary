@@ -203,8 +203,52 @@ public struct DictionaryCatalog: Codable, Equatable, Sendable {
     public let featuredSlug: String
     public let latestPublishedAt: String
 
+    private static let defaultEditorialTimeZone = "Africa/Johannesburg"
+
+    private enum CodingKeys: String, CodingKey {
+        case entries
+        case recentSlugs
+        case misunderstoodSlugs
+        case letterStats
+        case categoryStats
+        case editorialTimeZone
+        case dailyWordStartDate
+        case dailyWordSlugs
+        case featuredSlug
+        case latestPublishedAt
+    }
+
     public static func decode(from data: Data) throws -> DictionaryCatalog {
         try JSONDecoder().decode(DictionaryCatalog.self, from: data)
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.entries = try container.decode([Entry].self, forKey: .entries)
+        self.recentSlugs = try container.decode([String].self, forKey: .recentSlugs)
+        self.misunderstoodSlugs = try container.decode([String].self, forKey: .misunderstoodSlugs)
+        self.letterStats = try container.decode([LetterStat].self, forKey: .letterStats)
+        self.categoryStats = try container.decode([CategoryStat].self, forKey: .categoryStats)
+        self.editorialTimeZone = try container.decodeIfPresent(String.self, forKey: .editorialTimeZone)
+            ?? Self.defaultEditorialTimeZone
+        self.dailyWordStartDate = try container.decode(String.self, forKey: .dailyWordStartDate)
+        self.dailyWordSlugs = try container.decode([String].self, forKey: .dailyWordSlugs)
+        self.featuredSlug = try container.decode(String.self, forKey: .featuredSlug)
+        self.latestPublishedAt = try container.decode(String.self, forKey: .latestPublishedAt)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(entries, forKey: .entries)
+        try container.encode(recentSlugs, forKey: .recentSlugs)
+        try container.encode(misunderstoodSlugs, forKey: .misunderstoodSlugs)
+        try container.encode(letterStats, forKey: .letterStats)
+        try container.encode(categoryStats, forKey: .categoryStats)
+        try container.encode(editorialTimeZone, forKey: .editorialTimeZone)
+        try container.encode(dailyWordStartDate, forKey: .dailyWordStartDate)
+        try container.encode(dailyWordSlugs, forKey: .dailyWordSlugs)
+        try container.encode(featuredSlug, forKey: .featuredSlug)
+        try container.encode(latestPublishedAt, forKey: .latestPublishedAt)
     }
 
     public func entry(slug: String) -> Entry? {

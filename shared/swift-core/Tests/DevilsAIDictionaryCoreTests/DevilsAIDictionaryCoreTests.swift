@@ -129,6 +129,20 @@ final class DevilsAIDictionaryCoreTests: XCTestCase {
         XCTAssertEqual(catalog.dailyWordSlug(on: wrappedDate), catalog.dailyWordSlugs.first)
     }
 
+    func testDailyWordDefaultsEditorialTimeZoneWhenMissing() throws {
+        let data = try Data(contentsOf: fixtureURL())
+        var json = try XCTUnwrap(
+            JSONSerialization.jsonObject(with: data) as? [String: Any]
+        )
+
+        json.removeValue(forKey: "editorialTimeZone")
+
+        let legacyData = try JSONSerialization.data(withJSONObject: json)
+        let catalog = try DictionaryCatalog.decode(from: legacyData)
+
+        XCTAssertEqual(catalog.editorialTimeZone, "Africa/Johannesburg")
+    }
+
     func testRecentEntriesFollowPublishedOrder() throws {
         let catalog = try loadCatalog()
 
