@@ -1,4 +1,4 @@
-package com.djngoma.devilsaidictionary.nativeapp
+package com.djngoma.devilsaidictionary
 
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
