@@ -1,6 +1,6 @@
 # Mobile design system
 
-This document is the shared mobile UI contract for the shipped native iPhone app and the shipped native Android app.
+This document is the shared mobile UI contract for the shipped native Apple app and the shipped native Android app.
 
 ## Principles
 

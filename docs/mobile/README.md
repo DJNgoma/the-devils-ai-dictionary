@@ -2,7 +2,7 @@
 
 This repo keeps the shipping web app at the root and treats mobile as two shipping apps plus one deferred placeholder:
 
-- native iPhone delivery in the existing `ios/App` target
+- native Apple delivery in the existing `ios/App` target for iPhone and iPad, with Mac availability via `Designed for iPad`
 - native Android delivery from the existing `android/` module
 - `native/android/` as a deferred placeholder if the Android app is ever split into a separate project
 

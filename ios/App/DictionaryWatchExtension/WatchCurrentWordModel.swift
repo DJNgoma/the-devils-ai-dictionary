@@ -30,40 +30,42 @@ final class WatchCurrentWordModel: NSObject, ObservableObject {
         if let receivedContext = sessionCoordinator.receivedApplicationContext {
             apply(applicationContext: receivedContext)
         }
-
-        if currentWord == nil {
-            seedInitialWord()
-        }
     }
 
-    func refresh() {
-        guard let catalogSnapshot else {
-            return
-        }
-
-        if let refreshed = catalogSnapshot.randomWord(
-            excluding: currentWord?.slug,
-            source: .manualRefresh
-        ) {
-            apply(record: refreshed)
-        }
+    var featuredEntry: Entry? {
+        catalogSnapshot?.catalog.featuredEntry()
     }
 
-    private func seedInitialWord() {
-        guard let catalogSnapshot,
-              let seeded = catalogSnapshot.randomWord(
-                  excluding: nil,
-                  source: .seeded
-              )
-        else {
-            return
-        }
+    var todayWord: Entry? {
+        catalogSnapshot?.catalog.dailyWord()
+    }
 
-        apply(record: seeded)
+    var recentEntries: [Entry] {
+        catalogSnapshot?.catalog.recentEntries(limit: 6) ?? []
+    }
+
+    var misunderstoodEntries: [Entry] {
+        catalogSnapshot?.catalog.misunderstoodEntries(limit: 4) ?? []
+    }
+
+    func entry(slug: String) -> Entry? {
+        catalogSnapshot?.catalog.entry(slug: slug)
+    }
+
+    func randomEntry() -> Entry? {
+        catalogSnapshot?.catalog.randomEntry(excluding: todayWord?.slug)
+    }
+
+    func isTodayWord(_ entry: Entry) -> Bool {
+        todayWord?.slug == entry.slug
     }
 
     func openOnPhone() {
-        guard let slug = currentWord?.slug,
+        openOnPhone(slug: todayWord?.slug)
+    }
+
+    func openOnPhone(slug: String?) {
+        guard let slug,
               let url = URL(string: "devilsaidictionary://dictionary/\(slug)")
         else {
             return

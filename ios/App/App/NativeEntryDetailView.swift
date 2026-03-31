@@ -10,7 +10,7 @@ struct NativeEntryDetailView: View {
     let entry: Entry
 
     var body: some View {
-        NativeScreen {
+        NativeScreen { layout in
             NativeCard(emphasis: true) {
                 NativeSectionLabel(text: "Dictionary")
 
@@ -67,6 +67,14 @@ struct NativeEntryDetailView: View {
                     .buttonStyle(NativeSecondaryButtonStyle())
                 }
 
+                if let shareURL = model.shareURL(for: entry) {
+                    NativeShareButton(
+                        url: shareURL,
+                        subject: entry.title,
+                        message: "Read \(entry.title) in The Devil's AI Dictionary."
+                    )
+                }
+
                 if let warningLabel = entry.warningLabel {
                     Text(warningLabel)
                         .font(.system(size: 14, weight: .medium, design: .rounded))
@@ -81,11 +89,13 @@ struct NativeEntryDetailView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     NativeSectionLabel(text: "Translations")
 
-                    ForEach(entry.translations, id: \.label) { translation in
-                        NativeCard {
-                            NativeSectionLabel(text: translation.label)
-                            Text(translation.text)
-                                .font(.system(size: 15, weight: .regular, design: .rounded))
+                    LazyVGrid(columns: layout.cardGridItems, alignment: .leading, spacing: 12) {
+                        ForEach(entry.translations, id: \.label) { translation in
+                            NativeCard {
+                                NativeSectionLabel(text: translation.label)
+                                Text(translation.text)
+                                    .font(.system(size: 15, weight: .regular, design: .rounded))
+                            }
                         }
                     }
                 }
@@ -164,9 +174,11 @@ struct NativeEntryDetailView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     NativeSectionLabel(text: "Related terms")
 
-                    ForEach(relatedEntries, id: \.slug) { related in
-                        NativeEntryCard(entry: related, compact: true) {
-                            model.presentEntry(related)
+                    LazyVGrid(columns: layout.cardGridItems, alignment: .leading, spacing: 12) {
+                        ForEach(relatedEntries, id: \.slug) { related in
+                            NativeEntryCard(entry: related, compact: true) {
+                                model.presentEntry(related)
+                            }
                         }
                     }
                 }

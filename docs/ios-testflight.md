@@ -1,6 +1,6 @@
-# iOS and TestFlight
+# Apple app and TestFlight
 
-This repo now ships the iPhone app as a native SwiftUI client inside `ios/App/App`. It reads the bundled `src/generated/entries.generated.json` snapshot directly, so it does not depend on a production webview URL or a synced `out/` directory at runtime.
+This repo now ships the Apple app as a native SwiftUI client inside `ios/App/App`. The single `App` target covers iPhone and iPad, and App Store Connect can make the same build available on Apple silicon Macs as `Designed for iPad`. The app reads the bundled `src/generated/entries.generated.json` snapshot directly, so it does not depend on a production webview URL or a synced `out/` directory at runtime.
 
 ## First-time setup
 
@@ -35,6 +35,23 @@ Then open Xcode:
 npm run ios:open
 ```
 
+## Local verification before TestFlight
+
+Use these commands before opening Xcode if you want a repeatable local gate:
+
+```bash
+npm run swift-core:test
+xcodebuild -showdestinations -project ios/App/App.xcodeproj -scheme App
+xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Debug -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
+xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Debug -destination 'platform=iOS Simulator,name=iPad Air 11-inch (M4)' CODE_SIGNING_ALLOWED=NO build
+xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Debug -destination 'id=<MY_MAC_DESTINATION_ID>' CODE_SIGNING_ALLOWED=NO build
+xcodebuild -project ios/App/App.xcodeproj -scheme DictionaryWatchApp -configuration Debug -destination 'generic/platform=watchOS Simulator' CODE_SIGNING_ALLOWED=NO build
+```
+
+Use `xcodebuild -showdestinations` to confirm the current iPad simulator name and to copy the `My Mac` destination ID for the `Designed for iPad` build.
+
+Use [`docs/mobile/checklists.md`](./mobile/checklists.md) for the shared device QA matrix. This file stays focused on the Apple build, archive, and upload path.
+
 ## Xcode checklist before TestFlight
 
 Inside Xcode:
@@ -43,13 +60,18 @@ Inside Xcode:
 2. Set your Apple Developer Team in `Signing & Capabilities`.
 3. Confirm the bundle identifier. This repo uses `com.djngoma.devilsaidictionary` by default.
 4. Set the marketing version and build number in the target settings.
-5. Choose an iPhone or `Any iOS Device (arm64)` destination.
-6. Run one local build.
-7. Archive the app with `Product` -> `Archive`.
-8. In the Organizer, choose `Distribute App` -> `App Store Connect` -> `Upload`.
+5. Run one local build on an iPhone simulator.
+6. Run one local build on an iPad simulator.
+7. Run one local build on `My Mac` as `Designed for iPad`.
+8. For the archive, switch the destination to `Any iOS Device (arm64)` or a connected iPhone/iPad.
+9. Archive the app with `Product` -> `Archive`.
+10. In the Organizer, choose `Distribute App` -> `App Store Connect` -> `Upload`.
 
 ## Notes
 
 - The remaining gate for an actual TestFlight upload is Apple signing and App Store Connect metadata, not a web bundle sync.
+- Use `docs/mobile/checklists.md` for the shared store, signing, and wider-device QA checklist. Keep this file focused on the Apple build and TestFlight upload flow.
+- Keep one App Store Connect record and one bundle ID for the Apple app. Do not create a separate Mac app record in this tranche.
+- Leave Mac availability enabled for the iOS app so Apple silicon Macs receive the `Designed for iPad` build path.
 - `src/generated/entries.generated.json` is copied directly into the app target, so `npm run content:build` is the iOS content prerequisite.
 - The ordinary website deploy remains the Cloudflare path documented in the main README.

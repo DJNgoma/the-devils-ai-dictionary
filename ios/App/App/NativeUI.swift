@@ -341,20 +341,143 @@ struct NativeEntryCard: View {
     }
 }
 
+enum NativeScreenWidthClass {
+    case phone
+    case tablet
+    case desktopLike
+}
+
+struct NativeScreenLayout {
+    let containerSize: CGSize
+
+    private var width: CGFloat {
+        containerSize.width
+    }
+
+    private var height: CGFloat {
+        containerSize.height
+    }
+
+    var widthClass: NativeScreenWidthClass {
+        if width >= 960, width > height {
+            return .desktopLike
+        }
+
+        if width >= 700, min(width, height) >= 500 {
+            return .tablet
+        }
+
+        return .phone
+    }
+
+    var horizontalPadding: CGFloat {
+        switch widthClass {
+        case .phone:
+            return 16
+        case .tablet:
+            return 24
+        case .desktopLike:
+            return 32
+        }
+    }
+
+    var maxContentWidth: CGFloat {
+        let availableWidth = max(width - (horizontalPadding * 2), 0)
+
+        switch widthClass {
+        case .phone:
+            return availableWidth
+        case .tablet:
+            return min(availableWidth, 860)
+        case .desktopLike:
+            return min(availableWidth, 1120)
+        }
+    }
+
+    var cardColumnCount: Int {
+        switch widthClass {
+        case .phone:
+            return 1
+        case .tablet:
+            return 2
+        case .desktopLike:
+            return 3
+        }
+    }
+
+    var cardGridItems: [GridItem] {
+        Array(
+            repeating: GridItem(.flexible(), spacing: 12, alignment: .top),
+            count: cardColumnCount
+        )
+    }
+}
+
 struct NativeScreen<Content: View>: View {
-    @ViewBuilder var content: Content
+    private let content: (NativeScreenLayout) -> Content
+
+    init(@ViewBuilder content: @escaping (NativeScreenLayout) -> Content) {
+        self.content = content
+    }
 
     var body: some View {
-        ZStack {
-            NativePalette.paper.ignoresSafeArea()
+        GeometryReader { geometry in
+            let layout = NativeScreenLayout(containerSize: geometry.size)
 
-            ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
-                    content
+            ZStack {
+                NativePalette.paper.ignoresSafeArea()
+
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 24) {
+                        content(layout)
+                    }
+                    .frame(maxWidth: layout.maxContentWidth, alignment: .leading)
+                    .padding(.horizontal, layout.horizontalPadding)
+                    .padding(.vertical, 18)
+                    .frame(maxWidth: .infinity, alignment: .center)
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 18)
             }
         }
     }
+}
+
+struct NativeShareButton: View {
+    let url: URL
+    let subject: String
+    let message: String
+    var label = "Share"
+
+    @State private var isPresentingShareSheet = false
+
+    var body: some View {
+        Button(label) {
+            isPresentingShareSheet = true
+        }
+        .buttonStyle(NativeSecondaryButtonStyle())
+        .sheet(isPresented: $isPresentingShareSheet) {
+            NativeActivityView(
+                activityItems: [message, url],
+                subject: subject
+            )
+        }
+    }
+}
+
+private struct NativeActivityView: UIViewControllerRepresentable {
+    let activityItems: [Any]
+    let subject: String
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        let controller = UIActivityViewController(
+            activityItems: activityItems,
+            applicationActivities: nil
+        )
+        controller.setValue(subject, forKey: "subject")
+        return controller
+    }
+
+    func updateUIViewController(
+        _ uiViewController: UIActivityViewController,
+        context: Context
+    ) {}
 }

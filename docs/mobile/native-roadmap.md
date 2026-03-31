@@ -5,7 +5,7 @@
 Keep one monorepo:
 
 - root web app remains the source of truth for content authoring and the current production site UI
-- `ios/App` is the shipping native Apple app and the only source of truth for iPhone code
+- `ios/App` is the shipping native Apple app and the only source of truth for Apple client code
 - `android/` is the shipping native Android app and release pipeline
 - `native/android/` is the deferred placeholder for any later Android project split
 - `shared/swift-core` is the shared Swift package for read-only domain logic on Apple platforms
@@ -37,6 +37,7 @@ Do not use Swift for:
 - Ship from `ios/App/App`
 - Use SwiftUI
 - Reuse bundle identifier `com.djngoma.devilsaidictionary`
+- Treat iPhone and iPad as the primary form factors, with Mac distributed through the same app record as `Designed for iPad`
 - Load the bundled content snapshot first, then adopt `shared/swift-core` for domain logic
 - Treat the iOS migration as complete from a repo-structure perspective
 

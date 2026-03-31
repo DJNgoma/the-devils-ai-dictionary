@@ -20,7 +20,7 @@ The project is deliberately not a SaaS dashboard. It is structured as an online 
 - Next.js 16 App Router
 - TypeScript
 - Tailwind CSS v4
-- Native SwiftUI iPhone app and native Compose Android app
+- Native SwiftUI Apple app for iPhone and iPad, with Mac availability via `Designed for iPad`, plus a native Compose Android app
 - `native/android` remains a deferred placeholder for any later Android project split
 - File-based entry content in `content/entries/*.mdx`
 - Generated content index for runtime-safe entry loading
@@ -69,7 +69,7 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 
 ## Mobile apps
 
-- The repo ships a native SwiftUI iPhone app in `ios/` and a native Kotlin/Compose Android app in `android/`.
+- The repo ships a native SwiftUI Apple app in `ios/` and a native Kotlin/Compose Android app in `android/`.
 - `native/android/` stays as a deferred placeholder only; Android product code lives in `android/`.
 - iOS distribution notes: [docs/ios-testflight.md](docs/ios-testflight.md)
 - Android native setup, release, and Play testing notes: [docs/mobile/android-native.md](docs/mobile/android-native.md)
@@ -86,11 +86,11 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 
 ### Design & Mobile UX
 
-- Mobile now ships as native clients on both platforms. iPhone uses SwiftUI, and Android uses Compose. Both keep the same `Home`, `Browse`, `Search`, and `Saved` information architecture.
+- Mobile now ships as native clients on both platforms. The Apple app uses SwiftUI across iPhone and iPad, with Mac availability via `Designed for iPad`, and Android uses Compose. Both keep the same `Home`, `Browse`, `Search`, and `Saved` information architecture.
 - Safe areas are handled explicitly on both platforms with native controls and insets.
 - Search and dictionary filtering are phone-first: the search field stays visible, while secondary filters move into a bottom sheet to preserve thumb reach and reading space.
 - Surface treatments are intentionally lighter on mobile than desktop. This keeps the editorial identity without asking Samsung A30s-class hardware to render a blur festival every time a card scrolls past.
-- Navigation semantics, saved-place behavior, and token names are shared across the shipped native iPhone and Android apps.
+- Navigation semantics, saved-place behavior, and token names are shared across the shipped native Apple and Android apps.
 
 ## Project structure
 
