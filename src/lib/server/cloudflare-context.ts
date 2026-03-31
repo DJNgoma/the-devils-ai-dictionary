@@ -2,14 +2,29 @@ import { getCloudflareContext } from "@opennextjs/cloudflare";
 
 export type PushDeliveryEnvironment = "development" | "production";
 
-export type PushOptInStatus =
-  | "authorized"
-  | "denied"
-  | "ephemeral"
-  | "notDetermined"
-  | "provisional"
-  | "unsupported"
-  | "unknown";
+export const clientPushOptInStatuses = [
+  "authorized",
+  "denied",
+  "ephemeral",
+  "notDetermined",
+  "provisional",
+  "unsupported",
+  "unknown",
+] as const;
+
+export const pushInstallationStatuses = [
+  "authorized",
+  "denied",
+  "ephemeral",
+  "notDetermined",
+  "provisional",
+  "unsupported",
+  "unknown",
+  "invalid",
+] as const;
+
+export type ClientPushOptInStatus = (typeof clientPushOptInStatuses)[number];
+export type PushInstallationStatus = (typeof pushInstallationStatuses)[number];
 
 export type D1PreparedStatementLike = {
   bind: (...values: unknown[]) => D1PreparedStatementLike;

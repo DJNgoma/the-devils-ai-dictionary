@@ -6,7 +6,10 @@ import {
   getMobilePushEnv,
   requirePushInstallationsDatabase,
 } from "@/lib/server/cloudflare-context";
-import { sendCurrentWordPush } from "@/lib/server/apns";
+import {
+  isTerminalApnsFailure,
+  sendCurrentWordPush,
+} from "@/lib/server/apns";
 import {
   listTargetInstallations,
   markPushInstallationInvalid,
@@ -119,12 +122,7 @@ export async function POST(request: Request) {
 
         if (result.ok) {
           await markPushInstallationSuccess(database, installation.token);
-        } else if (
-          result.status === 400 ||
-          result.status === 410 ||
-          result.reason === "BadDeviceToken" ||
-          result.reason === "Unregistered"
-        ) {
+        } else if (isTerminalApnsFailure(result)) {
           await markPushInstallationInvalid(database, installation.token);
         }
 

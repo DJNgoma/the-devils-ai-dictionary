@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import {
+  clientPushOptInStatuses,
+  type ClientPushOptInStatus,
   getMobilePushEnv,
   requirePushInstallationsDatabase,
-  type PushOptInStatus,
 } from "@/lib/server/cloudflare-context";
 import { upsertPushInstallation } from "@/lib/server/push-installations";
 
@@ -13,15 +14,12 @@ const installationSchema = z.object({
   appVersion: z.string().trim().min(1),
   environment: z.enum(["development", "production"]),
   locale: z.string().trim().min(1),
-  optInStatus: z.enum([
-    "authorized",
-    "denied",
-    "ephemeral",
-    "notDetermined",
-    "provisional",
-    "unsupported",
-    "unknown",
-  ] satisfies [PushOptInStatus, ...PushOptInStatus[]]),
+  optInStatus: z.enum(
+    clientPushOptInStatuses satisfies readonly [
+      ClientPushOptInStatus,
+      ...ClientPushOptInStatus[],
+    ],
+  ),
   platform: z.literal("ios"),
   token: z.string().trim().min(1),
 });
