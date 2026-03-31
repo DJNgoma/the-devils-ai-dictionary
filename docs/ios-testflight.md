@@ -35,6 +35,13 @@ Then open Xcode:
 npm run ios:open
 ```
 
+Version settings are now repo-driven:
+
+- `MARKETING_VERSION` is synced from `package.json` `version`
+- `CURRENT_PROJECT_VERSION` is synced from `app-version.json` `buildNumber`
+
+Run `npm run version:sync` if you changed either file and want Xcode to reflect it immediately.
+
 ## Local verification before TestFlight
 
 Use these commands before opening Xcode if you want a repeatable local gate:
@@ -59,7 +66,7 @@ Inside Xcode:
 1. Open the `The Devil's AI Dictionary` target in `ios/App`.
 2. Set your Apple Developer Team in `Signing & Capabilities`.
 3. Confirm the bundle identifier. This repo uses `com.djngoma.devilsaidictionary` by default.
-4. Set the marketing version and build number in the target settings.
+4. Confirm the marketing version and build number in the target settings. The checked-in source of truth is `package.json` plus `app-version.json`, not ad hoc edits in Xcode.
 5. Run one local build on an iPhone simulator.
 6. Run one local build on an iPad simulator.
 7. Run one local build on `My Mac` as `Designed for iPad`.
@@ -74,4 +81,5 @@ Inside Xcode:
 - Keep one App Store Connect record and one bundle ID for the Apple app. Do not create a separate Mac app record in this tranche.
 - Leave Mac availability enabled for the iOS app so Apple silicon Macs receive the `Designed for iPad` build path.
 - `src/generated/entries.generated.json` is copied directly into the app target, so `npm run content:build` is the iOS content prerequisite.
+- The shared versioning rule lives in [`docs/release-versioning.md`](./release-versioning.md).
 - The ordinary website deploy remains the Cloudflare path documented in the main README.

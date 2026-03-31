@@ -11,12 +11,14 @@ if (keystorePropertiesFile.exists()) {
 }
 
 def packageJson = new JsonSlurper().parse(file('../../package.json'))
+def appVersionConfig = new JsonSlurper().parse(file('../../app-version.json'))
 def appVersionName = (findProperty('APP_VERSION_NAME')
     ?: System.getenv('APP_VERSION_NAME')
     ?: packageJson.version
     ?: '0.1.0').toString()
 def appVersionCode = ((findProperty('APP_VERSION_CODE')
     ?: System.getenv('APP_VERSION_CODE')
+    ?: appVersionConfig.buildNumber
     ?: '1') as String).toInteger()
 
 def releaseStoreFilePath = findProperty('RELEASE_STORE_FILE')

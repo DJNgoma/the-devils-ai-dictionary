@@ -51,6 +51,19 @@ Direct install for a connected device:
 adb install -r android/app/build/outputs/apk/release/app-release.apk
 ```
 
+## Version source
+
+- `versionName` defaults to `package.json` `version`
+- `versionCode` defaults to `app-version.json` `buildNumber`
+- `APP_VERSION_NAME` and `APP_VERSION_CODE` still override those values if you deliberately pass them
+
+Ordinary release rule:
+
+- bump `package.json` `version` for a new user-facing release
+- bump `app-version.json` `buildNumber` for every new Play-bound build
+
+The shared rule is documented in [`docs/release-versioning.md`](../release-versioning.md).
+
 ## Release signing
 
 Play-ready release artifacts require signing credentials. The Gradle build reads either:

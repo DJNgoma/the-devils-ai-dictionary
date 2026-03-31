@@ -38,6 +38,7 @@ npm run dev
 Useful checks:
 
 ```bash
+npm run version:sync
 npm run lint
 npm run typecheck
 npm run verify:ci
@@ -48,6 +49,7 @@ node scripts/with-android-java.mjs ./android/gradlew -p android assembleRelease
 node scripts/with-android-java.mjs ./android/gradlew -p android testDebugUnitTest assembleDebug
 npm run swift-core:test
 npm run build:cf
+npm run windows:build
 ```
 
 The app runs at [http://localhost:3000](http://localhost:3000).
@@ -55,6 +57,7 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 ## Repository conventions
 
 - Commit subjects should follow the dry, book-aware house style documented in [docs/commit-message-style.md](docs/commit-message-style.md).
+- Release versioning rules live in [docs/release-versioning.md](docs/release-versioning.md).
 
 ## Public repo
 
@@ -73,6 +76,12 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 - Android cutover notes and shared boundary: [docs/mobile/native-roadmap.md](docs/mobile/native-roadmap.md)
 - Solo-dev release and QA checklists: [docs/mobile/checklists.md](docs/mobile/checklists.md)
 - Mobile design system and native app rules: [docs/mobile/design-system.md](docs/mobile/design-system.md)
+
+## Windows desktop build
+
+- Windows packaging now lives in `desktop/electron/`.
+- `npm run windows:build` first creates the exported static site, then wraps it as a Windows desktop zip in `build/windows-dist/`.
+- The Windows package follows the shared release numbering documented in [docs/release-versioning.md](docs/release-versioning.md).
 
 ### Tested devices
 

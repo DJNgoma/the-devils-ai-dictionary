@@ -15,6 +15,7 @@ Directory boundaries:
 ## One-command workflows
 
 ```bash
+npm run version:sync
 npm run ios:prepare
 npm run swift-core:test
 node scripts/with-android-java.mjs ./android/gradlew -p android testDebugUnitTest assembleDebug
@@ -30,3 +31,4 @@ Legacy static-export verification for the root app remains available with `npm r
 - [Mobile design system](./design-system.md)
 - [Android cutover notes](./native-roadmap.md)
 - [Store, signing, and QA checklists](./checklists.md)
+- [Shared release versioning](../release-versioning.md)
