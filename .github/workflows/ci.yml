@@ -16,7 +16,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run verify:ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run test
+      - run: npm run build
 
   android-build:
     runs-on: ubuntu-latest
@@ -30,11 +33,11 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+          cache: gradle
       - uses: android-actions/setup-android@v3
       - run: npm ci
-      - run: npm run android:sync
-      - run: echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
-      - run: cd android && ./gradlew assembleDebug
+      - run: npm run android:prepare
+      - run: node scripts/with-android-java.mjs ./android/gradlew -p android testDebugUnitTest assembleDebug
 
   ios-build:
     runs-on: macos-latest
