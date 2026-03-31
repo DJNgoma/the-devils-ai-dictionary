@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, IBM_Plex_Mono, Source_Serif_4 } from "next/font/google";
-import { AndroidHostBridge } from "@/components/android-host-bridge";
 import { BookmarkProvider } from "@/components/bookmark-provider";
 import { MobileAppBar } from "@/components/mobile-app-bar";
 import { MobileBottomNav } from "@/components/mobile-bottom-nav";
@@ -112,7 +111,6 @@ export default function RootLayout({
         <ThemeProvider>
           <BookmarkProvider>
             <MobileShellController>
-              <AndroidHostBridge />
               <div className="site-chrome min-h-full">
                 <SiteHeader />
                 <MobileAppBar />

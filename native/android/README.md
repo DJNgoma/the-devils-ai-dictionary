@@ -1,15 +1,10 @@
 # native/android
 
-This directory is the canonical future home for the Kotlin/Compose Android app.
+This directory is a deferred placeholder for any future Android project split.
 
-Today the shipping Android app still lives in `android/` as a Capacitor shell. There is also temporary native incubation code inside the host app:
+The shipping Android app lives in `android/` for now. Keep this directory empty until there is a concrete reason to split the Android project boundary.
 
-- `android/app/src/main/java/com/djngoma/devilsaidictionary/nativeapp`
+When a future split becomes worthwhile:
 
-That package is a staging area, not the long-term project boundary.
-
-When native Android work resumes:
-
-- extract the incubator code into `native/android/` before adding more native feature surface
-- keep `android/` focused on the shipping shell, bridge code, asset sync, and Play delivery plumbing
-- reuse the existing application ID so upgrades happen in place
+- move the Android app here as a standalone Kotlin/Compose project
+- keep the existing application ID so upgrades happen in place

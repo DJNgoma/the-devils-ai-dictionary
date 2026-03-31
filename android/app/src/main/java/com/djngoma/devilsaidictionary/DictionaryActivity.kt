@@ -1,15 +1,17 @@
-package com.djngoma.devilsaidictionary.nativeapp
+package com.djngoma.devilsaidictionary
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.compose.setContent
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
-class NativeDictionaryActivity : ComponentActivity() {
+class DictionaryActivity : ComponentActivity() {
     private lateinit var store: NativeDictionaryStore
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
@@ -17,7 +19,10 @@ class NativeDictionaryActivity : ComponentActivity() {
         store.handleIntent(intent)
 
         setContent {
-            NativeDictionaryApp(store = store)
+            NativeDictionaryApp(
+                store = store,
+                onMoveTaskToBack = { moveTaskToBack(true) },
+            )
         }
     }
 

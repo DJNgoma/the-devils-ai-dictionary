@@ -6,7 +6,6 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from "react";
 
@@ -15,9 +14,6 @@ type MobileShellContextValue = {
   openMenu: () => void;
   closeMenu: () => void;
   toggleMenu: () => void;
-  hasOpenSheet: boolean;
-  closeTopSheet: () => void;
-  registerSheet: (id: string, close: () => void) => () => void;
   setSheetOpen: (id: string, open: boolean) => void;
 };
 
@@ -30,7 +26,6 @@ export function MobileShellController({
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openSheetIds, setOpenSheetIds] = useState<string[]>([]);
-  const sheetClosersRef = useRef(new Map<string, () => void>());
 
   useEffect(() => {
     const sheetOpen = openSheetIds.length > 0;
@@ -53,23 +48,6 @@ export function MobileShellController({
     setIsMenuOpen((current) => !current);
   }, []);
 
-  const closeTopSheet = useCallback(() => {
-    const topSheetId = openSheetIds.at(-1);
-
-    if (topSheetId) {
-      sheetClosersRef.current.get(topSheetId)?.();
-    }
-  }, [openSheetIds]);
-
-  const registerSheet = useCallback((id: string, close: () => void) => {
-    sheetClosersRef.current.set(id, close);
-
-    return () => {
-      sheetClosersRef.current.delete(id);
-      setOpenSheetIds((current) => current.filter((value) => value !== id));
-    };
-  }, []);
-
   const setSheetOpen = useCallback((id: string, open: boolean) => {
     setOpenSheetIds((current) => {
       const next = current.filter((value) => value !== id);
@@ -83,21 +61,9 @@ export function MobileShellController({
       openMenu,
       closeMenu,
       toggleMenu,
-      hasOpenSheet: openSheetIds.length > 0,
-      closeTopSheet,
-      registerSheet,
       setSheetOpen,
     }),
-    [
-      closeTopSheet,
-      closeMenu,
-      openSheetIds.length,
-      isMenuOpen,
-      openMenu,
-      registerSheet,
-      setSheetOpen,
-      toggleMenu,
-    ],
+    [closeMenu, isMenuOpen, openMenu, setSheetOpen, toggleMenu],
   );
 
   return (

@@ -1,4 +1,4 @@
-package com.djngoma.devilsaidictionary.nativeapp
+package com.djngoma.devilsaidictionary
 
 import android.content.Context
 import android.content.Intent
@@ -454,6 +454,20 @@ class NativeDictionaryStore(
         persistCurrentWord(entry.toCurrentWord(CurrentWordSource.deepLink))
         selectedTab = NativeTab.Browse
         activeOverlay = NativeOverlay.EntryDetail(entry.slug)
+    }
+
+    fun handleBack(): Boolean {
+        if (activeOverlay != null) {
+            dismissOverlay()
+            return true
+        }
+
+        if (selectedTab != NativeTab.Home) {
+            selectedTab = NativeTab.Home
+            return true
+        }
+
+        return false
     }
 
     private fun loadCatalog() {

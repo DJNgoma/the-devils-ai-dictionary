@@ -5,7 +5,6 @@ import {
   getMobilePrimaryNavId,
   isMobilePrimaryNavActive,
 } from "@/lib/site";
-import { resolveAndroidBackAction } from "@/lib/mobile-shell";
 
 describe("mobile navigation helpers", () => {
   it("maps home-adjacent routes to the home tab", () => {
@@ -36,25 +35,5 @@ describe("mobile navigation helpers", () => {
     expect(isMobilePrimaryNavActive("/dictionary", "browse")).toBe(true);
     expect(isMobilePrimaryNavActive("/search", "search")).toBe(true);
     expect(isMobilePrimaryNavActive("/saved", "home")).toBe(false);
-  });
-});
-
-describe("resolveAndroidBackAction", () => {
-  it("closes sheets before navigating", () => {
-    expect(
-      resolveAndroidBackAction({ hasOpenSheet: true, canGoBack: true }),
-    ).toBe("close-sheet");
-  });
-
-  it("uses history when there is no open sheet and history exists", () => {
-    expect(
-      resolveAndroidBackAction({ hasOpenSheet: false, canGoBack: true }),
-    ).toBe("history-back");
-  });
-
-  it("minimizes the app at the root of the history stack", () => {
-    expect(
-      resolveAndroidBackAction({ hasOpenSheet: false, canGoBack: false }),
-    ).toBe("minimize-app");
   });
 });
