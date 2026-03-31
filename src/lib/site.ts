@@ -1,4 +1,11 @@
 import { slugify } from "@/lib/utils";
+import {
+  categoryDefinitions,
+  difficultyOptions,
+  featuredEntrySlug,
+  hypeLevelOptions,
+  technicalDepthOptions,
+} from "@/lib/content-catalog.mjs";
 
 export const siteConfig = {
   name: "The Devil's AI Dictionary",
@@ -168,12 +175,6 @@ export const themeOptions = [
 
 export type ThemeName = (typeof themeOptions)[number]["value"];
 
-export const featuredEntrySlug = "microsoft-copilot";
-
-export const difficultyOptions = ["beginner", "intermediate", "advanced"] as const;
-export const technicalDepthOptions = ["low", "medium", "high"] as const;
-export const hypeLevelOptions = ["low", "medium", "high", "severe"] as const;
-
 export type Difficulty = (typeof difficultyOptions)[number];
 export type TechnicalDepth = (typeof technicalDepthOptions)[number];
 export type HypeLevel = (typeof hypeLevelOptions)[number];
@@ -189,59 +190,6 @@ export const technicalDepthLabels: Record<TechnicalDepth, string> = {
   medium: "Practical",
   high: "Deep",
 };
-
-export const categoryDefinitions = [
-  {
-    title: "Core concepts",
-    description:
-      "Terms people use as if they were self-explanatory, usually before the definitions start fraying.",
-  },
-  {
-    title: "Cultural terms",
-    description:
-      "The social weirdness around AI: belief, taste, cringe, status games, and the internet behaving as it usually does when handed a new machine.",
-  },
-  {
-    title: "Model building",
-    description:
-      "How models are trained, tuned, evaluated, and occasionally overpraised.",
-  },
-  {
-    title: "Model usage",
-    description:
-      "What it means to actually run a model in production, where invoices and latency live.",
-  },
-  {
-    title: "Agents and workflows",
-    description:
-      "Automation patterns, orchestration, and the difference between useful autonomy and stagecraft.",
-  },
-  {
-    title: "Retrieval and memory",
-    description:
-      "How systems fetch context, store traces, and pretend they remember you.",
-  },
-  {
-    title: "Product and vendor terms",
-    description:
-      "Company names, product labels, and the branding haze around them.",
-  },
-  {
-    title: "Safety and evaluation",
-    description:
-      "Guardrails, tests, preferences, and the uncomfortable gap between lab scores and reality.",
-  },
-  {
-    title: "Infrastructure and deployment",
-    description:
-      "The machinery underneath the demo: compute, serving, throughput, and operational trade-offs.",
-  },
-  {
-    title: "Economics and operations of AI",
-    description:
-      "Cost, labour, incentives, and the very unmagical business of running AI systems.",
-  },
-] as const;
 
 export type CategoryTitle = (typeof categoryDefinitions)[number]["title"];
 

@@ -9,71 +9,47 @@
 import { describe, expect, it } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
-
-/* ---------- re-implement the build-script validator for testing ---------- */
-
-const categoryTitles = [
-  "Core concepts",
-  "Cultural terms",
-  "Model building",
-  "Model usage",
-  "Agents and workflows",
-  "Retrieval and memory",
-  "Product and vendor terms",
-  "Safety and evaluation",
-  "Infrastructure and deployment",
-  "Economics and operations of AI",
-];
-const categoryTitleSet = new Set(categoryTitles);
-
-function validateEntry(entry: Record<string, unknown>) {
-  const errors: string[] = [];
-  const requireString = (field: string) => {
-    if (typeof entry[field] !== "string" || (entry[field] as string).length === 0) {
-      errors.push(`Missing required field "${field}"`);
-    }
-  };
-
-  requireString("title");
-  requireString("slug");
-  requireString("letter");
-  requireString("devilDefinition");
-  requireString("plainDefinition");
-
-  const categories = entry.categories;
-  if (!Array.isArray(categories) || categories.length === 0) {
-    errors.push('Field "categories" must be a non-empty array');
-  } else {
-    for (const cat of categories) {
-      if (!categoryTitleSet.has(cat as string)) {
-        errors.push(`Unknown category "${cat}"`);
-      }
-    }
-  }
-
-  return errors;
-}
+import { collectEntryValidationErrors } from "@/lib/content-build.mjs";
 
 /* ---------- tests ---------- */
 
 describe("build-time validation rejects bad entries", () => {
   it("rejects an entry with no title", () => {
-    const errors = validateEntry({ slug: "test", letter: "T", categories: ["Core concepts"], devilDefinition: "x", plainDefinition: "x" });
+    const errors = collectEntryValidationErrors({
+      slug: "test",
+      letter: "T",
+      categories: ["Core concepts"],
+      devilDefinition: "x",
+      plainDefinition: "x",
+    });
     expect(errors).toContainEqual(expect.stringContaining("title"));
   });
 
   it("rejects an entry with no slug", () => {
-    const errors = validateEntry({ title: "Test", letter: "T", categories: ["Core concepts"], devilDefinition: "x", plainDefinition: "x" });
+    const errors = collectEntryValidationErrors({
+      title: "Test",
+      letter: "T",
+      categories: ["Core concepts"],
+      devilDefinition: "x",
+      plainDefinition: "x",
+    });
     expect(errors).toContainEqual(expect.stringContaining("slug"));
   });
 
   it("rejects an entry with empty categories", () => {
-    const errors = validateEntry({ title: "Test", slug: "test", letter: "T", categories: [], devilDefinition: "x", plainDefinition: "x" });
+    const errors = collectEntryValidationErrors({
+      title: "Test",
+      slug: "test",
+      letter: "T",
+      categories: [],
+      devilDefinition: "x",
+      plainDefinition: "x",
+    });
     expect(errors).toContainEqual(expect.stringContaining("categories"));
   });
 
   it("rejects an entry with an unknown category", () => {
-    const errors = validateEntry({
+    const errors = collectEntryValidationErrors({
       title: "Test",
       slug: "test",
       letter: "T",
@@ -84,16 +60,174 @@ describe("build-time validation rejects bad entries", () => {
     expect(errors).toContainEqual(expect.stringContaining("Unknown category"));
   });
 
-  it("accepts a valid entry", () => {
-    const errors = validateEntry({
+  it("rejects unparseable dates", () => {
+    const errors = collectEntryValidationErrors({
       title: "Test",
       slug: "test",
       letter: "T",
       categories: ["Core concepts"],
+      askNext: ["What changes when it ships?"],
       devilDefinition: "A definition.",
       plainDefinition: "A plain definition.",
+      whyExists: "Because people need a name for it.",
+      misuse: "People call everything this.",
+      practicalMeaning: "It matters in production.",
+      example: "An example.",
+      difficulty: "beginner",
+      technicalDepth: "low",
+      hypeLevel: "medium",
+      publishedAt: "yesterday sometime",
+      updatedAt: "2026-03-01T00:00:00.000Z",
     });
-    expect(errors.filter((e) => !e.includes("whyExists") && !e.includes("misuse") && !e.includes("practicalMeaning") && !e.includes("example"))).toEqual([]);
+    expect(errors).toContainEqual(expect.stringContaining("publishedAt"));
+  });
+
+  it("rejects an entry with an empty askNext array", () => {
+    const errors = collectEntryValidationErrors({
+      title: "Test",
+      slug: "test",
+      letter: "T",
+      categories: ["Core concepts"],
+      askNext: [],
+      devilDefinition: "A definition.",
+      plainDefinition: "A plain definition.",
+      whyExists: "Because people need a name for it.",
+      misuse: "People call everything this.",
+      practicalMeaning: "It matters in production.",
+      example: "An example.",
+      difficulty: "beginner",
+      technicalDepth: "low",
+      hypeLevel: "medium",
+      publishedAt: "2026-03-01T00:00:00.000Z",
+      updatedAt: "2026-03-01T00:00:00.000Z",
+    });
+    expect(errors).toContainEqual(expect.stringContaining("askNext"));
+  });
+
+  it("rejects invalid optional string arrays", () => {
+    const errors = collectEntryValidationErrors({
+      title: "Test",
+      slug: "test",
+      letter: "T",
+      categories: ["Core concepts"],
+      askNext: ["What changes when it ships?"],
+      devilDefinition: "A definition.",
+      plainDefinition: "A plain definition.",
+      whyExists: "Because people need a name for it.",
+      misuse: "People call everything this.",
+      practicalMeaning: "It matters in production.",
+      example: "An example.",
+      difficulty: "beginner",
+      technicalDepth: "low",
+      hypeLevel: "medium",
+      publishedAt: "2026-03-01T00:00:00.000Z",
+      updatedAt: "2026-03-01T00:00:00.000Z",
+      aliases: ["good", ""],
+      tags: "not-an-array",
+      related: ["valid", 42],
+      seeAlso: ["", "other"],
+      vendorReferences: [null],
+    });
+    expect(errors).toContainEqual(expect.stringContaining('"aliases"'));
+    expect(errors).toContainEqual(expect.stringContaining('"tags"'));
+    expect(errors).toContainEqual(expect.stringContaining('"related"'));
+    expect(errors).toContainEqual(expect.stringContaining('"seeAlso"'));
+    expect(errors).toContainEqual(expect.stringContaining('"vendorReferences"'));
+  });
+
+  it("rejects invalid translation objects", () => {
+    const errors = collectEntryValidationErrors({
+      title: "Test",
+      slug: "test",
+      letter: "T",
+      categories: ["Core concepts"],
+      askNext: ["What changes when it ships?"],
+      devilDefinition: "A definition.",
+      plainDefinition: "A plain definition.",
+      whyExists: "Because people need a name for it.",
+      misuse: "People call everything this.",
+      practicalMeaning: "It matters in production.",
+      example: "An example.",
+      difficulty: "beginner",
+      technicalDepth: "low",
+      hypeLevel: "medium",
+      publishedAt: "2026-03-01T00:00:00.000Z",
+      updatedAt: "2026-03-01T00:00:00.000Z",
+      translations: [{ label: "French" }],
+    });
+    expect(errors).toContainEqual(expect.stringContaining("translations"));
+  });
+
+  it("rejects invalid enum fields", () => {
+    const errors = collectEntryValidationErrors({
+      title: "Test",
+      slug: "test",
+      letter: "T",
+      categories: ["Core concepts"],
+      askNext: ["What changes when it ships?"],
+      devilDefinition: "A definition.",
+      plainDefinition: "A plain definition.",
+      whyExists: "Because people need a name for it.",
+      misuse: "People call everything this.",
+      practicalMeaning: "It matters in production.",
+      example: "An example.",
+      difficulty: "expert",
+      technicalDepth: "extreme",
+      hypeLevel: "catastrophic",
+      publishedAt: "2026-03-01T00:00:00.000Z",
+      updatedAt: "2026-03-01T00:00:00.000Z",
+    });
+    expect(errors).toContainEqual(expect.stringContaining("difficulty"));
+    expect(errors).toContainEqual(expect.stringContaining("technicalDepth"));
+    expect(errors).toContainEqual(expect.stringContaining("hypeLevel"));
+  });
+
+  it("rejects related slugs that are not in the catalogue", () => {
+    const errors = collectEntryValidationErrors(
+      {
+        title: "Test",
+        slug: "test",
+        letter: "T",
+        categories: ["Core concepts"],
+        askNext: ["What changes when it ships?"],
+        devilDefinition: "A definition.",
+        plainDefinition: "A plain definition.",
+        whyExists: "Because people need a name for it.",
+        misuse: "People call everything this.",
+        practicalMeaning: "It matters in production.",
+        example: "An example.",
+        difficulty: "beginner",
+        technicalDepth: "low",
+        hypeLevel: "medium",
+        publishedAt: "2026-03-01T00:00:00.000Z",
+        updatedAt: "2026-03-01T00:00:00.000Z",
+        related: ["missing-slug"],
+      },
+      { knownSlugs: new Set(["test", "agent"]) },
+    );
+    expect(errors).toContainEqual(expect.stringContaining("Unknown related slug"));
+  });
+
+  it("accepts a valid entry", () => {
+    const errors = collectEntryValidationErrors({
+      title: "Test",
+      slug: "test",
+      letter: "T",
+      categories: ["Core concepts"],
+      askNext: ["What changes when it ships?"],
+      devilDefinition: "A definition.",
+      plainDefinition: "A plain definition.",
+      whyExists: "Because people need a name for it.",
+      misuse: "People call everything this.",
+      practicalMeaning: "It matters in production.",
+      example: "An example.",
+      difficulty: "beginner",
+      technicalDepth: "low",
+      hypeLevel: "medium",
+      publishedAt: "2026-03-01T00:00:00.000Z",
+      updatedAt: "2026-03-01T00:00:00.000Z",
+    });
+    expect(errors).toEqual([]);
   });
 });
 
