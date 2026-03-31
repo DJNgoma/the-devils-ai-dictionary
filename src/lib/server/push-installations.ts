@@ -1,19 +1,21 @@
 import type {
+  ClientPushOptInStatus,
   D1DatabaseLike,
   PushDeliveryEnvironment,
-  PushOptInStatus,
+  PushInstallationStatus,
 } from "@/lib/server/cloudflare-context";
 
 export type PushInstallationInput = {
   token: string;
   platform: "ios";
   environment: PushDeliveryEnvironment;
-  optInStatus: PushOptInStatus;
+  optInStatus: ClientPushOptInStatus;
   appVersion: string;
   locale: string;
 };
 
-export type PushInstallationRecord = PushInstallationInput & {
+export type PushInstallationRecord = Omit<PushInstallationInput, "optInStatus"> & {
+  optInStatus: PushInstallationStatus;
   lastSuccessAt: string | null;
   updatedAt: string;
 };
@@ -83,7 +85,7 @@ export async function markPushInstallationInvalid(
       `
         UPDATE push_installations
         SET
-          opt_in_status = 'unknown',
+          opt_in_status = 'invalid',
           updated_at = datetime('now')
         WHERE token = ?
       `,

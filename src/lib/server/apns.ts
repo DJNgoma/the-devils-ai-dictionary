@@ -22,6 +22,12 @@ export type ApnsSendResult = {
   token: string;
 };
 
+const terminalApnsReasons = new Set([
+  "BadDeviceToken",
+  "DeviceTokenNotForTopic",
+  "Unregistered",
+]);
+
 function base64UrlEncode(input: ArrayBuffer | Uint8Array | string) {
   const bytes =
     typeof input === "string"
@@ -108,6 +114,15 @@ function createNotificationBody(entry: Entry, sentAt: string) {
   };
 
   return JSON.stringify(body);
+}
+
+export function isTerminalApnsFailure(result: ApnsSendResult) {
+  return (
+    !result.ok &&
+    (result.status === 410 ||
+      (typeof result.reason === "string" &&
+        terminalApnsReasons.has(result.reason)))
+  );
 }
 
 export async function sendCurrentWordPush({
