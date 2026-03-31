@@ -5,8 +5,13 @@ import {
   getLatestPublishedAt,
   getSearchableEntries,
 } from "@/lib/content";
+import { normalizeDirectoryExplorerState } from "@/lib/directory-explorer-state";
 import { buildMetadata } from "@/lib/metadata";
 import { formatDate } from "@/lib/utils";
+
+type DictionaryPageProps = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
 
 export const metadata = buildMetadata({
   title: "Dictionary browser",
@@ -15,12 +20,18 @@ export const metadata = buildMetadata({
   path: "/dictionary",
 });
 
-export default async function DictionaryPage() {
+export default async function DictionaryPage({
+  searchParams,
+}: DictionaryPageProps) {
   const [entries, categories, latestPublishedAt] = await Promise.all([
     getSearchableEntries(),
     getCategoryStats(),
     getLatestPublishedAt(),
   ]);
+  const initialState = normalizeDirectoryExplorerState(await searchParams, {
+    categorySlugs: categories.map((category) => category.slug),
+    mode: "dictionary",
+  });
 
   return (
     <div className="page-shell space-y-10">
@@ -40,6 +51,12 @@ export default async function DictionaryPage() {
         <DirectoryExplorer
           entries={entries}
           categories={categories.map(({ title, slug }) => ({ title, slug }))}
+          initialCategory={initialState.category}
+          initialDepth={initialState.depth}
+          initialDifficulty={initialState.difficulty}
+          initialLetter={initialState.letter}
+          initialQuery={initialState.query}
+          initialVendor={initialState.vendor}
           mode="dictionary"
         />
       </Suspense>

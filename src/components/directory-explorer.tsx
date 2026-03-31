@@ -13,6 +13,11 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { AppSheet } from "@/components/app-sheet";
 import { EntryCard } from "@/components/entry-card";
 import type { SearchableEntry } from "@/lib/content";
+import {
+  areDirectoryExplorerStatesEqual,
+  normalizeDirectoryExplorerState,
+  serializeDirectoryExplorerState,
+} from "@/lib/directory-explorer-state";
 import { difficultyLabels, technicalDepthLabels } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -59,32 +64,31 @@ export function DirectoryExplorer({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
-  const [query, setQuery] = useState(() => searchParams.get("q") ?? initialQuery);
-  const [activeCategory, setActiveCategory] = useState(
-    () => searchParams.get("category") ?? initialCategory,
-  );
-  const [activeDifficulty, setActiveDifficulty] = useState(
-    () => searchParams.get("difficulty") ?? initialDifficulty,
-  );
-  const [activeVendor, setActiveVendor] = useState(
-    () => searchParams.get("vendor") ?? initialVendor,
-  );
-  const [activeDepth, setActiveDepth] = useState(
-    () => searchParams.get("depth") ?? initialDepth,
-  );
-  const [activeLetter, setActiveLetter] = useState(
-    () => searchParams.get("letter") ?? initialLetter,
-  );
+  const [query, setQuery] = useState(initialQuery);
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
+  const [activeDifficulty, setActiveDifficulty] = useState(initialDifficulty);
+  const [activeVendor, setActiveVendor] = useState(initialVendor);
+  const [activeDepth, setActiveDepth] = useState(initialDepth);
+  const [activeLetter, setActiveLetter] = useState(initialLetter);
   const [results, setResults] = useState<SearchableEntry[]>(entries);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const deferredQuery = useDeferredValue(query.trim());
   const searchStoreRef = useRef<EntryIndexStore | null>(null);
+  const syncOriginRef = useRef<"local" | "url">("url");
+  const searchParamState = normalizeDirectoryExplorerState(searchParams, {
+    categorySlugs: categories.map((category) => category.slug),
+    mode,
+  });
+  const currentState = {
+    query: query.trim(),
+    category: activeCategory,
+    difficulty: activeDifficulty,
+    vendor: activeVendor,
+    depth: activeDepth,
+    letter: activeLetter,
+  };
 
   useEffect(() => {
-    if (searchStoreRef.current) {
-      return;
-    }
-
     const index = new Index({
       tokenize: "forward",
       resolution: 9,
@@ -99,6 +103,40 @@ export function DirectoryExplorer({
 
     searchStoreRef.current = { index, map };
   }, [entries]);
+
+  useEffect(() => {
+    const nextState = searchParamState;
+
+    if (areDirectoryExplorerStatesEqual(currentState, nextState)) {
+      return;
+    }
+
+    syncOriginRef.current = "url";
+
+    if (nextState.query !== currentState.query) {
+      setQuery(nextState.query);
+    }
+
+    if (nextState.category !== currentState.category) {
+      setActiveCategory(nextState.category);
+    }
+
+    if (nextState.difficulty !== currentState.difficulty) {
+      setActiveDifficulty(nextState.difficulty);
+    }
+
+    if (nextState.vendor !== currentState.vendor) {
+      setActiveVendor(nextState.vendor);
+    }
+
+    if (nextState.depth !== currentState.depth) {
+      setActiveDepth(nextState.depth);
+    }
+
+    if (nextState.letter !== currentState.letter) {
+      setActiveLetter(nextState.letter);
+    }
+  }, [currentState, searchParamState]);
 
   useEffect(() => {
     const store = searchStoreRef.current;
@@ -153,47 +191,37 @@ export function DirectoryExplorer({
   ]);
 
   useEffect(() => {
-    const params = new URLSearchParams();
+    const nextSearch = serializeDirectoryExplorerState(
+      currentState,
+      mode,
+    );
+    const stateMatchesUrl = areDirectoryExplorerStatesEqual(
+      currentState,
+      searchParamState,
+    );
+    const currentSearch = searchParams.toString();
 
-    if (query.trim()) {
-      params.set("q", query.trim());
+    if (syncOriginRef.current === "url" && !stateMatchesUrl) {
+      return;
     }
 
-    if (activeCategory !== "all") {
-      params.set("category", activeCategory);
+    if (nextSearch === currentSearch) {
+      return;
     }
 
-    if (activeDifficulty !== "all") {
-      params.set("difficulty", activeDifficulty);
-    }
-
-    if (activeVendor !== "all") {
-      params.set("vendor", activeVendor);
-    }
-
-    if (activeDepth !== "all") {
-      params.set("depth", activeDepth);
-    }
-
-    if (mode === "dictionary" && activeLetter !== "all") {
-      params.set("letter", activeLetter);
-    }
-
-    const nextUrl = params.toString() ? `${pathname}?${params.toString()}` : pathname;
+    const nextUrl = nextSearch ? `${pathname}?${nextSearch}` : pathname;
     router.replace(nextUrl, { scroll: false });
   }, [
-    activeCategory,
-    activeDepth,
-    activeDifficulty,
-    activeLetter,
-    activeVendor,
+    currentState,
     mode,
     pathname,
-    query,
     router,
+    searchParamState,
+    searchParams,
   ]);
 
   const clearFilters = () => {
+    syncOriginRef.current = "local";
     startTransition(() => {
       setQuery("");
       setActiveCategory("all");
@@ -224,7 +252,10 @@ export function DirectoryExplorer({
       ? {
           key: "query",
           label: `Search: ${query.trim()}`,
-          clear: () => setQuery(""),
+          clear: () => {
+            syncOriginRef.current = "local";
+            setQuery("");
+          },
         }
       : null,
     activeCategory !== "all"
@@ -233,21 +264,30 @@ export function DirectoryExplorer({
           label:
             categories.find((category) => category.slug === activeCategory)?.title ??
             "Category",
-          clear: () => setActiveCategory("all"),
+          clear: () => {
+            syncOriginRef.current = "local";
+            setActiveCategory("all");
+          },
         }
       : null,
     activeDifficulty !== "all"
       ? {
           key: "difficulty",
           label: difficultyLabels[activeDifficulty as keyof typeof difficultyLabels],
-          clear: () => setActiveDifficulty("all"),
+          clear: () => {
+            syncOriginRef.current = "local";
+            setActiveDifficulty("all");
+          },
         }
       : null,
     activeVendor !== "all"
       ? {
           key: "vendor",
           label: activeVendor === "vendor" ? "Vendor only" : "No vendor terms",
-          clear: () => setActiveVendor("all"),
+          clear: () => {
+            syncOriginRef.current = "local";
+            setActiveVendor("all");
+          },
         }
       : null,
     activeDepth !== "all"
@@ -255,14 +295,20 @@ export function DirectoryExplorer({
           key: "depth",
           label:
             technicalDepthLabels[activeDepth as keyof typeof technicalDepthLabels],
-          clear: () => setActiveDepth("all"),
+          clear: () => {
+            syncOriginRef.current = "local";
+            setActiveDepth("all");
+          },
         }
       : null,
     activeLetter !== "all"
       ? {
           key: "letter",
           label: `Letter ${activeLetter}`,
-          clear: () => setActiveLetter("all"),
+          clear: () => {
+            syncOriginRef.current = "local";
+            setActiveLetter("all");
+          },
         }
       : null,
   ].filter(Boolean) as Array<{
@@ -286,6 +332,7 @@ export function DirectoryExplorer({
               inputMode="search"
               onChange={(event) => {
                 const nextValue = event.target.value;
+                syncOriginRef.current = "local";
                 startTransition(() => setQuery(nextValue));
               }}
               placeholder="Search by term, alias, category, or explanation"
@@ -337,7 +384,10 @@ export function DirectoryExplorer({
                   <button
                     key={letter}
                     type="button"
-                    onClick={() => setActiveLetter(letter)}
+                    onClick={() => {
+                      syncOriginRef.current = "local";
+                      setActiveLetter(letter);
+                    }}
                     className={cn(
                       "chip shrink-0 whitespace-nowrap",
                       activeLetter === letter && "chip-accent border-accent",
@@ -363,6 +413,7 @@ export function DirectoryExplorer({
               inputMode="search"
               onChange={(event) => {
                 const nextValue = event.target.value;
+                syncOriginRef.current = "local";
                 startTransition(() => setQuery(nextValue));
               }}
               placeholder="Search by term, alias, category, or explanation"
@@ -373,7 +424,10 @@ export function DirectoryExplorer({
             <FilterSelect
               label="Category"
               value={activeCategory}
-              onChange={(value) => setActiveCategory(value)}
+              onChange={(value) => {
+                syncOriginRef.current = "local";
+                setActiveCategory(value);
+              }}
               options={[
                 { value: "all", label: "All categories" },
                 ...categories.map((category) => ({
@@ -385,7 +439,10 @@ export function DirectoryExplorer({
             <FilterSelect
               label="Difficulty"
               value={activeDifficulty}
-              onChange={(value) => setActiveDifficulty(value)}
+              onChange={(value) => {
+                syncOriginRef.current = "local";
+                setActiveDifficulty(value);
+              }}
               options={[
                 { value: "all", label: "Any difficulty" },
                 ...Object.entries(difficultyLabels).map(([value, label]) => ({
@@ -397,7 +454,10 @@ export function DirectoryExplorer({
             <FilterSelect
               label="Vendor term"
               value={activeVendor}
-              onChange={(value) => setActiveVendor(value)}
+              onChange={(value) => {
+                syncOriginRef.current = "local";
+                setActiveVendor(value);
+              }}
               options={[
                 { value: "all", label: "All terms" },
                 { value: "vendor", label: "Vendor/product only" },
@@ -407,7 +467,10 @@ export function DirectoryExplorer({
             <FilterSelect
               label="Technical depth"
               value={activeDepth}
-              onChange={(value) => setActiveDepth(value)}
+              onChange={(value) => {
+                syncOriginRef.current = "local";
+                setActiveDepth(value);
+              }}
               options={[
                 { value: "all", label: "Any depth" },
                 ...Object.entries(technicalDepthLabels).map(([value, label]) => ({
@@ -438,7 +501,10 @@ export function DirectoryExplorer({
                 <button
                   key={letter}
                   type="button"
-                  onClick={() => setActiveLetter(letter)}
+                  onClick={() => {
+                    syncOriginRef.current = "local";
+                    setActiveLetter(letter);
+                  }}
                   className={cn(
                     "rounded-full border border-line px-3 py-1.5 text-sm text-foreground-soft hover:border-accent hover:text-accent",
                     activeLetter === letter && "border-accent bg-accent-soft text-accent",
@@ -463,7 +529,10 @@ export function DirectoryExplorer({
           <FilterSelect
             label="Category"
             value={activeCategory}
-            onChange={(value) => setActiveCategory(value)}
+            onChange={(value) => {
+              syncOriginRef.current = "local";
+              setActiveCategory(value);
+            }}
             options={[
               { value: "all", label: "All categories" },
               ...categories.map((category) => ({
@@ -475,7 +544,10 @@ export function DirectoryExplorer({
           <FilterSelect
             label="Difficulty"
             value={activeDifficulty}
-            onChange={(value) => setActiveDifficulty(value)}
+            onChange={(value) => {
+              syncOriginRef.current = "local";
+              setActiveDifficulty(value);
+            }}
             options={[
               { value: "all", label: "Any difficulty" },
               ...Object.entries(difficultyLabels).map(([value, label]) => ({
@@ -487,7 +559,10 @@ export function DirectoryExplorer({
           <FilterSelect
             label="Vendor term"
             value={activeVendor}
-            onChange={(value) => setActiveVendor(value)}
+            onChange={(value) => {
+              syncOriginRef.current = "local";
+              setActiveVendor(value);
+            }}
             options={[
               { value: "all", label: "All terms" },
               { value: "vendor", label: "Vendor/product only" },
@@ -497,7 +572,10 @@ export function DirectoryExplorer({
           <FilterSelect
             label="Technical depth"
             value={activeDepth}
-            onChange={(value) => setActiveDepth(value)}
+            onChange={(value) => {
+              syncOriginRef.current = "local";
+              setActiveDepth(value);
+            }}
             options={[
               { value: "all", label: "Any depth" },
               ...Object.entries(technicalDepthLabels).map(([value, label]) => ({
