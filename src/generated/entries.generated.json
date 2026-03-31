@@ -24,7 +24,9 @@
       ],
       "related": [
         "agentic-ai",
-        "orchestration",
+        "orchestration"
+      ],
+      "seeAlso": [
         "multi-agent"
       ],
       "difficulty": "beginner",
@@ -50,7 +52,6 @@
           "text": "A loop with state, tools, and more ways to fail than a normal request-response app."
         }
       ],
-      "seeAlso": [],
       "vendorReferences": [],
       "body": "Useful agents exist. They just tend to look less like science fiction and more like tightly scoped systems with clear permissions, strong fallbacks, and very little romance.",
       "categorySlugs": [
@@ -58,7 +59,7 @@
         "model-usage"
       ],
       "url": "/dictionary/agent",
-      "searchText": "Agent AI agent Agents and workflows Model usage autonomy tools planning A software system granted just enough initiative to impress a conference panel and just enough unpredictability to alarm operations.\n In current AI practice, an agent is usually a system that can pursue a goal across multiple steps by planning, using tools, consulting memory or retrieval, and adjusting its actions based on intermediate results.\n The term exists because some useful tasks are not one-shot question answering. They require sequences: inspect, decide, act, check, retry, stop. \"Agent\" is the label for packaging those loops into something more autonomous than a single prompt-response exchange.\n It gets abused whenever a chatbot can do more than one thing. A model with a button labelled \"send email\" is not automatically an agent. Sometimes the word is doing no more than replacing \"workflow\" because the latter sounds unromantic.\n In practice it usually means orchestration, tool permissions, planning heuristics, state management, timeouts, approvals, and a carefully chosen boundary around what the system is allowed to decide alone.\n \"The support agent was useful not because it had a heroic inner life, but because it could look up the account, draft the response, and ask for approval before sending it.\"\n What goal is the agent pursuing, and over how many steps? What tools can it use, and what guardrails sit between intent and execution? Would a simpler workflow solve the same problem more predictably?",
+      "searchText": "Agent AI agent Agents and workflows Model usage autonomy tools planning A software system granted just enough initiative to impress a conference panel and just enough unpredictability to alarm operations.\n In current AI practice, an agent is usually a system that can pursue a goal across multiple steps by planning, using tools, consulting memory or retrieval, and adjusting its actions based on intermediate results.\n The term exists because some useful tasks are not one-shot question answering. They require sequences: inspect, decide, act, check, retry, stop. \"Agent\" is the label for packaging those loops into something more autonomous than a single prompt-response exchange.\n It gets abused whenever a chatbot can do more than one thing. A model with a button labelled \"send email\" is not automatically an agent. Sometimes the word is doing no more than replacing \"workflow\" because the latter sounds unromantic.\n In practice it usually means orchestration, tool permissions, planning heuristics, state management, timeouts, approvals, and a carefully chosen boundary around what the system is allowed to decide alone.\n \"The support agent was useful not because it had a heroic inner life, but because it could look up the account, draft the response, and ask for approval before sending it.\"\n What goal is the agent pursuing, and over how many steps? What tools can it use, and what guardrails sit between intent and execution? Would a simpler workflow solve the same problem more predictably? multi-agent",
       "relatedSlugs": [
         "agentic-ai",
         "orchestration",
@@ -3899,9 +3900,11 @@
         "Is the prompt compensating for a missing tool, missing retrieval step, or missing product rule?"
       ],
       "related": [
-        "prompt-engineering",
-        "system-prompt",
         "context-window"
+      ],
+      "seeAlso": [
+        "prompt-engineering",
+        "system-prompt"
       ],
       "difficulty": "beginner",
       "technicalDepth": "low",
@@ -3922,7 +3925,6 @@
           "text": "A carefully packed bag of instructions, examples, constraints, and context, all fighting for the model's attention."
         }
       ],
-      "seeAlso": [],
       "vendorReferences": [],
       "body": "The important operational question is rarely \"what prompt did you type?\" It is \"what exactly did the system send?\" Those are not always the same thing.",
       "categorySlugs": [
@@ -3930,7 +3932,7 @@
         "core-concepts"
       ],
       "url": "/dictionary/prompt",
-      "searchText": "Prompt instruction input prompt Model usage Core concepts instructions context input A politely worded attempt to steer a probability machine into behaving as if it has read the brief and cares.\n A prompt is the input text, and sometimes structured context, provided to a model in order to shape its output. In LLM systems this can include instructions, examples, retrieved documents, tool results, formatting rules, and the user's actual request.\n The term exists because the way you frame input materially affects output. Language models do not simply receive a question. They respond to the entire text context they are given.\n It gets treated either as wizardry or as trivia. Both are wrong. Prompt quality matters, but prompting is not a substitute for missing product design, missing data, or missing control logic. A good prompt cannot rescue a bad system forever.\n In practice it usually means the assembled context sent to the model: system instructions, user text, retrieved snippets, examples, tool schemas, output rules, and maybe the remnants of last week's prompt experiments still haunting production.\n \"The issue was not that the model was weak; the prompt was half policy manual, half legal disclaimer, and no longer resembled a usable instruction.\"\n What exact context is being sent to the model? Which parts of the prompt are fixed system behaviour versus user input? Is the prompt compensating for a missing tool, missing retrieval step, or missing product rule?  In image generation, \"prompt\" often refers to descriptive text steering the style or content of an output. In LLM products, it usually refers to the full assembled input context, not just the visible user message.",
+      "searchText": "Prompt instruction input prompt Model usage Core concepts instructions context input A politely worded attempt to steer a probability machine into behaving as if it has read the brief and cares.\n A prompt is the input text, and sometimes structured context, provided to a model in order to shape its output. In LLM systems this can include instructions, examples, retrieved documents, tool results, formatting rules, and the user's actual request.\n The term exists because the way you frame input materially affects output. Language models do not simply receive a question. They respond to the entire text context they are given.\n It gets treated either as wizardry or as trivia. Both are wrong. Prompt quality matters, but prompting is not a substitute for missing product design, missing data, or missing control logic. A good prompt cannot rescue a bad system forever.\n In practice it usually means the assembled context sent to the model: system instructions, user text, retrieved snippets, examples, tool schemas, output rules, and maybe the remnants of last week's prompt experiments still haunting production.\n \"The issue was not that the model was weak; the prompt was half policy manual, half legal disclaimer, and no longer resembled a usable instruction.\"\n What exact context is being sent to the model? Which parts of the prompt are fixed system behaviour versus user input? Is the prompt compensating for a missing tool, missing retrieval step, or missing product rule? prompt-engineering system-prompt In image generation, \"prompt\" often refers to descriptive text steering the style or content of an output. In LLM products, it usually refers to the full assembled input context, not just the visible user message.",
       "relatedSlugs": [
         "context-window",
         "knowledge-cutoff",

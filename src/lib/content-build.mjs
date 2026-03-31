@@ -1,0 +1,238 @@
+// @ts-nocheck
+
+import {
+  categoryDefinitions,
+  difficultyOptions,
+  hypeLevelOptions,
+  technicalDepthOptions,
+} from "./content-catalog.mjs";
+
+const categoryTitleSet = new Set(categoryDefinitions.map((category) => category.title));
+const difficultySet = new Set(difficultyOptions);
+const technicalDepthSet = new Set(technicalDepthOptions);
+const hypeLevelSet = new Set(hypeLevelOptions);
+
+function isNonEmptyString(value) {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
+function isStringArray(value) {
+  return Array.isArray(value) && value.every(isNonEmptyString);
+}
+
+function isValidDateString(value) {
+  return isNonEmptyString(value) && Number.isFinite(Date.parse(value));
+}
+
+export function buildSearchText(entry) {
+  return [
+    entry.title,
+    (entry.aliases ?? []).join(" "),
+    (entry.categories ?? []).join(" "),
+    (entry.tags ?? []).join(" "),
+    entry.devilDefinition ?? "",
+    entry.plainDefinition ?? "",
+    entry.whyExists ?? "",
+    entry.misuse ?? "",
+    entry.practicalMeaning ?? "",
+    entry.example ?? "",
+    (entry.askNext ?? []).join(" "),
+    (entry.seeAlso ?? []).join(" "),
+    entry.note ?? "",
+    (entry.vendorReferences ?? []).join(" "),
+  ]
+    .join(" ")
+    .trim();
+}
+
+export function collectEntryValidationErrors(
+  entry,
+  {
+    knownSlugs,
+  } = {},
+) {
+  const errors = [];
+  const requireString = (field) => {
+    if (!isNonEmptyString(entry[field])) {
+      errors.push(`Missing required field "${field}"`);
+    }
+  };
+  const validateOptionalStringArray = (field) => {
+    if (entry[field] === undefined) {
+      return;
+    }
+
+    if (!isStringArray(entry[field])) {
+      errors.push(`Field "${field}" must be an array of non-empty strings`);
+    }
+  };
+
+  requireString("title");
+  requireString("slug");
+  requireString("letter");
+  requireString("devilDefinition");
+  requireString("plainDefinition");
+  requireString("whyExists");
+  requireString("misuse");
+  requireString("practicalMeaning");
+  requireString("example");
+  requireString("publishedAt");
+  requireString("updatedAt");
+  requireString("difficulty");
+  requireString("technicalDepth");
+  requireString("hypeLevel");
+
+  if (isNonEmptyString(entry.letter)) {
+    if (entry.letter.length === 1) {
+      entry.letter = entry.letter.toUpperCase();
+    } else {
+      errors.push(`Field "letter" must be exactly one character, got "${entry.letter}"`);
+    }
+  }
+
+  if (!isValidDateString(entry.publishedAt)) {
+    errors.push('Field "publishedAt" must be a valid ISO date string');
+  }
+
+  if (!isValidDateString(entry.updatedAt)) {
+    errors.push('Field "updatedAt" must be a valid ISO date string');
+  }
+
+  if (!difficultySet.has(entry.difficulty)) {
+    errors.push(`Invalid difficulty "${entry.difficulty}"`);
+  }
+
+  if (!technicalDepthSet.has(entry.technicalDepth)) {
+    errors.push(`Invalid technicalDepth "${entry.technicalDepth}"`);
+  }
+
+  if (!hypeLevelSet.has(entry.hypeLevel)) {
+    errors.push(`Invalid hypeLevel "${entry.hypeLevel}"`);
+  }
+
+  if (!Array.isArray(entry.categories) || entry.categories.length === 0) {
+    errors.push('Field "categories" must be a non-empty array');
+  } else {
+    for (const category of entry.categories) {
+      if (!isNonEmptyString(category)) {
+        errors.push('Field "categories" must contain only non-empty strings');
+        continue;
+      }
+
+      if (!categoryTitleSet.has(category)) {
+        errors.push(`Unknown category "${category}". Valid: ${[...categoryTitleSet].join(", ")}`);
+      }
+    }
+  }
+
+  if (!Array.isArray(entry.askNext) || entry.askNext.length === 0) {
+    errors.push('Field "askNext" must be a non-empty array');
+  } else if (!entry.askNext.every(isNonEmptyString)) {
+    errors.push('Field "askNext" must contain only non-empty strings');
+  }
+
+  validateOptionalStringArray("aliases");
+  validateOptionalStringArray("related");
+  validateOptionalStringArray("seeAlso");
+  validateOptionalStringArray("vendorReferences");
+  validateOptionalStringArray("tags");
+
+  if (entry.translations !== undefined) {
+    if (
+      !Array.isArray(entry.translations) ||
+      !entry.translations.every(
+        (translation) =>
+          translation &&
+          typeof translation === "object" &&
+          isNonEmptyString(translation.label) &&
+          isNonEmptyString(translation.text),
+      )
+    ) {
+      errors.push(
+        'Field "translations" must be an array of { label, text } objects with non-empty strings',
+      );
+    }
+  }
+
+  if (knownSlugs && Array.isArray(entry.related)) {
+    for (const relatedSlug of entry.related) {
+      if (isNonEmptyString(relatedSlug) && !knownSlugs.has(relatedSlug)) {
+        errors.push(`Unknown related slug "${relatedSlug}"`);
+      }
+    }
+  }
+
+  return errors;
+}
+
+export function assertValidEntry(
+  entry,
+  {
+    filename = "entry",
+    knownSlugs,
+  } = {},
+) {
+  const errors = collectEntryValidationErrors(entry, { knownSlugs });
+
+  if (errors.length > 0) {
+    throw new Error(`Validation failed for ${filename}:\n  - ${errors.join("\n  - ")}`);
+  }
+}
+
+export function scoreRelatedEntries(entries) {
+  const entryBySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+
+  for (const entry of entries) {
+    const manual = (entry.related ?? [])
+      .map((slug) => entryBySlug.get(slug))
+      .filter(Boolean)
+      .map((relatedEntry) => relatedEntry.slug);
+
+    const scored = entries
+      .filter((candidate) => candidate.slug !== entry.slug)
+      .map((candidate) => {
+        let score = 0;
+        const sharedCategories = candidate.categories.filter((category) =>
+          entry.categories.includes(category),
+        ).length;
+        const sharedTags = (candidate.tags ?? []).filter((tag) =>
+          (entry.tags ?? []).includes(tag),
+        ).length;
+
+        score += sharedCategories * 4;
+        score += sharedTags * 2;
+        if (candidate.isVendorTerm === entry.isVendorTerm) score += 1;
+        if (candidate.technicalDepth === entry.technicalDepth) score += 1;
+        if (candidate.difficulty === entry.difficulty) score += 1;
+
+        return { slug: candidate.slug, score };
+      })
+      .filter(({ score }) => score > 0)
+      .sort((left, right) => {
+        if (right.score !== left.score) {
+          return right.score - left.score;
+        }
+
+        const leftTitle = entryBySlug.get(left.slug)?.title ?? "";
+        const rightTitle = entryBySlug.get(right.slug)?.title ?? "";
+        return leftTitle.localeCompare(rightTitle);
+      })
+      .map(({ slug }) => slug);
+
+    const seen = new Set();
+    const result = [];
+
+    for (const slug of [...manual, ...scored]) {
+      if (!seen.has(slug)) {
+        seen.add(slug);
+        result.push(slug);
+      }
+
+      if (result.length >= 3) {
+        break;
+      }
+    }
+
+    entry._relatedSlugs = result;
+  }
+}
