@@ -540,7 +540,7 @@ setGroupChildren(project, watchExtensionGroupKey, [
 
 const appSources = ensureTargetBuildPhase(project, appTargetUuid, "PBXSourcesBuildPhase", "Sources").phase;
 const appResources = ensureTargetBuildPhase(project, appTargetUuid, "PBXResourcesBuildPhase", "Resources").phase;
-const appFrameworks = ensureTargetBuildPhase(project, appTargetUuid, "PBXFrameworksBuildPhase", "Frameworks").phase;
+ensureTargetBuildPhase(project, appTargetUuid, "PBXFrameworksBuildPhase", "Frameworks");
 const appEmbedWatchContent = ensureTargetBuildPhase(project, appTargetUuid, "PBXCopyFilesBuildPhase", "Embed Watch Content", {
   dstPath: "$(CONTENTS_FOLDER_PATH)/Watch",
   dstSubfolderSpec: 16,
