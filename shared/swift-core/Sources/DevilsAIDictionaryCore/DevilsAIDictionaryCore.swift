@@ -197,11 +197,58 @@ public struct DictionaryCatalog: Codable, Equatable, Sendable {
     public let misunderstoodSlugs: [String]
     public let letterStats: [LetterStat]
     public let categoryStats: [CategoryStat]
+    public let editorialTimeZone: String
+    public let dailyWordStartDate: String
+    public let dailyWordSlugs: [String]
     public let featuredSlug: String
     public let latestPublishedAt: String
 
+    private static let defaultEditorialTimeZone = "Africa/Johannesburg"
+
+    private enum CodingKeys: String, CodingKey {
+        case entries
+        case recentSlugs
+        case misunderstoodSlugs
+        case letterStats
+        case categoryStats
+        case editorialTimeZone
+        case dailyWordStartDate
+        case dailyWordSlugs
+        case featuredSlug
+        case latestPublishedAt
+    }
+
     public static func decode(from data: Data) throws -> DictionaryCatalog {
         try JSONDecoder().decode(DictionaryCatalog.self, from: data)
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.entries = try container.decode([Entry].self, forKey: .entries)
+        self.recentSlugs = try container.decode([String].self, forKey: .recentSlugs)
+        self.misunderstoodSlugs = try container.decode([String].self, forKey: .misunderstoodSlugs)
+        self.letterStats = try container.decode([LetterStat].self, forKey: .letterStats)
+        self.categoryStats = try container.decode([CategoryStat].self, forKey: .categoryStats)
+        self.editorialTimeZone = try container.decodeIfPresent(String.self, forKey: .editorialTimeZone)
+            ?? Self.defaultEditorialTimeZone
+        self.dailyWordStartDate = try container.decode(String.self, forKey: .dailyWordStartDate)
+        self.dailyWordSlugs = try container.decode([String].self, forKey: .dailyWordSlugs)
+        self.featuredSlug = try container.decode(String.self, forKey: .featuredSlug)
+        self.latestPublishedAt = try container.decode(String.self, forKey: .latestPublishedAt)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(entries, forKey: .entries)
+        try container.encode(recentSlugs, forKey: .recentSlugs)
+        try container.encode(misunderstoodSlugs, forKey: .misunderstoodSlugs)
+        try container.encode(letterStats, forKey: .letterStats)
+        try container.encode(categoryStats, forKey: .categoryStats)
+        try container.encode(editorialTimeZone, forKey: .editorialTimeZone)
+        try container.encode(dailyWordStartDate, forKey: .dailyWordStartDate)
+        try container.encode(dailyWordSlugs, forKey: .dailyWordSlugs)
+        try container.encode(featuredSlug, forKey: .featuredSlug)
+        try container.encode(latestPublishedAt, forKey: .latestPublishedAt)
     }
 
     public func entry(slug: String) -> Entry? {
@@ -210,6 +257,27 @@ public struct DictionaryCatalog: Codable, Equatable, Sendable {
 
     public func featuredEntry() -> Entry? {
         entry(slug: featuredSlug)
+    }
+
+    public func dailyWord(on referenceDate: Date = Date()) -> Entry? {
+        guard let slug = dailyWordSlug(on: referenceDate) else {
+            return nil
+        }
+
+        return entry(slug: slug)
+    }
+
+    public func dailyWordSlug(on referenceDate: Date = Date()) -> String? {
+        guard !dailyWordSlugs.isEmpty else {
+            return nil
+        }
+
+        let timeZone = TimeZone(identifier: editorialTimeZone) ?? TimeZone(secondsFromGMT: 0)!
+        let currentDay = Self.editorialDayNumber(for: referenceDate, timeZone: timeZone)
+        let startDay = Self.dayNumber(forISODate: dailyWordStartDate) ?? currentDay
+        let elapsedDays = max(0, currentDay - startDay)
+
+        return dailyWordSlugs[elapsedDays % dailyWordSlugs.count]
     }
 
     public func randomEntry(excluding excludedSlug: String? = nil) -> Entry? {
@@ -275,5 +343,51 @@ public struct DictionaryCatalog: Codable, Equatable, Sendable {
 
             return true
         }
+    }
+
+    private static func editorialDayNumber(for referenceDate: Date, timeZone: TimeZone) -> Int {
+        var editorialCalendar = Calendar(identifier: .gregorian)
+        editorialCalendar.timeZone = timeZone
+
+        let components = editorialCalendar.dateComponents([.year, .month, .day], from: referenceDate)
+        return dayNumber(
+            year: components.year,
+            month: components.month,
+            day: components.day
+        ) ?? 0
+    }
+
+    private static func dayNumber(forISODate value: String) -> Int? {
+        let components = value.split(separator: "-").compactMap { Int($0) }
+        guard components.count == 3 else {
+            return nil
+        }
+
+        return dayNumber(
+            year: components[0],
+            month: components[1],
+            day: components[2]
+        )
+    }
+
+    private static func dayNumber(year: Int?, month: Int?, day: Int?) -> Int? {
+        guard let year, let month, let day else {
+            return nil
+        }
+
+        var utcCalendar = Calendar(identifier: .gregorian)
+        utcCalendar.timeZone = TimeZone(secondsFromGMT: 0)!
+
+        let dateComponents = DateComponents(
+            timeZone: utcCalendar.timeZone,
+            year: year,
+            month: month,
+            day: day
+        )
+        guard let date = utcCalendar.date(from: dateComponents) else {
+            return nil
+        }
+
+        return Int(date.timeIntervalSince1970 / 86_400)
     }
 }

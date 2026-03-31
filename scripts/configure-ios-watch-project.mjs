@@ -3,7 +3,10 @@ import path from "node:path";
 import xcode from "xcode";
 
 const repoRoot = process.cwd();
-const projectPath = path.join(repoRoot, "ios/App/App.xcodeproj/project.pbxproj");
+const projectPath = path.join(
+  repoRoot,
+  "ios/App/The Devil's AI Dictionary.xcodeproj/project.pbxproj",
+);
 
 function parseProject(project) {
   return new Promise((resolve, reject) => {
@@ -860,4 +863,6 @@ void watchAppInfoPlistFile;
 void watchExtensionInfoPlistFile;
 
 fs.writeFileSync(projectPath, project.writeSync());
-console.log("Updated ios/App/App.xcodeproj for watch targets and native current-word services.");
+console.log(
+  "Updated ios/App/The Devil's AI Dictionary.xcodeproj for watch targets and native current-word services.",
+);

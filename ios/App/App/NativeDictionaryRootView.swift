@@ -79,7 +79,7 @@ private struct NativeHomeView: View {
     @ObservedObject var model: NativeDictionaryModel
 
     var body: some View {
-        NativeScreen {
+        NativeScreen { layout in
             NativeCard(emphasis: true) {
                 NativeSectionLabel(text: "Online book")
 
@@ -90,7 +90,7 @@ private struct NativeHomeView: View {
                     .font(.system(size: 18, weight: .medium, design: .rounded))
                     .foregroundStyle(.primary)
 
-                Text("This is the native iPhone edition: bundled content, local search, saved reading place, deep links, notifications, and watch sync without the webview in the middle pretending to be architecture.")
+                Text("This is the native Apple edition: bundled content, local search, saved reading place, deep links, notifications, and watch sync without the webview in the middle pretending to be architecture.")
                     .font(.system(size: 15, weight: .regular, design: .rounded))
                     .foregroundStyle(NativePalette.mutedText)
 
@@ -107,30 +107,25 @@ private struct NativeHomeView: View {
                 }
             }
 
-            if let currentWord = model.currentWord {
+            if let todayWord = model.todayWord {
                 NativeCard {
-                    HStack {
-                        VStack(alignment: .leading, spacing: 6) {
-                            NativeSectionLabel(text: "Current word")
-                            Text(currentWord.title)
-                                .font(.system(size: 28, weight: .semibold, design: .serif))
-                        }
+                    NativeSectionLabel(text: "Today's word")
 
-                        Spacer(minLength: 12)
+                    Text(todayWord.title)
+                        .font(.system(size: 28, weight: .semibold, design: .serif))
 
-                        Text(nativeFormattedDate(currentWord.updatedAt))
-                            .font(.system(size: 12, weight: .medium, design: .rounded))
-                            .foregroundStyle(NativePalette.mutedText)
-                    }
-
-                    Text(currentWord.devilDefinition.trimmingCharacters(in: .whitespacesAndNewlines))
+                    Text(todayWord.devilDefinition.trimmingCharacters(in: .whitespacesAndNewlines))
                         .font(.system(size: 17, weight: .medium, design: .rounded))
 
-                    Text(currentWord.plainDefinition.trimmingCharacters(in: .whitespacesAndNewlines))
+                    Text(todayWord.plainDefinition.trimmingCharacters(in: .whitespacesAndNewlines))
                         .font(.system(size: 15, weight: .regular, design: .rounded))
                         .foregroundStyle(NativePalette.mutedText)
 
-                    if let warningLabel = currentWord.warningLabel {
+                    Text("Shared daily across the site, this app, and the watch companion.")
+                        .font(.system(size: 13, weight: .medium, design: .rounded))
+                        .foregroundStyle(NativePalette.mutedText)
+
+                    if let warningLabel = todayWord.warningLabel {
                         Text(warningLabel)
                             .font(.system(size: 14, weight: .medium, design: .rounded))
                             .foregroundStyle(NativePalette.warning)
@@ -140,15 +135,23 @@ private struct NativeHomeView: View {
                     }
 
                     HStack {
-                        Button("Open word") {
-                            model.openCurrentWord()
+                        Button("Read today's word") {
+                            model.openTodayWord()
                         }
                         .buttonStyle(NativePrimaryButtonStyle())
 
-                        Button("Refresh") {
-                            model.refreshCurrentWord()
+                        Button("Random entry") {
+                            model.openRandomEntry()
                         }
                         .buttonStyle(NativeSecondaryButtonStyle())
+                    }
+
+                    if let shareURL = model.shareURL(for: todayWord) {
+                        NativeShareButton(
+                            url: shareURL,
+                            subject: todayWord.title,
+                            message: "Read \(todayWord.title) in The Devil's AI Dictionary."
+                        )
                     }
 
                     if model.shouldShowPushPrompt {
@@ -187,7 +190,7 @@ private struct NativeHomeView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     NativeSectionLabel(text: "Categories")
 
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
+                    LazyVGrid(columns: layout.cardGridItems, spacing: 12) {
                         ForEach(model.categoryStats, id: \.slug) { category in
                             Button {
                                 model.showBrowse(categorySlug: category.slug)
@@ -221,9 +224,11 @@ private struct NativeHomeView: View {
                         NativeLatestWordsAddedText(value: latestPublishedAt)
                     }
 
-                    ForEach(model.recentEntries, id: \.slug) { entry in
-                        NativeEntryCard(entry: entry, compact: true) {
-                            model.presentEntry(entry)
+                    LazyVGrid(columns: layout.cardGridItems, alignment: .leading, spacing: 12) {
+                        ForEach(model.recentEntries, id: \.slug) { entry in
+                            NativeEntryCard(entry: entry, compact: true) {
+                                model.presentEntry(entry)
+                            }
                         }
                     }
                 }
@@ -233,9 +238,11 @@ private struct NativeHomeView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     NativeSectionLabel(text: "Most misunderstood")
 
-                    ForEach(model.misunderstoodEntries, id: \.slug) { entry in
-                        NativeEntryCard(entry: entry, compact: true) {
-                            model.presentEntry(entry)
+                    LazyVGrid(columns: layout.cardGridItems, alignment: .leading, spacing: 12) {
+                        ForEach(model.misunderstoodEntries, id: \.slug) { entry in
+                            NativeEntryCard(entry: entry, compact: true) {
+                                model.presentEntry(entry)
+                            }
                         }
                     }
                 }
@@ -253,7 +260,7 @@ private struct NativeBrowseView: View {
     @ObservedObject var model: NativeDictionaryModel
 
     var body: some View {
-        NativeScreen {
+        NativeScreen { layout in
             NativeCard {
                 NativeSectionLabel(text: "Browse")
 
@@ -327,9 +334,11 @@ private struct NativeBrowseView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         NativeSectionLabel(text: section.title)
 
-                        ForEach(section.entries, id: \.slug) { entry in
-                            NativeEntryCard(entry: entry, compact: true) {
-                                model.presentEntry(entry)
+                        LazyVGrid(columns: layout.cardGridItems, alignment: .leading, spacing: 12) {
+                            ForEach(section.entries, id: \.slug) { entry in
+                                NativeEntryCard(entry: entry, compact: true) {
+                                    model.presentEntry(entry)
+                                }
                             }
                         }
                     }
@@ -359,7 +368,7 @@ private struct NativeSearchView: View {
     @State private var showFilters = false
 
     var body: some View {
-        NativeScreen {
+        NativeScreen { layout in
             NativeCard {
                 NativeSectionLabel(text: "Search")
 
@@ -392,9 +401,11 @@ private struct NativeSearchView: View {
                     .buttonStyle(NativePrimaryButtonStyle())
                 }
             } else {
-                ForEach(model.searchResults, id: \.slug) { entry in
-                    NativeEntryCard(entry: entry, compact: true) {
-                        model.presentEntry(entry)
+                LazyVGrid(columns: layout.cardGridItems, alignment: .leading, spacing: 12) {
+                    ForEach(model.searchResults, id: \.slug) { entry in
+                        NativeEntryCard(entry: entry, compact: true) {
+                            model.presentEntry(entry)
+                        }
                     }
                 }
             }
@@ -418,7 +429,7 @@ private struct NativeSavedView: View {
     @ObservedObject var model: NativeDictionaryModel
 
     var body: some View {
-        NativeScreen {
+        NativeScreen { _ in
             NativeCard {
                 NativeSectionLabel(text: "Saved")
 
@@ -578,7 +589,7 @@ private struct NativeBookView: View {
     }
 
     var body: some View {
-        NativeScreen {
+        NativeScreen { layout in
             NativeCard(emphasis: true) {
                 NativeSectionLabel(text: "Book")
                 Text("A field guide for people already in the room")
@@ -620,9 +631,11 @@ private struct NativeBookView: View {
             VStack(alignment: .leading, spacing: 12) {
                 NativeSectionLabel(text: "Good places to start")
 
-                ForEach(featuredStartPoints, id: \.slug) { entry in
-                    NativeEntryCard(entry: entry, compact: true) {
-                        model.presentEntry(entry)
+                LazyVGrid(columns: layout.cardGridItems, alignment: .leading, spacing: 12) {
+                    ForEach(featuredStartPoints, id: \.slug) { entry in
+                        NativeEntryCard(entry: entry, compact: true) {
+                            model.presentEntry(entry)
+                        }
                     }
                 }
             }
@@ -643,7 +656,7 @@ private struct NativeGuideView: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        NativeScreen {
+        NativeScreen { _ in
             NativeCard(emphasis: true) {
                 NativeSectionLabel(text: "Guide")
                 Text("How to read this dictionary")
@@ -696,7 +709,7 @@ private struct NativeAboutView: View {
     @ObservedObject var model: NativeDictionaryModel
 
     var body: some View {
-        NativeScreen {
+        NativeScreen { layout in
             NativeCard(emphasis: true) {
                 NativeSectionLabel(text: "About")
                 Text("About this book")
@@ -717,11 +730,15 @@ private struct NativeAboutView: View {
                 if let chatGPT = model.entry(slug: "chatgpt"), let codex = model.entry(slug: "codex") {
                     VStack(alignment: .leading, spacing: 12) {
                         NativeSectionLabel(text: "Co-authors")
-                        NativeEntryCard(entry: chatGPT, compact: true) {
-                            model.presentEntry(chatGPT)
-                        }
-                        NativeEntryCard(entry: codex, compact: true) {
-                            model.presentEntry(codex)
+
+                        LazyVGrid(columns: layout.cardGridItems, alignment: .leading, spacing: 12) {
+                            NativeEntryCard(entry: chatGPT, compact: true) {
+                                model.presentEntry(chatGPT)
+                            }
+
+                            NativeEntryCard(entry: codex, compact: true) {
+                                model.presentEntry(codex)
+                            }
                         }
                     }
                 }
@@ -747,7 +764,7 @@ private struct NativeMissingEntryView: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        NativeScreen {
+        NativeScreen { _ in
             NativeCard {
                 Text("That entry is missing from the bundled catalogue.")
                     .font(.system(size: 22, weight: .semibold, design: .serif))

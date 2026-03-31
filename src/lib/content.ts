@@ -1,4 +1,5 @@
 import { cache } from "react";
+import { getDailyWordSlug, type DailyWordSchedule } from "@/lib/daily-word";
 import generatedData from "@/generated/entries.generated.json";
 import type { Difficulty, HypeLevel, TechnicalDepth } from "@/lib/site";
 
@@ -58,10 +59,20 @@ export type SearchableEntry = Pick<
   searchText: string;
 };
 
+export type DictionaryCatalogSchedule = DailyWordSchedule & {
+  latestPublishedAt: string;
+};
+
 /* ---------- pre-computed data (all heavy work done at build time) ---------- */
 
 const entries = generatedData.entries as Entry[];
 const entryBySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+const dailyWordSchedule: DictionaryCatalogSchedule = {
+  dailyWordSlugs: generatedData.dailyWordSlugs as string[],
+  dailyWordStartDate: generatedData.dailyWordStartDate as string,
+  editorialTimeZone: generatedData.editorialTimeZone as string,
+  latestPublishedAt: generatedData.latestPublishedAt as string,
+};
 
 /* ---------- public API (all effectively zero-cost reads) ---------- */
 
@@ -96,6 +107,15 @@ export async function getMostMisunderstoodEntries(_limit = 4) {
 
 export async function getLatestPublishedAt() {
   return generatedData.latestPublishedAt as string;
+}
+
+export async function getDailyWordSchedule() {
+  return dailyWordSchedule;
+}
+
+export async function getTodayWord(referenceDate = new globalThis.Date()) {
+  const slug = getDailyWordSlug(dailyWordSchedule, referenceDate);
+  return slug ? entryBySlug.get(slug) ?? null : null;
 }
 
 export async function getFeaturedEntry() {

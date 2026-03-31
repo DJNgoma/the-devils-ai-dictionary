@@ -3,6 +3,12 @@ import XCTest
 @testable import DevilsAIDictionaryCore
 
 final class DevilsAIDictionaryCoreTests: XCTestCase {
+    private let gregorianCalendar: Calendar = {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        return calendar
+    }()
+
     private func fixtureURL() -> URL {
         URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
@@ -18,10 +24,123 @@ final class DevilsAIDictionaryCoreTests: XCTestCase {
         return try DictionaryCatalog.decode(from: data)
     }
 
+    private func utcDate(
+        fromISODate value: String,
+        offsetDays: Int = 0,
+        hour: Int = 10,
+        minute: Int = 0,
+        second: Int = 0
+    ) throws -> Date {
+        let components = try XCTUnwrap(
+            value.split(separator: "-").compactMap { Int($0) }.count == 3
+                ? value.split(separator: "-").compactMap { Int($0) }
+                : nil,
+            "Expected ISO date in YYYY-MM-DD form."
+        )
+
+        let baseDate = try XCTUnwrap(
+            gregorianCalendar.date(
+                from: DateComponents(
+                    timeZone: TimeZone(secondsFromGMT: 0),
+                    year: components[0],
+                    month: components[1],
+                    day: components[2],
+                    hour: hour,
+                    minute: minute,
+                    second: second
+                )
+            )
+        )
+
+        return try XCTUnwrap(
+            gregorianCalendar.date(byAdding: .day, value: offsetDays, to: baseDate)
+        )
+    }
+
     func testFeaturedEntryMatchesFeaturedSlug() throws {
         let catalog = try loadCatalog()
 
         XCTAssertEqual(catalog.featuredEntry()?.slug, catalog.featuredSlug)
+    }
+
+    func testDailyWordScheduleMatchesPublishedOrder() throws {
+        let catalog = try loadCatalog()
+        let expectedSlugs = catalog.entries
+            .sorted { lhs, rhs in
+                if lhs.publishedAt == rhs.publishedAt {
+                    return lhs.slug < rhs.slug
+                }
+
+                return lhs.publishedAt < rhs.publishedAt
+            }
+            .map(\.slug)
+
+        XCTAssertEqual(catalog.editorialTimeZone, "Africa/Johannesburg")
+        XCTAssertEqual(catalog.dailyWordSlugs, expectedSlugs)
+        let earliestPublishedAt = catalog.entries.map(\.publishedAt).min() ?? ""
+        XCTAssertEqual(catalog.dailyWordStartDate, earliestPublishedAt)
+    }
+
+    func testDailyWordRollsOverAtEditorialMidnight() throws {
+        let catalog = try loadCatalog()
+        XCTAssertGreaterThanOrEqual(catalog.dailyWordSlugs.count, 2)
+
+        let beforeMidnight = try utcDate(
+            fromISODate: catalog.dailyWordStartDate,
+            hour: 21,
+            minute: 59,
+            second: 59
+        )
+        let atMidnight = try utcDate(
+            fromISODate: catalog.dailyWordStartDate,
+            hour: 22,
+            minute: 0,
+            second: 0
+        )
+
+        XCTAssertEqual(catalog.dailyWordSlug(on: beforeMidnight), catalog.dailyWordSlugs[0])
+        XCTAssertEqual(catalog.dailyWordSlug(on: atMidnight), catalog.dailyWordSlugs[1])
+        XCTAssertEqual(catalog.dailyWord(on: atMidnight)?.slug, catalog.dailyWordSlugs[1])
+    }
+
+    func testDailyWordDoesNotRepeatBeforeScheduleWraps() throws {
+        let catalog = try loadCatalog()
+
+        let firstCycleSlugs = try catalog.dailyWordSlugs.enumerated().map { index, _ in
+            try XCTUnwrap(
+                catalog.dailyWordSlug(
+                    on: utcDate(fromISODate: catalog.dailyWordStartDate, offsetDays: index)
+                )
+            )
+        }
+
+        XCTAssertEqual(firstCycleSlugs, catalog.dailyWordSlugs)
+        XCTAssertEqual(Set(firstCycleSlugs).count, catalog.dailyWordSlugs.count)
+    }
+
+    func testDailyWordWrapsBackToStartAfterFullCycle() throws {
+        let catalog = try loadCatalog()
+
+        let wrappedDate = try utcDate(
+            fromISODate: catalog.dailyWordStartDate,
+            offsetDays: catalog.dailyWordSlugs.count
+        )
+
+        XCTAssertEqual(catalog.dailyWordSlug(on: wrappedDate), catalog.dailyWordSlugs.first)
+    }
+
+    func testDailyWordDefaultsEditorialTimeZoneWhenMissing() throws {
+        let data = try Data(contentsOf: fixtureURL())
+        var json = try XCTUnwrap(
+            JSONSerialization.jsonObject(with: data) as? [String: Any]
+        )
+
+        json.removeValue(forKey: "editorialTimeZone")
+
+        let legacyData = try JSONSerialization.data(withJSONObject: json)
+        let catalog = try DictionaryCatalog.decode(from: legacyData)
+
+        XCTAssertEqual(catalog.editorialTimeZone, "Africa/Johannesburg")
     }
 
     func testRecentEntriesFollowPublishedOrder() throws {

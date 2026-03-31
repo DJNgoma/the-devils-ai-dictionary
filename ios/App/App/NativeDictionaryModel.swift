@@ -92,6 +92,10 @@ final class NativeDictionaryModel: ObservableObject {
         catalogSnapshot?.catalog.featuredEntry()
     }
 
+    var todayWord: Entry? {
+        catalogSnapshot?.catalog.dailyWord()
+    }
+
     var recentEntries: [Entry] {
         catalogSnapshot?.catalog.recentEntries(limit: 4) ?? []
     }
@@ -207,7 +211,7 @@ final class NativeDictionaryModel: ObservableObject {
         case "provisional":
             return "Notifications are being delivered quietly."
         case "notDetermined":
-            return "Enable notifications to let the phone deliver the next good word."
+            return "Enable notifications to let this app deliver the next good word."
         default:
             return "Native push is wired, but iOS has not confirmed the final permission state yet."
         }
@@ -357,12 +361,24 @@ final class NativeDictionaryModel: ObservableObject {
         }
     }
 
+    func openTodayWord() {
+        guard let todayWord else {
+            return
+        }
+
+        presentEntry(todayWord)
+    }
+
     func openRandomEntry() {
-        guard let randomEntry = catalogSnapshot?.catalog.randomEntry(excluding: currentWord?.slug) else {
+        guard let randomEntry = catalogSnapshot?.catalog.randomEntry(excluding: todayWord?.slug) else {
             return
         }
 
         presentEntry(randomEntry)
+    }
+
+    func shareURL(for entry: Entry) -> URL? {
+        URL(string: "https://thedevilsaidictionary.com\(entry.url)")
     }
 
     func refreshCurrentWord() {
@@ -402,10 +418,15 @@ final class NativeDictionaryModel: ObservableObject {
             Notification.Name.currentWordDidChange,
             Notification.Name.currentWordPendingNavigationDidChange,
             Notification.Name.currentWordPushStateDidChange,
+            UIApplication.didBecomeActiveNotification,
         ] {
             let token = center.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
                 Task { @MainActor in
-                    self?.refreshFromManager()
+                    if name == UIApplication.didBecomeActiveNotification {
+                        self?.objectWillChange.send()
+                    } else {
+                        self?.refreshFromManager()
+                    }
                 }
             }
             notificationTokens.append(token)
