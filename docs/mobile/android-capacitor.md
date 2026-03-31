@@ -1,6 +1,8 @@
 # Android Capacitor delivery
 
-This repo ships Android from the same static export used by the iOS shell. The Android app bundles `out/` into the WebView and does not depend on a production URL at runtime.
+This repo ships Android from a bundled static export of the root web app. The Android app lives in `android/`, bundles `out/` into the WebView, and does not depend on a production URL at runtime.
+
+`native/android/` is reserved for the future Kotlin/Compose app. Do not treat the current host package at `android/app/src/main/java/com/djngoma/devilsaidictionary/nativeapp` as the long-term Android-native project boundary.
 
 ## First-time setup
 
@@ -81,7 +83,7 @@ If those values are absent, release builds still complete with debug signing so 
 2. Upload the signed AAB to internal testing first.
 3. Validate install, upgrade, and basic navigation.
 4. Promote the same app record to open testing when internal checks are clean.
-5. Keep the app record and package for the later native Android replacement.
+5. Keep the app record and package for the later native Android replacement in `native/android/`.
 
 ## Samsung A30s checklist
 

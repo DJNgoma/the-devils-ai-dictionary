@@ -52,4 +52,4 @@ Notes:
 ## Backlog
 
 - Replace the deprecated Next.js `middleware` convention with the current `proxy` convention before the next major framework churn forces it.
-- Add a native iOS CI build now that the phone app is real, and a native Android CI job once that project stops being a placeholder.
+- Keep the native iOS CI build healthy, and add a native Android CI job once `native/android/` becomes a real project.

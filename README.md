@@ -20,7 +20,7 @@ The project is deliberately not a SaaS dashboard. It is structured as an online 
 - Next.js 16 App Router
 - TypeScript
 - Tailwind CSS v4
-- Native SwiftUI iPhone app and a Capacitor Android shell
+- Native SwiftUI iPhone app, a shipping Capacitor Android shell, and a reserved future home for native Android in `native/android`
 - File-based entry content in `content/entries/*.mdx`
 - Generated content index for runtime-safe entry loading
 - Frontmatter parsing with `gray-matter`
@@ -61,11 +61,12 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 
 ## Mobile apps
 
-- The repo ships a native SwiftUI iPhone app and a Capacitor Android shell.
+- The repo ships a native SwiftUI iPhone app in `ios/` and a Capacitor Android shell in `android/`.
+- The future Kotlin/Compose Android app belongs in `native/android/`, not inside the long-term structure of the Capacitor host.
 - iOS distribution notes: [docs/ios-testflight.md](docs/ios-testflight.md)
 - Android setup, release, and Play testing notes: [docs/mobile/android-capacitor.md](docs/mobile/android-capacitor.md)
 - iOS push and Apple Watch companion runbook: [docs/mobile/ios-watch-push-v1.md](docs/mobile/ios-watch-push-v1.md)
-- Native follow-on roadmap and shared Swift boundary: [docs/mobile/native-roadmap.md](docs/mobile/native-roadmap.md)
+- Native Android follow-on roadmap and shared Swift boundary: [docs/mobile/native-roadmap.md](docs/mobile/native-roadmap.md)
 - Solo-dev release and QA checklists: [docs/mobile/checklists.md](docs/mobile/checklists.md)
 - Mobile design system and shell rules: [docs/mobile/design-system.md](docs/mobile/design-system.md)
 
@@ -90,8 +91,9 @@ content/entries/                 Dictionary entries in MDX with frontmatter
 docs/commit-message-style.md     Commit-subject tone guide and history audit
 docs/content-authoring.md        Editorial and schema guide
 docs/mobile/                     Mobile runbooks, release guides, and checklists
-ios/App/App/                    Native iPhone app target and SwiftUI shell
-native/                          Android native placeholder and historical mobile notes
+android/                         Shipping Capacitor Android shell and release packaging
+ios/App/                         Shipping native Apple app, watch targets, and Xcode project
+native/android/                  Reserved future home for the Kotlin/Compose Android app
 shared/swift-core/               Shared Swift package for read-only domain logic
 src/app/                         App Router pages, metadata routes, OG images
 src/components/                  UI components, search explorer, reading layout

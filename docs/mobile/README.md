@@ -6,6 +6,13 @@ This repo keeps the shipping web app at the root and treats mobile as three rela
 - Capacitor Android for near-term Play internal/open testing and direct APK installs
 - shared read-only Swift domain logic in `shared/swift-core`, with Android native still a future track
 
+Directory boundaries:
+
+- `ios/` is the real native Apple app
+- `android/` is the shipping Capacitor shell
+- `native/android/` is the canonical future home for the Kotlin/Compose app
+- `android/app/src/main/java/com/djngoma/devilsaidictionary/nativeapp` is temporary incubation code, not the long-term Android-native home
+
 ## One-command workflows
 
 ```bash
@@ -22,5 +29,5 @@ npm run swift-core:test
 - [Android Capacitor delivery](./android-capacitor.md)
 - [iOS push and watch v1](./ios-watch-push-v1.md)
 - [Mobile design system](./design-system.md)
-- [Native follow-on roadmap](./native-roadmap.md)
+- [Native Android follow-on roadmap](./native-roadmap.md)
 - [Store, signing, and QA checklists](./checklists.md)
