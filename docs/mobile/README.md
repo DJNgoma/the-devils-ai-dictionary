@@ -1,33 +1,30 @@
 # Mobile runbooks
 
-This repo keeps the shipping web app at the root and treats mobile as three related tracks:
+This repo keeps the shipping web app at the root and treats mobile as two shipping apps plus one deferred placeholder:
 
 - native iPhone delivery in the existing `ios/App` target
-- Capacitor Android for near-term Play internal/open testing and direct APK installs
-- shared read-only Swift domain logic in `shared/swift-core`, with Android native still a future track
+- native Android delivery from the existing `android/` module
+- `native/android/` as a deferred placeholder if the Android app is ever split into a separate project
 
 Directory boundaries:
 
 - `ios/` is the real native Apple app
-- `android/` is the shipping Capacitor shell
-- `native/android/` is the canonical future home for the Kotlin/Compose app
-- `android/app/src/main/java/com/djngoma/devilsaidictionary/nativeapp` is temporary incubation code, not the long-term Android-native home
+- `android/` is the shipping native Android app
+- `native/android/` stays empty until a future Android project split is justified
 
 ## One-command workflows
 
 ```bash
 npm run ios:prepare
-npm run android:prepare
-npm run android:build:debug
-npm run android:build:release:apk
-npm run android:build:release:bundle
 npm run swift-core:test
+node scripts/with-android-java.mjs ./android/gradlew -p android testDebugUnitTest assembleDebug
+node scripts/with-android-java.mjs ./android/gradlew -p android assembleRelease
 ```
 
 ## Runbooks
 
-- [Android Capacitor delivery](./android-capacitor.md)
+- [Android native delivery](./android-native.md)
 - [iOS push and watch v1](./ios-watch-push-v1.md)
 - [Mobile design system](./design-system.md)
-- [Native Android follow-on roadmap](./native-roadmap.md)
+- [Android cutover notes](./native-roadmap.md)
 - [Store, signing, and QA checklists](./checklists.md)

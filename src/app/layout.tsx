@@ -4,7 +4,6 @@ import { BookmarkProvider } from "@/components/bookmark-provider";
 import { MobileAppBar } from "@/components/mobile-app-bar";
 import { MobileBottomNav } from "@/components/mobile-bottom-nav";
 import { MobileShellController } from "@/components/mobile-shell-controller";
-import { NativeCurrentWordBridge } from "@/components/native-current-word-bridge";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -112,7 +111,6 @@ export default function RootLayout({
         <ThemeProvider>
           <BookmarkProvider>
             <MobileShellController>
-              <NativeCurrentWordBridge />
               <div className="site-chrome min-h-full">
                 <SiteHeader />
                 <MobileAppBar />

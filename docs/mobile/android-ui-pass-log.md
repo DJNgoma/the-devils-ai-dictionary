@@ -2,6 +2,10 @@
 
 ## 2026-03-31
 
-Proposed commit subject:
+Committed:
 
 `Stabilize the Android dock and teach the screens some manners`
+
+Follow-up commit subject:
+
+`Retire the Capacitor shell and let Android stand on its own`

@@ -24,7 +24,7 @@ export function AppSheet({
   children,
   className,
 }: AppSheetProps) {
-  const { registerSheet, setSheetOpen } = useMobileShell();
+  const { setSheetOpen } = useMobileShell();
   const titleId = useId();
   const descriptionId = useId();
   const onCloseRef = useRef(onClose);
@@ -37,8 +37,8 @@ export function AppSheet({
     onCloseRef.current();
   };
 
-  useEffect(() => registerSheet(id, () => closeSheet()), [id, registerSheet]);
   useEffect(() => setSheetOpen(id, open), [id, open, setSheetOpen]);
+  useEffect(() => () => setSheetOpen(id, false), [id, setSheetOpen]);
 
   useEffect(() => {
     if (!open) {
