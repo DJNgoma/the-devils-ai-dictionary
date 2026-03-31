@@ -1,7 +1,12 @@
 import { Suspense } from "react";
 import { DirectoryExplorer } from "@/components/directory-explorer";
 import { getCategoryStats, getSearchableEntries } from "@/lib/content";
+import { normalizeDirectoryExplorerState } from "@/lib/directory-explorer-state";
 import { buildMetadata } from "@/lib/metadata";
+
+type SearchPageProps = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
 
 export const metadata = buildMetadata({
   title: "Search the dictionary",
@@ -10,11 +15,15 @@ export const metadata = buildMetadata({
   path: "/search",
 });
 
-export default async function SearchPage() {
+export default async function SearchPage({ searchParams }: SearchPageProps) {
   const [entries, categories] = await Promise.all([
     getSearchableEntries(),
     getCategoryStats(),
   ]);
+  const initialState = normalizeDirectoryExplorerState(await searchParams, {
+    categorySlugs: categories.map((category) => category.slug),
+    mode: "search",
+  });
 
   return (
     <div className="page-shell space-y-10">
@@ -31,6 +40,11 @@ export default async function SearchPage() {
         <DirectoryExplorer
           entries={entries}
           categories={categories.map(({ title, slug }) => ({ title, slug }))}
+          initialCategory={initialState.category}
+          initialDepth={initialState.depth}
+          initialDifficulty={initialState.difficulty}
+          initialQuery={initialState.query}
+          initialVendor={initialState.vendor}
           mode="search"
         />
       </Suspense>
