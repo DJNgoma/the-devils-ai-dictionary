@@ -122,7 +122,7 @@ struct NativeEntryDetailView: View {
                     NativeSectionLabel(text: "See also")
                     FlowLayout(spacing: 8) {
                         ForEach(entry.seeAlso, id: \.self) { label in
-                            if let related = model.entry(slug: label) {
+                            if let related = model.entry(forSeeAlsoLabel: label) {
                                 Button(label) {
                                     model.presentEntry(related)
                                 }

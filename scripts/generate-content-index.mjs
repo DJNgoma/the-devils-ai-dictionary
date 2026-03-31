@@ -265,6 +265,16 @@ async function buildEntryIndex() {
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
     .slice(0, 4)
     .map((e) => e.slug);
+  const latestPublishedAt =
+    entries.reduce((latest, entry) => {
+      if (!latest) {
+        return entry.publishedAt;
+      }
+
+      return new Date(entry.publishedAt).getTime() > new Date(latest).getTime()
+        ? entry.publishedAt
+        : latest;
+    }, null) ?? "";
 
   const misunderstoodEntries = [...entries]
     .sort((a, b) => {
@@ -311,6 +321,7 @@ async function buildEntryIndex() {
     letterStats,
     categoryStats,
     featuredSlug,
+    latestPublishedAt,
   };
 
   await fs.mkdir(outputDirectory, { recursive: true });

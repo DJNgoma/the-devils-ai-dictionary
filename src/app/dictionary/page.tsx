@@ -1,7 +1,12 @@
 import { Suspense } from "react";
 import { DirectoryExplorer } from "@/components/directory-explorer";
-import { getCategoryStats, getSearchableEntries } from "@/lib/content";
+import {
+  getCategoryStats,
+  getLatestPublishedAt,
+  getSearchableEntries,
+} from "@/lib/content";
 import { buildMetadata } from "@/lib/metadata";
+import { formatDate } from "@/lib/utils";
 
 export const metadata = buildMetadata({
   title: "Dictionary browser",
@@ -11,9 +16,10 @@ export const metadata = buildMetadata({
 });
 
 export default async function DictionaryPage() {
-  const [entries, categories] = await Promise.all([
+  const [entries, categories, latestPublishedAt] = await Promise.all([
     getSearchableEntries(),
     getCategoryStats(),
+    getLatestPublishedAt(),
   ]);
 
   return (
@@ -24,6 +30,9 @@ export default async function DictionaryPage() {
         <p className="page-intro">
           Search by term, alias, body text, or category. Then filter by difficulty,
           technical depth, or vendor baggage if the room needs tighter definitions.
+        </p>
+        <p className="text-sm leading-7 text-foreground-soft">
+          Last words added {formatDate(latestPublishedAt)}.
         </p>
       </section>
 

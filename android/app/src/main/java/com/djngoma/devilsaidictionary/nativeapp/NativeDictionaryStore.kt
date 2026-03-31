@@ -141,6 +141,7 @@ data class DictionaryCatalog(
     val letterStats: List<LetterStat>,
     val categoryStats: List<CategoryStat>,
     val featuredSlug: String,
+    val latestPublishedAt: String,
 ) {
     private val entriesBySlug = entries.associateBy(Entry::slug)
 
@@ -221,6 +222,9 @@ class NativeDictionaryStore(
 
     val recentEntries: List<Entry>
         get() = catalog?.recentEntries() ?: emptyList()
+
+    val latestPublishedAt: String?
+        get() = catalog?.latestPublishedAt
 
     val misunderstoodEntries: List<Entry>
         get() = catalog?.misunderstoodEntries() ?: emptyList()
@@ -704,7 +708,7 @@ private fun normalizeLetter(value: String?): String? {
     return trimmed.take(1).uppercase(Locale.getDefault())
 }
 
-private fun parseCatalog(root: JSONObject): DictionaryCatalog =
+internal fun parseCatalog(root: JSONObject): DictionaryCatalog =
     DictionaryCatalog(
         entries = root.getJSONArray("entries").toEntryList(),
         recentSlugs = root.getJSONArray("recentSlugs").toStringList(),
@@ -712,6 +716,7 @@ private fun parseCatalog(root: JSONObject): DictionaryCatalog =
         letterStats = root.getJSONArray("letterStats").toLetterStats(),
         categoryStats = root.getJSONArray("categoryStats").toCategoryStats(),
         featuredSlug = root.getString("featuredSlug"),
+        latestPublishedAt = root.getString("latestPublishedAt"),
     )
 
 private fun JSONArray.toEntryList(): List<Entry> =

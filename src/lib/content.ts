@@ -94,6 +94,10 @@ export async function getMostMisunderstoodEntries(_limit = 4) {
     .filter((e): e is Entry => Boolean(e));
 }
 
+export async function getLatestPublishedAt() {
+  return generatedData.latestPublishedAt as string;
+}
+
 export async function getFeaturedEntry() {
   const entry = entryBySlug.get(generatedData.featuredSlug);
   if (!entry) {

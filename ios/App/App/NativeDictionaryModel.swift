@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import UIKit
 
 #if canImport(DevilsAIDictionaryCore)
 import DevilsAIDictionaryCore
@@ -93,6 +94,10 @@ final class NativeDictionaryModel: ObservableObject {
 
     var recentEntries: [Entry] {
         catalogSnapshot?.catalog.recentEntries(limit: 4) ?? []
+    }
+
+    var latestPublishedAt: String? {
+        catalogSnapshot?.catalog.latestPublishedAt
     }
 
     var misunderstoodEntries: [Entry] {
@@ -189,6 +194,10 @@ final class NativeDictionaryModel: ObservableObject {
         pushAuthorizationStatus != "authorized"
     }
 
+    var pushPermissionButtonTitle: String {
+        pushAuthorizationStatus == "denied" ? "Open Settings" : "Enable notifications"
+    }
+
     var pushStatusMessage: String {
         switch pushAuthorizationStatus {
         case "authorized":
@@ -206,6 +215,24 @@ final class NativeDictionaryModel: ObservableObject {
 
     func entry(slug: String) -> Entry? {
         catalogSnapshot?.catalog.entry(slug: slug)
+    }
+
+    func entry(forSeeAlsoLabel label: String) -> Entry? {
+        let trimmed = label.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else {
+            return nil
+        }
+
+        if let direct = entry(slug: trimmed) {
+            return direct
+        }
+
+        let slug = Self.slugify(trimmed)
+        guard !slug.isEmpty else {
+            return nil
+        }
+
+        return entry(slug: slug)
     }
 
     func relatedEntries(for entry: Entry) -> [Entry] {
@@ -353,6 +380,16 @@ final class NativeDictionaryModel: ObservableObject {
         }
     }
 
+    func handlePushPermissionAction() async {
+        guard pushAuthorizationStatus == "denied" else {
+            await requestPushPermission()
+            return
+        }
+
+        actionError = nil
+        openSystemSettings()
+    }
+
     private func persistSavedPlace(_ record: BookmarkRecord) {
         savedPlaceStore.save(record)
         savedPlace = record
@@ -456,6 +493,27 @@ final class NativeDictionaryModel: ObservableObject {
 
     private static func timestamp() -> String {
         SharedDateFormatter.iso8601.string(from: Date())
+    }
+
+    private func openSystemSettings() {
+        guard let url = URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
+
+        UIApplication.shared.open(url)
+    }
+
+    private static func slugify(_ value: String) -> String {
+        let sanitized = value
+            .lowercased()
+            .replacingOccurrences(of: "&", with: " and ")
+            .map { character -> Character in
+                character.isLetter || character.isNumber ? character : "-"
+            }
+
+        return String(sanitized)
+            .replacingOccurrences(of: "-+", with: "-", options: .regularExpression)
+            .trimmingCharacters(in: CharacterSet(charactersIn: "-"))
     }
 }
 

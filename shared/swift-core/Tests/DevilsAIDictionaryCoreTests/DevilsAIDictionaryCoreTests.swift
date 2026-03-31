@@ -30,6 +30,17 @@ final class DevilsAIDictionaryCoreTests: XCTestCase {
         XCTAssertEqual(catalog.recentEntries(limit: 3).map(\.slug), Array(catalog.recentSlugs.prefix(3)))
     }
 
+    func testLatestPublishedAtMatchesNewestEntry() throws {
+        let catalog = try loadCatalog()
+        let newestEntry = try XCTUnwrap(
+            catalog.entries.max { lhs, rhs in
+                lhs.publishedAt < rhs.publishedAt
+            }
+        )
+
+        XCTAssertEqual(catalog.latestPublishedAt, newestEntry.publishedAt)
+    }
+
     func testMisunderstoodEntriesFollowPublishedOrder() throws {
         let catalog = try loadCatalog()
 

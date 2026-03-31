@@ -1,11 +1,16 @@
 import UIKit
 import SwiftUI
 import UserNotifications
+import OSLog
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
+    private let logger = Logger(
+        subsystem: "com.djngoma.devilsaidictionary",
+        category: "AppDelegate"
+    )
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         UNUserNotificationCenter.current().delegate = self
@@ -50,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print("APNs registration failed: \(error.localizedDescription)")
+        logger.error("APNs registration failed: \(error.localizedDescription, privacy: .public)")
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {

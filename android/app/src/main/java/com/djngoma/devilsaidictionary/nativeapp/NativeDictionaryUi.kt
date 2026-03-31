@@ -474,6 +474,13 @@ private fun NativeHomeScreen(
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     SectionLabel(text = "Recently added")
+                    store.latestPublishedAt?.let { latestPublishedAt ->
+                        Text(
+                            text = "Last words added ${formatDisplayDate(latestPublishedAt)}",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
                     store.recentEntries.forEach { entry ->
                         EntryCard(entry = entry, colors = colors, compact = true) {
                             store.presentEntry(entry)
@@ -520,6 +527,13 @@ private fun NativeBrowseScreen(
                     text = "Walk the catalogue by letter or narrow it to one category.",
                     style = MaterialTheme.typography.bodyLarge,
                 )
+                store.latestPublishedAt?.let { latestPublishedAt ->
+                    Text(
+                        text = "Last words added ${formatDisplayDate(latestPublishedAt)}",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
                 LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     item {
                         FilterChip(

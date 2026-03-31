@@ -124,6 +124,7 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling"
     debugImplementation "androidx.compose.ui:ui-test-manifest"
     testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.json:json:20240303"
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     androidTestImplementation "androidx.compose.ui:ui-test-junit4"

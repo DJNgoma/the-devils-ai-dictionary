@@ -10,11 +10,13 @@ import {
   getCategoryStats,
   getFeaturedEntry,
   getLetterStats,
+  getLatestPublishedAt,
   getMostMisunderstoodEntries,
   getRecentlyAddedEntries,
   getSearchableEntries,
 } from "@/lib/content";
 import { buildMetadata } from "@/lib/metadata";
+import { formatDate } from "@/lib/utils";
 
 export const metadata = buildMetadata({
   title: "A sceptical field guide to AI language",
@@ -24,11 +26,20 @@ export const metadata = buildMetadata({
 });
 
 export default async function HomePage() {
-  const [featuredEntry, letters, categories, recentEntries, misunderstoodEntries, searchable] =
+  const [
+    featuredEntry,
+    letters,
+    categories,
+    latestPublishedAt,
+    recentEntries,
+    misunderstoodEntries,
+    searchable,
+  ] =
     await Promise.all([
       getFeaturedEntry(),
       getLetterStats(),
       getCategoryStats(),
+      getLatestPublishedAt(),
       getRecentlyAddedEntries(),
       getMostMisunderstoodEntries(),
       getSearchableEntries(),
@@ -120,6 +131,9 @@ export default async function HomePage() {
       <section className="grid gap-8 xl:grid-cols-2">
         <div className="space-y-5">
           <div className="labelled-rule">Recently added</div>
+          <p className="text-sm leading-7 text-foreground-soft">
+            Last words added {formatDate(latestPublishedAt)}.
+          </p>
           <div className="grid gap-5">
             {recentEntries.map((entry) => (
               <EntryCard key={entry.slug} entry={entry} compact />

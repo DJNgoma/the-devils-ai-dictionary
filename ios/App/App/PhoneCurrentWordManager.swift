@@ -1,4 +1,5 @@
 import Foundation
+import OSLog
 import UIKit
 import UserNotifications
 import WatchConnectivity
@@ -280,16 +281,34 @@ private struct PushInstallationPayload: Encodable {
 }
 
 private actor PushInstallationRegistrar {
+    private let logger = Logger(
+        subsystem: "com.djngoma.devilsaidictionary",
+        category: "PushInstallationRegistrar"
+    )
+
     func register(payload: PushInstallationPayload, url: URL) async {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try? JSONEncoder().encode(payload)
 
         do {
-            _ = try await URLSession.shared.data(for: request)
+            request.httpBody = try JSONEncoder().encode(payload)
         } catch {
+            logger.error("Failed to encode push installation payload: \(error.localizedDescription, privacy: .public)")
             return
+        }
+
+        do {
+            let (_, response) = try await URLSession.shared.data(for: request)
+
+            if let httpResponse = response as? HTTPURLResponse,
+               !(200...299).contains(httpResponse.statusCode) {
+                logger.error(
+                    "Push installation registration returned status \(httpResponse.statusCode, privacy: .public)"
+                )
+            }
+        } catch {
+            logger.error("Push installation registration failed: \(error.localizedDescription, privacy: .public)")
         }
     }
 }

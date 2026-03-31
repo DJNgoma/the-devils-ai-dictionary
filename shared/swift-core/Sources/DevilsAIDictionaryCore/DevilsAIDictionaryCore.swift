@@ -198,6 +198,7 @@ public struct DictionaryCatalog: Codable, Equatable, Sendable {
     public let letterStats: [LetterStat]
     public let categoryStats: [CategoryStat]
     public let featuredSlug: String
+    public let latestPublishedAt: String
 
     public static func decode(from data: Data) throws -> DictionaryCatalog {
         try JSONDecoder().decode(DictionaryCatalog.self, from: data)

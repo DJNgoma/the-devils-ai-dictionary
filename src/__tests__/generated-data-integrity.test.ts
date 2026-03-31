@@ -13,7 +13,15 @@
 import { describe, expect, it } from "vitest";
 import generatedData from "@/generated/entries.generated.json";
 
-const { entries, recentSlugs, misunderstoodSlugs, letterStats, categoryStats, featuredSlug } =
+const {
+  entries,
+  recentSlugs,
+  misunderstoodSlugs,
+  letterStats,
+  categoryStats,
+  featuredSlug,
+  latestPublishedAt,
+} =
   generatedData;
 
 /* ---------- top-level structure ---------- */
@@ -26,6 +34,7 @@ describe("generated data top-level structure", () => {
     expect(generatedData).toHaveProperty("letterStats");
     expect(generatedData).toHaveProperty("categoryStats");
     expect(generatedData).toHaveProperty("featuredSlug");
+    expect(generatedData).toHaveProperty("latestPublishedAt");
   });
 
   it("entries is a non-empty array", () => {
@@ -137,6 +146,22 @@ describe("featuredSlug", () => {
     const allSlugs = new Set(entries.map((e) => e.slug));
     expect(typeof featuredSlug).toBe("string");
     expect(allSlugs.has(featuredSlug)).toBe(true);
+  });
+});
+
+describe("latestPublishedAt", () => {
+  it("matches the newest publishedAt date in the catalogue", () => {
+    const newestPublishedAt = entries.reduce((latest, entry) => {
+      if (!latest) {
+        return entry.publishedAt;
+      }
+
+      return new Date(entry.publishedAt).getTime() > new Date(latest).getTime()
+        ? entry.publishedAt
+        : latest;
+    }, "");
+
+    expect(latestPublishedAt).toBe(newestPublishedAt);
   });
 });
 

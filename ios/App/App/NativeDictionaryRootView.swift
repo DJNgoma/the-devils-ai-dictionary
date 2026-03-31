@@ -158,9 +158,9 @@ private struct NativeHomeView: View {
                             .font(.system(size: 14, weight: .regular, design: .rounded))
                             .foregroundStyle(NativePalette.mutedText)
 
-                        Button("Enable notifications") {
+                        Button(model.pushPermissionButtonTitle) {
                             Task {
-                                await model.requestPushPermission()
+                                await model.handlePushPermissionAction()
                             }
                         }
                         .buttonStyle(NativeSecondaryButtonStyle())
@@ -217,6 +217,10 @@ private struct NativeHomeView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     NativeSectionLabel(text: "Recently added")
 
+                    if let latestPublishedAt = model.latestPublishedAt {
+                        NativeLatestWordsAddedText(value: latestPublishedAt)
+                    }
+
                     ForEach(model.recentEntries, id: \.slug) { entry in
                         NativeEntryCard(entry: entry, compact: true) {
                             model.presentEntry(entry)
@@ -255,6 +259,10 @@ private struct NativeBrowseView: View {
 
                 Text("Walk the catalogue by letter or narrow it to one category.")
                     .font(.system(size: 17, weight: .medium, design: .rounded))
+
+                if let latestPublishedAt = model.latestPublishedAt {
+                    NativeLatestWordsAddedText(value: latestPublishedAt)
+                }
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 10) {
@@ -333,6 +341,16 @@ private struct NativeBrowseView: View {
         .toolbar {
             NativeOverflowToolbar(model: model, themeManager: .shared)
         }
+    }
+}
+
+private struct NativeLatestWordsAddedText: View {
+    let value: String
+
+    var body: some View {
+        Text("Last words added \(nativeFormattedDate(value))")
+            .font(.system(size: 13, weight: .medium, design: .rounded))
+            .foregroundStyle(NativePalette.mutedText)
     }
 }
 
