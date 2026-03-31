@@ -1,17 +1,18 @@
 import Link from "next/link";
 import { Badge } from "@/components/badge";
-import type { SearchableEntry } from "@/lib/content";
+import { OpenInIPhoneAppButton } from "@/components/open-in-iphone-app-button";
+import type { Entry } from "@/lib/content";
 
-type FeaturedEntryProps = {
-  entry: SearchableEntry;
+type TodayWordCardProps = {
+  entry: Entry;
 };
 
-export function FeaturedEntry({ entry }: FeaturedEntryProps) {
+export function TodayWordCard({ entry }: TodayWordCardProps) {
   return (
     <section className="surface-strong overflow-hidden p-6 sm:p-8">
       <div className="editorial-grid items-start gap-8">
         <div>
-          <p className="page-kicker">Featured term</p>
+          <p className="page-kicker">Today&apos;s word</p>
           <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
             {entry.title}
           </h2>
@@ -26,8 +27,9 @@ export function FeaturedEntry({ entry }: FeaturedEntryProps) {
               href={`/dictionary/${entry.slug}`}
               className="button button-primary"
             >
-              Read the entry
+              Read today&apos;s word
             </Link>
+            <OpenInIPhoneAppButton slug={entry.slug} />
             <Link
               href="/dictionary"
               className="button button-secondary"
@@ -38,7 +40,11 @@ export function FeaturedEntry({ entry }: FeaturedEntryProps) {
         </div>
         <aside className="surface h-full p-5">
           <p className="font-mono text-xs uppercase tracking-[0.24em] text-foreground-soft">
-            Quick read
+            Daily rotation
+          </p>
+          <p className="mt-4 text-sm leading-7 text-foreground-soft">
+            One shared word across the site and Apple app, cycling through the
+            catalogue before it starts repeating itself.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Badge tone="accent">{entry.letter}</Badge>

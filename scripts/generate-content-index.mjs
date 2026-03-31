@@ -6,6 +6,7 @@ const root = process.cwd();
 const entriesDirectory = path.join(root, "content", "entries");
 const outputDirectory = path.join(root, "src", "generated");
 const outputFile = path.join(outputDirectory, "entries.generated.json");
+const editorialTimeZone = "Africa/Johannesburg";
 
 /* ---------- helpers (mirrored from src/lib) ---------- */
 
@@ -308,6 +309,14 @@ async function buildEntryIndex() {
       sampleTerms: matching.slice(0, 3).map((e) => e.title),
     };
   });
+  const dailyWordEntries = [...entries].sort((left, right) => {
+    if (left.publishedAt !== right.publishedAt) {
+      return left.publishedAt.localeCompare(right.publishedAt);
+    }
+
+    return left.slug.localeCompare(right.slug);
+  });
+  const dailyWordStartDate = dailyWordEntries[0]?.publishedAt ?? "";
 
   const featuredSlug = entries.find((e) => e.slug === featuredEntrySlug)?.slug;
   if (!featuredSlug) {
@@ -320,6 +329,9 @@ async function buildEntryIndex() {
     misunderstoodSlugs: misunderstoodEntries,
     letterStats,
     categoryStats,
+    editorialTimeZone,
+    dailyWordStartDate,
+    dailyWordSlugs: dailyWordEntries.map((entry) => entry.slug),
     featuredSlug,
     latestPublishedAt,
   };

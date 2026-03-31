@@ -197,6 +197,9 @@ public struct DictionaryCatalog: Codable, Equatable, Sendable {
     public let misunderstoodSlugs: [String]
     public let letterStats: [LetterStat]
     public let categoryStats: [CategoryStat]
+    public let editorialTimeZone: String
+    public let dailyWordStartDate: String
+    public let dailyWordSlugs: [String]
     public let featuredSlug: String
     public let latestPublishedAt: String
 
@@ -210,6 +213,27 @@ public struct DictionaryCatalog: Codable, Equatable, Sendable {
 
     public func featuredEntry() -> Entry? {
         entry(slug: featuredSlug)
+    }
+
+    public func dailyWord(on referenceDate: Date = Date()) -> Entry? {
+        guard let slug = dailyWordSlug(on: referenceDate) else {
+            return nil
+        }
+
+        return entry(slug: slug)
+    }
+
+    public func dailyWordSlug(on referenceDate: Date = Date()) -> String? {
+        guard !dailyWordSlugs.isEmpty else {
+            return nil
+        }
+
+        let timeZone = TimeZone(identifier: editorialTimeZone) ?? TimeZone(secondsFromGMT: 0)!
+        let currentDay = Self.editorialDayNumber(for: referenceDate, timeZone: timeZone)
+        let startDay = Self.dayNumber(forISODate: dailyWordStartDate) ?? currentDay
+        let elapsedDays = max(0, currentDay - startDay)
+
+        return dailyWordSlugs[elapsedDays % dailyWordSlugs.count]
     }
 
     public func randomEntry(excluding excludedSlug: String? = nil) -> Entry? {
@@ -275,5 +299,51 @@ public struct DictionaryCatalog: Codable, Equatable, Sendable {
 
             return true
         }
+    }
+
+    private static func editorialDayNumber(for referenceDate: Date, timeZone: TimeZone) -> Int {
+        var editorialCalendar = Calendar(identifier: .gregorian)
+        editorialCalendar.timeZone = timeZone
+
+        let components = editorialCalendar.dateComponents([.year, .month, .day], from: referenceDate)
+        return dayNumber(
+            year: components.year,
+            month: components.month,
+            day: components.day
+        ) ?? 0
+    }
+
+    private static func dayNumber(forISODate value: String) -> Int? {
+        let components = value.split(separator: "-").compactMap { Int($0) }
+        guard components.count == 3 else {
+            return nil
+        }
+
+        return dayNumber(
+            year: components[0],
+            month: components[1],
+            day: components[2]
+        )
+    }
+
+    private static func dayNumber(year: Int?, month: Int?, day: Int?) -> Int? {
+        guard let year, let month, let day else {
+            return nil
+        }
+
+        var utcCalendar = Calendar(identifier: .gregorian)
+        utcCalendar.timeZone = TimeZone(secondsFromGMT: 0)!
+
+        let dateComponents = DateComponents(
+            timeZone: utcCalendar.timeZone,
+            year: year,
+            month: month,
+            day: day
+        )
+        guard let date = utcCalendar.date(from: dateComponents) else {
+            return nil
+        }
+
+        return Int(date.timeIntervalSince1970 / 86_400)
     }
 }

@@ -1,18 +1,19 @@
 import Link from "next/link";
 import { CategoryGrid } from "@/components/category-grid";
 import { EntryCard } from "@/components/entry-card";
-import { FeaturedEntry } from "@/components/featured-entry";
+import { TodayWordCard } from "@/components/featured-entry";
 import { LetterGrid } from "@/components/letter-grid";
+import { NewsletterSignupPanel } from "@/components/newsletter-signup-panel";
 import { ResumeReadingCard } from "@/components/resume-reading-card";
 import { SearchBox } from "@/components/search-box";
 import {
   getCategoryStats,
-  getFeaturedEntry,
   getLetterStats,
   getLatestPublishedAt,
   getMostMisunderstoodEntries,
   getRecentlyAddedEntries,
   getSearchableEntries,
+  getTodayWord,
 } from "@/lib/content";
 import { buildMetadata } from "@/lib/metadata";
 import { formatDate } from "@/lib/utils";
@@ -24,9 +25,11 @@ export const metadata = buildMetadata({
   path: "/",
 });
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const [
-    featuredEntry,
+    todayWord,
     letters,
     categories,
     latestPublishedAt,
@@ -35,7 +38,7 @@ export default async function HomePage() {
     searchable,
   ] =
     await Promise.all([
-      getFeaturedEntry(),
+      getTodayWord(),
       getLetterStats(),
       getCategoryStats(),
       getLatestPublishedAt(),
@@ -103,7 +106,13 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <FeaturedEntry entry={featuredEntry} />
+      {todayWord ? <TodayWordCard entry={todayWord} /> : null}
+
+      <NewsletterSignupPanel
+        title="Get the weekly digest"
+        description="One short email each Tuesday with the latest words added to the dictionary, written for people who would rather inspect the language than inhale it."
+        sourcePath="/"
+      />
 
       <section className="space-y-5">
         <div className="labelled-rule">Browse by letter</div>

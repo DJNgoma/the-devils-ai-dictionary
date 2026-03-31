@@ -47,11 +47,17 @@ export function SiteFooter() {
           <Link href="/book" className="hover:text-foreground">
             Book
           </Link>
+          <Link href="/newsletter" className="hover:text-foreground">
+            Newsletter
+          </Link>
           <Link href="/how-to-read" className="hover:text-foreground">
             How to read
           </Link>
           <Link href="/about" className="hover:text-foreground">
             About
+          </Link>
+          <Link href="/privacy" className="hover:text-foreground">
+            Privacy
           </Link>
           <Link href="/search" className="hover:text-foreground">
             Search

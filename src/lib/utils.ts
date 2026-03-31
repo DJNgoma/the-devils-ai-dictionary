@@ -36,3 +36,14 @@ export function uniqueBy<T>(items: T[], key: (item: T) => string) {
     return true;
   });
 }
+
+export function formatDateRange(startDate: string, endDate: string) {
+  const formatter = new Intl.DateTimeFormat("en-ZA", {
+    day: "numeric",
+    month: "short",
+  });
+
+  return `${formatter.format(new Date(startDate))} to ${formatter.format(
+    new Date(endDate),
+  )}`;
+}

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, IBM_Plex_Mono, Source_Serif_4 } from "next/font/google";
 import { BookmarkProvider } from "@/components/bookmark-provider";
+import { CloudflareWebAnalytics } from "@/components/cloudflare-web-analytics";
 import { MobileAppBar } from "@/components/mobile-app-bar";
 import { MobileBottomNav } from "@/components/mobile-bottom-nav";
 import { MobileShellController } from "@/components/mobile-shell-controller";
@@ -121,6 +122,7 @@ export default function RootLayout({
             </MobileShellController>
           </BookmarkProvider>
         </ThemeProvider>
+        <CloudflareWebAnalytics />
       </body>
     </html>
   );

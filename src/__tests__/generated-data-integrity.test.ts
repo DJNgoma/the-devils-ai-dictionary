@@ -19,6 +19,9 @@ const {
   misunderstoodSlugs,
   letterStats,
   categoryStats,
+  editorialTimeZone,
+  dailyWordStartDate,
+  dailyWordSlugs,
   featuredSlug,
   latestPublishedAt,
 } =
@@ -33,6 +36,9 @@ describe("generated data top-level structure", () => {
     expect(generatedData).toHaveProperty("misunderstoodSlugs");
     expect(generatedData).toHaveProperty("letterStats");
     expect(generatedData).toHaveProperty("categoryStats");
+    expect(generatedData).toHaveProperty("editorialTimeZone");
+    expect(generatedData).toHaveProperty("dailyWordStartDate");
+    expect(generatedData).toHaveProperty("dailyWordSlugs");
     expect(generatedData).toHaveProperty("featuredSlug");
     expect(generatedData).toHaveProperty("latestPublishedAt");
   });
@@ -146,6 +152,35 @@ describe("featuredSlug", () => {
     const allSlugs = new Set(entries.map((e) => e.slug));
     expect(typeof featuredSlug).toBe("string");
     expect(allSlugs.has(featuredSlug)).toBe(true);
+  });
+});
+
+describe("dailyWord schedule", () => {
+  it("pins the editorial timezone", () => {
+    expect(editorialTimeZone).toBe("Africa/Johannesburg");
+    expect(typeof dailyWordStartDate).toBe("string");
+    expect(Array.isArray(dailyWordSlugs)).toBe(true);
+  });
+
+  it("contains each entry once in published order before wraparound", () => {
+    const expectedSlugs = [...entries]
+      .toSorted((left, right) => {
+        const publishedOrder = left.publishedAt.localeCompare(right.publishedAt);
+        if (publishedOrder !== 0) {
+          return publishedOrder;
+        }
+
+        return left.slug.localeCompare(right.slug);
+      })
+      .map((entry) => entry.slug);
+
+    expect(dailyWordSlugs).toEqual(expectedSlugs);
+    expect(new Set(dailyWordSlugs).size).toBe(entries.length);
+    expect(dailyWordStartDate).toBe(
+      [...entries]
+        .toSorted((left, right) => left.publishedAt.localeCompare(right.publishedAt))[0]
+        ?.publishedAt,
+    );
   });
 });
 
