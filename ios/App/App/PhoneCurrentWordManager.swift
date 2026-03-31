@@ -37,7 +37,6 @@ final class PhoneCurrentWordManager {
         catalogSnapshot = try? DictionaryCatalogSnapshot.load()
         watchSessionCoordinator.activate()
         application.registerForRemoteNotifications()
-        _ = ensureCurrentWord()
 
         Task {
             await refreshPushInstallation()
@@ -52,7 +51,7 @@ final class PhoneCurrentWordManager {
             "pushTokenAvailable": storage.loadPushDeviceToken() != nil,
         ]
 
-        if let currentWord = ensureCurrentWord() {
+        if let currentWord = storage.loadCurrentWord() {
             state["currentWord"] = currentWord.dictionaryRepresentation()
         }
 
