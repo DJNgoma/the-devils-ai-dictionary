@@ -6,7 +6,7 @@ Keep one monorepo:
 
 - root web app remains the source of truth for content authoring and the current production site UI
 - `ios/App` is the shipping native Apple app and the only source of truth for iPhone code
-- `android/` is the shipping Capacitor shell and release pipeline
+- `android/` is the transitional Capacitor shell and release pipeline
 - `native/android/` is the canonical destination for the future Kotlin/Compose app
 - `shared/swift-core` is the shared Swift package for read-only domain logic
 
@@ -52,6 +52,8 @@ Do not use Swift for:
 
 1. Stabilize the JSON contract and shared Swift package.
 2. Ship native iOS from the existing Xcode target.
-3. Keep Android Capacitor healthy for store delivery.
+3. Keep Android Capacitor healthy for store delivery until native Android is ready to ship.
 4. Extract the temporary Android incubator package into `native/android/`.
 5. Build native Android there.
+6. Promote `native/android/` to the shipping Android app.
+7. Delete `android/`, `capacitor.config.ts`, and the remaining `@capacitor/*` dependencies only after native Android owns release delivery.

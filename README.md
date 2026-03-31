@@ -20,7 +20,7 @@ The project is deliberately not a SaaS dashboard. It is structured as an online 
 - Next.js 16 App Router
 - TypeScript
 - Tailwind CSS v4
-- Native SwiftUI iPhone app, a shipping Capacitor Android shell, and a reserved future home for native Android in `native/android`
+- Native SwiftUI iPhone app, a transitional Capacitor Android shell, and a reserved future home for native Android in `native/android`
 - File-based entry content in `content/entries/*.mdx`
 - Generated content index for runtime-safe entry loading
 - Frontmatter parsing with `gray-matter`
@@ -61,7 +61,8 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 
 ## Mobile apps
 
-- The repo ships a native SwiftUI iPhone app in `ios/` and a Capacitor Android shell in `android/`.
+- The repo ships a native SwiftUI iPhone app in `ios/` and a transitional Capacitor Android shell in `android/`.
+- Native iPhone push and watch delivery are fully native. The Next app no longer carries an iPhone push bridge.
 - The future Kotlin/Compose Android app belongs in `native/android/`, not inside the long-term structure of the Capacitor host.
 - iOS distribution notes: [docs/ios-testflight.md](docs/ios-testflight.md)
 - Android setup, release, and Play testing notes: [docs/mobile/android-capacitor.md](docs/mobile/android-capacitor.md)
@@ -78,11 +79,12 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 
 ### Design & Mobile UX
 
-- Mobile is now the primary shell. iPhone uses the native SwiftUI client, while Android still rides the Capacitor shell. Both keep the same `Home`, `Browse`, `Search`, and `Saved` information architecture.
+- Mobile is now the primary shell. iPhone uses the native SwiftUI client, while Android still rides a transitional Capacitor shell. Both keep the same `Home`, `Browse`, `Search`, and `Saved` information architecture until the native Android handoff is complete.
 - Safe areas are handled explicitly on both platforms. Android still relies on Capacitor 8 `SystemBars` CSS inset injection as a fallback for older WebViews where raw `env(safe-area-inset-*)` values are unreliable.
 - Search and dictionary filtering are phone-first: the search field stays visible, while secondary filters move into a bottom sheet to preserve thumb reach and reading space.
 - Surface treatments are intentionally lighter on mobile than desktop. This keeps the editorial identity without asking Samsung A30s-class hardware to render a blur festival every time a card scrolls past.
 - Navigation semantics, saved-place behavior, and token names are shared across the shipped native iPhone app and the Android web shell so the eventual Android native handoff stays boring.
+- The decommission rule is simple: `android/`, `capacitor.config.ts`, and the remaining `@capacitor/*` dependencies go away only after `native/android/` becomes the shipping Android path.
 
 ## Project structure
 
@@ -91,7 +93,7 @@ content/entries/                 Dictionary entries in MDX with frontmatter
 docs/commit-message-style.md     Commit-subject tone guide and history audit
 docs/content-authoring.md        Editorial and schema guide
 docs/mobile/                     Mobile runbooks, release guides, and checklists
-android/                         Shipping Capacitor Android shell and release packaging
+android/                         Transitional Capacitor Android shell and release packaging
 ios/App/                         Shipping native Apple app, watch targets, and Xcode project
 native/android/                  Reserved future home for the Kotlin/Compose Android app
 shared/swift-core/               Shared Swift package for read-only domain logic

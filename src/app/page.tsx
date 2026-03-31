@@ -3,7 +3,6 @@ import { CategoryGrid } from "@/components/category-grid";
 import { EntryCard } from "@/components/entry-card";
 import { FeaturedEntry } from "@/components/featured-entry";
 import { LetterGrid } from "@/components/letter-grid";
-import { NativePushPrompt } from "@/components/native-push-prompt";
 import { ResumeReadingCard } from "@/components/resume-reading-card";
 import { SearchBox } from "@/components/search-box";
 import {
@@ -82,7 +81,6 @@ export default async function HomePage() {
                 Browse the dictionary
               </Link>
             </div>
-            <NativePushPrompt />
             <ResumeReadingCard className="mt-6 max-w-2xl" compact hideIfCurrentHref="/" />
           </div>
           <aside className="surface p-5 sm:p-6">
