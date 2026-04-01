@@ -1,0 +1,55 @@
+---
+title: "Red Teaming"
+slug: "red-teaming"
+letter: "R"
+categories:
+  - "Safety and evaluation"
+  - "Model building"
+  - "Model usage"
+aliases:
+  - "red team"
+  - "adversarial testing"
+  - "abuse testing"
+devilDefinition: |
+  The ritual of asking determined people to break the system before determined strangers do it for free.
+plainDefinition: |
+  Red teaming is adversarial testing aimed at finding harmful behaviours, security weaknesses, jailbreaks, unsafe tool interactions, or operational failures in an AI system.
+whyExists: |
+  Because benchmark scores, happy-path demos, and internal optimism do not cover what users, attackers, or merely curious employees will actually try once a system is live.
+misuse: |
+  By turning it into theatre: a one-off exercise, a slide in the launch deck, or a carefully controlled hunt for problems everyone already knows how to solve. Real red teaming is inconvenient precisely because it uncovers things the roadmap had hoped to ignore.
+practicalMeaning: |
+  In practice it means structured adversarial prompts, tool-abuse scenarios, domain experts probing edge cases, and a repeatable process for turning discovered failures into mitigations rather than folklore.
+example: |
+  "The launch review improved once red teaming stopped being a ceremonial afternoon and started behaving like a serious attempt to embarrass the product."
+askNext:
+  - "Who is testing the system, and what failure modes are they incentivised to find?"
+  - "Are the findings feeding product changes, policy controls, or merely prettier documentation?"
+  - "What happens when the system fails safely in the lab but unsafely in the workflow?"
+related:
+  - "evals"
+  - "guardrails"
+  - "benchmark-theatre"
+  - "prompt-injection"
+seeAlso:
+  - "Abuse testing"
+  - "Jailbreaks"
+  - "Safety case"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-01"
+updatedAt: "2026-04-01"
+tags:
+  - "safety"
+  - "security"
+  - "testing"
+  - "adversarial"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "Trying to break the system on purpose so the real world has fewer chances to do it first."
+---
+
+It is one of the field's more respectable habits. The only recurring problem is the temptation to make it decorative.

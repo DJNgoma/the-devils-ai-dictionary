@@ -63,7 +63,7 @@
       "relatedSlugs": [
         "agentic-ai",
         "orchestration",
-        "function-calling"
+        "tool-use"
       ]
     },
     {
@@ -923,149 +923,6 @@
       ]
     },
     {
-      "title": "Computer Use",
-      "slug": "computer-use",
-      "letter": "C",
-      "categories": [
-        "Agents and workflows",
-        "Model usage",
-        "Product and vendor terms"
-      ],
-      "aliases": [
-        "browser use",
-        "desktop use",
-        "computer control"
-      ],
-      "devilDefinition": "A feature that lets the model click around your machine with the confidence of an intern who has already promised the client it is done.\n",
-      "plainDefinition": "Computer use is an AI capability in which a model interprets screens and interacts with software through interfaces such as the mouse, keyboard, browser, or operating system controls.\n",
-      "whyExists": "Because an impressive amount of useful work still lives behind web forms, internal dashboards, and legacy interfaces that were never kind enough to expose an API.\n",
-      "misuse": "By presenting it as general competence rather than brittle interface automation. A model that can operate a browser in a demo is not automatically ready to run the back office unsupervised.\n",
-      "practicalMeaning": "In practice it means screenshot parsing, UI targeting, retries, permissions, guardrails, and a lot of patience while the system performs basic software navigation at premium-token speed.\n",
-      "example": "\"The computer-use agent completed the refund after eleven clicks, two hesitations, and one moment where legal briefly saw the future.\"\n",
-      "askNext": [
-        "What environments and interfaces does it actually handle reliably?",
-        "What permissions, approvals, or stop conditions sit between intent and action?",
-        "Would an API integration be safer, faster, and less theatrical?"
-      ],
-      "related": [
-        "agent",
-        "function-calling",
-        "orchestration",
-        "openclaw"
-      ],
-      "seeAlso": [
-        "Browser agent",
-        "UI automation",
-        "Tool use"
-      ],
-      "difficulty": "beginner",
-      "technicalDepth": "medium",
-      "hypeLevel": "high",
-      "isVendorTerm": false,
-      "publishedAt": "2026-04-01",
-      "updatedAt": "2026-04-01",
-      "warningLabel": "Impressive in a stable flow. Unnerving in a noisy one.",
-      "tags": [
-        "automation",
-        "browser",
-        "permissions",
-        "ui"
-      ],
-      "misunderstoodScore": 5,
-      "translations": [
-        {
-          "label": "what it usually means in reality",
-          "text": "A model-driven UI automation layer that works best when the environment is tightly scoped and somebody sensible is still watching."
-        }
-      ],
-      "note": "The term travels well across vendors because every provider discovered the same thing: plenty of useful work is trapped inside software that only knows how to be clicked.",
-      "vendorReferences": [],
-      "body": "The romance lies in the idea of a digital operator. The actual work lies in making sure it does not misread the button labelled \"Delete\".",
-      "categorySlugs": [
-        "agents-and-workflows",
-        "model-usage",
-        "product-and-vendor-terms"
-      ],
-      "url": "/dictionary/computer-use",
-      "searchText": "Computer Use browser use desktop use computer control Agents and workflows Model usage Product and vendor terms automation browser permissions ui A feature that lets the model click around your machine with the confidence of an intern who has already promised the client it is done.\n Computer use is an AI capability in which a model interprets screens and interacts with software through interfaces such as the mouse, keyboard, browser, or operating system controls.\n Because an impressive amount of useful work still lives behind web forms, internal dashboards, and legacy interfaces that were never kind enough to expose an API.\n By presenting it as general competence rather than brittle interface automation. A model that can operate a browser in a demo is not automatically ready to run the back office unsupervised.\n In practice it means screenshot parsing, UI targeting, retries, permissions, guardrails, and a lot of patience while the system performs basic software navigation at premium-token speed.\n \"The computer-use agent completed the refund after eleven clicks, two hesitations, and one moment where legal briefly saw the future.\"\n What environments and interfaces does it actually handle reliably? What permissions, approvals, or stop conditions sit between intent and action? Would an API integration be safer, faster, and less theatrical? Browser agent UI automation Tool use The term travels well across vendors because every provider discovered the same thing: plenty of useful work is trapped inside software that only knows how to be clicked.",
-      "relatedSlugs": [
-        "agent",
-        "function-calling",
-        "orchestration"
-      ]
-    },
-    {
-      "title": "Context Engineering",
-      "slug": "context-engineering",
-      "letter": "C",
-      "categories": [
-        "Agents and workflows",
-        "Retrieval and memory",
-        "Model usage"
-      ],
-      "aliases": [
-        "context design",
-        "prompt architecture",
-        "context assembly"
-      ],
-      "devilDefinition": "The discovery that if you feed the machine the right evidence, tools, and constraints, it can briefly look like it knows what it is doing.\n",
-      "plainDefinition": "Context engineering is the practice of deciding what instructions, examples, retrieved facts, memory, tools, and state a model receives at run time, and in what form.\n",
-      "whyExists": "Because a prompt on its own is usually too thin for serious work. Useful systems need the right surrounding material, not just a clever first sentence.\n",
-      "misuse": "By using it as a grander title for prompt writing, or as permission to dump half the company wiki into the context window and pray for synthesis. Good context engineering is selective. Bad context engineering is hoarding with tokens.\n",
-      "practicalMeaning": "In practice it means building the retrieval, ranking, compression, state, and tool-selection logic that gives a model enough situational awareness to be useful without drowning it in irrelevant prose.\n",
-      "example": "\"The demo looked intelligent right up to the point the context engineering failed and the system answered yesterday's problem with last quarter's policy.\"\n",
-      "askNext": [
-        "What information is being injected, and why does each piece deserve to be there?",
-        "What gets omitted when the context window fills up?",
-        "Is the system improving the context, or merely increasing the token bill?"
-      ],
-      "related": [
-        "prompt",
-        "context-window",
-        "rag",
-        "mcp"
-      ],
-      "seeAlso": [
-        "Prompt Engineering",
-        "Retrieval pipeline",
-        "State management"
-      ],
-      "difficulty": "intermediate",
-      "technicalDepth": "medium",
-      "hypeLevel": "high",
-      "isVendorTerm": false,
-      "publishedAt": "2026-04-01",
-      "updatedAt": "2026-04-01",
-      "warningLabel": "Useful phrase when it names retrieval and state design. Less useful when it merely means a longer prompt.",
-      "tags": [
-        "retrieval",
-        "memory",
-        "prompting",
-        "orchestration"
-      ],
-      "misunderstoodScore": 5,
-      "translations": [
-        {
-          "label": "what it usually means in reality",
-          "text": "The unglamorous pipeline work required to stop a model from answering in a vacuum."
-        }
-      ],
-      "vendorReferences": [],
-      "body": "The term matters because it shifts attention from model mysticism to system design. That is a healthier place for the discussion to live.",
-      "categorySlugs": [
-        "agents-and-workflows",
-        "retrieval-and-memory",
-        "model-usage"
-      ],
-      "url": "/dictionary/context-engineering",
-      "searchText": "Context Engineering context design prompt architecture context assembly Agents and workflows Retrieval and memory Model usage retrieval memory prompting orchestration The discovery that if you feed the machine the right evidence, tools, and constraints, it can briefly look like it knows what it is doing.\n Context engineering is the practice of deciding what instructions, examples, retrieved facts, memory, tools, and state a model receives at run time, and in what form.\n Because a prompt on its own is usually too thin for serious work. Useful systems need the right surrounding material, not just a clever first sentence.\n By using it as a grander title for prompt writing, or as permission to dump half the company wiki into the context window and pray for synthesis. Good context engineering is selective. Bad context engineering is hoarding with tokens.\n In practice it means building the retrieval, ranking, compression, state, and tool-selection logic that gives a model enough situational awareness to be useful without drowning it in irrelevant prose.\n \"The demo looked intelligent right up to the point the context engineering failed and the system answered yesterday's problem with last quarter's policy.\"\n What information is being injected, and why does each piece deserve to be there? What gets omitted when the context window fills up? Is the system improving the context, or merely increasing the token bill? Prompt Engineering Retrieval pipeline State management",
-      "relatedSlugs": [
-        "prompt",
-        "context-window",
-        "rag"
-      ]
-    },
-    {
       "title": "Context Window",
       "slug": "context-window",
       "letter": "C",
@@ -1492,80 +1349,6 @@
         "gemini",
         "frontier-model",
         "multimodal"
-      ]
-    },
-    {
-      "title": "Distillation",
-      "slug": "distillation",
-      "letter": "D",
-      "categories": [
-        "Model building",
-        "Infrastructure and deployment",
-        "Economics and operations of AI"
-      ],
-      "aliases": [
-        "teacher-student training",
-        "model distillation",
-        "model compression"
-      ],
-      "devilDefinition": "The art of shrinking a heroic model into something finance can tolerate without product noticing too much.\n",
-      "plainDefinition": "Distillation is the practice of training a smaller model to imitate the outputs or behaviour of a larger model so it can serve similar tasks more cheaply or quickly.\n",
-      "whyExists": "Because frontier models are expensive to run, awkward to deploy, and frankly too grand for many production tasks that only need a narrower slice of their capability.\n",
-      "misuse": "By implying the smaller model is simply the same intelligence in a thriftier suit. Distillation can preserve a surprising amount, but it also preserves biases, omissions, and blind spots in more compact form.\n",
-      "practicalMeaning": "In practice it means using a stronger model as a teacher so the cheaper one can handle a specific workflow with lower latency, lower cost, and fewer procurement speeches about GPU budgets.\n",
-      "example": "\"The team called it distillation once the smaller model inherited enough of the original behaviour to keep support happy and infrastructure quiet.\"\n",
-      "askNext": [
-        "What capability is being preserved, and what capability is quietly being dropped?",
-        "Was the student model tested on real workloads or merely on flattering benchmarks?",
-        "Are we distilling a general system or just bottling one narrow behaviour?"
-      ],
-      "related": [
-        "training",
-        "fine-tuning",
-        "weights",
-        "latency"
-      ],
-      "seeAlso": [
-        "Teacher model",
-        "Compression",
-        "Inference cost"
-      ],
-      "difficulty": "intermediate",
-      "technicalDepth": "medium",
-      "hypeLevel": "medium",
-      "isVendorTerm": false,
-      "publishedAt": "2026-04-01",
-      "updatedAt": "2026-04-01",
-      "tags": [
-        "compression",
-        "serving",
-        "cost",
-        "training"
-      ],
-      "misunderstoodScore": 4,
-      "translations": [
-        {
-          "label": "operator meaning",
-          "text": "A way to keep some of the bigger model's usefulness while dramatically improving the hosting arithmetic."
-        },
-        {
-          "label": "what it usually means in reality",
-          "text": "A cost-and-latency trade where a smaller model learns to mimic the teacher well enough for a bounded job."
-        }
-      ],
-      "vendorReferences": [],
-      "body": "Distillation is one of the field's more honest ideas. It admits that scale is glorious right up until someone has to pay to serve it.",
-      "categorySlugs": [
-        "model-building",
-        "infrastructure-and-deployment",
-        "economics-and-operations-of-ai"
-      ],
-      "url": "/dictionary/distillation",
-      "searchText": "Distillation teacher-student training model distillation model compression Model building Infrastructure and deployment Economics and operations of AI compression serving cost training The art of shrinking a heroic model into something finance can tolerate without product noticing too much.\n Distillation is the practice of training a smaller model to imitate the outputs or behaviour of a larger model so it can serve similar tasks more cheaply or quickly.\n Because frontier models are expensive to run, awkward to deploy, and frankly too grand for many production tasks that only need a narrower slice of their capability.\n By implying the smaller model is simply the same intelligence in a thriftier suit. Distillation can preserve a surprising amount, but it also preserves biases, omissions, and blind spots in more compact form.\n In practice it means using a stronger model as a teacher so the cheaper one can handle a specific workflow with lower latency, lower cost, and fewer procurement speeches about GPU budgets.\n \"The team called it distillation once the smaller model inherited enough of the original behaviour to keep support happy and infrastructure quiet.\"\n What capability is being preserved, and what capability is quietly being dropped? Was the student model tested on real workloads or merely on flattering benchmarks? Are we distilling a general system or just bottling one narrow behaviour? Teacher model Compression Inference cost",
-      "relatedSlugs": [
-        "training",
-        "fine-tuning",
-        "weights"
       ]
     },
     {
@@ -3520,6 +3303,75 @@
       ]
     },
     {
+      "title": "Model Garden",
+      "slug": "model-garden",
+      "letter": "M",
+      "categories": [
+        "Product and vendor terms",
+        "Infrastructure and deployment",
+        "Model usage"
+      ],
+      "aliases": [
+        "model catalogue",
+        "model marketplace",
+        "foundation model catalogue"
+      ],
+      "devilDefinition": "A cloud menu where every model is arranged like a tasteful orchard and billed like enterprise software.\n",
+      "plainDefinition": "Model garden is a vendor term for a managed catalogue of models that customers can browse, provision, fine-tune, and call through a cloud platform.\n",
+      "whyExists": "Because buyers want more than one model, clouds want to be the place where that choice gets made, and nobody enjoys integrating a fresh API every time the leaderboard twitches.\n",
+      "misuse": "By making model access sound like curation solved the hard part. A catalogue is useful. It does not answer which model is trustworthy, economical, regionally available, or appropriate for a real workload.\n",
+      "practicalMeaning": "In practice it usually means a procurement-and-deployment layer with billing, quotas, IAM, regions, logging, and just enough abstraction to turn model shopping into infrastructure policy.\n",
+      "example": "\"The model garden looked abundant until the architecture review reduced it to the three options legal, security, and latency could tolerate.\"\n",
+      "askNext": [
+        "Which models are actually production-ready for our constraints?",
+        "What vendor lock-in sits behind the pleasant catalogue language?",
+        "Are we choosing a model, or quietly choosing an entire cloud relationship?"
+      ],
+      "related": [
+        "openrouter",
+        "frontier-model",
+        "latency"
+      ],
+      "seeAlso": [
+        "Model registry",
+        "Managed inference",
+        "Cloud AI platform"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": true,
+      "publishedAt": "2026-04-01",
+      "updatedAt": "2026-04-01",
+      "tags": [
+        "cloud",
+        "inference",
+        "procurement",
+        "platforms"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "what it usually means in reality",
+          "text": "A cloud-controlled shelf of models that turns experimentation into something procurement can invoice."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The garden metaphor is doing heavy work here. It suggests abundance, order, and gentle stewardship. The operational reality is still quotas, contracts, and somebody arguing about egress.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "infrastructure-and-deployment",
+        "model-usage"
+      ],
+      "url": "/dictionary/model-garden",
+      "searchText": "Model Garden model catalogue model marketplace foundation model catalogue Product and vendor terms Infrastructure and deployment Model usage cloud inference procurement platforms A cloud menu where every model is arranged like a tasteful orchard and billed like enterprise software.\n Model garden is a vendor term for a managed catalogue of models that customers can browse, provision, fine-tune, and call through a cloud platform.\n Because buyers want more than one model, clouds want to be the place where that choice gets made, and nobody enjoys integrating a fresh API every time the leaderboard twitches.\n By making model access sound like curation solved the hard part. A catalogue is useful. It does not answer which model is trustworthy, economical, regionally available, or appropriate for a real workload.\n In practice it usually means a procurement-and-deployment layer with billing, quotas, IAM, regions, logging, and just enough abstraction to turn model shopping into infrastructure policy.\n \"The model garden looked abundant until the architecture review reduced it to the three options legal, security, and latency could tolerate.\"\n Which models are actually production-ready for our constraints? What vendor lock-in sits behind the pleasant catalogue language? Are we choosing a model, or quietly choosing an entire cloud relationship? Model registry Managed inference Cloud AI platform",
+      "relatedSlugs": [
+        "openrouter",
+        "frontier-model",
+        "latency"
+      ]
+    },
+    {
       "title": "Multimodal",
       "slug": "multimodal",
       "letter": "M",
@@ -4298,8 +4150,8 @@
       "searchText": "Prompt instruction input prompt Model usage Core concepts instructions context input A politely worded attempt to steer a probability machine into behaving as if it has read the brief and cares.\n A prompt is the input text, and sometimes structured context, provided to a model in order to shape its output. In LLM systems this can include instructions, examples, retrieved documents, tool results, formatting rules, and the user's actual request.\n The term exists because the way you frame input materially affects output. Language models do not simply receive a question. They respond to the entire text context they are given.\n It gets treated either as wizardry or as trivia. Both are wrong. Prompt quality matters, but prompting is not a substitute for missing product design, missing data, or missing control logic. A good prompt cannot rescue a bad system forever.\n In practice it usually means the assembled context sent to the model: system instructions, user text, retrieved snippets, examples, tool schemas, output rules, and maybe the remnants of last week's prompt experiments still haunting production.\n \"The issue was not that the model was weak; the prompt was half policy manual, half legal disclaimer, and no longer resembled a usable instruction.\"\n What exact context is being sent to the model? Which parts of the prompt are fixed system behaviour versus user input? Is the prompt compensating for a missing tool, missing retrieval step, or missing product rule? prompt-engineering system-prompt In image generation, \"prompt\" often refers to descriptive text steering the style or content of an output. In LLM products, it usually refers to the full assembled input context, not just the visible user message.",
       "relatedSlugs": [
         "context-window",
-        "knowledge-cutoff",
-        "multimodal"
+        "system-prompt",
+        "knowledge-cutoff"
       ]
     },
     {
@@ -4372,6 +4224,77 @@
         "prompt",
         "cursor",
         "reasoning-model"
+      ]
+    },
+    {
+      "title": "Prompt Injection",
+      "slug": "prompt-injection",
+      "letter": "P",
+      "categories": [
+        "Safety and evaluation",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "aliases": [
+        "prompt attack",
+        "instruction injection",
+        "indirect prompt injection"
+      ],
+      "devilDefinition": "The trick of slipping a second brief into the machine and watching it forget who is supposed to be in charge.\n",
+      "plainDefinition": "Prompt injection is a failure mode or attack in which untrusted text changes a model's behaviour by smuggling in instructions that override, confuse, or redirect the intended prompt.\n",
+      "whyExists": "Because language models read instructions, data, and hostile text through the same basic channel. They do not naturally maintain the clean boundaries software engineers would very much prefer.\n",
+      "misuse": "By treating it as an exotic hacker trick rather than a structural property of model-based systems, or by using it to describe every wrong answer regardless of whether instructions were actually manipulated.\n",
+      "practicalMeaning": "In practice it means any tool-using or retrieval-heavy system must assume that documents, web pages, emails, and user content may contain adversarial instructions that need filtering, isolation, or refusal.\n",
+      "example": "\"The agent was fine until the support ticket helpfully instructed it to ignore policy, reveal the hidden prompt, and email the database to itself.\"\n",
+      "askNext": [
+        "What untrusted text can reach the model, and in what priority order?",
+        "Which tools or permissions become dangerous if the model follows hostile instructions?",
+        "What separates trusted instructions from retrieved or user-supplied content?"
+      ],
+      "related": [
+        "prompt",
+        "guardrails",
+        "rag",
+        "red-teaming"
+      ],
+      "seeAlso": [
+        "System Prompt",
+        "Adversarial input",
+        "Sandboxing"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-01",
+      "updatedAt": "2026-04-01",
+      "warningLabel": "Not a niche curiosity. A design constraint.",
+      "tags": [
+        "security",
+        "adversarial",
+        "retrieval",
+        "agents"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "what it usually means in reality",
+          "text": "Untrusted text has found a way to impersonate part of the system's instructions."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "Prompt injection matters because it collapses a comfortable fiction. The model does not reliably know which text is policy, which is data, and which is a trap wearing the manners of documentation.",
+      "categorySlugs": [
+        "safety-and-evaluation",
+        "agents-and-workflows",
+        "model-usage"
+      ],
+      "url": "/dictionary/prompt-injection",
+      "searchText": "Prompt Injection prompt attack instruction injection indirect prompt injection Safety and evaluation Agents and workflows Model usage security adversarial retrieval agents The trick of slipping a second brief into the machine and watching it forget who is supposed to be in charge.\n Prompt injection is a failure mode or attack in which untrusted text changes a model's behaviour by smuggling in instructions that override, confuse, or redirect the intended prompt.\n Because language models read instructions, data, and hostile text through the same basic channel. They do not naturally maintain the clean boundaries software engineers would very much prefer.\n By treating it as an exotic hacker trick rather than a structural property of model-based systems, or by using it to describe every wrong answer regardless of whether instructions were actually manipulated.\n In practice it means any tool-using or retrieval-heavy system must assume that documents, web pages, emails, and user content may contain adversarial instructions that need filtering, isolation, or refusal.\n \"The agent was fine until the support ticket helpfully instructed it to ignore policy, reveal the hidden prompt, and email the database to itself.\"\n What untrusted text can reach the model, and in what priority order? Which tools or permissions become dangerous if the model follows hostile instructions? What separates trusted instructions from retrieved or user-supplied content? System Prompt Adversarial input Sandboxing",
+      "relatedSlugs": [
+        "prompt",
+        "guardrails",
+        "rag"
       ]
     },
     {
@@ -4649,6 +4572,76 @@
         "context-window",
         "structured-outputs",
         "deep-research"
+      ]
+    },
+    {
+      "title": "Red Teaming",
+      "slug": "red-teaming",
+      "letter": "R",
+      "categories": [
+        "Safety and evaluation",
+        "Model building",
+        "Model usage"
+      ],
+      "aliases": [
+        "red team",
+        "adversarial testing",
+        "abuse testing"
+      ],
+      "devilDefinition": "The ritual of asking determined people to break the system before determined strangers do it for free.\n",
+      "plainDefinition": "Red teaming is adversarial testing aimed at finding harmful behaviours, security weaknesses, jailbreaks, unsafe tool interactions, or operational failures in an AI system.\n",
+      "whyExists": "Because benchmark scores, happy-path demos, and internal optimism do not cover what users, attackers, or merely curious employees will actually try once a system is live.\n",
+      "misuse": "By turning it into theatre: a one-off exercise, a slide in the launch deck, or a carefully controlled hunt for problems everyone already knows how to solve. Real red teaming is inconvenient precisely because it uncovers things the roadmap had hoped to ignore.\n",
+      "practicalMeaning": "In practice it means structured adversarial prompts, tool-abuse scenarios, domain experts probing edge cases, and a repeatable process for turning discovered failures into mitigations rather than folklore.\n",
+      "example": "\"The launch review improved once red teaming stopped being a ceremonial afternoon and started behaving like a serious attempt to embarrass the product.\"\n",
+      "askNext": [
+        "Who is testing the system, and what failure modes are they incentivised to find?",
+        "Are the findings feeding product changes, policy controls, or merely prettier documentation?",
+        "What happens when the system fails safely in the lab but unsafely in the workflow?"
+      ],
+      "related": [
+        "evals",
+        "guardrails",
+        "benchmark-theatre",
+        "prompt-injection"
+      ],
+      "seeAlso": [
+        "Abuse testing",
+        "Jailbreaks",
+        "Safety case"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-01",
+      "updatedAt": "2026-04-01",
+      "tags": [
+        "safety",
+        "security",
+        "testing",
+        "adversarial"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "what it usually means in reality",
+          "text": "Trying to break the system on purpose so the real world has fewer chances to do it first."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "It is one of the field's more respectable habits. The only recurring problem is the temptation to make it decorative.",
+      "categorySlugs": [
+        "safety-and-evaluation",
+        "model-building",
+        "model-usage"
+      ],
+      "url": "/dictionary/red-teaming",
+      "searchText": "Red Teaming red team adversarial testing abuse testing Safety and evaluation Model building Model usage safety security testing adversarial The ritual of asking determined people to break the system before determined strangers do it for free.\n Red teaming is adversarial testing aimed at finding harmful behaviours, security weaknesses, jailbreaks, unsafe tool interactions, or operational failures in an AI system.\n Because benchmark scores, happy-path demos, and internal optimism do not cover what users, attackers, or merely curious employees will actually try once a system is live.\n By turning it into theatre: a one-off exercise, a slide in the launch deck, or a carefully controlled hunt for problems everyone already knows how to solve. Real red teaming is inconvenient precisely because it uncovers things the roadmap had hoped to ignore.\n In practice it means structured adversarial prompts, tool-abuse scenarios, domain experts probing edge cases, and a repeatable process for turning discovered failures into mitigations rather than folklore.\n \"The launch review improved once red teaming stopped being a ceremonial afternoon and started behaving like a serious attempt to embarrass the product.\"\n Who is testing the system, and what failure modes are they incentivised to find? Are the findings feeding product changes, policy controls, or merely prettier documentation? What happens when the system fails safely in the lab but unsafely in the workflow? Abuse testing Jailbreaks Safety case",
+      "relatedSlugs": [
+        "evals",
+        "guardrails",
+        "benchmark-theatre"
       ]
     },
     {
@@ -5349,6 +5342,77 @@
       ]
     },
     {
+      "title": "System Prompt",
+      "slug": "system-prompt",
+      "letter": "S",
+      "categories": [
+        "Core concepts",
+        "Model usage",
+        "Agents and workflows"
+      ],
+      "aliases": [
+        "hidden prompt",
+        "system instruction",
+        "developer prompt"
+      ],
+      "devilDefinition": "The invisible preface explaining what the machine is supposed to be before the user begins testing the claim.\n",
+      "plainDefinition": "A system prompt is the high-priority instruction layer supplied by the application or developer to shape a model's behaviour, rules, tone, and operating constraints.\n",
+      "whyExists": "Because most AI products need stable behaviour across many users and tasks. Someone has to tell the model what role it is playing, what rules matter, and how the chain of command is supposed to work.\n",
+      "misuse": "By treating it as secret sauce, or worse, as a reliable security boundary. A system prompt is useful control text. It is not a magical wall separating trusted intent from hostile input.\n",
+      "practicalMeaning": "In practice it usually means a standing instruction layer covering role, tone, refusal rules, output format, tool permissions, escalation behaviour, and the product's preferred version of reality.\n",
+      "example": "\"The app felt polished until the leaked system prompt revealed that half the brand voice was an anxious paragraph about never improvising legal advice.\"\n",
+      "askNext": [
+        "What instructions live in the system prompt, and which belong in code or policy instead?",
+        "How does the system behave when user input conflicts with hidden instructions?",
+        "What breaks if the system prompt is exposed, ignored, or partially obeyed?"
+      ],
+      "related": [
+        "prompt",
+        "guardrails",
+        "prompt-injection",
+        "structured-outputs"
+      ],
+      "seeAlso": [
+        "Developer message",
+        "Instruction hierarchy",
+        "Prompt leakage"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-01",
+      "updatedAt": "2026-04-01",
+      "warningLabel": "An instruction layer, not a security model.",
+      "tags": [
+        "instructions",
+        "control",
+        "policy",
+        "prompts"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "what it usually means in reality",
+          "text": "The application's standing attempt to keep the model on script before users and retrieved text start arguing back."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "Every serious AI product has one, whether the company talks about it or not. The interesting part is never merely that it exists. The interesting part is what else the team expects it to do.",
+      "categorySlugs": [
+        "core-concepts",
+        "model-usage",
+        "agents-and-workflows"
+      ],
+      "url": "/dictionary/system-prompt",
+      "searchText": "System Prompt hidden prompt system instruction developer prompt Core concepts Model usage Agents and workflows instructions control policy prompts The invisible preface explaining what the machine is supposed to be before the user begins testing the claim.\n A system prompt is the high-priority instruction layer supplied by the application or developer to shape a model's behaviour, rules, tone, and operating constraints.\n Because most AI products need stable behaviour across many users and tasks. Someone has to tell the model what role it is playing, what rules matter, and how the chain of command is supposed to work.\n By treating it as secret sauce, or worse, as a reliable security boundary. A system prompt is useful control text. It is not a magical wall separating trusted intent from hostile input.\n In practice it usually means a standing instruction layer covering role, tone, refusal rules, output format, tool permissions, escalation behaviour, and the product's preferred version of reality.\n \"The app felt polished until the leaked system prompt revealed that half the brand voice was an anxious paragraph about never improvising legal advice.\"\n What instructions live in the system prompt, and which belong in code or policy instead? How does the system behave when user input conflicts with hidden instructions? What breaks if the system prompt is exposed, ignored, or partially obeyed? Developer message Instruction hierarchy Prompt leakage",
+      "relatedSlugs": [
+        "prompt",
+        "guardrails",
+        "prompt-injection"
+      ]
+    },
+    {
       "title": "Taste",
       "slug": "taste",
       "letter": "T",
@@ -5494,77 +5558,6 @@
       ]
     },
     {
-      "title": "Test-Time Compute",
-      "slug": "test-time-compute",
-      "letter": "T",
-      "categories": [
-        "Core concepts",
-        "Infrastructure and deployment",
-        "Economics and operations of AI"
-      ],
-      "aliases": [
-        "inference-time scaling",
-        "deliberation budget",
-        "extra thinking budget"
-      ],
-      "devilDefinition": "The expensive theory that the model may improve if you let it burn more electricity before disappointing you.\n",
-      "plainDefinition": "Test-time compute is the extra computation spent during inference to improve task performance, often through additional reasoning steps, search, sampling, verification, or tool use.\n",
-      "whyExists": "Because some problems are not solved by one cheap pass. Harder tasks can benefit when the system is allowed to spend more time and compute before committing to an answer.\n",
-      "misuse": "By talking as if extra compute were a direct synonym for intelligence. It can improve performance on the right tasks, but it can also produce a slower path to the same wrong conclusion at a more mature price point.\n",
-      "practicalMeaning": "In practice it usually means higher latency, higher token usage, and a larger invoice in exchange for better odds on structured or difficult tasks where additional search or verification actually helps.\n",
-      "example": "\"The benchmark improved handsomely once they added more test-time compute, which was encouraging right up until finance asked whether the customers were also benchmarks.\"\n",
-      "askNext": [
-        "What specific task gets better when more compute is spent at inference?",
-        "How much latency and cost does the improvement require?",
-        "Is the gain robust, or are we paying extra for a benchmark parlour trick?"
-      ],
-      "related": [
-        "reasoning-model",
-        "latency",
-        "inference",
-        "benchmark-theatre"
-      ],
-      "seeAlso": [
-        "Inference-time scaling",
-        "Deliberate search",
-        "Serving cost"
-      ],
-      "difficulty": "intermediate",
-      "technicalDepth": "medium",
-      "hypeLevel": "high",
-      "isVendorTerm": false,
-      "publishedAt": "2026-04-01",
-      "updatedAt": "2026-04-01",
-      "warningLabel": "A real trade-off, not a free upgrade.",
-      "tags": [
-        "inference",
-        "cost",
-        "latency",
-        "reasoning"
-      ],
-      "misunderstoodScore": 5,
-      "translations": [
-        {
-          "label": "what it usually means in reality",
-          "text": "Paying more at run time so the system can think longer, search wider, or check itself before speaking."
-        }
-      ],
-      "vendorReferences": [],
-      "body": "This is one of the cleaner ideas in modern AI because the trade is visible: more budget, more delay, sometimes more capability. Even the euphemism eventually has to meet the invoice.",
-      "categorySlugs": [
-        "core-concepts",
-        "infrastructure-and-deployment",
-        "economics-and-operations-of-ai"
-      ],
-      "url": "/dictionary/test-time-compute",
-      "searchText": "Test-Time Compute inference-time scaling deliberation budget extra thinking budget Core concepts Infrastructure and deployment Economics and operations of AI inference cost latency reasoning The expensive theory that the model may improve if you let it burn more electricity before disappointing you.\n Test-time compute is the extra computation spent during inference to improve task performance, often through additional reasoning steps, search, sampling, verification, or tool use.\n Because some problems are not solved by one cheap pass. Harder tasks can benefit when the system is allowed to spend more time and compute before committing to an answer.\n By talking as if extra compute were a direct synonym for intelligence. It can improve performance on the right tasks, but it can also produce a slower path to the same wrong conclusion at a more mature price point.\n In practice it usually means higher latency, higher token usage, and a larger invoice in exchange for better odds on structured or difficult tasks where additional search or verification actually helps.\n \"The benchmark improved handsomely once they added more test-time compute, which was encouraging right up until finance asked whether the customers were also benchmarks.\"\n What specific task gets better when more compute is spent at inference? How much latency and cost does the improvement require? Is the gain robust, or are we paying extra for a benchmark parlour trick? Inference-time scaling Deliberate search Serving cost",
-      "relatedSlugs": [
-        "reasoning-model",
-        "latency",
-        "inference"
-      ]
-    },
-    {
       "title": "Tokens",
       "slug": "tokens",
       "letter": "T",
@@ -5622,6 +5615,76 @@
         "context-window",
         "inference",
         "structured-outputs"
+      ]
+    },
+    {
+      "title": "Tool Use",
+      "slug": "tool-use",
+      "letter": "T",
+      "categories": [
+        "Agents and workflows",
+        "Model usage",
+        "Core concepts"
+      ],
+      "aliases": [
+        "external tools",
+        "tool access",
+        "action tools"
+      ],
+      "devilDefinition": "The point where the model stops guessing alone and starts borrowing other systems' competence.\n",
+      "plainDefinition": "Tool use is the pattern of giving a model access to external systems such as search, code execution, databases, browsers, calculators, or internal APIs so it can gather information or take actions.\n",
+      "whyExists": "Because models know many things badly, some things approximately, and almost nothing about the current state of your systems unless another tool tells them.\n",
+      "misuse": "By marketing tool access as autonomy rather than integration. The hard part is not that the model can ask for a tool. The hard part is deciding which tools it may touch, when, and under whose supervision.\n",
+      "practicalMeaning": "In practice it means schemas, permission scopes, retries, observability, error handling, and a constant negotiation between flexibility and the desire to avoid discovering new incident classes at scale.\n",
+      "example": "\"The assistant became materially more useful once tool use let it search the docs, check the account, and stop inventing the answer from memory.\"\n",
+      "askNext": [
+        "Which tools are available, and what can each one affect?",
+        "What happens when a tool returns stale data, partial failure, or nonsense?",
+        "Is the system using tools to extend capability, or to mask weak product design?"
+      ],
+      "related": [
+        "function-calling",
+        "agent",
+        "mcp",
+        "openclaw"
+      ],
+      "seeAlso": [
+        "Function Calling",
+        "Tool permissions",
+        "External actions"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-01",
+      "updatedAt": "2026-04-01",
+      "tags": [
+        "tools",
+        "actions",
+        "permissions",
+        "workflows"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "what it usually means in reality",
+          "text": "The model gets more useful by leaning on ordinary software, and more dangerous if nobody governs the relationship."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "Tool use is where the modern AI stack becomes refreshingly concrete. Once an external system is involved, rhetoric gives way to permissions, logs, and consequences.",
+      "categorySlugs": [
+        "agents-and-workflows",
+        "model-usage",
+        "core-concepts"
+      ],
+      "url": "/dictionary/tool-use",
+      "searchText": "Tool Use external tools tool access action tools Agents and workflows Model usage Core concepts tools actions permissions workflows The point where the model stops guessing alone and starts borrowing other systems' competence.\n Tool use is the pattern of giving a model access to external systems such as search, code execution, databases, browsers, calculators, or internal APIs so it can gather information or take actions.\n Because models know many things badly, some things approximately, and almost nothing about the current state of your systems unless another tool tells them.\n By marketing tool access as autonomy rather than integration. The hard part is not that the model can ask for a tool. The hard part is deciding which tools it may touch, when, and under whose supervision.\n In practice it means schemas, permission scopes, retries, observability, error handling, and a constant negotiation between flexibility and the desire to avoid discovering new incident classes at scale.\n \"The assistant became materially more useful once tool use let it search the docs, check the account, and stop inventing the answer from memory.\"\n Which tools are available, and what can each one affect? What happens when a tool returns stale data, partial failure, or nonsense? Is the system using tools to extend capability, or to mask weak product design? Function Calling Tool permissions External actions",
+      "relatedSlugs": [
+        "function-calling",
+        "agent",
+        "mcp"
       ]
     },
     {
@@ -5977,81 +6040,6 @@
         "cloudflare",
         "chatgpt",
         "codex"
-      ]
-    },
-    {
-      "title": "Vibe Coding",
-      "slug": "vibe-coding",
-      "letter": "V",
-      "categories": [
-        "Cultural terms",
-        "Model usage",
-        "Agents and workflows"
-      ],
-      "aliases": [
-        "vibecoding",
-        "vibe-driven development",
-        "prompt-first coding"
-      ],
-      "devilDefinition": "Writing software by maintaining morale with the model until something compiles and nobody asks too many follow-up questions.\n",
-      "plainDefinition": "Vibe coding is a loose term for building software through conversational prompting, rapid iteration, and acceptance-by-feel rather than explicit design and implementation from first principles.\n",
-      "whyExists": "Because code generation became good enough that people can now reach working prototypes, scripts, and interface drafts through steering and selection rather than typing every line themselves.\n",
-      "misuse": "By presenting it as a replacement for engineering discipline, or by using it as a sneer for any AI-assisted development at all. The useful version is fast exploratory work. The reckless version is calling the prototype done.\n",
-      "practicalMeaning": "In practice it means quick spikes, glue code, scaffolded UI, and a heavy dependence on taste, review, and later cleanup once the generated momentum collides with reality.\n",
-      "example": "\"The hackathon project was pure vibe coding: astonishing progress before lunch, architectural archaeology by Thursday.\"\n",
-      "askNext": [
-        "Who is checking correctness once the initial velocity wears off?",
-        "Is this a prototype, an internal tool, or software that must survive contact with users?",
-        "What parts were steered well, and what parts still need deliberate engineering?"
-      ],
-      "related": [
-        "codex",
-        "cursor",
-        "vibe-engineer",
-        "rubber-stamp-review"
-      ],
-      "seeAlso": [
-        "Prompt Engineering",
-        "Human Taste",
-        "AI-assisted development"
-      ],
-      "difficulty": "beginner",
-      "technicalDepth": "low",
-      "hypeLevel": "severe",
-      "isVendorTerm": false,
-      "publishedAt": "2026-04-01",
-      "updatedAt": "2026-04-01",
-      "warningLabel": "Excellent for momentum. Catastrophic when momentum is mistaken for maintenance.",
-      "tags": [
-        "coding",
-        "prototyping",
-        "developer tools",
-        "iteration"
-      ],
-      "misunderstoodScore": 5,
-      "translations": [
-        {
-          "label": "founder meaning",
-          "text": "Proof that software creation has become wonderfully fast and perhaps slightly optional."
-        },
-        {
-          "label": "engineer meaning",
-          "text": "A useful way to start the work, not a serious theory of how the work finishes."
-        }
-      ],
-      "vendorReferences": [],
-      "body": "The phrase survived because it captures something real: generation changed the opening act of software creation. It did not repeal debugging, maintenance, or consequences.",
-      "categorySlugs": [
-        "cultural-terms",
-        "model-usage",
-        "agents-and-workflows"
-      ],
-      "url": "/dictionary/vibe-coding",
-      "searchText": "Vibe Coding vibecoding vibe-driven development prompt-first coding Cultural terms Model usage Agents and workflows coding prototyping developer tools iteration Writing software by maintaining morale with the model until something compiles and nobody asks too many follow-up questions.\n Vibe coding is a loose term for building software through conversational prompting, rapid iteration, and acceptance-by-feel rather than explicit design and implementation from first principles.\n Because code generation became good enough that people can now reach working prototypes, scripts, and interface drafts through steering and selection rather than typing every line themselves.\n By presenting it as a replacement for engineering discipline, or by using it as a sneer for any AI-assisted development at all. The useful version is fast exploratory work. The reckless version is calling the prototype done.\n In practice it means quick spikes, glue code, scaffolded UI, and a heavy dependence on taste, review, and later cleanup once the generated momentum collides with reality.\n \"The hackathon project was pure vibe coding: astonishing progress before lunch, architectural archaeology by Thursday.\"\n Who is checking correctness once the initial velocity wears off? Is this a prototype, an internal tool, or software that must survive contact with users? What parts were steered well, and what parts still need deliberate engineering? Prompt Engineering Human Taste AI-assisted development",
-      "relatedSlugs": [
-        "codex",
-        "cursor",
-        "vibe-engineer"
       ]
     },
     {
@@ -6542,10 +6530,10 @@
     }
   ],
   "recentSlugs": [
-    "computer-use",
-    "context-engineering",
-    "distillation",
-    "llm-as-a-judge"
+    "llm-as-a-judge",
+    "model-garden",
+    "openrouter",
+    "prompt-injection"
   ],
   "misunderstoodSlugs": [
     "agent",
@@ -6566,12 +6554,12 @@
     },
     {
       "letter": "C",
-      "count": 9,
+      "count": 7,
       "href": "/dictionary?letter=C"
     },
     {
       "letter": "D",
-      "count": 5,
+      "count": 4,
       "href": "/dictionary?letter=D"
     },
     {
@@ -6616,7 +6604,7 @@
     },
     {
       "letter": "M",
-      "count": 8,
+      "count": 9,
       "href": "/dictionary?letter=M"
     },
     {
@@ -6631,7 +6619,7 @@
     },
     {
       "letter": "P",
-      "count": 4,
+      "count": 5,
       "href": "/dictionary?letter=P"
     },
     {
@@ -6641,12 +6629,12 @@
     },
     {
       "letter": "R",
-      "count": 5,
+      "count": 6,
       "href": "/dictionary?letter=R"
     },
     {
       "letter": "S",
-      "count": 8,
+      "count": 9,
       "href": "/dictionary?letter=S"
     },
     {
@@ -6661,7 +6649,7 @@
     },
     {
       "letter": "V",
-      "count": 4,
+      "count": 3,
       "href": "/dictionary?letter=V"
     },
     {
@@ -6690,7 +6678,7 @@
       "title": "Core concepts",
       "description": "Terms people use as if they were self-explanatory, usually before the definitions start fraying.",
       "slug": "core-concepts",
-      "count": 14,
+      "count": 15,
       "sampleTerms": [
         "AI Psychosis",
         "Human Taste",
@@ -6701,7 +6689,7 @@
       "title": "Cultural terms",
       "description": "The social weirdness around AI: belief, taste, cringe, status games, and the internet behaving as it usually does when handed a new machine.",
       "slug": "cultural-terms",
-      "count": 29,
+      "count": 28,
       "sampleTerms": [
         "AI Wrapper",
         "Alexandr Wang",
@@ -6716,14 +6704,14 @@
       "sampleTerms": [
         "Arthur Mensch",
         "Demis Hassabis",
-        "Distillation"
+        "Evals"
       ]
     },
     {
       "title": "Model usage",
       "description": "What it means to actually run a model in production, where invoices and latency live.",
       "slug": "model-usage",
-      "count": 36,
+      "count": 38,
       "sampleTerms": [
         "Agent",
         "ChatGPT",
@@ -6745,11 +6733,11 @@
       "title": "Retrieval and memory",
       "description": "How systems fetch context, store traces, and pretend they remember you.",
       "slug": "retrieval-and-memory",
-      "count": 7,
+      "count": 6,
       "sampleTerms": [
-        "Context Engineering",
         "Context Window",
-        "Embeddings"
+        "Embeddings",
+        "Grounding"
       ]
     },
     {
@@ -6767,7 +6755,7 @@
       "title": "Safety and evaluation",
       "description": "Guardrails, tests, preferences, and the uncomfortable gap between lab scores and reality.",
       "slug": "safety-and-evaluation",
-      "count": 20,
+      "count": 22,
       "sampleTerms": [
         "Anthropic",
         "Benchmark Theatre",
@@ -6778,18 +6766,18 @@
       "title": "Infrastructure and deployment",
       "description": "The machinery underneath the demo: compute, serving, throughput, and operational trade-offs.",
       "slug": "infrastructure-and-deployment",
-      "count": 19,
+      "count": 18,
       "sampleTerms": [
         "Alexandr Wang",
         "Cloudflare",
-        "Distillation"
+        "Inference"
       ]
     },
     {
       "title": "Economics and operations of AI",
       "description": "Cost, labour, incentives, and the very unmagical business of running AI systems.",
       "slug": "economics-and-operations-of-ai",
-      "count": 32,
+      "count": 30,
       "sampleTerms": [
         "AI Wrapper",
         "Alexandr Wang",
@@ -6886,13 +6874,13 @@
     "yann-lecun",
     "zero-data-retention",
     "zero-shot",
-    "computer-use",
-    "context-engineering",
-    "distillation",
     "llm-as-a-judge",
+    "model-garden",
     "openrouter",
-    "test-time-compute",
-    "vibe-coding"
+    "prompt-injection",
+    "red-teaming",
+    "system-prompt",
+    "tool-use"
   ],
   "featuredSlug": "microsoft-copilot",
   "latestPublishedAt": "2026-04-01"
