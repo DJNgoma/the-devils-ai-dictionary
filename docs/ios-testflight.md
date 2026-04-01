@@ -13,7 +13,7 @@ This repo now ships the Apple app as a native SwiftUI client inside `ios/App/The
 2. Generate icons and splash assets from `assets/logo.svg`:
 
    ```bash
-   npm run ios:assets
+   npm run apple:assets
    ```
 
 ## Repeatable update flow
@@ -29,7 +29,7 @@ That command:
 - regenerates the bundled content snapshot
 - refreshes icons and splash assets for the native target
 
-The asset helper now creates a short-lived compatibility symlink only while `@capacitor/assets` runs, because that tool still assumes the old Capacitor-style `ios/App/App` output path. The checked-in source tree stays on the named app folder.
+The Apple asset helper now lives at `npm run apple:assets`. It still uses `@capacitor/assets` for the primary iPhone/iPad icon and splash generation, then fans the generated icon out to the Apple `AppIcon.appiconset` catalogs it finds in `ios/App`. That keeps the checked-in source tree on the named app folder while still covering the current watch icon path. The legacy `npm run ios:assets` name remains as an alias.
 
 Then open Xcode:
 

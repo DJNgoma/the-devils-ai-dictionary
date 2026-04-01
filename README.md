@@ -39,6 +39,7 @@ Useful checks:
 
 ```bash
 npm run version:sync
+npm run apple:assets
 npm run lint
 npm run typecheck
 npm run verify:ci
