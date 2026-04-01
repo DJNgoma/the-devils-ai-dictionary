@@ -33,7 +33,7 @@
     "android:build:release:apk": "npm run android:prepare && node scripts/with-android-java.mjs ./android/gradlew -p android assembleRelease",
     "android:build:release:bundle": "npm run android:prepare && node scripts/with-android-java.mjs ./android/gradlew -p android bundleRelease",
     "android:install:release": "adb install -r android/app/build/outputs/apk/release/app-release.apk",
-    "ios:assets": "npx @capacitor/assets generate --ios --iconBackgroundColor '#ff5b2c' --iconBackgroundColorDark '#140904' --splashBackgroundColor '#f4efe6' --splashBackgroundColorDark '#12100d'",
+    "ios:assets": "node scripts/generate-ios-assets.mjs --iconBackgroundColor '#ff5b2c' --iconBackgroundColorDark '#140904' --splashBackgroundColor '#f4efe6' --splashBackgroundColorDark '#12100d'",
     "ios:sync": "npm run content:build",
     "ios:open": "open \"ios/App/The Devil's AI Dictionary.xcodeproj\"",
     "ios:prepare": "npm run version:sync && npm run content:build && npm run ios:assets",

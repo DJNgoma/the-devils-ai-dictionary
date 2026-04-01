@@ -34,7 +34,7 @@ Do not use Swift for:
 
 ## Native iOS
 
-- Ship from `ios/App/App`
+- Ship from `ios/App/TheDevilsAIDictionary`
 - Use SwiftUI
 - Reuse bundle identifier `com.djngoma.devilsaidictionary`
 - Load the bundled content snapshot first, then adopt `shared/swift-core` for domain logic

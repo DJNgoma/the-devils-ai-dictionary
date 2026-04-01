@@ -14,7 +14,7 @@ const eslintConfig = defineConfig([
     ".open-next/**",
     "next-env.d.ts",
     "android/**",
-    "ios/App/App/public/**",
+    "ios/App/TheDevilsAIDictionary/public/**",
   ]),
 ]);
 

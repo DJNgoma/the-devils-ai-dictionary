@@ -1,6 +1,6 @@
 # Apple app and TestFlight
 
-This repo now ships the Apple app as a native SwiftUI client inside `ios/App/App`. The Xcode project bundle is `ios/App/The Devil's AI Dictionary.xcodeproj`, and the main app target and scheme are both named `The Devil's AI Dictionary`. The app reads the bundled `src/generated/entries.generated.json` snapshot directly, so it does not depend on a production webview URL or a synced `out/` directory at runtime.
+This repo now ships the Apple app as a native SwiftUI client inside `ios/App/TheDevilsAIDictionary`. The Xcode project bundle is `ios/App/The Devil's AI Dictionary.xcodeproj`, and the main app target and scheme are both named `The Devil's AI Dictionary`. The app reads the bundled `src/generated/entries.generated.json` snapshot directly, so it does not depend on a production webview URL or a synced `out/` directory at runtime.
 
 ## First-time setup
 
@@ -28,6 +28,8 @@ That command:
 
 - regenerates the bundled content snapshot
 - refreshes icons and splash assets for the native target
+
+The asset helper now creates a short-lived compatibility symlink only while `@capacitor/assets` runs, because that tool still assumes the old Capacitor-style `ios/App/App` output path. The checked-in source tree stays on the named app folder.
 
 Then open Xcode:
 
@@ -81,6 +83,19 @@ Inside Xcode:
 8. For the archive, switch the destination to `Any iOS Device (arm64)` or a connected iPhone/iPad.
 9. Archive the app with `Product` -> `Archive`.
 10. In the Organizer, choose `Distribute App` -> `App Store Connect` -> `Upload`.
+
+## Repeatable CLI upload notes
+
+- Keep using `/Applications/Xcode.app` (Xcode 26.4) for release archives unless you are explicitly validating against a newer beta toolchain.
+- The watch companion target must remain embedded-only for release archives. In practice that means the project must keep `DictionaryWatchApp` as `SKIP_INSTALL = YES` with an `AppIcon` asset configured, otherwise App Store Connect will reject the archive shape or icon metadata.
+- Internal TestFlight distribution is automatic for the existing internal `TestFlight` group because it has access to all builds. External/public-link testing still requires the usual Beta App Review flow.
+- If App Store Connect leaves a fresh build in `MISSING_EXPORT_COMPLIANCE`, set `usesNonExemptEncryption=false` for this app before expecting internal testers to see it.
+
+## Security boundary
+
+- Commit project metadata fixes like archive settings, icon configuration, and plist metadata.
+- Do not commit App Store Connect API keys, `.p8` files, provisioning profiles, exported `.ipa` files, temporary keychains, or local export plists with signing material. Keep those in ignored local paths such as `.asc/` or the macOS keychain.
+- Prefer short-lived temporary keychains for distribution certificates if you need CLI signing on a shared machine. Reset or delete them after the upload if they are no longer needed.
 
 ## Notes
 
