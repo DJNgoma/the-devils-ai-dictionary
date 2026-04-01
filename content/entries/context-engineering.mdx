@@ -1,0 +1,56 @@
+---
+title: "Context Engineering"
+slug: "context-engineering"
+letter: "C"
+categories:
+  - "Agents and workflows"
+  - "Retrieval and memory"
+  - "Model usage"
+aliases:
+  - "context design"
+  - "prompt architecture"
+  - "context assembly"
+devilDefinition: |
+  The discovery that if you feed the machine the right evidence, tools, and constraints, it can briefly look like it knows what it is doing.
+plainDefinition: |
+  Context engineering is the practice of deciding what instructions, examples, retrieved facts, memory, tools, and state a model receives at run time, and in what form.
+whyExists: |
+  Because a prompt on its own is usually too thin for serious work. Useful systems need the right surrounding material, not just a clever first sentence.
+misuse: |
+  By using it as a grander title for prompt writing, or as permission to dump half the company wiki into the context window and pray for synthesis. Good context engineering is selective. Bad context engineering is hoarding with tokens.
+practicalMeaning: |
+  In practice it means building the retrieval, ranking, compression, state, and tool-selection logic that gives a model enough situational awareness to be useful without drowning it in irrelevant prose.
+example: |
+  "The demo looked intelligent right up to the point the context engineering failed and the system answered yesterday's problem with last quarter's policy."
+askNext:
+  - "What information is being injected, and why does each piece deserve to be there?"
+  - "What gets omitted when the context window fills up?"
+  - "Is the system improving the context, or merely increasing the token bill?"
+related:
+  - "prompt"
+  - "context-window"
+  - "rag"
+  - "mcp"
+seeAlso:
+  - "Prompt Engineering"
+  - "Retrieval pipeline"
+  - "State management"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-04-01"
+updatedAt: "2026-04-01"
+warningLabel: "Useful phrase when it names retrieval and state design. Less useful when it merely means a longer prompt."
+tags:
+  - "retrieval"
+  - "memory"
+  - "prompting"
+  - "orchestration"
+misunderstoodScore: 5
+translations:
+  - label: "what it usually means in reality"
+    text: "The unglamorous pipeline work required to stop a model from answering in a vacuum."
+---
+
+The term matters because it shifts attention from model mysticism to system design. That is a healthier place for the discussion to live.

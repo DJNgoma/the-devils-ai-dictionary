@@ -826,7 +826,7 @@
           "text": "A serious alternative to framework-native hosting when you care about edge distribution, integrated infra services, and keeping one eye on cost structure."
         }
       ],
-      "note": "The latest public flare-up I could verify as of March 20, 2026 centres on Cloudflare's early-March 2026 vinext announcement: a Vite-based reimplementation of the Next.js API surface aimed first at Cloudflare Workers. Cloudflare frames this as portability and developer choice. Vercel frames the surrounding choice very differently.\n",
+      "note": "The latest public flare-up I could verify as of March 20, 2026 centres on Cloudflare's early-March 2026 vinext announcement: a Vite-based reimplementation of the Next.js API surface aimed first at Cloudflare Workers. Cloudflare frames this as portability and developer choice. Vercel frames the surrounding choice very differently.",
       "body": "Cloudflare's current posture in the developer market is not subtle. It wants to be seen not merely as the place traffic passes through, but as the place modern apps, agents, and AI workloads actually live.\n\nThat matters for the Vercel rivalry. The argument is no longer just \"whose hosting is faster?\" It is \"who gets to define the natural home of the modern full-stack app?\"",
       "categorySlugs": [
         "product-and-vendor-terms",
@@ -834,7 +834,7 @@
         "economics-and-operations-of-ai"
       ],
       "url": "/dictionary/cloudflare",
-      "searchText": "Cloudflare Cloudflare Workers Cloudflare Pages Cloudflare developer platform Product and vendor terms Infrastructure and deployment Economics and operations of AI edge workers r2 developer platform The company that looked at CDN, DNS, edge compute, storage, security, databases, AI inference, agents, and developer tooling and concluded, quite reasonably, that it would like all of those revenues at once.\n Cloudflare is an infrastructure and developer-platform company spanning networking, security, CDN, DNS, storage, databases, and edge/serverless compute. In developer and AI conversations, it most often means Workers, Pages, R2, Durable Objects, AI bindings, and a broader pitch built around global edge execution, integrated platform primitives, and anti-lock-in rhetoric.\n Because modern AI and web applications increasingly want three things at once: global distribution, programmable infrastructure, and fewer reasons to stitch together six vendors before lunch.\n By treating Cloudflare as either just a CDN or as a universal answer to every hosting argument. It is neither. It is a broad platform with real strengths in global distribution, integrated services, and cost posture, plus the usual trade-offs that come with choosing any large platform with strong opinions.\n In practice it usually means shipping frontends, Workers, APIs, automations, and edge-adjacent AI systems onto Cloudflare's network, often with R2, KV, D1, Durable Objects, or AI services close by. It also increasingly means buying into Cloudflare's argument that developers should not have to choose between framework convenience and platform portability.\n \"They said they had moved to Cloudflare for edge performance. The fuller sentence was that they also wanted simpler global deployment, fewer egress anxieties, and less patience for framework rent.\"\n Are we choosing Cloudflare for network reach, Workers, storage economics, security, or all of the above? Does the workload actually benefit from edge execution, or are we just flattering the architecture? Which Cloudflare primitives are we committing to: Workers, R2, KV, Durable Objects, D1, Pages, or AI bindings? Vercel Workers R2 Edge Pages Vinext The latest public flare-up I could verify as of March 20, 2026 centres on Cloudflare's early-March 2026 vinext announcement: a Vite-based reimplementation of the Next.js API surface aimed first at Cloudflare Workers. Cloudflare frames this as portability and developer choice. Vercel frames the surrounding choice very differently.\n Cloudflare Workers Cloudflare Pages R2 Durable Objects AI bindings",
+      "searchText": "Cloudflare Cloudflare Workers Cloudflare Pages Cloudflare developer platform Product and vendor terms Infrastructure and deployment Economics and operations of AI edge workers r2 developer platform The company that looked at CDN, DNS, edge compute, storage, security, databases, AI inference, agents, and developer tooling and concluded, quite reasonably, that it would like all of those revenues at once.\n Cloudflare is an infrastructure and developer-platform company spanning networking, security, CDN, DNS, storage, databases, and edge/serverless compute. In developer and AI conversations, it most often means Workers, Pages, R2, Durable Objects, AI bindings, and a broader pitch built around global edge execution, integrated platform primitives, and anti-lock-in rhetoric.\n Because modern AI and web applications increasingly want three things at once: global distribution, programmable infrastructure, and fewer reasons to stitch together six vendors before lunch.\n By treating Cloudflare as either just a CDN or as a universal answer to every hosting argument. It is neither. It is a broad platform with real strengths in global distribution, integrated services, and cost posture, plus the usual trade-offs that come with choosing any large platform with strong opinions.\n In practice it usually means shipping frontends, Workers, APIs, automations, and edge-adjacent AI systems onto Cloudflare's network, often with R2, KV, D1, Durable Objects, or AI services close by. It also increasingly means buying into Cloudflare's argument that developers should not have to choose between framework convenience and platform portability.\n \"They said they had moved to Cloudflare for edge performance. The fuller sentence was that they also wanted simpler global deployment, fewer egress anxieties, and less patience for framework rent.\"\n Are we choosing Cloudflare for network reach, Workers, storage economics, security, or all of the above? Does the workload actually benefit from edge execution, or are we just flattering the architecture? Which Cloudflare primitives are we committing to: Workers, R2, KV, Durable Objects, D1, Pages, or AI bindings? Vercel Workers R2 Edge Pages Vinext The latest public flare-up I could verify as of March 20, 2026 centres on Cloudflare's early-March 2026 vinext announcement: a Vite-based reimplementation of the Next.js API surface aimed first at Cloudflare Workers. Cloudflare frames this as portability and developer choice. Vercel frames the surrounding choice very differently. Cloudflare Workers Cloudflare Pages R2 Durable Objects AI bindings",
       "relatedSlugs": [
         "vercel",
         "openclaw",
@@ -907,7 +907,7 @@
           "text": "A product layer around model-driven coding tasks, repo access, tool execution, and reviewable evidence."
         }
       ],
-      "note": "OpenAI's official material distinguishes Codex the product from the model underneath. Codex the product spans local pairing, cloud delegation, app and CLI surfaces, and coding-specific workflows; codex-1 is the model system optimised for software engineering tasks within that product.\n",
+      "note": "OpenAI's official material distinguishes Codex the product from the model underneath. Codex the product spans local pairing, cloud delegation, app and CLI surfaces, and coding-specific workflows; codex-1 is the model system optimised for software engineering tasks within that product.",
       "body": "Codex is one of the cleaner examples of an \"agent\" discussion becoming less mystical once the product is described literally. It works on code, inside environments, with tools, under review. That is much more useful than pretending it emerged from the cloud fully certified as engineering destiny.",
       "categorySlugs": [
         "product-and-vendor-terms",
@@ -915,11 +915,154 @@
         "model-usage"
       ],
       "url": "/dictionary/codex",
-      "searchText": "Codex OpenAI Codex coding agent codex cloud Product and vendor terms Agents and workflows Model usage coding agent repositories sandboxes A coding agent for people who looked at autocomplete and thought, \"Fine, but can it also open the repo, run the tests, fix the bug, and stop wasting my afternoon?\"\n Codex is OpenAI's coding agent product. Officially, it is designed to read, modify, and run code, either by pairing locally in tools such as the terminal or IDE, or by delegating tasks to isolated cloud sandboxes that can work on repositories in the background.\n Because plenty of engineering work is not \"write me a function\". It is inspect the codebase, understand the constraints, make the edit, run the checks, and show the evidence. Codex exists to push beyond suggestion boxes into task execution.\n By talking about Codex as if it were pure autonomous engineering rather than a product built around scoped environments, repo access, tool execution, and human review. The phrase \"AI software engineer\" tends to arrive several minutes before the conversation about permissions, validation, and merge discipline.\n In practice it usually means a coding agent that can navigate a repository, edit files, execute tests and linters, explain what it changed, and work either alongside a developer or in a delegated sandbox. The useful distinction is not magic versus non-magic. It is suggestion versus accountable execution.\n \"The value of Codex was not that it could write code in the abstract. The value was that it could take a bounded task, touch the repo, run the checks, and come back with evidence instead of vibes.\"\n Is Codex paired locally or running as a delegated cloud task? What repo, environment, and tool permissions does it have? Who reviews and validates the work before it lands? ChatGPT Agent Orchestration Tool Use OpenAI's official material distinguishes Codex the product from the model underneath. Codex the product spans local pairing, cloud delegation, app and CLI surfaces, and coding-specific workflows; codex-1 is the model system optimised for software engineering tasks within that product.\n Codex app Codex CLI Codex cloud codex-1",
+      "searchText": "Codex OpenAI Codex coding agent codex cloud Product and vendor terms Agents and workflows Model usage coding agent repositories sandboxes A coding agent for people who looked at autocomplete and thought, \"Fine, but can it also open the repo, run the tests, fix the bug, and stop wasting my afternoon?\"\n Codex is OpenAI's coding agent product. Officially, it is designed to read, modify, and run code, either by pairing locally in tools such as the terminal or IDE, or by delegating tasks to isolated cloud sandboxes that can work on repositories in the background.\n Because plenty of engineering work is not \"write me a function\". It is inspect the codebase, understand the constraints, make the edit, run the checks, and show the evidence. Codex exists to push beyond suggestion boxes into task execution.\n By talking about Codex as if it were pure autonomous engineering rather than a product built around scoped environments, repo access, tool execution, and human review. The phrase \"AI software engineer\" tends to arrive several minutes before the conversation about permissions, validation, and merge discipline.\n In practice it usually means a coding agent that can navigate a repository, edit files, execute tests and linters, explain what it changed, and work either alongside a developer or in a delegated sandbox. The useful distinction is not magic versus non-magic. It is suggestion versus accountable execution.\n \"The value of Codex was not that it could write code in the abstract. The value was that it could take a bounded task, touch the repo, run the checks, and come back with evidence instead of vibes.\"\n Is Codex paired locally or running as a delegated cloud task? What repo, environment, and tool permissions does it have? Who reviews and validates the work before it lands? ChatGPT Agent Orchestration Tool Use OpenAI's official material distinguishes Codex the product from the model underneath. Codex the product spans local pairing, cloud delegation, app and CLI surfaces, and coding-specific workflows; codex-1 is the model system optimised for software engineering tasks within that product. Codex app Codex CLI Codex cloud codex-1",
       "relatedSlugs": [
         "chatgpt",
         "agent",
         "orchestration"
+      ]
+    },
+    {
+      "title": "Computer Use",
+      "slug": "computer-use",
+      "letter": "C",
+      "categories": [
+        "Agents and workflows",
+        "Model usage",
+        "Product and vendor terms"
+      ],
+      "aliases": [
+        "browser use",
+        "desktop use",
+        "computer control"
+      ],
+      "devilDefinition": "A feature that lets the model click around your machine with the confidence of an intern who has already promised the client it is done.\n",
+      "plainDefinition": "Computer use is an AI capability in which a model interprets screens and interacts with software through interfaces such as the mouse, keyboard, browser, or operating system controls.\n",
+      "whyExists": "Because an impressive amount of useful work still lives behind web forms, internal dashboards, and legacy interfaces that were never kind enough to expose an API.\n",
+      "misuse": "By presenting it as general competence rather than brittle interface automation. A model that can operate a browser in a demo is not automatically ready to run the back office unsupervised.\n",
+      "practicalMeaning": "In practice it means screenshot parsing, UI targeting, retries, permissions, guardrails, and a lot of patience while the system performs basic software navigation at premium-token speed.\n",
+      "example": "\"The computer-use agent completed the refund after eleven clicks, two hesitations, and one moment where legal briefly saw the future.\"\n",
+      "askNext": [
+        "What environments and interfaces does it actually handle reliably?",
+        "What permissions, approvals, or stop conditions sit between intent and action?",
+        "Would an API integration be safer, faster, and less theatrical?"
+      ],
+      "related": [
+        "agent",
+        "function-calling",
+        "orchestration",
+        "openclaw"
+      ],
+      "seeAlso": [
+        "Browser agent",
+        "UI automation",
+        "Tool use"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-01",
+      "updatedAt": "2026-04-01",
+      "warningLabel": "Impressive in a stable flow. Unnerving in a noisy one.",
+      "tags": [
+        "automation",
+        "browser",
+        "permissions",
+        "ui"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "what it usually means in reality",
+          "text": "A model-driven UI automation layer that works best when the environment is tightly scoped and somebody sensible is still watching."
+        }
+      ],
+      "note": "The term travels well across vendors because every provider discovered the same thing: plenty of useful work is trapped inside software that only knows how to be clicked.",
+      "vendorReferences": [],
+      "body": "The romance lies in the idea of a digital operator. The actual work lies in making sure it does not misread the button labelled \"Delete\".",
+      "categorySlugs": [
+        "agents-and-workflows",
+        "model-usage",
+        "product-and-vendor-terms"
+      ],
+      "url": "/dictionary/computer-use",
+      "searchText": "Computer Use browser use desktop use computer control Agents and workflows Model usage Product and vendor terms automation browser permissions ui A feature that lets the model click around your machine with the confidence of an intern who has already promised the client it is done.\n Computer use is an AI capability in which a model interprets screens and interacts with software through interfaces such as the mouse, keyboard, browser, or operating system controls.\n Because an impressive amount of useful work still lives behind web forms, internal dashboards, and legacy interfaces that were never kind enough to expose an API.\n By presenting it as general competence rather than brittle interface automation. A model that can operate a browser in a demo is not automatically ready to run the back office unsupervised.\n In practice it means screenshot parsing, UI targeting, retries, permissions, guardrails, and a lot of patience while the system performs basic software navigation at premium-token speed.\n \"The computer-use agent completed the refund after eleven clicks, two hesitations, and one moment where legal briefly saw the future.\"\n What environments and interfaces does it actually handle reliably? What permissions, approvals, or stop conditions sit between intent and action? Would an API integration be safer, faster, and less theatrical? Browser agent UI automation Tool use The term travels well across vendors because every provider discovered the same thing: plenty of useful work is trapped inside software that only knows how to be clicked.",
+      "relatedSlugs": [
+        "agent",
+        "function-calling",
+        "orchestration"
+      ]
+    },
+    {
+      "title": "Context Engineering",
+      "slug": "context-engineering",
+      "letter": "C",
+      "categories": [
+        "Agents and workflows",
+        "Retrieval and memory",
+        "Model usage"
+      ],
+      "aliases": [
+        "context design",
+        "prompt architecture",
+        "context assembly"
+      ],
+      "devilDefinition": "The discovery that if you feed the machine the right evidence, tools, and constraints, it can briefly look like it knows what it is doing.\n",
+      "plainDefinition": "Context engineering is the practice of deciding what instructions, examples, retrieved facts, memory, tools, and state a model receives at run time, and in what form.\n",
+      "whyExists": "Because a prompt on its own is usually too thin for serious work. Useful systems need the right surrounding material, not just a clever first sentence.\n",
+      "misuse": "By using it as a grander title for prompt writing, or as permission to dump half the company wiki into the context window and pray for synthesis. Good context engineering is selective. Bad context engineering is hoarding with tokens.\n",
+      "practicalMeaning": "In practice it means building the retrieval, ranking, compression, state, and tool-selection logic that gives a model enough situational awareness to be useful without drowning it in irrelevant prose.\n",
+      "example": "\"The demo looked intelligent right up to the point the context engineering failed and the system answered yesterday's problem with last quarter's policy.\"\n",
+      "askNext": [
+        "What information is being injected, and why does each piece deserve to be there?",
+        "What gets omitted when the context window fills up?",
+        "Is the system improving the context, or merely increasing the token bill?"
+      ],
+      "related": [
+        "prompt",
+        "context-window",
+        "rag",
+        "mcp"
+      ],
+      "seeAlso": [
+        "Prompt Engineering",
+        "Retrieval pipeline",
+        "State management"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-01",
+      "updatedAt": "2026-04-01",
+      "warningLabel": "Useful phrase when it names retrieval and state design. Less useful when it merely means a longer prompt.",
+      "tags": [
+        "retrieval",
+        "memory",
+        "prompting",
+        "orchestration"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "what it usually means in reality",
+          "text": "The unglamorous pipeline work required to stop a model from answering in a vacuum."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The term matters because it shifts attention from model mysticism to system design. That is a healthier place for the discussion to live.",
+      "categorySlugs": [
+        "agents-and-workflows",
+        "retrieval-and-memory",
+        "model-usage"
+      ],
+      "url": "/dictionary/context-engineering",
+      "searchText": "Context Engineering context design prompt architecture context assembly Agents and workflows Retrieval and memory Model usage retrieval memory prompting orchestration The discovery that if you feed the machine the right evidence, tools, and constraints, it can briefly look like it knows what it is doing.\n Context engineering is the practice of deciding what instructions, examples, retrieved facts, memory, tools, and state a model receives at run time, and in what form.\n Because a prompt on its own is usually too thin for serious work. Useful systems need the right surrounding material, not just a clever first sentence.\n By using it as a grander title for prompt writing, or as permission to dump half the company wiki into the context window and pray for synthesis. Good context engineering is selective. Bad context engineering is hoarding with tokens.\n In practice it means building the retrieval, ranking, compression, state, and tool-selection logic that gives a model enough situational awareness to be useful without drowning it in irrelevant prose.\n \"The demo looked intelligent right up to the point the context engineering failed and the system answered yesterday's problem with last quarter's policy.\"\n What information is being injected, and why does each piece deserve to be there? What gets omitted when the context window fills up? Is the system improving the context, or merely increasing the token bill? Prompt Engineering Retrieval pipeline State management",
+      "relatedSlugs": [
+        "prompt",
+        "context-window",
+        "rag"
       ]
     },
     {
@@ -1352,6 +1495,80 @@
       ]
     },
     {
+      "title": "Distillation",
+      "slug": "distillation",
+      "letter": "D",
+      "categories": [
+        "Model building",
+        "Infrastructure and deployment",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "teacher-student training",
+        "model distillation",
+        "model compression"
+      ],
+      "devilDefinition": "The art of shrinking a heroic model into something finance can tolerate without product noticing too much.\n",
+      "plainDefinition": "Distillation is the practice of training a smaller model to imitate the outputs or behaviour of a larger model so it can serve similar tasks more cheaply or quickly.\n",
+      "whyExists": "Because frontier models are expensive to run, awkward to deploy, and frankly too grand for many production tasks that only need a narrower slice of their capability.\n",
+      "misuse": "By implying the smaller model is simply the same intelligence in a thriftier suit. Distillation can preserve a surprising amount, but it also preserves biases, omissions, and blind spots in more compact form.\n",
+      "practicalMeaning": "In practice it means using a stronger model as a teacher so the cheaper one can handle a specific workflow with lower latency, lower cost, and fewer procurement speeches about GPU budgets.\n",
+      "example": "\"The team called it distillation once the smaller model inherited enough of the original behaviour to keep support happy and infrastructure quiet.\"\n",
+      "askNext": [
+        "What capability is being preserved, and what capability is quietly being dropped?",
+        "Was the student model tested on real workloads or merely on flattering benchmarks?",
+        "Are we distilling a general system or just bottling one narrow behaviour?"
+      ],
+      "related": [
+        "training",
+        "fine-tuning",
+        "weights",
+        "latency"
+      ],
+      "seeAlso": [
+        "Teacher model",
+        "Compression",
+        "Inference cost"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-01",
+      "updatedAt": "2026-04-01",
+      "tags": [
+        "compression",
+        "serving",
+        "cost",
+        "training"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "operator meaning",
+          "text": "A way to keep some of the bigger model's usefulness while dramatically improving the hosting arithmetic."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A cost-and-latency trade where a smaller model learns to mimic the teacher well enough for a bounded job."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "Distillation is one of the field's more honest ideas. It admits that scale is glorious right up until someone has to pay to serve it.",
+      "categorySlugs": [
+        "model-building",
+        "infrastructure-and-deployment",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/distillation",
+      "searchText": "Distillation teacher-student training model distillation model compression Model building Infrastructure and deployment Economics and operations of AI compression serving cost training The art of shrinking a heroic model into something finance can tolerate without product noticing too much.\n Distillation is the practice of training a smaller model to imitate the outputs or behaviour of a larger model so it can serve similar tasks more cheaply or quickly.\n Because frontier models are expensive to run, awkward to deploy, and frankly too grand for many production tasks that only need a narrower slice of their capability.\n By implying the smaller model is simply the same intelligence in a thriftier suit. Distillation can preserve a surprising amount, but it also preserves biases, omissions, and blind spots in more compact form.\n In practice it means using a stronger model as a teacher so the cheaper one can handle a specific workflow with lower latency, lower cost, and fewer procurement speeches about GPU budgets.\n \"The team called it distillation once the smaller model inherited enough of the original behaviour to keep support happy and infrastructure quiet.\"\n What capability is being preserved, and what capability is quietly being dropped? Was the student model tested on real workloads or merely on flattering benchmarks? Are we distilling a general system or just bottling one narrow behaviour? Teacher model Compression Inference cost",
+      "relatedSlugs": [
+        "training",
+        "fine-tuning",
+        "weights"
+      ]
+    },
+    {
       "title": "Elon Musk",
       "slug": "elon-musk",
       "letter": "E",
@@ -1410,7 +1627,7 @@
           "text": "A shorthand for xAI plus the surrounding machinery of audience, controversy, capital, and platform leverage."
         }
       ],
-      "note": "Date-sensitive point: xAI announced on February 2, 2026 that SpaceX had acquired xAI. For that reason, it is safer to treat Musk here as xAI's founder and dominant public force than to casually repeat older standalone-company titles without context.\n",
+      "note": "Date-sensitive point: xAI announced on February 2, 2026 that SpaceX had acquired xAI. For that reason, it is safer to treat Musk here as xAI's founder and dominant public force than to casually repeat older standalone-company titles without context.",
       "vendorReferences": [],
       "body": "With some founders, the product explains the persona. With Musk, the persona becomes part of the product whether anyone requested that feature or not.",
       "categorySlugs": [
@@ -1930,7 +2147,7 @@
           "text": "Google's frontier AI organisation, where research prestige and product ambition share the same building."
         }
       ],
-      "note": "Google's own framing emphasises responsible AI for broad human benefit, but the practical significance of Google DeepMind is that it is both a frontier research lab and a core engine of product advantage across Google's ecosystem.\n",
+      "note": "Google's own framing emphasises responsible AI for broad human benefit, but the practical significance of Google DeepMind is that it is both a frontier research lab and a core engine of product advantage across Google's ecosystem.",
       "body": "The old mental model of DeepMind as a separate mythic lab is now mostly nostalgia. The current reality is institutional power with far shorter distance to product.",
       "categorySlugs": [
         "product-and-vendor-terms",
@@ -1938,7 +2155,7 @@
         "safety-and-evaluation"
       ],
       "url": "/dictionary/google-deepmind",
-      "searchText": "Google DeepMind DeepMind Google DeepMind lab Product and vendor terms Model building Safety and evaluation research lab google gemini safety The research empire formed when Google looked at one of the most storied AI labs in the world and decided it would also like the rest of the machine under the same roof.\n Google DeepMind is Google's central AI research and frontier-model organisation. It combines the original DeepMind organisation with key Google AI research efforts, and sits behind research programmes and products including Gemini, AlphaFold, robotics work, safety research, and broader frontier-model development.\n Because people still say \"DeepMind\" as if it were a free-floating research monastery. It is now a major unit inside Google, with both scientific prestige and the platform power that comes from sitting inside one of the largest technology companies on earth.\n By treating Google DeepMind as either a pure research institution or merely another product division. It is both more interesting and more awkward than that: a frontier lab nested inside a company that wants research breakthroughs to become products at scale.\n In practice it usually means Google's long-horizon AI engine: the part of the company responsible for major research advances, frontier models, safety work, and many of the technical foundations that later surface through Gemini and other Google products.\n \"The pitch started with Gemini, but the strategic argument was really about Google DeepMind and whether one company could still dominate both research legitimacy and product distribution.\"\n Do they mean Google DeepMind the lab, Gemini the model family, or the Gemini app? Is this a research claim, a product claim, or a capability claim? Are we discussing scientific output, safety posture, or Google's platform strategy? Demis Hassabis Gemini Frontier Model AGI Google's own framing emphasises responsible AI for broad human benefit, but the practical significance of Google DeepMind is that it is both a frontier research lab and a core engine of product advantage across Google's ecosystem.\n Gemini AlphaFold Google AI Studio",
+      "searchText": "Google DeepMind DeepMind Google DeepMind lab Product and vendor terms Model building Safety and evaluation research lab google gemini safety The research empire formed when Google looked at one of the most storied AI labs in the world and decided it would also like the rest of the machine under the same roof.\n Google DeepMind is Google's central AI research and frontier-model organisation. It combines the original DeepMind organisation with key Google AI research efforts, and sits behind research programmes and products including Gemini, AlphaFold, robotics work, safety research, and broader frontier-model development.\n Because people still say \"DeepMind\" as if it were a free-floating research monastery. It is now a major unit inside Google, with both scientific prestige and the platform power that comes from sitting inside one of the largest technology companies on earth.\n By treating Google DeepMind as either a pure research institution or merely another product division. It is both more interesting and more awkward than that: a frontier lab nested inside a company that wants research breakthroughs to become products at scale.\n In practice it usually means Google's long-horizon AI engine: the part of the company responsible for major research advances, frontier models, safety work, and many of the technical foundations that later surface through Gemini and other Google products.\n \"The pitch started with Gemini, but the strategic argument was really about Google DeepMind and whether one company could still dominate both research legitimacy and product distribution.\"\n Do they mean Google DeepMind the lab, Gemini the model family, or the Gemini app? Is this a research claim, a product claim, or a capability claim? Are we discussing scientific output, safety posture, or Google's platform strategy? Demis Hassabis Gemini Frontier Model AGI Google's own framing emphasises responsible AI for broad human benefit, but the practical significance of Google DeepMind is that it is both a frontier research lab and a core engine of product advantage across Google's ecosystem. Gemini AlphaFold Google AI Studio",
       "relatedSlugs": [
         "demis-hassabis",
         "gemini",
@@ -2011,14 +2228,14 @@
           "text": "A branded xAI assistant experience spanning multiple surfaces, models, tools, and moods."
         }
       ],
-      "note": "xAI's current product pages frame Grok as a truth-seeking companion with strong reasoning, coding, and multimodal capabilities. As of February 2, 2026, the surrounding corporate context also changed when xAI announced it had joined SpaceX, so the Grok brand now sits inside an even larger machinery of distribution and spectacle.\n",
+      "note": "xAI's current product pages frame Grok as a truth-seeking companion with strong reasoning, coding, and multimodal capabilities. As of February 2, 2026, the surrounding corporate context also changed when xAI announced it had joined SpaceX, so the Grok brand now sits inside an even larger machinery of distribution and spectacle.",
       "body": "Some assistant brands want to disappear into utility. Grok prefers to arrive already wearing a point of view.",
       "categorySlugs": [
         "product-and-vendor-terms",
         "model-usage"
       ],
       "url": "/dictionary/grok",
-      "searchText": "Grok Grok app Grok models Grok chatbot Product and vendor terms Model usage assistant brand xai product The assistant brand that insists it is not merely an AI product but a personality, a posture, and occasionally a geopolitical plot device.\n Grok is xAI's assistant brand, covering both end-user chatbot experiences and model offerings exposed through xAI products and APIs. Depending on context, people may mean the Grok app, Grok on X, a specific Grok model, or the broader branded assistant experience.\n Because the name \"Grok\" is used across product surfaces, model releases, consumer interfaces, and enterprise offerings. Without separating those layers, people end up comparing a brand impression to a technical system and calling it analysis.\n By treating Grok as one stable thing. It can mean the app, the model family, the social-media-integrated assistant, or an API-accessible model with specific tools and constraints. Those are related, but not interchangeable.\n In practice it usually means xAI's consumer and developer-facing assistant stack: real-time search posture, distinct brand tone, and a growing family of models and tools wrapped in one loud identity.\n \"They said Grok was better, which turned out to mean they liked the product's tone, real-time feel, and distribution inside familiar surfaces, not that they had run a clean model evaluation.\"\n Do you mean the Grok product, a specific Grok model, or the experience inside X or grok.com? Is the appeal about capability, personality, distribution, or real-time data access? What part of the result came from the model versus the surrounding product scaffolding? xAI Elon Musk ChatGPT Claude xAI's current product pages frame Grok as a truth-seeking companion with strong reasoning, coding, and multimodal capabilities. As of February 2, 2026, the surrounding corporate context also changed when xAI announced it had joined SpaceX, so the Grok brand now sits inside an even larger machinery of distribution and spectacle.\n grok.com Grok on X xAI API Grok Enterprise",
+      "searchText": "Grok Grok app Grok models Grok chatbot Product and vendor terms Model usage assistant brand xai product The assistant brand that insists it is not merely an AI product but a personality, a posture, and occasionally a geopolitical plot device.\n Grok is xAI's assistant brand, covering both end-user chatbot experiences and model offerings exposed through xAI products and APIs. Depending on context, people may mean the Grok app, Grok on X, a specific Grok model, or the broader branded assistant experience.\n Because the name \"Grok\" is used across product surfaces, model releases, consumer interfaces, and enterprise offerings. Without separating those layers, people end up comparing a brand impression to a technical system and calling it analysis.\n By treating Grok as one stable thing. It can mean the app, the model family, the social-media-integrated assistant, or an API-accessible model with specific tools and constraints. Those are related, but not interchangeable.\n In practice it usually means xAI's consumer and developer-facing assistant stack: real-time search posture, distinct brand tone, and a growing family of models and tools wrapped in one loud identity.\n \"They said Grok was better, which turned out to mean they liked the product's tone, real-time feel, and distribution inside familiar surfaces, not that they had run a clean model evaluation.\"\n Do you mean the Grok product, a specific Grok model, or the experience inside X or grok.com? Is the appeal about capability, personality, distribution, or real-time data access? What part of the result came from the model versus the surrounding product scaffolding? xAI Elon Musk ChatGPT Claude xAI's current product pages frame Grok as a truth-seeking companion with strong reasoning, coding, and multimodal capabilities. As of February 2, 2026, the surrounding corporate context also changed when xAI announced it had joined SpaceX, so the Grok brand now sits inside an even larger machinery of distribution and spectacle. grok.com Grok on X xAI API Grok Enterprise",
       "relatedSlugs": [
         "xai",
         "elon-musk",
@@ -2410,14 +2627,14 @@
           "text": "A beautifully framed product vision that did not survive the ordinary cruelty of consumer reality."
         }
       ],
-      "note": "Humane's consumer support materials said AI Pin cloud-connected features would stop working on February 28, 2025. HP separately announced the acquisition of key Humane capabilities on February 18, 2025.\n",
+      "note": "Humane's consumer support materials said AI Pin cloud-connected features would stop working on February 28, 2025. HP separately announced the acquisition of key Humane capabilities on February 18, 2025.",
       "body": "Humane deserves precision because it is too easy to turn into a morality play. It did not prove that AI devices are impossible. It proved that theatrical ambition does not excuse weak everyday utility.",
       "categorySlugs": [
         "product-and-vendor-terms",
         "cultural-terms"
       ],
       "url": "/dictionary/humane",
-      "searchText": "Humane Humane AI AI Pin Product and vendor terms Cultural terms hardware wearable consumer device A beautifully marketed warning that futuristic hardware demos and durable product-market fit are not the same thing.\n Humane was the startup behind the AI Pin, a wearable AI device that aimed to replace or reduce dependence on the smartphone. The product drew major attention, but Humane later wound down the consumer AI Pin service, and HP announced in February 2025 that it was acquiring key Humane AI capabilities, including the Cosmos platform, talent, and intellectual property.\n Because Humane became shorthand for both the ambition and the fragility of early AI-device optimism.\n By treating Humane as proof that all AI hardware is doomed, rather than evidence that weak utility, awkward execution, pricing friction, and overhype can kill even well-funded products.\n A case study in what happens when storytelling outruns product usefulness. Also a reminder that hardware does not get to be vague for long. Consumers carry the thing, charge the thing, and notice when the thing does not justify itself.\n \"The pitch was post-phone computing. The reality was a lesson in how little patience consumers have for expensive inconvenience.\"\n Was the failure about AI itself, hardware design, pricing, latency, or practical utility? Did Humane fail because the idea was wrong, or because the implementation was weak? What, if anything, survives from the vision? Rabbit Agentic AI Wearables Super-apps Humane failure Humane's consumer support materials said AI Pin cloud-connected features would stop working on February 28, 2025. HP separately announced the acquisition of key Humane capabilities on February 18, 2025.\n AI Pin Cosmos HP IQ",
+      "searchText": "Humane Humane AI AI Pin Product and vendor terms Cultural terms hardware wearable consumer device A beautifully marketed warning that futuristic hardware demos and durable product-market fit are not the same thing.\n Humane was the startup behind the AI Pin, a wearable AI device that aimed to replace or reduce dependence on the smartphone. The product drew major attention, but Humane later wound down the consumer AI Pin service, and HP announced in February 2025 that it was acquiring key Humane AI capabilities, including the Cosmos platform, talent, and intellectual property.\n Because Humane became shorthand for both the ambition and the fragility of early AI-device optimism.\n By treating Humane as proof that all AI hardware is doomed, rather than evidence that weak utility, awkward execution, pricing friction, and overhype can kill even well-funded products.\n A case study in what happens when storytelling outruns product usefulness. Also a reminder that hardware does not get to be vague for long. Consumers carry the thing, charge the thing, and notice when the thing does not justify itself.\n \"The pitch was post-phone computing. The reality was a lesson in how little patience consumers have for expensive inconvenience.\"\n Was the failure about AI itself, hardware design, pricing, latency, or practical utility? Did Humane fail because the idea was wrong, or because the implementation was weak? What, if anything, survives from the vision? Rabbit Agentic AI Wearables Super-apps Humane failure Humane's consumer support materials said AI Pin cloud-connected features would stop working on February 28, 2025. HP separately announced the acquisition of key Humane capabilities on February 18, 2025. AI Pin Cosmos HP IQ",
       "relatedSlugs": [
         "rabbit",
         "agentic-ai",
@@ -2763,7 +2980,7 @@
           "text": "A broad class of models for generating and manipulating language, not a guarantee of product merit."
         }
       ],
-      "note": "The acronym is useful as shorthand. It becomes perfume when treated as an explanation rather than a category.\n",
+      "note": "The acronym is useful as shorthand. It becomes perfume when treated as an explanation rather than a category.",
       "vendorReferences": [],
       "body": "The market loves initials because they compress complexity into something that can fit on a slide and survive a budget meeting.",
       "categorySlugs": [
@@ -2777,6 +2994,77 @@
         "tokens",
         "frontier-model",
         "reasoning-model"
+      ]
+    },
+    {
+      "title": "LLM-as-a-Judge",
+      "slug": "llm-as-a-judge",
+      "letter": "L",
+      "categories": [
+        "Safety and evaluation",
+        "Model building",
+        "Model usage"
+      ],
+      "aliases": [
+        "model judge",
+        "automated evaluator",
+        "LLM judge"
+      ],
+      "devilDefinition": "The practice of asking one stochastic witness whether another stochastic witness deserves a trophy.\n",
+      "plainDefinition": "LLM-as-a-judge is an evaluation pattern in which one language model scores, ranks, or compares outputs from another model against a rubric, preference signal, or pairwise choice.\n",
+      "whyExists": "Because human evaluation is expensive, slow, and inconveniently unwilling to scale at the pace product teams prefer.\n",
+      "misuse": "By treating the judge as neutral, objective, or magically aligned with user value. A model grader can inherit stylistic bias, provider bias, verbosity bias, and a remarkable affection for whatever sounds polished.\n",
+      "practicalMeaning": "In practice it is useful for triage, regression testing, and broad ranking, provided the rubric is clear and the results are anchored to human review on the cases that actually matter.\n",
+      "example": "\"The model won the internal evals until an actual customer arrived and demonstrated that the judge had confused confidence with usefulness.\"\n",
+      "askNext": [
+        "What rubric is the judge following, and who wrote it?",
+        "How often do human reviewers disagree with the model's preferences?",
+        "Are we using the judge for cheap sorting or pretending it is ground truth?"
+      ],
+      "related": [
+        "evals",
+        "benchmark-theatre",
+        "sycophancy",
+        "structured-outputs"
+      ],
+      "seeAlso": [
+        "Preference model",
+        "Human evaluation",
+        "Pairwise ranking"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-01",
+      "updatedAt": "2026-04-01",
+      "warningLabel": "Helpful for ranking. Dangerous when mistaken for reality.",
+      "tags": [
+        "evaluation",
+        "rubrics",
+        "ranking",
+        "regression"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "what it usually means in reality",
+          "text": "A scalable but imperfect grading shortcut that still needs humans to calibrate the definition of good."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "It is a sensible tool if used with modesty. The trouble begins when teams treat automated judgement as the cheaper cousin of judgement itself.",
+      "categorySlugs": [
+        "safety-and-evaluation",
+        "model-building",
+        "model-usage"
+      ],
+      "url": "/dictionary/llm-as-a-judge",
+      "searchText": "LLM-as-a-Judge model judge automated evaluator LLM judge Safety and evaluation Model building Model usage evaluation rubrics ranking regression The practice of asking one stochastic witness whether another stochastic witness deserves a trophy.\n LLM-as-a-judge is an evaluation pattern in which one language model scores, ranks, or compares outputs from another model against a rubric, preference signal, or pairwise choice.\n Because human evaluation is expensive, slow, and inconveniently unwilling to scale at the pace product teams prefer.\n By treating the judge as neutral, objective, or magically aligned with user value. A model grader can inherit stylistic bias, provider bias, verbosity bias, and a remarkable affection for whatever sounds polished.\n In practice it is useful for triage, regression testing, and broad ranking, provided the rubric is clear and the results are anchored to human review on the cases that actually matter.\n \"The model won the internal evals until an actual customer arrived and demonstrated that the judge had confused confidence with usefulness.\"\n What rubric is the judge following, and who wrote it? How often do human reviewers disagree with the model's preferences? Are we using the judge for cheap sorting or pretending it is ground truth? Preference model Human evaluation Pairwise ranking",
+      "relatedSlugs": [
+        "evals",
+        "benchmark-theatre",
+        "sycophancy"
       ]
     },
     {
@@ -2838,7 +3126,7 @@
           "text": "A practical always-on box for local AI work when you want something more serious than a laptop and much less dramatic than data-centre cosplay."
         }
       ],
-      "note": "Apple's 2024 Mac mini line pairs M4 or M4 Pro with unified memory, and Apple specifically highlighted on-device AI speed, Thunderbolt 5 on M4 Pro, and higher display and bandwidth ceilings. None of that turns it into a training cluster. It does make it a respectable local node.\n",
+      "note": "Apple's 2024 Mac mini line pairs M4 or M4 Pro with unified memory, and Apple specifically highlighted on-device AI speed, Thunderbolt 5 on M4 Pro, and higher display and bandwidth ceilings. None of that turns it into a training cluster. It does make it a respectable local node.",
       "body": "The Mac mini has become a kind of anti-theatrical AI machine. It is small, quiet, and far more useful when treated as infrastructure than when narrated as destiny.",
       "categorySlugs": [
         "infrastructure-and-deployment",
@@ -2846,7 +3134,7 @@
         "economics-and-operations-of-ai"
       ],
       "url": "/dictionary/mac-mini",
-      "searchText": "Mac mini Apple Mac mini M4 Mac mini M4 Pro Mac mini Infrastructure and deployment Product and vendor terms Economics and operations of AI local inference desktop automation node The little silver box people buy when they want \"serious AI infrastructure\" without admitting they mostly mean \"a neat machine that sits quietly on a desk.\"\n Mac mini is Apple's compact desktop computer line. In AI conversations, it usually comes up as a relatively tidy, efficient machine for local inference, lightweight automation, development, and always-on orchestration workloads rather than frontier-scale model training. The current M4 and M4 Pro generation is especially relevant because Apple positions it for on-device AI workloads, and the M4 Pro configuration pushes unified memory and I/O far enough to make it a credible local workhorse within limits.\n Because not every AI workload needs a server rack, and not every ambitious workflow deserves one either.\n By talking about it as if it were either a toy or a supercomputer. It is neither. It is a practical desktop that can be surprisingly capable within its lane and very ordinary outside it.\n A good box for coding, running local tools, hosting lightweight agents, testing smaller models, or acting as a stable automation node. It is especially attractive when low noise, power efficiency, and desk-friendly deployment matter more than maximum accelerator firepower.\n \"He did not need a DGX. He needed a Mac mini, some discipline, and a better sense of what counted as production.\"\n Is the workload inference, orchestration, development, or training? Will it be running one assistant or many workflows? Is the constraint compute, RAM, storage, or simply operational clarity? Inference OpenClaw Orchestration GPU Local model Workstation Apple's 2024 Mac mini line pairs M4 or M4 Pro with unified memory, and Apple specifically highlighted on-device AI speed, Thunderbolt 5 on M4 Pro, and higher display and bandwidth ceilings. None of that turns it into a training cluster. It does make it a respectable local node.\n Mac mini with M4 Mac mini with M4 Pro",
+      "searchText": "Mac mini Apple Mac mini M4 Mac mini M4 Pro Mac mini Infrastructure and deployment Product and vendor terms Economics and operations of AI local inference desktop automation node The little silver box people buy when they want \"serious AI infrastructure\" without admitting they mostly mean \"a neat machine that sits quietly on a desk.\"\n Mac mini is Apple's compact desktop computer line. In AI conversations, it usually comes up as a relatively tidy, efficient machine for local inference, lightweight automation, development, and always-on orchestration workloads rather than frontier-scale model training. The current M4 and M4 Pro generation is especially relevant because Apple positions it for on-device AI workloads, and the M4 Pro configuration pushes unified memory and I/O far enough to make it a credible local workhorse within limits.\n Because not every AI workload needs a server rack, and not every ambitious workflow deserves one either.\n By talking about it as if it were either a toy or a supercomputer. It is neither. It is a practical desktop that can be surprisingly capable within its lane and very ordinary outside it.\n A good box for coding, running local tools, hosting lightweight agents, testing smaller models, or acting as a stable automation node. It is especially attractive when low noise, power efficiency, and desk-friendly deployment matter more than maximum accelerator firepower.\n \"He did not need a DGX. He needed a Mac mini, some discipline, and a better sense of what counted as production.\"\n Is the workload inference, orchestration, development, or training? Will it be running one assistant or many workflows? Is the constraint compute, RAM, storage, or simply operational clarity? Inference OpenClaw Orchestration GPU Local model Workstation Apple's 2024 Mac mini line pairs M4 or M4 Pro with unified memory, and Apple specifically highlighted on-device AI speed, Thunderbolt 5 on M4 Pro, and higher display and bandwidth ceilings. None of that turns it into a training cluster. It does make it a respectable local node. Mac mini with M4 Mac mini with M4 Pro",
       "relatedSlugs": [
         "openclaw",
         "inference",
@@ -2983,7 +3271,7 @@
           "text": "Microsoft's dedicated organisation for turning model capability into sticky products people actually use."
         }
       ],
-      "note": "Microsoft announced the organisation on March 19, 2024, framing it around Copilot and other consumer AI products and research. That matters because \"Microsoft AI\" is a specific organisational bet, not a vague brand halo.\n",
+      "note": "Microsoft announced the organisation on March 19, 2024, framing it around Copilot and other consumer AI products and research. That matters because \"Microsoft AI\" is a specific organisational bet, not a vague brand halo.",
       "body": "If OpenAI is the supplier in Microsoft's story, Microsoft AI is the packaging department with imperial ambitions.",
       "categorySlugs": [
         "product-and-vendor-terms",
@@ -2991,7 +3279,7 @@
         "model-usage"
       ],
       "url": "/dictionary/microsoft-ai",
-      "searchText": "Microsoft AI Microsoft AI division Microsoft consumer AI Product and vendor terms Economics and operations of AI Model usage microsoft copilot consumer ai product strategy The part of Microsoft tasked with making \"Copilot everywhere\" sound less like a slogan and more like the natural order of software.\n Microsoft AI is the organisation Microsoft formed in 2024 to advance Copilot and its consumer AI products and research. It is distinct from Microsoft as a whole, and also distinct from Azure's infrastructure role or OpenAI's position as a model partner.\n Because Microsoft needed a named unit for the part of its AI strategy focused on product experience, consumer interfaces, and turning model access into habitual software use.\n By using \"Microsoft AI\" to mean Microsoft generally, Azure specifically, or OpenAI by implication. The company has several overlapping AI layers; this term refers to the product-and-research organisation built around Copilot and related consumer experiences.\n In practice it usually means the organisational machinery behind Microsoft's bid to make AI a persistent interface layer across its consumer products, with Copilot as the flagship expression of that strategy.\n \"They said Microsoft AI as if that explained the architecture. In reality it explained the product thesis: put a companion layer in front of as much software as possible.\"\n Do they mean Microsoft AI, Azure AI infrastructure, or Microsoft's OpenAI partnership? Is the topic model capability, product interface, or distribution? How much of the value comes from Copilot branding versus actual workflow integration? Mustafa Suleyman Copilot OpenAI Super-apps Microsoft announced the organisation on March 19, 2024, framing it around Copilot and other consumer AI products and research. That matters because \"Microsoft AI\" is a specific organisational bet, not a vague brand halo.\n Copilot Bing Edge",
+      "searchText": "Microsoft AI Microsoft AI division Microsoft consumer AI Product and vendor terms Economics and operations of AI Model usage microsoft copilot consumer ai product strategy The part of Microsoft tasked with making \"Copilot everywhere\" sound less like a slogan and more like the natural order of software.\n Microsoft AI is the organisation Microsoft formed in 2024 to advance Copilot and its consumer AI products and research. It is distinct from Microsoft as a whole, and also distinct from Azure's infrastructure role or OpenAI's position as a model partner.\n Because Microsoft needed a named unit for the part of its AI strategy focused on product experience, consumer interfaces, and turning model access into habitual software use.\n By using \"Microsoft AI\" to mean Microsoft generally, Azure specifically, or OpenAI by implication. The company has several overlapping AI layers; this term refers to the product-and-research organisation built around Copilot and related consumer experiences.\n In practice it usually means the organisational machinery behind Microsoft's bid to make AI a persistent interface layer across its consumer products, with Copilot as the flagship expression of that strategy.\n \"They said Microsoft AI as if that explained the architecture. In reality it explained the product thesis: put a companion layer in front of as much software as possible.\"\n Do they mean Microsoft AI, Azure AI infrastructure, or Microsoft's OpenAI partnership? Is the topic model capability, product interface, or distribution? How much of the value comes from Copilot branding versus actual workflow integration? Mustafa Suleyman Copilot OpenAI Super-apps Microsoft announced the organisation on March 19, 2024, framing it around Copilot and other consumer AI products and research. That matters because \"Microsoft AI\" is a specific organisational bet, not a vague brand halo. Copilot Bing Edge",
       "relatedSlugs": [
         "mustafa-suleyman",
         "chatgpt",
@@ -3061,7 +3349,7 @@
           "text": "A branded assistant layer whose value depends heavily on product surface, permissions, and user patience."
         }
       ],
-      "note": "The important question is rarely whether Copilot exists. It is whether a specific Copilot meaningfully improves a specific workflow enough to survive the invoice.\n",
+      "note": "The important question is rarely whether Copilot exists. It is whether a specific Copilot meaningfully improves a specific workflow enough to survive the invoice.",
       "body": "The branding suggests a tireless co-worker. The operating reality is closer to a software committee member.",
       "categorySlugs": [
         "product-and-vendor-terms",
@@ -3069,7 +3357,7 @@
         "economics-and-operations-of-ai"
       ],
       "url": "/dictionary/microsoft-copilot",
-      "searchText": "Microsoft Copilot Copilot Microsoft 365 Copilot Copilot app Product and vendor terms Agents and workflows Economics and operations of AI microsoft workplace software assistant Software sold as an assistant and deployed as a new layer of management: supervising the machine that was supposed to save you time.\n Microsoft Copilot is Microsoft's umbrella brand for AI assistants and generative features across workplace and consumer products, including Microsoft 365, Windows, developer tools, and business software.\n Because Microsoft wants AI to become the default interface layer across the software people already pay for, turning model access into subscription expansion and habitual workflow presence.\n By using \"Copilot\" as if it named one coherent product or guaranteed productivity. In reality it is a family resemblance: similar branding spread across many surfaces with uneven usefulness.\n In practice it usually means an AI sidebar, a drafting assistant, a meeting-summary machine, a permissions headache, and a fresh round of arguments about whether the licence justifies itself.\n \"The rollout promised a copilot for every employee. What most people got was a new button and one more thing to evaluate before sending an email.\"\n Which Copilot are we discussing, in which product, with which permissions and data access? What measurable work improved after adoption rather than merely feeling more modern? Is this replacing friction, or adding a branded detour to familiar tasks? Workplace assistant Software bundle Seat expansion The important question is rarely whether Copilot exists. It is whether a specific Copilot meaningfully improves a specific workflow enough to survive the invoice.\n Microsoft 365 Copilot Copilot Studio Windows",
+      "searchText": "Microsoft Copilot Copilot Microsoft 365 Copilot Copilot app Product and vendor terms Agents and workflows Economics and operations of AI microsoft workplace software assistant Software sold as an assistant and deployed as a new layer of management: supervising the machine that was supposed to save you time.\n Microsoft Copilot is Microsoft's umbrella brand for AI assistants and generative features across workplace and consumer products, including Microsoft 365, Windows, developer tools, and business software.\n Because Microsoft wants AI to become the default interface layer across the software people already pay for, turning model access into subscription expansion and habitual workflow presence.\n By using \"Copilot\" as if it named one coherent product or guaranteed productivity. In reality it is a family resemblance: similar branding spread across many surfaces with uneven usefulness.\n In practice it usually means an AI sidebar, a drafting assistant, a meeting-summary machine, a permissions headache, and a fresh round of arguments about whether the licence justifies itself.\n \"The rollout promised a copilot for every employee. What most people got was a new button and one more thing to evaluate before sending an email.\"\n Which Copilot are we discussing, in which product, with which permissions and data access? What measurable work improved after adoption rather than merely feeling more modern? Is this replacing friction, or adding a branded detour to familiar tasks? Workplace assistant Software bundle Seat expansion The important question is rarely whether Copilot exists. It is whether a specific Copilot meaningfully improves a specific workflow enough to survive the invoice. Microsoft 365 Copilot Copilot Studio Windows",
       "relatedSlugs": [
         "microsoft-ai",
         "cursor",
@@ -3216,7 +3504,7 @@
           "text": "A serious model vendor using efficiency, optionality, and selective openness as competitive weapons."
         }
       ],
-      "note": "Mistral's own language emphasises accessible frontier AI, but its practical significance is that it tries to turn openness, efficient deployment, and European positioning into a commercially durable model business.\n",
+      "note": "Mistral's own language emphasises accessible frontier AI, but its practical significance is that it tries to turn openness, efficient deployment, and European positioning into a commercially durable model business.",
       "body": "It is one of the clearest examples of how \"open\" in AI rarely means simple purity. It usually means a strategy, a pricing posture, and a market wedge wearing noble clothes.",
       "categorySlugs": [
         "product-and-vendor-terms",
@@ -3224,7 +3512,7 @@
         "economics-and-operations-of-ai"
       ],
       "url": "/dictionary/mistral-ai",
-      "searchText": "Mistral AI Mistral Mistral company Product and vendor terms Model building Economics and operations of AI vendor europe models openness The French company that managed to make \"European frontier AI\" sound like a commercial category rather than a wistful policy memo.\n Mistral AI is a French AI company building models, products, and platform services, with a public identity built around efficient frontier systems, enterprise deployment, and a more open posture than many large closed-model competitors.\n Because the market wanted proof that serious model-building could happen outside the dominant US labs, and because Mistral made strategic use of openness, efficiency, and European identity to become that proof.\n By describing Mistral AI as either purely open-source or purely a geopolitical symbol. It is a commercial model company making selective openness part of its strategy, not a charity for developer ideals.\n In practice it usually means a vendor choice for teams that want competitive models, deployment flexibility, and some combination of cost discipline, control, and distance from the biggest US platforms.\n \"They said they wanted Mistral for openness. What they really wanted was optionality, speed, and a way to avoid handing every strategic decision to the usual American suspects.\"\n Do they want Mistral for model quality, deployment control, openness, or pricing? Which product do they mean: API models, Le Chat, enterprise platform, or open-weight releases? Is the attraction technical fit or strategic independence? Arthur Mensch Open Weights Open Source AI Frontier Model Mistral's own language emphasises accessible frontier AI, but its practical significance is that it tries to turn openness, efficient deployment, and European positioning into a commercially durable model business.\n Le Chat Mistral Studio Mistral Compute",
+      "searchText": "Mistral AI Mistral Mistral company Product and vendor terms Model building Economics and operations of AI vendor europe models openness The French company that managed to make \"European frontier AI\" sound like a commercial category rather than a wistful policy memo.\n Mistral AI is a French AI company building models, products, and platform services, with a public identity built around efficient frontier systems, enterprise deployment, and a more open posture than many large closed-model competitors.\n Because the market wanted proof that serious model-building could happen outside the dominant US labs, and because Mistral made strategic use of openness, efficiency, and European identity to become that proof.\n By describing Mistral AI as either purely open-source or purely a geopolitical symbol. It is a commercial model company making selective openness part of its strategy, not a charity for developer ideals.\n In practice it usually means a vendor choice for teams that want competitive models, deployment flexibility, and some combination of cost discipline, control, and distance from the biggest US platforms.\n \"They said they wanted Mistral for openness. What they really wanted was optionality, speed, and a way to avoid handing every strategic decision to the usual American suspects.\"\n Do they want Mistral for model quality, deployment control, openness, or pricing? Which product do they mean: API models, Le Chat, enterprise platform, or open-weight releases? Is the attraction technical fit or strategic independence? Arthur Mensch Open Weights Open Source AI Frontier Model Mistral's own language emphasises accessible frontier AI, but its practical significance is that it tries to turn openness, efficient deployment, and European positioning into a commercially durable model business. Le Chat Mistral Studio Mistral Compute",
       "relatedSlugs": [
         "arthur-mensch",
         "qwen",
@@ -3431,7 +3719,7 @@
           "text": "The dominant compute platform beneath a large share of modern AI training and inference."
         }
       ],
-      "note": "NVIDIA's own framing increasingly presents the company as the engine of AI and the builder of AI factories. The important practical point is that it is no longer just a component supplier; it is a stack with enormous ecosystem gravity.\n",
+      "note": "NVIDIA's own framing increasingly presents the company as the engine of AI and the builder of AI factories. The important practical point is that it is no longer just a component supplier; it is a stack with enormous ecosystem gravity.",
       "body": "When one vendor becomes both a product choice and an environmental condition, normal procurement language starts sounding quaint.",
       "categorySlugs": [
         "product-and-vendor-terms",
@@ -3439,7 +3727,7 @@
         "economics-and-operations-of-ai"
       ],
       "url": "/dictionary/nvidia",
-      "searchText": "NVIDIA Nvidia NVIDIA platform Product and vendor terms Infrastructure and deployment Economics and operations of AI chips compute gpu infrastructure A chip company that became the closest thing the AI boom has to a central bank, except louder and with better leather jackets.\n NVIDIA is a computing platform company best known in AI for GPUs, accelerated computing systems, and the broader hardware-software stack used to train and serve many modern AI models.\n Because AI keeps pretending to be abstract until someone has to pay for the compute. NVIDIA matters because the current boom runs on its chips, systems, software ecosystem, and the procurement gravity that follows them.\n By using NVIDIA as shorthand for AI itself. That exaggerates the company and erases the rest of the stack, but it does capture where a great deal of pricing power and strategic leverage currently sits.\n In practice it usually means GPUs, DGX-class systems, CUDA-shaped ecosystems, inference clusters, and the hardware economics under both frontier training and production deployment.\n \"The board wanted an AI strategy. The operations team, less poetically, wanted to know how much of it would end up being tribute to NVIDIA.\"\n Is this a chip discussion, a systems discussion, or a software-ecosystem discussion? Are we bottlenecked by compute, cost, availability, or habit? Could another stack do the job, or are we already too CUDA-shaped to be honest about the answer? Jensen Huang GPU Training Inference DGX NVIDIA's own framing increasingly presents the company as the engine of AI and the builder of AI factories. The important practical point is that it is no longer just a component supplier; it is a stack with enormous ecosystem gravity.\n GPU DGX CUDA",
+      "searchText": "NVIDIA Nvidia NVIDIA platform Product and vendor terms Infrastructure and deployment Economics and operations of AI chips compute gpu infrastructure A chip company that became the closest thing the AI boom has to a central bank, except louder and with better leather jackets.\n NVIDIA is a computing platform company best known in AI for GPUs, accelerated computing systems, and the broader hardware-software stack used to train and serve many modern AI models.\n Because AI keeps pretending to be abstract until someone has to pay for the compute. NVIDIA matters because the current boom runs on its chips, systems, software ecosystem, and the procurement gravity that follows them.\n By using NVIDIA as shorthand for AI itself. That exaggerates the company and erases the rest of the stack, but it does capture where a great deal of pricing power and strategic leverage currently sits.\n In practice it usually means GPUs, DGX-class systems, CUDA-shaped ecosystems, inference clusters, and the hardware economics under both frontier training and production deployment.\n \"The board wanted an AI strategy. The operations team, less poetically, wanted to know how much of it would end up being tribute to NVIDIA.\"\n Is this a chip discussion, a systems discussion, or a software-ecosystem discussion? Are we bottlenecked by compute, cost, availability, or habit? Could another stack do the job, or are we already too CUDA-shaped to be honest about the answer? Jensen Huang GPU Training Inference DGX NVIDIA's own framing increasingly presents the company as the engine of AI and the builder of AI factories. The important practical point is that it is no longer just a component supplier; it is a stack with enormous ecosystem gravity. GPU DGX CUDA",
       "relatedSlugs": [
         "jensen-huang",
         "training",
@@ -3578,7 +3866,7 @@
           "text": "A self-hosted orchestration layer that lets an assistant live inside chat surfaces and reach out into tools, files, schedules, and other systems."
         }
       ],
-      "note": "OpenClaw's docs explicitly frame it as open source, hackable, and self-hostable. They also spend a lot of time warning users to start conservatively with permissions, which is a good sign that the authors have met software before.\n",
+      "note": "OpenClaw's docs explicitly frame it as open source, hackable, and self-hostable. They also spend a lot of time warning users to start conservatively with permissions, which is a good sign that the authors have met software before.",
       "body": "Systems like OpenClaw matter because they make the agent discussion less abstract. Once the assistant lives in Telegram, runs on your own box, and can touch real tools, the architecture stops being philosophical and becomes operational.",
       "categorySlugs": [
         "agents-and-workflows",
@@ -3586,11 +3874,86 @@
         "product-and-vendor-terms"
       ],
       "url": "/dictionary/openclaw",
-      "searchText": "OpenClaw personal AI assistant local agent self-hosted AI operator Agents and workflows Infrastructure and deployment Product and vendor terms self-hosted gateway automation An AI assistant for people who looked at a chatbot and thought, \"Nice, but can it also touch my files, my browser, my messages, and my calendar?\"\n OpenClaw is a self-hosted personal AI assistant and gateway platform designed to do things, not just chat. Its own docs describe it as an assistant you run on your own devices, replying through surfaces such as Telegram, WhatsApp, Discord, iMessage, Slack, and WebChat while orchestrating tools, memory, and workflows through an always-on gateway.\n Because the market got bored of systems that only generate text and started demanding systems that can actually execute tasks.\n By treating any autonomous workflow as magic, or by forgetting that giving an AI broad permissions turns \"helpful assistant\" into \"possible incident\". The interesting part is not that it can act. The interesting part is how narrowly, visibly, and safely it acts.\n A software layer that connects models to tools, interfaces, and actions so that the system can perform useful work across apps and services. In practice it is closer to an orchestration-and-gateway stack than a free-floating digital butler.\n \"OpenClaw is what people reach for when they want the AI to stop explaining the inbox and start clearing it.\"\n What tools does it have access to? What permissions does it require? Is it mostly chat, mostly automation, or truly operational? Where does the human stay in the loop? Orchestration Agent Tool Use Telegram OpenClaw's docs explicitly frame it as open source, hackable, and self-hostable. They also spend a lot of time warning users to start conservatively with permissions, which is a good sign that the authors have met software before.\n OpenClaw Gateway OpenClaw Telegram OpenClaw nodes",
+      "searchText": "OpenClaw personal AI assistant local agent self-hosted AI operator Agents and workflows Infrastructure and deployment Product and vendor terms self-hosted gateway automation An AI assistant for people who looked at a chatbot and thought, \"Nice, but can it also touch my files, my browser, my messages, and my calendar?\"\n OpenClaw is a self-hosted personal AI assistant and gateway platform designed to do things, not just chat. Its own docs describe it as an assistant you run on your own devices, replying through surfaces such as Telegram, WhatsApp, Discord, iMessage, Slack, and WebChat while orchestrating tools, memory, and workflows through an always-on gateway.\n Because the market got bored of systems that only generate text and started demanding systems that can actually execute tasks.\n By treating any autonomous workflow as magic, or by forgetting that giving an AI broad permissions turns \"helpful assistant\" into \"possible incident\". The interesting part is not that it can act. The interesting part is how narrowly, visibly, and safely it acts.\n A software layer that connects models to tools, interfaces, and actions so that the system can perform useful work across apps and services. In practice it is closer to an orchestration-and-gateway stack than a free-floating digital butler.\n \"OpenClaw is what people reach for when they want the AI to stop explaining the inbox and start clearing it.\"\n What tools does it have access to? What permissions does it require? Is it mostly chat, mostly automation, or truly operational? Where does the human stay in the loop? Orchestration Agent Tool Use Telegram OpenClaw's docs explicitly frame it as open source, hackable, and self-hostable. They also spend a lot of time warning users to start conservatively with permissions, which is a good sign that the authors have met software before. OpenClaw Gateway OpenClaw Telegram OpenClaw nodes",
       "relatedSlugs": [
         "orchestration",
         "agent",
         "agentic-ai"
+      ]
+    },
+    {
+      "title": "OpenRouter",
+      "slug": "openrouter",
+      "letter": "O",
+      "categories": [
+        "Product and vendor terms",
+        "Model usage",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "model router",
+        "multi-model gateway",
+        "unified AI API"
+      ],
+      "devilDefinition": "A toll road for developers who want access to every model and one more month before choosing a real dependency.\n",
+      "plainDefinition": "OpenRouter is a gateway service that exposes many AI models behind a unified API, letting developers compare providers, route traffic, and manage access through one integration layer.\n",
+      "whyExists": "Because the model market is fragmented, provider APIs differ, and teams prefer one contract when they are still shopping for capability, price, latency, or fallback options.\n",
+      "misuse": "By implying that abstraction removes vendor risk rather than merely relocating it. A router can hide some differences. It cannot abolish model quirks, pricing shocks, policy changes, or provider outages.\n",
+      "practicalMeaning": "In practice it means a gateway for multi-model experimentation, centralised billing, fallback logic, and the comforting illusion that indecision has become architecture.\n",
+      "example": "\"They integrated OpenRouter so product could compare five models in a week and postpone commitment with unusual professionalism.\"\n",
+      "askNext": [
+        "Which provider-specific behaviours still leak through the abstraction?",
+        "Is the router saving real engineering time or merely extending evaluation limbo?",
+        "What happens to cost control, observability, and data handling once another layer sits in the middle?"
+      ],
+      "related": [
+        "orchestration",
+        "latency",
+        "zero-data-retention",
+        "llm"
+      ],
+      "seeAlso": [
+        "Gateway",
+        "Fallback routing",
+        "Provider abstraction"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": true,
+      "publishedAt": "2026-04-01",
+      "updatedAt": "2026-04-01",
+      "vendorReferences": [
+        "OpenRouter API",
+        "Provider routing",
+        "Model marketplace"
+      ],
+      "tags": [
+        "gateway",
+        "multi-model",
+        "pricing",
+        "developer tools"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "what it usually means in reality",
+          "text": "An aggregation layer that makes model switching easier until you care about the details that never quite aggregate."
+        }
+      ],
+      "note": "Services like this matter because the provider layer is now messy enough to justify a broker. They also matter because brokers become part of the dependency chain they promise to simplify.",
+      "body": "Routers are most attractive during the phase when the market is still moving and everyone wants optionality without philosophical commitment.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "model-usage",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/openrouter",
+      "searchText": "OpenRouter model router multi-model gateway unified AI API Product and vendor terms Model usage Economics and operations of AI gateway multi-model pricing developer tools A toll road for developers who want access to every model and one more month before choosing a real dependency.\n OpenRouter is a gateway service that exposes many AI models behind a unified API, letting developers compare providers, route traffic, and manage access through one integration layer.\n Because the model market is fragmented, provider APIs differ, and teams prefer one contract when they are still shopping for capability, price, latency, or fallback options.\n By implying that abstraction removes vendor risk rather than merely relocating it. A router can hide some differences. It cannot abolish model quirks, pricing shocks, policy changes, or provider outages.\n In practice it means a gateway for multi-model experimentation, centralised billing, fallback logic, and the comforting illusion that indecision has become architecture.\n \"They integrated OpenRouter so product could compare five models in a week and postpone commitment with unusual professionalism.\"\n Which provider-specific behaviours still leak through the abstraction? Is the router saving real engineering time or merely extending evaluation limbo? What happens to cost control, observability, and data handling once another layer sits in the middle? Gateway Fallback routing Provider abstraction Services like this matter because the provider layer is now messy enough to justify a broker. They also matter because brokers become part of the dependency chain they promise to simplify. OpenRouter API Provider routing Model marketplace",
+      "relatedSlugs": [
+        "orchestration",
+        "latency",
+        "zero-data-retention"
       ]
     },
     {
@@ -4136,14 +4499,14 @@
           "text": "A consumer device trying to make AI action feel native enough to justify existing separately from the phone."
         }
       ],
-      "note": "Rabbit's own positioning has shifted over time. The original story centred on rabbitOS and a Large Action Model; the current product pages also emphasise rabbitOS 2, DLAM, and third-party agent integrations on r1.\n",
+      "note": "Rabbit's own positioning has shifted over time. The original story centred on rabbitOS and a Large Action Model; the current product pages also emphasise rabbitOS 2, DLAM, and third-party agent integrations on r1.",
       "body": "Rabbit is useful partly because it makes an old ambition newly legible. People do not merely want smarter chat. They want fewer menus, fewer tabs, and fewer tiny acts of digital housekeeping.\n\nThe risk, as ever, is that \"fewer apps\" becomes \"one more device\".",
       "categorySlugs": [
         "product-and-vendor-terms",
         "model-usage"
       ],
       "url": "/dictionary/rabbit",
-      "searchText": "Rabbit rabbit r1 rabbitOS LAM device Product and vendor terms Model usage device hardware action layer A bright orange reminder that \"AI hardware\" often means \"a chatbot with industrial design and stronger opinions about your workflow.\"\n Rabbit is an AI hardware and software company best known for the rabbit r1, a small device built around voice interaction, app actions, and an operating layer called rabbitOS. Its original pitch was that AI should not just answer questions, but also help perform actions across services and workflows; its current positioning also leans into rabbitOS 2, DLAM, and third-party integrations such as OpenClaw on r1.\n Because every few years the industry rediscovers the dream of a dedicated personal assistant device and insists that this time it will be different.\n By talking about Rabbit as if it solved agentic computing in general, rather than shipping one very visible attempt at turning AI into a standalone consumer device. The company is a case study, not a general law of the interface future.\n A bet that people want a dedicated AI-native device, not just another app on a phone. Also a bet that action matters more than chat, and that orchestration can be packaged as consumer hardware without becoming a niche curiosity.\n \"The demo made Rabbit look like the future. The harder question was whether that future needed another piece of hardware in your pocket.\"\n Is Rabbit interesting because of the hardware, the action layer, or the marketing? Does it do something meaningfully better than a phone plus apps? Is the value in the device, or in the orchestration layer behind it? OpenClaw Agentic AI Orchestration Humane Chatbot Rabbit's own positioning has shifted over time. The original story centred on rabbitOS and a Large Action Model; the current product pages also emphasise rabbitOS 2, DLAM, and third-party agent integrations on r1.\n rabbit r1 rabbitOS 2 DLAM",
+      "searchText": "Rabbit rabbit r1 rabbitOS LAM device Product and vendor terms Model usage device hardware action layer A bright orange reminder that \"AI hardware\" often means \"a chatbot with industrial design and stronger opinions about your workflow.\"\n Rabbit is an AI hardware and software company best known for the rabbit r1, a small device built around voice interaction, app actions, and an operating layer called rabbitOS. Its original pitch was that AI should not just answer questions, but also help perform actions across services and workflows; its current positioning also leans into rabbitOS 2, DLAM, and third-party integrations such as OpenClaw on r1.\n Because every few years the industry rediscovers the dream of a dedicated personal assistant device and insists that this time it will be different.\n By talking about Rabbit as if it solved agentic computing in general, rather than shipping one very visible attempt at turning AI into a standalone consumer device. The company is a case study, not a general law of the interface future.\n A bet that people want a dedicated AI-native device, not just another app on a phone. Also a bet that action matters more than chat, and that orchestration can be packaged as consumer hardware without becoming a niche curiosity.\n \"The demo made Rabbit look like the future. The harder question was whether that future needed another piece of hardware in your pocket.\"\n Is Rabbit interesting because of the hardware, the action layer, or the marketing? Does it do something meaningfully better than a phone plus apps? Is the value in the device, or in the orchestration layer behind it? OpenClaw Agentic AI Orchestration Humane Chatbot Rabbit's own positioning has shifted over time. The original story centred on rabbitOS and a Large Action Model; the current product pages also emphasise rabbitOS 2, DLAM, and third-party agent integrations on r1. rabbit r1 rabbitOS 2 DLAM",
       "relatedSlugs": [
         "agentic-ai",
         "orchestration",
@@ -4272,7 +4635,7 @@
           "text": "A slower model path that can improve structured task performance without guaranteeing sound judgement."
         }
       ],
-      "note": "The phrase is useful if it names a measurable operating trade-off. It becomes perfume when it is used as a personality trait.\n",
+      "note": "The phrase is useful if it names a measurable operating trade-off. It becomes perfume when it is used as a personality trait.",
       "vendorReferences": [],
       "body": "The machine may take longer. That does not mean it has become profound.",
       "categorySlugs": [
@@ -4562,7 +4925,7 @@
           "text": "A vendor for the operational substrate around AI systems: data, evals, controls, and production readiness."
         }
       ],
-      "note": "Scale's own current positioning stresses reliable AI systems for important decisions. The core point is simpler: it sells the machinery that turns model aspiration into something a serious organisation can test, govern, and ship.\n",
+      "note": "Scale's own current positioning stresses reliable AI systems for important decisions. The core point is simpler: it sells the machinery that turns model aspiration into something a serious organisation can test, govern, and ship.",
       "body": "The market loves to discuss intelligence. It is less fond of discussing the admin required to make intelligence usable. Scale lives in that neglected district.",
       "categorySlugs": [
         "infrastructure-and-deployment",
@@ -4570,7 +4933,7 @@
         "safety-and-evaluation"
       ],
       "url": "/dictionary/scale-ai",
-      "searchText": "Scale AI Scale Scale platform Infrastructure and deployment Economics and operations of AI Safety and evaluation data evaluation infrastructure enterprise The company people discover after learning that \"just use the model\" leaves out the awkwardly expensive parts involving data, evals, workflows, and reality.\n Scale AI is a data, evaluation, and AI-infrastructure company. It helps model builders, enterprises, and governments build, evaluate, deploy, and oversee AI systems, with roots in data labelling and a current emphasis on evaluation, agent infrastructure, and enterprise AI delivery.\n Because the AI stack is full of unglamorous work between a frontier model and a dependable product. Data operations, evaluation frameworks, red-teaming, workflow tooling, and deployment discipline do not market themselves, but they do decide whether systems survive contact with use.\n By talking about Scale AI as if it were merely a labelling company from an earlier era. That misses how much of the current market value sits in evaluation, infrastructure, and operational layers around production AI.\n In practice it usually means buying help with the tedious but consequential parts of AI: data quality, model evaluation, red-teaming, custom delivery, and the machinery needed to make advanced systems more reliable.\n \"The team wanted a frontier model. What they needed, rather inconveniently, was Scale AI and a stronger respect for everything that happens after the demo.\"\n Is the problem data quality, evaluation, red-teaming, or enterprise deployment? Are they buying tooling, services, infrastructure, or all three? What part of the AI lifecycle do they actually need help with? Alexandr Wang Evals Synthetic Data Data Flywheel Scale's own current positioning stresses reliable AI systems for important decisions. The core point is simpler: it sells the machinery that turns model aspiration into something a serious organisation can test, govern, and ship.\n Scale GenAI Platform Red Teaming Enterprise agentic solutions",
+      "searchText": "Scale AI Scale Scale platform Infrastructure and deployment Economics and operations of AI Safety and evaluation data evaluation infrastructure enterprise The company people discover after learning that \"just use the model\" leaves out the awkwardly expensive parts involving data, evals, workflows, and reality.\n Scale AI is a data, evaluation, and AI-infrastructure company. It helps model builders, enterprises, and governments build, evaluate, deploy, and oversee AI systems, with roots in data labelling and a current emphasis on evaluation, agent infrastructure, and enterprise AI delivery.\n Because the AI stack is full of unglamorous work between a frontier model and a dependable product. Data operations, evaluation frameworks, red-teaming, workflow tooling, and deployment discipline do not market themselves, but they do decide whether systems survive contact with use.\n By talking about Scale AI as if it were merely a labelling company from an earlier era. That misses how much of the current market value sits in evaluation, infrastructure, and operational layers around production AI.\n In practice it usually means buying help with the tedious but consequential parts of AI: data quality, model evaluation, red-teaming, custom delivery, and the machinery needed to make advanced systems more reliable.\n \"The team wanted a frontier model. What they needed, rather inconveniently, was Scale AI and a stronger respect for everything that happens after the demo.\"\n Is the problem data quality, evaluation, red-teaming, or enterprise deployment? Are they buying tooling, services, infrastructure, or all three? What part of the AI lifecycle do they actually need help with? Alexandr Wang Evals Synthetic Data Data Flywheel Scale's own current positioning stresses reliable AI systems for important decisions. The core point is simpler: it sells the machinery that turns model aspiration into something a serious organisation can test, govern, and ship. Scale GenAI Platform Red Teaming Enterprise agentic solutions",
       "relatedSlugs": [
         "alexandr-wang",
         "evals",
@@ -5115,7 +5478,7 @@
           "text": "A chat surface that doubles as a lightweight product platform, which is why so many assistants and automations end up living there."
         }
       ],
-      "note": "Telegram's current platform docs span bots, Mini Apps, business bots, payments, and attachment-menu integrations. In product conversations, that means Telegram is often less 'channel' than 'deployment shortcut'.\n",
+      "note": "Telegram's current platform docs span bots, Mini Apps, business bots, payments, and attachment-menu integrations. In product conversations, that means Telegram is often less 'channel' than 'deployment shortcut'.",
       "body": "Chat interfaces are powerful partly because they lower the activation energy for software. Telegram makes that especially obvious: a bot, a Mini App, and a payment layer can get surprisingly close to \"product\" before anyone has written a proper mobile app.",
       "categorySlugs": [
         "product-and-vendor-terms",
@@ -5123,11 +5486,82 @@
         "infrastructure-and-deployment"
       ],
       "url": "/dictionary/telegram",
-      "searchText": "Telegram Telegram Mini Apps Telegram bots Telegram platform Product and vendor terms Agents and workflows Infrastructure and deployment bots mini apps distribution A messaging app that periodically looks at the rest of the software industry and decides it would also like to be a platform, a payments layer, a bot host, and possibly a country.\n Telegram is a messaging platform that is also a deployment surface for bots, automations, and Mini Apps. In AI contexts, it often serves as the conversational front end through which assistants, workflows, notifications, and lightweight products are delivered.\n Because the easiest way to make software feel useful is often to place it where the user already is: inside the chat thread.\n By treating Telegram as just a messenger when the real value is often in its bot ecosystem, Mini App surface, lightweight UI layer, and low-friction interaction model. The platform question matters as much as the chat question.\n A practical interface layer for AI agents, internal tools, support flows, commerce, alerts, and small web apps that do not need the ceremony of a full native app. Telegram's own docs explicitly position bots and Mini Apps as capable of replacing websites, accepting payments, and handling business workflows.\n \"They said they were building an AI product. In practice, they were building a Telegram bot with good timing and a payment hook.\"\n Is Telegram the product, or just the distribution layer? Does the experience rely on bots, Mini Apps, or simple notifications? Is the choice about user convenience, growth, or avoiding native-app complexity? Super-apps OpenClaw Orchestration Bots Mini Apps Telegram's current platform docs span bots, Mini Apps, business bots, payments, and attachment-menu integrations. In product conversations, that means Telegram is often less 'channel' than 'deployment shortcut'.\n Telegram Bot API Telegram Mini Apps Telegram Stars",
+      "searchText": "Telegram Telegram Mini Apps Telegram bots Telegram platform Product and vendor terms Agents and workflows Infrastructure and deployment bots mini apps distribution A messaging app that periodically looks at the rest of the software industry and decides it would also like to be a platform, a payments layer, a bot host, and possibly a country.\n Telegram is a messaging platform that is also a deployment surface for bots, automations, and Mini Apps. In AI contexts, it often serves as the conversational front end through which assistants, workflows, notifications, and lightweight products are delivered.\n Because the easiest way to make software feel useful is often to place it where the user already is: inside the chat thread.\n By treating Telegram as just a messenger when the real value is often in its bot ecosystem, Mini App surface, lightweight UI layer, and low-friction interaction model. The platform question matters as much as the chat question.\n A practical interface layer for AI agents, internal tools, support flows, commerce, alerts, and small web apps that do not need the ceremony of a full native app. Telegram's own docs explicitly position bots and Mini Apps as capable of replacing websites, accepting payments, and handling business workflows.\n \"They said they were building an AI product. In practice, they were building a Telegram bot with good timing and a payment hook.\"\n Is Telegram the product, or just the distribution layer? Does the experience rely on bots, Mini Apps, or simple notifications? Is the choice about user convenience, growth, or avoiding native-app complexity? Super-apps OpenClaw Orchestration Bots Mini Apps Telegram's current platform docs span bots, Mini Apps, business bots, payments, and attachment-menu integrations. In product conversations, that means Telegram is often less 'channel' than 'deployment shortcut'. Telegram Bot API Telegram Mini Apps Telegram Stars",
       "relatedSlugs": [
         "super-apps",
         "openclaw",
         "orchestration"
+      ]
+    },
+    {
+      "title": "Test-Time Compute",
+      "slug": "test-time-compute",
+      "letter": "T",
+      "categories": [
+        "Core concepts",
+        "Infrastructure and deployment",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "inference-time scaling",
+        "deliberation budget",
+        "extra thinking budget"
+      ],
+      "devilDefinition": "The expensive theory that the model may improve if you let it burn more electricity before disappointing you.\n",
+      "plainDefinition": "Test-time compute is the extra computation spent during inference to improve task performance, often through additional reasoning steps, search, sampling, verification, or tool use.\n",
+      "whyExists": "Because some problems are not solved by one cheap pass. Harder tasks can benefit when the system is allowed to spend more time and compute before committing to an answer.\n",
+      "misuse": "By talking as if extra compute were a direct synonym for intelligence. It can improve performance on the right tasks, but it can also produce a slower path to the same wrong conclusion at a more mature price point.\n",
+      "practicalMeaning": "In practice it usually means higher latency, higher token usage, and a larger invoice in exchange for better odds on structured or difficult tasks where additional search or verification actually helps.\n",
+      "example": "\"The benchmark improved handsomely once they added more test-time compute, which was encouraging right up until finance asked whether the customers were also benchmarks.\"\n",
+      "askNext": [
+        "What specific task gets better when more compute is spent at inference?",
+        "How much latency and cost does the improvement require?",
+        "Is the gain robust, or are we paying extra for a benchmark parlour trick?"
+      ],
+      "related": [
+        "reasoning-model",
+        "latency",
+        "inference",
+        "benchmark-theatre"
+      ],
+      "seeAlso": [
+        "Inference-time scaling",
+        "Deliberate search",
+        "Serving cost"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-01",
+      "updatedAt": "2026-04-01",
+      "warningLabel": "A real trade-off, not a free upgrade.",
+      "tags": [
+        "inference",
+        "cost",
+        "latency",
+        "reasoning"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "what it usually means in reality",
+          "text": "Paying more at run time so the system can think longer, search wider, or check itself before speaking."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "This is one of the cleaner ideas in modern AI because the trade is visible: more budget, more delay, sometimes more capability. Even the euphemism eventually has to meet the invoice.",
+      "categorySlugs": [
+        "core-concepts",
+        "infrastructure-and-deployment",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/test-time-compute",
+      "searchText": "Test-Time Compute inference-time scaling deliberation budget extra thinking budget Core concepts Infrastructure and deployment Economics and operations of AI inference cost latency reasoning The expensive theory that the model may improve if you let it burn more electricity before disappointing you.\n Test-time compute is the extra computation spent during inference to improve task performance, often through additional reasoning steps, search, sampling, verification, or tool use.\n Because some problems are not solved by one cheap pass. Harder tasks can benefit when the system is allowed to spend more time and compute before committing to an answer.\n By talking as if extra compute were a direct synonym for intelligence. It can improve performance on the right tasks, but it can also produce a slower path to the same wrong conclusion at a more mature price point.\n In practice it usually means higher latency, higher token usage, and a larger invoice in exchange for better odds on structured or difficult tasks where additional search or verification actually helps.\n \"The benchmark improved handsomely once they added more test-time compute, which was encouraging right up until finance asked whether the customers were also benchmarks.\"\n What specific task gets better when more compute is spent at inference? How much latency and cost does the improvement require? Is the gain robust, or are we paying extra for a benchmark parlour trick? Inference-time scaling Deliberate search Serving cost",
+      "relatedSlugs": [
+        "reasoning-model",
+        "latency",
+        "inference"
       ]
     },
     {
@@ -5530,7 +5964,7 @@
           "text": "The high-DX default for many Next.js teams, plus an expanding set of AI and workflow products that aim to make leaving feel increasingly unnecessary."
         }
       ],
-      "note": "As of March 20, 2026, the latest verifiable Vercel–Cloudflare flare-up centres on hosting Next.js outside Vercel's preferred orbit. Cloudflare's early-March 2026 vinext announcement pushed directly at that boundary, while Vercel's own current material includes a February 25, 2026 guide for migrating from Cloudflare to Vercel and a standing recommendation against putting Cloudflare in front of Vercel as a reverse proxy.\n",
+      "note": "As of March 20, 2026, the latest verifiable Vercel–Cloudflare flare-up centres on hosting Next.js outside Vercel's preferred orbit. Cloudflare's early-March 2026 vinext announcement pushed directly at that boundary, while Vercel's own current material includes a February 25, 2026 guide for migrating from Cloudflare to Vercel and a standing recommendation against putting Cloudflare in front of Vercel as a reverse proxy.",
       "body": "Vercel's strongest argument is not theoretical openness. It is that the product experience is often genuinely better when the framework and the platform are designed to flatter each other.\n\nThe tension, naturally, is that what feels like elegant integration to one team looks a lot like graceful captivity to another.",
       "categorySlugs": [
         "product-and-vendor-terms",
@@ -5538,11 +5972,86 @@
         "economics-and-operations-of-ai"
       ],
       "url": "/dictionary/vercel",
-      "searchText": "Vercel Vercel AI Cloud Next.js hosting Product and vendor terms Infrastructure and deployment Economics and operations of AI nextjs hosting ai cloud developer experience The company that turned \"deploy the app\" into a premium product, then spent years making sure the app wanted to live there permanently.\n Vercel is a cloud platform company best known for creating Next.js and for offering tightly integrated hosting, deployment, preview, and full-stack infrastructure around modern frontend frameworks. In current AI conversations, it also means products such as the AI SDK, AI Gateway, Sandbox, Workflow tooling, and a broader \"AI Cloud\" positioning around building AI-native web applications.\n Because developers like shipping quickly, preview environments are addictive, and framework-native deployment becomes commercially powerful once the framework itself shapes how the app is built.\n By talking about Vercel as if it were just \"hosting\" or, in the opposite direction, as if it were uniquely synonymous with the future of frontend. It is a very opinionated platform with genuine developer-experience advantages, especially around Next.js, and equally real questions about coupling, spend, and how much of your architecture now speaks with a Vercel accent.\n In practice it usually means excellent DX for modern web teams, especially those deep in Next.js, plus a growing bundle of AI-era products designed to keep those teams inside one coherent platform: deploy previews, edge/network distribution, fluid compute, AI SDK patterns, model access layers, and agent tooling.\n \"They chose Vercel because the team wanted fewer deployment arguments, tighter Next.js ergonomics, and less appetite for building their own platform just to feel principled.\"\n Are we choosing Vercel for Next.js DX, preview workflows, AI tooling, network performance, or simplicity? What parts of the system become Vercel-shaped once we adopt it? Is the team paying for convenience it truly needs, or convenience it has become emotionally attached to? Cloudflare Next.js AI SDK AI Gateway Edge Fluid Compute As of March 20, 2026, the latest verifiable Vercel–Cloudflare flare-up centres on hosting Next.js outside Vercel's preferred orbit. Cloudflare's early-March 2026 vinext announcement pushed directly at that boundary, while Vercel's own current material includes a February 25, 2026 guide for migrating from Cloudflare to Vercel and a standing recommendation against putting Cloudflare in front of Vercel as a reverse proxy.\n Next.js AI SDK AI Gateway Fluid Compute Sandbox",
+      "searchText": "Vercel Vercel AI Cloud Next.js hosting Product and vendor terms Infrastructure and deployment Economics and operations of AI nextjs hosting ai cloud developer experience The company that turned \"deploy the app\" into a premium product, then spent years making sure the app wanted to live there permanently.\n Vercel is a cloud platform company best known for creating Next.js and for offering tightly integrated hosting, deployment, preview, and full-stack infrastructure around modern frontend frameworks. In current AI conversations, it also means products such as the AI SDK, AI Gateway, Sandbox, Workflow tooling, and a broader \"AI Cloud\" positioning around building AI-native web applications.\n Because developers like shipping quickly, preview environments are addictive, and framework-native deployment becomes commercially powerful once the framework itself shapes how the app is built.\n By talking about Vercel as if it were just \"hosting\" or, in the opposite direction, as if it were uniquely synonymous with the future of frontend. It is a very opinionated platform with genuine developer-experience advantages, especially around Next.js, and equally real questions about coupling, spend, and how much of your architecture now speaks with a Vercel accent.\n In practice it usually means excellent DX for modern web teams, especially those deep in Next.js, plus a growing bundle of AI-era products designed to keep those teams inside one coherent platform: deploy previews, edge/network distribution, fluid compute, AI SDK patterns, model access layers, and agent tooling.\n \"They chose Vercel because the team wanted fewer deployment arguments, tighter Next.js ergonomics, and less appetite for building their own platform just to feel principled.\"\n Are we choosing Vercel for Next.js DX, preview workflows, AI tooling, network performance, or simplicity? What parts of the system become Vercel-shaped once we adopt it? Is the team paying for convenience it truly needs, or convenience it has become emotionally attached to? Cloudflare Next.js AI SDK AI Gateway Edge Fluid Compute As of March 20, 2026, the latest verifiable Vercel–Cloudflare flare-up centres on hosting Next.js outside Vercel's preferred orbit. Cloudflare's early-March 2026 vinext announcement pushed directly at that boundary, while Vercel's own current material includes a February 25, 2026 guide for migrating from Cloudflare to Vercel and a standing recommendation against putting Cloudflare in front of Vercel as a reverse proxy. Next.js AI SDK AI Gateway Fluid Compute Sandbox",
       "relatedSlugs": [
         "cloudflare",
         "chatgpt",
         "codex"
+      ]
+    },
+    {
+      "title": "Vibe Coding",
+      "slug": "vibe-coding",
+      "letter": "V",
+      "categories": [
+        "Cultural terms",
+        "Model usage",
+        "Agents and workflows"
+      ],
+      "aliases": [
+        "vibecoding",
+        "vibe-driven development",
+        "prompt-first coding"
+      ],
+      "devilDefinition": "Writing software by maintaining morale with the model until something compiles and nobody asks too many follow-up questions.\n",
+      "plainDefinition": "Vibe coding is a loose term for building software through conversational prompting, rapid iteration, and acceptance-by-feel rather than explicit design and implementation from first principles.\n",
+      "whyExists": "Because code generation became good enough that people can now reach working prototypes, scripts, and interface drafts through steering and selection rather than typing every line themselves.\n",
+      "misuse": "By presenting it as a replacement for engineering discipline, or by using it as a sneer for any AI-assisted development at all. The useful version is fast exploratory work. The reckless version is calling the prototype done.\n",
+      "practicalMeaning": "In practice it means quick spikes, glue code, scaffolded UI, and a heavy dependence on taste, review, and later cleanup once the generated momentum collides with reality.\n",
+      "example": "\"The hackathon project was pure vibe coding: astonishing progress before lunch, architectural archaeology by Thursday.\"\n",
+      "askNext": [
+        "Who is checking correctness once the initial velocity wears off?",
+        "Is this a prototype, an internal tool, or software that must survive contact with users?",
+        "What parts were steered well, and what parts still need deliberate engineering?"
+      ],
+      "related": [
+        "codex",
+        "cursor",
+        "vibe-engineer",
+        "rubber-stamp-review"
+      ],
+      "seeAlso": [
+        "Prompt Engineering",
+        "Human Taste",
+        "AI-assisted development"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "severe",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-01",
+      "updatedAt": "2026-04-01",
+      "warningLabel": "Excellent for momentum. Catastrophic when momentum is mistaken for maintenance.",
+      "tags": [
+        "coding",
+        "prototyping",
+        "developer tools",
+        "iteration"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "founder meaning",
+          "text": "Proof that software creation has become wonderfully fast and perhaps slightly optional."
+        },
+        {
+          "label": "engineer meaning",
+          "text": "A useful way to start the work, not a serious theory of how the work finishes."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The phrase survived because it captures something real: generation changed the opening act of software creation. It did not repeal debugging, maintenance, or consequences.",
+      "categorySlugs": [
+        "cultural-terms",
+        "model-usage",
+        "agents-and-workflows"
+      ],
+      "url": "/dictionary/vibe-coding",
+      "searchText": "Vibe Coding vibecoding vibe-driven development prompt-first coding Cultural terms Model usage Agents and workflows coding prototyping developer tools iteration Writing software by maintaining morale with the model until something compiles and nobody asks too many follow-up questions.\n Vibe coding is a loose term for building software through conversational prompting, rapid iteration, and acceptance-by-feel rather than explicit design and implementation from first principles.\n Because code generation became good enough that people can now reach working prototypes, scripts, and interface drafts through steering and selection rather than typing every line themselves.\n By presenting it as a replacement for engineering discipline, or by using it as a sneer for any AI-assisted development at all. The useful version is fast exploratory work. The reckless version is calling the prototype done.\n In practice it means quick spikes, glue code, scaffolded UI, and a heavy dependence on taste, review, and later cleanup once the generated momentum collides with reality.\n \"The hackathon project was pure vibe coding: astonishing progress before lunch, architectural archaeology by Thursday.\"\n Who is checking correctness once the initial velocity wears off? Is this a prototype, an internal tool, or software that must survive contact with users? What parts were steered well, and what parts still need deliberate engineering? Prompt Engineering Human Taste AI-assisted development",
+      "relatedSlugs": [
+        "codex",
+        "cursor",
+        "vibe-engineer"
       ]
     },
     {
@@ -6033,10 +6542,10 @@
     }
   ],
   "recentSlugs": [
-    "knowledge-cutoff",
-    "latency",
-    "llm",
-    "unlearning"
+    "computer-use",
+    "context-engineering",
+    "distillation",
+    "llm-as-a-judge"
   ],
   "misunderstoodSlugs": [
     "agent",
@@ -6057,12 +6566,12 @@
     },
     {
       "letter": "C",
-      "count": 7,
+      "count": 9,
       "href": "/dictionary?letter=C"
     },
     {
       "letter": "D",
-      "count": 4,
+      "count": 5,
       "href": "/dictionary?letter=D"
     },
     {
@@ -6102,7 +6611,7 @@
     },
     {
       "letter": "L",
-      "count": 2,
+      "count": 3,
       "href": "/dictionary?letter=L"
     },
     {
@@ -6117,7 +6626,7 @@
     },
     {
       "letter": "O",
-      "count": 4,
+      "count": 5,
       "href": "/dictionary?letter=O"
     },
     {
@@ -6142,7 +6651,7 @@
     },
     {
       "letter": "T",
-      "count": 4,
+      "count": 5,
       "href": "/dictionary?letter=T"
     },
     {
@@ -6152,7 +6661,7 @@
     },
     {
       "letter": "V",
-      "count": 3,
+      "count": 4,
       "href": "/dictionary?letter=V"
     },
     {
@@ -6181,7 +6690,7 @@
       "title": "Core concepts",
       "description": "Terms people use as if they were self-explanatory, usually before the definitions start fraying.",
       "slug": "core-concepts",
-      "count": 13,
+      "count": 14,
       "sampleTerms": [
         "AI Psychosis",
         "Human Taste",
@@ -6192,7 +6701,7 @@
       "title": "Cultural terms",
       "description": "The social weirdness around AI: belief, taste, cringe, status games, and the internet behaving as it usually does when handed a new machine.",
       "slug": "cultural-terms",
-      "count": 28,
+      "count": 29,
       "sampleTerms": [
         "AI Wrapper",
         "Alexandr Wang",
@@ -6203,18 +6712,18 @@
       "title": "Model building",
       "description": "How models are trained, tuned, evaluated, and occasionally overpraised.",
       "slug": "model-building",
-      "count": 16,
+      "count": 18,
       "sampleTerms": [
         "Arthur Mensch",
         "Demis Hassabis",
-        "Evals"
+        "Distillation"
       ]
     },
     {
       "title": "Model usage",
       "description": "What it means to actually run a model in production, where invoices and latency live.",
       "slug": "model-usage",
-      "count": 31,
+      "count": 36,
       "sampleTerms": [
         "Agent",
         "ChatGPT",
@@ -6225,7 +6734,7 @@
       "title": "Agents and workflows",
       "description": "Automation patterns, orchestration, and the difference between useful autonomy and stagecraft.",
       "slug": "agents-and-workflows",
-      "count": 20,
+      "count": 23,
       "sampleTerms": [
         "Agent",
         "Agentic AI",
@@ -6236,18 +6745,18 @@
       "title": "Retrieval and memory",
       "description": "How systems fetch context, store traces, and pretend they remember you.",
       "slug": "retrieval-and-memory",
-      "count": 6,
+      "count": 7,
       "sampleTerms": [
+        "Context Engineering",
         "Context Window",
-        "Embeddings",
-        "Grounding"
+        "Embeddings"
       ]
     },
     {
       "title": "Product and vendor terms",
       "description": "Company names, product labels, and the branding haze around them.",
       "slug": "product-and-vendor-terms",
-      "count": 34,
+      "count": 36,
       "sampleTerms": [
         "AI Wrapper",
         "Anthropic",
@@ -6258,7 +6767,7 @@
       "title": "Safety and evaluation",
       "description": "Guardrails, tests, preferences, and the uncomfortable gap between lab scores and reality.",
       "slug": "safety-and-evaluation",
-      "count": 19,
+      "count": 20,
       "sampleTerms": [
         "Anthropic",
         "Benchmark Theatre",
@@ -6269,18 +6778,18 @@
       "title": "Infrastructure and deployment",
       "description": "The machinery underneath the demo: compute, serving, throughput, and operational trade-offs.",
       "slug": "infrastructure-and-deployment",
-      "count": 17,
+      "count": 19,
       "sampleTerms": [
         "Alexandr Wang",
         "Cloudflare",
-        "Inference"
+        "Distillation"
       ]
     },
     {
       "title": "Economics and operations of AI",
       "description": "Cost, labour, incentives, and the very unmagical business of running AI systems.",
       "slug": "economics-and-operations-of-ai",
-      "count": 29,
+      "count": 32,
       "sampleTerms": [
         "AI Wrapper",
         "Alexandr Wang",
@@ -6376,8 +6885,15 @@
     "world-model",
     "yann-lecun",
     "zero-data-retention",
-    "zero-shot"
+    "zero-shot",
+    "computer-use",
+    "context-engineering",
+    "distillation",
+    "llm-as-a-judge",
+    "openrouter",
+    "test-time-compute",
+    "vibe-coding"
   ],
   "featuredSlug": "microsoft-copilot",
-  "latestPublishedAt": "2026-03-28"
+  "latestPublishedAt": "2026-04-01"
 }

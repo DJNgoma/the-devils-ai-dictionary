@@ -1,0 +1,57 @@
+---
+title: "Distillation"
+slug: "distillation"
+letter: "D"
+categories:
+  - "Model building"
+  - "Infrastructure and deployment"
+  - "Economics and operations of AI"
+aliases:
+  - "teacher-student training"
+  - "model distillation"
+  - "model compression"
+devilDefinition: |
+  The art of shrinking a heroic model into something finance can tolerate without product noticing too much.
+plainDefinition: |
+  Distillation is the practice of training a smaller model to imitate the outputs or behaviour of a larger model so it can serve similar tasks more cheaply or quickly.
+whyExists: |
+  Because frontier models are expensive to run, awkward to deploy, and frankly too grand for many production tasks that only need a narrower slice of their capability.
+misuse: |
+  By implying the smaller model is simply the same intelligence in a thriftier suit. Distillation can preserve a surprising amount, but it also preserves biases, omissions, and blind spots in more compact form.
+practicalMeaning: |
+  In practice it means using a stronger model as a teacher so the cheaper one can handle a specific workflow with lower latency, lower cost, and fewer procurement speeches about GPU budgets.
+example: |
+  "The team called it distillation once the smaller model inherited enough of the original behaviour to keep support happy and infrastructure quiet."
+askNext:
+  - "What capability is being preserved, and what capability is quietly being dropped?"
+  - "Was the student model tested on real workloads or merely on flattering benchmarks?"
+  - "Are we distilling a general system or just bottling one narrow behaviour?"
+related:
+  - "training"
+  - "fine-tuning"
+  - "weights"
+  - "latency"
+seeAlso:
+  - "Teacher model"
+  - "Compression"
+  - "Inference cost"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-01"
+updatedAt: "2026-04-01"
+tags:
+  - "compression"
+  - "serving"
+  - "cost"
+  - "training"
+misunderstoodScore: 4
+translations:
+  - label: "operator meaning"
+    text: "A way to keep some of the bigger model's usefulness while dramatically improving the hosting arithmetic."
+  - label: "what it usually means in reality"
+    text: "A cost-and-latency trade where a smaller model learns to mimic the teacher well enough for a bounded job."
+---
+
+Distillation is one of the field's more honest ideas. It admits that scale is glorious right up until someone has to pay to serve it.
