@@ -64,10 +64,19 @@ DEVELOPER_DIR=/Applications/Xcode-beta.app/Contents/Developer npm run ios:build:
 
 The app runs at [http://localhost:3000](http://localhost:3000).
 
+## Apple assets
+
+- `npm run apple:assets` is the canonical Apple asset command.
+- It uses `@capacitor/assets` to generate the primary iPhone and iPad icon and splash assets from `assets/logo.svg`, then syncs the generated master icon into the Apple `AppIcon.appiconset` catalogs under `ios/App/`.
+- The current pass covers the shipping iPhone and watchOS targets and is ready for future square Apple app icon sets on macOS or iPadOS targets.
+- `npm run ios:assets` remains as a compatibility alias.
+- Xcode 26.4 includes Icon Composer and `ictool`, but this repo does not yet store `.icon` source files, so Icon Composer is not the default build path.
+
 ## Repository conventions
 
 - Commit subjects should follow the dry, book-aware house style documented in [docs/commit-message-style.md](docs/commit-message-style.md).
 - Release versioning rules live in [docs/release-versioning.md](docs/release-versioning.md).
+- The codebase journey from the first commit to the current layout is summarized in [docs/repo-history.md](docs/repo-history.md).
 
 ## Public repo
 
@@ -113,6 +122,7 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 content/entries/                 Dictionary entries in MDX with frontmatter
 docs/commit-message-style.md     Commit-subject tone guide and history audit
 docs/content-authoring.md        Editorial and schema guide
+docs/repo-history.md             Major architecture and product milestones
 docs/mobile/                     Mobile runbooks, release guides, and checklists
 android/                         Shipping native Android app and release packaging
 ios/App/                         Shipping native Apple app, watch targets, and Xcode project
@@ -128,6 +138,14 @@ src/lib/content.ts               Content parsing, related-term logic, listing he
 src/lib/site.ts                  Site config, navigation, category definitions
 src/lib/metadata.ts              Metadata helpers and canonical URL utilities
 ```
+
+## Project history
+
+- The repo started on 2026-03-20 as a plain Create Next App scaffold and quickly became an editorial AI dictionary with a custom content model, book-style routes, search, metadata, and themed presentation.
+- It then moved off the default hosting assumptions toward Cloudflare and build-time content generation so the site and later native clients could consume a stable generated catalogue.
+- Mobile began as Capacitor-backed delivery for iPhone and Android, then pivoted hard to native clients: SwiftUI on iPhone, Compose on Android, plus Apple Watch support and APNs-backed current-word delivery.
+- The current phase has been about hardening release engineering: shared versioning, native CI, Windows desktop packaging, Apple project cleanup, and a more conventional Apple folder layout.
+- For the fuller timeline with milestone commits, see [docs/repo-history.md](docs/repo-history.md).
 
 ## Content model
 
