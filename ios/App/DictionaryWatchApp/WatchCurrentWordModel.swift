@@ -71,7 +71,7 @@ final class WatchCurrentWordModel: NSObject, ObservableObject {
             return
         }
 
-        WKExtension.shared().openSystemURL(url)
+        WKApplication.shared().openSystemURL(url)
     }
 
     func apply(applicationContext: [String: Any]) {

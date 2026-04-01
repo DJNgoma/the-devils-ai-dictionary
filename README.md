@@ -48,8 +48,17 @@ npm run android:test
 node scripts/with-android-java.mjs ./android/gradlew -p android assembleRelease
 node scripts/with-android-java.mjs ./android/gradlew -p android testDebugUnitTest assembleDebug
 npm run swift-core:test
+npm run ios:destinations
+npm run ios:build:sim
+npm run watch:build:sim
 npm run build:cf
 npm run windows:build
+```
+
+The supported Apple toolchain for local builds is `/Applications/Xcode.app` (Xcode 26.4). The helper-backed iOS scripts prefer that toolchain automatically even if `xcode-select` still points at `Xcode-beta.app`. Override it only when you intentionally want the beta:
+
+```bash
+DEVELOPER_DIR=/Applications/Xcode-beta.app/Contents/Developer npm run ios:build:sim
 ```
 
 The app runs at [http://localhost:3000](http://localhost:3000).

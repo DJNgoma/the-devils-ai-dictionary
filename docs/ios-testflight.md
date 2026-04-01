@@ -35,6 +35,8 @@ Then open Xcode:
 npm run ios:open
 ```
 
+The supported local Apple toolchain is `/Applications/Xcode.app` (Xcode 26.4). This repo now routes CLI Apple builds through `scripts/with-xcode.mjs`, which prefers the stable Xcode app even when `xcode-select` is still pointed at `Xcode-beta.app`. If you intentionally want the beta toolchain, set `DEVELOPER_DIR` explicitly for that one command.
+
 Version settings are now repo-driven:
 
 - `MARKETING_VERSION` is synced from `package.json` `version`
@@ -48,14 +50,20 @@ Use these commands before opening Xcode if you want a repeatable local gate:
 
 ```bash
 npm run swift-core:test
-xcodebuild -showdestinations -project "ios/App/The Devil's AI Dictionary.xcodeproj" -scheme "The Devil's AI Dictionary"
-xcodebuild -project "ios/App/The Devil's AI Dictionary.xcodeproj" -scheme "The Devil's AI Dictionary" -configuration Debug -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
-xcodebuild -project "ios/App/The Devil's AI Dictionary.xcodeproj" -scheme "The Devil's AI Dictionary" -configuration Debug -destination 'platform=iOS Simulator,name=iPad Air 11-inch (M4)' CODE_SIGNING_ALLOWED=NO build
-xcodebuild -project "ios/App/The Devil's AI Dictionary.xcodeproj" -scheme "The Devil's AI Dictionary" -configuration Debug -destination 'id=<MY_MAC_DESTINATION_ID>' CODE_SIGNING_ALLOWED=NO build
-xcodebuild -project "ios/App/The Devil's AI Dictionary.xcodeproj" -scheme DictionaryWatchApp -configuration Debug -destination 'generic/platform=watchOS Simulator' CODE_SIGNING_ALLOWED=NO build
+npm run ios:destinations
+npm run ios:build:sim
+npm run watch:build:sim
 ```
 
-Use `xcodebuild -showdestinations` to confirm the current iPad simulator name and to copy the `My Mac` destination ID for the `Designed for iPad` build.
+For manual one-off builds, route `xcodebuild` through the helper so you stay on Xcode 26.4 by default:
+
+```bash
+node scripts/with-xcode.mjs xcodebuild -project "ios/App/The Devil's AI Dictionary.xcodeproj" -scheme "The Devil's AI Dictionary" -configuration Debug -destination 'platform=iOS Simulator,name=iPad Air 11-inch (M4)' CODE_SIGNING_ALLOWED=NO build
+node scripts/with-xcode.mjs xcodebuild -project "ios/App/The Devil's AI Dictionary.xcodeproj" -scheme "The Devil's AI Dictionary" -configuration Debug -destination 'id=<MY_MAC_DESTINATION_ID>' CODE_SIGNING_ALLOWED=NO build
+DEVELOPER_DIR=/Applications/Xcode-beta.app/Contents/Developer node scripts/with-xcode.mjs xcodebuild -project "ios/App/The Devil's AI Dictionary.xcodeproj" -scheme "The Devil's AI Dictionary" -configuration Debug -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
+```
+
+Use `npm run ios:destinations` to confirm the current iPad simulator name and to copy the `My Mac` destination ID for the `Designed for iPad` build.
 
 Use [`docs/mobile/checklists.md`](./mobile/checklists.md) for the shared device QA matrix. This file stays focused on the Apple build, archive, and upload path.
 
