@@ -68,6 +68,7 @@ DEVELOPER_DIR=/Applications/Xcode-beta.app/Contents/Developer node scripts/with-
 Use `npm run ios:destinations` to confirm the current iPad simulator name and to copy the `My Mac` destination ID for the `Designed for iPad` build.
 
 Use [`docs/mobile/checklists.md`](./mobile/checklists.md) for the shared device QA matrix. This file stays focused on the Apple build, archive, and upload path.
+Use [`docs/mobile/apple-ship-checklist.md`](./mobile/apple-ship-checklist.md) when you need a one-page Apple ship / no-ship gate for TestFlight.
 
 ## Current TestFlight Focus
 
