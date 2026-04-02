@@ -11,6 +11,7 @@ import {
   featuredEntrySlug,
 } from "../src/lib/content-catalog.mjs";
 import {
+  createCatalogVersion,
   createCatalogSnapshot,
   serializeCatalogSnapshot,
 } from "../src/lib/mobile-catalog.mjs";
@@ -156,10 +157,7 @@ async function buildEntryIndex() {
     throw new Error(`Featured entry "${featuredEntrySlug}" not found in entries`);
   }
 
-  const output = {
-    schemaVersion,
-    entryCount: entries.length,
-    generatedAt: new Date().toISOString(),
+  const catalog = {
     entries,
     recentSlugs: recentEntries,
     misunderstoodSlugs: misunderstoodEntries,
@@ -171,7 +169,25 @@ async function buildEntryIndex() {
     featuredSlug,
     latestPublishedAt,
   };
-  const snapshot = createCatalogSnapshot(output);
+  const catalogVersion = createCatalogVersion(catalog);
+  let generatedAt = new Date().toISOString();
+
+  try {
+    const existingSnapshot = JSON.parse(await fs.readFile(outputFile, "utf8"));
+
+    if (existingSnapshot.catalogVersion === catalogVersion) {
+      generatedAt = existingSnapshot.generatedAt;
+    }
+  } catch {
+    // No previous generated snapshot to reconcile against.
+  }
+
+  const snapshot = createCatalogSnapshot({
+    schemaVersion,
+    entryCount: entries.length,
+    generatedAt,
+    ...catalog,
+  });
   const snapshotText = serializeCatalogSnapshot(snapshot);
   const versionedCatalogFilename = `catalog.${snapshot.catalogVersion}.json`;
   const versionManifest = {

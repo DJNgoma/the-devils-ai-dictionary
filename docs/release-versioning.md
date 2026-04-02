@@ -13,6 +13,7 @@ Current defaults:
 - Android `versionName`: `package.json` `version`
 - Android `versionCode`: `app-version.json` `buildNumber`
 - Windows desktop package version: `package.json` `version`
+- Windows desktop build version / file version: `package.json` `version`.`app-version.json` `buildNumber`
 
 ## The rule
 
@@ -45,6 +46,7 @@ npm run windows:build
 ```
 
 `npm run version:sync` updates the Apple Xcode project so the checked-in build settings match `package.json` and `app-version.json`.
+Android and Windows derive their version settings directly from those same files at build time, so they do not need a separate sync step.
 
 Use `npm run android:build:play:bundle` when the output is intended for Play Console. The older `android:build:release:bundle` path remains useful for local smoke builds because it can still fall back to debug signing.
 
@@ -52,4 +54,4 @@ Use `npm run android:build:play:bundle` when the output is intended for Play Con
 
 - Apple and Android still allow environment overrides for exceptional cases, but the checked-in defaults should be the ordinary path.
 - Do not hand-edit Apple version fields in Xcode unless you intend to make the repo dirty and then reconcile it with `npm run version:sync`.
-- The Windows build is an Electron wrapper around the exported static site, so it follows the same marketing version as the web release and the same build number discipline as the store binaries.
+- The Windows build is an Electron wrapper around the exported static site. Its package version follows `package.json`, and its build/file version now follows `package.json version`.`app-version.json buildNumber` so binary builds stay distinguishable from web-only releases.

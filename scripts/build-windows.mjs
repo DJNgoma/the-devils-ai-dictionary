@@ -2,6 +2,7 @@ import { cp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { createWindowsBuildVersion, readSharedVersionConfig } from "./shared-versioning.mjs";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, "..");
@@ -39,8 +40,9 @@ async function run(command, args, options = {}) {
 async function prepareProject() {
   await run(process.execPath, [npmCli, "run", "build:mobile"]);
 
-  const packageJson = JSON.parse(await readFile(packageJsonPath, "utf8"));
+  const { packageJson, marketingVersion, buildNumber } = await readSharedVersionConfig(rootDir);
   const electronVersion = packageJson.toolVersions?.electron ?? null;
+  const windowsBuildVersion = createWindowsBuildVersion(marketingVersion, buildNumber);
 
   if (!electronVersion) {
     throw new Error("Unable to determine a fixed Electron version for Windows packaging.");
@@ -49,7 +51,7 @@ async function prepareProject() {
   const desktopPackageJson = {
     name: "the-devils-ai-dictionary-windows",
     private: true,
-    version: packageJson.version,
+    version: marketingVersion,
     productName: "The Devil's AI Dictionary",
     description: "Windows desktop build for The Devil's AI Dictionary",
     author: "DJ Ngoma",
@@ -57,7 +59,8 @@ async function prepareProject() {
     main: "main.cjs",
     build: {
       appId: "com.djngoma.devilsaidictionary.desktop",
-      artifactName: "${productName}-${version}-windows-${arch}.${ext}",
+      artifactName: `${"${productName}"}-${"${version}"}-build-${buildNumber}-windows-${"${arch}"}.${"${ext}"}`,
+      buildVersion: windowsBuildVersion,
       electronVersion,
       directories: {
         output: "../windows-dist",
