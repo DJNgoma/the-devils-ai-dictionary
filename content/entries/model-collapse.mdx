@@ -1,0 +1,54 @@
+---
+title: "Model Collapse"
+slug: "model-collapse"
+letter: "M"
+categories:
+  - "Model building"
+  - "Economics and operations of AI"
+  - "Cultural terms"
+aliases:
+  - "synthetic data collapse"
+  - "recursive training collapse"
+devilDefinition: |
+  The fear that if the machines keep learning from one another's homework, the class average will eventually become the curriculum.
+plainDefinition: |
+  Model collapse is the hypothesised degradation that can occur when models are trained repeatedly on synthetic or model-generated data without enough fresh, high-quality human data to preserve diversity and fidelity.
+whyExists: |
+  Because synthetic data is useful, cheap, and increasingly tempting at scale, but feedback loops can distort distributions, wash out edge cases, and quietly teach systems to imitate their own errors.
+misuse: |
+  By treating it as a guaranteed apocalypse or as proof that synthetic data is worthless. Synthetic data can be valuable. The concern is about unmanaged feedback loops, weak provenance, and replacing judgement with volume.
+practicalMeaning: |
+  In practice it usually means teams need stronger data lineage, better curation, and honest evaluation before they let generated material dominate the training mix just because it is abundant and conveniently machine-readable.
+example: |
+  "The lab was not worried about synthetic data in principle. It was worried about model collapse from feeding the next system a buffet of the previous system's bad habits."
+askNext:
+  - "How much of the training mix is synthetic, and how is its quality measured?"
+  - "What prevents generated noise from becoming self-confirming doctrine?"
+  - "Are we preserving human-created edge cases or optimising them out of existence?"
+related:
+  - "synthetic-data"
+  - "training"
+  - "slop-flood"
+seeAlso:
+  - "Data provenance"
+  - "Feedback loop"
+  - "Distribution shift"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-04-02"
+updatedAt: "2026-04-02"
+tags:
+  - "data"
+  - "quality"
+  - "feedback"
+misunderstoodScore: 5
+translations:
+  - label: "internet meaning"
+    text: "The machines are eating too much of their own content and may start to resemble it."
+  - label: "what it usually means in reality"
+    text: "Poorly managed recursive data pipelines can flatten quality faster than the dashboards admit."
+---
+
+The phrase has become a general anxiety container, which is understandable. Still, the useful question is not whether collapse is coming in the abstract, but whether your data pipeline has the manners to notice contamination before it institutionalises it.

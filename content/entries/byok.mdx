@@ -1,0 +1,55 @@
+---
+title: "BYOK"
+slug: "byok"
+letter: "B"
+categories:
+  - "Product and vendor terms"
+  - "Economics and operations of AI"
+  - "Model usage"
+aliases:
+  - "Bring Your Own Key"
+  - "user-supplied API key"
+  - "own-key mode"
+devilDefinition: |
+  The generous feature by which a startup lets you pay someone else directly for the expensive part.
+plainDefinition: |
+  BYOK means "Bring Your Own Key". In AI products it usually means the customer supplies their own API credentials for the underlying model or service provider while the product supplies the interface, workflow, or orchestration.
+whyExists: |
+  Because model access is costly, margins are fragile, and some customers want tighter control over billing, provider choice, and data handling than a bundled plan allows.
+misuse: |
+  By presenting it as proof of openness, affordability, or enterprise maturity on its own. Sometimes it is a sensible customer control. Sometimes it is a polite way of admitting the product would rather not carry the inference bill.
+practicalMeaning: |
+  In practice it usually means the customer pays the model provider directly, inherits that provider's rate limits and policies, and still pays the application for the workflow wrapped around the key.
+example: |
+  "The app was cheap right up until we noticed the pricing page quietly assumed BYOK and therefore our own model invoice."
+askNext:
+  - "Which provider keys are supported, and which features disappear if we swap one out?"
+  - "Whose logs, retention settings, and rate limits apply once our key is in the loop?"
+  - "Are we buying meaningful workflow value or merely renting a prettier console for our own API bill?"
+related:
+  - "ai-wrapper"
+  - "inference"
+  - "cursor"
+seeAlso:
+  - "Platform margin"
+  - "Provider lock-in"
+  - "Usage-based pricing"
+difficulty: "beginner"
+technicalDepth: "low"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-02"
+updatedAt: "2026-04-02"
+tags:
+  - "api-keys"
+  - "pricing"
+  - "developer-tools"
+misunderstoodScore: 4
+translations:
+  - label: "vendor meaning"
+    text: "You keep control over the model relationship and we keep our product story."
+  - label: "what it usually means in reality"
+    text: "The expensive dependency is now your problem, though the wrapper still expects applause."
+---
+
+BYOK is not inherently cynical. It becomes cynical when a product markets itself as full-stack magic while quietly outsourcing the cost basis to your settings page.

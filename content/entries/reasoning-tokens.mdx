@@ -1,0 +1,58 @@
+---
+title: "Reasoning Tokens"
+slug: "reasoning-tokens"
+letter: "R"
+categories:
+  - "Model usage"
+  - "Economics and operations of AI"
+  - "Product and vendor terms"
+aliases:
+  - "thinking tokens"
+  - "deliberation tokens"
+  - "hidden reasoning budget"
+devilDefinition: |
+  Tokens consumed while the model privately arranges its confidence and your invoice publicly matures.
+plainDefinition: |
+  "Reasoning tokens" is a loose product and billing term for tokens spent on internal deliberation or intermediate reasoning steps, especially in models that use extra compute before producing a visible answer.
+whyExists: |
+  Because reasoning-oriented model modes often consume more compute than the final response length suggests, and providers need some way to describe or meter the extra budget.
+misuse: |
+  By talking as though more hidden tokens automatically mean better judgement. Sometimes the model is genuinely doing harder work. Sometimes it is taking the scenic route to the wrong answer and charging for the view.
+practicalMeaning: |
+  In practice it usually means slower responses, higher usage cost, budget controls for internal deliberation, and partial visibility at best into where the extra compute went.
+example: |
+  "The answer looked short, but the usage report showed enough reasoning tokens to suggest the model had held an expensive internal committee meeting first."
+askNext:
+  - "How does the provider define and expose reasoning-token usage?"
+  - "What quality gain justified the extra latency and spend?"
+  - "Can the task be scoped more tightly so the model thinks less and performs better?"
+related:
+  - "reasoning-model"
+  - "tokens"
+  - "latency"
+  - "inference"
+seeAlso:
+  - "Compute budget"
+  - "Deliberation mode"
+  - "Usage telemetry"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-04-02"
+updatedAt: "2026-04-02"
+note: |
+  Providers do not expose this concept consistently. Sometimes it is a direct meter, sometimes a vague usage hint, and sometimes mostly a marketing aroma around slower models.
+tags:
+  - "billing"
+  - "latency"
+  - "reasoning"
+misunderstoodScore: 5
+translations:
+  - label: "finance meaning"
+    text: "The model appears to have thought harder than the budget approved."
+  - label: "what it usually means in reality"
+    text: "Extra compute was burned somewhere between the prompt and the answer, and you may only get partial receipts."
+---
+
+The useful question is not whether the model thought. The useful question is whether the additional hidden work improved anything a customer could notice.

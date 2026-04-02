@@ -1,6 +1,6 @@
 {
-  "catalogVersion": "77d98c35cdb9b112979a53150df6eab61929c6387731380fe13eb1c125e1dd55",
-  "generatedAt": "2026-04-02T10:33:12.207Z",
+  "catalogVersion": "43109c9178382e9008a5d86b6f65ef0da78f6f765a7ecb7a509ff5b8c0ffde28",
+  "generatedAt": "2026-04-02T10:45:51.123Z",
   "entries": [
     {
       "title": "Agent",
@@ -546,6 +546,78 @@
         "evals",
         "guardrails",
         "pilot-purgatory"
+      ]
+    },
+    {
+      "title": "BYOK",
+      "slug": "byok",
+      "letter": "B",
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "aliases": [
+        "Bring Your Own Key",
+        "user-supplied API key",
+        "own-key mode"
+      ],
+      "devilDefinition": "The generous feature by which a startup lets you pay someone else directly for the expensive part.\n",
+      "plainDefinition": "BYOK means \"Bring Your Own Key\". In AI products it usually means the customer supplies their own API credentials for the underlying model or service provider while the product supplies the interface, workflow, or orchestration.\n",
+      "whyExists": "Because model access is costly, margins are fragile, and some customers want tighter control over billing, provider choice, and data handling than a bundled plan allows.\n",
+      "misuse": "By presenting it as proof of openness, affordability, or enterprise maturity on its own. Sometimes it is a sensible customer control. Sometimes it is a polite way of admitting the product would rather not carry the inference bill.\n",
+      "practicalMeaning": "In practice it usually means the customer pays the model provider directly, inherits that provider's rate limits and policies, and still pays the application for the workflow wrapped around the key.\n",
+      "example": "\"The app was cheap right up until we noticed the pricing page quietly assumed BYOK and therefore our own model invoice.\"\n",
+      "askNext": [
+        "Which provider keys are supported, and which features disappear if we swap one out?",
+        "Whose logs, retention settings, and rate limits apply once our key is in the loop?",
+        "Are we buying meaningful workflow value or merely renting a prettier console for our own API bill?"
+      ],
+      "related": [
+        "ai-wrapper",
+        "inference",
+        "cursor"
+      ],
+      "seeAlso": [
+        "Platform margin",
+        "Provider lock-in",
+        "Usage-based pricing"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-02",
+      "updatedAt": "2026-04-02",
+      "tags": [
+        "api-keys",
+        "pricing",
+        "developer-tools"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "vendor meaning",
+          "text": "You keep control over the model relationship and we keep our product story."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "The expensive dependency is now your problem, though the wrapper still expects applause."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "BYOK is not inherently cynical. It becomes cynical when a product markets itself as full-stack magic while quietly outsourcing the cost basis to your settings page.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "economics-and-operations-of-ai",
+        "model-usage"
+      ],
+      "url": "/dictionary/byok",
+      "searchText": "BYOK Bring Your Own Key user-supplied API key own-key mode Product and vendor terms Economics and operations of AI Model usage api-keys pricing developer-tools The generous feature by which a startup lets you pay someone else directly for the expensive part.\n BYOK means \"Bring Your Own Key\". In AI products it usually means the customer supplies their own API credentials for the underlying model or service provider while the product supplies the interface, workflow, or orchestration.\n Because model access is costly, margins are fragile, and some customers want tighter control over billing, provider choice, and data handling than a bundled plan allows.\n By presenting it as proof of openness, affordability, or enterprise maturity on its own. Sometimes it is a sensible customer control. Sometimes it is a polite way of admitting the product would rather not carry the inference bill.\n In practice it usually means the customer pays the model provider directly, inherits that provider's rate limits and policies, and still pays the application for the workflow wrapped around the key.\n \"The app was cheap right up until we noticed the pricing page quietly assumed BYOK and therefore our own model invoice.\"\n Which provider keys are supported, and which features disappear if we swap one out? Whose logs, retention settings, and rate limits apply once our key is in the loop? Are we buying meaningful workflow value or merely renting a prettier console for our own API bill? Platform margin Provider lock-in Usage-based pricing",
+      "relatedSlugs": [
+        "ai-wrapper",
+        "inference",
+        "cursor"
       ]
     },
     {
@@ -1351,6 +1423,82 @@
         "gemini",
         "frontier-model",
         "multimodal"
+      ]
+    },
+    {
+      "title": "Digital Worker",
+      "slug": "digital-worker",
+      "letter": "D",
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "virtual employee",
+        "AI employee",
+        "digital labour"
+      ],
+      "devilDefinition": "Workflow software reintroduced to management as headcount, because procurement enjoys a dramatic entrance.\n",
+      "plainDefinition": "\"Digital worker\" is a vendor phrase for automation software, often AI-assisted, that is sold as though it were a bounded employee capable of handling routine business tasks across systems.\n",
+      "whyExists": "Because buyers understand roles more quickly than architectures, and vendors would rather sell \"an accounts payable worker\" than \"a model-mediated process layer with brittle integrations\".\n",
+      "misuse": "By speaking as if software has judgement, accountability, or broad role competence simply because it can complete a workflow. Calling it a worker does not make it adaptable, trustworthy, or employable in the human sense.\n",
+      "practicalMeaning": "In practice it usually means a mix of rules, integrations, model calls, approval steps, and exception handling wrapped in labour metaphors so the budget can be compared to a salary instead of a software line item.\n",
+      "example": "\"The demo promised a digital worker for claims processing. The implementation delivered an approval queue with a more theatrical org chart.\"\n",
+      "askNext": [
+        "What exact tasks can this system complete without human rescue?",
+        "Where does accountability sit when the workflow makes a bad decision?",
+        "Are we buying durable automation or just renting an employee metaphor?"
+      ],
+      "related": [
+        "agent",
+        "agentic-ai",
+        "human-in-the-loop",
+        "pilot-purgatory"
+      ],
+      "seeAlso": [
+        "Labour substitution",
+        "Back-office automation",
+        "Exception handling"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "high",
+      "isVendorTerm": true,
+      "publishedAt": "2026-04-02",
+      "updatedAt": "2026-04-02",
+      "warningLabel": "If the product is introduced as a colleague, ask who will be blamed when it behaves like software.",
+      "vendorReferences": [
+        "digital worker"
+      ],
+      "tags": [
+        "enterprise",
+        "automation",
+        "labour"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "sales meaning",
+          "text": "A software budget item reframed as operational staffing."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "An automation stack with model-assisted steps and a carefully managed definition of success."
+        }
+      ],
+      "body": "The phrase is useful mostly as a diagnostic. When the language turns employment-shaped, someone is usually trying to smuggle software limits past a budget committee.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "agents-and-workflows",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/digital-worker",
+      "searchText": "Digital Worker virtual employee AI employee digital labour Product and vendor terms Agents and workflows Economics and operations of AI enterprise automation labour Workflow software reintroduced to management as headcount, because procurement enjoys a dramatic entrance.\n \"Digital worker\" is a vendor phrase for automation software, often AI-assisted, that is sold as though it were a bounded employee capable of handling routine business tasks across systems.\n Because buyers understand roles more quickly than architectures, and vendors would rather sell \"an accounts payable worker\" than \"a model-mediated process layer with brittle integrations\".\n By speaking as if software has judgement, accountability, or broad role competence simply because it can complete a workflow. Calling it a worker does not make it adaptable, trustworthy, or employable in the human sense.\n In practice it usually means a mix of rules, integrations, model calls, approval steps, and exception handling wrapped in labour metaphors so the budget can be compared to a salary instead of a software line item.\n \"The demo promised a digital worker for claims processing. The implementation delivered an approval queue with a more theatrical org chart.\"\n What exact tasks can this system complete without human rescue? Where does accountability sit when the workflow makes a bad decision? Are we buying durable automation or just renting an employee metaphor? Labour substitution Back-office automation Exception handling  digital worker",
+      "relatedSlugs": [
+        "agent",
+        "agentic-ai",
+        "human-in-the-loop"
       ]
     },
     {
@@ -3385,6 +3533,149 @@
       ]
     },
     {
+      "title": "Mixture of Experts",
+      "slug": "mixture-of-experts",
+      "letter": "M",
+      "categories": [
+        "Core concepts",
+        "Model building",
+        "Infrastructure and deployment"
+      ],
+      "aliases": [
+        "MoE",
+        "expert routing"
+      ],
+      "devilDefinition": "An architecture for having enormous parameter counts without insisting every token use the whole cathedral.\n",
+      "plainDefinition": "A mixture-of-experts model is a neural architecture in which a routing mechanism activates only a subset of specialised sub-networks for each token or input, allowing higher total capacity without using all parameters on every pass.\n",
+      "whyExists": "Because model builders want more capacity and performance without paying the full compute cost of dense models at every step. Sparse activation offers a way to scale capability more economically, at least in theory.\n",
+      "misuse": "By treating \"experts\" as if the model contains little professors with stable domains of knowledge. It is an optimisation strategy, not a panel discussion. The routing can help a great deal, but it does not grant wisdom by committee.\n",
+      "practicalMeaning": "In practice it usually means better parameter-efficiency on paper, more complex training and serving behaviour, routing overhead, and a fresh set of engineering questions about load balancing, latency spikes, and uneven quality.\n",
+      "example": "\"The model was a mixture of experts, which sounded philosophical until the serving team had to explain the routing bottlenecks.\"\n",
+      "askNext": [
+        "How many experts exist, and how many are active per token?",
+        "What did sparse routing improve relative to a dense baseline at the same cost?",
+        "Did the architecture move the bottleneck from compute to systems complexity?"
+      ],
+      "related": [
+        "llm",
+        "training",
+        "inference",
+        "latency"
+      ],
+      "seeAlso": [
+        "Sparse model",
+        "Routing layer",
+        "Dense model"
+      ],
+      "difficulty": "advanced",
+      "technicalDepth": "high",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-02",
+      "updatedAt": "2026-04-02",
+      "tags": [
+        "architecture",
+        "routing",
+        "efficiency"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "conference meaning",
+          "text": "A way to say the model is huge without admitting every request does not touch most of it."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Sparse activation traded some compute cost for substantially more systems complexity."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The name flatters the machinery. What matters is not that there are experts, but whether the router sends work to the right places often enough to justify the complications.",
+      "categorySlugs": [
+        "core-concepts",
+        "model-building",
+        "infrastructure-and-deployment"
+      ],
+      "url": "/dictionary/mixture-of-experts",
+      "searchText": "Mixture of Experts MoE expert routing Core concepts Model building Infrastructure and deployment architecture routing efficiency An architecture for having enormous parameter counts without insisting every token use the whole cathedral.\n A mixture-of-experts model is a neural architecture in which a routing mechanism activates only a subset of specialised sub-networks for each token or input, allowing higher total capacity without using all parameters on every pass.\n Because model builders want more capacity and performance without paying the full compute cost of dense models at every step. Sparse activation offers a way to scale capability more economically, at least in theory.\n By treating \"experts\" as if the model contains little professors with stable domains of knowledge. It is an optimisation strategy, not a panel discussion. The routing can help a great deal, but it does not grant wisdom by committee.\n In practice it usually means better parameter-efficiency on paper, more complex training and serving behaviour, routing overhead, and a fresh set of engineering questions about load balancing, latency spikes, and uneven quality.\n \"The model was a mixture of experts, which sounded philosophical until the serving team had to explain the routing bottlenecks.\"\n How many experts exist, and how many are active per token? What did sparse routing improve relative to a dense baseline at the same cost? Did the architecture move the bottleneck from compute to systems complexity? Sparse model Routing layer Dense model",
+      "relatedSlugs": [
+        "llm",
+        "training",
+        "inference"
+      ]
+    },
+    {
+      "title": "Model Collapse",
+      "slug": "model-collapse",
+      "letter": "M",
+      "categories": [
+        "Model building",
+        "Economics and operations of AI",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "synthetic data collapse",
+        "recursive training collapse"
+      ],
+      "devilDefinition": "The fear that if the machines keep learning from one another's homework, the class average will eventually become the curriculum.\n",
+      "plainDefinition": "Model collapse is the hypothesised degradation that can occur when models are trained repeatedly on synthetic or model-generated data without enough fresh, high-quality human data to preserve diversity and fidelity.\n",
+      "whyExists": "Because synthetic data is useful, cheap, and increasingly tempting at scale, but feedback loops can distort distributions, wash out edge cases, and quietly teach systems to imitate their own errors.\n",
+      "misuse": "By treating it as a guaranteed apocalypse or as proof that synthetic data is worthless. Synthetic data can be valuable. The concern is about unmanaged feedback loops, weak provenance, and replacing judgement with volume.\n",
+      "practicalMeaning": "In practice it usually means teams need stronger data lineage, better curation, and honest evaluation before they let generated material dominate the training mix just because it is abundant and conveniently machine-readable.\n",
+      "example": "\"The lab was not worried about synthetic data in principle. It was worried about model collapse from feeding the next system a buffet of the previous system's bad habits.\"\n",
+      "askNext": [
+        "How much of the training mix is synthetic, and how is its quality measured?",
+        "What prevents generated noise from becoming self-confirming doctrine?",
+        "Are we preserving human-created edge cases or optimising them out of existence?"
+      ],
+      "related": [
+        "synthetic-data",
+        "training",
+        "slop-flood"
+      ],
+      "seeAlso": [
+        "Data provenance",
+        "Feedback loop",
+        "Distribution shift"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-02",
+      "updatedAt": "2026-04-02",
+      "tags": [
+        "data",
+        "quality",
+        "feedback"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "internet meaning",
+          "text": "The machines are eating too much of their own content and may start to resemble it."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Poorly managed recursive data pipelines can flatten quality faster than the dashboards admit."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The phrase has become a general anxiety container, which is understandable. Still, the useful question is not whether collapse is coming in the abstract, but whether your data pipeline has the manners to notice contamination before it institutionalises it.",
+      "categorySlugs": [
+        "model-building",
+        "economics-and-operations-of-ai",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/model-collapse",
+      "searchText": "Model Collapse synthetic data collapse recursive training collapse Model building Economics and operations of AI Cultural terms data quality feedback The fear that if the machines keep learning from one another's homework, the class average will eventually become the curriculum.\n Model collapse is the hypothesised degradation that can occur when models are trained repeatedly on synthetic or model-generated data without enough fresh, high-quality human data to preserve diversity and fidelity.\n Because synthetic data is useful, cheap, and increasingly tempting at scale, but feedback loops can distort distributions, wash out edge cases, and quietly teach systems to imitate their own errors.\n By treating it as a guaranteed apocalypse or as proof that synthetic data is worthless. Synthetic data can be valuable. The concern is about unmanaged feedback loops, weak provenance, and replacing judgement with volume.\n In practice it usually means teams need stronger data lineage, better curation, and honest evaluation before they let generated material dominate the training mix just because it is abundant and conveniently machine-readable.\n \"The lab was not worried about synthetic data in principle. It was worried about model collapse from feeding the next system a buffet of the previous system's bad habits.\"\n How much of the training mix is synthetic, and how is its quality measured? What prevents generated noise from becoming self-confirming doctrine? Are we preserving human-created edge cases or optimising them out of existence? Data provenance Feedback loop Distribution shift",
+      "relatedSlugs": [
+        "synthetic-data",
+        "training",
+        "slop-flood"
+      ]
+    },
+    {
       "title": "Model Garden",
       "slug": "model-garden",
       "letter": "M",
@@ -3451,6 +3742,80 @@
         "openrouter",
         "frontier-model",
         "latency"
+      ]
+    },
+    {
+      "title": "Model Router",
+      "slug": "model-router",
+      "letter": "M",
+      "categories": [
+        "Model usage",
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "routing layer",
+        "multi-model router",
+        "AI gateway"
+      ],
+      "devilDefinition": "The switchboard that promises the right model for every job and occasionally adds a thrilling new place for policy mistakes to hide.\n",
+      "plainDefinition": "A model router is a software layer that selects among multiple models or providers for a given request based on rules or signals such as task type, latency, cost, availability, policy, or fallback behaviour.\n",
+      "whyExists": "Because no single model is best at everything, outages happen, prices move, and product teams would prefer not to hard-code every bet into the application layer.\n",
+      "misuse": "By marketing routing itself as intelligence, or by implying that a multi-model stack is automatically well evaluated. A router can express good operational judgement. It can also just spread uncertainty across more vendors.\n",
+      "practicalMeaning": "In practice it usually means heuristics, policy rules, retries, provider abstractions, observability, and a permanent negotiation between quality, speed, and the monthly bill.\n",
+      "example": "\"The model router kept the app online during the outage, then introduced a fresh round of debugging because two providers interpreted the same tool schema differently.\"\n",
+      "askNext": [
+        "What signals drive routing decisions, and were they benchmarked on real workloads?",
+        "What is the fallback policy when the preferred model fails or drifts?",
+        "Does the router reduce operational risk, or merely distribute it?"
+      ],
+      "related": [
+        "inference",
+        "latency",
+        "orchestration",
+        "structured-outputs"
+      ],
+      "seeAlso": [
+        "Provider abstraction",
+        "Fallback policy",
+        "Traffic shaping"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-02",
+      "updatedAt": "2026-04-02",
+      "tags": [
+        "routing",
+        "multi-model",
+        "cost"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "platform meaning",
+          "text": "One control plane to decide whose model invoice gets the request."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "An operational policy engine standing between product promises and vendor behaviour."
+        }
+      ],
+      "note": "Vendors often sell model routers as a neutral convenience layer. In practice the interesting part is what routing policy the customer can inspect, override, and trust.\n",
+      "vendorReferences": [],
+      "body": "The appeal is obvious. So is the trap. Once routing becomes strategic, the application has acquired a small foreign policy department.",
+      "categorySlugs": [
+        "model-usage",
+        "agents-and-workflows",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/model-router",
+      "searchText": "Model Router routing layer multi-model router AI gateway Model usage Agents and workflows Economics and operations of AI routing multi-model cost The switchboard that promises the right model for every job and occasionally adds a thrilling new place for policy mistakes to hide.\n A model router is a software layer that selects among multiple models or providers for a given request based on rules or signals such as task type, latency, cost, availability, policy, or fallback behaviour.\n Because no single model is best at everything, outages happen, prices move, and product teams would prefer not to hard-code every bet into the application layer.\n By marketing routing itself as intelligence, or by implying that a multi-model stack is automatically well evaluated. A router can express good operational judgement. It can also just spread uncertainty across more vendors.\n In practice it usually means heuristics, policy rules, retries, provider abstractions, observability, and a permanent negotiation between quality, speed, and the monthly bill.\n \"The model router kept the app online during the outage, then introduced a fresh round of debugging because two providers interpreted the same tool schema differently.\"\n What signals drive routing decisions, and were they benchmarked on real workloads? What is the fallback policy when the preferred model fails or drifts? Does the router reduce operational risk, or merely distribute it? Provider abstraction Fallback policy Traffic shaping Vendors often sell model routers as a neutral convenience layer. In practice the interesting part is what routing policy the customer can inspect, override, and trust.",
+      "relatedSlugs": [
+        "inference",
+        "latency",
+        "orchestration"
       ]
     },
     {
@@ -4657,6 +5022,80 @@
       ]
     },
     {
+      "title": "Reasoning Tokens",
+      "slug": "reasoning-tokens",
+      "letter": "R",
+      "categories": [
+        "Model usage",
+        "Economics and operations of AI",
+        "Product and vendor terms"
+      ],
+      "aliases": [
+        "thinking tokens",
+        "deliberation tokens",
+        "hidden reasoning budget"
+      ],
+      "devilDefinition": "Tokens consumed while the model privately arranges its confidence and your invoice publicly matures.\n",
+      "plainDefinition": "\"Reasoning tokens\" is a loose product and billing term for tokens spent on internal deliberation or intermediate reasoning steps, especially in models that use extra compute before producing a visible answer.\n",
+      "whyExists": "Because reasoning-oriented model modes often consume more compute than the final response length suggests, and providers need some way to describe or meter the extra budget.\n",
+      "misuse": "By talking as though more hidden tokens automatically mean better judgement. Sometimes the model is genuinely doing harder work. Sometimes it is taking the scenic route to the wrong answer and charging for the view.\n",
+      "practicalMeaning": "In practice it usually means slower responses, higher usage cost, budget controls for internal deliberation, and partial visibility at best into where the extra compute went.\n",
+      "example": "\"The answer looked short, but the usage report showed enough reasoning tokens to suggest the model had held an expensive internal committee meeting first.\"\n",
+      "askNext": [
+        "How does the provider define and expose reasoning-token usage?",
+        "What quality gain justified the extra latency and spend?",
+        "Can the task be scoped more tightly so the model thinks less and performs better?"
+      ],
+      "related": [
+        "reasoning-model",
+        "tokens",
+        "latency",
+        "inference"
+      ],
+      "seeAlso": [
+        "Compute budget",
+        "Deliberation mode",
+        "Usage telemetry"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-02",
+      "updatedAt": "2026-04-02",
+      "note": "Providers do not expose this concept consistently. Sometimes it is a direct meter, sometimes a vague usage hint, and sometimes mostly a marketing aroma around slower models.\n",
+      "tags": [
+        "billing",
+        "latency",
+        "reasoning"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "finance meaning",
+          "text": "The model appears to have thought harder than the budget approved."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Extra compute was burned somewhere between the prompt and the answer, and you may only get partial receipts."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The useful question is not whether the model thought. The useful question is whether the additional hidden work improved anything a customer could notice.",
+      "categorySlugs": [
+        "model-usage",
+        "economics-and-operations-of-ai",
+        "product-and-vendor-terms"
+      ],
+      "url": "/dictionary/reasoning-tokens",
+      "searchText": "Reasoning Tokens thinking tokens deliberation tokens hidden reasoning budget Model usage Economics and operations of AI Product and vendor terms billing latency reasoning Tokens consumed while the model privately arranges its confidence and your invoice publicly matures.\n \"Reasoning tokens\" is a loose product and billing term for tokens spent on internal deliberation or intermediate reasoning steps, especially in models that use extra compute before producing a visible answer.\n Because reasoning-oriented model modes often consume more compute than the final response length suggests, and providers need some way to describe or meter the extra budget.\n By talking as though more hidden tokens automatically mean better judgement. Sometimes the model is genuinely doing harder work. Sometimes it is taking the scenic route to the wrong answer and charging for the view.\n In practice it usually means slower responses, higher usage cost, budget controls for internal deliberation, and partial visibility at best into where the extra compute went.\n \"The answer looked short, but the usage report showed enough reasoning tokens to suggest the model had held an expensive internal committee meeting first.\"\n How does the provider define and expose reasoning-token usage? What quality gain justified the extra latency and spend? Can the task be scoped more tightly so the model thinks less and performs better? Compute budget Deliberation mode Usage telemetry Providers do not expose this concept consistently. Sometimes it is a direct meter, sometimes a vague usage hint, and sometimes mostly a marketing aroma around slower models.",
+      "relatedSlugs": [
+        "reasoning-model",
+        "tokens",
+        "latency"
+      ]
+    },
+    {
       "title": "Red Teaming",
       "slug": "red-teaming",
       "letter": "R",
@@ -4859,6 +5298,77 @@
       ]
     },
     {
+      "title": "Safety Washing",
+      "slug": "safety-washing",
+      "letter": "S",
+      "categories": [
+        "Cultural terms",
+        "Safety and evaluation",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "AI safety washing",
+        "governance theatre"
+      ],
+      "devilDefinition": "The art of polishing the safety language until it shines brightly enough to distract from the release incentives underneath.\n",
+      "plainDefinition": "Safety washing is the practice of using the language, imagery, or rituals of AI safety without meaningfully changing release discipline, incentives, risk controls, or accountability.\n",
+      "whyExists": "Because companies, labs, and governments all benefit from looking responsible, and safety vocabulary provides a respectable public dialect for discussing systems that still need to ship, sell, and win headlines.\n",
+      "misuse": "By labelling every imperfect safety effort as fraudulent. Not every incomplete control is washing. The phrase is most useful when the safety story is visibly performative and cannot materially slow, shape, or stop the risky thing.\n",
+      "practicalMeaning": "In practice it usually means glossy policy prose, selective mention of evaluations, carefully staged red-team references, and very little evidence that safety work has authority over product timelines or commercial pressure.\n",
+      "example": "\"They released the feature with three new safety principles, one blog post, and no mechanism by which those principles could delay launch. It was safety washing with excellent typography.\"\n",
+      "askNext": [
+        "What safety mechanism can actually block or change a release?",
+        "Who owns the risk decision when the commercial incentives disagree?",
+        "Is the public safety language matched by operational authority, budget, and evidence?"
+      ],
+      "related": [
+        "guardrails",
+        "benchmark-theatre",
+        "evals"
+      ],
+      "seeAlso": [
+        "Governance theatre",
+        "Risk acceptance",
+        "Release gate"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-02",
+      "updatedAt": "2026-04-02",
+      "tags": [
+        "governance",
+        "risk",
+        "policy"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "policy meaning",
+          "text": "The institution has acquired a sophisticated vocabulary for appearing serious."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "The safety work is real enough to feature in slides but not powerful enough to inconvenience revenue."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The test is wonderfully old-fashioned: can the safety function say no, and would anyone senior tolerate the answer?",
+      "categorySlugs": [
+        "cultural-terms",
+        "safety-and-evaluation",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/safety-washing",
+      "searchText": "Safety Washing AI safety washing governance theatre Cultural terms Safety and evaluation Economics and operations of AI governance risk policy The art of polishing the safety language until it shines brightly enough to distract from the release incentives underneath.\n Safety washing is the practice of using the language, imagery, or rituals of AI safety without meaningfully changing release discipline, incentives, risk controls, or accountability.\n Because companies, labs, and governments all benefit from looking responsible, and safety vocabulary provides a respectable public dialect for discussing systems that still need to ship, sell, and win headlines.\n By labelling every imperfect safety effort as fraudulent. Not every incomplete control is washing. The phrase is most useful when the safety story is visibly performative and cannot materially slow, shape, or stop the risky thing.\n In practice it usually means glossy policy prose, selective mention of evaluations, carefully staged red-team references, and very little evidence that safety work has authority over product timelines or commercial pressure.\n \"They released the feature with three new safety principles, one blog post, and no mechanism by which those principles could delay launch. It was safety washing with excellent typography.\"\n What safety mechanism can actually block or change a release? Who owns the risk decision when the commercial incentives disagree? Is the public safety language matched by operational authority, budget, and evidence? Governance theatre Risk acceptance Release gate",
+      "relatedSlugs": [
+        "guardrails",
+        "benchmark-theatre",
+        "evals"
+      ]
+    },
+    {
       "title": "Sam Altman",
       "slug": "sam-altman",
       "letter": "S",
@@ -5013,6 +5523,80 @@
         "alexandr-wang",
         "evals",
         "guardrails"
+      ]
+    },
+    {
+      "title": "Shadow AI",
+      "slug": "shadow-ai",
+      "letter": "S",
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "aliases": [
+        "unsanctioned AI",
+        "unapproved AI usage",
+        "shadow automation"
+      ],
+      "devilDefinition": "The unofficial AI estate employees build the moment central IT announces that guidance is coming soon.\n",
+      "plainDefinition": "Shadow AI refers to the unapproved or unsanctioned use of AI tools, models, or automations inside an organisation, often by staff trying to solve real problems faster than formal procurement or governance allows.\n",
+      "whyExists": "Because demand for useful tools appears before policy, approved platforms arrive late, and workers rarely stop needing help just because the risk committee has booked a workshop.\n",
+      "misuse": "By treating all unsanctioned use as either criminal recklessness or heroic innovation. Most shadow AI is neither. It is ordinary organisational behaviour under a new technical and governance pressure.\n",
+      "practicalMeaning": "In practice it usually means staff pasting documents into public chatbots, expensing niche AI tools, wiring up personal automations, or quietly using consumer products for work tasks that official systems still handle badly.\n",
+      "example": "\"The company declared an AI strategy in June and discovered its shadow AI estate in July, mostly through expense claims and suspiciously polished internal documents.\"\n",
+      "askNext": [
+        "What real workflow gap pushed employees into unofficial tooling?",
+        "Which data classes are entering unapproved systems?",
+        "Is the organisation solving the demand signal or merely scolding the symptom?"
+      ],
+      "related": [
+        "chatgpt",
+        "pilot-purgatory",
+        "microsoft-copilot",
+        "zero-data-retention"
+      ],
+      "seeAlso": [
+        "Shadow IT",
+        "Procurement lag",
+        "Data governance"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-02",
+      "updatedAt": "2026-04-02",
+      "warningLabel": "The risk is real, but so is the unmet demand that created it.",
+      "tags": [
+        "enterprise",
+        "governance",
+        "adoption"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "security meaning",
+          "text": "Users have started solving problems in places the controls did not plan for."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "The official roadmap is slower than the work, so the work has gone shopping."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "Shadow AI is often less a rebellion than a timing problem. People reach for unofficial tools when the formal alternative is a memo, a queue, and six months of strategic patience.",
+      "categorySlugs": [
+        "cultural-terms",
+        "economics-and-operations-of-ai",
+        "model-usage"
+      ],
+      "url": "/dictionary/shadow-ai",
+      "searchText": "Shadow AI unsanctioned AI unapproved AI usage shadow automation Cultural terms Economics and operations of AI Model usage enterprise governance adoption The unofficial AI estate employees build the moment central IT announces that guidance is coming soon.\n Shadow AI refers to the unapproved or unsanctioned use of AI tools, models, or automations inside an organisation, often by staff trying to solve real problems faster than formal procurement or governance allows.\n Because demand for useful tools appears before policy, approved platforms arrive late, and workers rarely stop needing help just because the risk committee has booked a workshop.\n By treating all unsanctioned use as either criminal recklessness or heroic innovation. Most shadow AI is neither. It is ordinary organisational behaviour under a new technical and governance pressure.\n In practice it usually means staff pasting documents into public chatbots, expensing niche AI tools, wiring up personal automations, or quietly using consumer products for work tasks that official systems still handle badly.\n \"The company declared an AI strategy in June and discovered its shadow AI estate in July, mostly through expense claims and suspiciously polished internal documents.\"\n What real workflow gap pushed employees into unofficial tooling? Which data classes are entering unapproved systems? Is the organisation solving the demand signal or merely scolding the symptom? Shadow IT Procurement lag Data governance",
+      "relatedSlugs": [
+        "chatgpt",
+        "pilot-purgatory",
+        "microsoft-copilot"
       ]
     },
     {
@@ -6612,10 +7196,10 @@
     }
   ],
   "recentSlugs": [
-    "gstack",
-    "llm-as-a-judge",
-    "model-garden",
-    "openrouter"
+    "byok",
+    "digital-worker",
+    "mixture-of-experts",
+    "model-collapse"
   ],
   "misunderstoodSlugs": [
     "agent",
@@ -6631,7 +7215,7 @@
     },
     {
       "letter": "B",
-      "count": 1,
+      "count": 2,
       "href": "/dictionary?letter=B"
     },
     {
@@ -6641,7 +7225,7 @@
     },
     {
       "letter": "D",
-      "count": 4,
+      "count": 5,
       "href": "/dictionary?letter=D"
     },
     {
@@ -6686,7 +7270,7 @@
     },
     {
       "letter": "M",
-      "count": 9,
+      "count": 12,
       "href": "/dictionary?letter=M"
     },
     {
@@ -6711,12 +7295,12 @@
     },
     {
       "letter": "R",
-      "count": 6,
+      "count": 7,
       "href": "/dictionary?letter=R"
     },
     {
       "letter": "S",
-      "count": 9,
+      "count": 11,
       "href": "/dictionary?letter=S"
     },
     {
@@ -6760,7 +7344,7 @@
       "title": "Core concepts",
       "description": "Terms people use as if they were self-explanatory, usually before the definitions start fraying.",
       "slug": "core-concepts",
-      "count": 15,
+      "count": 16,
       "sampleTerms": [
         "AI Psychosis",
         "Human Taste",
@@ -6771,7 +7355,7 @@
       "title": "Cultural terms",
       "description": "The social weirdness around AI: belief, taste, cringe, status games, and the internet behaving as it usually does when handed a new machine.",
       "slug": "cultural-terms",
-      "count": 29,
+      "count": 32,
       "sampleTerms": [
         "AI Wrapper",
         "Alexandr Wang",
@@ -6782,7 +7366,7 @@
       "title": "Model building",
       "description": "How models are trained, tuned, evaluated, and occasionally overpraised.",
       "slug": "model-building",
-      "count": 18,
+      "count": 20,
       "sampleTerms": [
         "Arthur Mensch",
         "Demis Hassabis",
@@ -6793,18 +7377,18 @@
       "title": "Model usage",
       "description": "What it means to actually run a model in production, where invoices and latency live.",
       "slug": "model-usage",
-      "count": 38,
+      "count": 42,
       "sampleTerms": [
         "Agent",
-        "ChatGPT",
-        "Claude"
+        "BYOK",
+        "ChatGPT"
       ]
     },
     {
       "title": "Agents and workflows",
       "description": "Automation patterns, orchestration, and the difference between useful autonomy and stagecraft.",
       "slug": "agents-and-workflows",
-      "count": 24,
+      "count": 26,
       "sampleTerms": [
         "Agent",
         "Agentic AI",
@@ -6826,7 +7410,7 @@
       "title": "Product and vendor terms",
       "description": "Company names, product labels, and the branding haze around them.",
       "slug": "product-and-vendor-terms",
-      "count": 37,
+      "count": 40,
       "sampleTerms": [
         "AI Wrapper",
         "Anthropic",
@@ -6837,7 +7421,7 @@
       "title": "Safety and evaluation",
       "description": "Guardrails, tests, preferences, and the uncomfortable gap between lab scores and reality.",
       "slug": "safety-and-evaluation",
-      "count": 22,
+      "count": 23,
       "sampleTerms": [
         "Anthropic",
         "Benchmark Theatre",
@@ -6848,7 +7432,7 @@
       "title": "Infrastructure and deployment",
       "description": "The machinery underneath the demo: compute, serving, throughput, and operational trade-offs.",
       "slug": "infrastructure-and-deployment",
-      "count": 18,
+      "count": 19,
       "sampleTerms": [
         "Alexandr Wang",
         "Cloudflare",
@@ -6859,7 +7443,7 @@
       "title": "Economics and operations of AI",
       "description": "Cost, labour, incentives, and the very unmagical business of running AI systems.",
       "slug": "economics-and-operations-of-ai",
-      "count": 30,
+      "count": 37,
       "sampleTerms": [
         "AI Wrapper",
         "Alexandr Wang",
@@ -6963,8 +7547,16 @@
     "prompt-injection",
     "red-teaming",
     "system-prompt",
-    "tool-use"
+    "tool-use",
+    "byok",
+    "digital-worker",
+    "mixture-of-experts",
+    "model-collapse",
+    "model-router",
+    "reasoning-tokens",
+    "safety-washing",
+    "shadow-ai"
   ],
   "featuredSlug": "microsoft-copilot",
-  "latestPublishedAt": "2026-04-01"
+  "latestPublishedAt": "2026-04-02"
 }
