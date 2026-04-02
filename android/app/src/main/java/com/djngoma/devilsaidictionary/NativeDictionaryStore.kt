@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -16,6 +18,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import java.util.concurrent.Executors
 import kotlin.random.Random
 
 enum class NativeTab {
@@ -176,8 +179,13 @@ class NativeDictionaryStore(
     private val storage = NativeDictionaryStorage(
         appContext.getSharedPreferences("native-dictionary-store", Context.MODE_PRIVATE),
     )
+    private val catalogDiskStore = CatalogDiskStore(appContext)
+    private val catalogUpdateClient = CatalogUpdateClient(BuildConfig.CATALOG_MANIFEST_URL.toUrl())
+    private val mainHandler = Handler(Looper.getMainLooper())
+    private val backgroundExecutor = Executors.newSingleThreadExecutor()
 
     private var catalog: DictionaryCatalog? = null
+    private var pendingMissingSlugRetry: String? = null
 
     var selectedTab by mutableStateOf(NativeTab.Home)
         private set
@@ -208,10 +216,14 @@ class NativeDictionaryStore(
     var loadError by mutableStateOf<String?>(null)
         private set
 
+    var isRefreshingCatalog by mutableStateOf(false)
+        private set
+
     init {
         savedPlace = storage.loadSavedPlace()
         loadCatalog()
         seedCurrentWordIfNeeded()
+        refreshCatalogInBackground()
     }
 
     val entries: List<Entry>
@@ -334,8 +346,9 @@ class NativeDictionaryStore(
     }
 
     fun presentEntry(slug: String) {
-        if (entry(slug) != null) {
-            activeOverlay = NativeOverlay.EntryDetail(slug)
+        activeOverlay = NativeOverlay.EntryDetail(slug)
+        if (entry(slug) == null) {
+            refreshCatalogInBackground(force = true, retrySlug = slug)
         }
     }
 
@@ -449,11 +462,16 @@ class NativeDictionaryStore(
 
     fun handleIntent(intent: Intent?) {
         val slug = intent?.data?.toDictionarySlug() ?: return
-        val entry = entry(slug) ?: return
-
-        persistCurrentWord(entry.toCurrentWord(CurrentWordSource.deepLink))
         selectedTab = NativeTab.Browse
-        activeOverlay = NativeOverlay.EntryDetail(entry.slug)
+        activeOverlay = NativeOverlay.EntryDetail(slug)
+
+        val entry = entry(slug)
+        if (entry != null) {
+            persistCurrentWord(entry.toCurrentWord(CurrentWordSource.deepLink))
+            return
+        }
+
+        refreshCatalogInBackground(force = true, retrySlug = slug)
     }
 
     fun handleBack(): Boolean {
@@ -470,19 +488,76 @@ class NativeDictionaryStore(
         return false
     }
 
+    fun onResume() {
+        refreshCatalogInBackground()
+    }
+
     private fun loadCatalog() {
-        runCatching {
-            val bytes = appContext.assets.open("entries.generated.json").use { input ->
-                input.readBytes()
+        val cachedSnapshot =
+            catalogDiskStore.readCatalogBytes()
+                ?.let { bytes ->
+                    runCatching { parseCatalogSnapshot(bytes) }
+                        .onFailure { catalogDiskStore.clear() }
+                        .getOrNull()
+                }
+        val bundledCatalog =
+            runCatching {
+                val bytes = appContext.assets.open("entries.generated.json").use { input ->
+                    input.readBytes()
+                }
+
+                parseCatalogSnapshot(bytes) to bytes
+            }.getOrNull()
+
+        if (cachedSnapshot != null) {
+            if (bundledCatalog != null) {
+                val (bundledSnapshot, bundledBytes) = bundledCatalog
+                val lastBundledCatalogVersion = storage.loadBundledCatalogVersion()
+
+                storage.saveBundledCatalogVersion(bundledSnapshot.catalogVersion)
+
+                when {
+                    cachedSnapshot.catalogVersion == bundledSnapshot.catalogVersion -> {
+                        applyCatalogSnapshot(cachedSnapshot)
+                    }
+
+                    shouldReplaceCachedCatalogWithBundle(
+                        cachedVersion = cachedSnapshot.catalogVersion,
+                        bundleVersion = bundledSnapshot.catalogVersion,
+                        lastBundledVersion = lastBundledCatalogVersion,
+                    ) -> {
+                        catalogDiskStore.writeCatalogBytes(bundledBytes)
+                        applyCatalogSnapshot(bundledSnapshot)
+                    }
+
+                    else -> {
+                        applyCatalogSnapshot(cachedSnapshot)
+                    }
+                }
+            } else {
+                applyCatalogSnapshot(cachedSnapshot)
             }
-            catalog = parseCatalog(JSONObject(String(bytes, Charsets.UTF_8)))
-            catalogVersion = sha256Hex(bytes)
-            loadError = null
-        }.onFailure { error ->
-            catalog = null
-            catalogVersion = null
-            loadError = error.message ?: "The bundled Android catalog could not be loaded."
+
+            return
         }
+
+        if (bundledCatalog != null) {
+            val (bundledSnapshot, bundledBytes) = bundledCatalog
+            runCatching {
+                catalogDiskStore.writeCatalogBytes(bundledBytes)
+                storage.saveBundledCatalogVersion(bundledSnapshot.catalogVersion)
+                applyCatalogSnapshot(bundledSnapshot)
+            }.onFailure { error ->
+                catalog = null
+                catalogVersion = null
+                loadError = error.message ?: "The Android catalogue could not be loaded from cache or bundle."
+            }
+            return
+        }
+
+        catalog = null
+        catalogVersion = null
+        loadError = "The Android catalogue could not be loaded from cache or bundle."
     }
 
     private fun seedCurrentWordIfNeeded() {
@@ -506,6 +581,79 @@ class NativeDictionaryStore(
     private fun persistCurrentWord(record: CurrentWordRecord) {
         storage.saveCurrentWord(record)
         currentWord = record
+    }
+
+    private fun applyCatalogSnapshot(snapshot: CatalogSnapshot) {
+        catalog = snapshot.catalog
+        catalogVersion = snapshot.catalogVersion
+        loadError = null
+    }
+
+    private fun refreshCatalogInBackground(
+        force: Boolean = false,
+        retrySlug: String? = null,
+    ) {
+        if (retrySlug != null) {
+            pendingMissingSlugRetry = retrySlug
+        }
+
+        val nowMs = System.currentTimeMillis()
+        if (!force && !shouldRefreshCatalogManifest(storage.loadCatalogManifestCheckedAtMs(), nowMs)) {
+            return
+        }
+
+        if (isRefreshingCatalog) {
+            return
+        }
+
+        isRefreshingCatalog = true
+        val currentVersion = catalogVersion
+        backgroundExecutor.execute {
+            val result =
+                runCatching {
+                    catalogUpdateClient.fetchUpdate(currentVersion)
+                }
+
+            mainHandler.post {
+                isRefreshingCatalog = false
+                result.onSuccess { update ->
+                    when (update) {
+                        is CatalogUpdateResult.NoChange -> {
+                            storage.saveCatalogManifestCheckedAtMs(update.checkedAtMs)
+                        }
+
+                        is CatalogUpdateResult.UnsupportedSchema -> {
+                            storage.saveCatalogManifestCheckedAtMs(update.checkedAtMs)
+                        }
+
+                        is CatalogUpdateResult.Updated -> {
+                            runCatching {
+                                catalogDiskStore.writeCatalogBytes(update.bytes)
+                            }.onSuccess {
+                                applyCatalogSnapshot(update.snapshot)
+                                storage.saveCatalogManifestCheckedAtMs(update.checkedAtMs)
+                                seedCurrentWordIfNeeded()
+                            }
+                        }
+                    }
+                }
+
+                resolvePendingMissingSlugRetry()
+            }
+        }
+    }
+
+    private fun resolvePendingMissingSlugRetry() {
+        val slug = pendingMissingSlugRetry ?: return
+        val entry = entry(slug)
+
+        if (entry != null) {
+            persistCurrentWord(entry.toCurrentWord(CurrentWordSource.deepLink))
+            selectedTab = NativeTab.Browse
+            activeOverlay = NativeOverlay.EntryDetail(slug)
+        }
+
+        pendingMissingSlugRetry = null
     }
 }
 
@@ -577,7 +725,28 @@ private class NativeDictionaryStorage(
         preferences.edit().putString(THEME_KEY, theme.name).apply()
     }
 
+    fun loadCatalogManifestCheckedAtMs(): Long? {
+        if (!preferences.contains(CATALOG_MANIFEST_CHECKED_AT_MS_KEY)) {
+            return null
+        }
+
+        return preferences.getLong(CATALOG_MANIFEST_CHECKED_AT_MS_KEY, 0L)
+    }
+
+    fun saveCatalogManifestCheckedAtMs(value: Long) {
+        preferences.edit().putLong(CATALOG_MANIFEST_CHECKED_AT_MS_KEY, value).apply()
+    }
+
+    fun loadBundledCatalogVersion(): String? =
+        preferences.getString(BUNDLED_CATALOG_VERSION_KEY, null)
+
+    fun saveBundledCatalogVersion(value: String) {
+        preferences.edit().putString(BUNDLED_CATALOG_VERSION_KEY, value).apply()
+    }
+
     private companion object {
+        const val BUNDLED_CATALOG_VERSION_KEY = "bundled-catalog-version"
+        const val CATALOG_MANIFEST_CHECKED_AT_MS_KEY = "catalog-manifest-checked-at-ms"
         const val CURRENT_WORD_KEY = "current-word-record"
         const val SAVED_PLACE_KEY = "saved-reading-place"
         const val THEME_KEY = "site-theme"
@@ -800,7 +969,7 @@ private fun JSONArray.toCategoryStats(): List<CategoryStat> =
 private fun JSONArray.toStringList(): List<String> =
     (0 until length()).map { index -> getString(index) }
 
-private fun JSONObject.optStringOrNull(name: String): String? {
+internal fun JSONObject.optStringOrNull(name: String): String? {
     if (isNull(name)) {
         return null
     }
@@ -837,7 +1006,9 @@ private fun Uri.toDictionarySlug(): String? {
     return slugFromDictionaryPath(path)
 }
 
-private fun sha256Hex(bytes: ByteArray): String =
+internal fun sha256Hex(bytes: ByteArray): String =
     MessageDigest.getInstance("SHA-256")
         .digest(bytes)
         .joinToString(separator = "") { byte -> "%02x".format(byte) }
+
+private fun String.toUrl() = java.net.URL(this)
