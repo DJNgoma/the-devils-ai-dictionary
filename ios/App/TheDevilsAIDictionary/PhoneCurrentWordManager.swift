@@ -12,6 +12,102 @@ extension Notification.Name {
     static let currentWordDidChange = Notification.Name("CurrentWordDidChange")
     static let currentWordPendingNavigationDidChange = Notification.Name("CurrentWordPendingNavigationDidChange")
     static let currentWordPushStateDidChange = Notification.Name("CurrentWordPushStateDidChange")
+    static let catalogSnapshotDidChange = Notification.Name("CatalogSnapshotDidChange")
+}
+
+@MainActor
+final class PhoneCatalogManager {
+    static let shared = PhoneCatalogManager()
+
+    private let diskStore = CatalogDiskStore()
+    private let updateClient = CatalogUpdateClient()
+    private let logger = Logger(
+        subsystem: "com.djngoma.devilsaidictionary",
+        category: "PhoneCatalogManager"
+    )
+    private let refreshInterval: TimeInterval = 6 * 60 * 60
+
+    private(set) var snapshot: DictionaryCatalogSnapshot?
+    private(set) var refreshError: String?
+    private(set) var isRefreshing = false
+    private var configured = false
+
+    private init() {}
+
+    func configure() {
+        guard !configured else {
+            return
+        }
+
+        configured = true
+        loadInitialSnapshot()
+    }
+
+    func refreshIfNeeded(force: Bool = false) async {
+        guard configured, !isRefreshing else {
+            return
+        }
+
+        if !force,
+           let lastCheck = diskStore.loadLastCheckAt(),
+           Date().timeIntervalSince(lastCheck) < refreshInterval {
+            return
+        }
+
+        guard let baseURLString = Bundle.main.object(forInfoDictionaryKey: "MobileAPIBaseURL") as? String,
+              let baseURL = URL(string: baseURLString) else {
+            return
+        }
+
+        isRefreshing = true
+        defer { isRefreshing = false }
+
+        do {
+            let manifest = try await updateClient.fetchManifest(baseURL: baseURL)
+            diskStore.saveLastCheckAt(Date())
+
+            guard manifest.schemaVersion <= DictionaryCatalogSnapshot.supportedSchemaVersion else {
+                refreshError = "Catalog schema version \(manifest.schemaVersion) is not supported by this build."
+                return
+            }
+
+            guard manifest.catalogVersion != snapshot?.version else {
+                refreshError = nil
+                return
+            }
+
+            let data = try await updateClient.fetchSnapshot(manifest: manifest, baseURL: baseURL)
+            let updatedURL = try diskStore.replaceCatalog(with: data)
+            let updatedSnapshot = try DictionaryCatalogSnapshot.load(from: data, sourceURL: updatedURL)
+
+            guard updatedSnapshot.version == manifest.catalogVersion else {
+                throw NSError(
+                    domain: "PhoneCatalogManager",
+                    code: 1,
+                    userInfo: [
+                        NSLocalizedDescriptionKey:
+                            "Downloaded catalog version did not match the published manifest."
+                    ]
+                )
+            }
+
+            snapshot = updatedSnapshot
+            refreshError = nil
+            NotificationCenter.default.post(name: .catalogSnapshotDidChange, object: nil)
+        } catch {
+            logger.error("Catalog refresh failed: \(error.localizedDescription, privacy: .public)")
+            refreshError = error.localizedDescription
+        }
+    }
+
+    private func loadInitialSnapshot() {
+        do {
+            snapshot = try diskStore.loadPreferredSnapshot()
+            refreshError = nil
+        } catch {
+            refreshError = error.localizedDescription
+        }
+    }
 }
 
 @MainActor
@@ -22,9 +118,9 @@ final class PhoneCurrentWordManager {
     private let installationRegistrar = PushInstallationRegistrar()
     private lazy var watchSessionCoordinator = PhoneWatchSessionCoordinator()
 
-    private var catalogSnapshot: DictionaryCatalogSnapshot?
     private var configured = false
     private var lastPushAuthorizationState: PushAuthorizationState = .unknown
+    private var catalogObserver: NSObjectProtocol?
 
     private init() {}
 
@@ -34,11 +130,15 @@ final class PhoneCurrentWordManager {
         }
 
         configured = true
-        catalogSnapshot = try? DictionaryCatalogSnapshot.load()
+        PhoneCatalogManager.shared.configure()
+        observeCatalogUpdates()
         watchSessionCoordinator.activate()
+        synchronizeWatchState()
+        _ = ensureCurrentWord()
         application.registerForRemoteNotifications()
 
         Task {
+            await PhoneCatalogManager.shared.refreshIfNeeded()
             await refreshPushInstallation()
             notifyPushStateChanged()
         }
@@ -51,11 +151,11 @@ final class PhoneCurrentWordManager {
             "pushTokenAvailable": storage.loadPushDeviceToken() != nil,
         ]
 
-        if let currentWord = storage.loadCurrentWord() {
+        if let currentWord = storage.loadCurrentWord() ?? ensureCurrentWord() {
             state["currentWord"] = currentWord.dictionaryRepresentation()
         }
 
-        if let catalogSnapshot {
+        if let catalogSnapshot = PhoneCatalogManager.shared.snapshot {
             state["catalogVersion"] = catalogSnapshot.version
         }
 
@@ -67,7 +167,7 @@ final class PhoneCurrentWordManager {
     }
 
     func refreshCurrentWord() -> CurrentWordRecord? {
-        guard let catalogSnapshot,
+        guard let catalogSnapshot = PhoneCatalogManager.shared.snapshot,
               let record = catalogSnapshot.randomWord(
                   excluding: storage.loadCurrentWord()?.slug,
                   source: .manualRefresh
@@ -98,26 +198,38 @@ final class PhoneCurrentWordManager {
         }
     }
 
-    func handleRemoteNotificationResponse(userInfo: [AnyHashable: Any]) {
-        guard let slug = notificationSlug(from: userInfo),
-              let record = catalogSnapshot?.currentWord(slug: slug, source: .notificationTap)
-        else {
+    func handleRemoteNotificationResponse(userInfo: [AnyHashable: Any]) async {
+        guard let slug = notificationSlug(from: userInfo) else {
             return
         }
 
-        persistCurrentWord(record)
+        if let record = await resolveRecord(
+            slug: slug,
+            source: .notificationTap,
+            forceRefreshIfMissing: true
+        ) {
+            persistCurrentWord(record)
+        }
+
         setPendingNavigationPath("/dictionary/\(slug)")
     }
 
     func handleIncomingURL(_ url: URL) -> Bool {
-        guard let slug = navigationSlug(for: url),
-              let record = catalogSnapshot?.currentWord(slug: slug, source: .phoneSync)
-        else {
+        guard let slug = navigationSlug(for: url) else {
             return false
         }
 
-        persistCurrentWord(record)
-        setPendingNavigationPath("/dictionary/\(slug)")
+        Task { @MainActor in
+            if let record = await resolveRecord(
+                slug: slug,
+                source: .phoneSync,
+                forceRefreshIfMissing: true
+            ) {
+                persistCurrentWord(record)
+            }
+
+            setPendingNavigationPath("/dictionary/\(slug)")
+        }
 
         return true
     }
@@ -133,14 +245,75 @@ final class PhoneCurrentWordManager {
         NotificationCenter.default.post(name: .currentWordPendingNavigationDidChange, object: nil)
     }
 
+    private func observeCatalogUpdates() {
+        catalogObserver = NotificationCenter.default.addObserver(
+            forName: .catalogSnapshotDidChange,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            Task { @MainActor in
+                self?.handleCatalogSnapshotChange()
+            }
+        }
+    }
+
+    private func handleCatalogSnapshotChange() {
+        if let currentWord = storage.loadCurrentWord(),
+           let refreshed = refreshedRecord(
+               slug: currentWord.slug,
+               source: currentWord.source,
+               updatedAt: currentWord.updatedAt
+           ) {
+            storage.saveCurrentWord(refreshed)
+            NotificationCenter.default.post(name: .currentWordDidChange, object: nil)
+        } else if storage.loadCurrentWord() != nil {
+            _ = ensureCurrentWord()
+        }
+
+        synchronizeWatchState()
+    }
+
+    private func resolveRecord(
+        slug: String,
+        source: CurrentWordSource,
+        forceRefreshIfMissing: Bool
+    ) async -> CurrentWordRecord? {
+        if let record = refreshedRecord(slug: slug, source: source) {
+            return record
+        }
+
+        guard forceRefreshIfMissing else {
+            return nil
+        }
+
+        await PhoneCatalogManager.shared.refreshIfNeeded(force: true)
+        return refreshedRecord(slug: slug, source: source)
+    }
+
+    private func refreshedRecord(
+        slug: String,
+        source: CurrentWordSource,
+        updatedAt: String? = nil
+    ) -> CurrentWordRecord? {
+        PhoneCatalogManager.shared.snapshot?.currentWord(
+            slug: slug,
+            source: source,
+            updatedAt: updatedAt
+        )
+    }
+
     private func ensureCurrentWord() -> CurrentWordRecord? {
-        if let currentWord = storage.loadCurrentWord() {
+        if let currentWord = storage.loadCurrentWord(),
+           refreshedRecord(
+               slug: currentWord.slug,
+               source: currentWord.source,
+               updatedAt: currentWord.updatedAt
+           ) != nil {
             return currentWord
         }
 
-        guard let catalogSnapshot,
-              let seeded = catalogSnapshot.randomWord(excluding: nil, source: .seeded)
-        else {
+        guard let catalogSnapshot = PhoneCatalogManager.shared.snapshot,
+              let seeded = catalogSnapshot.randomWord(excluding: nil, source: .seeded) else {
             return nil
         }
 
@@ -150,12 +323,15 @@ final class PhoneCurrentWordManager {
 
     private func persistCurrentWord(_ record: CurrentWordRecord) {
         storage.saveCurrentWord(record)
-
-        if let catalogSnapshot {
-            watchSessionCoordinator.update(record: record, catalogVersion: catalogSnapshot.version)
-        }
-
+        synchronizeWatchState(currentWordOverride: record)
         NotificationCenter.default.post(name: .currentWordDidChange, object: nil)
+    }
+
+    private func synchronizeWatchState(currentWordOverride: CurrentWordRecord? = nil) {
+        watchSessionCoordinator.synchronize(
+            snapshot: PhoneCatalogManager.shared.snapshot,
+            currentWord: currentWordOverride ?? storage.loadCurrentWord()
+        )
     }
 
     private func setPendingNavigationPath(_ path: String) {
@@ -185,8 +361,7 @@ final class PhoneCurrentWordManager {
     private func refreshPushInstallation() async {
         guard let token = storage.loadPushDeviceToken(),
               let baseURL = Bundle.main.object(forInfoDictionaryKey: "MobileAPIBaseURL") as? String,
-              let url = URL(string: "\(baseURL)/api/mobile/push/installations")
-        else {
+              let url = URL(string: "\(baseURL)/api/mobile/push/installations") else {
             return
         }
 
@@ -314,6 +489,9 @@ private actor PushInstallationRegistrar {
 
 private final class PhoneWatchSessionCoordinator: NSObject, WCSessionDelegate {
     private let session = WCSession.isSupported() ? WCSession.default : nil
+    private var pendingSnapshot: DictionaryCatalogSnapshot?
+    private var pendingCurrentWord: CurrentWordRecord?
+    private var transferredCatalogVersion: String?
 
     func activate() {
         guard let session else {
@@ -324,11 +502,32 @@ private final class PhoneWatchSessionCoordinator: NSObject, WCSessionDelegate {
         session.activate()
     }
 
-    func update(record: CurrentWordRecord, catalogVersion: String) {
+    func synchronize(snapshot: DictionaryCatalogSnapshot?, currentWord: CurrentWordRecord?) {
+        pendingSnapshot = snapshot
+        pendingCurrentWord = currentWord
+        flush()
+    }
+
+    private func flush() {
         guard let session,
+              session.activationState == .activated,
               session.isPaired,
-              session.isWatchAppInstalled
-        else {
+              session.isWatchAppInstalled else {
+            return
+        }
+
+        if let snapshot = pendingSnapshot,
+           let sourceURL = snapshot.sourceURL,
+           transferredCatalogVersion != snapshot.version {
+            session.transferFile(
+                sourceURL,
+                metadata: ["catalogVersion": snapshot.version]
+            )
+            transferredCatalogVersion = snapshot.version
+        }
+
+        guard let record = pendingCurrentWord,
+              let catalogVersion = pendingSnapshot?.version else {
             return
         }
 
@@ -351,7 +550,11 @@ private final class PhoneWatchSessionCoordinator: NSObject, WCSessionDelegate {
         session.activate()
     }
 
-    func sessionWatchStateDidChange(_ session: WCSession) {}
+    func sessionWatchStateDidChange(_ session: WCSession) {
+        flush()
+    }
 
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {}
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        flush()
+    }
 }

@@ -13,14 +13,17 @@ final class WatchCurrentWordModel: NSObject, ObservableObject {
     @Published private(set) var loadError: String?
 
     private let storage = CurrentWordStorage()
-    private let catalogSnapshot: DictionaryCatalogSnapshot?
+    private let catalogStore = CatalogDiskStore()
+    private var catalogSnapshot: DictionaryCatalogSnapshot?
     private lazy var sessionCoordinator = WatchCurrentWordSessionCoordinator(model: self)
 
     override init() {
-        catalogSnapshot = try? DictionaryCatalogSnapshot.load()
         super.init()
 
-        if catalogSnapshot == nil {
+        do {
+            catalogSnapshot = try catalogStore.loadPreferredSnapshot()
+            loadError = nil
+        } catch {
             loadError = "The bundled catalog is missing."
         }
 
@@ -66,8 +69,7 @@ final class WatchCurrentWordModel: NSObject, ObservableObject {
 
     func openOnPhone(slug: String?) {
         guard let slug,
-              let url = URL(string: "devilsaidictionary://dictionary/\(slug)")
-        else {
+              let url = URL(string: "devilsaidictionary://dictionary/\(slug)") else {
             return
         }
 
@@ -82,12 +84,38 @@ final class WatchCurrentWordModel: NSObject, ObservableObject {
                   slug: applicationContext.payload.currentWord.slug,
                   source: .phoneSync,
                   updatedAt: applicationContext.payload.currentWord.updatedAt
-              )
-        else {
+              ) else {
             return
         }
 
         apply(record: synced)
+    }
+
+    func applyCatalogTransfer(fileURL: URL, metadata: [String: Any]?) {
+        do {
+            let data = try Data(contentsOf: fileURL)
+            let cachedURL = try catalogStore.replaceCatalog(with: data)
+            let snapshot = try DictionaryCatalogSnapshot.load(from: data, sourceURL: cachedURL)
+
+            if let metadataVersion = metadata?["catalogVersion"] as? String,
+               metadataVersion != snapshot.version {
+                return
+            }
+
+            catalogSnapshot = snapshot
+            loadError = nil
+
+            if let currentWord,
+               let refreshed = snapshot.currentWord(
+                   slug: currentWord.slug,
+                   source: currentWord.source,
+                   updatedAt: currentWord.updatedAt
+               ) {
+                apply(record: refreshed)
+            }
+        } catch {
+            loadError = error.localizedDescription
+        }
     }
 
     private func apply(record: CurrentWordRecord) {
@@ -127,6 +155,12 @@ private final class WatchCurrentWordSessionCoordinator: NSObject, WCSessionDeleg
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
         Task { @MainActor in
             model?.apply(applicationContext: applicationContext)
+        }
+    }
+
+    func session(_ session: WCSession, didReceive file: WCSessionFile) {
+        Task { @MainActor in
+            model?.applyCatalogTransfer(fileURL: file.fileURL, metadata: file.metadata)
         }
     }
 }
