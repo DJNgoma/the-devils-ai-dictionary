@@ -26,6 +26,7 @@ enum class NativeTab {
     Browse,
     Search,
     Saved,
+    Settings,
 }
 
 enum class SiteTheme(val label: String, val isDark: Boolean) {
@@ -219,10 +220,31 @@ class NativeDictionaryStore(
     var isRefreshingCatalog by mutableStateOf(false)
         private set
 
+    var isCheckingLiveCatalog by mutableStateOf(false)
+        private set
+
+    var testingSlug by mutableStateOf("")
+
+    var testingError by mutableStateOf<String?>(null)
+        private set
+
+    internal var liveCatalogManifest by mutableStateOf<CatalogManifest?>(null)
+        private set
+
+    var liveCatalogCheckedAtMs by mutableStateOf<Long?>(null)
+        private set
+
+    var liveCatalogError by mutableStateOf<String?>(null)
+        private set
+
+    var lastCatalogCheckAtMs by mutableStateOf(storage.loadCatalogManifestCheckedAtMs())
+        private set
+
     init {
         savedPlace = storage.loadSavedPlace()
         loadCatalog()
         seedCurrentWordIfNeeded()
+        testingSlug = recentEntries.firstOrNull()?.slug ?: currentWord?.slug.orEmpty()
         refreshCatalogInBackground()
     }
 
@@ -237,6 +259,21 @@ class NativeDictionaryStore(
 
     val latestPublishedAt: String?
         get() = catalog?.latestPublishedAt
+
+    val appVersionLabel: String
+        get() = "${BuildConfig.APP_VERSION_NAME} (${BuildConfig.APP_VERSION_CODE})"
+
+    val siteBaseUrlString: String
+        get() = "https://thedevilsaidictionary.com"
+
+    val catalogManifestUrlString: String
+        get() = BuildConfig.CATALOG_MANIFEST_URL
+
+    val deviceEntryCount: Int
+        get() = entries.size
+
+    val bundledCatalogVersion: String?
+        get() = storage.loadBundledCatalogVersion()
 
     val misunderstoodEntries: List<Entry>
         get() = catalog?.misunderstoodEntries() ?: emptyList()
@@ -309,6 +346,40 @@ class NativeDictionaryStore(
                 .map(Pair<Entry, Int>::first)
         }
 
+    val liveCatalogMatchesDevice: Boolean?
+        get() {
+            val liveCatalogVersion = liveCatalogManifest?.catalogVersion ?: return null
+            val localCatalogVersion = catalogVersion ?: return null
+            return liveCatalogVersion == localCatalogVersion
+        }
+
+    val liveCatalogStatusMessage: String
+        get() {
+            liveCatalogError?.let { return it }
+
+            val manifest = liveCatalogManifest
+                ?: return "Check the live site to compare this build against production."
+            val localCatalogVersion = catalogVersion
+                ?: return "The live site is reachable, but this build has not loaded a local catalogue yet."
+
+            return if (manifest.catalogVersion == localCatalogVersion) {
+                "This device matches the live catalogue."
+            } else {
+                "The live site has a different catalogue version. Sync now to test the OTA refresh path."
+            }
+        }
+
+    val pushTestingMessage: String
+        get() =
+            if (BuildConfig.NATIVE_PUSH_CONFIGURED) {
+                "Google services are present, but Android push testing is still not wired into the client. The server push test route currently targets iOS installations only."
+            } else {
+                "Android push is not configured in this build. Add google-services.json and the Firebase registration flow before expecting push beta tests."
+            }
+
+    val suggestedTestSlug: String?
+        get() = recentEntries.firstOrNull()?.slug ?: currentWord?.slug
+
     val savedEntry: Entry?
         get() = slugFromDictionaryPath(savedPlace?.href)?.let(::entry)
 
@@ -338,6 +409,65 @@ class NativeDictionaryStore(
 
     fun selectTab(tab: NativeTab) {
         selectedTab = tab
+    }
+
+    fun checkLiveCatalogIfNeeded() {
+        if (liveCatalogManifest != null || liveCatalogCheckedAtMs != null || liveCatalogError != null || isCheckingLiveCatalog) {
+            return
+        }
+
+        checkLiveCatalog()
+    }
+
+    fun checkLiveCatalog() {
+        if (isCheckingLiveCatalog) {
+            return
+        }
+
+        isCheckingLiveCatalog = true
+        liveCatalogError = null
+
+        backgroundExecutor.execute {
+            val result = runCatching { catalogUpdateClient.fetchManifest() }
+
+            mainHandler.post {
+                isCheckingLiveCatalog = false
+                result.onSuccess { manifestResult ->
+                    liveCatalogCheckedAtMs = manifestResult.checkedAtMs
+                    liveCatalogManifest = manifestResult.manifest
+                }.onFailure { error ->
+                    liveCatalogCheckedAtMs = System.currentTimeMillis()
+                    liveCatalogManifest = null
+                    liveCatalogError =
+                        error.message ?: "The Android app could not read the live catalogue manifest."
+                }
+            }
+        }
+    }
+
+    fun syncCatalogNow() {
+        refreshCatalogInBackground(force = true)
+        checkLiveCatalog()
+    }
+
+    fun probeSlug() {
+        val trimmedSlug = testingSlug.trim()
+        if (trimmedSlug.isEmpty()) {
+            testingError = "Enter a slug before probing the OTA route."
+            return
+        }
+
+        testingError = null
+        selectedTab = NativeTab.Browse
+        activeOverlay = NativeOverlay.EntryDetail(trimmedSlug)
+
+        val entry = entry(trimmedSlug)
+        if (entry != null) {
+            persistCurrentWord(entry.toCurrentWord(CurrentWordSource.deepLink))
+            return
+        }
+
+        refreshCatalogInBackground(force = true, retrySlug = trimmedSlug)
     }
 
     fun setTheme(theme: SiteTheme) {
@@ -619,11 +749,11 @@ class NativeDictionaryStore(
                 result.onSuccess { update ->
                     when (update) {
                         is CatalogUpdateResult.NoChange -> {
-                            storage.saveCatalogManifestCheckedAtMs(update.checkedAtMs)
+                            recordCatalogManifestCheckedAt(update.checkedAtMs)
                         }
 
                         is CatalogUpdateResult.UnsupportedSchema -> {
-                            storage.saveCatalogManifestCheckedAtMs(update.checkedAtMs)
+                            recordCatalogManifestCheckedAt(update.checkedAtMs)
                         }
 
                         is CatalogUpdateResult.Updated -> {
@@ -631,7 +761,7 @@ class NativeDictionaryStore(
                                 catalogDiskStore.writeCatalogBytes(update.bytes)
                             }.onSuccess {
                                 applyCatalogSnapshot(update.snapshot)
-                                storage.saveCatalogManifestCheckedAtMs(update.checkedAtMs)
+                                recordCatalogManifestCheckedAt(update.checkedAtMs)
                                 seedCurrentWordIfNeeded()
                             }
                         }
@@ -641,6 +771,11 @@ class NativeDictionaryStore(
                 resolvePendingMissingSlugRetry()
             }
         }
+    }
+
+    private fun recordCatalogManifestCheckedAt(value: Long) {
+        storage.saveCatalogManifestCheckedAtMs(value)
+        lastCatalogCheckAtMs = value
     }
 
     private fun resolvePendingMissingSlugRetry() {
@@ -811,6 +946,12 @@ internal fun formatDisplayDate(raw: String): String {
 
     return raw
 }
+
+internal fun formatDisplayDateTime(date: Date): String =
+    DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(date)
+
+internal fun formatDisplayDateTime(timestampMs: Long): String =
+    formatDisplayDateTime(Date(timestampMs))
 
 private fun parseDate(raw: String): Date? {
     val candidates = listOf(

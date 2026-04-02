@@ -23,13 +23,30 @@ internal sealed interface CatalogUpdateResult {
     ) : CatalogUpdateResult
 }
 
+internal data class CatalogManifestFetchResult(
+    val checkedAtMs: Long,
+    val manifest: CatalogManifest,
+)
+
 internal class CatalogUpdateClient(
     private val manifestUrl: URL,
 ) {
-    fun fetchUpdate(currentCatalogVersion: String?): CatalogUpdateResult {
+    fun manifestUrlString(): String = manifestUrl.toString()
+
+    fun fetchManifest(): CatalogManifestFetchResult {
         val checkedAtMs = System.currentTimeMillis()
         val manifestBytes = fetchBytes(manifestUrl)
         val manifest = parseCatalogManifest(JSONObject(String(manifestBytes, Charsets.UTF_8)))
+        return CatalogManifestFetchResult(
+            checkedAtMs = checkedAtMs,
+            manifest = manifest,
+        )
+    }
+
+    fun fetchUpdate(currentCatalogVersion: String?): CatalogUpdateResult {
+        val manifestResult = fetchManifest()
+        val checkedAtMs = manifestResult.checkedAtMs
+        val manifest = manifestResult.manifest
 
         if (!supportsCatalogSchema(manifest.schemaVersion)) {
             return CatalogUpdateResult.UnsupportedSchema(

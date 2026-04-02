@@ -34,6 +34,25 @@ final class PhoneCatalogManager {
 
     private init() {}
 
+    var lastCatalogCheckAt: Date? {
+        diskStore.loadLastCheckAt()
+    }
+
+    var bundledCatalogVersion: String? {
+        diskStore.loadLastBundledCatalogVersion()
+    }
+
+    var manifestURL: URL? {
+        guard let baseURLString = Bundle.main.object(forInfoDictionaryKey: "MobileAPIBaseURL") as? String,
+              let baseURL = URL(string: baseURLString) else {
+            return nil
+        }
+
+        return baseURL
+            .appendingPathComponent("mobile-catalog", isDirectory: true)
+            .appendingPathComponent("manifest.json")
+    }
+
     func configure() {
         guard !configured else {
             return
@@ -187,6 +206,12 @@ final class PhoneCurrentWordManager {
         await refreshPushInstallation()
         notifyPushStateChanged()
         return getState()
+    }
+
+    func refreshDiagnosticsState() async {
+        _ = await currentPushAuthorizationStatus()
+        await refreshPushInstallation()
+        notifyPushStateChanged()
     }
 
     func registerDeviceToken(_ deviceToken: Data) {

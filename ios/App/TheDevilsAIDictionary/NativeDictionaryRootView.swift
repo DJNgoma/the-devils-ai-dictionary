@@ -49,6 +49,15 @@ struct NativeDictionaryRootView: View {
                 Label("Saved", systemImage: "bookmark")
             }
             .tag(NativeDictionaryModel.AppTab.saved)
+
+            NavigationView {
+                NativeSettingsView(model: model)
+            }
+            .navigationViewStyle(.stack)
+            .tabItem {
+                Label("Settings", systemImage: "slider.horizontal.3")
+            }
+            .tag(NativeDictionaryModel.AppTab.settings)
         }
         .tint(NativePalette.accent)
         .id(themeManager.current)
@@ -501,6 +510,229 @@ private struct NativeSavedView: View {
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
             NativeOverflowToolbar(model: model, themeManager: .shared)
+        }
+    }
+}
+
+private struct NativeSettingsView: View {
+    @ObservedObject var model: NativeDictionaryModel
+    @State private var testingSlug = ""
+
+    var body: some View {
+        NativeScreen { _ in
+            NativeCard(emphasis: true) {
+                NativeSectionLabel(text: "Internal testing")
+
+                Text("Use this page to compare the on-device catalogue with production, force a sync when editorial publishes a new word, and exercise the same slug-routing path used by links and push taps.")
+                    .font(.system(size: 17, weight: .medium, design: .rounded))
+
+                HStack {
+                    NativeChip(label: "Apple \(model.appVersionLabel)", tone: .accent)
+
+                    if model.isRefreshingCatalog {
+                        NativeChip(label: "Syncing now", tone: .accent)
+                    } else if model.isCheckingLiveCatalog {
+                        NativeChip(label: "Checking live site", tone: .accent)
+                    } else if let matchesLive = model.liveCatalogMatchesDevice {
+                        NativeChip(
+                            label: matchesLive ? "Live site matches" : "Live site differs",
+                            tone: matchesLive ? .success : .warning
+                        )
+                    }
+                }
+            }
+
+            NativeCard {
+                NativeSectionLabel(text: "Live catalogue")
+
+                Text(model.liveCatalogStatusMessage)
+                    .font(.system(size: 15, weight: .regular, design: .rounded))
+                    .foregroundStyle(model.liveCatalogError == nil ? .primary : NativePalette.warning)
+
+                NativeSettingsValueRow(label: "Website", value: model.siteBaseURLString)
+                NativeSettingsValueRow(label: "Manifest", value: model.catalogManifestURLString)
+                if let bundledCatalogVersion = model.bundledCatalogVersion {
+                    NativeSettingsValueRow(label: "Bundled version", value: bundledCatalogVersion)
+                }
+                NativeSettingsValueRow(label: "On-device version", value: model.catalogVersion ?? "Unavailable")
+                NativeSettingsValueRow(label: "On-device entries", value: "\(model.deviceEntryCount)")
+
+                if let latestPublishedAt = model.latestPublishedAt {
+                    NativeSettingsValueRow(
+                        label: "On-device latest word",
+                        value: nativeFormattedDate(latestPublishedAt)
+                    )
+                }
+
+                if let lastCatalogCheckAt = model.lastCatalogCheckAt {
+                    NativeSettingsValueRow(
+                        label: "Last OTA check",
+                        value: nativeFormattedDate(lastCatalogCheckAt)
+                    )
+                }
+
+                if let liveCatalogManifest = model.liveCatalogManifest {
+                    NativeSettingsValueRow(label: "Live version", value: liveCatalogManifest.catalogVersion)
+                    NativeSettingsValueRow(label: "Live entries", value: "\(liveCatalogManifest.entryCount)")
+                    NativeSettingsValueRow(
+                        label: "Live latest word",
+                        value: nativeFormattedDate(liveCatalogManifest.latestPublishedAt)
+                    )
+                    NativeSettingsValueRow(
+                        label: "Live manifest published",
+                        value: nativeFormattedDate(liveCatalogManifest.publishedAt)
+                    )
+                }
+
+                if let liveCatalogCheckedAt = model.liveCatalogCheckedAt {
+                    NativeSettingsValueRow(
+                        label: "Checked production",
+                        value: nativeFormattedDate(liveCatalogCheckedAt)
+                    )
+                }
+
+                HStack {
+                    Button("Check live site") {
+                        Task {
+                            await model.checkLiveCatalog()
+                        }
+                    }
+                    .buttonStyle(NativePrimaryButtonStyle())
+
+                    Button("Sync now") {
+                        Task {
+                            await model.syncCatalogNow()
+                        }
+                    }
+                    .buttonStyle(NativeSecondaryButtonStyle())
+                }
+
+                HStack {
+                    if let websiteURL = URL(string: model.siteBaseURLString) {
+                        Link("Open website", destination: websiteURL)
+                            .font(.system(size: 15, weight: .semibold, design: .rounded))
+                            .foregroundStyle(NativePalette.accent)
+                    }
+
+                    if let manifestURL = URL(string: model.catalogManifestURLString) {
+                        Link("Open manifest", destination: manifestURL)
+                            .font(.system(size: 15, weight: .semibold, design: .rounded))
+                            .foregroundStyle(NativePalette.accent)
+                    }
+                }
+            }
+
+            NativeCard {
+                NativeSectionLabel(text: "Notifications and links")
+
+                NativeSettingsValueRow(label: "Push permission", value: model.pushAuthorizationStatus)
+                NativeSettingsValueRow(label: "Push token", value: model.pushTokenAvailable ? "Available" : "Missing")
+
+                Text(model.pushStatusMessage)
+                    .font(.system(size: 15, weight: .regular, design: .rounded))
+
+                Text(model.pushTokenStatusMessage)
+                    .font(.system(size: 14, weight: .regular, design: .rounded))
+                    .foregroundStyle(NativePalette.mutedText)
+
+                Button(model.pushPermissionButtonTitle) {
+                    Task {
+                        await model.handlePushPermissionAction()
+                    }
+                }
+                .buttonStyle(NativeSecondaryButtonStyle())
+
+                NativeSettingsTextField(
+                    title: "Testing slug",
+                    placeholder: "new-word-slug",
+                    text: $testingSlug
+                )
+
+                Text("Both buttons below exercise the slug-resolution path that should refresh once when production has a newer catalogue.")
+                    .font(.system(size: 14, weight: .regular, design: .rounded))
+                    .foregroundStyle(NativePalette.mutedText)
+
+                HStack {
+                    Button("Use suggested slug") {
+                        testingSlug = model.suggestedTestSlug ?? testingSlug
+                    }
+                    .buttonStyle(NativeSecondaryButtonStyle())
+
+                    Button("Test deep link") {
+                        model.simulateDeepLink(slug: testingSlug)
+                    }
+                    .buttonStyle(NativePrimaryButtonStyle())
+
+                    Button("Simulate push tap") {
+                        Task {
+                            await model.simulateNotification(slug: testingSlug)
+                        }
+                    }
+                    .buttonStyle(NativeSecondaryButtonStyle())
+                }
+
+                if let actionError = model.actionError {
+                    Text(actionError)
+                        .font(.system(size: 13, weight: .medium, design: .rounded))
+                        .foregroundStyle(NativePalette.warning)
+                }
+            }
+        }
+        .navigationTitle("Settings")
+        .navigationBarTitleDisplayMode(.large)
+        .toolbar {
+            NativeOverflowToolbar(model: model, themeManager: .shared)
+        }
+        .task {
+            if testingSlug.isEmpty {
+                testingSlug = model.suggestedTestSlug ?? ""
+            }
+            await model.checkLiveCatalogIfNeeded()
+        }
+    }
+}
+
+private struct NativeSettingsValueRow: View {
+    let label: String
+    let value: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(label)
+                .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                .textCase(.uppercase)
+                .foregroundStyle(NativePalette.mutedText)
+
+            Text(value)
+                .font(.system(size: 15, weight: .regular, design: .rounded))
+                .textSelection(.enabled)
+        }
+    }
+}
+
+private struct NativeSettingsTextField: View {
+    let title: String
+    let placeholder: String
+    @Binding var text: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title)
+                .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                .textCase(.uppercase)
+                .foregroundStyle(NativePalette.mutedText)
+
+            TextField(placeholder, text: $text)
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled()
+                .font(.system(size: 15, weight: .regular, design: .rounded))
+                .padding(.horizontal, 14)
+                .padding(.vertical, 12)
+                .background(NativePalette.panelStrong, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .stroke(NativePalette.border, lineWidth: 1)
+                )
         }
     }
 }

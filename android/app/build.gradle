@@ -81,6 +81,8 @@ def hasReleaseSigning = [
     releaseKeyPassword,
 ].every { it } && releaseStoreFile.exists()
 def generatedNativeAssetsDir = "$buildDir/generated/native-assets"
+def servicesJSON = file('google-services.json')
+def hasGoogleServices = servicesJSON.exists() && servicesJSON.text?.trim()
 
 if (requireReleaseSigning && !hasReleaseSigning) {
     throw new GradleException(
@@ -114,7 +116,10 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode appVersionCode
         versionName appVersionName
+        buildConfigField "String", "APP_VERSION_NAME", "\"${appVersionName}\""
+        buildConfigField "int", "APP_VERSION_CODE", "${appVersionCode}"
         buildConfigField "String", "CATALOG_MANIFEST_URL", "\"https://thedevilsaidictionary.com/mobile-catalog/manifest.json\""
+        buildConfigField "boolean", "NATIVE_PUSH_CONFIGURED", hasGoogleServices ? "true" : "false"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -208,11 +213,8 @@ if (playCredentialsFilePath && !playCredentialsFile?.exists()) {
     )
 }
 
-try {
-    def servicesJSON = file('google-services.json')
-    if (servicesJSON.text) {
-        apply plugin: 'com.google.gms.google-services'
-    }
-} catch(Exception e) {
+if (hasGoogleServices) {
+    apply plugin: 'com.google.gms.google-services'
+} else {
     logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
 }
