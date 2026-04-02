@@ -14,6 +14,8 @@ import { describe, expect, it } from "vitest";
 import generatedData from "@/generated/entries.generated.json";
 
 const {
+  catalogVersion,
+  generatedAt,
   entries,
   recentSlugs,
   misunderstoodSlugs,
@@ -31,6 +33,8 @@ const {
 
 describe("generated data top-level structure", () => {
   it("has all required top-level keys", () => {
+    expect(generatedData).toHaveProperty("catalogVersion");
+    expect(generatedData).toHaveProperty("generatedAt");
     expect(generatedData).toHaveProperty("entries");
     expect(generatedData).toHaveProperty("recentSlugs");
     expect(generatedData).toHaveProperty("misunderstoodSlugs");
@@ -46,6 +50,13 @@ describe("generated data top-level structure", () => {
   it("entries is a non-empty array", () => {
     expect(Array.isArray(entries)).toBe(true);
     expect(entries.length).toBeGreaterThan(0);
+  });
+
+  it("includes stable catalog metadata", () => {
+    expect(typeof catalogVersion).toBe("string");
+    expect(catalogVersion).toMatch(/^[a-f0-9]{64}$/);
+    expect(typeof generatedAt).toBe("string");
+    expect(Number.isNaN(new Date(generatedAt).getTime())).toBe(false);
   });
 });
 
