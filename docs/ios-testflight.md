@@ -99,7 +99,7 @@ Inside Xcode:
 ## Repeatable CLI upload notes
 
 - Keep using `/Applications/Xcode.app` (Xcode 26.4) for release archives unless you are explicitly validating against a newer beta toolchain.
-- The watch companion target must remain embedded-only for release archives. In practice that means the project must keep `DictionaryWatchApp` as `SKIP_INSTALL = YES` with an `AppIcon` asset configured, otherwise App Store Connect will reject the archive shape or icon metadata.
+- The watch companion target must remain embedded-only for release archives. In practice that means the project must keep `The Devil's AI Dictionary Watch` as `SKIP_INSTALL = YES` with an `AppIcon` asset configured, otherwise App Store Connect will reject the archive shape or icon metadata.
 - Internal TestFlight distribution is automatic for the existing internal `TestFlight` group because it has access to all builds. External/public-link testing still requires the usual Beta App Review flow.
 - If App Store Connect leaves a fresh build in `MISSING_EXPORT_COMPLIANCE`, set `usesNonExemptEncryption=false` for this app before expecting internal testers to see it.
 
