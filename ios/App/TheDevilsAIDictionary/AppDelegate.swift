@@ -41,7 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        Task { @MainActor in
+            await PhoneCatalogManager.shared.refreshIfNeeded()
+        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -80,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         Task { @MainActor in
-            PhoneCurrentWordManager.shared.handleRemoteNotificationResponse(userInfo: response.notification.request.content.userInfo)
+            await PhoneCurrentWordManager.shared.handleRemoteNotificationResponse(userInfo: response.notification.request.content.userInfo)
             completionHandler()
         }
     }
