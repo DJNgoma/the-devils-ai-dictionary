@@ -794,8 +794,8 @@ internal fun slugFromDictionaryPath(path: String?): String? {
         return null
     }
 
-    val slug = trimmed.removePrefix("/dictionary/")
-    return slug.ifBlank { null }
+    val slug = trimmed.removePrefix("/dictionary/").trim('/')
+    return slug.takeIf { it.isNotBlank() && !it.contains('/') }
 }
 
 internal fun currentTimestamp(): String {
@@ -988,23 +988,48 @@ private fun Entry.toCurrentWord(source: CurrentWordSource): CurrentWordRecord =
         source = source,
     )
 
-private fun Uri.toDictionarySlug(): String? {
-    if (scheme != "devilsaidictionary") {
-        return null
-    }
+internal fun dictionarySlugFromLink(
+    scheme: String?,
+    host: String?,
+    path: String?,
+    directSlug: String? = null,
+): String? {
+    return when (scheme?.lowercase(Locale.US)) {
+        "devilsaidictionary" -> {
+            val normalizedHost = host?.lowercase(Locale.US)
+            val candidate = if (normalizedHost == "dictionary") {
+                directSlug
+            } else {
+                null
+            }
 
-    val direct = if (host == "dictionary") {
-        pathSegments.firstOrNull()
-    } else {
-        null
-    }
+            if (!candidate.isNullOrBlank()) {
+                candidate
+            } else {
+                slugFromDictionaryPath(path)
+            }
+        }
 
-    if (!direct.isNullOrBlank()) {
-        return direct
-    }
+        "https" -> {
+            val normalizedHost = host?.lowercase(Locale.US) ?: return null
+            if (normalizedHost !in supportedDictionaryHosts) {
+                return null
+            }
 
-    return slugFromDictionaryPath(path)
+            slugFromDictionaryPath(path)
+        }
+
+        else -> null
+    }
 }
+
+internal fun Uri.toDictionarySlug(): String? =
+    dictionarySlugFromLink(
+        scheme = scheme,
+        host = host,
+        path = path,
+        directSlug = pathSegments.firstOrNull(),
+    )
 
 internal fun sha256Hex(bytes: ByteArray): String =
     MessageDigest.getInstance("SHA-256")
@@ -1012,3 +1037,8 @@ internal fun sha256Hex(bytes: ByteArray): String =
         .joinToString(separator = "") { byte -> "%02x".format(byte) }
 
 private fun String.toUrl() = java.net.URL(this)
+
+private val supportedDictionaryHosts = setOf(
+    "thedevilsaidictionary.com",
+    "www.thedevilsaidictionary.com",
+)

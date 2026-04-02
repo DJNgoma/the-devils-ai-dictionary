@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.djngoma.devilsaidictionary",
+      "sha256_cert_fingerprints": [
+        "7E:BD:DC:4A:C4:73:5B:A9:ED:58:57:2F:BE:29:14:3F:5D:76:08:26:7D:E8:A7:5A:21:38:AA:86:B8:0C:33:E2"
+      ]
+    }
+  }
+]

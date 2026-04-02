@@ -250,34 +250,43 @@ describe("all content/entries/*.mdx files have required frontmatter keys", () =>
   });
 });
 
-describe("public catalog artifacts", () => {
-  const publicCatalogDir = path.resolve(__dirname, "../../public/catalog");
+describe("published mobile catalog artifacts", () => {
+  const publishedCatalogDir = path.resolve(__dirname, "../../public/mobile-catalog");
   const generatedCatalogPath = path.resolve(__dirname, "../../src/generated/entries.generated.json");
 
-  it("writes a version manifest that points at an existing versioned catalog file", () => {
-    const manifestPath = path.join(publicCatalogDir, "version.json");
+  it("writes a manifest that points at an existing versioned catalog file", () => {
+    const manifestPath = path.join(publishedCatalogDir, "manifest.json");
     expect(fs.existsSync(manifestPath)).toBe(true);
 
     const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
-    expect(manifest.version).toMatch(/^[a-f0-9]{64}$/);
-    expect(typeof manifest.generatedAt).toBe("string");
-    expect(manifest.path).toMatch(/^\/catalog\/catalog\.[a-f0-9]{64}\.json$/);
+    expect(manifest.catalogVersion).toMatch(/^[a-f0-9]{64}$/);
+    expect(typeof manifest.publishedAt).toBe("string");
+    expect(manifest.snapshotPath).toMatch(
+      /^\/mobile-catalog\/entries\.[a-f0-9]{64}\.json$/,
+    );
 
-    const absoluteCatalogPath = path.resolve(__dirname, "../../public", manifest.path.slice(1));
+    const absoluteCatalogPath = path.resolve(
+      __dirname,
+      "../../public",
+      manifest.snapshotPath.slice(1),
+    );
     expect(fs.existsSync(absoluteCatalogPath)).toBe(true);
   });
 
   it("keeps generated and public catalog versions in sync", () => {
     const generatedCatalog = JSON.parse(fs.readFileSync(generatedCatalogPath, "utf8"));
     const manifest = JSON.parse(
-      fs.readFileSync(path.join(publicCatalogDir, "version.json"), "utf8"),
+      fs.readFileSync(path.join(publishedCatalogDir, "manifest.json"), "utf8"),
     );
     const publishedCatalog = JSON.parse(
-      fs.readFileSync(path.resolve(__dirname, "../../public", manifest.path.slice(1)), "utf8"),
+      fs.readFileSync(
+        path.resolve(__dirname, "../../public", manifest.snapshotPath.slice(1)),
+        "utf8",
+      ),
     );
 
-    expect(generatedCatalog.catalogVersion).toBe(manifest.version);
-    expect(publishedCatalog.catalogVersion).toBe(manifest.version);
+    expect(generatedCatalog.catalogVersion).toBe(manifest.catalogVersion);
+    expect(publishedCatalog.catalogVersion).toBe(manifest.catalogVersion);
     expect(publishedCatalog.entries.length).toBe(generatedCatalog.entries.length);
   });
 });

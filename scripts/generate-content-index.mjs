@@ -19,6 +19,7 @@ const root = process.cwd();
 const entriesDirectory = path.join(root, "content", "entries");
 const outputDirectory = path.join(root, "src", "generated");
 const outputFile = path.join(outputDirectory, "entries.generated.json");
+const publicCatalogDirectory = path.join(root, "public", "catalog");
 const editorialTimeZone = "Africa/Johannesburg";
 const schemaVersion = 1;
 
@@ -172,12 +173,40 @@ async function buildEntryIndex() {
   };
   const snapshot = createCatalogSnapshot(output);
   const snapshotText = serializeCatalogSnapshot(snapshot);
+  const publicCatalogFilename = `catalog.${snapshot.catalogVersion}.json`;
+  const publicCatalogManifest = {
+    version: snapshot.catalogVersion,
+    generatedAt: snapshot.generatedAt,
+    path: `/catalog/${publicCatalogFilename}`,
+  };
 
   await fs.mkdir(outputDirectory, { recursive: true });
+  await fs.mkdir(publicCatalogDirectory, { recursive: true });
   await fs.writeFile(outputFile, snapshotText, "utf8");
+  await fs.writeFile(path.join(publicCatalogDirectory, publicCatalogFilename), snapshotText, "utf8");
+  await fs.writeFile(
+    path.join(publicCatalogDirectory, "version.json"),
+    `${JSON.stringify(publicCatalogManifest, null, 2)}\n`,
+    "utf8",
+  );
+
+  const publicCatalogFiles = await fs.readdir(publicCatalogDirectory);
+  await Promise.all(
+    publicCatalogFiles
+      .filter(
+        (file) =>
+          file.startsWith("catalog.") &&
+          file.endsWith(".json") &&
+          file !== publicCatalogFilename,
+      )
+      .map((file) => fs.rm(path.join(publicCatalogDirectory, file), { force: true })),
+  );
 
   console.log(
     `Generated ${entries.length} dictionary entries into ${path.relative(root, outputFile)}`,
+  );
+  console.log(
+    `Published web catalog ${snapshot.catalogVersion} into ${path.relative(root, publicCatalogDirectory)}`,
   );
 }
 

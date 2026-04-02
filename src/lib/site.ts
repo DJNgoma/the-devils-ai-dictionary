@@ -59,6 +59,7 @@ export const mobileSecondaryNavigation = [
   { href: "/categories", label: "Categories" },
   { href: "/how-to-read", label: "Guide" },
   { href: "/about", label: "About" },
+  { href: "/privacy", label: "Privacy" },
   { href: "/random", label: "Random" },
 ] as const;
 
@@ -128,6 +129,10 @@ export function getMobileChromeTitle(pathname: string) {
 
   if (pathname === "/about") {
     return "About";
+  }
+
+  if (pathname === "/privacy") {
+    return "Privacy";
   }
 
   if (pathname === "/random") {
