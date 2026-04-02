@@ -31,4 +31,9 @@ class DictionaryActivity : ComponentActivity() {
         setIntent(intent)
         store.handleIntent(intent)
     }
+
+    override fun onResume() {
+        super.onResume()
+        store.onResume()
+    }
 }

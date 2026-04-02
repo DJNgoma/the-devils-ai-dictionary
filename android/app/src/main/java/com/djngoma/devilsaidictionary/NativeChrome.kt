@@ -291,7 +291,11 @@ fun NativeOverlayScaffold(
                 is NativeOverlay.EntryDetail -> {
                     val entry = store.entry(overlay.slug)
                     if (entry == null) {
-                        MissingEntryOverlay(colors, padding)
+                        MissingEntryOverlay(
+                            colors = colors,
+                            padding = padding,
+                            isRefreshingCatalog = store.isRefreshingCatalog,
+                        )
                     } else {
                         EntryDetailOverlay(
                             entry = entry,
