@@ -39,11 +39,14 @@ npm run version:check
 npm run build
 npm run build:mobile
 npm run android:build:release:bundle
+npm run android:build:play:bundle
 npm run ios:prepare
 npm run windows:build
 ```
 
 `npm run version:sync` updates the Apple Xcode project so the checked-in build settings match `package.json` and `app-version.json`.
+
+Use `npm run android:build:play:bundle` when the output is intended for Play Console. The older `android:build:release:bundle` path remains useful for local smoke builds because it can still fall back to debug signing.
 
 ## Notes
 

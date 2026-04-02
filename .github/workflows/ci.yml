@@ -20,6 +20,8 @@ jobs:
       - run: npm run typecheck
       - run: npm run test
       - run: npm run build
+      - run: test -f public/mobile-catalog/manifest.json
+      - run: find public/mobile-catalog -maxdepth 1 -name 'entries.*.json' | grep -q .
 
   android-build:
     runs-on: ubuntu-latest

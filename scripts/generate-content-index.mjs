@@ -10,12 +10,17 @@ import {
   categoryDefinitions,
   featuredEntrySlug,
 } from "../src/lib/content-catalog.mjs";
+import {
+  createCatalogSnapshot,
+  serializeCatalogSnapshot,
+} from "../src/lib/mobile-catalog.mjs";
 
 const root = process.cwd();
 const entriesDirectory = path.join(root, "content", "entries");
 const outputDirectory = path.join(root, "src", "generated");
 const outputFile = path.join(outputDirectory, "entries.generated.json");
 const editorialTimeZone = "Africa/Johannesburg";
+const schemaVersion = 1;
 
 /* ---------- helpers ---------- */
 
@@ -151,6 +156,9 @@ async function buildEntryIndex() {
   }
 
   const output = {
+    schemaVersion,
+    entryCount: entries.length,
+    generatedAt: new Date().toISOString(),
     entries,
     recentSlugs: recentEntries,
     misunderstoodSlugs: misunderstoodEntries,
@@ -162,9 +170,11 @@ async function buildEntryIndex() {
     featuredSlug,
     latestPublishedAt,
   };
+  const snapshot = createCatalogSnapshot(output);
+  const snapshotText = serializeCatalogSnapshot(snapshot);
 
   await fs.mkdir(outputDirectory, { recursive: true });
-  await fs.writeFile(outputFile, `${JSON.stringify(output, null, 2)}\n`, "utf8");
+  await fs.writeFile(outputFile, snapshotText, "utf8");
 
   console.log(
     `Generated ${entries.length} dictionary entries into ${path.relative(root, outputFile)}`,

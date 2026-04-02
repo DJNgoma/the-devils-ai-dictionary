@@ -47,6 +47,10 @@ npm run build
 npm run build:mobile
 npm run android:test
 node scripts/with-android-java.mjs ./android/gradlew -p android assembleRelease
+npm run android:play:tasks
+npm run android:build:play:bundle
+npm run android:verify:play
+npm run android:play:publish:internal
 node scripts/with-android-java.mjs ./android/gradlew -p android testDebugUnitTest assembleDebug
 npm run swift-core:test
 npm run ios:destinations
@@ -91,6 +95,7 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 - `native/android/` stays as a deferred placeholder only; Android product code lives in `android/`.
 - iOS distribution notes: [docs/ios-testflight.md](docs/ios-testflight.md)
 - Android native setup, release, and Play testing notes: [docs/mobile/android-native.md](docs/mobile/android-native.md)
+- Track-by-track Google Play testing runbook: [docs/mobile/google-play-testing.md](docs/mobile/google-play-testing.md)
 - iOS push and Apple Watch companion runbook: [docs/mobile/ios-watch-push-v1.md](docs/mobile/ios-watch-push-v1.md)
 - Android cutover notes and shared boundary: [docs/mobile/native-roadmap.md](docs/mobile/native-roadmap.md)
 - Solo-dev release and QA checklists: [docs/mobile/checklists.md](docs/mobile/checklists.md)
