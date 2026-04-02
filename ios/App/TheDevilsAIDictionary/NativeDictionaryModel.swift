@@ -69,12 +69,6 @@ final class NativeDictionaryModel: ObservableObject {
     init(manager: PhoneCurrentWordManager) {
         self.manager = manager
 
-        do {
-            catalogSnapshot = try DictionaryCatalogSnapshot.load()
-        } catch {
-            loadError = error.localizedDescription
-        }
-
         savedPlace = savedPlaceStore.load()
         refreshFromManager()
         observeNativeState()
@@ -418,6 +412,7 @@ final class NativeDictionaryModel: ObservableObject {
             Notification.Name.currentWordDidChange,
             Notification.Name.currentWordPendingNavigationDidChange,
             Notification.Name.currentWordPushStateDidChange,
+            Notification.Name.catalogSnapshotDidChange,
             UIApplication.didBecomeActiveNotification,
         ] {
             let token = center.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
@@ -434,6 +429,8 @@ final class NativeDictionaryModel: ObservableObject {
     }
 
     private func refreshFromManager() {
+        catalogSnapshot = PhoneCatalogManager.shared.snapshot
+        loadError = PhoneCatalogManager.shared.refreshError
         let state = manager.getState()
         currentWord = Self.decodeCurrentWord(from: state["currentWord"])
         pushAuthorizationStatus = state["pushAuthorizationStatus"] as? String ?? "unknown"
