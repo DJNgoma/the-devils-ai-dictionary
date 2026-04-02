@@ -38,8 +38,7 @@ jobs:
           cache: gradle
       - uses: android-actions/setup-android@v3
       - run: npm ci
-      - run: npm run android:prepare
-      - run: node scripts/with-android-java.mjs ./android/gradlew -p android testDebugUnitTest assembleDebug
+      - run: npm run android:ci
 
   ios-build:
     runs-on: macos-latest
@@ -50,11 +49,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run ios:sync
-      - run: xcodebuild -project "ios/App/The Devil's AI Dictionary.xcodeproj" -scheme "The Devil's AI Dictionary" -destination "generic/platform=iOS Simulator" build CODE_SIGNING_ALLOWED=NO
+      - run: npm run ios:ci
 
   shared-swift-core:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - run: swift test --package-path shared/swift-core
+      - run: npm run swift-core:test
