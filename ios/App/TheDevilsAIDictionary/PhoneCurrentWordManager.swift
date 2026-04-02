@@ -1,8 +1,14 @@
 import Foundation
 import OSLog
+
+#if os(iOS)
 import UIKit
 import UserNotifications
+#endif
+
+#if os(iOS) && canImport(WatchConnectivity)
 import WatchConnectivity
+#endif
 
 #if canImport(DevilsAIDictionaryCore)
 import DevilsAIDictionaryCore
@@ -138,12 +144,30 @@ final class PhoneCurrentWordManager {
     private lazy var watchSessionCoordinator = PhoneWatchSessionCoordinator()
 
     private var configured = false
-    private var lastPushAuthorizationState: PushAuthorizationState = .unknown
+    private var lastPushAuthorizationState: PushAuthorizationState
     private var catalogObserver: NSObjectProtocol?
 
-    private init() {}
+    private init() {
+        lastPushAuthorizationState = Self.defaultPushAuthorizationState
+    }
 
-    func configure(application: UIApplication) {
+    private static var defaultPushAuthorizationState: PushAuthorizationState {
+        #if os(iOS)
+        return .unknown
+        #else
+        return .unsupported
+        #endif
+    }
+
+    private var supportsNativePush: Bool {
+        #if os(iOS)
+        return true
+        #else
+        return false
+        #endif
+    }
+
+    func configureForCurrentPlatform() {
         guard !configured else {
             return
         }
@@ -154,20 +178,25 @@ final class PhoneCurrentWordManager {
         watchSessionCoordinator.activate()
         synchronizeWatchState()
         _ = ensureCurrentWord()
-        application.registerForRemoteNotifications()
+
+        #if os(iOS)
+        UIApplication.shared.registerForRemoteNotifications()
+        #endif
 
         Task {
             await PhoneCatalogManager.shared.refreshIfNeeded()
-            await refreshPushInstallation()
+            if supportsNativePush {
+                await refreshPushInstallation()
+            }
             notifyPushStateChanged()
         }
     }
 
     func getState() -> [String: Any] {
         var state: [String: Any] = [
-            "isNativePushAvailable": true,
+            "isNativePushAvailable": supportsNativePush,
             "pushAuthorizationStatus": lastPushAuthorizationState.rawValue,
-            "pushTokenAvailable": storage.loadPushDeviceToken() != nil,
+            "pushTokenAvailable": supportsNativePush && storage.loadPushDeviceToken() != nil,
         ]
 
         if let currentWord = storage.loadCurrentWord() ?? ensureCurrentWord() {
@@ -200,21 +229,40 @@ final class PhoneCurrentWordManager {
     }
 
     func requestPushAuthorization() async throws -> [String: Any] {
+        #if os(iOS)
         let center = UNUserNotificationCenter.current()
         _ = try await center.requestAuthorization(options: [.alert, .badge, .sound])
         UIApplication.shared.registerForRemoteNotifications()
         await refreshPushInstallation()
         notifyPushStateChanged()
         return getState()
+        #else
+        lastPushAuthorizationState = .unsupported
+        notifyPushStateChanged()
+        throw NSError(
+            domain: "PhoneCurrentWordManager",
+            code: 1,
+            userInfo: [NSLocalizedDescriptionKey: "Push notifications are not wired for this Apple platform yet."]
+        )
+        #endif
     }
 
     func refreshDiagnosticsState() async {
-        _ = await currentPushAuthorizationStatus()
-        await refreshPushInstallation()
+        if supportsNativePush {
+            _ = await currentPushAuthorizationStatus()
+            await refreshPushInstallation()
+        } else {
+            lastPushAuthorizationState = .unsupported
+        }
+
         notifyPushStateChanged()
     }
 
     func registerDeviceToken(_ deviceToken: Data) {
+        guard supportsNativePush else {
+            return
+        }
+
         let token = deviceToken.map { String(format: "%02x", $0) }.joined()
         storage.savePushDeviceToken(token)
         Task {
@@ -369,12 +417,23 @@ final class PhoneCurrentWordManager {
     }
 
     private func currentPushAuthorizationStatus() async -> PushAuthorizationState {
+        guard supportsNativePush else {
+            lastPushAuthorizationState = .unsupported
+            return .unsupported
+        }
+
+        #if os(iOS)
         let settings = await notificationSettings()
         let state = PushAuthorizationState(status: settings.authorizationStatus)
         lastPushAuthorizationState = state
         return state
+        #else
+        lastPushAuthorizationState = .unsupported
+        return .unsupported
+        #endif
     }
 
+    #if os(iOS)
     private func notificationSettings() async -> UNNotificationSettings {
         await withCheckedContinuation { continuation in
             UNUserNotificationCenter.current().getNotificationSettings { settings in
@@ -382,8 +441,14 @@ final class PhoneCurrentWordManager {
             }
         }
     }
+    #endif
 
     private func refreshPushInstallation() async {
+        guard supportsNativePush else {
+            lastPushAuthorizationState = .unsupported
+            return
+        }
+
         guard let token = storage.loadPushDeviceToken(),
               let baseURL = Bundle.main.object(forInfoDictionaryKey: "MobileAPIBaseURL") as? String,
               let url = URL(string: "\(baseURL)/api/mobile/push/installations") else {
@@ -452,6 +517,7 @@ private enum PushAuthorizationState: String {
     case unsupported
     case unknown
 
+    #if os(iOS)
     init(status: UNAuthorizationStatus) {
         switch status {
         case .authorized:
@@ -468,6 +534,7 @@ private enum PushAuthorizationState: String {
             self = .unknown
         }
     }
+    #endif
 }
 
 private struct PushInstallationPayload: Encodable {
@@ -512,8 +579,10 @@ private actor PushInstallationRegistrar {
     }
 }
 
-private final class PhoneWatchSessionCoordinator: NSObject, WCSessionDelegate {
+private final class PhoneWatchSessionCoordinator {
+    #if os(iOS) && canImport(WatchConnectivity)
     private let session = WCSession.isSupported() ? WCSession.default : nil
+    private lazy var delegateAdapter = WatchSessionDelegateAdapter(owner: self)
     private var pendingSnapshot: DictionaryCatalogSnapshot?
     private var pendingCurrentWord: CurrentWordRecord?
     private var transferredCatalogVersion: String?
@@ -523,7 +592,7 @@ private final class PhoneWatchSessionCoordinator: NSObject, WCSessionDelegate {
             return
         }
 
-        session.delegate = self
+        session.delegate = delegateAdapter
         session.activate()
     }
 
@@ -533,7 +602,7 @@ private final class PhoneWatchSessionCoordinator: NSObject, WCSessionDelegate {
         flush()
     }
 
-    private func flush() {
+    fileprivate func flush() {
         guard let session,
               session.activationState == .activated,
               session.isPaired,
@@ -569,17 +638,34 @@ private final class PhoneWatchSessionCoordinator: NSObject, WCSessionDelegate {
         }
     }
 
-    func sessionDidBecomeInactive(_ session: WCSession) {}
+    private final class WatchSessionDelegateAdapter: NSObject, WCSessionDelegate {
+        weak var owner: PhoneWatchSessionCoordinator?
 
-    func sessionDidDeactivate(_ session: WCSession) {
-        session.activate()
-    }
+        init(owner: PhoneWatchSessionCoordinator) {
+            self.owner = owner
+        }
 
-    func sessionWatchStateDidChange(_ session: WCSession) {
-        flush()
-    }
+        func sessionDidBecomeInactive(_ session: WCSession) {}
 
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        flush()
+        func sessionDidDeactivate(_ session: WCSession) {
+            session.activate()
+        }
+
+        func sessionWatchStateDidChange(_ session: WCSession) {
+            owner?.flush()
+        }
+
+        func session(
+            _ session: WCSession,
+            activationDidCompleteWith activationState: WCSessionActivationState,
+            error: Error?
+        ) {
+            owner?.flush()
+        }
     }
+    #else
+    func activate() {}
+
+    func synchronize(snapshot: DictionaryCatalogSnapshot?, currentWord: CurrentWordRecord?) {}
+    #endif
 }

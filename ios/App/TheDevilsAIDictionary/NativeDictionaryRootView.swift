@@ -17,7 +17,7 @@ struct NativeDictionaryRootView: View {
             NavigationView {
                 NativeHomeView(model: model)
             }
-            .navigationViewStyle(.stack)
+            .nativeStackNavigationViewStyle()
             .tabItem {
                 Label("Home", systemImage: "house")
             }
@@ -26,7 +26,7 @@ struct NativeDictionaryRootView: View {
             NavigationView {
                 NativeBrowseView(model: model)
             }
-            .navigationViewStyle(.stack)
+            .nativeStackNavigationViewStyle()
             .tabItem {
                 Label("Browse", systemImage: "books.vertical")
             }
@@ -35,7 +35,7 @@ struct NativeDictionaryRootView: View {
             NavigationView {
                 NativeSearchView(model: model)
             }
-            .navigationViewStyle(.stack)
+            .nativeStackNavigationViewStyle()
             .tabItem {
                 Label("Search", systemImage: "magnifyingglass")
             }
@@ -44,7 +44,7 @@ struct NativeDictionaryRootView: View {
             NavigationView {
                 NativeSavedView(model: model)
             }
-            .navigationViewStyle(.stack)
+            .nativeStackNavigationViewStyle()
             .tabItem {
                 Label("Saved", systemImage: "bookmark")
             }
@@ -53,7 +53,7 @@ struct NativeDictionaryRootView: View {
             NavigationView {
                 NativeSettingsView(model: model)
             }
-            .navigationViewStyle(.stack)
+            .nativeStackNavigationViewStyle()
             .tabItem {
                 Label("Settings", systemImage: "slider.horizontal.3")
             }
@@ -79,7 +79,7 @@ struct NativeDictionaryRootView: View {
                     }
                 }
             }
-            .navigationViewStyle(.stack)
+            .nativeStackNavigationViewStyle()
         }
     }
 }
@@ -258,7 +258,7 @@ private struct NativeHomeView: View {
             }
         }
         .navigationTitle("Home")
-        .navigationBarTitleDisplayMode(.large)
+        .nativeNavigationBarTitleDisplayMode(.large)
         .toolbar {
             NativeOverflowToolbar(model: model, themeManager: .shared)
         }
@@ -355,7 +355,7 @@ private struct NativeBrowseView: View {
             }
         }
         .navigationTitle("Browse")
-        .navigationBarTitleDisplayMode(.large)
+        .nativeNavigationBarTitleDisplayMode(.large)
         .toolbar {
             NativeOverflowToolbar(model: model, themeManager: .shared)
         }
@@ -420,8 +420,11 @@ private struct NativeSearchView: View {
             }
         }
         .navigationTitle("Search")
-        .navigationBarTitleDisplayMode(.large)
-        .searchable(text: $model.searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: "Look up the phrase before it colonises the meeting")
+        .nativeNavigationBarTitleDisplayMode(.large)
+        .nativeSearchable(
+            text: $model.searchQuery,
+            prompt: "Look up the phrase before it colonises the meeting"
+        )
         .toolbar {
             NativeOverflowToolbar(model: model, themeManager: .shared)
         }
@@ -429,7 +432,7 @@ private struct NativeSearchView: View {
             NavigationView {
                 NativeSearchFiltersView(model: model)
             }
-            .navigationViewStyle(.stack)
+            .nativeStackNavigationViewStyle()
         }
     }
 }
@@ -507,7 +510,7 @@ private struct NativeSavedView: View {
             }
         }
         .navigationTitle("Saved")
-        .navigationBarTitleDisplayMode(.large)
+        .nativeNavigationBarTitleDisplayMode(.large)
         .toolbar {
             NativeOverflowToolbar(model: model, themeManager: .shared)
         }
@@ -679,7 +682,7 @@ private struct NativeSettingsView: View {
             }
         }
         .navigationTitle("Settings")
-        .navigationBarTitleDisplayMode(.large)
+        .nativeNavigationBarTitleDisplayMode(.large)
         .toolbar {
             NativeOverflowToolbar(model: model, themeManager: .shared)
         }
@@ -723,8 +726,7 @@ private struct NativeSettingsTextField: View {
                 .foregroundStyle(NativePalette.mutedText)
 
             TextField(placeholder, text: $text)
-                .textInputAutocapitalization(.never)
-                .autocorrectionDisabled()
+                .nativeTextEntryBehavior()
                 .font(.system(size: 15, weight: .regular, design: .rounded))
                 .padding(.horizontal, 14)
                 .padding(.vertical, 12)
@@ -873,7 +875,7 @@ private struct NativeBookView: View {
             }
         }
         .navigationTitle("Book")
-        .navigationBarTitleDisplayMode(.inline)
+        .nativeNavigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Done") {
@@ -925,7 +927,7 @@ private struct NativeGuideView: View {
             }
         }
         .navigationTitle("Guide")
-        .navigationBarTitleDisplayMode(.inline)
+        .nativeNavigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Done") {
@@ -981,7 +983,7 @@ private struct NativeAboutView: View {
             }
         }
         .navigationTitle("About")
-        .navigationBarTitleDisplayMode(.inline)
+        .nativeNavigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Done") {
@@ -1022,7 +1024,7 @@ private struct NativeOverflowToolbar: ToolbarContent {
     @ObservedObject var themeManager: ThemeManager
 
     var body: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarTrailing) {
+        ToolbarItem(placement: .nativeNavigationTrailing) {
             Menu {
                 Button("Read the book") {
                     model.presentBook()

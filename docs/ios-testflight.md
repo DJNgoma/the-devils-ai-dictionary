@@ -2,6 +2,15 @@
 
 This repo now ships the Apple app as a native SwiftUI client inside `ios/App/TheDevilsAIDictionary`. The Xcode project bundle is `ios/App/The Devil's AI Dictionary.xcodeproj`, and the main app target and scheme are both named `The Devil's AI Dictionary`. The app reads the bundled `src/generated/entries.generated.json` snapshot directly, so it does not depend on a production webview URL or a synced `out/` directory at runtime.
 
+## App Store Connect shape
+
+Keep exactly one live App Store Connect app record for this product: `The Devil's AI Dictionary` with bundle ID `com.djngoma.devilsaidictionary`.
+
+- The watch target is an embedded watch companion inside the iPhone app archive, not a separate store app to manage on its own.
+- Do not create or maintain a separate App Store Connect app record for `com.djngoma.devilsaidictionary.watchkitapp`.
+- The current iPhone/iPad target can also be distributed on Apple silicon Macs and Apple Vision Pro as a compatible iPhone/iPad app when those availability switches stay enabled in App Store Connect.
+- The Xcode project now also contains native macOS and native visionOS targets. Keep those platforms under the existing `The Devil's AI Dictionary` app record so the Apple product stays one record rather than a pile of siblings.
+
 ## First-time setup
 
 1. Install JavaScript dependencies:
@@ -29,7 +38,7 @@ That command:
 - regenerates the bundled content snapshot
 - refreshes icons and splash assets for the native target
 
-The Apple asset helper now lives at `npm run apple:assets`. It still uses `@capacitor/assets` for the primary iPhone/iPad icon and splash generation, then fans the generated icon out to the Apple `AppIcon.appiconset` catalogs it finds in `ios/App`. That keeps the checked-in source tree on the named app folder while still covering the current watch icon path. The legacy `npm run ios:assets` name remains as an alias.
+The Apple asset helper now lives at `npm run apple:assets`. It still uses `@capacitor/assets` for the primary iPhone/iPad icon and splash generation, then fans the generated icon out to the Apple asset catalogs it finds in `ios/App`, including the watch, macOS, and visionOS targets. The legacy `npm run ios:assets` name remains as an alias.
 
 Then open Xcode:
 
@@ -55,6 +64,8 @@ npm run swift-core:test
 npm run ios:destinations
 npm run ios:build:sim
 npm run watch:build:sim
+npm run macos:build
+npm run visionos:build:sim
 ```
 
 For a signed Debug build to a connected local iPhone or iPad:
@@ -105,9 +116,11 @@ Inside Xcode:
 5. Run one local build on an iPhone simulator.
 6. Run one local build on an iPad simulator.
 7. Run one local build on `My Mac` as `Designed for iPad`.
-8. For the archive, switch the destination to `Any iOS Device (arm64)` or a connected iPhone/iPad.
-9. Archive the app with `Product` -> `Archive`.
-10. In the Organizer, choose `Distribute App` -> `App Store Connect` -> `Upload`.
+8. Run one local build on the native macOS target if that platform is part of the release.
+9. Run one local build on the visionOS simulator target if that platform is part of the release.
+10. For the iPhone/iPad archive, switch the destination to `Any iOS Device (arm64)` or a connected iPhone/iPad.
+11. Archive the app with `Product` -> `Archive`.
+12. In the Organizer, choose `Distribute App` -> `App Store Connect` -> `Upload`.
 
 ## Repeatable CLI upload notes
 
@@ -126,8 +139,9 @@ Inside Xcode:
 
 - The remaining gate for an actual TestFlight upload is Apple signing and App Store Connect metadata, not a web bundle sync.
 - Use `docs/mobile/checklists.md` for the shared store, signing, and wider-device QA checklist. Keep this file focused on the Apple build and TestFlight upload flow.
-- Keep one App Store Connect record and one bundle ID for the Apple app. Do not create a separate Mac app record in this tranche.
-- Leave Mac availability enabled for the iOS app so Apple silicon Macs receive the `Designed for iPad` build path.
+- Keep one App Store Connect record for the Apple product. The main iPhone app uses `com.djngoma.devilsaidictionary`; the watch companion stays embedded in that archive with its own watch bundle ID. Do not create separate Apple app records for the watch, macOS, or visionOS variants.
+- The current Xcode project ships an iPhone/iPad app, the embedded watch companion, and native macOS plus native visionOS targets.
+- Keep Apple silicon Mac and Apple Vision Pro compatibility enabled for the iOS app unless you intentionally want an iPhone/iPad-only release. Native macOS and native visionOS releases should still live under the same Apple record.
 - `src/generated/entries.generated.json` is copied directly into the app target, so `npm run content:build` is the iOS content prerequisite.
 - The shared versioning rule lives in [`docs/release-versioning.md`](./release-versioning.md).
 - The ordinary website deploy remains the Cloudflare path documented in the main README.

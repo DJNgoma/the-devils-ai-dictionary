@@ -4,6 +4,8 @@
 
 - Create the Google Play app record now with package `com.djngoma.devilsaidictionary`.
 - Create the App Store Connect record now with bundle ID `com.djngoma.devilsaidictionary`.
+- Treat that Apple record as the only store record for this product. The watch companion stays embedded under the iPhone app, and Apple silicon Mac / Apple Vision Pro compatibility should stay under that same record rather than spawning sibling Apple apps.
+- The repo now also has native macOS and native visionOS targets. Keep those as platforms on the same Apple record instead of creating separate apps.
 - Keep both identifiers fixed so upgrades happen in place.
 
 ## Signing and backup

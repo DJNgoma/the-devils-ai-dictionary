@@ -1,6 +1,9 @@
 import Foundation
 import SwiftUI
+
+#if os(iOS)
 import UIKit
+#endif
 
 #if canImport(DevilsAIDictionaryCore)
 import DevilsAIDictionaryCore
@@ -196,7 +199,7 @@ final class NativeDictionaryModel: ObservableObject {
     }
 
     var shouldShowPushPrompt: Bool {
-        pushAuthorizationStatus != "authorized"
+        !["authorized", "unsupported"].contains(pushAuthorizationStatus)
     }
 
     var pushPermissionButtonTitle: String {
@@ -208,9 +211,11 @@ final class NativeDictionaryModel: ObservableObject {
         case "authorized":
             return "Notifications are enabled for this device."
         case "denied":
-            return "Notifications are currently denied in iOS settings."
+            return "Notifications are currently denied in system settings."
         case "provisional":
             return "Notifications are being delivered quietly."
+        case "unsupported":
+            return "Push notifications are not wired for this Apple platform yet."
         case "notDetermined":
             return "Enable notifications to let this app deliver the next good word."
         default:
@@ -277,7 +282,11 @@ final class NativeDictionaryModel: ObservableObject {
     }
 
     var pushTokenStatusMessage: String {
-        pushTokenAvailable ? "APNs token is present for this device." : "APNs token is not available yet."
+        if pushAuthorizationStatus == "unsupported" {
+            return "Push token delivery is not enabled for this Apple platform."
+        }
+
+        return pushTokenAvailable ? "APNs token is present for this device." : "APNs token is not available yet."
     }
 
     func entry(slug: String) -> Entry? {
@@ -549,6 +558,12 @@ final class NativeDictionaryModel: ObservableObject {
         savedPlace = record
     }
 
+    func handleSceneActivation() async {
+        await PhoneCatalogManager.shared.refreshIfNeeded()
+        await manager.refreshDiagnosticsState()
+        refreshFromManager()
+    }
+
     private func observeNativeState() {
         let center = NotificationCenter.default
 
@@ -557,16 +572,9 @@ final class NativeDictionaryModel: ObservableObject {
             Notification.Name.currentWordPendingNavigationDidChange,
             Notification.Name.currentWordPushStateDidChange,
             Notification.Name.catalogSnapshotDidChange,
-            UIApplication.didBecomeActiveNotification,
         ] {
             let token = center.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
-                Task { @MainActor in
-                    if name == UIApplication.didBecomeActiveNotification {
-                        await self?.manager.refreshDiagnosticsState()
-                    } else {
-                        self?.refreshFromManager()
-                    }
-
+                Task { @MainActor [weak self] in
                     self?.refreshFromManager()
                 }
             }
@@ -662,11 +670,15 @@ final class NativeDictionaryModel: ObservableObject {
     }
 
     private func openSystemSettings() {
+        #if os(iOS)
         guard let url = URL(string: UIApplication.openSettingsURLString) else {
             return
         }
 
         UIApplication.shared.open(url)
+        #else
+        actionError = "Open the system settings for this app to adjust notification permissions."
+        #endif
     }
 
     private func mobileBaseURL() -> URL? {

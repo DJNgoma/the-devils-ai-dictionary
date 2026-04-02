@@ -157,6 +157,39 @@ function syncAppleAppIcons(sourcePath) {
   }
 }
 
+function syncVisionOSAppIcons(sourcePath) {
+  const contentsFiles = listFilesRecursively(
+    iosProjectDir,
+    (entryPath) =>
+      path.basename(entryPath) === "Contents.json" &&
+      path.basename(path.dirname(entryPath)).endsWith(".solidimagestack"),
+  );
+  const updatedTargets = [];
+
+  for (const contentsPath of contentsFiles) {
+    const solidImageStackPath = path.dirname(contentsPath);
+    const relativeImageStackPath = path.relative(repoRoot, solidImageStackPath);
+    const layerDestinations = [
+      path.join(solidImageStackPath, "Front.solidimagestacklayer", "Content.imageset", "Content.png"),
+      path.join(solidImageStackPath, "Middle.solidimagestacklayer", "Content.imageset", "Content.png"),
+      path.join(solidImageStackPath, "Back.solidimagestacklayer", "Content.imageset", "Content.png"),
+    ];
+
+    for (const destinationPath of layerDestinations) {
+      resizeIcon(sourcePath, destinationPath, { width: 1024, height: 1024 });
+    }
+
+    updatedTargets.push(relativeImageStackPath);
+  }
+
+  if (updatedTargets.length > 0) {
+    console.log("Updated Apple visionOS icon stacks:");
+    for (const target of updatedTargets) {
+      console.log(`- ${target}`);
+    }
+  }
+}
+
 function runCapacitorIOSAssets() {
   return new Promise((resolve, reject) => {
     let createdCompatibilitySymlink = false;
@@ -227,6 +260,7 @@ try {
   }
 
   syncAppleAppIcons(primaryAppIconPath);
+  syncVisionOSAppIcons(primaryAppIconPath);
 } catch (error) {
   console.error(error instanceof Error ? error.message : String(error));
   process.exit(1);

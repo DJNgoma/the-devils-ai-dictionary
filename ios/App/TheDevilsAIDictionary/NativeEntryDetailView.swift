@@ -185,7 +185,7 @@ struct NativeEntryDetailView: View {
             }
         }
         .navigationTitle(entry.title)
-        .navigationBarTitleDisplayMode(.inline)
+        .nativeNavigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Done") {

@@ -1,5 +1,8 @@
 import SwiftUI
+
+#if os(iOS)
 import UIKit
+#endif
 
 #if canImport(DevilsAIDictionaryCore)
 import DevilsAIDictionaryCore
@@ -112,6 +115,73 @@ struct ThemeColorSet {
 
 private extension Color {
     static func hex(_ v: String) -> Color { SiteTheme.hex(v) }
+}
+
+extension View {
+    @ViewBuilder
+    func nativeStackNavigationViewStyle() -> some View {
+        #if os(macOS)
+        self
+        #else
+        self.navigationViewStyle(.stack)
+        #endif
+    }
+
+    @ViewBuilder
+    func nativeNavigationBarTitleDisplayMode(_ mode: NativeNavigationTitleDisplayMode) -> some View {
+        #if os(macOS)
+        self
+        #else
+        switch mode {
+        case .automatic:
+            self.navigationBarTitleDisplayMode(.automatic)
+        case .large:
+            self.navigationBarTitleDisplayMode(.large)
+        case .inline:
+            self.navigationBarTitleDisplayMode(.inline)
+        }
+        #endif
+    }
+
+    @ViewBuilder
+    func nativeSearchable(text: Binding<String>, prompt: String) -> some View {
+        #if os(macOS)
+        self.searchable(text: text, prompt: prompt)
+        #else
+        self.searchable(
+            text: text,
+            placement: .navigationBarDrawer(displayMode: .always),
+            prompt: prompt
+        )
+        #endif
+    }
+
+    @ViewBuilder
+    func nativeTextEntryBehavior() -> some View {
+        #if os(macOS)
+        self
+        #else
+        self
+            .textInputAutocapitalization(.never)
+            .autocorrectionDisabled()
+        #endif
+    }
+}
+
+enum NativeNavigationTitleDisplayMode {
+    case automatic
+    case large
+    case inline
+}
+
+extension ToolbarItemPlacement {
+    static var nativeNavigationTrailing: ToolbarItemPlacement {
+        #if os(macOS)
+        return .automatic
+        #else
+        return .navigationBarTrailing
+        #endif
+    }
 }
 
 @MainActor
@@ -447,9 +517,12 @@ struct NativeShareButton: View {
     let message: String
     var label = "Share"
 
+    #if os(iOS)
     @State private var isPresentingShareSheet = false
+    #endif
 
     var body: some View {
+        #if os(iOS)
         Button(label) {
             isPresentingShareSheet = true
         }
@@ -460,9 +533,20 @@ struct NativeShareButton: View {
                 subject: subject
             )
         }
+        #else
+        ShareLink(
+            item: url,
+            subject: Text(subject),
+            message: Text(message)
+        ) {
+            Text(label)
+        }
+        .buttonStyle(NativeSecondaryButtonStyle())
+        #endif
     }
 }
 
+#if os(iOS)
 private struct NativeActivityView: UIViewControllerRepresentable {
     let activityItems: [Any]
     let subject: String
@@ -481,3 +565,4 @@ private struct NativeActivityView: UIViewControllerRepresentable {
         context: Context
     ) {}
 }
+#endif
