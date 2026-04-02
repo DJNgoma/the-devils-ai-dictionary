@@ -16,6 +16,7 @@ import androidx.compose.material.icons.automirrored.rounded.OpenInNew
 import androidx.compose.material.icons.rounded.AutoStories
 import androidx.compose.material.icons.rounded.BookmarkBorder
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -305,6 +306,12 @@ fun EntryDetailOverlay(
                         colors = colors,
                         onClick = { store.save(entry) },
                         leadingIcon = Icons.Rounded.BookmarkBorder,
+                    )
+                    NativeSecondaryButton(
+                        label = "Share",
+                        colors = colors,
+                        onClick = { store.shareEntry(entry) },
+                        leadingIcon = Icons.Rounded.Share,
                     )
                     NativeSecondaryButton(
                         label = "Browse related terms",

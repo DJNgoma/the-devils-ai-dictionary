@@ -449,8 +449,25 @@ class NativeDictionaryStore(
         currentWord?.slug?.let(::presentEntry)
     }
 
+    fun shareCurrentWord() {
+        val record = currentWord ?: return
+        shareDictionaryItem(
+            title = record.title,
+            slug = record.slug,
+            summary = record.devilDefinition,
+        )
+    }
+
     fun openRandomEntry() {
         catalog?.randomEntry(excluding = currentWord?.slug)?.let(::presentEntry)
+    }
+
+    fun shareEntry(entry: Entry) {
+        shareDictionaryItem(
+            title = entry.title,
+            slug = entry.slug,
+            summary = entry.devilDefinition,
+        )
     }
 
     fun refreshCurrentWord() {
@@ -654,6 +671,28 @@ class NativeDictionaryStore(
         }
 
         pendingMissingSlugRetry = null
+    }
+
+    private fun shareDictionaryItem(
+        title: String,
+        slug: String,
+        summary: String,
+    ) {
+        val shareIntent =
+            Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_SUBJECT, dictionaryShareSubject(title))
+                putExtra(Intent.EXTRA_TEXT, dictionaryShareText(title, slug, summary))
+            }
+
+        val chooser =
+            Intent.createChooser(shareIntent, dictionaryShareChooserTitle).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+
+        runCatching {
+            appContext.startActivity(chooser)
+        }
     }
 }
 
@@ -1031,6 +1070,30 @@ internal fun Uri.toDictionarySlug(): String? =
         directSlug = pathSegments.firstOrNull(),
     )
 
+internal fun dictionaryEntryUrl(slug: String): String =
+    "https://thedevilsaidictionary.com/dictionary/$slug"
+
+internal fun dictionaryShareSubject(title: String): String =
+    "${title.trim()} | The Devil's AI Dictionary"
+
+internal fun dictionaryShareText(
+    title: String,
+    slug: String,
+    summary: String,
+): String =
+    buildString {
+        append(title.trim())
+
+        val normalizedSummary = summary.trim()
+        if (normalizedSummary.isNotEmpty()) {
+            append("\n")
+            append(normalizedSummary)
+        }
+
+        append("\n\n")
+        append(dictionaryEntryUrl(slug))
+    }
+
 internal fun sha256Hex(bytes: ByteArray): String =
     MessageDigest.getInstance("SHA-256")
         .digest(bytes)
@@ -1042,3 +1105,5 @@ private val supportedDictionaryHosts = setOf(
     "thedevilsaidictionary.com",
     "www.thedevilsaidictionary.com",
 )
+
+private const val dictionaryShareChooserTitle = "Share from The Devil's AI Dictionary"

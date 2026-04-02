@@ -15,6 +15,7 @@ import androidx.compose.material.icons.automirrored.rounded.MenuBook
 import androidx.compose.material.icons.rounded.AutoStories
 import androidx.compose.material.icons.rounded.FilterList
 import androidx.compose.material.icons.rounded.Refresh
+import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material.icons.rounded.Shuffle
 import androidx.compose.material.icons.rounded.Visibility
 import androidx.compose.material3.MaterialTheme
@@ -105,6 +106,12 @@ fun NativeHomeScreen(
                             colors = colors,
                             onClick = store::openCurrentWord,
                             leadingIcon = Icons.Rounded.Visibility,
+                        )
+                        NativeSecondaryButton(
+                            label = "Share",
+                            colors = colors,
+                            onClick = store::shareCurrentWord,
+                            leadingIcon = Icons.Rounded.Share,
                         )
                         NativeSecondaryButton(
                             label = "Refresh",
@@ -589,6 +596,12 @@ fun NativeSavedScreen(
                             colors = colors,
                             onClick = store::openCurrentWord,
                             leadingIcon = Icons.AutoMirrored.Rounded.MenuBook,
+                        )
+                        NativeSecondaryButton(
+                            label = "Share",
+                            colors = colors,
+                            onClick = store::shareCurrentWord,
+                            leadingIcon = Icons.Rounded.Share,
                         )
                     }
                 }

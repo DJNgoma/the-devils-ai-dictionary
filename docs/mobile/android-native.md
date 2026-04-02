@@ -117,6 +117,7 @@ Gradle Play Publisher can authenticate with:
 - `compileSdkVersion`: 36
 - Runtime model: bundled native app with on-device catalog, theme, saved-place, and current-word state
 - Verified HTTPS app links now target `https://thedevilsaidictionary.com/dictionary/<slug>` via `public/.well-known/assetlinks.json`
+- Entry detail and current-word cards now use Android's native share sheet with canonical `https://thedevilsaidictionary.com/dictionary/<slug>` links
 
 If Play App Signing later gives Google-managed devices a different signing certificate from the local upload key, add that Play app-signing SHA-256 fingerprint to `public/.well-known/assetlinks.json` as a second entry before expecting verified links from Play installs to stay silent.
 

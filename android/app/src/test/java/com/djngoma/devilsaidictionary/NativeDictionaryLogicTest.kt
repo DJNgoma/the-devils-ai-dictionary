@@ -84,6 +84,31 @@ class NativeDictionaryLogicTest {
     }
 
     @Test
+    fun `dictionary share helpers use the canonical website url`() {
+        assertEquals(
+            "https://thedevilsaidictionary.com/dictionary/agent",
+            dictionaryEntryUrl("agent"),
+        )
+        assertEquals(
+            "Agent | The Devil's AI Dictionary",
+            dictionaryShareSubject("Agent"),
+        )
+        assertEquals(
+            """
+            Agent
+            A workflow with delusions of grandeur.
+
+            https://thedevilsaidictionary.com/dictionary/agent
+            """.trimIndent(),
+            dictionaryShareText(
+                title = "Agent",
+                slug = "agent",
+                summary = "A workflow with delusions of grandeur.",
+            ),
+        )
+    }
+
+    @Test
     fun `scoreSearchMatch rewards exact and prefix matches`() {
         val exact = scoreSearchMatch(sampleEntry, listOf("agent"))
         val prefix = scoreSearchMatch(sampleEntry, listOf("ag"))

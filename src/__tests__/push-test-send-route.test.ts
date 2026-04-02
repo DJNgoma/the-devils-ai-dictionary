@@ -43,7 +43,7 @@ vi.mock("@/lib/server/push-installations", () => ({
   markPushInstallationSuccess: pushInstallationMocks.markPushInstallationSuccess,
 }));
 
-import { POST } from "@/app/api/mobile/push/test-send/route";
+import { POST } from "@/app/_api-server-only/mobile/push/test-send/route";
 
 const database = {
   prepare: vi.fn(),

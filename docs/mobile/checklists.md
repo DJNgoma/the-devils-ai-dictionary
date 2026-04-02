@@ -62,4 +62,3 @@ If this Play account is a newly created personal account, plan for the current G
 - Replace the deprecated Next.js `middleware` convention with the current `proxy` convention before the next major framework churn forces it.
 - Keep the native iOS CI build healthy, and add a native Android CI job for the `android/` module.
 - If Google Play App Signing uses a certificate that differs from the local upload key, add that Play app-signing SHA-256 fingerprint to `public/.well-known/assetlinks.json`.
-- Add Android-native share actions for dictionary entries and the daily-word surface.
