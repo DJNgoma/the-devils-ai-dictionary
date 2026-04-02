@@ -17,6 +17,7 @@ import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -49,6 +50,7 @@ object NativeUiTags {
     const val TabBrowse = "native-tab-browse"
     const val TabSearch = "native-tab-search"
     const val TabSaved = "native-tab-saved"
+    const val TabSettings = "native-tab-settings"
     const val OverflowButton = "native-overflow-button"
     const val SearchFiltersButton = "native-search-filters"
     const val SearchFilterSheet = "native-search-filter-sheet"
@@ -56,6 +58,7 @@ object NativeUiTags {
     const val BrowseScreen = "native-screen-browse"
     const val SearchScreen = "native-screen-search"
     const val SavedScreen = "native-screen-saved"
+    const val SettingsScreen = "native-screen-settings"
 }
 
 private data class NativeDestination(
@@ -71,6 +74,7 @@ private val nativeDestinations =
         NativeDestination(NativeTab.Browse, "Browse", Icons.AutoMirrored.Rounded.MenuBook, NativeUiTags.TabBrowse),
         NativeDestination(NativeTab.Search, "Search", Icons.Rounded.Search, NativeUiTags.TabSearch),
         NativeDestination(NativeTab.Saved, "Saved", Icons.Rounded.BookmarkBorder, NativeUiTags.TabSaved),
+        NativeDestination(NativeTab.Settings, "Settings", Icons.Rounded.Settings, NativeUiTags.TabSettings),
     )
 
 @Composable
@@ -93,6 +97,7 @@ fun NativeMainScaffold(
                     NativeTab.Browse -> "Browse"
                     NativeTab.Search -> "Search"
                     NativeTab.Saved -> "Saved"
+                    NativeTab.Settings -> "Settings"
                 },
                 colors = colors,
                 menuOpen = menuOpen,
@@ -113,6 +118,7 @@ fun NativeMainScaffold(
             NativeTab.Browse -> NativeBrowseScreen(store, colors, padding)
             NativeTab.Search -> NativeSearchScreen(store, colors, padding)
             NativeTab.Saved -> NativeSavedScreen(store, colors, padding)
+            NativeTab.Settings -> NativeSettingsScreen(store, colors, padding)
         }
     }
 }

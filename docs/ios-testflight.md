@@ -57,6 +57,19 @@ npm run ios:build:sim
 npm run watch:build:sim
 ```
 
+For a signed Debug build to a connected local iPhone or iPad:
+
+```bash
+npm run ios:build:local-device
+IOS_DEVICE_NAME="Daliso's iPhone Air" npm run ios:build:local-device
+IOS_DEVICE_ID=00008150-001465E901C0401C npm run ios:run:local-device
+```
+
+- `ios:build:local-device` prepares the content snapshot, resolves one connected iOS device automatically when there is exactly one available target, and runs a signed Debug build with provisioning updates enabled.
+- `ios:run:local-device` does the same build, then installs and launches the app on that device with `devicectl`.
+- If more than one device is available, set `IOS_DEVICE_ID` or `IOS_DEVICE_NAME` explicitly.
+- Override `IOS_DERIVED_DATA_PATH` if you want the local-device build products somewhere other than `tmp/ios-local-device-build`.
+
 For manual one-off builds, route `xcodebuild` through the helper so you stay on Xcode 26.4 by default:
 
 ```bash

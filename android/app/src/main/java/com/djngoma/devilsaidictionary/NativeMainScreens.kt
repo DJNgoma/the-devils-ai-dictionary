@@ -22,11 +22,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 
@@ -607,5 +609,230 @@ fun NativeSavedScreen(
                 }
             }
         }
+    }
+}
+
+@Composable
+fun NativeSettingsScreen(
+    store: NativeDictionaryStore,
+    colors: NativeColors,
+    padding: PaddingValues,
+) {
+    val uriHandler = LocalUriHandler.current
+
+    LaunchedEffect(Unit) {
+        store.checkLiveCatalogIfNeeded()
+    }
+
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .imePadding()
+            .testTag(NativeUiTags.SettingsScreen),
+        contentPadding = mainScreenPadding(padding),
+        verticalArrangement = Arrangement.spacedBy(NativeLayout.sectionGap),
+    ) {
+        item {
+            NativeScreenCard(colors = colors, emphasis = true) {
+                SectionLabel(text = "Internal testing")
+                Text(
+                    text = "Use this page to compare the on-device catalogue with production, force a sync when editorial publishes a new word, and probe the same slug path that deep links rely on.",
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+                NativeActionRow {
+                    NativeChip(
+                        label = "Android ${store.appVersionLabel}",
+                        colors = colors,
+                        selected = true,
+                    )
+                    when {
+                        store.isRefreshingCatalog -> {
+                            NativeChip(label = "Syncing now", colors = colors, selected = true)
+                        }
+
+                        store.isCheckingLiveCatalog -> {
+                            NativeChip(label = "Checking live site", colors = colors, selected = true)
+                        }
+
+                        store.liveCatalogMatchesDevice == true -> {
+                            NativeChip(label = "Live site matches", colors = colors, accent = true)
+                        }
+
+                        store.liveCatalogMatchesDevice == false -> {
+                            NativeChip(label = "Live site differs", colors = colors)
+                        }
+                    }
+                }
+            }
+        }
+
+        item {
+            NativeScreenCard(colors = colors) {
+                SectionLabel(text = "Live catalogue")
+                Text(
+                    text = store.liveCatalogStatusMessage,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = if (store.liveCatalogError == null) {
+                        MaterialTheme.colorScheme.onSurface
+                    } else {
+                        colors.warning
+                    },
+                )
+                NativeSettingsValueRow(label = "Website", value = store.siteBaseUrlString)
+                NativeSettingsValueRow(label = "Manifest", value = store.catalogManifestUrlString)
+                store.bundledCatalogVersion?.let { bundledCatalogVersion ->
+                    NativeSettingsValueRow(
+                        label = "Bundled version",
+                        value = bundledCatalogVersion,
+                    )
+                }
+                NativeSettingsValueRow(
+                    label = "On-device version",
+                    value = store.catalogVersion ?: "Unavailable",
+                )
+                NativeSettingsValueRow(
+                    label = "On-device entries",
+                    value = store.deviceEntryCount.toString(),
+                )
+                store.latestPublishedAt?.let { latestPublishedAt ->
+                    NativeSettingsValueRow(
+                        label = "On-device latest word",
+                        value = formatDisplayDate(latestPublishedAt),
+                    )
+                }
+                store.lastCatalogCheckAtMs?.let { checkedAt ->
+                    NativeSettingsValueRow(
+                        label = "Last OTA check",
+                        value = formatDisplayDateTime(checkedAt),
+                    )
+                }
+                store.liveCatalogManifest?.let { manifest ->
+                    NativeSettingsValueRow(label = "Live version", value = manifest.catalogVersion)
+                    NativeSettingsValueRow(
+                        label = "Live entries",
+                        value = manifest.entryCount.toString(),
+                    )
+                    NativeSettingsValueRow(
+                        label = "Live latest word",
+                        value = formatDisplayDate(manifest.latestPublishedAt),
+                    )
+                    manifest.publishedAt?.let { publishedAt ->
+                        NativeSettingsValueRow(
+                            label = "Live manifest published",
+                            value = formatDisplayDate(publishedAt),
+                        )
+                    }
+                }
+                store.liveCatalogCheckedAtMs?.let { checkedAt ->
+                    NativeSettingsValueRow(
+                        label = "Checked production",
+                        value = formatDisplayDateTime(checkedAt),
+                    )
+                }
+                NativeActionRow {
+                    NativePrimaryButton(
+                        label = "Check live site",
+                        colors = colors,
+                        onClick = store::checkLiveCatalog,
+                        leadingIcon = Icons.Rounded.Visibility,
+                    )
+                    NativeSecondaryButton(
+                        label = "Sync now",
+                        colors = colors,
+                        onClick = store::syncCatalogNow,
+                        leadingIcon = Icons.Rounded.Refresh,
+                    )
+                }
+                NativeActionRow {
+                    NativeSecondaryButton(
+                        label = "Open website",
+                        colors = colors,
+                        onClick = { uriHandler.openUri(store.siteBaseUrlString) },
+                    )
+                    NativeSecondaryButton(
+                        label = "Open manifest",
+                        colors = colors,
+                        onClick = { uriHandler.openUri(store.catalogManifestUrlString) },
+                    )
+                }
+            }
+        }
+
+        item {
+            NativeScreenCard(colors = colors) {
+                SectionLabel(text = "Slug probe")
+                Text(
+                    text = "Use a freshly published slug here to force the OTA path instead of waiting for the passive refresh window.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                OutlinedTextField(
+                    value = store.testingSlug,
+                    onValueChange = { store.testingSlug = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text("Testing slug") },
+                    placeholder = { Text("new-word-slug") },
+                    singleLine = true,
+                )
+                NativeActionRow {
+                    NativeSecondaryButton(
+                        label = "Use suggested slug",
+                        colors = colors,
+                        onClick = { store.testingSlug = store.suggestedTestSlug.orEmpty() },
+                    )
+                    NativePrimaryButton(
+                        label = "Probe slug",
+                        colors = colors,
+                        onClick = store::probeSlug,
+                        leadingIcon = Icons.Rounded.Visibility,
+                    )
+                    NativeSecondaryButton(
+                        label = "Sync first",
+                        colors = colors,
+                        onClick = store::syncCatalogNow,
+                        leadingIcon = Icons.Rounded.Refresh,
+                    )
+                }
+                store.testingError?.let { testingError ->
+                    Text(
+                        text = testingError,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = colors.warning,
+                    )
+                }
+            }
+        }
+
+        item {
+            NativeScreenCard(colors = colors) {
+                SectionLabel(text = "Push diagnostics")
+                NativeSettingsValueRow(
+                    label = "Push readiness",
+                    value = if (BuildConfig.NATIVE_PUSH_CONFIGURED) {
+                        "Config present, client wiring pending"
+                    } else {
+                        "Not configured"
+                    },
+                )
+                Text(
+                    text = store.pushTestingMessage,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun NativeSettingsValueRow(
+    label: String,
+    value: String,
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        SectionLabel(text = label)
+        Text(
+            text = value,
+            style = MaterialTheme.typography.bodyMedium,
+        )
     }
 }

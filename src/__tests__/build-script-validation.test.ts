@@ -250,12 +250,12 @@ describe("all content/entries/*.mdx files have required frontmatter keys", () =>
   });
 });
 
-describe("published mobile catalog artifacts", () => {
-  const publishedCatalogDir = path.resolve(__dirname, "../../public/mobile-catalog");
+describe("mobile catalog artifacts", () => {
+  const publicCatalogDir = path.resolve(__dirname, "../../public/mobile-catalog");
   const generatedCatalogPath = path.resolve(__dirname, "../../src/generated/entries.generated.json");
 
-  it("writes a manifest that points at an existing versioned catalog file", () => {
-    const manifestPath = path.join(publishedCatalogDir, "manifest.json");
+  it("writes a manifest that points at an existing immutable snapshot file", () => {
+    const manifestPath = path.join(publicCatalogDir, "manifest.json");
     expect(fs.existsSync(manifestPath)).toBe(true);
 
     const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
@@ -273,10 +273,10 @@ describe("published mobile catalog artifacts", () => {
     expect(fs.existsSync(absoluteCatalogPath)).toBe(true);
   });
 
-  it("keeps generated and public catalog versions in sync", () => {
+  it("keeps generated and published mobile catalog versions in sync", () => {
     const generatedCatalog = JSON.parse(fs.readFileSync(generatedCatalogPath, "utf8"));
     const manifest = JSON.parse(
-      fs.readFileSync(path.join(publishedCatalogDir, "manifest.json"), "utf8"),
+      fs.readFileSync(path.join(publicCatalogDir, "manifest.json"), "utf8"),
     );
     const publishedCatalog = JSON.parse(
       fs.readFileSync(
@@ -287,6 +287,39 @@ describe("published mobile catalog artifacts", () => {
 
     expect(generatedCatalog.catalogVersion).toBe(manifest.catalogVersion);
     expect(publishedCatalog.catalogVersion).toBe(manifest.catalogVersion);
+    expect(publishedCatalog.entryCount).toBe(generatedCatalog.entryCount);
+    expect(publishedCatalog.entries.length).toBe(generatedCatalog.entries.length);
+  });
+});
+
+describe("public catalog artifacts", () => {
+  const publicCatalogDir = path.resolve(__dirname, "../../public/catalog");
+  const generatedCatalogPath = path.resolve(__dirname, "../../src/generated/entries.generated.json");
+
+  it("writes a version manifest that points at an existing versioned catalog file", () => {
+    const manifestPath = path.join(publicCatalogDir, "version.json");
+    expect(fs.existsSync(manifestPath)).toBe(true);
+
+    const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+    expect(manifest.version).toMatch(/^[a-f0-9]{64}$/);
+    expect(typeof manifest.generatedAt).toBe("string");
+    expect(manifest.path).toMatch(/^\/catalog\/catalog\.[a-f0-9]{64}\.json$/);
+
+    const absoluteCatalogPath = path.resolve(__dirname, "../../public", manifest.path.slice(1));
+    expect(fs.existsSync(absoluteCatalogPath)).toBe(true);
+  });
+
+  it("keeps generated and public catalog versions in sync", () => {
+    const generatedCatalog = JSON.parse(fs.readFileSync(generatedCatalogPath, "utf8"));
+    const manifest = JSON.parse(
+      fs.readFileSync(path.join(publicCatalogDir, "version.json"), "utf8"),
+    );
+    const publishedCatalog = JSON.parse(
+      fs.readFileSync(path.resolve(__dirname, "../../public", manifest.path.slice(1)), "utf8"),
+    );
+
+    expect(generatedCatalog.catalogVersion).toBe(manifest.version);
+    expect(publishedCatalog.catalogVersion).toBe(manifest.version);
     expect(publishedCatalog.entries.length).toBe(generatedCatalog.entries.length);
   });
 });

@@ -1,58 +1,71 @@
+import { beforeEach } from "vitest";
+
 class MemoryStorage implements Storage {
-  private readonly values = new Map<string, string>();
+  private store = new Map<string, string>();
 
   get length() {
-    return this.values.size;
+    return this.store.size;
   }
 
   clear() {
-    this.values.clear();
+    this.store.clear();
   }
 
   getItem(key: string) {
-    const normalizedKey = String(key);
-    return this.values.has(normalizedKey) ? this.values.get(normalizedKey)! : null;
+    return this.store.has(key) ? this.store.get(key)! : null;
   }
 
   key(index: number) {
-    return Array.from(this.values.keys())[index] ?? null;
+    return Array.from(this.store.keys())[index] ?? null;
   }
 
   removeItem(key: string) {
-    this.values.delete(String(key));
+    this.store.delete(String(key));
   }
 
   setItem(key: string, value: string) {
-    this.values.set(String(key), String(value));
+    this.store.set(String(key), String(value));
   }
 }
 
-function installStorage(target: Window & typeof globalThis) {
-  const localStorage = new MemoryStorage();
-  const sessionStorage = new MemoryStorage();
+function installStorage(key: "localStorage" | "sessionStorage") {
+  const storage = new MemoryStorage();
 
-  Object.defineProperty(target, "localStorage", {
-    value: localStorage,
-    configurable: true,
-  });
-  Object.defineProperty(target, "sessionStorage", {
-    value: sessionStorage,
-    configurable: true,
-  });
-  Object.defineProperty(globalThis, "localStorage", {
-    value: localStorage,
-    configurable: true,
-  });
-  Object.defineProperty(globalThis, "sessionStorage", {
-    value: sessionStorage,
-    configurable: true,
-  });
   Object.defineProperty(globalThis, "Storage", {
-    value: MemoryStorage,
     configurable: true,
+    writable: true,
+    value: MemoryStorage,
   });
+  Object.defineProperty(globalThis, key, {
+    configurable: true,
+    writable: true,
+    value: storage,
+  });
+
+  if (typeof window !== "undefined") {
+    Object.defineProperty(window, "Storage", {
+      configurable: true,
+      writable: true,
+      value: MemoryStorage,
+    });
+    Object.defineProperty(window, key, {
+      configurable: true,
+      writable: true,
+      value: storage,
+    });
+  }
 }
 
 if (typeof window !== "undefined") {
-  installStorage(window as Window & typeof globalThis);
+  installStorage("localStorage");
+  installStorage("sessionStorage");
 }
+
+beforeEach(() => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  localStorage.clear();
+  sessionStorage.clear();
+});

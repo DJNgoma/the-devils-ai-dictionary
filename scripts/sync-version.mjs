@@ -1,11 +1,8 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { defaultRootDir, readSharedVersionConfig } from "./shared-versioning.mjs";
 
-const scriptDir = path.dirname(fileURLToPath(import.meta.url));
-const rootDir = path.resolve(scriptDir, "..");
-const packageJsonPath = path.join(rootDir, "package.json");
-const appVersionPath = path.join(rootDir, "app-version.json");
+const rootDir = defaultRootDir;
 const iosProjectPath = path.join(
   rootDir,
   "ios",
@@ -16,31 +13,8 @@ const iosProjectPath = path.join(
 
 const checkOnly = process.argv.includes("--check");
 
-function assertMarketingVersion(value) {
-  if (!/^\d+\.\d+\.\d+$/.test(value)) {
-    throw new Error(
-      `Expected package.json version to use x.y.z format, received "${value}".`,
-    );
-  }
-}
-
-function assertBuildNumber(value) {
-  if (!Number.isInteger(value) || value < 1) {
-    throw new Error(
-      `Expected app-version.json buildNumber to be a positive integer, received "${value}".`,
-    );
-  }
-}
-
 async function main() {
-  const packageJson = JSON.parse(await readFile(packageJsonPath, "utf8"));
-  const appVersion = JSON.parse(await readFile(appVersionPath, "utf8"));
-
-  const marketingVersion = packageJson.version;
-  const buildNumber = appVersion.buildNumber;
-
-  assertMarketingVersion(marketingVersion);
-  assertBuildNumber(buildNumber);
+  const { marketingVersion, buildNumber } = await readSharedVersionConfig(rootDir);
 
   const originalProject = await readFile(iosProjectPath, "utf8");
   const syncedProject = originalProject
