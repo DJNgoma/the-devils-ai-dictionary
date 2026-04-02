@@ -25,7 +25,7 @@ vi.mock("@/lib/server/push-installations", () => ({
   upsertPushInstallation: pushInstallationMocks.upsertPushInstallation,
 }));
 
-import { POST } from "@/app/api/mobile/push/installations/route";
+import { POST } from "@/app/_api-server-only/mobile/push/installations/route";
 
 describe("POST /api/mobile/push/installations", () => {
   beforeEach(() => {

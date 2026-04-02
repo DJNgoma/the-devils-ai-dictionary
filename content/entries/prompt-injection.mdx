@@ -1,0 +1,56 @@
+---
+title: "Prompt Injection"
+slug: "prompt-injection"
+letter: "P"
+categories:
+  - "Safety and evaluation"
+  - "Agents and workflows"
+  - "Model usage"
+aliases:
+  - "prompt attack"
+  - "instruction injection"
+  - "indirect prompt injection"
+devilDefinition: |
+  The trick of slipping a second brief into the machine and watching it forget who is supposed to be in charge.
+plainDefinition: |
+  Prompt injection is a failure mode or attack in which untrusted text changes a model's behaviour by smuggling in instructions that override, confuse, or redirect the intended prompt.
+whyExists: |
+  Because language models read instructions, data, and hostile text through the same basic channel. They do not naturally maintain the clean boundaries software engineers would very much prefer.
+misuse: |
+  By treating it as an exotic hacker trick rather than a structural property of model-based systems, or by using it to describe every wrong answer regardless of whether instructions were actually manipulated.
+practicalMeaning: |
+  In practice it means any tool-using or retrieval-heavy system must assume that documents, web pages, emails, and user content may contain adversarial instructions that need filtering, isolation, or refusal.
+example: |
+  "The agent was fine until the support ticket helpfully instructed it to ignore policy, reveal the hidden prompt, and email the database to itself."
+askNext:
+  - "What untrusted text can reach the model, and in what priority order?"
+  - "Which tools or permissions become dangerous if the model follows hostile instructions?"
+  - "What separates trusted instructions from retrieved or user-supplied content?"
+related:
+  - "prompt"
+  - "guardrails"
+  - "rag"
+  - "red-teaming"
+seeAlso:
+  - "System Prompt"
+  - "Adversarial input"
+  - "Sandboxing"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-04-01"
+updatedAt: "2026-04-01"
+warningLabel: "Not a niche curiosity. A design constraint."
+tags:
+  - "security"
+  - "adversarial"
+  - "retrieval"
+  - "agents"
+misunderstoodScore: 5
+translations:
+  - label: "what it usually means in reality"
+    text: "Untrusted text has found a way to impersonate part of the system's instructions."
+---
+
+Prompt injection matters because it collapses a comfortable fiction. The model does not reliably know which text is policy, which is data, and which is a trap wearing the manners of documentation.

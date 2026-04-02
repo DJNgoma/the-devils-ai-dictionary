@@ -19,6 +19,7 @@
 
 # production
 /build
+/public/mobile-catalog/
 
 # misc
 .DS_Store

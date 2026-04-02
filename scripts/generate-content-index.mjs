@@ -10,12 +10,19 @@ import {
   categoryDefinitions,
   featuredEntrySlug,
 } from "../src/lib/content-catalog.mjs";
+import {
+  createCatalogVersion,
+  createCatalogSnapshot,
+  serializeCatalogSnapshot,
+} from "../src/lib/mobile-catalog.mjs";
 
 const root = process.cwd();
 const entriesDirectory = path.join(root, "content", "entries");
 const outputDirectory = path.join(root, "src", "generated");
 const outputFile = path.join(outputDirectory, "entries.generated.json");
+const publicCatalogDirectory = path.join(root, "public", "catalog");
 const editorialTimeZone = "Africa/Johannesburg";
+const schemaVersion = 1;
 
 /* ---------- helpers ---------- */
 
@@ -150,7 +157,7 @@ async function buildEntryIndex() {
     throw new Error(`Featured entry "${featuredEntrySlug}" not found in entries`);
   }
 
-  const output = {
+  const catalog = {
     entries,
     recentSlugs: recentEntries,
     misunderstoodSlugs: misunderstoodEntries,
@@ -162,12 +169,61 @@ async function buildEntryIndex() {
     featuredSlug,
     latestPublishedAt,
   };
+  const catalogVersion = createCatalogVersion(catalog);
+  let generatedAt = new Date().toISOString();
+
+  try {
+    const existingSnapshot = JSON.parse(await fs.readFile(outputFile, "utf8"));
+
+    if (existingSnapshot.catalogVersion === catalogVersion) {
+      generatedAt = existingSnapshot.generatedAt;
+    }
+  } catch {
+    // No previous generated snapshot to reconcile against.
+  }
+
+  const snapshot = createCatalogSnapshot({
+    schemaVersion,
+    entryCount: entries.length,
+    generatedAt,
+    ...catalog,
+  });
+  const snapshotText = serializeCatalogSnapshot(snapshot);
+  const versionedCatalogFilename = `catalog.${snapshot.catalogVersion}.json`;
+  const versionManifest = {
+    version: snapshot.catalogVersion,
+    generatedAt: snapshot.generatedAt,
+    path: `/catalog/${versionedCatalogFilename}`,
+  };
 
   await fs.mkdir(outputDirectory, { recursive: true });
-  await fs.writeFile(outputFile, `${JSON.stringify(output, null, 2)}\n`, "utf8");
+  await fs.writeFile(outputFile, snapshotText, "utf8");
+  await fs.mkdir(publicCatalogDirectory, { recursive: true });
+
+  const publishedCatalogFiles = await fs.readdir(publicCatalogDirectory);
+  await Promise.all(
+    publishedCatalogFiles
+      .filter((filename) => /^catalog\.[a-f0-9]{64}\.json$/.test(filename))
+      .filter((filename) => filename !== versionedCatalogFilename)
+      .map((filename) => fs.rm(path.join(publicCatalogDirectory, filename), { force: true })),
+  );
+
+  await fs.writeFile(
+    path.join(publicCatalogDirectory, versionedCatalogFilename),
+    snapshotText,
+    "utf8",
+  );
+  await fs.writeFile(
+    path.join(publicCatalogDirectory, "version.json"),
+    `${JSON.stringify(versionManifest, null, 2)}\n`,
+    "utf8",
+  );
 
   console.log(
     `Generated ${entries.length} dictionary entries into ${path.relative(root, outputFile)}`,
+  );
+  console.log(
+    `Published catalog manifest public/catalog/version.json -> ${versionManifest.path}`,
   );
 }
 

@@ -41,8 +41,71 @@ class NativeDictionaryLogicTest {
     @Test
     fun `slugFromDictionaryPath extracts entry slugs`() {
         assertEquals("agent", slugFromDictionaryPath("/dictionary/agent"))
+        assertEquals("agent", slugFromDictionaryPath("/dictionary/agent/"))
         assertNull(slugFromDictionaryPath("/search"))
         assertNull(slugFromDictionaryPath("/dictionary/"))
+        assertNull(slugFromDictionaryPath("/dictionary/agent/extra"))
+    }
+
+    @Test
+    fun `toDictionarySlug accepts app scheme and website deep links`() {
+        assertEquals(
+            "agent",
+            dictionarySlugFromLink(
+                scheme = "devilsaidictionary",
+                host = "dictionary",
+                path = "/agent",
+                directSlug = "agent",
+            ),
+        )
+        assertEquals(
+            "agent",
+            dictionarySlugFromLink(
+                scheme = "https",
+                host = "thedevilsaidictionary.com",
+                path = "/dictionary/agent",
+            ),
+        )
+        assertEquals(
+            "agent",
+            dictionarySlugFromLink(
+                scheme = "https",
+                host = "www.thedevilsaidictionary.com",
+                path = "/dictionary/agent/",
+            ),
+        )
+        assertNull(
+            dictionarySlugFromLink(
+                scheme = "https",
+                host = "example.com",
+                path = "/dictionary/agent",
+            ),
+        )
+    }
+
+    @Test
+    fun `dictionary share helpers use the canonical website url`() {
+        assertEquals(
+            "https://thedevilsaidictionary.com/dictionary/agent",
+            dictionaryEntryUrl("agent"),
+        )
+        assertEquals(
+            "Agent | The Devil's AI Dictionary",
+            dictionaryShareSubject("Agent"),
+        )
+        assertEquals(
+            """
+            Agent
+            A workflow with delusions of grandeur.
+
+            https://thedevilsaidictionary.com/dictionary/agent
+            """.trimIndent(),
+            dictionaryShareText(
+                title = "Agent",
+                slug = "agent",
+                summary = "A workflow with delusions of grandeur.",
+            ),
+        )
     }
 
     @Test

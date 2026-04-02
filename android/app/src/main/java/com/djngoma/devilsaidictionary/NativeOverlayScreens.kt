@@ -16,6 +16,7 @@ import androidx.compose.material.icons.automirrored.rounded.OpenInNew
 import androidx.compose.material.icons.rounded.AutoStories
 import androidx.compose.material.icons.rounded.BookmarkBorder
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -214,6 +215,7 @@ fun AboutOverlay(
 fun MissingEntryOverlay(
     colors: NativeColors,
     padding: PaddingValues,
+    isRefreshingCatalog: Boolean,
 ) {
     LazyColumn(
         contentPadding = overlayPadding(padding),
@@ -222,11 +224,16 @@ fun MissingEntryOverlay(
         item {
             NativeScreenCard(colors = colors) {
                 Text(
-                    text = "That entry is missing from the bundled catalogue.",
+                    text = "That entry is missing from the on-device catalogue.",
                     style = MaterialTheme.typography.headlineMedium,
                 )
                 Text(
-                    text = "The app received a route for a term that is not in this local snapshot. Refresh the content index in the repo and rebuild the app if this keeps happening.",
+                    text =
+                        if (isRefreshingCatalog) {
+                            "The app is checking for a fresher on-device catalogue before it gives up on this slug."
+                        } else {
+                            "The app retried once against the latest published catalogue it could reach and still could not resolve this slug."
+                        },
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
@@ -299,6 +306,12 @@ fun EntryDetailOverlay(
                         colors = colors,
                         onClick = { store.save(entry) },
                         leadingIcon = Icons.Rounded.BookmarkBorder,
+                    )
+                    NativeSecondaryButton(
+                        label = "Share",
+                        colors = colors,
+                        onClick = { store.shareEntry(entry) },
+                        leadingIcon = Icons.Rounded.Share,
                     )
                     NativeSecondaryButton(
                         label = "Browse related terms",

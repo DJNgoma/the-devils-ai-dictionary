@@ -25,6 +25,22 @@ function isThemeName(value: string | null): value is ThemeName {
   return Boolean(value && themeValues.has(value as ThemeName));
 }
 
+function readStoredTheme(): string | null {
+  try {
+    return window.localStorage.getItem(STORAGE_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function writeStoredTheme(theme: ThemeName) {
+  try {
+    window.localStorage.setItem(STORAGE_KEY, theme);
+  } catch {
+    // Ignore storage failures and keep the in-memory theme state.
+  }
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<ThemeName>(() => {
     if (typeof window === "undefined") {
@@ -37,13 +53,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       return documentTheme;
     }
 
-    const storedTheme = window.localStorage.getItem(STORAGE_KEY);
+    const storedTheme = readStoredTheme();
     return isThemeName(storedTheme) ? storedTheme : FALLBACK_THEME;
   });
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
-    window.localStorage.setItem(STORAGE_KEY, theme);
+    writeStoredTheme(theme);
   }, [theme]);
 
   const setTheme = useCallback((nextTheme: ThemeName) => {

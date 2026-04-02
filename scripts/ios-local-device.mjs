@@ -80,7 +80,8 @@ function listAvailableDevices() {
         platform === "iOS" &&
         reality === "physical" &&
         capabilities.some(
-          (capability) => capability.featureIdentifier === "com.apple.coredevice.feature.connectdevice",
+          (capability) =>
+            capability.featureIdentifier === "com.apple.coredevice.feature.connectdevice",
         )
       );
     })
@@ -124,7 +125,9 @@ function resolveTarget() {
 
   if (devices.length === 0) {
     console.error("No available connected iOS devices were found.");
-    console.error("Run `npm run ios:destinations` and connect or unlock your device, or set IOS_DEVICE_ID.");
+    console.error(
+      "Run `npm run ios:destinations` and connect or unlock your device, or set IOS_DEVICE_ID.",
+    );
     process.exit(1);
   }
 

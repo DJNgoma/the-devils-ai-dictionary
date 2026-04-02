@@ -1,8 +1,34 @@
 import groovy.json.JsonSlurper
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.github.triplet.play'
 apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'org.jetbrains.kotlin.plugin.compose'
+
+def repoRootDir = rootProject.projectDir.parentFile
+
+def resolveConfigFilePath = { String configuredPath ->
+    if (!configuredPath) {
+        return null
+    }
+
+    def directFile = file(configuredPath)
+    if (directFile.exists()) {
+        return directFile
+    }
+
+    def rootProjectFile = rootProject.file(configuredPath)
+    if (rootProjectFile.exists()) {
+        return rootProjectFile
+    }
+
+    def repoRootFile = new File(repoRootDir, configuredPath)
+    if (repoRootFile.exists()) {
+        return repoRootFile
+    }
+
+    return rootProjectFile
+}
 
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('keystore.properties')
@@ -33,13 +59,38 @@ def releaseKeyAlias = findProperty('RELEASE_KEY_ALIAS')
 def releaseKeyPassword = findProperty('RELEASE_KEY_PASSWORD')
     ?: keystoreProperties['RELEASE_KEY_PASSWORD']
     ?: System.getenv('ANDROID_KEY_PASSWORD')
+def playTrackName = (findProperty('PLAY_TRACK')
+    ?: System.getenv('PLAY_TRACK')
+    ?: 'internal').toString()
+def playCredentialsFilePath = findProperty('PLAY_SERVICE_ACCOUNT_CREDENTIALS_FILE')
+    ?: System.getenv('PLAY_SERVICE_ACCOUNT_CREDENTIALS_FILE')
+def playCredentialsFile = resolveConfigFilePath(playCredentialsFilePath)
+def usePlayApplicationDefaultCredentials = (findProperty('PLAY_USE_APPLICATION_DEFAULT_CREDENTIALS')
+    ?: System.getenv('PLAY_USE_APPLICATION_DEFAULT_CREDENTIALS')
+    ?: 'false').toString().toBoolean()
+def playImpersonatedServiceAccount = findProperty('PLAY_IMPERSONATE_SERVICE_ACCOUNT')
+    ?: System.getenv('PLAY_IMPERSONATE_SERVICE_ACCOUNT')
+def requireReleaseSigning = (findProperty('REQUIRE_RELEASE_SIGNING')
+    ?: System.getenv('REQUIRE_RELEASE_SIGNING')
+    ?: 'false').toString().toBoolean()
+def releaseStoreFile = resolveConfigFilePath(releaseStoreFilePath)
 def hasReleaseSigning = [
-    releaseStoreFilePath,
+    releaseStoreFile,
     releaseStorePassword,
     releaseKeyAlias,
     releaseKeyPassword,
-].every { it }
+].every { it } && releaseStoreFile.exists()
 def generatedNativeAssetsDir = "$buildDir/generated/native-assets"
+def servicesJSON = file('google-services.json')
+def hasGoogleServices = servicesJSON.exists() && servicesJSON.text?.trim()
+
+if (requireReleaseSigning && !hasReleaseSigning) {
+    throw new GradleException(
+        'Play-ready release signing credentials are required. ' +
+        'Provide RELEASE_STORE_FILE / RELEASE_STORE_PASSWORD / RELEASE_KEY_ALIAS / ' +
+        'RELEASE_KEY_PASSWORD via android/keystore.properties or environment variables.'
+    )
+}
 
 android {
     namespace = "com.djngoma.devilsaidictionary"
@@ -47,6 +98,7 @@ android {
 
     buildFeatures {
         compose true
+        buildConfig true
     }
 
     compileOptions {
@@ -64,6 +116,10 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode appVersionCode
         versionName appVersionName
+        buildConfigField "String", "APP_VERSION_NAME", "\"${appVersionName}\""
+        buildConfigField "int", "APP_VERSION_CODE", "${appVersionCode}"
+        buildConfigField "String", "CATALOG_MANIFEST_URL", "\"https://thedevilsaidictionary.com/mobile-catalog/manifest.json\""
+        buildConfigField "boolean", "NATIVE_PUSH_CONFIGURED", hasGoogleServices ? "true" : "false"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -74,7 +130,7 @@ android {
     signingConfigs {
         release {
             if (hasReleaseSigning) {
-                storeFile rootProject.file(releaseStoreFilePath)
+                storeFile releaseStoreFile
                 storePassword releaseStorePassword
                 keyAlias releaseKeyAlias
                 keyPassword releaseKeyPassword
@@ -91,6 +147,23 @@ android {
 
     sourceSets {
         main.assets.srcDirs += [generatedNativeAssetsDir]
+    }
+}
+
+play {
+    defaultToAppBundles.set(true)
+    track.set(playTrackName)
+
+    if (playCredentialsFile?.exists()) {
+        serviceAccountCredentials.set(playCredentialsFile)
+    }
+
+    if (usePlayApplicationDefaultCredentials) {
+        useApplicationDefaultCredentials = true
+    }
+
+    if (playImpersonatedServiceAccount) {
+        impersonateServiceAccount = playImpersonatedServiceAccount
     }
 }
 
@@ -126,17 +199,22 @@ dependencies {
 if (!hasReleaseSigning) {
     logger.lifecycle(
         'Release signing credentials not found; release builds will use debug signing. ' +
-        'Provide RELEASE_STORE_FILE / RELEASE_STORE_PASSWORD / RELEASE_KEY_ALIAS / ' +
-        'RELEASE_KEY_PASSWORD via android/keystore.properties or environment variables ' +
-        'for Play-ready artifacts.'
+        'Use -PREQUIRE_RELEASE_SIGNING=true with the release task or the npm Play build ' +
+        'scripts to fail fast when preparing Play-ready artifacts.'
     )
 }
 
-try {
-    def servicesJSON = file('google-services.json')
-    if (servicesJSON.text) {
-        apply plugin: 'com.google.gms.google-services'
-    }
-} catch(Exception e) {
+if (playCredentialsFilePath && !playCredentialsFile?.exists()) {
+    logger.lifecycle(
+        "Gradle Play Publisher credentials file not found at ${playCredentialsFilePath}. " +
+        'Set PLAY_SERVICE_ACCOUNT_CREDENTIALS_FILE to a valid JSON key file, ' +
+        'use ANDROID_PUBLISHER_CREDENTIALS with the JSON contents, or enable ' +
+        'PLAY_USE_APPLICATION_DEFAULT_CREDENTIALS=true.'
+    )
+}
+
+if (hasGoogleServices) {
+    apply plugin: 'com.google.gms.google-services'
+} else {
     logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
 }

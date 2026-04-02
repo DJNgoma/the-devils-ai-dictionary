@@ -38,6 +38,13 @@ node scripts/with-android-java.mjs ./android/gradlew -p android installDebug
 node scripts/with-android-java.mjs ./android/gradlew -p android assembleDebug
 node scripts/with-android-java.mjs ./android/gradlew -p android assembleRelease
 node scripts/with-android-java.mjs ./android/gradlew -p android bundleRelease
+npm run android:play:tasks
+npm run android:play:bootstrap
+npm run android:build:play:apk
+npm run android:build:play:bundle
+npm run android:verify:play
+npm run android:play:publish:internal
+npm run android:play:publish:open
 ```
 
 Artifacts land here:
@@ -82,6 +89,26 @@ Copy `android/keystore.properties.example` to `android/keystore.properties` and 
 
 If those values are absent, release builds still complete with debug signing so CI and local smoke checks do not stall. Those artifacts are not for Play upload.
 
+Use these commands when the artifact is actually intended for Play or for device testing with the real upload key:
+
+```bash
+npm run android:build:play:apk
+npm run android:build:play:bundle
+npm run android:verify:play
+npm run android:play:publish:internal
+npm run android:play:publish:open
+```
+
+Those commands fail fast if signing material is missing.
+
+Gradle Play Publisher can authenticate with:
+
+- `PLAY_SERVICE_ACCOUNT_CREDENTIALS_FILE`
+- `ANDROID_PUBLISHER_CREDENTIALS`
+- `PLAY_USE_APPLICATION_DEFAULT_CREDENTIALS=true`
+
+`npm run android:play:bootstrap` is the quickest sanity check once the service account has Play Console access.
+
 ## Android defaults
 
 - Application ID: `com.djngoma.devilsaidictionary`
@@ -89,14 +116,21 @@ If those values are absent, release builds still complete with debug signing so 
 - `targetSdkVersion`: 35
 - `compileSdkVersion`: 36
 - Runtime model: bundled native app with on-device catalog, theme, saved-place, and current-word state
+- Verified HTTPS app links now target `https://thedevilsaidictionary.com/dictionary/<slug>` via `public/.well-known/assetlinks.json`
+- Entry detail and current-word cards now use Android's native share sheet with canonical `https://thedevilsaidictionary.com/dictionary/<slug>` links
+
+If Play App Signing later gives Google-managed devices a different signing certificate from the local upload key, add that Play app-signing SHA-256 fingerprint to `public/.well-known/assetlinks.json` as a second entry before expecting verified links from Play installs to stay silent.
 
 ## Google Play testing flow
 
 1. Create the Play app record with package `com.djngoma.devilsaidictionary`.
-2. Upload the signed AAB to internal testing first.
-3. Validate install, upgrade, cold launch, and the core `Home`, `Browse`, `Search`, and `Saved` flows.
-4. Promote the same app record to open testing when internal checks are clean.
-5. Keep the app record and package fixed so future extraction work does not change app identity.
+2. Build the signed bundle with `npm run android:verify:play`.
+3. Upload the signed AAB to internal testing first, either manually or with `npm run android:play:publish:internal`.
+4. Validate install, upgrade, cold launch, and the core `Home`, `Browse`, `Search`, and `Saved` flows.
+5. Move to open testing when internal checks are clean with `npm run android:play:publish:open`, or use a closed test first if your Play account requires that gate before open or production access.
+6. Keep the app record and package fixed so future extraction work does not change app identity.
+
+The track-specific notes live in [Google Play testing](./google-play-testing.md).
 
 ## Device checklist
 

@@ -13,6 +13,7 @@ final class NativeDictionaryModel: ObservableObject {
         case browse
         case search
         case saved
+        case settings
     }
 
     enum ActiveSheet: Identifiable, Equatable {
@@ -61,6 +62,12 @@ final class NativeDictionaryModel: ObservableObject {
     @Published private(set) var savedPlace: BookmarkRecord?
     @Published private(set) var loadError: String?
     @Published private(set) var actionError: String?
+    @Published private(set) var isCheckingLiveCatalog = false
+    @Published private(set) var isRefreshingCatalog = false
+    @Published private(set) var lastCatalogCheckAt: Date?
+    @Published private(set) var liveCatalogManifest: CatalogManifest?
+    @Published private(set) var liveCatalogCheckedAt: Date?
+    @Published private(set) var liveCatalogError: String?
 
     private let manager: PhoneCurrentWordManager
     private let savedPlaceStore = NativeSavedPlaceStore()
@@ -68,12 +75,6 @@ final class NativeDictionaryModel: ObservableObject {
 
     init(manager: PhoneCurrentWordManager) {
         self.manager = manager
-
-        do {
-            catalogSnapshot = try DictionaryCatalogSnapshot.load()
-        } catch {
-            loadError = error.localizedDescription
-        }
 
         savedPlace = savedPlaceStore.load()
         refreshFromManager()
@@ -215,6 +216,68 @@ final class NativeDictionaryModel: ObservableObject {
         default:
             return "Native push is wired, but iOS has not confirmed the final permission state yet."
         }
+    }
+
+    var appVersionLabel: String {
+        let marketingVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+        return "\(marketingVersion) (\(buildNumber))"
+    }
+
+    var siteBaseURLString: String {
+        mobileBaseURL()?.absoluteString ?? "https://thedevilsaidictionary.com"
+    }
+
+    var catalogManifestURLString: String {
+        mobileBaseURL()?
+            .appendingPathComponent("mobile-catalog", isDirectory: true)
+            .appendingPathComponent("manifest.json")
+            .absoluteString ?? "https://thedevilsaidictionary.com/mobile-catalog/manifest.json"
+    }
+
+    var deviceEntryCount: Int {
+        catalogSnapshot?.catalog.entries.count ?? 0
+    }
+
+    var bundledCatalogVersion: String? {
+        PhoneCatalogManager.shared.bundledCatalogVersion
+    }
+
+    var suggestedTestSlug: String? {
+        recentEntries.first?.slug ?? currentWord?.slug
+    }
+
+    var liveCatalogMatchesDevice: Bool? {
+        guard let liveCatalogVersion = liveCatalogManifest?.catalogVersion,
+              let catalogVersion else {
+            return nil
+        }
+
+        return liveCatalogVersion == catalogVersion
+    }
+
+    var liveCatalogStatusMessage: String {
+        if let liveCatalogError {
+            return liveCatalogError
+        }
+
+        guard let liveCatalogManifest else {
+            return "Check the live site to compare this build against production."
+        }
+
+        guard let catalogVersion else {
+            return "The live site is reachable, but this build has not loaded a local catalogue yet."
+        }
+
+        if liveCatalogManifest.catalogVersion == catalogVersion {
+            return "This device matches the live catalogue."
+        }
+
+        return "The live site has a different catalogue version. Sync now to test the OTA refresh path."
+    }
+
+    var pushTokenStatusMessage: String {
+        pushTokenAvailable ? "APNs token is present for this device." : "APNs token is not available yet."
     }
 
     func entry(slug: String) -> Entry? {
@@ -386,6 +449,81 @@ final class NativeDictionaryModel: ObservableObject {
         refreshFromManager()
     }
 
+    func checkLiveCatalogIfNeeded() async {
+        guard liveCatalogManifest == nil, liveCatalogCheckedAt == nil, liveCatalogError == nil else {
+            return
+        }
+
+        await checkLiveCatalog()
+    }
+
+    func checkLiveCatalog() async {
+        guard !isCheckingLiveCatalog else {
+            return
+        }
+
+        guard let baseURL = mobileBaseURL() else {
+            liveCatalogError = "The app does not have a valid mobile API base URL."
+            liveCatalogCheckedAt = Date()
+            return
+        }
+
+        isCheckingLiveCatalog = true
+        liveCatalogError = nil
+        defer { isCheckingLiveCatalog = false }
+
+        do {
+            liveCatalogManifest = try await CatalogUpdateClient().fetchManifest(baseURL: baseURL)
+            liveCatalogCheckedAt = Date()
+        } catch {
+            liveCatalogManifest = nil
+            liveCatalogCheckedAt = Date()
+            liveCatalogError = error.localizedDescription
+        }
+    }
+
+    func syncCatalogNow() async {
+        isRefreshingCatalog = true
+        await PhoneCatalogManager.shared.refreshIfNeeded(force: true)
+        refreshFromManager()
+        isRefreshingCatalog = false
+        await checkLiveCatalog()
+    }
+
+    func simulateNotification(slug: String) async {
+        let trimmedSlug = slug.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedSlug.isEmpty else {
+            actionError = "Enter a slug before simulating a notification."
+            return
+        }
+
+        actionError = nil
+        await manager.handleRemoteNotificationResponse(userInfo: ["slug": trimmedSlug])
+        refreshFromManager()
+    }
+
+    func simulateDeepLink(slug: String) {
+        let trimmedSlug = slug.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedSlug.isEmpty else {
+            actionError = "Enter a slug before testing a deep link."
+            return
+        }
+
+        guard
+            let encodedSlug = trimmedSlug.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
+            let url = URL(string: "devilsaidictionary://dictionary/\(encodedSlug)")
+        else {
+            actionError = "That slug could not be turned into a test link."
+            return
+        }
+
+        actionError = nil
+
+        if !manager.handleIncomingURL(url) {
+            actionError = "The test deep link did not resolve."
+        }
+    }
+
     func requestPushPermission() async {
         do {
             _ = try await manager.requestPushAuthorization()
@@ -418,15 +556,18 @@ final class NativeDictionaryModel: ObservableObject {
             Notification.Name.currentWordDidChange,
             Notification.Name.currentWordPendingNavigationDidChange,
             Notification.Name.currentWordPushStateDidChange,
+            Notification.Name.catalogSnapshotDidChange,
             UIApplication.didBecomeActiveNotification,
         ] {
             let token = center.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
                 Task { @MainActor in
                     if name == UIApplication.didBecomeActiveNotification {
-                        self?.objectWillChange.send()
+                        await self?.manager.refreshDiagnosticsState()
                     } else {
                         self?.refreshFromManager()
                     }
+
+                    self?.refreshFromManager()
                 }
             }
             notificationTokens.append(token)
@@ -434,11 +575,15 @@ final class NativeDictionaryModel: ObservableObject {
     }
 
     private func refreshFromManager() {
+        catalogSnapshot = PhoneCatalogManager.shared.snapshot
+        loadError = PhoneCatalogManager.shared.refreshError
         let state = manager.getState()
         currentWord = Self.decodeCurrentWord(from: state["currentWord"])
         pushAuthorizationStatus = state["pushAuthorizationStatus"] as? String ?? "unknown"
         pushTokenAvailable = state["pushTokenAvailable"] as? Bool ?? false
         catalogVersion = state["catalogVersion"] as? String ?? catalogSnapshot?.version
+        lastCatalogCheckAt = CatalogDiskStore().loadLastCheckAt()
+        isRefreshingCatalog = PhoneCatalogManager.shared.isRefreshing
 
         if let path = state["pendingNavigationPath"] as? String {
             consumePendingNavigation(path: path)
@@ -524,6 +669,14 @@ final class NativeDictionaryModel: ObservableObject {
         UIApplication.shared.open(url)
     }
 
+    private func mobileBaseURL() -> URL? {
+        guard let baseURLString = Bundle.main.object(forInfoDictionaryKey: "MobileAPIBaseURL") as? String else {
+            return nil
+        }
+
+        return URL(string: baseURLString)
+    }
+
     private static func slugify(_ value: String) -> String {
         let sanitized = value
             .lowercased()
@@ -606,6 +759,10 @@ func nativeFormattedDate(_ value: String) -> String {
     return value
 }
 
+func nativeFormattedDate(_ value: Date) -> String {
+    SharedDateParser.dateTime.string(from: value)
+}
+
 private enum SharedDateParser {
     static let iso8601: ISO8601DateFormatter = {
         let formatter = ISO8601DateFormatter()
@@ -621,6 +778,12 @@ private enum SharedDateParser {
     static let display: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
+        return formatter
+    }()
+    static let dateTime: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
         return formatter
     }()
 }

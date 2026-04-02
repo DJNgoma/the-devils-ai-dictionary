@@ -1,0 +1,56 @@
+---
+title: "System Prompt"
+slug: "system-prompt"
+letter: "S"
+categories:
+  - "Core concepts"
+  - "Model usage"
+  - "Agents and workflows"
+aliases:
+  - "hidden prompt"
+  - "system instruction"
+  - "developer prompt"
+devilDefinition: |
+  The invisible preface explaining what the machine is supposed to be before the user begins testing the claim.
+plainDefinition: |
+  A system prompt is the high-priority instruction layer supplied by the application or developer to shape a model's behaviour, rules, tone, and operating constraints.
+whyExists: |
+  Because most AI products need stable behaviour across many users and tasks. Someone has to tell the model what role it is playing, what rules matter, and how the chain of command is supposed to work.
+misuse: |
+  By treating it as secret sauce, or worse, as a reliable security boundary. A system prompt is useful control text. It is not a magical wall separating trusted intent from hostile input.
+practicalMeaning: |
+  In practice it usually means a standing instruction layer covering role, tone, refusal rules, output format, tool permissions, escalation behaviour, and the product's preferred version of reality.
+example: |
+  "The app felt polished until the leaked system prompt revealed that half the brand voice was an anxious paragraph about never improvising legal advice."
+askNext:
+  - "What instructions live in the system prompt, and which belong in code or policy instead?"
+  - "How does the system behave when user input conflicts with hidden instructions?"
+  - "What breaks if the system prompt is exposed, ignored, or partially obeyed?"
+related:
+  - "prompt"
+  - "guardrails"
+  - "prompt-injection"
+  - "structured-outputs"
+seeAlso:
+  - "Developer message"
+  - "Instruction hierarchy"
+  - "Prompt leakage"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-01"
+updatedAt: "2026-04-01"
+warningLabel: "An instruction layer, not a security model."
+tags:
+  - "instructions"
+  - "control"
+  - "policy"
+  - "prompts"
+misunderstoodScore: 5
+translations:
+  - label: "what it usually means in reality"
+    text: "The application's standing attempt to keep the model on script before users and retrieved text start arguing back."
+---
+
+Every serious AI product has one, whether the company talks about it or not. The interesting part is never merely that it exists. The interesting part is what else the team expects it to do.

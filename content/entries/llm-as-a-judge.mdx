@@ -1,0 +1,56 @@
+---
+title: "LLM-as-a-Judge"
+slug: "llm-as-a-judge"
+letter: "L"
+categories:
+  - "Safety and evaluation"
+  - "Model building"
+  - "Model usage"
+aliases:
+  - "model judge"
+  - "automated evaluator"
+  - "LLM judge"
+devilDefinition: |
+  The practice of asking one stochastic witness whether another stochastic witness deserves a trophy.
+plainDefinition: |
+  LLM-as-a-judge is an evaluation pattern in which one language model scores, ranks, or compares outputs from another model against a rubric, preference signal, or pairwise choice.
+whyExists: |
+  Because human evaluation is expensive, slow, and inconveniently unwilling to scale at the pace product teams prefer.
+misuse: |
+  By treating the judge as neutral, objective, or magically aligned with user value. A model grader can inherit stylistic bias, provider bias, verbosity bias, and a remarkable affection for whatever sounds polished.
+practicalMeaning: |
+  In practice it is useful for triage, regression testing, and broad ranking, provided the rubric is clear and the results are anchored to human review on the cases that actually matter.
+example: |
+  "The model won the internal evals until an actual customer arrived and demonstrated that the judge had confused confidence with usefulness."
+askNext:
+  - "What rubric is the judge following, and who wrote it?"
+  - "How often do human reviewers disagree with the model's preferences?"
+  - "Are we using the judge for cheap sorting or pretending it is ground truth?"
+related:
+  - "evals"
+  - "benchmark-theatre"
+  - "sycophancy"
+  - "structured-outputs"
+seeAlso:
+  - "Preference model"
+  - "Human evaluation"
+  - "Pairwise ranking"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-01"
+updatedAt: "2026-04-01"
+warningLabel: "Helpful for ranking. Dangerous when mistaken for reality."
+tags:
+  - "evaluation"
+  - "rubrics"
+  - "ranking"
+  - "regression"
+misunderstoodScore: 5
+translations:
+  - label: "what it usually means in reality"
+    text: "A scalable but imperfect grading shortcut that still needs humans to calibrate the definition of good."
+---
+
+It is a sensible tool if used with modesty. The trouble begins when teams treat automated judgement as the cheaper cousin of judgement itself.
