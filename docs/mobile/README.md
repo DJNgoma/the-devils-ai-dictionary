@@ -28,6 +28,7 @@ Legacy static-export verification for the root app remains available with `npm r
 
 - [Android native delivery](./android-native.md)
 - [Google Play testing](./google-play-testing.md)
+- [Store listing copy](./store-listing-copy.md)
 - [iOS push and watch v1](./ios-watch-push-v1.md)
 - [Mobile design system](./design-system.md)
 - [Android cutover notes](./native-roadmap.md)

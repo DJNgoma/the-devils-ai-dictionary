@@ -141,5 +141,7 @@ node scripts/with-android-java.mjs ./android/gradlew -p android \
 
 - Play Console setup and policy questionnaires
 - Tester lists, opt-in URLs, and country targeting
-- Store listing copy, screenshots, feature graphic, support address, and privacy policy
+- Screenshots, feature graphic, and the final support email or inbox
 - Physical-device QA on Samsung Galaxy A30s and Pixel 5
+
+Draft listing copy, privacy policy URL, support URLs, and testing-track notes now live in [Store listing copy](./store-listing-copy.md).

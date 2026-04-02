@@ -18,11 +18,10 @@
 - Android screenshots for phone portrait
 - iPhone screenshots for the native iPhone app
 - Android feature graphic
-- short description
-- full description
-- privacy policy URL
-- support contact details
-- Testing-track copy for internal and open or closed testing release notes
+- Final support email or inbox if you want something more direct than the current URLs
+
+Notes:
+Draft store listing copy, privacy policy URL, support URLs, and testing-track notes now live in [Store listing copy](./store-listing-copy.md).
 
 ## QA before wider testing
 
