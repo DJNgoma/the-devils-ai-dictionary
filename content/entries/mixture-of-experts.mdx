@@ -1,0 +1,55 @@
+---
+title: "Mixture of Experts"
+slug: "mixture-of-experts"
+letter: "M"
+categories:
+  - "Core concepts"
+  - "Model building"
+  - "Infrastructure and deployment"
+aliases:
+  - "MoE"
+  - "expert routing"
+devilDefinition: |
+  An architecture for having enormous parameter counts without insisting every token use the whole cathedral.
+plainDefinition: |
+  A mixture-of-experts model is a neural architecture in which a routing mechanism activates only a subset of specialised sub-networks for each token or input, allowing higher total capacity without using all parameters on every pass.
+whyExists: |
+  Because model builders want more capacity and performance without paying the full compute cost of dense models at every step. Sparse activation offers a way to scale capability more economically, at least in theory.
+misuse: |
+  By treating "experts" as if the model contains little professors with stable domains of knowledge. It is an optimisation strategy, not a panel discussion. The routing can help a great deal, but it does not grant wisdom by committee.
+practicalMeaning: |
+  In practice it usually means better parameter-efficiency on paper, more complex training and serving behaviour, routing overhead, and a fresh set of engineering questions about load balancing, latency spikes, and uneven quality.
+example: |
+  "The model was a mixture of experts, which sounded philosophical until the serving team had to explain the routing bottlenecks."
+askNext:
+  - "How many experts exist, and how many are active per token?"
+  - "What did sparse routing improve relative to a dense baseline at the same cost?"
+  - "Did the architecture move the bottleneck from compute to systems complexity?"
+related:
+  - "llm"
+  - "training"
+  - "inference"
+  - "latency"
+seeAlso:
+  - "Sparse model"
+  - "Routing layer"
+  - "Dense model"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-02"
+updatedAt: "2026-04-02"
+tags:
+  - "architecture"
+  - "routing"
+  - "efficiency"
+misunderstoodScore: 4
+translations:
+  - label: "conference meaning"
+    text: "A way to say the model is huge without admitting every request does not touch most of it."
+  - label: "what it usually means in reality"
+    text: "Sparse activation traded some compute cost for substantially more systems complexity."
+---
+
+The name flatters the machinery. What matters is not that there are experts, but whether the router sends work to the right places often enough to justify the complications.

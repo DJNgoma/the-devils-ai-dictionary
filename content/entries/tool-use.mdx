@@ -1,0 +1,55 @@
+---
+title: "Tool Use"
+slug: "tool-use"
+letter: "T"
+categories:
+  - "Agents and workflows"
+  - "Model usage"
+  - "Core concepts"
+aliases:
+  - "external tools"
+  - "tool access"
+  - "action tools"
+devilDefinition: |
+  The point where the model stops guessing alone and starts borrowing other systems' competence.
+plainDefinition: |
+  Tool use is the pattern of giving a model access to external systems such as search, code execution, databases, browsers, calculators, or internal APIs so it can gather information or take actions.
+whyExists: |
+  Because models know many things badly, some things approximately, and almost nothing about the current state of your systems unless another tool tells them.
+misuse: |
+  By marketing tool access as autonomy rather than integration. The hard part is not that the model can ask for a tool. The hard part is deciding which tools it may touch, when, and under whose supervision.
+practicalMeaning: |
+  In practice it means schemas, permission scopes, retries, observability, error handling, and a constant negotiation between flexibility and the desire to avoid discovering new incident classes at scale.
+example: |
+  "The assistant became materially more useful once tool use let it search the docs, check the account, and stop inventing the answer from memory."
+askNext:
+  - "Which tools are available, and what can each one affect?"
+  - "What happens when a tool returns stale data, partial failure, or nonsense?"
+  - "Is the system using tools to extend capability, or to mask weak product design?"
+related:
+  - "function-calling"
+  - "agent"
+  - "mcp"
+  - "openclaw"
+seeAlso:
+  - "Function Calling"
+  - "Tool permissions"
+  - "External actions"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-04-01"
+updatedAt: "2026-04-01"
+tags:
+  - "tools"
+  - "actions"
+  - "permissions"
+  - "workflows"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "The model gets more useful by leaning on ordinary software, and more dangerous if nobody governs the relationship."
+---
+
+Tool use is where the modern AI stack becomes refreshingly concrete. Once an external system is involved, rhetoric gives way to permissions, logs, and consequences.

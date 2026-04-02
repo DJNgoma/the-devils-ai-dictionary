@@ -16,7 +16,7 @@ const generatedSnapshotText = fs.readFileSync(
   "utf8",
 );
 
-const tempDirectories = [];
+const tempDirectories: string[] = [];
 
 afterEach(() => {
   while (tempDirectories.length > 0) {

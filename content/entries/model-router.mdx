@@ -1,0 +1,58 @@
+---
+title: "Model Router"
+slug: "model-router"
+letter: "M"
+categories:
+  - "Model usage"
+  - "Agents and workflows"
+  - "Economics and operations of AI"
+aliases:
+  - "routing layer"
+  - "multi-model router"
+  - "AI gateway"
+devilDefinition: |
+  The switchboard that promises the right model for every job and occasionally adds a thrilling new place for policy mistakes to hide.
+plainDefinition: |
+  A model router is a software layer that selects among multiple models or providers for a given request based on rules or signals such as task type, latency, cost, availability, policy, or fallback behaviour.
+whyExists: |
+  Because no single model is best at everything, outages happen, prices move, and product teams would prefer not to hard-code every bet into the application layer.
+misuse: |
+  By marketing routing itself as intelligence, or by implying that a multi-model stack is automatically well evaluated. A router can express good operational judgement. It can also just spread uncertainty across more vendors.
+practicalMeaning: |
+  In practice it usually means heuristics, policy rules, retries, provider abstractions, observability, and a permanent negotiation between quality, speed, and the monthly bill.
+example: |
+  "The model router kept the app online during the outage, then introduced a fresh round of debugging because two providers interpreted the same tool schema differently."
+askNext:
+  - "What signals drive routing decisions, and were they benchmarked on real workloads?"
+  - "What is the fallback policy when the preferred model fails or drifts?"
+  - "Does the router reduce operational risk, or merely distribute it?"
+related:
+  - "inference"
+  - "latency"
+  - "orchestration"
+  - "structured-outputs"
+seeAlso:
+  - "Provider abstraction"
+  - "Fallback policy"
+  - "Traffic shaping"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-02"
+updatedAt: "2026-04-02"
+tags:
+  - "routing"
+  - "multi-model"
+  - "cost"
+misunderstoodScore: 4
+translations:
+  - label: "platform meaning"
+    text: "One control plane to decide whose model invoice gets the request."
+  - label: "what it usually means in reality"
+    text: "An operational policy engine standing between product promises and vendor behaviour."
+note: |
+  Vendors often sell model routers as a neutral convenience layer. In practice the interesting part is what routing policy the customer can inspect, override, and trust.
+---
+
+The appeal is obvious. So is the trap. Once routing becomes strategic, the application has acquired a small foreign policy department.

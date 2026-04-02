@@ -14,7 +14,7 @@
 		A11A0B1C2D3E4F5000010003 /* NativeUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A0B1C2D3E4F5000010004 /* NativeUI.swift */; };
 		A11A0B1C2D3E4F5000010005 /* NativeDictionaryRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A0B1C2D3E4F5000010006 /* NativeDictionaryRootView.swift */; };
 		A11A0B1C2D3E4F5000010007 /* NativeEntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A0B1C2D3E4F5000010008 /* NativeEntryDetailView.swift */; };
-		4C0B203C19BD411DBC43E27E /* DictionaryWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 88C7C0B4CE4F4B34BB74EC8A /* DictionaryWatchApp.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4C0B203C19BD411DBC43E27E /* The Devil's AI Dictionary Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 88C7C0B4CE4F4B34BB74EC8A /* The Devil's AI Dictionary Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F3D85ABA6B1B48A09F3AC84E /* PhoneCurrentWordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4AF14050814D11999B6715 /* PhoneCurrentWordManager.swift */; };
 		5F0EC474561C45C9850090BD /* DictionaryCatalogSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E48C54C79F480CA0278003 /* DictionaryCatalogSnapshot.swift */; };
 		DC5D3BA0CD7848EFAE1801CD /* CurrentWordStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3429C2B2DF6248EAA135B59A /* CurrentWordStorage.swift */; };
@@ -25,7 +25,7 @@
 		A2F93C4880CB41FEB3A8655C /* CurrentWordStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2A300C91341149474E2A5 /* CurrentWordStorage.swift */; };
 		73D04D90502044E593AC1CF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B1E74A7479F458A9565ED69 /* Assets.xcassets */; };
 		3097D82564D14124ADEA5237 /* PhoneCurrentWordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4AF14050814D11999B6715 /* PhoneCurrentWordManager.swift */; };
-		AA000011000000000000000A /* DictionaryWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000000A /* DictionaryWatchApp.swift */; };
+		AA000011000000000000000A /* TheDevilsAIDictionaryWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000000A /* TheDevilsAIDictionaryWatchApp.swift */; };
 		AA000012000000000000000A /* WatchCurrentWordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000002000000000000000A /* WatchCurrentWordModel.swift */; };
 		AA000013000000000000000A /* WatchCurrentWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000003000000000000000A /* WatchCurrentWordView.swift */; };
 		AA000014000000000000000A /* DictionaryCatalogSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0622FDF8F74772ABE4804F /* DictionaryCatalogSnapshot.swift */; };
@@ -45,7 +45,7 @@
 		A11A0B1C2D3E4F5000010006 /* NativeDictionaryRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeDictionaryRootView.swift; sourceTree = "<group>"; };
 		A11A0B1C2D3E4F5000010008 /* NativeEntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEntryDetailView.swift; sourceTree = "<group>"; };
 		958DCC722DB07C7200EA8C5F /* debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = debug.xcconfig; path = ../debug.xcconfig; sourceTree = SOURCE_ROOT; };
-		88C7C0B4CE4F4B34BB74EC8A /* DictionaryWatchApp.app */ = {isa = PBXFileReference; name = "DictionaryWatchApp.app"; path = DictionaryWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; fileEncoding = undefined; explicitFileType = wrapper.application; includeInIndex = 0; };
+		88C7C0B4CE4F4B34BB74EC8A /* The Devil's AI Dictionary Watch.app */ = {isa = PBXFileReference; name = "The Devil's AI Dictionary Watch.app"; path = "The Devil's AI Dictionary Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; fileEncoding = undefined; explicitFileType = wrapper.application; includeInIndex = 0; };
 		DB4AF14050814D11999B6715 /* PhoneCurrentWordManager.swift */ = {isa = PBXFileReference; name = "PhoneCurrentWordManager.swift"; path = PhoneCurrentWordManager.swift; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; includeInIndex = 0; };
 		FA7D2814C3EB4EC8A6C7DADD /* TheDevilsAIDictionary.entitlements */ = {isa = PBXFileReference; name = "TheDevilsAIDictionary.entitlements"; path = TheDevilsAIDictionary.entitlements; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		31E48C54C79F480CA0278003 /* DictionaryCatalogSnapshot.swift */ = {isa = PBXFileReference; name = "DictionaryCatalogSnapshot.swift"; path = DictionaryCatalogSnapshot.swift; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; includeInIndex = 0; };
@@ -60,7 +60,7 @@
 		D9F6F913960D46E3874E463D /* Info.plist */ = {isa = PBXFileReference; path = Info.plist; sourceTree = "<group>"; lastKnownFileType = text.plist.xml; };
 		0B1E74A7479F458A9565ED69 /* Assets.xcassets */ = {isa = PBXFileReference; path = Assets.xcassets; sourceTree = "<group>"; lastKnownFileType = folder.assetcatalog; };
 		A9417A5C0C0C4370AC79A78F /* Info.plist */ = {isa = PBXFileReference; path = Info.plist; sourceTree = "<group>"; lastKnownFileType = text.plist.xml; };
-		AA000001000000000000000A /* DictionaryWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryWatchApp.swift; sourceTree = "<group>"; };
+		AA000001000000000000000A /* TheDevilsAIDictionaryWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheDevilsAIDictionaryWatchApp.swift; sourceTree = "<group>"; };
 		AA000002000000000000000A /* WatchCurrentWordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCurrentWordModel.swift; sourceTree = "<group>"; };
 		AA000003000000000000000A /* WatchCurrentWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCurrentWordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,7 +91,7 @@
 				504EC3051FED79650016851F /* Products */,
 				2F1AE5BDD3DD43349998D5C3 /* Resources */,
 				58B8433C23B74B97A163AB79 /* SharedApple */,
-				1C74DDA40E01409DBE6A5F6F /* DictionaryWatchApp */,
+				1C74DDA40E01409DBE6A5F6F /* The Devil's AI Dictionary Watch */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,7 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				504EC3041FED79650016851F /* The Devil's AI Dictionary.app */,
-				88C7C0B4CE4F4B34BB74EC8A /* DictionaryWatchApp.app */,
+				88C7C0B4CE4F4B34BB74EC8A /* The Devil's AI Dictionary Watch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -142,17 +142,17 @@
 			path = SharedApple;
 			sourceTree = "<group>";
 		};
-		1C74DDA40E01409DBE6A5F6F /* DictionaryWatchApp */ = {
+		1C74DDA40E01409DBE6A5F6F /* The Devil's AI Dictionary Watch */ = {
 			isa = PBXGroup;
 			children = (
 				D9F6F913960D46E3874E463D /* Info.plist */,
 				0B1E74A7479F458A9565ED69 /* Assets.xcassets */,
-				AA000001000000000000000A /* DictionaryWatchApp.swift */,
+				AA000001000000000000000A /* TheDevilsAIDictionaryWatchApp.swift */,
 				AA000002000000000000000A /* WatchCurrentWordModel.swift */,
 				AA000003000000000000000A /* WatchCurrentWordView.swift */,
 			);
-			name = DictionaryWatchApp;
-			path = DictionaryWatchApp;
+			name = "The Devil's AI Dictionary Watch";
+			path = TheDevilsAIDictionaryWatch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,10 +179,10 @@
 			productReference = 504EC3041FED79650016851F /* The Devil's AI Dictionary.app */;
 			productType = "com.apple.product-type.application";
 		};
-		626D59828D15422DA3976C40 /* "DictionaryWatchApp" */ = {
+		626D59828D15422DA3976C40 /* "The Devil's AI Dictionary Watch" */ = {
 			isa = PBXNativeTarget;
-			name = "DictionaryWatchApp";
-			productName = "DictionaryWatchApp";
+			name = "The Devil's AI Dictionary Watch";
+			productName = "The Devil's AI Dictionary Watch";
 			productReference = 88C7C0B4CE4F4B34BB74EC8A;
 			productType = "com.apple.product-type.application";
 			buildConfigurationList = 4FA01474058D4A84980773BC;
@@ -239,7 +239,7 @@
 			projectRoot = "";
 			targets = (
 				504EC3031FED79650016851F /* The Devil's AI Dictionary */,
-				626D59828D15422DA3976C40 /* "DictionaryWatchApp" */,
+				626D59828D15422DA3976C40 /* "The Devil's AI Dictionary Watch" */,
 			);
 		};
 /* End PBXProject section */
@@ -288,7 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA000011000000000000000A /* DictionaryWatchApp.swift in Sources */,
+				AA000011000000000000000A /* TheDevilsAIDictionaryWatchApp.swift in Sources */,
 				AA000012000000000000000A /* WatchCurrentWordModel.swift in Sources */,
 				AA000013000000000000000A /* WatchCurrentWordView.swift in Sources */,
 				AA000014000000000000000A /* DictionaryCatalogSnapshot.swift in Sources */,
@@ -477,7 +477,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = DictionaryWatchApp/Info.plist;
+				INFOPLIST_FILE = TheDevilsAIDictionaryWatch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -501,7 +501,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = DictionaryWatchApp/Info.plist;
+				INFOPLIST_FILE = TheDevilsAIDictionaryWatch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -541,7 +541,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4FA01474058D4A84980773BC /* Build configuration list for PBXNativeTarget "DictionaryWatchApp" */ = {
+		4FA01474058D4A84980773BC /* Build configuration list for PBXNativeTarget "The Devil's AI Dictionary Watch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				60D90D6542354FA596CE334D /* Debug */,
@@ -557,7 +557,7 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C0B203C19BD411DBC43E27E /* DictionaryWatchApp.app in Embed Watch Content */,
+				4C0B203C19BD411DBC43E27E /* The Devil's AI Dictionary Watch.app in Embed Watch Content */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			name = "Embed Watch Content";
@@ -572,14 +572,14 @@
 			containerPortal = 504EC2FC1FED79650016851F /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 626D59828D15422DA3976C40;
-			remoteInfo = "DictionaryWatchApp";
+			remoteInfo = "The Devil's AI Dictionary Watch";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXTargetDependency section */
 		1980C68A41EC4747BC95570F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 626D59828D15422DA3976C40 /* "DictionaryWatchApp" */;
+			target = 626D59828D15422DA3976C40 /* "The Devil's AI Dictionary Watch" */;
 			targetProxy = 5E6BD6232F5A4E7CB41C0CF9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */

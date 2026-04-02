@@ -9,12 +9,6 @@ const buildRoot = path.join(rootDir, "build");
 const windowsProjectDir = path.join(buildRoot, "windows-app");
 const windowsOutputDir = path.join(buildRoot, "windows-dist");
 const packageJsonPath = path.join(rootDir, "package.json");
-const builderBinary = path.join(
-  rootDir,
-  "node_modules",
-  ".bin",
-  process.platform === "win32" ? "electron-builder.cmd" : "electron-builder",
-);
 const npmCli = process.env.npm_execpath;
 
 async function run(command, args, options = {}) {
@@ -46,8 +40,7 @@ async function prepareProject() {
   await run(process.execPath, [npmCli, "run", "build:mobile"]);
 
   const packageJson = JSON.parse(await readFile(packageJsonPath, "utf8"));
-  const electronVersion =
-    packageJson.devDependencies?.electron?.replace(/^[^\d]*/, "") ?? null;
+  const electronVersion = packageJson.toolVersions?.electron ?? null;
 
   if (!electronVersion) {
     throw new Error("Unable to determine a fixed Electron version for Windows packaging.");
@@ -104,13 +97,41 @@ async function prepareProject() {
   );
 }
 
+async function runElectronBuilder(args) {
+  const packageJson = JSON.parse(await readFile(packageJsonPath, "utf8"));
+  const electronBuilderVersion = packageJson.toolVersions?.electronBuilder ?? null;
+
+  if (!electronBuilderVersion) {
+    throw new Error("Unable to determine a fixed electron-builder version.");
+  }
+
+  await run(process.execPath, [
+    npmCli,
+    "exec",
+    "--yes",
+    "--package",
+    `electron-builder@${electronBuilderVersion}`,
+    "--",
+    "electron-builder",
+    ...args,
+  ]);
+}
+
 async function main() {
   if (!npmCli) {
     throw new Error("Expected npm_execpath to be present when running the Windows build.");
   }
 
   await prepareProject();
-  await run(builderBinary, ["--win", "zip", "--x64", "--publish", "never", "--projectDir", windowsProjectDir]);
+  await runElectronBuilder([
+    "--win",
+    "zip",
+    "--x64",
+    "--publish",
+    "never",
+    "--projectDir",
+    windowsProjectDir,
+  ]);
 
   const artifacts = await readdir(windowsOutputDir);
   const zipArtifact = artifacts.find((entry) => entry.endsWith(".zip"));

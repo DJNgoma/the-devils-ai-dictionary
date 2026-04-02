@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct DictionaryWatchApp: App {
+struct TheDevilsAIDictionaryWatchApp: App {
     @StateObject private var model = WatchCurrentWordModel()
 
     var body: some Scene {

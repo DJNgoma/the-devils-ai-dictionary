@@ -5,9 +5,8 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-  // Keep the Electron main-process entrypoint in CommonJS.
   {
-    files: ["desktop/electron/main.cjs"],
+    files: ["**/*.cjs"],
     rules: {
       "@typescript-eslint/no-require-imports": "off",
     },

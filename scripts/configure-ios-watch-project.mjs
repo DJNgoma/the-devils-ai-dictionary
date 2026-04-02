@@ -407,23 +407,33 @@ const rootGroupKey = firstProject.mainGroup;
 const appTargetUuid = ensureTarget(project, "App", "application", "App", "com.djngoma.devilsaidictionary");
 const appGroupKey = findGroupKey(project, { path: "App" });
 const sharedAppleGroupKey = ensureGroup(project, rootGroupKey, "SharedApple");
-const watchAppGroupKey = ensureGroup(project, rootGroupKey, "DictionaryWatchApp");
-const watchExtensionGroupKey = ensureGroup(project, rootGroupKey, "DictionaryWatchExtension");
+const watchAppGroupKey = ensureGroup(
+  project,
+  rootGroupKey,
+  "The Devil's AI Dictionary Watch",
+  "TheDevilsAIDictionaryWatch",
+);
+const watchExtensionGroupKey = ensureGroup(
+  project,
+  rootGroupKey,
+  "The Devil's AI Dictionary Watch Extension",
+  "TheDevilsAIDictionaryWatchExtension",
+);
 
 ensureGroup(project, rootGroupKey, "Resources");
 
 const watchAppTargetUuid = ensureTarget(
   project,
-  "DictionaryWatchApp",
+  "The Devil's AI Dictionary Watch",
   "watch2_app",
-  "DictionaryWatchApp",
+  "The Devil's AI Dictionary Watch",
   "com.djngoma.devilsaidictionary.watchkitapp",
 );
 const watchExtensionTargetUuid = ensureTarget(
   project,
-  "DictionaryWatchExtension",
+  "The Devil's AI Dictionary Watch Extension",
   "watch2_extension",
-  "DictionaryWatchExtension",
+  "The Devil's AI Dictionary Watch Extension",
   "com.djngoma.devilsaidictionary.watchkitapp.watchkitextension",
 );
 
@@ -479,12 +489,12 @@ const entriesJsonFile = ensureFileInGroup(project, sharedAppleGroupKey, {
 
 const watchAppInfoPlistFile = ensureFileInGroup(project, watchAppGroupKey, {
   desiredPath: "Info.plist",
-  legacyPaths: ["DictionaryWatchApp/Info.plist"],
+  legacyPaths: ["TheDevilsAIDictionaryWatch/Info.plist", "DictionaryWatchApp/Info.plist"],
   lastKnownFileType: "text.plist.xml",
 });
 const watchAppAssetsFile = ensureFileInGroup(project, watchAppGroupKey, {
   desiredPath: "Assets.xcassets",
-  legacyPaths: ["DictionaryWatchApp/Assets.xcassets"],
+  legacyPaths: ["TheDevilsAIDictionaryWatch/Assets.xcassets", "DictionaryWatchApp/Assets.xcassets"],
   lastKnownFileType: "folder.assetcatalog",
 });
 
@@ -494,8 +504,11 @@ const watchExtensionInfoPlistFile = ensureFileInGroup(project, watchExtensionGro
   lastKnownFileType: "text.plist.xml",
 });
 const dictionaryWatchAppSwiftFile = ensureFileInGroup(project, watchExtensionGroupKey, {
-  desiredPath: "DictionaryWatchApp.swift",
-  legacyPaths: ["DictionaryWatchExtension/DictionaryWatchApp.swift"],
+  desiredPath: "TheDevilsAIDictionaryWatchApp.swift",
+  legacyPaths: [
+    "TheDevilsAIDictionaryWatchExtension/TheDevilsAIDictionaryWatchApp.swift",
+    "DictionaryWatchExtension/DictionaryWatchApp.swift",
+  ],
   lastKnownFileType: "sourcecode.swift",
 });
 const watchCurrentWordModelFile = ensureFileInGroup(project, watchExtensionGroupKey, {
@@ -681,7 +694,7 @@ setPhaseFiles(project, appResources, [
 setPhaseFiles(project, appEmbedWatchContent, [
   {
     fileRef: "88C7C0B4CE4F4B34BB74EC8A",
-    comment: "DictionaryWatchApp.app in Embed Watch Content",
+    comment: "The Devil's AI Dictionary Watch.app in Embed Watch Content",
     settings: {
       ATTRIBUTES: ["RemoveHeadersOnCopy"],
     },
@@ -720,7 +733,7 @@ setPhaseFiles(project, watchExtensionSources, [
   },
   {
     fileRef: dictionaryWatchAppSwiftFile.fileRef,
-    comment: "DictionaryWatchApp.swift in Sources",
+    comment: "TheDevilsAIDictionaryWatchApp.swift in Sources",
   },
   {
     fileRef: watchCurrentWordModelFile.fileRef,
@@ -760,7 +773,7 @@ setBuildSettings(project, watchAppTargetUuid, {
     CODE_SIGN_STYLE: "Automatic",
     CURRENT_PROJECT_VERSION: "1",
     DEVELOPMENT_TEAM: "5CND4GK432",
-    INFOPLIST_FILE: "DictionaryWatchApp/Info.plist",
+    INFOPLIST_FILE: "TheDevilsAIDictionaryWatch/Info.plist",
     LD_RUNPATH_SEARCH_PATHS: [
       '"$(inherited)"',
       '"@executable_path/Frameworks"',
@@ -846,7 +859,7 @@ normalizeFileReference(project, "E636E11094224B7DB08F20B5", {
   sourceTree: '"<group>"',
 });
 normalizeFileReference(project, "88C7C0B4CE4F4B34BB74EC8A", {
-  path: "DictionaryWatchApp.app",
+  path: "The Devil's AI Dictionary Watch.app",
   sourceTree: "BUILT_PRODUCTS_DIR",
   explicitFileType: "wrapper.application",
 });
