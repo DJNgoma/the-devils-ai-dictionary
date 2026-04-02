@@ -50,6 +50,8 @@ next-env.d.ts
 /android/keystore.properties
 /android/app/*.jks
 /android/app/*.keystore
+/android/play-account.json
+/public/mobile-catalog/
 
 # swift package build output
 /shared/swift-core/.build/
