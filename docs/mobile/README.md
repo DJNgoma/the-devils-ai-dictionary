@@ -27,6 +27,7 @@ Legacy static-export verification for the root app remains available with `npm r
 ## Runbooks
 
 - [Android native delivery](./android-native.md)
+- [Google Play testing](./google-play-testing.md)
 - [iOS push and watch v1](./ios-watch-push-v1.md)
 - [Mobile design system](./design-system.md)
 - [Android cutover notes](./native-roadmap.md)
