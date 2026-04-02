@@ -69,6 +69,17 @@ Use `npm run ios:destinations` to confirm the current iPad simulator name and to
 
 Use [`docs/mobile/checklists.md`](./mobile/checklists.md) for the shared device QA matrix. This file stays focused on the Apple build, archive, and upload path.
 
+## Current TestFlight Focus
+
+For the OTA-catalog build, ask testers to focus on these Apple-specific checks:
+
+- Fresh TestFlight install on iPhone with networking disabled after first launch to confirm the bundled catalog seeds the app and still boots offline.
+- Foreground refresh on iPhone to confirm the app stays usable while the OTA catalog check runs and the cached catalog is replaced atomically.
+- Deep-link or pushed-slug handling for a newly added entry so the app refreshes once and resolves the slug instead of failing immediately.
+- Paired watch sync after the phone refreshes its catalog so the watch receives the updated snapshot and current-word state without showing a stale entry.
+- Temporary phone/watch version drift: if the watch has not received the new catalog yet, it should refuse mismatched current-word payloads rather than showing the wrong word.
+- Upgrade from an older TestFlight build when the device already has a newer OTA catalog cache: confirm the app keeps the fresher cache instead of reverting to the bundled seed from the new build.
+
 ## Xcode checklist before TestFlight
 
 Inside Xcode:
