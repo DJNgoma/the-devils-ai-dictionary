@@ -183,8 +183,15 @@ function runCapacitorIOSAssets() {
     }
 
     const child = spawn(
-      "npx",
-      ["@capacitor/assets", "generate", "--ios", "--iosProject", "ios/App", ...capacitorCliArgs],
+      process.execPath,
+      [
+        path.join(repoRoot, "scripts", "run-capacitor-assets.mjs"),
+        "generate",
+        "--ios",
+        "--iosProject",
+        "ios/App",
+        ...capacitorCliArgs,
+      ],
       {
         stdio: "inherit",
         cwd: repoRoot,
@@ -203,7 +210,7 @@ function runCapacitorIOSAssets() {
       }
 
       if ((code ?? 1) !== 0) {
-        reject(new Error(`@capacitor/assets exited with code ${code ?? 1}`));
+        reject(new Error(`capacitor-assets exited with code ${code ?? 1}`));
         return;
       }
 

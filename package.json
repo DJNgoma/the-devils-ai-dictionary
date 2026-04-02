@@ -13,6 +13,11 @@
   "bugs": {
     "url": "https://github.com/DJNgoma/the-devils-ai-dictionary/issues"
   },
+  "toolVersions": {
+    "capacitorAssets": "3.0.5",
+    "electron": "38.8.6",
+    "electronBuilder": "26.8.1"
+  },
   "scripts": {
     "content:build": "node scripts/generate-content-index.mjs",
     "predev": "npm run content:build",
@@ -24,7 +29,7 @@
     "preview:cf": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy:cf": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "upload:cf": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
-    "android:assets": "npx @capacitor/assets generate --android --iconBackgroundColor '#ff5b2c' --iconBackgroundColorDark '#140904' --splashBackgroundColor '#f4efe6' --splashBackgroundColorDark '#12100d' && node scripts/fix-android-assets.mjs",
+    "android:assets": "node scripts/run-capacitor-assets.mjs generate --android --iconBackgroundColor '#ff5b2c' --iconBackgroundColorDark '#140904' --splashBackgroundColor '#f4efe6' --splashBackgroundColorDark '#12100d' && node scripts/fix-android-assets.mjs",
     "android:open": "open -a 'Android Studio' android",
     "android:prepare": "npm run version:sync && npm run content:build && npm run android:assets",
     "android:test": "node scripts/with-android-java.mjs ./android/gradlew -p android testDebugUnitTest",
@@ -67,7 +72,6 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@capacitor/assets": "^3.0.5",
     "@csstools/postcss-cascade-layers": "^6.0.0",
     "@tailwindcss/postcss": "^4",
     "@testing-library/dom": "^10.4.1",
@@ -77,11 +81,9 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "electron": "^38.4.0",
-    "electron-builder": "^26.0.12",
     "eslint": "^9",
     "eslint-config-next": "16.1.7",
-    "jsdom": "^27.0.1",
+    "jsdom": "^27.4.0",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^3.2.4",
