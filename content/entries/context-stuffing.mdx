@@ -1,0 +1,55 @@
+---
+title: "Context Stuffing"
+slug: "context-stuffing"
+letter: "C"
+categories:
+  - "Agents and workflows"
+  - "Model usage"
+  - "Cultural terms"
+aliases:
+  - "prompt stuffing"
+  - "context packing"
+  - "prompt bloat"
+devilDefinition: |
+  Solving a thinking problem by feeding the model more text until latency, cost, and coherence all lodge a complaint.
+plainDefinition: |
+  Context stuffing is the habit of overloading a model with documents, instructions, examples, and chat history in the hope that sheer volume will compensate for poor retrieval or unclear task design.
+whyExists: |
+  Because larger context windows make accumulation feel prudent, and because it is often easier to shovel everything in than to decide what actually matters.
+misuse: |
+  By using the phrase for any long prompt, even when the extra context is relevant and ranked well. The problem is not length alone. It is indiscriminate inclusion.
+practicalMeaning: |
+  In practice context stuffing produces slower responses, higher bills, muddier instruction hierarchy, and outputs that feel informed in the broad sense while missing the one paragraph that mattered.
+example: |
+  "The agent had the entire handbook, six meeting transcripts, three policies, and still managed to ignore the refund rule sitting in perfect plain English."
+askNext:
+  - "Why is each document or instruction block in the context at all?"
+  - "What retrieval or ranking step could replace bulk inclusion?"
+  - "Which instructions are being drowned by convenience text?"
+related:
+  - "context-window"
+  - "prompt"
+  - "rag"
+  - "latency"
+seeAlso:
+  - "Instruction hierarchy"
+  - "Retrieval quality"
+  - "Prompt discipline"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-04-03"
+updatedAt: "2026-04-03"
+tags:
+  - "prompting"
+  - "retrieval"
+  - "cost"
+  - "latency"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "The team chose bigger prompts over better selection."
+---
+
+Context stuffing is one of the first failure modes granted by abundance. Once the window grows large enough, restraint starts looking less like engineering and more like an avoidable meeting.

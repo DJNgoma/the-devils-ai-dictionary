@@ -1,0 +1,57 @@
+---
+title: "Alignment"
+slug: "alignment"
+letter: "A"
+categories:
+  - "Core concepts"
+  - "Safety and evaluation"
+  - "Cultural terms"
+aliases:
+  - "AI alignment"
+  - "model alignment"
+  - "behavioural alignment"
+devilDefinition: |
+  The attempt to persuade a prediction machine to share your intentions, your rules, and ideally your self-restraint.
+plainDefinition: |
+  Alignment refers to the work of making AI systems behave in ways that match intended goals, constraints, and human preferences rather than merely optimising for superficial reward signals.
+whyExists: |
+  Because specifying what humans actually want is hard, proxies are fragile, and capable systems can satisfy the letter of an objective while ignoring the reason it was written.
+misuse: |
+  By using it as a moral glow around any safety feature, or by collapsing very different concerns into one word. Product refusals, brand protection, catastrophic-risk research, and harmlessness tuning are related but not identical projects.
+practicalMeaning: |
+  In practice alignment means a stack of compromises: data curation, system prompts, RLHF, policy rules, evals, red teaming, monitoring, and occasional reminders that users do not all want the same thing.
+example: |
+  "The model was described as aligned, which turned out to mean it refused bomb recipes, agreed with paying customers, and still found new ways to be oddly literal."
+askNext:
+  - "Aligned to whose goals, values, or risk tolerance?"
+  - "What evidence shows the system holds up outside the training and eval setup?"
+  - "Is the issue actual model behaviour, or merely policy enforcement around it?"
+related:
+  - "guardrails"
+  - "rlhf"
+  - "red-teaming"
+  - "sycophancy"
+seeAlso:
+  - "Reward hacking"
+  - "Control problem"
+  - "Policy compliance"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-04-03"
+updatedAt: "2026-04-03"
+warningLabel: "A necessary term that still hides several different arguments."
+tags:
+  - "safety"
+  - "control"
+  - "evaluation"
+misunderstoodScore: 5
+translations:
+  - label: "what it usually means in reality"
+    text: "A continuous attempt to stop a useful system from becoming useful in the wrong way."
+note: |
+  Alignment can mean long-horizon existential-risk work in one conversation and ordinary product-behaviour tuning in the next. Ask which layer is actually under discussion.
+---
+
+Alignment is less a solved property than an upkeep burden. The more capable the system becomes, the less wise it is to assume yesterday's controls still count as a durable settlement.

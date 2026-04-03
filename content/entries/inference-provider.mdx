@@ -1,0 +1,55 @@
+---
+title: "Inference Provider"
+slug: "inference-provider"
+letter: "I"
+categories:
+  - "Infrastructure and deployment"
+  - "Economics and operations of AI"
+  - "Product and vendor terms"
+aliases:
+  - "model host"
+  - "inference platform"
+  - "model serving provider"
+devilDefinition: |
+  The company renting you access to intelligence by the token, with latency graphs where the soul used to be.
+plainDefinition: |
+  An inference provider runs and serves AI models through APIs or managed infrastructure so customers can send inputs and receive outputs without operating the full model stack themselves.
+whyExists: |
+  Because reliable model serving requires GPUs, batching, scaling, observability, routing, and a tolerance for operational pain that many product teams would rather outsource.
+misuse: |
+  By blurring the line between building a model and hosting one, or by describing a rented endpoint as proprietary intelligence simply because the invoice arrives under a different logo.
+practicalMeaning: |
+  In practice the choice of inference provider shapes latency, price, regional availability, data handling, model access, and how much of your application's reliability now depends on somebody else's serving layer.
+example: |
+  "They said they had their own AI platform, which turned out to mean an inference provider, a neat dashboard, and a heroic willingness to rename dependency as strategy."
+askNext:
+  - "Who actually trains the model, and who merely serves it?"
+  - "What happens to cost and performance when traffic scales?"
+  - "Which data-handling guarantees survive the extra layer?"
+related:
+  - "inference"
+  - "latency"
+  - "cloudflare"
+  - "byok"
+seeAlso:
+  - "Model hosting"
+  - "Managed serving"
+  - "Vendor dependency"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-03"
+updatedAt: "2026-04-03"
+tags:
+  - "infrastructure"
+  - "api"
+  - "hosting"
+  - "pricing"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "Someone else is handling the GPU headaches, and now they sit in your critical path."
+---
+
+Inference providers matter because very few teams want to run model serving properly, and a surprising number still want to sound as if they do.
