@@ -93,4 +93,28 @@ describe("mobile catalog manifest", () => {
     expect(files).not.toContain(`entries.${"a".repeat(64)}.json`);
     expect(JSON.parse(fs.readFileSync(result.manifestFile, "utf8"))).toEqual(result.manifest);
   });
+
+  it("can publish into the same directory concurrently", async () => {
+    const outputDirectory = fs.mkdtempSync(
+      path.join(os.tmpdir(), "mobile-catalog-publish-concurrency-test-"),
+    );
+    tempDirectories.push(outputDirectory);
+
+    const [first, second] = await Promise.all([
+      publishMobileCatalogArtifacts({
+        snapshotSourceFile: path.resolve(__dirname, "../generated/entries.generated.json"),
+        outputDirectory,
+      }),
+      publishMobileCatalogArtifacts({
+        snapshotSourceFile: path.resolve(__dirname, "../generated/entries.generated.json"),
+        outputDirectory,
+      }),
+    ]);
+
+    expect(first.manifest.catalogVersion).toBe(generatedData.catalogVersion);
+    expect(second.manifest.catalogVersion).toBe(generatedData.catalogVersion);
+    expect(JSON.parse(fs.readFileSync(path.join(outputDirectory, "manifest.json"), "utf8"))).toEqual(
+      second.manifest,
+    );
+  });
 });

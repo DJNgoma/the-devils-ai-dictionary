@@ -92,11 +92,15 @@ export async function publishMobileCatalogArtifacts({
   const snapshotFilename = path.basename(manifest.snapshotPath);
   const manifestFile = path.join(outputDirectory, "manifest.json");
   const snapshotFile = path.join(outputDirectory, snapshotFilename);
+  const temporaryManifestFile = path.join(
+    outputDirectory,
+    `manifest.${process.pid}.${Date.now()}.${Math.random().toString(16).slice(2)}.tmp`,
+  );
 
   await fs.mkdir(outputDirectory, { recursive: true });
   await fs.writeFile(snapshotFile, snapshotText, "utf8");
-  await fs.writeFile(`${manifestFile}.tmp`, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
-  await fs.rename(`${manifestFile}.tmp`, manifestFile);
+  await fs.writeFile(temporaryManifestFile, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+  await fs.rename(temporaryManifestFile, manifestFile);
 
   const files = await fs.readdir(outputDirectory);
   await Promise.all(
