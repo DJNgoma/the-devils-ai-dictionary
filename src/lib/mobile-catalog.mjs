@@ -8,6 +8,21 @@ export function sha256Hex(value) {
   return crypto.createHash("sha256").update(value).digest("hex");
 }
 
+export function stableStringify(value) {
+  if (Array.isArray(value)) {
+    return `[${value.map((item) => stableStringify(item)).join(",")}]`;
+  }
+
+  if (value && typeof value === "object") {
+    return `{${Object.keys(value)
+      .sort()
+      .map((key) => `${JSON.stringify(key)}:${stableStringify(value[key])}`)
+      .join(",")}}`;
+  }
+
+  return JSON.stringify(value);
+}
+
 export function createCatalogVersionSeed(catalog) {
   return {
     schemaVersion: mobileCatalogSchemaVersion,
@@ -26,7 +41,7 @@ export function createCatalogVersionSeed(catalog) {
 }
 
 export function createCatalogVersion(catalog) {
-  return sha256Hex(JSON.stringify(createCatalogVersionSeed(catalog)));
+  return sha256Hex(stableStringify(createCatalogVersionSeed(catalog)));
 }
 
 export function createCatalogSnapshot(catalog) {

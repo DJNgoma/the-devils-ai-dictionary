@@ -13,8 +13,10 @@ ENTRIES_DIR = File.join(ROOT, "content", "entries")
 OUTPUT_DIR = File.join(ROOT, "src", "generated")
 OUTPUT_FILE = File.join(OUTPUT_DIR, "entries.generated.json")
 PUBLIC_CATALOG_DIR = File.join(ROOT, "public", "catalog")
+PUBLIC_MOBILE_CATALOG_DIR = File.join(ROOT, "public", "mobile-catalog")
 EDITORIAL_TIME_ZONE = "Africa/Johannesburg"
 FEATURED_ENTRY_SLUG = "microsoft-copilot"
+SCHEMA_VERSION = 1
 
 # Keep this fallback in sync with scripts/generate-content-index.mjs.
 CATEGORY_DEFINITIONS = [
@@ -71,6 +73,21 @@ end
 
 def non_empty_string?(value)
   value.is_a?(String) && !value.strip.empty?
+end
+
+def normalize_frontmatter_value(value)
+  case value
+  when String
+    value
+  when Array
+    value.map { |item| normalize_frontmatter_value(item) }
+  when Hash
+    value.each_with_object({}) do |(key, child), normalized|
+      normalized[key] = normalize_frontmatter_value(child)
+    end
+  else
+    value
+  end
 end
 
 def string_array?(value)
@@ -180,15 +197,50 @@ def build_search_text(entry)
   ].join(" ").strip
 end
 
+def title_sort_value(value)
+  value.to_s.downcase
+end
+
+def stable_json(value)
+  case value
+  when Hash
+    "{#{value.keys.map(&:to_s).sort.map { |key| "#{JSON.generate(key)}:#{stable_json(value[key])}" }.join(",")}}"
+  when Array
+    "[#{value.map { |item| stable_json(item) }.join(",")}]"
+  else
+    JSON.generate(value)
+  end
+end
+
+def create_catalog_version_seed(catalog)
+  {
+    "schemaVersion" => SCHEMA_VERSION,
+    "entryCount" => catalog["entries"].length,
+    "entries" => catalog["entries"],
+    "recentSlugs" => catalog["recentSlugs"],
+    "misunderstoodSlugs" => catalog["misunderstoodSlugs"],
+    "letterStats" => catalog["letterStats"],
+    "categoryStats" => catalog["categoryStats"],
+    "editorialTimeZone" => catalog["editorialTimeZone"],
+    "dailyWordStartDate" => catalog["dailyWordStartDate"],
+    "dailyWordSlugs" => catalog["dailyWordSlugs"],
+    "featuredSlug" => catalog["featuredSlug"],
+    "latestPublishedAt" => catalog["latestPublishedAt"],
+  }
+end
+
 files = Dir.children(ENTRIES_DIR).select { |file| file.end_with?(".mdx") }.sort
 raw_entries_with_files = files.map do |filename|
   source = File.read(File.join(ENTRIES_DIR, filename))
   match = source.match(/\A---\n(.*?)\n---\n?/m)
   raise "Missing frontmatter in #{filename}" unless match
 
-  frontmatter = match[1]
+  frontmatter = "#{match[1]}\n"
   content = source[(match[0].length)..] || ""
-  data = YAML.safe_load(frontmatter, permitted_classes: [], aliases: true) || {}
+  data = normalize_frontmatter_value(
+    (YAML.safe_load(frontmatter, permitted_classes: [], aliases: true) || {})
+      .reject { |_, value| value.nil? },
+  )
   entry = data.merge(
     "aliases" => data["aliases"] || [],
     "related" => data["related"] || [],
@@ -242,7 +294,7 @@ raw_entries.each do |entry|
     }
   end
 
-  scored.sort_by! { |item| [-item["score"], item["title"]] }
+  scored.sort_by! { |item| [-item["score"], title_sort_value(item["title"])] }
 
   seen = Set.new
   result = []
@@ -267,10 +319,10 @@ entries = raw_entries.map do |entry|
   enriched
 end
 
-entries.sort_by! { |entry| entry["title"] }
+entries.sort_by! { |entry| title_sort_value(entry["title"]) }
 
 recent_slugs = entries
-  .sort_by { |entry| [-Time.parse(entry["publishedAt"]).to_i, entry["title"]] }
+  .sort_by { |entry| [-Time.parse(entry["publishedAt"]).to_i, title_sort_value(entry["title"])] }
   .first(4)
   .map { |entry| entry["slug"] }
 
@@ -278,7 +330,7 @@ latest_published_at =
   entries.map { |entry| entry["publishedAt"] }.max_by { |value| Time.parse(value).to_i } || ""
 
 misunderstood_slugs = entries
-  .sort_by { |entry| [-entry["misunderstoodScore"].to_i, entry["title"]] }
+  .sort_by { |entry| [-entry["misunderstoodScore"].to_i, title_sort_value(entry["title"])] }
   .first(4)
   .map { |entry| entry["slug"] }
 
@@ -325,12 +377,23 @@ catalog = {
   "latestPublishedAt" => latest_published_at,
 }
 
-catalog_version = Digest::SHA256.hexdigest("#{JSON.pretty_generate(catalog)}\n")
-generated_at = Time.now.utc.iso8601
+catalog_version = Digest::SHA256.hexdigest(stable_json(create_catalog_version_seed(catalog)))
+generated_at = Time.now.utc.iso8601(3)
+begin
+  existing_snapshot = JSON.parse(File.read(OUTPUT_FILE))
+  if existing_snapshot["catalogVersion"] == catalog_version && non_empty_string?(existing_snapshot["generatedAt"])
+    generated_at = existing_snapshot["generatedAt"]
+  end
+rescue Errno::ENOENT, JSON::ParserError
+  # No previous generated snapshot to reconcile against.
+end
 output = {
+  "schemaVersion" => SCHEMA_VERSION,
   "catalogVersion" => catalog_version,
   "generatedAt" => generated_at,
+  "entryCount" => entries.length,
 }.merge(catalog)
+snapshot_text = "#{JSON.pretty_generate(output)}\n"
 
 versioned_catalog_filename = "catalog.#{catalog_version}.json"
 versioned_catalog_path = File.join(PUBLIC_CATALOG_DIR, versioned_catalog_filename)
@@ -340,17 +403,39 @@ version_manifest = {
   "generatedAt" => generated_at,
   "path" => "/catalog/#{versioned_catalog_filename}",
 }
+mobile_snapshot_filename = "entries.#{catalog_version}.json"
+mobile_snapshot_path = "/mobile-catalog/#{mobile_snapshot_filename}"
+mobile_manifest_path = File.join(PUBLIC_MOBILE_CATALOG_DIR, "manifest.json")
+mobile_snapshot_file = File.join(PUBLIC_MOBILE_CATALOG_DIR, mobile_snapshot_filename)
+mobile_manifest = {
+  "schemaVersion" => SCHEMA_VERSION,
+  "catalogVersion" => catalog_version,
+  "entryCount" => entries.length,
+  "latestPublishedAt" => latest_published_at,
+  "publishedAt" => generated_at,
+  "snapshotPath" => mobile_snapshot_path,
+  "sha256" => Digest::SHA256.hexdigest(snapshot_text),
+  "bytes" => snapshot_text.bytesize,
+}
 
 FileUtils.mkdir_p(OUTPUT_DIR)
-File.write(OUTPUT_FILE, "#{JSON.pretty_generate(output)}\n")
+File.write(OUTPUT_FILE, snapshot_text)
 
 FileUtils.mkdir_p(PUBLIC_CATALOG_DIR)
 Dir.glob(File.join(PUBLIC_CATALOG_DIR, "catalog.*.json")).each do |path|
   File.delete(path) unless File.basename(path) == versioned_catalog_filename
 end
 
-File.write(versioned_catalog_path, "#{JSON.pretty_generate(output)}\n")
+File.write(versioned_catalog_path, snapshot_text)
 File.write(version_manifest_path, "#{JSON.pretty_generate(version_manifest)}\n")
+
+FileUtils.mkdir_p(PUBLIC_MOBILE_CATALOG_DIR)
+Dir.glob(File.join(PUBLIC_MOBILE_CATALOG_DIR, "entries.*.json")).each do |path|
+  File.delete(path) unless File.basename(path) == mobile_snapshot_filename
+end
+File.write(mobile_snapshot_file, snapshot_text)
+File.write(mobile_manifest_path, "#{JSON.pretty_generate(mobile_manifest)}\n")
 
 puts "Generated #{entries.length} dictionary entries into #{OUTPUT_FILE.sub("#{ROOT}/", "")}"
 puts "Published catalog manifest #{version_manifest_path.sub("#{ROOT}/", "")} -> #{version_manifest["path"]}"
+puts "Published mobile catalog manifest #{mobile_manifest_path.sub("#{ROOT}/", "")} -> #{mobile_manifest["snapshotPath"]}"

@@ -13,6 +13,7 @@ import {
 import {
   createCatalogVersion,
   createCatalogSnapshot,
+  publishMobileCatalogArtifacts,
   serializeCatalogSnapshot,
 } from "../src/lib/mobile-catalog.mjs";
 
@@ -21,6 +22,7 @@ const entriesDirectory = path.join(root, "content", "entries");
 const outputDirectory = path.join(root, "src", "generated");
 const outputFile = path.join(outputDirectory, "entries.generated.json");
 const publicCatalogDirectory = path.join(root, "public", "catalog");
+const publicMobileCatalogDirectory = path.join(root, "public", "mobile-catalog");
 const editorialTimeZone = "Africa/Johannesburg";
 const schemaVersion = 1;
 
@@ -218,12 +220,19 @@ async function buildEntryIndex() {
     `${JSON.stringify(versionManifest, null, 2)}\n`,
     "utf8",
   );
+  const { manifest: mobileCatalogManifest } = await publishMobileCatalogArtifacts({
+    snapshotSourceFile: outputFile,
+    outputDirectory: publicMobileCatalogDirectory,
+  });
 
   console.log(
     `Generated ${entries.length} dictionary entries into ${path.relative(root, outputFile)}`,
   );
   console.log(
     `Published catalog manifest public/catalog/version.json -> ${versionManifest.path}`,
+  );
+  console.log(
+    `Published mobile catalog manifest public/mobile-catalog/manifest.json -> ${mobileCatalogManifest.snapshotPath}`,
   );
 }
 
