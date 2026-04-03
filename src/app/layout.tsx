@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, IBM_Plex_Mono, Source_Serif_4 } from "next/font/google";
+import localFont from "next/font/local";
 import { BookmarkProvider } from "@/components/bookmark-provider";
 import { MobileAppBar } from "@/components/mobile-app-bar";
 import { MobileBottomNav } from "@/components/mobile-bottom-nav";
@@ -11,22 +11,70 @@ import { absoluteUrl } from "@/lib/metadata";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
-const display = Fraunces({
+const display = localFont({
   variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  display: "swap",
+  src: [
+    {
+      path: "./fonts/fraunces-500.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "./fonts/fraunces-600.ttf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "./fonts/fraunces-700.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
 });
 
-const body = Source_Serif_4({
+const body = localFont({
   variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  src: [
+    {
+      path: "./fonts/source-serif-4-400.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/source-serif-4-500.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "./fonts/source-serif-4-600.ttf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "./fonts/source-serif-4-700.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
 });
 
-const mono = IBM_Plex_Mono({
+const mono = localFont({
   variable: "--font-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
+  display: "swap",
+  src: [
+    {
+      path: "./fonts/ibm-plex-mono-400.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/ibm-plex-mono-500.ttf",
+      weight: "500",
+      style: "normal",
+    },
+  ],
 });
 
 export const metadata: Metadata = {
