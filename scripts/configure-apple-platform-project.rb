@@ -2,7 +2,12 @@
 # frozen_string_literal: true
 
 require 'pathname'
-require 'xcodeproj'
+
+begin
+  require 'xcodeproj'
+rescue LoadError
+  abort('Install the Ruby gem `xcodeproj` before running `npm run apple:project`.')
+end
 
 REPO_ROOT = Pathname.new(__dir__).join('..').realpath
 PROJECT_PATH = REPO_ROOT.join('ios', 'App', "The Devil's AI Dictionary.xcodeproj")

@@ -8,6 +8,7 @@ struct NativeEntryDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var model: NativeDictionaryModel
     let entry: Entry
+    var showsCloseButton = true
 
     var body: some View {
         NativeScreen { layout in
@@ -84,6 +85,7 @@ struct NativeEntryDetailView: View {
                         .background(NativePalette.warning.opacity(0.10), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
                 }
             }
+            .frame(maxWidth: layout.readingColumnWidth, alignment: .leading)
 
             if !entry.translations.isEmpty {
                 VStack(alignment: .leading, spacing: 12) {
@@ -99,17 +101,24 @@ struct NativeEntryDetailView: View {
                         }
                     }
                 }
+                .frame(maxWidth: layout.readingColumnWidth, alignment: .leading)
             }
 
             if let diagram = entry.diagram {
                 NativeTermDiagramView(kind: diagram)
+                    .frame(maxWidth: layout.readingColumnWidth, alignment: .leading)
             }
 
             NativeEntrySectionCard(title: "Straight definition", bodyText: entry.plainDefinition)
+                .frame(maxWidth: layout.readingColumnWidth, alignment: .leading)
             NativeEntrySectionCard(title: "Why this term exists", bodyText: entry.whyExists)
+                .frame(maxWidth: layout.readingColumnWidth, alignment: .leading)
             NativeEntrySectionCard(title: "How people abuse the term", bodyText: entry.misuse)
+                .frame(maxWidth: layout.readingColumnWidth, alignment: .leading)
             NativeEntrySectionCard(title: "What it usually means in practice", bodyText: entry.practicalMeaning)
+                .frame(maxWidth: layout.readingColumnWidth, alignment: .leading)
             NativeEntrySectionCard(title: "Practical example", bodyText: entry.example, italic: true)
+                .frame(maxWidth: layout.readingColumnWidth, alignment: .leading)
 
             if !entry.askNext.isEmpty {
                 NativeCard {
@@ -125,6 +134,7 @@ struct NativeEntryDetailView: View {
                         }
                     }
                 }
+                .frame(maxWidth: layout.readingColumnWidth, alignment: .leading)
             }
 
             if !entry.seeAlso.isEmpty {
@@ -143,10 +153,12 @@ struct NativeEntryDetailView: View {
                         }
                     }
                 }
+                .frame(maxWidth: layout.readingColumnWidth, alignment: .leading)
             }
 
             if let note = entry.note, !note.isEmpty {
                 NativeEntrySectionCard(title: "Context note", bodyText: note)
+                    .frame(maxWidth: layout.readingColumnWidth, alignment: .leading)
             }
 
             if !entry.vendorReferences.isEmpty {
@@ -159,6 +171,7 @@ struct NativeEntryDetailView: View {
                         }
                     }
                 }
+                .frame(maxWidth: layout.readingColumnWidth, alignment: .leading)
             }
 
             if !entry.body.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -167,6 +180,7 @@ struct NativeEntryDetailView: View {
                     Text(.init(entry.body))
                         .font(.system(size: 15, weight: .regular, design: .rounded))
                 }
+                .frame(maxWidth: layout.readingColumnWidth, alignment: .leading)
             }
 
             let relatedEntries = model.relatedEntries(for: entry)
@@ -188,8 +202,10 @@ struct NativeEntryDetailView: View {
         .nativeNavigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button("Done") {
-                    dismiss()
+                if showsCloseButton {
+                    Button("Done") {
+                        dismiss()
+                    }
                 }
             }
         }

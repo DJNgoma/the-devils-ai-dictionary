@@ -464,6 +464,17 @@ struct NativeScreenLayout {
         }
     }
 
+    var readingColumnWidth: CGFloat {
+        switch widthClass {
+        case .phone:
+            return maxContentWidth
+        case .tablet:
+            return min(maxContentWidth, 760)
+        case .desktopLike:
+            return min(maxContentWidth, 820)
+        }
+    }
+
     var cardColumnCount: Int {
         switch widthClass {
         case .phone:

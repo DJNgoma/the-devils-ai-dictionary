@@ -11,12 +11,46 @@ import DevilsAIDictionaryCore
 
 @MainActor
 final class NativeDictionaryModel: ObservableObject {
-    enum AppTab: Hashable {
+    enum AppTab: String, CaseIterable, Hashable, Identifiable {
         case home
         case browse
         case search
         case saved
         case settings
+
+        var id: String {
+            rawValue
+        }
+
+        var label: String {
+            switch self {
+            case .home:
+                return "Home"
+            case .browse:
+                return "Browse"
+            case .search:
+                return "Search"
+            case .saved:
+                return "Saved"
+            case .settings:
+                return "Settings"
+            }
+        }
+
+        var systemImage: String {
+            switch self {
+            case .home:
+                return "house"
+            case .browse:
+                return "books.vertical"
+            case .search:
+                return "magnifyingglass"
+            case .saved:
+                return "bookmark"
+            case .settings:
+                return "slider.horizontal.3"
+            }
+        }
     }
 
     enum ActiveSheet: Identifiable, Equatable {
@@ -39,6 +73,14 @@ final class NativeDictionaryModel: ObservableObject {
         }
     }
 
+    enum MacDetailRoute: Equatable {
+        case section(AppTab)
+        case entry(String)
+        case book
+        case guide
+        case about
+    }
+
     struct EntrySection: Identifiable {
         let title: String
         let entries: [Entry]
@@ -49,6 +91,8 @@ final class NativeDictionaryModel: ObservableObject {
     }
 
     @Published var selectedTab: AppTab = .home
+    @Published var macSidebarSelection: AppTab = .home
+    @Published var macDetailRoute: MacDetailRoute = .section(.home)
     @Published var activeSheet: ActiveSheet?
     @Published var browseLetter: String?
     @Published var browseCategorySlug: String?
@@ -233,6 +277,18 @@ final class NativeDictionaryModel: ObservableObject {
         mobileBaseURL()?.absoluteString ?? "https://thedevilsaidictionary.com"
     }
 
+    var macShowsInlineDetail: Bool {
+        guard case .section(let section) = macDetailRoute else {
+            return true
+        }
+
+        return section != macSidebarSelection
+    }
+
+    var macReturnButtonTitle: String {
+        "Back to \(macSidebarSelection.label)"
+    }
+
     var catalogManifestURLString: String {
         mobileBaseURL()?
             .appendingPathComponent("mobile-catalog", isDirectory: true)
@@ -328,11 +384,22 @@ final class NativeDictionaryModel: ObservableObject {
         return explicit
     }
 
+    func showSection(_ section: AppTab) {
+        selectedTab = section
+        macSidebarSelection = section
+        macDetailRoute = .section(section)
+    }
+
+    func returnToMacSection() {
+        macDetailRoute = .section(macSidebarSelection)
+    }
+
     func presentEntry(slug: String) {
         guard entry(slug: slug) != nil else {
             return
         }
 
+        macDetailRoute = .entry(slug)
         activeSheet = .entry(slug)
     }
 
@@ -341,34 +408,38 @@ final class NativeDictionaryModel: ObservableObject {
     }
 
     func presentBook() {
+        macDetailRoute = .book
         activeSheet = .book
     }
 
     func presentGuide() {
+        macDetailRoute = .guide
         activeSheet = .guide
     }
 
     func presentAbout() {
+        macDetailRoute = .about
         activeSheet = .about
     }
 
     func dismissSheet() {
         activeSheet = nil
+        macDetailRoute = .section(macSidebarSelection)
     }
 
     func showBrowse(letter: String?) {
         browseLetter = letter
-        selectedTab = .browse
+        showSection(.browse)
     }
 
     func showBrowse(categorySlug: String?) {
         browseCategorySlug = categorySlug
-        selectedTab = .browse
+        showSection(.browse)
     }
 
     func showCategoryInSearch(_ slug: String?) {
         searchCategorySlug = slug
-        selectedTab = .search
+        showSection(.search)
     }
 
     func resetSearchFilters() {
@@ -407,7 +478,7 @@ final class NativeDictionaryModel: ObservableObject {
 
     func openSavedPlace() {
         guard let savedPlace else {
-            selectedTab = .browse
+            showSection(.browse)
             return
         }
 
@@ -422,7 +493,7 @@ final class NativeDictionaryModel: ObservableObject {
             if let slug = Self.slug(fromDictionaryPath: savedPlace.href) {
                 presentEntry(slug: slug)
             } else {
-                selectedTab = .browse
+                showSection(.browse)
             }
         }
     }
@@ -604,8 +675,8 @@ final class NativeDictionaryModel: ObservableObject {
             return
         }
 
-        selectedTab = .browse
-        activeSheet = .entry(slug)
+        showSection(.browse)
+        presentEntry(slug: slug)
         manager.consumePendingNavigationPath(path)
     }
 

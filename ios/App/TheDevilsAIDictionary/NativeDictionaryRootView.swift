@@ -13,13 +13,50 @@ struct NativeDictionaryRootView: View {
     }
 
     var body: some View {
+        #if os(macOS)
+        NativeMacDictionaryRoot(model: model, themeManager: themeManager)
+            .tint(NativePalette.accent)
+            .id(themeManager.current)
+            .preferredColorScheme(themeManager.current.colorScheme)
+        #else
+        NativePhoneDictionaryRoot(model: model)
+            .tint(NativePalette.accent)
+            .id(themeManager.current)
+            .preferredColorScheme(themeManager.current.colorScheme)
+            .sheet(item: $model.activeSheet) { sheet in
+                NavigationView {
+                    switch sheet {
+                    case .about:
+                        NativeAboutView(model: model)
+                    case .book:
+                        NativeBookView(model: model)
+                    case .guide:
+                        NativeGuideView()
+                    case .entry(let slug):
+                        if let entry = model.entry(slug: slug) {
+                            NativeEntryDetailView(model: model, entry: entry)
+                        } else {
+                            NativeMissingEntryView()
+                        }
+                    }
+                }
+                .nativeStackNavigationViewStyle()
+            }
+        #endif
+    }
+}
+
+private struct NativePhoneDictionaryRoot: View {
+    @ObservedObject var model: NativeDictionaryModel
+
+    var body: some View {
         TabView(selection: $model.selectedTab) {
             NavigationView {
                 NativeHomeView(model: model)
             }
             .nativeStackNavigationViewStyle()
             .tabItem {
-                Label("Home", systemImage: "house")
+                Label("Home", systemImage: NativeDictionaryModel.AppTab.home.systemImage)
             }
             .tag(NativeDictionaryModel.AppTab.home)
 
@@ -28,7 +65,7 @@ struct NativeDictionaryRootView: View {
             }
             .nativeStackNavigationViewStyle()
             .tabItem {
-                Label("Browse", systemImage: "books.vertical")
+                Label("Browse", systemImage: NativeDictionaryModel.AppTab.browse.systemImage)
             }
             .tag(NativeDictionaryModel.AppTab.browse)
 
@@ -37,7 +74,7 @@ struct NativeDictionaryRootView: View {
             }
             .nativeStackNavigationViewStyle()
             .tabItem {
-                Label("Search", systemImage: "magnifyingglass")
+                Label("Search", systemImage: NativeDictionaryModel.AppTab.search.systemImage)
             }
             .tag(NativeDictionaryModel.AppTab.search)
 
@@ -46,7 +83,7 @@ struct NativeDictionaryRootView: View {
             }
             .nativeStackNavigationViewStyle()
             .tabItem {
-                Label("Saved", systemImage: "bookmark")
+                Label("Saved", systemImage: NativeDictionaryModel.AppTab.saved.systemImage)
             }
             .tag(NativeDictionaryModel.AppTab.saved)
 
@@ -55,34 +92,252 @@ struct NativeDictionaryRootView: View {
             }
             .nativeStackNavigationViewStyle()
             .tabItem {
-                Label("Settings", systemImage: "slider.horizontal.3")
+                Label("Settings", systemImage: NativeDictionaryModel.AppTab.settings.systemImage)
             }
             .tag(NativeDictionaryModel.AppTab.settings)
         }
-        .tint(NativePalette.accent)
-        .id(themeManager.current)
-        .preferredColorScheme(themeManager.current.colorScheme)
-        .sheet(item: $model.activeSheet) { sheet in
-            NavigationView {
-                switch sheet {
-                case .about:
-                    NativeAboutView(model: model)
-                case .book:
-                    NativeBookView(model: model)
-                case .guide:
-                    NativeGuideView()
-                case .entry(let slug):
-                    if let entry = model.entry(slug: slug) {
-                        NativeEntryDetailView(model: model, entry: entry)
-                    } else {
-                        NativeMissingEntryView()
-                    }
-                }
+    }
+}
+
+#if os(macOS)
+private struct NativeMacDictionaryRoot: View {
+    @ObservedObject var model: NativeDictionaryModel
+    @ObservedObject var themeManager: ThemeManager
+
+    var body: some View {
+        NavigationSplitView {
+            NativeMacSidebar(model: model)
+                .navigationSplitViewColumnWidth(min: 260, ideal: 286, max: 320)
+        } detail: {
+            NavigationStack {
+                NativeMacDetailView(model: model)
             }
-            .nativeStackNavigationViewStyle()
+            .frame(minWidth: 760, maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        }
+        .navigationSplitViewStyle(.balanced)
+        .toolbar {
+            NativeMacToolbar(model: model, themeManager: themeManager)
         }
     }
 }
+
+private struct NativeMacSidebar: View {
+    @ObservedObject var model: NativeDictionaryModel
+
+    var body: some View {
+        ZStack {
+            NativePalette.paper.ignoresSafeArea()
+
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        NativeSectionLabel(text: "Mac edition")
+
+                        Text("The Devil's AI Dictionary")
+                            .font(.system(size: 30, weight: .bold, design: .serif))
+
+                        Text("A desktop reading room for inflated AI language, with the bookish theme left intact and the phone chrome quietly removed.")
+                            .font(.system(size: 15, weight: .regular, design: .rounded))
+                            .foregroundStyle(NativePalette.mutedText)
+                    }
+
+                    VStack(alignment: .leading, spacing: 8) {
+                        ForEach(NativeDictionaryModel.AppTab.allCases) { section in
+                            Button {
+                                model.showSection(section)
+                            } label: {
+                                HStack(spacing: 12) {
+                                    Image(systemName: section.systemImage)
+                                        .font(.system(size: 14, weight: .semibold))
+                                        .frame(width: 18)
+
+                                    Text(section.label)
+                                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+
+                                    Spacer(minLength: 12)
+
+                                    if model.macSidebarSelection == section && model.macShowsInlineDetail {
+                                        Image(systemName: "arrow.turn.down.right")
+                                            .font(.system(size: 12, weight: .semibold))
+                                            .foregroundStyle(NativePalette.accent)
+                                    }
+                                }
+                                .padding(.horizontal, 14)
+                                .padding(.vertical, 12)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .background(
+                                    model.macSidebarSelection == section ? NativePalette.accentMuted : NativePalette.panel,
+                                    in: RoundedRectangle(cornerRadius: 18, style: .continuous)
+                                )
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 18, style: .continuous)
+                                        .stroke(
+                                            model.macSidebarSelection == section ? NativePalette.accent.opacity(0.28) : NativePalette.border,
+                                            lineWidth: 1
+                                        )
+                                )
+                            }
+                            .buttonStyle(.plain)
+                            .foregroundStyle(model.macSidebarSelection == section ? NativePalette.accent : .primary)
+                        }
+                    }
+
+                    NativeCard {
+                        NativeSectionLabel(text: "Editorial")
+
+                        Text("The non-tab pages live here now, inline and close to the main reading flow.")
+                            .font(.system(size: 14, weight: .regular, design: .rounded))
+                            .foregroundStyle(NativePalette.mutedText)
+
+                        VStack(alignment: .leading, spacing: 10) {
+                            Button("Read the book") {
+                                model.presentBook()
+                            }
+                            .buttonStyle(.plain)
+
+                            Button("How to read") {
+                                model.presentGuide()
+                            }
+                            .buttonStyle(.plain)
+
+                            Button("About") {
+                                model.presentAbout()
+                            }
+                            .buttonStyle(.plain)
+                        }
+                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                        .foregroundStyle(NativePalette.accent)
+                    }
+
+                    if let todayWord = model.todayWord {
+                        NativeCard(emphasis: true) {
+                            NativeSectionLabel(text: "Today's word")
+
+                            Text(todayWord.title)
+                                .font(.system(size: 24, weight: .semibold, design: .serif))
+
+                            Text(todayWord.devilDefinition.trimmingCharacters(in: .whitespacesAndNewlines))
+                                .font(.system(size: 15, weight: .medium, design: .rounded))
+                                .lineLimit(4)
+
+                            Button("Open today's word") {
+                                model.openTodayWord()
+                            }
+                            .buttonStyle(NativeSecondaryButtonStyle())
+                        }
+                    }
+                }
+                .padding(20)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+    }
+}
+
+private struct NativeMacDetailView: View {
+    @ObservedObject var model: NativeDictionaryModel
+
+    var body: some View {
+        switch model.macDetailRoute {
+        case .section(let section):
+            NativeSectionHostView(model: model, section: section)
+        case .entry(let slug):
+            if let entry = model.entry(slug: slug) {
+                NativeEntryDetailView(model: model, entry: entry, showsCloseButton: false)
+            } else {
+                NativeMissingEntryView(showsCloseButton: false)
+            }
+        case .book:
+            NativeBookView(model: model, showsCloseButton: false)
+        case .guide:
+            NativeGuideView(showsCloseButton: false)
+        case .about:
+            NativeAboutView(model: model, showsCloseButton: false)
+        }
+    }
+}
+
+private struct NativeSectionHostView: View {
+    @ObservedObject var model: NativeDictionaryModel
+    let section: NativeDictionaryModel.AppTab
+
+    var body: some View {
+        switch section {
+        case .home:
+            NativeHomeView(model: model)
+        case .browse:
+            NativeBrowseView(model: model)
+        case .search:
+            NativeSearchView(model: model)
+        case .saved:
+            NativeSavedView(model: model)
+        case .settings:
+            NativeSettingsView(model: model)
+        }
+    }
+}
+
+private struct NativeMacToolbar: ToolbarContent {
+    @ObservedObject var model: NativeDictionaryModel
+    @ObservedObject var themeManager: ThemeManager
+
+    var body: some ToolbarContent {
+        ToolbarItemGroup(placement: .navigation) {
+            if model.macShowsInlineDetail {
+                Button(model.macReturnButtonTitle) {
+                    model.returnToMacSection()
+                }
+            }
+        }
+
+        ToolbarItemGroup(placement: .primaryAction) {
+            Button {
+                model.openRandomEntry()
+            } label: {
+                Label("Random entry", systemImage: "shuffle")
+            }
+
+            Button {
+                Task {
+                    await model.syncCatalogNow()
+                }
+            } label: {
+                Label(model.isRefreshingCatalog ? "Syncing" : "Sync now", systemImage: "arrow.clockwise")
+            }
+            .disabled(model.isRefreshingCatalog)
+
+            Menu {
+                Button("Read the book") {
+                    model.presentBook()
+                }
+
+                Button("How to read") {
+                    model.presentGuide()
+                }
+
+                Button("About") {
+                    model.presentAbout()
+                }
+
+                Divider()
+
+                Picker(selection: Binding(
+                    get: { themeManager.current },
+                    set: { themeManager.setTheme($0) }
+                )) {
+                    ForEach(SiteTheme.allCases) { theme in
+                        Text(theme.label).tag(theme)
+                    }
+                } label: {
+                    Text("Theme")
+                }
+            } label: {
+                Label("Display", systemImage: "paintpalette")
+            }
+        }
+    }
+}
+#endif
 
 private struct NativeHomeView: View {
     @ObservedObject var model: NativeDictionaryModel
@@ -497,12 +752,12 @@ private struct NativeSavedView: View {
 
                     HStack {
                         Button("Browse entries") {
-                            model.selectedTab = .browse
+                            model.showSection(.browse)
                         }
                         .buttonStyle(NativePrimaryButtonStyle())
 
                         Button("Search") {
-                            model.selectedTab = .search
+                            model.showSection(.search)
                         }
                         .buttonStyle(NativeSecondaryButtonStyle())
                     }
@@ -816,6 +1071,7 @@ private struct NativeSearchFiltersView: View {
 private struct NativeBookView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var model: NativeDictionaryModel
+    var showsCloseButton = true
 
     private var featuredStartPoints: [Entry] {
         ["ai-psychosis", "inference", "openai", "agentic-ai", "rag", "structured-outputs"]
@@ -843,8 +1099,10 @@ private struct NativeBookView: View {
                     .buttonStyle(NativePrimaryButtonStyle())
 
                     Button("Browse entries") {
-                        dismiss()
-                        model.selectedTab = .browse
+                        if showsCloseButton {
+                            dismiss()
+                        }
+                        model.showSection(.browse)
                     }
                     .buttonStyle(NativeSecondaryButtonStyle())
                 }
@@ -878,8 +1136,10 @@ private struct NativeBookView: View {
         .nativeNavigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button("Done") {
-                    dismiss()
+                if showsCloseButton {
+                    Button("Done") {
+                        dismiss()
+                    }
                 }
             }
         }
@@ -888,6 +1148,7 @@ private struct NativeBookView: View {
 
 private struct NativeGuideView: View {
     @Environment(\.dismiss) private var dismiss
+    var showsCloseButton = true
 
     var body: some View {
         NativeScreen { _ in
@@ -930,8 +1191,10 @@ private struct NativeGuideView: View {
         .nativeNavigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button("Done") {
-                    dismiss()
+                if showsCloseButton {
+                    Button("Done") {
+                        dismiss()
+                    }
                 }
             }
         }
@@ -941,6 +1204,7 @@ private struct NativeGuideView: View {
 private struct NativeAboutView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var model: NativeDictionaryModel
+    var showsCloseButton = true
 
     var body: some View {
         NativeScreen { layout in
@@ -986,8 +1250,10 @@ private struct NativeAboutView: View {
         .nativeNavigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button("Done") {
-                    dismiss()
+                if showsCloseButton {
+                    Button("Done") {
+                        dismiss()
+                    }
                 }
             }
         }
@@ -996,6 +1262,7 @@ private struct NativeAboutView: View {
 
 private struct NativeMissingEntryView: View {
     @Environment(\.dismiss) private var dismiss
+    var showsCloseButton = true
 
     var body: some View {
         NativeScreen { _ in
@@ -1011,8 +1278,10 @@ private struct NativeMissingEntryView: View {
         .navigationTitle("Missing entry")
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button("Done") {
-                    dismiss()
+                if showsCloseButton {
+                    Button("Done") {
+                        dismiss()
+                    }
                 }
             }
         }
@@ -1024,6 +1293,11 @@ private struct NativeOverflowToolbar: ToolbarContent {
     @ObservedObject var themeManager: ThemeManager
 
     var body: some ToolbarContent {
+        #if os(macOS)
+        ToolbarItemGroup(placement: .automatic) {
+            EmptyView()
+        }
+        #else
         ToolbarItem(placement: .nativeNavigationTrailing) {
             Menu {
                 Button("Read the book") {
@@ -1064,6 +1338,7 @@ private struct NativeOverflowToolbar: ToolbarContent {
                     .foregroundStyle(NativePalette.accent)
             }
         }
+        #endif
     }
 }
 
