@@ -149,6 +149,7 @@ html {
   min-height: 100%;
   background: var(--background);
   scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--app-bar-height) + var(--safe-area-top) + 1rem);
 }
 
 body {
