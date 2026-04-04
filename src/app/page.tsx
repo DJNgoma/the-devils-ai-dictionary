@@ -52,7 +52,12 @@ export default async function HomePage() {
       <section className="surface-strong overflow-hidden px-6 py-10 sm:px-8 sm:py-12">
         <div className="editorial-grid gap-10">
           <div>
-            <p className="page-kicker">Online book</p>
+            <p className="page-kicker">
+              Online book{" "}
+              <span className="tracking-normal opacity-60">
+                · Updated {formatDate(latestPublishedAt)}
+              </span>
+            </p>
             <h1 className="page-title mt-4">The Devil&apos;s AI Dictionary</h1>
             <p className="mt-6 max-w-3xl text-xl leading-9 text-foreground">
               A sceptical field guide to the language machines, marketers,
