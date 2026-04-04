@@ -138,6 +138,7 @@ public struct Entry: Codable, Equatable, Sendable {
     public let body: String
     public let categorySlugs: [String]
     public let url: String
+    public let searchText: String?
     public let relatedSlugs: [String]
 }
 

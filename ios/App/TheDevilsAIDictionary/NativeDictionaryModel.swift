@@ -697,7 +697,7 @@ final class NativeDictionaryModel: ObservableObject {
         let slug = entry.slug.lowercased()
         let aliases = entry.aliases.map { $0.lowercased() }
         let categories = entry.categories.map { $0.lowercased() }
-        let searchText = entry.searchText.lowercased()
+        let searchText = (entry.searchText ?? "").lowercased()
 
         guard tokens.allSatisfy({ token in
             title.contains(token) ||
