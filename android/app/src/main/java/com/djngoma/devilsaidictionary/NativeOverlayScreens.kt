@@ -69,11 +69,11 @@ fun BookOverlay(
                         leadingIcon = Icons.Rounded.BookmarkBorder,
                     )
                     NativeSecondaryButton(
-                        label = "Browse entries",
+                        label = "Search entries",
                         colors = colors,
                         onClick = {
                             store.dismissOverlay()
-                            store.selectTab(NativeTab.Browse)
+                            store.selectTab(NativeTab.Search)
                         },
                         leadingIcon = Icons.Rounded.Search,
                     )

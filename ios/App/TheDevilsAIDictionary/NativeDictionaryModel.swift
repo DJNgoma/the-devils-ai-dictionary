@@ -13,8 +13,8 @@ import DevilsAIDictionaryCore
 final class NativeDictionaryModel: ObservableObject {
     enum AppTab: String, CaseIterable, Hashable, Identifiable {
         case home
-        case browse
         case search
+        case categories
         case saved
         case settings
 
@@ -26,10 +26,10 @@ final class NativeDictionaryModel: ObservableObject {
             switch self {
             case .home:
                 return "Home"
-            case .browse:
-                return "Browse"
             case .search:
                 return "Search"
+            case .categories:
+                return "Categories"
             case .saved:
                 return "Saved"
             case .settings:
@@ -41,10 +41,10 @@ final class NativeDictionaryModel: ObservableObject {
             switch self {
             case .home:
                 return "house"
-            case .browse:
-                return "books.vertical"
             case .search:
                 return "magnifyingglass"
+            case .categories:
+                return "square.grid.2x2"
             case .saved:
                 return "bookmark"
             case .settings:
@@ -94,8 +94,7 @@ final class NativeDictionaryModel: ObservableObject {
     @Published var macSidebarSelection: AppTab = .home
     @Published var macDetailRoute: MacDetailRoute = .section(.home)
     @Published var activeSheet: ActiveSheet?
-    @Published var browseLetter: String?
-    @Published var browseCategorySlug: String?
+    @Published var searchLetter: String?
     @Published var searchQuery = ""
     @Published var searchCategorySlug: String?
     @Published var searchDifficulty: Difficulty?
@@ -166,20 +165,6 @@ final class NativeDictionaryModel: ObservableObject {
             .sorted()
     }
 
-    var browseSections: [EntrySection] {
-        let filter = EntryFilter(categorySlug: browseCategorySlug, letter: browseLetter)
-        let filtered = catalogSnapshot?.catalog.entries(matching: filter) ?? []
-        let grouped = Dictionary(grouping: filtered, by: \.letter)
-
-        return grouped.keys.sorted().map { letter in
-            EntrySection(
-                title: letter,
-                entries: grouped[letter, default: []]
-                    .sorted { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }
-            )
-        }
-    }
-
     var hasSearchFilters: Bool {
         searchCategorySlug != nil ||
             searchDifficulty != nil ||
@@ -197,33 +182,40 @@ final class NativeDictionaryModel: ObservableObject {
         let filtered = catalogSnapshot?.catalog.entries(matching: filter) ?? []
         let trimmedQuery = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
 
-        guard !trimmedQuery.isEmpty else {
-            return filtered.sorted { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }
+        let base: [Entry]
+        if trimmedQuery.isEmpty {
+            base = filtered.sorted { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }
+        } else {
+            let normalizedTokens = trimmedQuery
+                .lowercased()
+                .split(whereSeparator: \.isWhitespace)
+                .map(String.init)
+
+            let scoredResults: [(entry: Entry, score: Int)] = filtered
+                .compactMap { entry in
+                    let score = Self.searchScore(for: entry, tokens: normalizedTokens)
+                    guard score > 0 else {
+                        return nil
+                    }
+
+                    return (entry: entry, score: score)
+                }
+                .sorted { lhs, rhs in
+                    if lhs.1 == rhs.1 {
+                        return lhs.0.title.localizedCaseInsensitiveCompare(rhs.0.title) == .orderedAscending
+                    }
+
+                    return lhs.1 > rhs.1
+                }
+
+            base = scoredResults.map(\.entry)
         }
 
-        let normalizedTokens = trimmedQuery
-            .lowercased()
-            .split(whereSeparator: \.isWhitespace)
-            .map(String.init)
+        if let searchLetter {
+            return base.filter { $0.letter == searchLetter }
+        }
 
-        let scoredResults: [(entry: Entry, score: Int)] = filtered
-            .compactMap { entry in
-                let score = Self.searchScore(for: entry, tokens: normalizedTokens)
-                guard score > 0 else {
-                    return nil
-                }
-
-                return (entry: entry, score: score)
-            }
-            .sorted { lhs, rhs in
-                if lhs.1 == rhs.1 {
-                    return lhs.0.title.localizedCaseInsensitiveCompare(rhs.0.title) == .orderedAscending
-                }
-
-                return lhs.1 > rhs.1
-            }
-
-        return scoredResults.map(\.entry)
+        return base
     }
 
     var savedEntry: Entry? {
@@ -427,14 +419,9 @@ final class NativeDictionaryModel: ObservableObject {
         macDetailRoute = .section(macSidebarSelection)
     }
 
-    func showBrowse(letter: String?) {
-        browseLetter = letter
-        showSection(.browse)
-    }
-
-    func showBrowse(categorySlug: String?) {
-        browseCategorySlug = categorySlug
-        showSection(.browse)
+    func showSearch(letter: String?) {
+        searchLetter = letter
+        showSection(.search)
     }
 
     func showCategoryInSearch(_ slug: String?) {
@@ -447,6 +434,7 @@ final class NativeDictionaryModel: ObservableObject {
         searchDifficulty = nil
         searchTechnicalDepth = nil
         searchVendorFilter = .all
+        searchLetter = nil
     }
 
     func save(entry: Entry) {
@@ -478,7 +466,7 @@ final class NativeDictionaryModel: ObservableObject {
 
     func openSavedPlace() {
         guard let savedPlace else {
-            showSection(.browse)
+            showSection(.search)
             return
         }
 
@@ -493,7 +481,7 @@ final class NativeDictionaryModel: ObservableObject {
             if let slug = Self.slug(fromDictionaryPath: savedPlace.href) {
                 presentEntry(slug: slug)
             } else {
-                showSection(.browse)
+                showSection(.search)
             }
         }
     }
@@ -675,7 +663,7 @@ final class NativeDictionaryModel: ObservableObject {
             return
         }
 
-        showSection(.browse)
+        showSection(.search)
         presentEntry(slug: slug)
         manager.consumePendingNavigationPath(path)
     }

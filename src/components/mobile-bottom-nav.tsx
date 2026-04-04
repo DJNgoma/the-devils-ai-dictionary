@@ -28,6 +28,17 @@ function NavIcon({ item }: { item: MobilePrimaryNavItem }) {
     );
   }
 
+  if (item.icon === "grid") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true" className="size-5 fill-none stroke-current">
+        <rect x="4" y="4" width="6.5" height="6.5" rx="1.5" strokeWidth="1.8" />
+        <rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5" strokeWidth="1.8" />
+        <rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5" strokeWidth="1.8" />
+        <rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5" strokeWidth="1.8" />
+      </svg>
+    );
+  }
+
   if (item.icon === "bookmark") {
     return (
       <svg viewBox="0 0 24 24" aria-hidden="true" className="size-5 fill-none stroke-current">

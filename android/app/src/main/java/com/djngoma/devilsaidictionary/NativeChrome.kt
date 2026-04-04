@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.MenuBook
+import androidx.compose.material.icons.rounded.Dashboard
 import androidx.compose.material.icons.rounded.BookmarkBorder
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.Close
@@ -47,15 +47,15 @@ import androidx.compose.ui.unit.dp
 object NativeUiTags {
     const val BottomDock = "native-bottom-dock"
     const val TabHome = "native-tab-home"
-    const val TabBrowse = "native-tab-browse"
     const val TabSearch = "native-tab-search"
+    const val TabCategories = "native-tab-categories"
     const val TabSaved = "native-tab-saved"
     const val TabSettings = "native-tab-settings"
     const val OverflowButton = "native-overflow-button"
     const val SearchFiltersButton = "native-search-filters"
     const val SearchFilterSheet = "native-search-filter-sheet"
     const val HomeScreen = "native-screen-home"
-    const val BrowseScreen = "native-screen-browse"
+    const val CategoriesScreen = "native-screen-categories"
     const val SearchScreen = "native-screen-search"
     const val SavedScreen = "native-screen-saved"
     const val SettingsScreen = "native-screen-settings"
@@ -71,8 +71,8 @@ private data class NativeDestination(
 private val nativeDestinations =
     listOf(
         NativeDestination(NativeTab.Home, "Home", Icons.Rounded.Home, NativeUiTags.TabHome),
-        NativeDestination(NativeTab.Browse, "Browse", Icons.AutoMirrored.Rounded.MenuBook, NativeUiTags.TabBrowse),
         NativeDestination(NativeTab.Search, "Search", Icons.Rounded.Search, NativeUiTags.TabSearch),
+        NativeDestination(NativeTab.Categories, "Categories", Icons.Rounded.Dashboard, NativeUiTags.TabCategories),
         NativeDestination(NativeTab.Saved, "Saved", Icons.Rounded.BookmarkBorder, NativeUiTags.TabSaved),
         NativeDestination(NativeTab.Settings, "Settings", Icons.Rounded.Settings, NativeUiTags.TabSettings),
     )
@@ -94,8 +94,8 @@ fun NativeMainScaffold(
             NativeTopBar(
                 title = when (store.selectedTab) {
                     NativeTab.Home -> "Home"
-                    NativeTab.Browse -> "Browse"
                     NativeTab.Search -> "Search"
+                    NativeTab.Categories -> "Categories"
                     NativeTab.Saved -> "Saved"
                     NativeTab.Settings -> "Settings"
                 },
@@ -115,8 +115,8 @@ fun NativeMainScaffold(
     ) { padding ->
         when (store.selectedTab) {
             NativeTab.Home -> NativeHomeScreen(store, colors, padding)
-            NativeTab.Browse -> NativeBrowseScreen(store, colors, padding)
             NativeTab.Search -> NativeSearchScreen(store, colors, padding)
+            NativeTab.Categories -> NativeCategoriesScreen(store, colors, padding)
             NativeTab.Saved -> NativeSavedScreen(store, colors, padding)
             NativeTab.Settings -> NativeSettingsScreen(store, colors, padding)
         }

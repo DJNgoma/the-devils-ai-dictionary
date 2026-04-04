@@ -40,7 +40,6 @@ export default async function DictionaryPage({
         }
       : normalizeDirectoryExplorerState(await searchParams, {
           categorySlugs: categories.map((category) => category.slug),
-          mode: "dictionary",
         });
 
   return (
@@ -67,7 +66,6 @@ export default async function DictionaryPage({
           initialLetter={initialState.letter}
           initialQuery={initialState.query}
           initialVendor={initialState.vendor}
-          mode="dictionary"
         />
       </Suspense>
     </div>

@@ -3,8 +3,6 @@ import {
   technicalDepthOptions,
 } from "@/lib/content-catalog.mjs";
 
-export type DirectoryExplorerMode = "dictionary" | "search";
-
 export type DirectoryExplorerState = {
   query: string;
   category: string;
@@ -48,10 +46,8 @@ export function normalizeDirectoryExplorerState(
   input: SearchParamInput,
   {
     categorySlugs,
-    mode,
   }: {
     categorySlugs: string[];
-    mode: DirectoryExplorerMode;
   },
 ): DirectoryExplorerState {
   const allowedCategories = new Set(categorySlugs);
@@ -76,9 +72,7 @@ export function normalizeDirectoryExplorerState(
         ? depth
         : "all",
     letter:
-      mode === "dictionary" && letter && letterPattern.test(letter)
-        ? letter
-        : "all",
+      letter && letterPattern.test(letter) ? letter : "all",
   };
 }
 
@@ -98,7 +92,6 @@ export function areDirectoryExplorerStatesEqual(
 
 export function serializeDirectoryExplorerState(
   state: DirectoryExplorerState,
-  mode: DirectoryExplorerMode,
 ) {
   const params = new URLSearchParams();
 
@@ -122,7 +115,7 @@ export function serializeDirectoryExplorerState(
     params.set("depth", state.depth);
   }
 
-  if (mode === "dictionary" && state.letter !== "all") {
+  if (state.letter !== "all") {
     params.set("letter", state.letter);
   }
 

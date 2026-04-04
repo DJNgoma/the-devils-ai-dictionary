@@ -148,7 +148,7 @@ fun NativeHomeScreen(
                     CategoryGrid(
                         categories = store.categoryStats,
                         colors = colors,
-                        onClick = { category -> store.showBrowseCategory(category.slug) },
+                        onClick = { category -> store.showCategoryInSearch(category.slug) },
                     )
                 }
             }
@@ -183,140 +183,6 @@ fun NativeHomeScreen(
                             store.presentEntry(entry)
                         }
                     }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun NativeBrowseScreen(
-    store: NativeDictionaryStore,
-    colors: NativeColors,
-    padding: PaddingValues,
-) {
-    var categorySheetOpen by remember { mutableStateOf(false) }
-
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .testTag(NativeUiTags.BrowseScreen),
-        contentPadding = mainScreenPadding(padding),
-        verticalArrangement = Arrangement.spacedBy(NativeLayout.sectionGap),
-    ) {
-        item {
-            NativeScreenCard(colors = colors) {
-                SectionLabel(text = "Browse")
-                Text(
-                    text = "Walk the catalogue by letter or narrow it to one shelf at a time.",
-                    style = MaterialTheme.typography.bodyLarge,
-                )
-                store.latestPublishedAt?.let { latestPublishedAt ->
-                    Text(
-                        text = "Last words added ${formatDisplayDate(latestPublishedAt)}",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-                LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    item {
-                        NativeChip(
-                            label = "All letters",
-                            colors = colors,
-                            selected = store.browseLetter == null,
-                            onClick = { store.browseLetter = null },
-                        )
-                    }
-                    items(store.letterOptions) { letter ->
-                        NativeChip(
-                            label = letter,
-                            colors = colors,
-                            selected = store.browseLetter == letter,
-                            onClick = { store.browseLetter = letter },
-                        )
-                    }
-                }
-                NativeActionRow {
-                    NativeSecondaryButton(
-                        label = store.categoryTitle(store.browseCategorySlug) ?: "All categories",
-                        colors = colors,
-                        onClick = { categorySheetOpen = true },
-                        leadingIcon = Icons.Rounded.FilterList,
-                    )
-                    if (store.browseCategorySlug != null || store.browseLetter != null) {
-                        NativeSecondaryButton(
-                            label = "Clear filters",
-                            colors = colors,
-                            onClick = {
-                                store.browseLetter = null
-                                store.browseCategorySlug = null
-                            },
-                        )
-                    }
-                }
-            }
-        }
-
-        if (store.browseSections.isEmpty()) {
-            item {
-                NativeEmptyState(
-                    title = "Nothing matches this shelf",
-                    body = "Try a different letter, clear the category, or go back to the full catalogue.",
-                    colors = colors,
-                    primaryLabel = "Clear filters",
-                    onPrimary = {
-                        store.browseLetter = null
-                        store.browseCategorySlug = null
-                    },
-                )
-            }
-        } else {
-            store.browseSections.forEach { section ->
-                item {
-                    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                        SectionLabel(text = section.title)
-                        section.entries.forEach { entry ->
-                            EntryCard(entry = entry, colors = colors, compact = true) {
-                                store.presentEntry(entry)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    if (categorySheetOpen) {
-        NativeFilterSheet(
-            title = "Browse filters",
-            colors = colors,
-            onDismiss = { categorySheetOpen = false },
-        ) {
-            Text(
-                text = "Choose a category, or reset back to the whole catalogue.",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-            NativeActionRow {
-                NativeChip(
-                    label = "All categories",
-                    colors = colors,
-                    selected = store.browseCategorySlug == null,
-                    onClick = {
-                        store.browseCategorySlug = null
-                        categorySheetOpen = false
-                    },
-                )
-                store.categoryStats.forEach { category ->
-                    NativeChip(
-                        label = category.title,
-                        colors = colors,
-                        selected = store.browseCategorySlug == category.slug,
-                        onClick = {
-                            store.browseCategorySlug = category.slug
-                            categorySheetOpen = false
-                        },
-                    )
                 }
             }
         }
@@ -403,6 +269,27 @@ fun NativeSearchScreen(
                                 selected = true,
                             )
                         }
+                    }
+                }
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    contentPadding = PaddingValues(horizontal = 0.dp),
+                ) {
+                    item {
+                        NativeChip(
+                            label = "All",
+                            colors = colors,
+                            selected = store.searchLetter == null,
+                            onClick = { store.searchLetter = null },
+                        )
+                    }
+                    items("ABCDEFGHIJKLMNOPQRSTUVWXYZ".toList()) { letter ->
+                        NativeChip(
+                            label = letter.toString(),
+                            colors = colors,
+                            selected = store.searchLetter == letter.toString(),
+                            onClick = { store.searchLetter = letter.toString() },
+                        )
                     }
                 }
             }
@@ -527,8 +414,8 @@ fun NativeSavedScreen(
                     title = "No saved place yet",
                     body = "Save the book landing page or any entry detail to keep your place for the next launch.",
                     colors = colors,
-                    primaryLabel = "Browse entries",
-                    onPrimary = { store.selectTab(NativeTab.Browse) },
+                    primaryLabel = "Search entries",
+                    onPrimary = { store.selectTab(NativeTab.Search) },
                     secondaryLabel = "Read the book",
                     onSecondary = store::presentBook,
                 )
@@ -817,6 +704,52 @@ fun NativeSettingsScreen(
                 Text(
                     text = store.pushTestingMessage,
                     style = MaterialTheme.typography.bodyMedium,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun NativeCategoriesScreen(
+    store: NativeDictionaryStore,
+    colors: NativeColors,
+    padding: PaddingValues,
+) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .testTag(NativeUiTags.CategoriesScreen),
+        contentPadding = mainScreenPadding(padding),
+        verticalArrangement = Arrangement.spacedBy(NativeLayout.sectionGap),
+    ) {
+        item {
+            NativeScreenCard(colors = colors) {
+                SectionLabel(text = "Categories")
+                Text(
+                    text = "The catalogue sorted by editorial theme.",
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+            }
+        }
+        items(store.categoryStats) { category ->
+            NativeCard(colors = colors, onClick = {
+                store.searchCategorySlug = category.slug
+                store.selectTab(NativeTab.Search)
+            }) {
+                Text(
+                    text = category.title,
+                    style = MaterialTheme.typography.headlineSmall,
+                )
+                Text(
+                    text = category.description,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                NativeChip(
+                    label = "${category.count} entries",
+                    colors = colors,
+                    accent = true,
                 )
             }
         }

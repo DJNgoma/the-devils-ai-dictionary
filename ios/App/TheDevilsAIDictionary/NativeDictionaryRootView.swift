@@ -61,15 +61,6 @@ private struct NativePhoneDictionaryRoot: View {
             .tag(NativeDictionaryModel.AppTab.home)
 
             NavigationView {
-                NativeBrowseView(model: model)
-            }
-            .nativeStackNavigationViewStyle()
-            .tabItem {
-                Label("Browse", systemImage: NativeDictionaryModel.AppTab.browse.systemImage)
-            }
-            .tag(NativeDictionaryModel.AppTab.browse)
-
-            NavigationView {
                 NativeSearchView(model: model)
             }
             .nativeStackNavigationViewStyle()
@@ -77,6 +68,15 @@ private struct NativePhoneDictionaryRoot: View {
                 Label("Search", systemImage: NativeDictionaryModel.AppTab.search.systemImage)
             }
             .tag(NativeDictionaryModel.AppTab.search)
+
+            NavigationView {
+                NativeCategoriesView(model: model)
+            }
+            .nativeStackNavigationViewStyle()
+            .tabItem {
+                Label("Categories", systemImage: NativeDictionaryModel.AppTab.categories.systemImage)
+            }
+            .tag(NativeDictionaryModel.AppTab.categories)
 
             NavigationView {
                 NativeSavedView(model: model)
@@ -265,10 +265,10 @@ private struct NativeSectionHostView: View {
         switch section {
         case .home:
             NativeHomeView(model: model)
-        case .browse:
-            NativeBrowseView(model: model)
         case .search:
             NativeSearchView(model: model)
+        case .categories:
+            NativeCategoriesView(model: model)
         case .saved:
             NativeSavedView(model: model)
         case .settings:
@@ -457,7 +457,7 @@ private struct NativeHomeView: View {
                     LazyVGrid(columns: layout.cardGridItems, spacing: 12) {
                         ForEach(model.categoryStats, id: \.slug) { category in
                             Button {
-                                model.showBrowse(categorySlug: category.slug)
+                                model.showCategoryInSearch(category.slug)
                             } label: {
                                 NativeCard {
                                     Text(category.title)
@@ -520,96 +520,36 @@ private struct NativeHomeView: View {
     }
 }
 
-private struct NativeBrowseView: View {
+private struct NativeCategoriesView: View {
     @ObservedObject var model: NativeDictionaryModel
 
     var body: some View {
         NativeScreen { layout in
             NativeCard {
-                NativeSectionLabel(text: "Browse")
+                NativeSectionLabel(text: "Categories")
 
-                Text("Walk the catalogue by letter or narrow it to one category.")
+                Text("The catalogue sorted by editorial theme. Each category groups terms by what they have in common, not where they sit in a product.")
                     .font(.system(size: 17, weight: .medium, design: .rounded))
-
-                if let latestPublishedAt = model.latestPublishedAt {
-                    NativeLatestWordsAddedText(value: latestPublishedAt)
-                }
-
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 10) {
-                        Button("All letters") {
-                            model.browseLetter = nil
-                        }
-                        .buttonStyle(NativeFilterChipButtonStyle(isSelected: model.browseLetter == nil))
-
-                        ForEach(model.letterOptions, id: \.self) { letter in
-                            Button(letter) {
-                                model.browseLetter = letter
-                            }
-                            .buttonStyle(NativeFilterChipButtonStyle(isSelected: model.browseLetter == letter))
-                        }
-                    }
-                }
-
-                Menu {
-                    Button("All categories") {
-                        model.browseCategorySlug = nil
-                    }
-
-                    ForEach(model.categoryStats, id: \.slug) { category in
-                        Button(category.title) {
-                            model.browseCategorySlug = category.slug
-                        }
-                    }
-                } label: {
-                    HStack {
-                        Text(model.categoryStats.first(where: { $0.slug == model.browseCategorySlug })?.title ?? "All categories")
-                        Spacer()
-                        Image(systemName: "chevron.down")
-                    }
-                    .font(.system(size: 15, weight: .semibold, design: .rounded))
-                    .padding(14)
-                    .background(NativePalette.panelStrong, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-                }
-                .foregroundStyle(.primary)
-
-                if model.browseCategorySlug != nil || model.browseLetter != nil {
-                    Button("Clear browse filters") {
-                        model.browseLetter = nil
-                        model.browseCategorySlug = nil
-                    }
-                    .buttonStyle(NativeSecondaryButtonStyle())
-                }
             }
 
-            if model.browseSections.isEmpty {
-                NativeCard {
-                    Text("Nothing matched that combination of letter and category.")
-                        .font(.system(size: 16, weight: .medium, design: .rounded))
+            LazyVGrid(columns: layout.cardGridItems, alignment: .leading, spacing: 12) {
+                ForEach(model.categoryStats, id: \.slug) { category in
+                    NativeCard(emphasis: false) {
+                        Text(category.title)
+                            .font(.system(size: 22, weight: .semibold, design: .serif))
 
-                    Button("Show the full catalogue") {
-                        model.browseLetter = nil
-                        model.browseCategorySlug = nil
-                    }
-                    .buttonStyle(NativePrimaryButtonStyle())
-                }
-            } else {
-                ForEach(model.browseSections) { section in
-                    VStack(alignment: .leading, spacing: 12) {
-                        NativeSectionLabel(text: section.title)
+                        Text(category.description)
+                            .font(.system(size: 15, weight: .regular, design: .rounded))
+                            .foregroundStyle(NativePalette.mutedText)
 
-                        LazyVGrid(columns: layout.cardGridItems, alignment: .leading, spacing: 12) {
-                            ForEach(section.entries, id: \.slug) { entry in
-                                NativeEntryCard(entry: entry, compact: true) {
-                                    model.presentEntry(entry)
-                                }
-                            }
-                        }
+                        Text("\(category.count) entries")
+                            .font(.system(size: 13, weight: .semibold, design: .rounded))
+                            .foregroundStyle(NativePalette.accent)
                     }
                 }
             }
         }
-        .navigationTitle("Browse")
+        .navigationTitle("Categories")
         .nativeNavigationBarTitleDisplayMode(.large)
         .toolbar {
             NativeOverflowToolbar(model: model, themeManager: .shared)
@@ -648,6 +588,29 @@ private struct NativeSearchView: View {
 
                     Button(model.hasSearchFilters ? "Filters on" : "Filters") {
                         showFilters = true
+                    }
+                    .buttonStyle(NativeSecondaryButtonStyle())
+                }
+
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 10) {
+                        Button("All letters") {
+                            model.searchLetter = nil
+                        }
+                        .buttonStyle(NativeFilterChipButtonStyle(isSelected: model.searchLetter == nil))
+
+                        ForEach(model.letterOptions, id: \.self) { letter in
+                            Button(letter) {
+                                model.searchLetter = letter
+                            }
+                            .buttonStyle(NativeFilterChipButtonStyle(isSelected: model.searchLetter == letter))
+                        }
+                    }
+                }
+
+                if model.searchLetter != nil {
+                    Button("Clear letter filter") {
+                        model.searchLetter = nil
                     }
                     .buttonStyle(NativeSecondaryButtonStyle())
                 }
@@ -751,13 +714,13 @@ private struct NativeSavedView: View {
                         .foregroundStyle(NativePalette.mutedText)
 
                     HStack {
-                        Button("Browse entries") {
-                            model.showSection(.browse)
+                        Button("Search entries") {
+                            model.showSection(.search)
                         }
                         .buttonStyle(NativePrimaryButtonStyle())
 
-                        Button("Search") {
-                            model.showSection(.search)
+                        Button("Categories") {
+                            model.showSection(.categories)
                         }
                         .buttonStyle(NativeSecondaryButtonStyle())
                     }
@@ -1098,11 +1061,11 @@ private struct NativeBookView: View {
                     }
                     .buttonStyle(NativePrimaryButtonStyle())
 
-                    Button("Browse entries") {
+                    Button("Search entries") {
                         if showsCloseButton {
                             dismiss()
                         }
-                        model.showSection(.browse)
+                        model.showSection(.search)
                     }
                     .buttonStyle(NativeSecondaryButtonStyle())
                 }

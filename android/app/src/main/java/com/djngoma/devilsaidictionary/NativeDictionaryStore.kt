@@ -23,8 +23,8 @@ import kotlin.random.Random
 
 enum class NativeTab {
     Home,
-    Browse,
     Search,
+    Categories,
     Saved,
     Settings,
 }
@@ -194,8 +194,7 @@ class NativeDictionaryStore(
     var activeOverlay by mutableStateOf<NativeOverlay?>(null)
         private set
 
-    var browseLetter by mutableStateOf<String?>(null)
-    var browseCategorySlug by mutableStateOf<String?>(null)
+    var searchLetter by mutableStateOf<String?>(null)
     var searchQuery by mutableStateOf("")
     var searchCategorySlug by mutableStateOf<String?>(null)
     var searchDifficulty by mutableStateOf<Difficulty?>(null)
@@ -285,30 +284,11 @@ class NativeDictionaryStore(
         get() = categoryAwareLetters(catalog?.letterStats ?: emptyList())
 
     val hasSearchFilters: Boolean
-        get() = searchCategorySlug != null ||
+        get() = searchLetter != null ||
+            searchCategorySlug != null ||
             searchDifficulty != null ||
             searchTechnicalDepth != null ||
             searchVendorFilter != VendorFilter.all
-
-    val browseSections: List<EntrySection>
-        get() {
-            val filtered = entries
-                .filterBy(
-                    categorySlug = browseCategorySlug,
-                    difficulty = null,
-                    technicalDepth = null,
-                    vendorFilter = VendorFilter.all,
-                    letter = browseLetter,
-                )
-                .sortedByCaseInsensitive(Entry::title)
-            val grouped = filtered.groupBy(Entry::letter)
-            return grouped.keys.sorted().map { letter ->
-                EntrySection(
-                    title = letter,
-                    entries = grouped[letter].orEmpty(),
-                )
-            }
-        }
 
     val searchResults: List<Entry>
         get() {
@@ -318,7 +298,7 @@ class NativeDictionaryStore(
                     difficulty = searchDifficulty,
                     technicalDepth = searchTechnicalDepth,
                     vendorFilter = searchVendorFilter,
-                    letter = null,
+                    letter = searchLetter,
                 )
             val trimmedQuery = searchQuery.trim()
             if (trimmedQuery.isEmpty()) {
@@ -458,7 +438,7 @@ class NativeDictionaryStore(
         }
 
         testingError = null
-        selectedTab = NativeTab.Browse
+        selectedTab = NativeTab.Search
         activeOverlay = NativeOverlay.EntryDetail(trimmedSlug)
 
         val entry = entry(trimmedSlug)
@@ -503,13 +483,13 @@ class NativeDictionaryStore(
     }
 
     fun showBrowse(letter: String?) {
-        browseLetter = normalizeLetter(letter)
-        selectedTab = NativeTab.Browse
+        searchLetter = normalizeLetter(letter)
+        selectedTab = NativeTab.Search
     }
 
     fun showBrowseCategory(slug: String?) {
-        browseCategorySlug = slug
-        selectedTab = NativeTab.Browse
+        searchCategorySlug = slug
+        selectedTab = NativeTab.Search
     }
 
     fun showCategoryInSearch(slug: String?) {
@@ -518,6 +498,7 @@ class NativeDictionaryStore(
     }
 
     fun resetSearchFilters() {
+        searchLetter = null
         searchCategorySlug = null
         searchDifficulty = null
         searchTechnicalDepth = null
@@ -556,7 +537,7 @@ class NativeDictionaryStore(
     fun openSavedPlace() {
         val bookmark = savedPlace
         if (bookmark == null) {
-            selectedTab = NativeTab.Browse
+            selectedTab = NativeTab.Search
             return
         }
 
@@ -567,7 +548,7 @@ class NativeDictionaryStore(
             else -> {
                 val slug = slugFromDictionaryPath(bookmark.href)
                 if (slug == null) {
-                    selectedTab = NativeTab.Browse
+                    selectedTab = NativeTab.Search
                 } else {
                     presentEntry(slug)
                 }
@@ -609,7 +590,7 @@ class NativeDictionaryStore(
 
     fun handleIntent(intent: Intent?) {
         val slug = intent?.data?.toDictionarySlug() ?: return
-        selectedTab = NativeTab.Browse
+        selectedTab = NativeTab.Search
         activeOverlay = NativeOverlay.EntryDetail(slug)
 
         val entry = entry(slug)
@@ -801,7 +782,7 @@ class NativeDictionaryStore(
 
         if (entry != null) {
             persistCurrentWord(entry.toCurrentWord(CurrentWordSource.deepLink))
-            selectedTab = NativeTab.Browse
+            selectedTab = NativeTab.Search
             activeOverlay = NativeOverlay.EntryDetail(slug)
         }
 

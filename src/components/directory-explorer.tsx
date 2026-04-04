@@ -28,7 +28,6 @@ type DirectoryExplorerProps = {
     title: string;
     slug: string;
   }[];
-  mode: "dictionary" | "search";
   initialQuery?: string;
   initialCategory?: string;
   initialDifficulty?: string;
@@ -61,7 +60,6 @@ function groupByLetter(entries: SearchableEntry[]) {
 export function DirectoryExplorer({
   entries,
   categories,
-  mode,
   initialQuery = "",
   initialCategory = "all",
   initialDifficulty = "all",
@@ -87,7 +85,6 @@ export function DirectoryExplorer({
   const syncOriginRef = useRef<"local" | "url">("url");
   const searchParamState = normalizeDirectoryExplorerState(searchParams, {
     categorySlugs: categories.map((category) => category.slug),
-    mode,
   });
 
   useEffect(() => {
@@ -227,10 +224,7 @@ export function DirectoryExplorer({
       depth: activeDepth,
       letter: activeLetter,
     };
-    const nextSearch = serializeDirectoryExplorerState(
-      currentState,
-      mode,
-    );
+    const nextSearch = serializeDirectoryExplorerState(currentState);
     const stateMatchesUrl = areDirectoryExplorerStatesEqual(
       currentState,
       searchParamState,
@@ -253,7 +247,6 @@ export function DirectoryExplorer({
     activeDifficulty,
     activeLetter,
     activeVendor,
-    mode,
     pathname,
     router,
     searchParamState,
@@ -415,31 +408,29 @@ export function DirectoryExplorer({
             </div>
           ) : null}
 
-          {mode === "dictionary" ? (
-            <div className="border-t border-line pt-4">
-              <p className="font-mono text-xs uppercase tracking-[0.22em] text-foreground-soft">
-                Browse by letter
-              </p>
-              <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
-                {["all", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")].map((letter) => (
-                  <button
-                    key={letter}
-                    type="button"
-                    onClick={() => {
-                      syncOriginRef.current = "local";
-                      setActiveLetter(letter);
-                    }}
-                    className={cn(
-                      "chip shrink-0 whitespace-nowrap",
-                      activeLetter === letter && "chip-accent border-accent",
-                    )}
-                  >
-                    {letter === "all" ? "All letters" : letter}
-                  </button>
-                ))}
-              </div>
+          <div className="border-t border-line pt-4">
+            <p className="font-mono text-xs uppercase tracking-[0.22em] text-foreground-soft">
+              Browse by letter
+            </p>
+            <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
+              {["all", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")].map((letter) => (
+                <button
+                  key={letter}
+                  type="button"
+                  onClick={() => {
+                    syncOriginRef.current = "local";
+                    setActiveLetter(letter);
+                  }}
+                  className={cn(
+                    "chip shrink-0 whitespace-nowrap",
+                    activeLetter === letter && "chip-accent border-accent",
+                  )}
+                >
+                  {letter === "all" ? "All letters" : letter}
+                </button>
+              ))}
             </div>
-          ) : null}
+          </div>
         </div>
 
         <div className="hidden gap-5 lg:grid lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
@@ -532,35 +523,33 @@ export function DirectoryExplorer({
           </div>
         </div>
 
-        {mode === "dictionary" ? (
-          <div className="mt-5 hidden border-t border-line pt-5 md:block">
-            <p className="font-mono text-xs uppercase tracking-[0.22em] text-foreground-soft">
-              Browse by letter
-            </p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {["all", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")].map((letter) => (
-                <button
-                  key={letter}
-                  type="button"
-                  onClick={() => {
-                    syncOriginRef.current = "local";
-                    setActiveLetter(letter);
-                  }}
-                  className={cn(
-                    "rounded-full border border-line px-3 py-1.5 text-sm text-foreground-soft hover:border-accent hover:text-accent",
-                    activeLetter === letter && "border-accent bg-accent-soft text-accent",
-                  )}
-                >
-                  {letter === "all" ? "All" : letter}
-                </button>
-              ))}
-            </div>
+        <div className="mt-5 hidden border-t border-line pt-5 md:block">
+          <p className="font-mono text-xs uppercase tracking-[0.22em] text-foreground-soft">
+            Browse by letter
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {["all", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")].map((letter) => (
+              <button
+                key={letter}
+                type="button"
+                onClick={() => {
+                  syncOriginRef.current = "local";
+                  setActiveLetter(letter);
+                }}
+                className={cn(
+                  "rounded-full border border-line px-3 py-1.5 text-sm text-foreground-soft hover:border-accent hover:text-accent",
+                  activeLetter === letter && "border-accent bg-accent-soft text-accent",
+                )}
+              >
+                {letter === "all" ? "All" : letter}
+              </button>
+            ))}
           </div>
-        ) : null}
+        </div>
       </div>
 
       <AppSheet
-        id={`${mode}-filters`}
+        id="directory-filters"
         open={isFiltersOpen}
         onClose={() => setIsFiltersOpen(false)}
         title="Refine results"
@@ -677,7 +666,7 @@ export function DirectoryExplorer({
         </div>
       ) : null}
 
-      {mode === "dictionary" && !filterIsActive ? (
+      {!filterIsActive ? (
         <div className="space-y-10">
           {Object.entries(grouped)
             .sort(([left], [right]) => left.localeCompare(right))

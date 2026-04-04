@@ -83,7 +83,6 @@ function renderExplorer(
   const mergedProps: React.ComponentProps<typeof DirectoryExplorer> = {
     entries,
     categories,
-    mode: "search",
     initialQuery: "",
     initialCategory: "all",
     initialDifficulty: "all",
@@ -116,7 +115,6 @@ describe("normalizeDirectoryExplorerState", () => {
         },
         {
           categorySlugs: categories.map((category) => category.slug),
-          mode: "dictionary",
         },
       ),
     ).toEqual({
@@ -147,7 +145,6 @@ describe("DirectoryExplorer URL state", () => {
       new URLSearchParams(currentSearch),
       {
         categorySlugs: categories.map((category) => category.slug),
-        mode: "search",
       },
     );
 
@@ -177,12 +174,10 @@ describe("DirectoryExplorer URL state", () => {
       new URLSearchParams(currentSearch),
       {
         categorySlugs: categories.map((category) => category.slug),
-        mode: "dictionary",
-      },
+        },
     );
 
     renderExplorer({
-      mode: "dictionary",
       initialCategory: initialState.category,
       initialDepth: initialState.depth,
       initialDifficulty: initialState.difficulty,
@@ -205,7 +200,6 @@ describe("DirectoryExplorer URL state", () => {
       new URLSearchParams(currentSearch),
       {
         categorySlugs: categories.map((category) => category.slug),
-        mode: "search",
       },
     );
 
@@ -233,7 +227,6 @@ describe("DirectoryExplorer URL state", () => {
             initialDifficulty={initialState.difficulty}
             initialQuery={initialState.query}
             initialVendor={initialState.vendor}
-            mode="search"
           />
         </MobileShellController>
       </ThemeProvider>,
@@ -250,7 +243,6 @@ describe("DirectoryExplorer URL state", () => {
       new URLSearchParams(currentSearch),
       {
         categorySlugs: categories.map((category) => category.slug),
-        mode: "search",
       },
     );
 

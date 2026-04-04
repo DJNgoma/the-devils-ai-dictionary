@@ -35,16 +35,16 @@ export const mobilePrimaryNavigation = [
     icon: "home",
   },
   {
-    id: "browse",
-    href: "/dictionary",
-    label: "Browse",
-    icon: "book",
-  },
-  {
     id: "search",
-    href: "/search",
+    href: "/dictionary",
     label: "Search",
     icon: "search",
+  },
+  {
+    id: "categories",
+    href: "/categories",
+    label: "Categories",
+    icon: "grid",
   },
   {
     id: "saved",
@@ -56,7 +56,6 @@ export const mobilePrimaryNavigation = [
 
 export const mobileSecondaryNavigation = [
   { href: "/book", label: "Book" },
-  { href: "/categories", label: "Categories" },
   { href: "/how-to-read", label: "Guide" },
   { href: "/about", label: "About" },
   { href: "/privacy", label: "Privacy" },
@@ -67,21 +66,22 @@ export type MobilePrimaryNavItem = (typeof mobilePrimaryNavigation)[number];
 export type MobilePrimaryNavId = MobilePrimaryNavItem["id"];
 
 export function getMobilePrimaryNavId(pathname: string): MobilePrimaryNavId {
-  if (pathname === "/search" || pathname.startsWith("/search/")) {
+  if (
+    pathname === "/dictionary" ||
+    pathname.startsWith("/dictionary/")
+  ) {
     return "search";
+  }
+
+  if (
+    pathname === "/categories" ||
+    pathname.startsWith("/categories/")
+  ) {
+    return "categories";
   }
 
   if (pathname === "/saved" || pathname.startsWith("/saved/")) {
     return "saved";
-  }
-
-  if (
-    pathname === "/dictionary" ||
-    pathname.startsWith("/dictionary/") ||
-    pathname === "/categories" ||
-    pathname.startsWith("/categories/")
-  ) {
-    return "browse";
   }
 
   return "home";
@@ -99,12 +99,8 @@ export function getMobileChromeTitle(pathname: string) {
     return "Saved";
   }
 
-  if (pathname === "/search") {
-    return "Search";
-  }
-
   if (pathname === "/dictionary") {
-    return "Browse";
+    return "Search";
   }
 
   if (pathname.startsWith("/dictionary/")) {
