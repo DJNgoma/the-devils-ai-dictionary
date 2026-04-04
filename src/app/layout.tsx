@@ -90,6 +90,9 @@ export const metadata: Metadata = {
     title: siteConfig.shortName,
     statusBarStyle: "default",
   },
+  itunes: {
+    appId: "6761293350",
+  },
   alternates: {
     canonical: absoluteUrl("/"),
   },
