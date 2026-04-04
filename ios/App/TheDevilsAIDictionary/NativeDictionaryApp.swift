@@ -9,11 +9,15 @@ struct NativeDictionaryApp: App {
 
     @Environment(\.scenePhase) private var scenePhase
     @StateObject private var model = NativeDictionaryModel(manager: PhoneCurrentWordManager.shared)
+    #if os(iOS)
+    @State private var showSplash = true
+    #endif
 
     var body: some Scene {
         WindowGroup {
-            NativeDictionaryRootView(model: model)
-                .task {
+            ZStack {
+                NativeDictionaryRootView(model: model)
+                    .task {
                     PhoneCurrentWordManager.shared.configureForCurrentPlatform()
                     await model.handleSceneActivation()
                     await model.checkLiveCatalogIfNeeded()
@@ -28,6 +32,16 @@ struct NativeDictionaryApp: App {
                 .onOpenURL { url in
                     _ = PhoneCurrentWordManager.shared.handleIncomingURL(url)
                 }
+
+                #if os(iOS)
+                if showSplash {
+                    SplashScreenView {
+                        showSplash = false
+                    }
+                    .ignoresSafeArea()
+                }
+                #endif
+            }
         }
     }
 }

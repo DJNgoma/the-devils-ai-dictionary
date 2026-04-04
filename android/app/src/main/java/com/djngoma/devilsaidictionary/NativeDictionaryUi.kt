@@ -5,6 +5,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 
 @Composable
@@ -26,6 +30,8 @@ fun NativeDictionaryApp(
         }
     }
 
+    var showSplash by remember { mutableStateOf(true) }
+
     NativeAppTheme(theme = store.siteTheme) { colors ->
         Box(
             modifier = Modifier
@@ -43,6 +49,13 @@ fun NativeDictionaryApp(
                     overlay = overlay,
                     store = store,
                     colors = colors,
+                )
+            }
+
+            if (showSplash) {
+                SplashScreen(
+                    isDark = store.siteTheme.isDark,
+                    onFinished = { showSplash = false },
                 )
             }
         }
