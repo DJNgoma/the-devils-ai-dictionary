@@ -3,6 +3,7 @@ import path from "node:path";
 import matter from "gray-matter";
 import {
   assertValidEntry,
+  buildSearchText,
   scoreRelatedEntries,
 } from "../src/lib/content-build.mjs";
 import {
@@ -84,6 +85,7 @@ async function buildEntryIndex() {
     ...entry,
     categorySlugs: entry.categories.map((cat) => slugify(cat)),
     url: `/dictionary/${entry.slug}`,
+    searchText: buildSearchText(entry),
     relatedSlugs: entry._relatedSlugs,
   }));
 
@@ -196,8 +198,16 @@ async function buildEntryIndex() {
     path: `/catalog/${versionedCatalogFilename}`,
   };
 
+  // The web worker imports entries.generated.json at cold start — strip
+  // searchText (only needed by native apps) to keep the bundle lean.
+  const webSnapshot = {
+    ...snapshot,
+    entries: snapshot.entries.map(({ searchText: _, ...rest }) => rest),
+  };
+  const webSnapshotText = serializeCatalogSnapshot(webSnapshot);
+
   await fs.mkdir(outputDirectory, { recursive: true });
-  await fs.writeFile(outputFile, snapshotText, "utf8");
+  await fs.writeFile(outputFile, webSnapshotText, "utf8");
   await fs.mkdir(publicCatalogDirectory, { recursive: true });
 
   const publishedCatalogFiles = await fs.readdir(publicCatalogDirectory);
@@ -218,10 +228,15 @@ async function buildEntryIndex() {
     `${JSON.stringify(versionManifest, null, 2)}\n`,
     "utf8",
   );
+  // Write the full snapshot (with searchText) to a temp file for the mobile
+  // catalog publisher, which needs the complete entry data for native apps.
+  const mobileCatalogSourceFile = `${outputFile}.mobile.tmp`;
+  await fs.writeFile(mobileCatalogSourceFile, snapshotText, "utf8");
   const { manifest: mobileCatalogManifest } = await publishMobileCatalogArtifacts({
-    snapshotSourceFile: outputFile,
+    snapshotSourceFile: mobileCatalogSourceFile,
     outputDirectory: publicMobileCatalogDirectory,
   });
+  await fs.rm(mobileCatalogSourceFile, { force: true });
 
   console.log(
     `Generated ${entries.length} dictionary entries into ${path.relative(root, outputFile)}`,
