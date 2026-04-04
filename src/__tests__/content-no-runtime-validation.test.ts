@@ -3,7 +3,7 @@
  *
  * These tests guard against regression to the pattern that caused Cloudflare
  * Error 1102. The content module must be a thin reader of pre-computed data —
- * no Zod parsing, no searchText building, no related-entry scoring at runtime.
+ * no Zod parsing, no search-text building, no related-entry scoring at runtime.
  */
 
 import { describe, expect, it } from "vitest";

@@ -69,7 +69,7 @@ describe("generated data top-level structure", () => {
 
 describe("each entry has pre-computed fields", () => {
   it.each(entries.map((e) => [e.slug, e]))(
-    "%s has categorySlugs, url, searchText, relatedSlugs",
+    "%s has categorySlugs, url, relatedSlugs",
     (_slug, entry) => {
       // These fields MUST be pre-computed at build time, NOT at runtime.
       // Missing any of them means the Worker will either crash or need
@@ -77,8 +77,6 @@ describe("each entry has pre-computed fields", () => {
       expect(Array.isArray(entry.categorySlugs)).toBe(true);
       expect(entry.categorySlugs.length).toBeGreaterThan(0);
       expect(entry.url).toMatch(/^\/dictionary\//);
-      expect(typeof entry.searchText).toBe("string");
-      expect(entry.searchText.length).toBeGreaterThan(0);
       expect(Array.isArray(entry.relatedSlugs)).toBe(true);
     },
   );
@@ -278,17 +276,6 @@ describe("relatedSlugs reference existing entries", () => {
     "%s does not reference itself in relatedSlugs",
     (slug, entry) => {
       expect(entry.relatedSlugs).not.toContain(slug);
-    },
-  );
-});
-
-/* ---------- searchText includes key content ---------- */
-
-describe("searchText includes entry title", () => {
-  it.each(entries.map((e) => [e.slug, e]))(
-    "%s searchText contains its title",
-    (_slug, entry) => {
-      expect(entry.searchText.toLowerCase()).toContain(entry.title.toLowerCase());
     },
   );
 });

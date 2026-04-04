@@ -36,7 +36,6 @@ export type Entry = {
   body: string;
   categorySlugs: string[];
   url: string;
-  searchText: string;
   relatedSlugs: string[];
 };
 
@@ -55,9 +54,7 @@ export type SearchableEntry = Pick<
   | "technicalDepth"
   | "title"
   | "warningLabel"
-> & {
-  searchText: string;
-};
+>;
 
 export type DictionaryCatalogSchedule = DailyWordSchedule & {
   latestPublishedAt: string;
@@ -165,6 +162,5 @@ export async function getSearchableEntries(): Promise<SearchableEntry[]> {
     technicalDepth: entry.technicalDepth,
     title: entry.title,
     warningLabel: entry.warningLabel,
-    searchText: entry.searchText,
   }));
 }

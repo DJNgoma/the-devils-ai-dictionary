@@ -323,3 +323,13 @@ describe("public catalog artifacts", () => {
     expect(publishedCatalog.entries.length).toBe(generatedCatalog.entries.length);
   });
 });
+
+describe("generated JSON size budget", () => {
+  const generatedPath = path.resolve(__dirname, "../../src/generated/entries.generated.json");
+
+  it("stays under 450 KB to avoid Cloudflare Worker 1102", () => {
+    const stats = fs.statSync(generatedPath);
+    const sizeKB = stats.size / 1024;
+    expect(sizeKB).toBeLessThan(450);
+  });
+});

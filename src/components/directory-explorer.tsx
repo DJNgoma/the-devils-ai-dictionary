@@ -99,7 +99,14 @@ export function DirectoryExplorer({
     const map = new Map<string, SearchableEntry>();
 
     for (const entry of entries) {
-      index.add(entry.slug, entry.searchText);
+      const searchText = [
+        entry.title,
+        entry.aliases.join(" "),
+        entry.categories.join(" "),
+        entry.devilDefinition,
+        entry.plainDefinition,
+      ].join(" ");
+      index.add(entry.slug, searchText);
       map.set(entry.slug, entry);
     }
 

@@ -3,7 +3,6 @@ import path from "node:path";
 import matter from "gray-matter";
 import {
   assertValidEntry,
-  buildSearchText,
   scoreRelatedEntries,
 } from "../src/lib/content-build.mjs";
 import {
@@ -85,7 +84,6 @@ async function buildEntryIndex() {
     ...entry,
     categorySlugs: entry.categories.map((cat) => slugify(cat)),
     url: `/dictionary/${entry.slug}`,
-    searchText: buildSearchText(entry),
     relatedSlugs: entry._relatedSlugs,
   }));
 
