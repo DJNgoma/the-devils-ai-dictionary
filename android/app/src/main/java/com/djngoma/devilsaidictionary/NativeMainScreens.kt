@@ -1,25 +1,36 @@
 package com.djngoma.devilsaidictionary
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.MenuBook
 import androidx.compose.material.icons.rounded.AutoStories
+import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.FilterList
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material.icons.rounded.Shuffle
 import androidx.compose.material.icons.rounded.Visibility
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,7 +38,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
@@ -48,6 +61,13 @@ fun NativeHomeScreen(
         item {
             NativeScreenCard(colors = colors, emphasis = true) {
                 SectionLabel(text = "Field guide")
+                store.latestPublishedAt?.let { latestPublishedAt ->
+                    Text(
+                        text = "Updated ${formatDisplayDate(latestPublishedAt)}",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
                 Text(
                     text = "The Devil's AI Dictionary",
                     style = MaterialTheme.typography.headlineLarge,
@@ -56,11 +76,13 @@ fun NativeHomeScreen(
                     text = "A sceptical field guide to the language machines, marketers, founders, and consultants use when they want to sound smarter than they are.",
                     style = MaterialTheme.typography.bodyLarge,
                 )
-                Text(
-                    text = "This Android edition reads the bundled catalogue natively, remembers your place on-device, and uses Android chrome instead of a WebView in a fake moustache.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
+                if (store.developerMode) {
+                    Text(
+                        text = "This Android edition reads the bundled catalogue natively, remembers your place on-device, and uses Android chrome instead of a WebView in a fake moustache.",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
                 NativeActionRow {
                     NativePrimaryButton(
                         label = "Read the book",
@@ -521,6 +543,66 @@ fun NativeSettingsScreen(
     ) {
         item {
             NativeScreenCard(colors = colors, emphasis = true) {
+                SectionLabel(text = "Appearance")
+                SiteTheme.entries.forEach { theme ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { store.setTheme(theme) }
+                            .padding(vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        val themeColors = remember(theme) { themeSwatches(theme) }
+                        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                            themeColors.forEach { color ->
+                                Box(
+                                    modifier = Modifier
+                                        .size(14.dp)
+                                        .background(color, CircleShape),
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            text = theme.label,
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier.weight(1f),
+                        )
+                        if (theme == store.siteTheme) {
+                            Icon(
+                                imageVector = Icons.Rounded.Check,
+                                contentDescription = null,
+                                tint = colors.accent,
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        item {
+            NativeScreenCard(colors = colors) {
+                SectionLabel(text = "Developer")
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = "Developer mode",
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.weight(1f),
+                    )
+                    Switch(
+                        checked = store.developerMode,
+                        onCheckedChange = { store.toggleDeveloperMode(it) },
+                    )
+                }
+            }
+        }
+
+        if (store.developerMode) {
+        item {
+            NativeScreenCard(colors = colors, emphasis = true) {
                 SectionLabel(text = "Internal testing")
                 Text(
                     text = "Use this page to compare the on-device catalogue with production, force a sync when editorial publishes a new word, and probe the same slug path that deep links rely on.",
@@ -707,6 +789,7 @@ fun NativeSettingsScreen(
                 )
             }
         }
+        }
     }
 }
 
@@ -769,3 +852,11 @@ private fun NativeSettingsValueRow(
         )
     }
 }
+
+private fun themeSwatches(theme: SiteTheme): List<Color> =
+    when (theme) {
+        SiteTheme.book -> listOf(Color(0xFFB2552F), Color(0xFF26594A), Color(0xFFF4EFE6))
+        SiteTheme.codex -> listOf(Color(0xFF0169CC), Color(0xFF751ED9), Color(0xFFF3F8FD))
+        SiteTheme.absolutely -> listOf(Color(0xFFCC7D5E), Color(0xFFF9F9F7), Color(0xFF2D2D2B))
+        SiteTheme.night -> listOf(Color(0xFFE4864D), Color(0xFF5EC9A1), Color(0xFF12100D))
+    }

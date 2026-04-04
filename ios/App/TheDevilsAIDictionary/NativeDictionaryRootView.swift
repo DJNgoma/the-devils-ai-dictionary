@@ -345,7 +345,13 @@ private struct NativeHomeView: View {
     var body: some View {
         NativeScreen { layout in
             NativeCard(emphasis: true) {
-                NativeSectionLabel(text: "Online book")
+                NativeSectionLabel(text: "Field guide")
+
+                if let latestPublishedAt = model.latestPublishedAt {
+                    Text("Updated \(nativeFormattedDate(latestPublishedAt))")
+                        .font(.system(size: 13, weight: .medium, design: .rounded))
+                        .foregroundStyle(NativePalette.mutedText)
+                }
 
                 Text("The Devil's AI Dictionary")
                     .font(.system(size: 34, weight: .bold, design: .serif))
@@ -354,9 +360,11 @@ private struct NativeHomeView: View {
                     .font(.system(size: 18, weight: .medium, design: .rounded))
                     .foregroundStyle(.primary)
 
-                Text("This is the native Apple edition: bundled content, local search, saved reading place, deep links, notifications, and watch sync without the webview in the middle pretending to be architecture.")
-                    .font(.system(size: 15, weight: .regular, design: .rounded))
-                    .foregroundStyle(NativePalette.mutedText)
+                if UserDefaults.standard.bool(forKey: "developer-mode") {
+                    Text("This is the native Apple edition: bundled content, local search, saved reading place, deep links, notifications, and watch sync without the webview in the middle pretending to be architecture.")
+                        .font(.system(size: 15, weight: .regular, design: .rounded))
+                        .foregroundStyle(NativePalette.mutedText)
+                }
 
                 HStack {
                     Button("Read the book") {
@@ -737,10 +745,49 @@ private struct NativeSavedView: View {
 
 private struct NativeSettingsView: View {
     @ObservedObject var model: NativeDictionaryModel
+    @ObservedObject private var themeManager = ThemeManager.shared
+    @AppStorage("developer-mode") private var developerMode = false
     @State private var testingSlug = ""
 
     var body: some View {
         NativeScreen { _ in
+            NativeCard(emphasis: true) {
+                NativeSectionLabel(text: "Appearance")
+
+                ForEach(SiteTheme.allCases) { theme in
+                    Button {
+                        themeManager.setTheme(theme)
+                    } label: {
+                        HStack {
+                            let (s1, s2, s3) = theme.swatches
+                            HStack(spacing: 4) {
+                                Circle().fill(s1).frame(width: 14, height: 14)
+                                Circle().fill(s2).frame(width: 14, height: 14)
+                                Circle().fill(s3).frame(width: 14, height: 14)
+                            }
+                            Text(theme.label)
+                                .font(.system(size: 17, weight: .medium, design: .rounded))
+                            Spacer()
+                            if theme == themeManager.current {
+                                Image(systemName: "checkmark")
+                                    .foregroundStyle(NativePalette.accent)
+                            }
+                        }
+                        .padding(.vertical, 4)
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+
+            NativeCard {
+                NativeSectionLabel(text: "Developer")
+
+                Toggle("Developer mode", isOn: $developerMode)
+                    .font(.system(size: 17, weight: .medium, design: .rounded))
+                    .tint(NativePalette.accent)
+            }
+
+            if developerMode {
             NativeCard(emphasis: true) {
                 NativeSectionLabel(text: "Internal testing")
 
@@ -897,6 +944,7 @@ private struct NativeSettingsView: View {
                         .font(.system(size: 13, weight: .medium, design: .rounded))
                         .foregroundStyle(NativePalette.warning)
                 }
+            }
             }
         }
         .navigationTitle("Settings")

@@ -204,6 +204,8 @@ class NativeDictionaryStore(
     var siteTheme by mutableStateOf(storage.loadTheme())
         private set
 
+    var developerMode by mutableStateOf(storage.loadDeveloperMode())
+
     var currentWord by mutableStateOf<CurrentWordRecord?>(null)
         private set
 
@@ -453,6 +455,11 @@ class NativeDictionaryStore(
     fun setTheme(theme: SiteTheme) {
         siteTheme = theme
         storage.saveTheme(theme)
+    }
+
+    fun toggleDeveloperMode(enabled: Boolean) {
+        developerMode = enabled
+        storage.saveDeveloperMode(enabled)
     }
 
     fun presentEntry(slug: String) {
@@ -880,6 +887,13 @@ private class NativeDictionaryStorage(
         preferences.edit().putString(THEME_KEY, theme.name).apply()
     }
 
+    fun loadDeveloperMode(): Boolean =
+        preferences.getBoolean(DEVELOPER_MODE_KEY, false)
+
+    fun saveDeveloperMode(enabled: Boolean) {
+        preferences.edit().putBoolean(DEVELOPER_MODE_KEY, enabled).apply()
+    }
+
     fun loadCatalogManifestCheckedAtMs(): Long? {
         if (!preferences.contains(CATALOG_MANIFEST_CHECKED_AT_MS_KEY)) {
             return null
@@ -905,6 +919,7 @@ private class NativeDictionaryStorage(
         const val CURRENT_WORD_KEY = "current-word-record"
         const val SAVED_PLACE_KEY = "saved-reading-place"
         const val THEME_KEY = "site-theme"
+        const val DEVELOPER_MODE_KEY = "developer-mode"
     }
 }
 
