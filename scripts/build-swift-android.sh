@@ -64,10 +64,18 @@ build_arch() {
         fi
     done
 
+    # Copy libc++_shared.so from the NDK (required by libswiftCore.so).
+    local ndk_triple="$4"
+    local ndk_sysroot="$SDK_BUNDLE/android-ndk-r27d/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+    local cxx_shared="$ndk_sysroot/usr/lib/$ndk_triple/libc++_shared.so"
+    if [[ -f "$cxx_shared" ]]; then
+        cp "$cxx_shared" "$out_dir/"
+    fi
+
     echo "  -> $out_dir ($(ls "$out_dir"/*.so | wc -l | tr -d ' ') libraries)"
 }
 
-build_arch "aarch64-unknown-linux-android28" "arm64-v8a" "swift-aarch64"
-build_arch "x86_64-unknown-linux-android28"  "x86_64"    "swift-x86_64"
+build_arch "aarch64-unknown-linux-android28" "arm64-v8a" "swift-aarch64" "aarch64-linux-android"
+build_arch "x86_64-unknown-linux-android28"  "x86_64"    "swift-x86_64"  "x86_64-linux-android"
 
 echo "Swift Android build complete."

@@ -3,13 +3,14 @@ project(swift_bridge_jni C)
 
 add_library(swift_bridge_jni SHARED swift_bridge_jni.c)
 
-# Link against the pre-built Swift bridge .so in jniLibs.
-add_library(DevilsAIDictionaryCoreAndroidBridge SHARED IMPORTED)
-set_target_properties(DevilsAIDictionaryCoreAndroidBridge PROPERTIES
-    IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libDevilsAIDictionaryCoreAndroidBridge.so
-)
-
+# The Swift bridge .so lives in jniLibs alongside this library at runtime.
+# Link by name so the dynamic linker resolves it from the same directory.
 target_link_libraries(swift_bridge_jni
     DevilsAIDictionaryCoreAndroidBridge
     log
+)
+
+# Tell the linker where to find the .so at build time.
+target_link_directories(swift_bridge_jni PRIVATE
+    ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}
 )
