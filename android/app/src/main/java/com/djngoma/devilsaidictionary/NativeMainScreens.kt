@@ -103,14 +103,10 @@ fun NativeHomeScreen(
         store.currentWord?.let { currentWord ->
             item {
                 NativeScreenCard(colors = colors) {
-                    SectionLabel(text = "Current word")
+                    SectionLabel(text = "Today's word")
                     Text(
                         text = currentWord.title,
                         style = MaterialTheme.typography.headlineMedium,
-                    )
-                    NativeChip(
-                        label = formatDisplayDate(currentWord.updatedAt),
-                        colors = colors,
                     )
                     Text(
                         text = currentWord.devilDefinition.trim(),
@@ -137,13 +133,12 @@ fun NativeHomeScreen(
                             onClick = store::shareCurrentWord,
                             leadingIcon = Icons.Rounded.Share,
                         )
-                        NativeSecondaryButton(
-                            label = "Refresh",
-                            colors = colors,
-                            onClick = store::refreshCurrentWord,
-                            leadingIcon = Icons.Rounded.Refresh,
-                        )
                     }
+                    Text(
+                        text = "Notifications are not yet available on Android.",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
                 }
             }
         }

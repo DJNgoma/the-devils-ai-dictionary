@@ -71,22 +71,16 @@ export default async function HomePage() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
+                href="/book"
+                className="button button-primary"
+              >
+                Read the book
+              </Link>
+              <Link
                 href="/random"
                 className="button button-secondary"
               >
                 Random entry
-              </Link>
-              <Link
-                href="/book"
-                className="button button-primary"
-              >
-                Start with the book
-              </Link>
-              <Link
-                href="/dictionary"
-                className="button button-secondary"
-              >
-                Browse the dictionary
               </Link>
             </div>
             <ResumeReadingCard className="mt-6 max-w-2xl" compact hideIfCurrentHref="/" />
@@ -125,7 +119,7 @@ export default async function HomePage() {
       <section className="space-y-5">
         <div className="flex items-end justify-between gap-4">
           <div>
-            <div className="labelled-rule">Categories</div>
+            <div className="labelled-rule">Browse by category</div>
             <p className="mt-3 max-w-3xl text-lg leading-8 text-foreground-soft">
               The site is organised like a reference book, not a product dashboard.
               Start with the slice of the AI conversation you keep hearing badly.

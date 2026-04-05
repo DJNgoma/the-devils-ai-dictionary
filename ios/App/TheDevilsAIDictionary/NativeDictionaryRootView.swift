@@ -407,7 +407,7 @@ private struct NativeHomeView: View {
                     }
 
                     HStack {
-                        Button("Read today's word") {
+                        Button("Open current word") {
                             model.openTodayWord()
                         }
                         .buttonStyle(NativePrimaryButtonStyle())
@@ -460,7 +460,7 @@ private struct NativeHomeView: View {
 
             if !model.categoryStats.isEmpty {
                 VStack(alignment: .leading, spacing: 12) {
-                    NativeSectionLabel(text: "Categories")
+                    NativeSectionLabel(text: "Browse by category")
 
                     LazyVGrid(columns: layout.cardGridItems, spacing: 12) {
                         ForEach(model.categoryStats, id: \.slug) { category in

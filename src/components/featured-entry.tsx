@@ -56,15 +56,9 @@ export function TodayWordCard({
               href={`/dictionary/${entry.slug}`}
               className="button button-primary"
             >
-              Read today&apos;s word
+              Open current word
             </Link>
             <OpenInIPhoneAppButton slug={entry.slug} />
-            <Link
-              href="/dictionary"
-              className="button button-secondary"
-            >
-              Browse the dictionary
-            </Link>
           </div>
         </div>
         <aside className="surface h-full p-5">

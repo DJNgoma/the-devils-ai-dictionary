@@ -600,13 +600,6 @@ class NativeDictionaryStore(
         )
     }
 
-    fun refreshCurrentWord() {
-        val nextWord = catalog?.randomEntry(excluding = currentWord?.slug)
-            ?.toCurrentWord(CurrentWordSource.manualRefresh)
-            ?: return
-        persistCurrentWord(nextWord)
-    }
-
     fun handleIntent(intent: Intent?) {
         val slug = intent?.data?.toDictionarySlug() ?: return
         selectedTab = NativeTab.Search
