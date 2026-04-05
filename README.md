@@ -90,9 +90,33 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 
 ## Mobile apps
 
-- The repo ships a native SwiftUI iPhone app in `ios/` and a native Kotlin/Compose Android app in `android/`.
-- Native iPhone push and watch delivery are fully native. The Next app no longer carries an iPhone push bridge.
-- `native/android/` stays as a deferred placeholder only; Android product code lives in `android/`.
+The repo ships a native SwiftUI iPhone app in `ios/` and a native Kotlin/Compose Android app in `android/`. Both are fully native with no WebView — bundled catalogue, local search, saved reading place, and theme switching.
+
+### Stable releases
+
+| Platform | Version | Status |
+|----------|---------|--------|
+| iOS (App Store) | 1.0.1 | Live |
+| Android (Google Play) | 1.0.1 | Listing in progress |
+| Web | — | [thedevilsaidictionary.com](https://thedevilsaidictionary.com) |
+
+### Beta / TestFlight builds
+
+| Platform | Build | What changed |
+|----------|-------|--------------|
+| iOS (TestFlight) | 8 (v1.0.1) | Animated splash screen, Settings tab with theme picker and developer mode toggle, home card label changed to "Field guide" with update date |
+| Android | Debug APK | Same feature set as iOS TestFlight build 8 |
+
+### Recent mobile changes
+
+- Animated in-app splash screen on both platforms (logo scales in, title slides up, fades out)
+- Settings tab with Appearance (theme picker) and Developer mode toggle
+- Home screen label: "Field guide" with catalogue update date
+- Internal testing tools hidden behind Developer mode
+- Edition description paragraphs shown only in Developer mode
+
+### Mobile documentation
+
 - iOS distribution notes: [docs/ios-testflight.md](docs/ios-testflight.md)
 - Android native setup, release, and Play testing notes: [docs/mobile/android-native.md](docs/mobile/android-native.md)
 - Track-by-track Google Play testing runbook: [docs/mobile/google-play-testing.md](docs/mobile/google-play-testing.md)
@@ -109,13 +133,15 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 
 ### Tested devices
 
+- iPhone 17e Simulator, iOS 26
+- Android Emulator (Pixel), API 36 (Android 16)
 - Android Emulator, API 35, arm64
 - Samsung Galaxy A30s (`SM-A307FN`), Android 11 / API 30
 - Google Pixel 5, Android 13 / API 33
 
 ### Design & Mobile UX
 
-- Mobile now ships as native clients on both platforms. iPhone uses SwiftUI, and Android uses Compose. Both keep the same `Home`, `Browse`, `Search`, and `Saved` information architecture.
+- Mobile now ships as native clients on both platforms. iPhone uses SwiftUI, and Android uses Compose. Both keep the same `Home`, `Search`, `Categories`, `Saved`, and `Settings` information architecture.
 - Safe areas are handled explicitly on both platforms with native controls and insets.
 - Search and dictionary filtering are phone-first: the search field stays visible, while secondary filters move into a bottom sheet to preserve thumb reach and reading space.
 - Surface treatments are intentionally lighter on mobile than desktop. This keeps the editorial identity without asking Samsung A30s-class hardware to render a blur festival every time a card scrolls past.
