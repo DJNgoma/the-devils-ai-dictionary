@@ -33,7 +33,8 @@
                 <data
                     android:scheme="https"
                     android:host="thedevilsaidictionary.com"
-                    android:pathPrefix="/dictionary/" />
+                    android:pathPrefix="/dictionary/"
+                />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -42,7 +43,8 @@
                 <data
                     android:scheme="https"
                     android:host="www.thedevilsaidictionary.com"
-                    android:pathPrefix="/dictionary/" />
+                    android:pathPrefix="/dictionary/"
+                />
             </intent-filter>
         </activity>
     </application>

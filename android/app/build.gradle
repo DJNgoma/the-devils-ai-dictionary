@@ -68,6 +68,8 @@ def playCredentialsFile = resolveConfigFilePath(playCredentialsFilePath)
 def usePlayApplicationDefaultCredentials = (findProperty('PLAY_USE_APPLICATION_DEFAULT_CREDENTIALS')
     ?: System.getenv('PLAY_USE_APPLICATION_DEFAULT_CREDENTIALS')
     ?: 'false').toString().toBoolean()
+def playReleaseStatus = findProperty('PLAY_RELEASE_STATUS')
+    ?: System.getenv('PLAY_RELEASE_STATUS')
 def playImpersonatedServiceAccount = findProperty('PLAY_IMPERSONATE_SERVICE_ACCOUNT')
     ?: System.getenv('PLAY_IMPERSONATE_SERVICE_ACCOUNT')
 def requireReleaseSigning = (findProperty('REQUIRE_RELEASE_SIGNING')
@@ -95,6 +97,7 @@ if (requireReleaseSigning && !hasReleaseSigning) {
 android {
     namespace = "com.djngoma.devilsaidictionary"
     compileSdk = rootProject.ext.compileSdkVersion
+    ndkVersion = "27.1.12297006"
 
     buildFeatures {
         compose true
@@ -140,11 +143,12 @@ android {
     buildTypes {
         release {
             signingConfig hasReleaseSigning ? signingConfigs.release : signingConfigs.debug
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            ndk { debugSymbolLevel 'SYMBOL_TABLE' }
         }
     }
-
     sourceSets {
         main.assets.srcDirs += [generatedNativeAssetsDir]
     }
@@ -160,6 +164,12 @@ play {
 
     if (usePlayApplicationDefaultCredentials) {
         useApplicationDefaultCredentials = true
+    }
+
+    if (playReleaseStatus) {
+        releaseStatus.set(com.github.triplet.gradle.androidpublisher.ReleaseStatus.valueOf(
+            playReleaseStatus.toUpperCase()
+        ))
     }
 
     if (playImpersonatedServiceAccount) {
