@@ -1,10 +1,14 @@
 # Cross-platform design system
 
 This document is the authoritative style guide for The Devil's AI Dictionary across
-all platforms: web (Next.js), iOS (SwiftUI), watchOS, and Android (Compose).
+all platforms: web (Next.js), Windows (Electron), iOS (SwiftUI), watchOS, and
+Android (Compose).
 
 The **web CSS** (`src/app/globals.css`) is the source of truth for color values.
 Native platforms must match these hex values exactly.
+
+The Windows app is the web build in an Electron shell — no separate UI.
+When this document says "web", that includes Windows.
 
 ## Principles
 
@@ -13,6 +17,88 @@ Native platforms must match these hex values exactly.
 - Editorial, but app-like
 - Low-friction thumb reach
 - Light enough for Samsung A30s-class hardware
+
+---
+
+## Home page specification
+
+The home page is the most visible surface and the most likely to drift between
+platforms. This section is the canonical reference for what appears, in what
+order, and with what labels. If a platform diverges from this list, it is a bug.
+
+### Hero section
+
+| Element | Value | Notes |
+|---|---|---|
+| Kicker | "Field guide" (apps) / "Online book" (web) | Web adds "· Updated [date]" |
+| Title | "The Devil's AI Dictionary" | h1/page title |
+| Primary CTA | **Read the book** | `button-primary`, navigates to /book |
+| Secondary CTA | **Random entry** | `button-secondary`, navigates to /random |
+
+No "Browse the dictionary" link. The categories section lower on the page serves
+that purpose.
+
+### Today's word section
+
+| Element | Value | Notes |
+|---|---|---|
+| Section label | "Today's word" | All platforms |
+| Word title | Entry title | Large serif heading |
+| Devil definition | Full text | Primary body text |
+| Plain definition | Full text | Muted body text |
+| Primary CTA | **Open current word** | `button-primary` |
+| Share button | **Share** | Secondary, all platforms |
+| Random entry button | **Random entry** | Secondary, iOS only (inside card) |
+| Refresh button | None | Removed — this is a daily word, not manually refreshable |
+| Date chip | None | Do not show the date under the word title |
+| Warning label | Shown if present | Danger-toned card |
+
+### Push notification prompt
+
+Shown inside the today's word card, below the action buttons.
+
+| Platform | Behaviour |
+|---|---|
+| iOS | Live prompt: "Enable notifications" or "Open Settings" depending on permission state |
+| Android | Placeholder: "Notifications are not yet available on Android." |
+| Web / Windows | Not shown |
+
+### Featured entry
+
+| Element | Value |
+|---|---|
+| Section label | "Featured" |
+| Card | Standard entry card |
+
+### Browse by category
+
+| Element | Value | Notes |
+|---|---|---|
+| Section label | **Browse by category** | Not "Categories" |
+| Grid | Category cards | 2-col on phone, 3-col on desktop |
+| "View all" link | "View all categories" | Web only (secondary text link) |
+
+### Tab bar / bottom navigation
+
+| Tab | Label | All platforms |
+|---|---|---|
+| 1 | Home | Yes |
+| 2 | Search | Yes |
+| 3 | Categories | Yes |
+| 4 | Saved | Yes |
+| 5 | Settings | Apps only (iOS, Android) |
+
+Web uses a top navigation bar with: Home, Dictionary, Categories, Random, About, Search.
+
+### Platform verification status
+
+| Platform | Last verified | Build | Status |
+|---|---|---|---|
+| Web | 2026-04-05 | — | Verified |
+| iOS | 2026-04-05 | 9 (1.0.1) | Verified |
+| Android | 2026-04-05 | 9 (1.0.1) | Verified |
+| Windows | — | — | Untested (shares web build, expected to match) |
+| watchOS | — | — | Untested (separate UI, see watchOS rules below) |
 
 ---
 
@@ -196,9 +282,10 @@ Mobile defaults to border + low shadow. Heavy blur reserved for hero moments.
 
 ### Navigation
 
-- Phone primary nav: `Home`, `Browse`, `Search`, `Saved`
-- Desktop keeps the fuller top navigation
-- Phone secondary routes live behind the app-bar menu
+- Phone primary nav (web): `Home`, `Search`, `Categories`, `Saved`
+- Native app tabs (iOS/Android): `Home`, `Search`, `Categories`, `Saved`, `Settings`
+- Desktop keeps the fuller top navigation: Home, Dictionary, Categories, Random, About, Search
+- Phone secondary routes live behind the app-bar menu (web) or Settings tab (native)
 
 ### Buttons
 
@@ -263,7 +350,7 @@ Mobile defaults to border + low shadow. Heavy blur reserved for hero moments.
 Keep shared across platforms:
 
 - content contract (entries, definitions, categories)
-- navigation semantics (Home, Browse, Search, Saved)
+- navigation semantics (Home, Search, Categories, Saved)
 - filter semantics
 - saved-place shape
 - token names and color-role meanings
