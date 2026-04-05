@@ -104,16 +104,15 @@ The repo ships a native SwiftUI iPhone app in `ios/` and a native Kotlin/Compose
 
 | Platform | Build | What changed |
 |----------|-------|--------------|
-| iOS (TestFlight) | 8 (v1.0.1) | Animated splash screen, Settings tab with theme picker and developer mode toggle, home card label changed to "Field guide" with update date |
-| Android | Debug APK | Same feature set as iOS TestFlight build 8 |
+| iOS (TestFlight) | 9 (v1.0.1) | Swift core shared via JNI, home page alignment (Open current word, Browse by category, push prompt), R8 shrinking |
+| Android (Play internal) | 9 (v1.0.1) | Same Swift core, daily word scheduling, home page alignment, push placeholder |
 
 ### Recent mobile changes
 
-- Animated in-app splash screen on both platforms (logo scales in, title slides up, fades out)
-- Settings tab with Appearance (theme picker) and Developer mode toggle
-- Home screen label: "Field guide" with catalogue update date
-- Internal testing tools hidden behind Developer mode
-- Edition description paragraphs shown only in Developer mode
+- Android now runs the shared Swift core (`DevilsAIDictionaryCore`) via JNI — single source of truth for models, daily word, and filtering
+- Home page aligned across web, iOS, and Android (see design language below)
+- R8 minification and native debug symbols enabled for Android release builds
+- Gradle Play Publisher wired for automated internal-track deployment
 
 ### Mobile documentation
 
@@ -133,19 +132,48 @@ The repo ships a native SwiftUI iPhone app in `ios/` and a native Kotlin/Compose
 
 ### Tested devices
 
-- iPhone 17e Simulator, iOS 26
-- Android Emulator (Pixel), API 36 (Android 16)
+- iPhone 17e Simulator, iOS 26.4
+- Android Emulator (Pixel 4), API 36 (Android 16)
+- Android Emulator (Pixel), API 36, arm64
 - Android Emulator, API 35, arm64
 - Samsung Galaxy A30s (`SM-A307FN`), Android 11 / API 30
 - Google Pixel 5, Android 13 / API 33
 
+### Home page design language
+
+The home page is the surface most likely to drift between platforms. These are the canonical labels — if a platform diverges, it is a bug.
+
+| Element | Label | Platforms |
+|---------|-------|-----------|
+| Hero primary CTA | **Read the book** | All |
+| Hero secondary CTA | **Random entry** | All |
+| Today's word section label | **Today's word** | All |
+| Today's word CTA | **Open current word** | All |
+| Refresh button | None (daily word, not manual) | All |
+| Date chip under word title | None | All |
+| Push prompt | Live prompt (iOS), placeholder (Android), not shown (web/Windows) | Per-platform |
+| Categories section label | **Browse by category** | All |
+| Tab bar | Home, Search, Categories, Saved, Settings (apps) | iOS, Android |
+
+Full design system with colors, typography, spacing, and per-platform rules: [docs/mobile/design-system.md](docs/mobile/design-system.md)
+
+### Platform verification
+
+| Platform | Last verified | Build | Status |
+|----------|--------------|-------|--------|
+| Web | 2026-04-05 | — | Verified |
+| iOS | 2026-04-05 | 9 (1.0.1) | Verified |
+| Android | 2026-04-05 | 9 (1.0.1) | Verified |
+| Windows | — | — | **Untested** (shares web build, expected to match) |
+| watchOS | — | — | **Untested** (separate UI) |
+
 ### Design & Mobile UX
 
-- Mobile now ships as native clients on both platforms. iPhone uses SwiftUI, and Android uses Compose. Both keep the same `Home`, `Search`, `Categories`, `Saved`, and `Settings` information architecture.
+- Mobile ships as native clients on both platforms. iPhone uses SwiftUI, and Android uses Compose. Both keep the same `Home`, `Search`, `Categories`, `Saved`, and `Settings` information architecture.
+- Android links against the shared Swift core package (`shared/swift-core/`) via JNI for model parity with iOS.
 - Safe areas are handled explicitly on both platforms with native controls and insets.
 - Search and dictionary filtering are phone-first: the search field stays visible, while secondary filters move into a bottom sheet to preserve thumb reach and reading space.
 - Surface treatments are intentionally lighter on mobile than desktop. This keeps the editorial identity without asking Samsung A30s-class hardware to render a blur festival every time a card scrolls past.
-- Navigation semantics, saved-place behavior, and token names are shared across the shipped native iPhone and Android apps.
 
 ## Project structure
 
