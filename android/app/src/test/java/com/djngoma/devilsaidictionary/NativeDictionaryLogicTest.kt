@@ -1,6 +1,5 @@
 package com.djngoma.devilsaidictionary
 
-import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -24,16 +23,20 @@ class NativeDictionaryLogicTest {
         seeAlso = listOf("workflow"),
         difficulty = Difficulty.beginner,
         technicalDepth = TechnicalDepth.medium,
+        hypeLevel = HypeLevel.high,
         isVendorTerm = false,
         publishedAt = "2026-03-15",
         updatedAt = "2026-03-20",
         warningLabel = null,
         vendorReferences = emptyList(),
         note = null,
+        tags = listOf("agents"),
+        misunderstoodScore = 5,
         translations = emptyList(),
         diagram = null,
         body = "",
         categorySlugs = listOf("agents-and-workflows"),
+        url = "/dictionary/agent",
         searchText = "agent ai workflow orchestration planning tools",
         relatedSlugs = listOf("orchestration"),
     )
@@ -119,62 +122,4 @@ class NativeDictionaryLogicTest {
         assertEquals(0, missing)
     }
 
-    @Test
-    fun `parseCatalog reads latestPublishedAt from generated shape`() {
-        val catalog = parseCatalog(
-            JSONObject(
-                """
-                {
-                  "entries": [
-                    {
-                      "title": "Agent",
-                      "slug": "agent",
-                      "letter": "A",
-                      "categories": ["Agents and workflows"],
-                      "aliases": ["AI agent"],
-                      "devilDefinition": "A workflow with delusions of grandeur.",
-                      "plainDefinition": "A multi-step system that can act with tools.",
-                      "whyExists": "Some tasks take more than one turn.",
-                      "misuse": "People use it for any chatbot with a button.",
-                      "practicalMeaning": "Permissions, orchestration, state, and guardrails.",
-                      "example": "The support agent drafted a response and asked for approval.",
-                      "askNext": ["What tools can it use?"],
-                      "related": ["orchestration"],
-                      "seeAlso": ["workflow"],
-                      "difficulty": "beginner",
-                      "technicalDepth": "medium",
-                      "isVendorTerm": false,
-                      "publishedAt": "2026-03-15",
-                      "updatedAt": "2026-03-20",
-                      "warningLabel": null,
-                      "vendorReferences": [],
-                      "note": null,
-                      "translations": [],
-                      "diagram": null,
-                      "body": "",
-                      "categorySlugs": ["agents-and-workflows"],
-                      "searchText": "agent ai workflow orchestration planning tools",
-                      "relatedSlugs": ["orchestration"]
-                    }
-                  ],
-                  "recentSlugs": ["agent"],
-                  "misunderstoodSlugs": ["agent"],
-                  "letterStats": [{"letter": "A", "count": 1}],
-                  "categoryStats": [
-                    {
-                      "title": "Agents and workflows",
-                      "description": "Workflow systems with tools.",
-                      "slug": "agents-and-workflows",
-                      "count": 1
-                    }
-                  ],
-                  "featuredSlug": "agent",
-                  "latestPublishedAt": "2026-03-15"
-                }
-                """.trimIndent(),
-            ),
-        )
-
-        assertEquals("2026-03-15", catalog.latestPublishedAt)
-    }
 }

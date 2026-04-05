@@ -9,7 +9,6 @@ import android.os.Looper
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import org.json.JSONArray
 import org.json.JSONObject
 import java.security.MessageDigest
 import java.text.DateFormat
@@ -19,7 +18,6 @@ import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 import java.util.concurrent.Executors
-import kotlin.random.Random
 
 enum class NativeTab {
     Home,
@@ -55,6 +53,13 @@ enum class TechnicalDepth {
     high,
 }
 
+enum class HypeLevel {
+    low,
+    medium,
+    high,
+    severe,
+}
+
 enum class VendorFilter {
     all,
     vendorOnly,
@@ -65,6 +70,8 @@ enum class CurrentWordSource {
     seeded,
     manualRefresh,
     deepLink,
+    notificationTap,
+    phoneSync,
 }
 
 data class Translation(
@@ -107,16 +114,20 @@ data class Entry(
     val seeAlso: List<String>,
     val difficulty: Difficulty,
     val technicalDepth: TechnicalDepth,
+    val hypeLevel: HypeLevel,
     val isVendorTerm: Boolean,
     val publishedAt: String,
     val updatedAt: String,
     val warningLabel: String?,
     val vendorReferences: List<String>,
     val note: String?,
+    val tags: List<String>,
+    val misunderstoodScore: Int,
     val translations: List<Translation>,
     val diagram: String?,
     val body: String,
     val categorySlugs: List<String>,
+    val url: String,
     val searchText: String,
     val relatedSlugs: List<String>,
 )
@@ -124,6 +135,7 @@ data class Entry(
 data class LetterStat(
     val letter: String,
     val count: Int,
+    val href: String,
 )
 
 data class CategoryStat(
@@ -131,6 +143,7 @@ data class CategoryStat(
     val description: String,
     val slug: String,
     val count: Int,
+    val sampleTerms: List<String>,
 )
 
 data class EntrySection(
@@ -138,39 +151,39 @@ data class EntrySection(
     val entries: List<Entry>,
 )
 
-data class DictionaryCatalog(
-    val entries: List<Entry>,
-    val recentSlugs: List<String>,
-    val misunderstoodSlugs: List<String>,
-    val letterStats: List<LetterStat>,
-    val categoryStats: List<CategoryStat>,
-    val featuredSlug: String,
-    val latestPublishedAt: String,
+class DictionaryCatalog internal constructor(
+    private val handle: SwiftCoreBridge.CatalogHandle,
 ) {
-    private val entriesBySlug = entries.associateBy(Entry::slug)
+    private val meta = handle.metadata
 
-    fun entry(slug: String): Entry? = entriesBySlug[slug]
+    val entries: List<Entry> get() = handle.allEntries
+    val letterStats: List<LetterStat> get() = meta.letterStats
+    val categoryStats: List<CategoryStat> get() = meta.categoryStats
+    val featuredSlug: String get() = meta.featuredSlug
+    val latestPublishedAt: String get() = meta.latestPublishedAt
+    val editorialTimeZone: String get() = meta.editorialTimeZone
 
-    fun entriesFor(slugs: List<String>): List<Entry> = slugs.mapNotNull(entriesBySlug::get)
+    fun entry(slug: String): Entry? = handle.entry(slug)
 
-    fun featuredEntry(): Entry? = entry(featuredSlug)
+    fun entriesFor(slugs: List<String>): List<Entry> = handle.entriesFor(slugs)
 
-    fun recentEntries(limit: Int = 4): List<Entry> = entriesFor(recentSlugs.take(limit))
+    fun featuredEntry(): Entry? = handle.featuredEntry()
 
-    fun misunderstoodEntries(limit: Int = 4): List<Entry> =
-        entriesFor(misunderstoodSlugs.take(limit))
+    fun dailyWord(): Entry? = handle.dailyWord()
 
-    fun randomEntry(excluding: String? = null): Entry? {
-        val candidates = entries.filter { candidate ->
-            excluding == null || candidate.slug != excluding
-        }
+    fun recentEntries(limit: Int = 4): List<Entry> = handle.recentEntries(limit)
 
-        if (candidates.isEmpty()) {
-            return null
-        }
+    fun misunderstoodEntries(limit: Int = 4): List<Entry> = handle.misunderstoodEntries(limit)
 
-        return candidates[Random.nextInt(candidates.size)]
-    }
+    fun randomEntry(excluding: String? = null): Entry? = handle.randomEntry(excluding)
+
+    fun filteredEntries(
+        categorySlug: String? = null,
+        difficulty: Difficulty? = null,
+        technicalDepth: TechnicalDepth? = null,
+        vendorFilter: VendorFilter = VendorFilter.all,
+        letter: String? = null,
+    ): List<Entry> = handle.filteredEntries(categorySlug, difficulty, technicalDepth, vendorFilter, letter)
 }
 
 class NativeDictionaryStore(
@@ -294,14 +307,13 @@ class NativeDictionaryStore(
 
     val searchResults: List<Entry>
         get() {
-            val filtered = entries
-                .filterBy(
-                    categorySlug = searchCategorySlug,
-                    difficulty = searchDifficulty,
-                    technicalDepth = searchTechnicalDepth,
-                    vendorFilter = searchVendorFilter,
-                    letter = searchLetter,
-                )
+            val filtered = catalog?.filteredEntries(
+                categorySlug = searchCategorySlug,
+                difficulty = searchDifficulty,
+                technicalDepth = searchTechnicalDepth,
+                vendorFilter = searchVendorFilter,
+                letter = searchLetter,
+            ) ?: emptyList()
             val trimmedQuery = searchQuery.trim()
             if (trimmedQuery.isEmpty()) {
                 return filtered.sortedByCaseInsensitive(Entry::title)
@@ -702,7 +714,8 @@ class NativeDictionaryStore(
             return
         }
 
-        val seeded = catalog?.randomEntry()?.toCurrentWord(CurrentWordSource.seeded)
+        val seeded = (catalog?.dailyWord() ?: catalog?.randomEntry())
+            ?.toCurrentWord(CurrentWordSource.seeded)
         if (seeded != null) {
             persistCurrentWord(seeded)
         }
@@ -1007,51 +1020,6 @@ private fun parseDate(raw: String): Date? {
     return null
 }
 
-private fun List<Entry>.filterBy(
-    categorySlug: String?,
-    difficulty: Difficulty?,
-    technicalDepth: TechnicalDepth?,
-    vendorFilter: VendorFilter,
-    letter: String?,
-): List<Entry> {
-    val normalizedLetter = normalizeLetter(letter)
-
-    return filter { entry ->
-        if (categorySlug != null && !entry.categorySlugs.contains(categorySlug)) {
-            return@filter false
-        }
-
-        if (difficulty != null && entry.difficulty != difficulty) {
-            return@filter false
-        }
-
-        if (technicalDepth != null && entry.technicalDepth != technicalDepth) {
-            return@filter false
-        }
-
-        when (vendorFilter) {
-            VendorFilter.all -> Unit
-            VendorFilter.vendorOnly -> {
-                if (!entry.isVendorTerm) {
-                    return@filter false
-                }
-            }
-
-            VendorFilter.nonVendorOnly -> {
-                if (entry.isVendorTerm) {
-                    return@filter false
-                }
-            }
-        }
-
-        if (normalizedLetter != null && entry.letter != normalizedLetter) {
-            return@filter false
-        }
-
-        true
-    }
-}
-
 private fun <T> List<T>.sortedByCaseInsensitive(selector: (T) -> String): List<T> =
     sortedBy { item -> selector(item).lowercase(Locale.getDefault()) }
 
@@ -1066,84 +1034,6 @@ private fun normalizeLetter(value: String?): String? {
 
     return trimmed.take(1).uppercase(Locale.getDefault())
 }
-
-internal fun parseCatalog(root: JSONObject): DictionaryCatalog =
-    DictionaryCatalog(
-        entries = root.getJSONArray("entries").toEntryList(),
-        recentSlugs = root.getJSONArray("recentSlugs").toStringList(),
-        misunderstoodSlugs = root.getJSONArray("misunderstoodSlugs").toStringList(),
-        letterStats = root.getJSONArray("letterStats").toLetterStats(),
-        categoryStats = root.getJSONArray("categoryStats").toCategoryStats(),
-        featuredSlug = root.getString("featuredSlug"),
-        latestPublishedAt = root.getString("latestPublishedAt"),
-    )
-
-private fun JSONArray.toEntryList(): List<Entry> =
-    (0 until length()).map { index ->
-        val json = getJSONObject(index)
-        Entry(
-            title = json.getString("title"),
-            slug = json.getString("slug"),
-            letter = json.getString("letter"),
-            categories = json.getJSONArray("categories").toStringList(),
-            aliases = json.getJSONArray("aliases").toStringList(),
-            devilDefinition = json.getString("devilDefinition"),
-            plainDefinition = json.getString("plainDefinition"),
-            whyExists = json.getString("whyExists"),
-            misuse = json.getString("misuse"),
-            practicalMeaning = json.getString("practicalMeaning"),
-            example = json.getString("example"),
-            askNext = json.getJSONArray("askNext").toStringList(),
-            related = json.getJSONArray("related").toStringList(),
-            seeAlso = json.getJSONArray("seeAlso").toStringList(),
-            difficulty = Difficulty.valueOf(json.getString("difficulty")),
-            technicalDepth = TechnicalDepth.valueOf(json.getString("technicalDepth")),
-            isVendorTerm = json.getBoolean("isVendorTerm"),
-            publishedAt = json.getString("publishedAt"),
-            updatedAt = json.getString("updatedAt"),
-            warningLabel = json.optStringOrNull("warningLabel"),
-            vendorReferences = json.getJSONArray("vendorReferences").toStringList(),
-            note = json.optStringOrNull("note"),
-            translations = json.getJSONArray("translations").toTranslations(),
-            diagram = json.optStringOrNull("diagram"),
-            body = json.getString("body"),
-            categorySlugs = json.getJSONArray("categorySlugs").toStringList(),
-            searchText = json.getString("searchText"),
-            relatedSlugs = json.getJSONArray("relatedSlugs").toStringList(),
-        )
-    }
-
-private fun JSONArray.toTranslations(): List<Translation> =
-    (0 until length()).map { index ->
-        val json = getJSONObject(index)
-        Translation(
-            label = json.getString("label"),
-            text = json.getString("text"),
-        )
-    }
-
-private fun JSONArray.toLetterStats(): List<LetterStat> =
-    (0 until length()).map { index ->
-        val json = getJSONObject(index)
-        LetterStat(
-            letter = json.getString("letter"),
-            count = json.getInt("count"),
-        )
-    }
-
-private fun JSONArray.toCategoryStats(): List<CategoryStat> =
-    (0 until length()).map { index ->
-        val json = getJSONObject(index)
-        CategoryStat(
-            title = json.getString("title"),
-            description = json.getString("description"),
-            slug = json.getString("slug"),
-            count = json.getInt("count"),
-        )
-    }
-
-private fun JSONArray.toStringList(): List<String> =
-    (0 until length()).map { index -> getString(index) }
 
 internal fun JSONObject.optStringOrNull(name: String): String? {
     if (isNull(name)) {

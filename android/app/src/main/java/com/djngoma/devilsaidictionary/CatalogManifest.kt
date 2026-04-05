@@ -36,8 +36,11 @@ internal fun parseCatalogManifest(root: JSONObject): CatalogManifest =
     )
 
 internal fun parseCatalogSnapshot(bytes: ByteArray): CatalogSnapshot {
+    val handle = SwiftCoreBridge.decodeCatalog(bytes)
+        ?: error("Swift core failed to decode the catalog JSON")
+    val catalog = DictionaryCatalog(handle)
+
     val root = JSONObject(String(bytes, Charsets.UTF_8))
-    val catalog = parseCatalog(root)
     val entryCount =
         root.optInt("entryCount")
             .takeIf { it > 0 }

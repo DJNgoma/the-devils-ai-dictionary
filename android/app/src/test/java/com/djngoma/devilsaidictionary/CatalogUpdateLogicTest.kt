@@ -8,69 +8,8 @@ import org.junit.Test
 import java.net.URL
 
 class CatalogUpdateLogicTest {
-    @Test
-    fun `parseCatalogSnapshot uses embedded version metadata`() {
-        val snapshot =
-            parseCatalogSnapshot(
-                """
-                {
-                  "schemaVersion": 1,
-                  "catalogVersion": "catalog-v2",
-                  "entryCount": 1,
-                  "entries": [
-                    {
-                      "title": "Agent",
-                      "slug": "agent",
-                      "letter": "A",
-                      "categories": ["Agents and workflows"],
-                      "aliases": ["AI agent"],
-                      "devilDefinition": "A workflow with delusions of grandeur.",
-                      "plainDefinition": "A multi-step system that can act with tools.",
-                      "whyExists": "Some tasks take more than one turn.",
-                      "misuse": "People use it for any chatbot with a button.",
-                      "practicalMeaning": "Permissions, orchestration, state, and guardrails.",
-                      "example": "The support agent drafted a response and asked for approval.",
-                      "askNext": ["What tools can it use?"],
-                      "related": ["orchestration"],
-                      "seeAlso": ["workflow"],
-                      "difficulty": "beginner",
-                      "technicalDepth": "medium",
-                      "isVendorTerm": false,
-                      "publishedAt": "2026-03-15",
-                      "updatedAt": "2026-03-20",
-                      "warningLabel": null,
-                      "vendorReferences": [],
-                      "note": null,
-                      "translations": [],
-                      "diagram": null,
-                      "body": "",
-                      "categorySlugs": ["agents-and-workflows"],
-                      "searchText": "agent ai workflow orchestration planning tools",
-                      "relatedSlugs": ["orchestration"]
-                    }
-                  ],
-                  "recentSlugs": ["agent"],
-                  "misunderstoodSlugs": ["agent"],
-                  "letterStats": [{"letter": "A", "count": 1}],
-                  "categoryStats": [
-                    {
-                      "title": "Agents and workflows",
-                      "description": "Workflow systems with tools.",
-                      "slug": "agents-and-workflows",
-                      "count": 1
-                    }
-                  ],
-                  "featuredSlug": "agent",
-                  "latestPublishedAt": "2026-03-15"
-                }
-                """.trimIndent().toByteArray(),
-            )
-
-        assertEquals(1, snapshot.schemaVersion)
-        assertEquals("catalog-v2", snapshot.catalogVersion)
-        assertEquals(1, snapshot.entryCount)
-        assertEquals("2026-03-15", snapshot.catalog.latestPublishedAt)
-    }
+    // parseCatalogSnapshot now delegates to Swift via JNI and cannot run in JVM unit tests.
+    // Catalog decoding is covered by the Swift-side DevilsAIDictionaryCoreTests instead.
 
     @Test
     fun `parseCatalogManifest keeps snapshot metadata`() {
