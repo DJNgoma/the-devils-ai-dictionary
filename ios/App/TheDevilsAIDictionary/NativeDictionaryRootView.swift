@@ -47,6 +47,12 @@ struct NativeDictionaryRootView: View {
                         } else {
                             NativeMissingEntryView()
                         }
+                    case .related(let slug):
+                        if let entry = model.entry(slug: slug) {
+                            NativeRelatedTermsView(model: model, entry: entry)
+                        } else {
+                            NativeMissingEntryView()
+                        }
                     }
                 }
                 .nativeStackNavigationViewStyle()
@@ -444,35 +450,22 @@ private struct NativeHomeView: View {
                 }
             }
 
-            if !model.categoryStats.isEmpty {
-                VStack(alignment: .leading, spacing: 12) {
-                    NativeSectionLabel(text: "Browse by category")
+            if !model.glossaryCategoryStats.isEmpty {
+                NativeHomeCategoryGroup(
+                    title: "Glossary — start here",
+                    categories: model.glossaryCategoryStats,
+                    layout: layout,
+                    model: model,
+                )
+            }
 
-                    LazyVGrid(columns: layout.cardGridItems, spacing: 12) {
-                        ForEach(model.categoryStats, id: \.slug) { category in
-                            Button {
-                                model.presentCategory(category.slug)
-                            } label: {
-                                NativeCard {
-                                    Text(category.title)
-                                        .font(.system(size: 18, weight: .semibold, design: .serif))
-                                        .multilineTextAlignment(.leading)
-
-                                    Text(category.description)
-                                        .font(.system(size: 14, weight: .regular, design: .rounded))
-                                        .foregroundStyle(NativePalette.mutedText)
-                                        .multilineTextAlignment(.leading)
-
-                                    Text("\(category.count) terms")
-                                        .font(.system(size: 12, weight: .semibold, design: .rounded))
-                                        .foregroundStyle(NativePalette.accent)
-                                }
-                                .contentShape(Rectangle())
-                            }
-                            .buttonStyle(.plain)
-                        }
-                    }
-                }
+            if !model.nonGlossaryCategoryStats.isEmpty {
+                NativeHomeCategoryGroup(
+                    title: "Browse by category",
+                    categories: model.nonGlossaryCategoryStats,
+                    layout: layout,
+                    model: model,
+                )
             }
 
             if !model.recentEntries.isEmpty {
@@ -518,6 +511,44 @@ private struct NativeHomeView: View {
     }
 }
 
+private struct NativeHomeCategoryGroup: View {
+    let title: String
+    let categories: [CategoryStat]
+    let layout: NativeScreenLayout
+    @ObservedObject var model: NativeDictionaryModel
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            NativeSectionLabel(text: title)
+
+            LazyVGrid(columns: layout.cardGridItems, spacing: 12) {
+                ForEach(categories, id: \.slug) { category in
+                    Button {
+                        model.presentCategory(category.slug)
+                    } label: {
+                        NativeCard {
+                            Text(category.title)
+                                .font(.system(size: 18, weight: .semibold, design: .serif))
+                                .multilineTextAlignment(.leading)
+
+                            Text(category.description)
+                                .font(.system(size: 14, weight: .regular, design: .rounded))
+                                .foregroundStyle(NativePalette.mutedText)
+                                .multilineTextAlignment(.leading)
+
+                            Text("\(category.count) terms")
+                                .font(.system(size: 12, weight: .semibold, design: .rounded))
+                                .foregroundStyle(NativePalette.accent)
+                        }
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+        }
+    }
+}
+
 private struct NativeCategoriesView: View {
     @ObservedObject var model: NativeDictionaryModel
 
@@ -530,8 +561,44 @@ private struct NativeCategoriesView: View {
                     .font(.system(size: 17, weight: .medium, design: .rounded))
             }
 
+            if !model.glossaryCategoryStats.isEmpty {
+                NativeCategoriesSection(
+                    title: "Glossary — start here",
+                    categories: model.glossaryCategoryStats,
+                    layout: layout,
+                    model: model,
+                )
+            }
+
+            if !model.nonGlossaryCategoryStats.isEmpty {
+                NativeCategoriesSection(
+                    title: "All categories",
+                    categories: model.nonGlossaryCategoryStats,
+                    layout: layout,
+                    model: model,
+                )
+            }
+        }
+        .navigationTitle("Categories")
+        .nativeNavigationBarTitleDisplayMode(.large)
+        .toolbar {
+            NativeOverflowToolbar(model: model, themeManager: .shared)
+        }
+    }
+}
+
+private struct NativeCategoriesSection: View {
+    let title: String
+    let categories: [CategoryStat]
+    let layout: NativeScreenLayout
+    @ObservedObject var model: NativeDictionaryModel
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            NativeSectionLabel(text: title)
+
             LazyVGrid(columns: layout.cardGridItems, alignment: .leading, spacing: 12) {
-                ForEach(model.categoryStats, id: \.slug) { category in
+                ForEach(categories, id: \.slug) { category in
                     Button {
                         model.presentCategory(category.slug)
                     } label: {
@@ -552,11 +619,6 @@ private struct NativeCategoriesView: View {
                     .buttonStyle(.plain)
                 }
             }
-        }
-        .navigationTitle("Categories")
-        .nativeNavigationBarTitleDisplayMode(.large)
-        .toolbar {
-            NativeOverflowToolbar(model: model, themeManager: .shared)
         }
     }
 }
@@ -703,15 +765,14 @@ private struct NativeSavedView: View {
                         .foregroundStyle(NativePalette.mutedText)
 
                     HStack {
-                        Button("Open saved place") {
+                        Button("Open word") {
                             model.openSavedPlace()
                         }
                         .buttonStyle(NativePrimaryButtonStyle())
 
-                        Button("Clear") {
+                        ConfirmRemoveButton {
                             model.clearSavedPlace()
                         }
-                        .buttonStyle(NativeSecondaryButtonStyle())
                     }
                 }
 
@@ -1111,10 +1172,9 @@ private struct NativeBookView: View {
                     .foregroundStyle(NativePalette.mutedText)
 
                 HStack {
-                    Button("Save this page") {
+                    SaveConfirmButton(label: "Save word") {
                         model.saveBook()
                     }
-                    .buttonStyle(NativePrimaryButtonStyle())
 
                     Button("Search entries") {
                         if showsCloseButton {
@@ -1353,6 +1413,50 @@ private struct NativeCategoryDetailView: View {
                 Button("Done") {
                     dismiss()
                 }
+            }
+        }
+    }
+}
+
+private struct NativeRelatedTermsView: View {
+    @Environment(\.dismiss) private var dismiss
+    @ObservedObject var model: NativeDictionaryModel
+    let entry: Entry
+
+    private var related: [Entry] {
+        model.relatedEntries(for: entry)
+    }
+
+    var body: some View {
+        NativeScreen { _ in
+            NativeCard(emphasis: true) {
+                NativeSectionLabel(text: "Related terms")
+                Text(entry.title)
+                    .font(.system(size: 32, weight: .bold, design: .serif))
+                Text("Entries that share a category or see-also with this term.")
+                    .font(.system(size: 15, weight: .regular, design: .rounded))
+                    .foregroundStyle(NativePalette.mutedText)
+            }
+
+            if related.isEmpty {
+                NativeCard {
+                    Text("No related terms on record yet.")
+                        .font(.system(size: 17, weight: .medium, design: .rounded))
+                        .foregroundStyle(NativePalette.mutedText)
+                }
+            } else {
+                ForEach(related, id: \.slug) { other in
+                    NativeEntryCard(entry: other, compact: true) {
+                        model.presentEntry(other)
+                    }
+                }
+            }
+        }
+        .navigationTitle("Related terms")
+        .nativeNavigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Done") { dismiss() }
             }
         }
     }

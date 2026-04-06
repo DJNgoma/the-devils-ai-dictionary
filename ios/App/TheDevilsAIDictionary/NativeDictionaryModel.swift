@@ -59,6 +59,7 @@ final class NativeDictionaryModel: ObservableObject {
         case guide
         case entry(String)
         case category(String)
+        case related(String)
 
         var id: String {
             switch self {
@@ -72,6 +73,8 @@ final class NativeDictionaryModel: ObservableObject {
                 return "entry-\(slug)"
             case .category(let slug):
                 return "category-\(slug)"
+            case .related(let slug):
+                return "related-\(slug)"
             }
         }
     }
@@ -169,6 +172,16 @@ final class NativeDictionaryModel: ObservableObject {
 
     var categoryStats: [CategoryStat] {
         catalogSnapshot?.catalog.categoryStats ?? []
+    }
+
+    static let glossaryCategorySlugs: Set<String> = ["cultural-terms", "product-and-vendor-terms"]
+
+    var glossaryCategoryStats: [CategoryStat] {
+        categoryStats.filter { Self.glossaryCategorySlugs.contains($0.slug) }
+    }
+
+    var nonGlossaryCategoryStats: [CategoryStat] {
+        categoryStats.filter { !Self.glossaryCategorySlugs.contains($0.slug) }
     }
 
     var letterOptions: [String] {
@@ -432,6 +445,10 @@ final class NativeDictionaryModel: ObservableObject {
         }
 
         activeSheet = .category(slug)
+    }
+
+    func presentRelatedTerms(for entry: Entry) {
+        activeSheet = .related(entry.slug)
     }
 
     func dismissSheet() {

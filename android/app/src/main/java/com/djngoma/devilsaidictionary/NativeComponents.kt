@@ -1,5 +1,12 @@
 package com.djngoma.devilsaidictionary
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -94,6 +101,91 @@ fun NativeCard(
         onClick = onClick,
         content = content,
     )
+}
+
+@Composable
+fun ConfirmingSaveButton(
+    label: String,
+    colors: NativeColors,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    var saved by remember { mutableStateOf(false) }
+    androidx.compose.runtime.LaunchedEffect(saved) {
+        if (saved) {
+            kotlinx.coroutines.delay(1600)
+            saved = false
+        }
+    }
+    Button(
+        onClick = {
+            onClick()
+            saved = true
+        },
+        modifier = modifier.heightIn(min = NativeLayout.controlMinHeight),
+        shape = MaterialTheme.shapes.small,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = colors.accent,
+            contentColor = Color.White,
+        ),
+    ) {
+        AnimatedContent(
+            targetState = saved,
+            transitionSpec = {
+                (fadeIn(animationSpec = tween(160)) + scaleIn(
+                    initialScale = 0.92f,
+                    animationSpec = tween(160),
+                )) togetherWith (fadeOut(animationSpec = tween(120)) + scaleOut(
+                    targetScale = 0.92f,
+                    animationSpec = tween(120),
+                ))
+            },
+            label = "ConfirmingSave",
+        ) { isSaved ->
+            Text(if (isSaved) "Saved ✓" else label)
+        }
+    }
+}
+
+@Composable
+fun ConfirmRemoveButton(
+    colors: NativeColors,
+    onConfirmed: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    var armed by remember { mutableStateOf(false) }
+    OutlinedButton(
+        onClick = {
+            if (armed) {
+                armed = false
+                onConfirmed()
+            } else {
+                armed = true
+            }
+        },
+        modifier = modifier.heightIn(min = NativeLayout.controlMinHeight),
+        shape = MaterialTheme.shapes.small,
+        border = BorderStroke(1.dp, if (armed) colors.accent else colors.border),
+        colors = ButtonDefaults.outlinedButtonColors(
+            contentColor = if (armed) colors.accent else MaterialTheme.colorScheme.onSurface,
+        ),
+    ) {
+        AnimatedContent(
+            targetState = armed,
+            transitionSpec = {
+                (fadeIn(animationSpec = tween(160)) + scaleIn(
+                    initialScale = 0.92f,
+                    animationSpec = tween(160),
+                )) togetherWith (fadeOut(animationSpec = tween(120)) + scaleOut(
+                    targetScale = 0.92f,
+                    animationSpec = tween(120),
+                ))
+            },
+            label = "ConfirmRemove",
+        ) { isArmed ->
+            Text(if (isArmed) "Remove?" else "Remove")
+        }
+    }
 }
 
 @Composable
@@ -231,6 +323,12 @@ fun EntryCard(
                 colors = colors,
                 accent = true,
             )
+            if (entry.isVendorTerm) {
+                NativeChip(
+                    label = "Vendor term",
+                    colors = colors,
+                )
+            }
         }
         Text(
             text = entry.title,

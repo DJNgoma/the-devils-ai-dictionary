@@ -352,6 +352,23 @@ fun NativeOverlayScaffold(
                         )
                     }
                 }
+                is NativeOverlay.RelatedTerms -> {
+                    val entry = store.entry(overlay.slug)
+                    if (entry == null) {
+                        MissingEntryOverlay(
+                            colors = colors,
+                            padding = padding,
+                            isRefreshingCatalog = store.isRefreshingCatalog,
+                        )
+                    } else {
+                        RelatedTermsOverlay(
+                            entry = entry,
+                            store = store,
+                            colors = colors,
+                            padding = padding,
+                        )
+                    }
+                }
             }
         }
     }
@@ -371,6 +388,7 @@ private fun NativeOverlayTopBar(
             NativeOverlay.About -> "About"
             is NativeOverlay.EntryDetail -> "Dictionary"
             is NativeOverlay.Category -> "Category"
+            is NativeOverlay.RelatedTerms -> "Related terms"
         }
 
     Surface(

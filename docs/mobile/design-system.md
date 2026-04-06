@@ -110,7 +110,8 @@ Canonical labels (do not paraphrase):
 |---|---|
 | Open the Today's word entry | **Open** |
 | Open the saved place | **Open saved place** |
-| Save the current entry as the saved place | **Save place** |
+| Save the current entry as the saved place | **Save word** |
+| Save the current book page as the saved place | **Save place** |
 | Jump to related terms for an entry | **Related terms** |
 | Share an entry or the daily word | **Share** |
 | Clear the saved place | **Clear** |

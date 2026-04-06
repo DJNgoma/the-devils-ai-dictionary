@@ -40,6 +40,7 @@ sealed interface NativeOverlay {
     data object Guide : NativeOverlay
     data class EntryDetail(val slug: String) : NativeOverlay
     data class Category(val slug: String) : NativeOverlay
+    data class RelatedTerms(val slug: String) : NativeOverlay
 }
 
 enum class Difficulty {
@@ -146,6 +147,8 @@ data class CategoryStat(
     val count: Int,
     val sampleTerms: List<String>,
 )
+
+val GLOSSARY_CATEGORY_SLUGS = setOf("cultural-terms", "product-and-vendor-terms")
 
 data class EntrySection(
     val title: String,
@@ -304,6 +307,12 @@ class NativeDictionaryStore(
 
     val categoryStats: List<CategoryStat>
         get() = catalog?.categoryStats ?: emptyList()
+
+    val glossaryCategoryStats: List<CategoryStat>
+        get() = categoryStats.filter { it.slug in GLOSSARY_CATEGORY_SLUGS }
+
+    val nonGlossaryCategoryStats: List<CategoryStat>
+        get() = categoryStats.filterNot { it.slug in GLOSSARY_CATEGORY_SLUGS }
 
     val letterOptions: List<String>
         get() = categoryAwareLetters(catalog?.letterStats ?: emptyList())
@@ -554,6 +563,10 @@ class NativeDictionaryStore(
 
     fun presentAbout() {
         activeOverlay = NativeOverlay.About
+    }
+
+    fun presentRelatedTerms(slug: String) {
+        activeOverlay = NativeOverlay.RelatedTerms(slug)
     }
 
     fun dismissOverlay() {

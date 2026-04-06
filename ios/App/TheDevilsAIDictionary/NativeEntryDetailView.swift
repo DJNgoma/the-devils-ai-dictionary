@@ -55,15 +55,12 @@ struct NativeEntryDetailView: View {
                 }
 
                 HStack {
-                    Button("Save place") {
+                    SaveConfirmButton(label: "Save word") {
                         model.save(entry: entry)
                     }
-                    .buttonStyle(NativePrimaryButtonStyle())
 
                     Button("Related terms") {
-                        if let firstRelated = model.relatedEntries(for: entry).first {
-                            model.presentEntry(firstRelated)
-                        }
+                        model.presentRelatedTerms(for: entry)
                     }
                     .buttonStyle(NativeSecondaryButtonStyle())
 

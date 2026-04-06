@@ -62,8 +62,8 @@ fun BookOverlay(
                     style = MaterialTheme.typography.bodyMedium,
                 )
                 NativeActionRow {
-                    NativePrimaryButton(
-                        label = "Save place",
+                    ConfirmingSaveButton(
+                        label = "Save word",
                         colors = colors,
                         onClick = store::saveBook,
                     )
@@ -262,6 +262,52 @@ fun CategoryOverlay(
 }
 
 @Composable
+fun RelatedTermsOverlay(
+    entry: Entry,
+    store: NativeDictionaryStore,
+    colors: NativeColors,
+    padding: PaddingValues,
+) {
+    val related = store.relatedEntriesFor(entry)
+
+    LazyColumn(
+        contentPadding = overlayPadding(padding),
+        verticalArrangement = Arrangement.spacedBy(NativeLayout.sectionGap),
+    ) {
+        item {
+            NativeScreenCard(colors = colors, emphasis = true) {
+                SectionLabel(text = "Related terms")
+                Text(
+                    text = entry.title,
+                    style = MaterialTheme.typography.headlineLarge,
+                )
+                Text(
+                    text = "Entries that share a category or see-also with this term.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+        if (related.isEmpty()) {
+            item {
+                NativeScreenCard(colors = colors) {
+                    Text(
+                        text = "No related terms on record yet.",
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                }
+            }
+        } else {
+            items(related) { other ->
+                EntryCard(entry = other, colors = colors, compact = true) {
+                    store.presentEntry(other)
+                }
+            }
+        }
+    }
+}
+
+@Composable
 fun MissingEntryOverlay(
     colors: NativeColors,
     padding: PaddingValues,
@@ -348,18 +394,15 @@ fun EntryDetailOverlay(
                     )
                 }
                 NativeActionRow {
-                    NativePrimaryButton(
-                        label = "Save place",
+                    ConfirmingSaveButton(
+                        label = "Save word",
                         colors = colors,
                         onClick = { store.save(entry) },
                     )
                     NativeSecondaryButton(
                         label = "Related terms",
                         colors = colors,
-                        onClick = {
-                            store.dismissOverlay()
-                            store.showCategoryInSearch(entry.categorySlugs.firstOrNull())
-                        },
+                        onClick = { store.presentRelatedTerms(entry.slug) },
                     )
                     NativeSecondaryButton(
                         label = "Share",

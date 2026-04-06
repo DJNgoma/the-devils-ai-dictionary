@@ -168,12 +168,25 @@ fun NativeHomeScreen(
             }
         }
 
-        if (store.categoryStats.isNotEmpty()) {
+        if (store.glossaryCategoryStats.isNotEmpty()) {
+            item {
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    SectionLabel(text = "Glossary — start here")
+                    CategoryGrid(
+                        categories = store.glossaryCategoryStats,
+                        colors = colors,
+                        onClick = { category -> store.presentCategory(category.slug) },
+                    )
+                }
+            }
+        }
+
+        if (store.nonGlossaryCategoryStats.isNotEmpty()) {
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     SectionLabel(text = "Browse by category")
                     CategoryGrid(
-                        categories = store.categoryStats,
+                        categories = store.nonGlossaryCategoryStats,
                         colors = colors,
                         onClick = { category -> store.presentCategory(category.slug) },
                     )
@@ -468,14 +481,13 @@ fun NativeSavedScreen(
                     )
                     NativeActionRow {
                         NativePrimaryButton(
-                            label = "Open saved place",
+                            label = "Open word",
                             colors = colors,
                             onClick = store::openSavedPlace,
                         )
-                        NativeSecondaryButton(
-                            label = "Clear",
+                        ConfirmRemoveButton(
                             colors = colors,
-                            onClick = store::clearSavedPlace,
+                            onConfirmed = store::clearSavedPlace,
                         )
                     }
                 }
@@ -800,24 +812,50 @@ fun NativeCategoriesScreen(
                 )
             }
         }
-        items(store.categoryStats) { category ->
-            NativeCard(colors = colors, onClick = { store.presentCategory(category.slug) }) {
-                Text(
-                    text = category.title,
-                    style = MaterialTheme.typography.headlineSmall,
-                )
-                Text(
-                    text = category.description,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                NativeChip(
-                    label = "${category.count} entries",
-                    colors = colors,
-                    accent = true,
-                )
+        if (store.glossaryCategoryStats.isNotEmpty()) {
+            item {
+                SectionLabel(text = "Glossary — start here")
+            }
+            items(store.glossaryCategoryStats) { category ->
+                CategoryListCard(category = category, colors = colors) {
+                    store.presentCategory(category.slug)
+                }
             }
         }
+        if (store.nonGlossaryCategoryStats.isNotEmpty()) {
+            item {
+                SectionLabel(text = "All categories")
+            }
+            items(store.nonGlossaryCategoryStats) { category ->
+                CategoryListCard(category = category, colors = colors) {
+                    store.presentCategory(category.slug)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun CategoryListCard(
+    category: CategoryStat,
+    colors: NativeColors,
+    onClick: () -> Unit,
+) {
+    NativeCard(colors = colors, onClick = onClick) {
+        Text(
+            text = category.title,
+            style = MaterialTheme.typography.headlineSmall,
+        )
+        Text(
+            text = category.description,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        NativeChip(
+            label = "${category.count} entries",
+            colors = colors,
+            accent = true,
+        )
     }
 }
 

@@ -356,6 +356,50 @@ struct NativeSecondaryButtonStyle: ButtonStyle {
     }
 }
 
+struct ConfirmRemoveButton: View {
+    let action: () -> Void
+    @State private var armed = false
+
+    var body: some View {
+        Button {
+            if armed {
+                armed = false
+                action()
+            } else {
+                withAnimation(.easeOut(duration: 0.18)) { armed = true }
+            }
+        } label: {
+            Text(armed ? "Remove?" : "Remove")
+                .id(armed)
+                .transition(.scale(scale: 0.92).combined(with: .opacity))
+        }
+        .buttonStyle(NativeSecondaryButtonStyle())
+        .animation(.easeOut(duration: 0.18), value: armed)
+    }
+}
+
+struct SaveConfirmButton: View {
+    let label: String
+    let action: () -> Void
+    @State private var saved = false
+
+    var body: some View {
+        Button {
+            action()
+            withAnimation(.easeOut(duration: 0.18)) { saved = true }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) {
+                withAnimation(.easeOut(duration: 0.18)) { saved = false }
+            }
+        } label: {
+            Text(saved ? "Saved ✓" : label)
+                .id(saved)
+                .transition(.scale(scale: 0.92).combined(with: .opacity))
+        }
+        .buttonStyle(NativePrimaryButtonStyle())
+        .animation(.easeOut(duration: 0.18), value: saved)
+    }
+}
+
 struct NativeEntryCard: View {
     let entry: Entry
     var compact = false
