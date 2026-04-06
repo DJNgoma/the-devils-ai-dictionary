@@ -534,7 +534,7 @@ private struct NativeCategoriesView: View {
 
     var body: some View {
         NativeScreen { layout in
-            NativeCard {
+            NativeCard(emphasis: true) {
                 NativeSectionLabel(text: "Categories")
 
                 Text("The catalogue sorted by editorial theme. Each category groups terms by what they have in common, not where they sit in a product.")
@@ -543,18 +543,24 @@ private struct NativeCategoriesView: View {
 
             LazyVGrid(columns: layout.cardGridItems, alignment: .leading, spacing: 12) {
                 ForEach(model.categoryStats, id: \.slug) { category in
-                    NativeCard(emphasis: false) {
-                        Text(category.title)
-                            .font(.system(size: 22, weight: .semibold, design: .serif))
+                    Button {
+                        model.showCategoryInSearch(category.slug)
+                    } label: {
+                        NativeCard {
+                            Text(category.title)
+                                .font(.system(size: 22, weight: .semibold, design: .serif))
 
-                        Text(category.description)
-                            .font(.system(size: 15, weight: .regular, design: .rounded))
-                            .foregroundStyle(NativePalette.mutedText)
+                            Text(category.description)
+                                .font(.system(size: 15, weight: .regular, design: .rounded))
+                                .foregroundStyle(NativePalette.mutedText)
 
-                        Text("\(category.count) entries")
-                            .font(.system(size: 13, weight: .semibold, design: .rounded))
-                            .foregroundStyle(NativePalette.accent)
+                            Text("\(category.count) entries")
+                                .font(.system(size: 13, weight: .semibold, design: .rounded))
+                                .foregroundStyle(NativePalette.accent)
+                        }
+                        .contentShape(Rectangle())
                     }
+                    .buttonStyle(.plain)
                 }
             }
         }
@@ -582,7 +588,7 @@ private struct NativeSearchView: View {
 
     var body: some View {
         NativeScreen { layout in
-            NativeCard {
+            NativeCard(emphasis: true) {
                 NativeSectionLabel(text: "Search")
 
                 Text("Search is local and plain. No mystical reranking, no semantic sermon, just the terms and their actual words.")
@@ -669,7 +675,7 @@ private struct NativeSavedView: View {
 
     var body: some View {
         NativeScreen { _ in
-            NativeCard {
+            NativeCard(emphasis: true) {
                 NativeSectionLabel(text: "Saved")
 
                 Text("Saved places live on this device. Less cloud romance. Better continuity when you are moving between meetings.")

@@ -95,8 +95,8 @@ Web uses a top navigation bar with: Home, Dictionary, Categories, Random, About,
 | Platform | Last verified | Build | Status |
 |---|---|---|---|
 | Web | 2026-04-05 | — | Verified |
-| iOS | 2026-04-05 | 9 (1.0.1) | Verified |
-| Android | 2026-04-05 | 9 (1.0.1) | Verified |
+| iOS | 2026-04-06 | 11 (1.0.1) | Verified |
+| Android | 2026-04-06 | 11 (1.0.1) | Verified |
 | Windows | — | — | Untested (shares web build, expected to match) |
 | watchOS | — | — | Untested (separate UI, see watchOS rules below) |
 
@@ -298,10 +298,30 @@ Mobile defaults to border + low shadow. Heavy blur reserved for hero moments.
 
 ### Cards
 
-- Fully tappable on mobile
+- Fully tappable on mobile — wrap in a button/clickable, set `contentShape(Rectangle())` (iOS) or use the `onClick` parameter (Android) so the **whole card area** registers taps, not just the rendered text glyphs
 - Mobile defaults to compact card density
 - Background: `panel`/`surface`, 1px `border` stroke
 - Corner radius: 24 dp (iOS) / 20 dp (Android medium shape)
+
+#### Emphasis treatment
+
+The **first card on every primary screen** (Home, Categories, Search, Saved, Book, Guide, About) is the section description card. It uses the **emphasised** background (`panelStrong` / `surfaceStrong`) to set the screen apart from the content cards below it.
+
+| Surface | Default | Emphasis |
+|---|---|---|
+| iOS | `NativeCard {}` | `NativeCard(emphasis: true) {}` |
+| Android | `NativeScreenCard(colors)` | `NativeScreenCard(colors, emphasis = true)` |
+
+Per-screen emphasis:
+
+| Screen | First card | Emphasis |
+|---|---|---|
+| Home | "Field guide" hero | yes |
+| Today's word section | "Today's word" | no (it's a content card) |
+| Categories | "Categories" intro | yes |
+| Search | "Search" intro | yes |
+| Saved | "Saved" intro | yes |
+| Book / Guide / About | section header | yes |
 
 ### Chips
 

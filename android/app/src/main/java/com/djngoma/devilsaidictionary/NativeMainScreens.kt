@@ -223,7 +223,7 @@ fun NativeSearchScreen(
         verticalArrangement = Arrangement.spacedBy(NativeLayout.sectionGap),
     ) {
         item {
-            NativeScreenCard(colors = colors) {
+            NativeScreenCard(colors = colors, emphasis = true) {
                 SectionLabel(text = "Search")
                 Text(
                     text = "Search the bundled catalogue directly, then tighten the results with Android-style filters in a bottom sheet.",
@@ -415,7 +415,7 @@ fun NativeSavedScreen(
         verticalArrangement = Arrangement.spacedBy(NativeLayout.sectionGap),
     ) {
         item {
-            NativeScreenCard(colors = colors) {
+            NativeScreenCard(colors = colors, emphasis = true) {
                 SectionLabel(text = "Saved")
                 Text(
                     text = "This screen keeps the reader's place on-device, with no account and no server remembering on its behalf.",
@@ -802,7 +802,7 @@ fun NativeCategoriesScreen(
         verticalArrangement = Arrangement.spacedBy(NativeLayout.sectionGap),
     ) {
         item {
-            NativeScreenCard(colors = colors) {
+            NativeScreenCard(colors = colors, emphasis = true) {
                 SectionLabel(text = "Categories")
                 Text(
                     text = "The catalogue sorted by editorial theme.",
