@@ -1336,6 +1336,10 @@ private struct NativeCategoryDetailView: View {
     @ObservedObject var model: NativeDictionaryModel
     let category: CategoryStat
 
+    private var categoryEntries: [Entry] {
+        model.entries(forCategory: category.slug)
+    }
+
     var body: some View {
         NativeScreen { _ in
             NativeCard(emphasis: true) {
@@ -1348,20 +1352,19 @@ private struct NativeCategoryDetailView: View {
                     .font(.system(size: 17, weight: .medium, design: .rounded))
                     .foregroundStyle(NativePalette.mutedText)
 
-                Text("\(category.count) terms")
+                Text("\(categoryEntries.count) of \(category.count) terms")
                     .font(.system(size: 13, weight: .semibold, design: .rounded))
                     .foregroundStyle(NativePalette.accent)
             }
 
-            let entries = model.entries(forCategory: category.slug)
-            if entries.isEmpty {
+            if categoryEntries.isEmpty {
                 NativeCard {
                     Text("No entries published in this category yet.")
                         .font(.system(size: 17, weight: .medium, design: .rounded))
                         .foregroundStyle(NativePalette.mutedText)
                 }
             } else {
-                ForEach(entries, id: \.slug) { entry in
+                ForEach(categoryEntries, id: \.slug) { entry in
                     NativeEntryCard(entry: entry, compact: true) {
                         model.presentEntry(entry)
                     }

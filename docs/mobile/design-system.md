@@ -95,7 +95,7 @@ Web uses a top navigation bar with: Home, Dictionary, Categories, Random, About,
 | Platform | Last verified | Build | Status |
 |---|---|---|---|
 | Web | 2026-04-05 | — | Verified |
-| iOS | 2026-04-06 | 12 (1.0.1) | Verified |
+| iOS | 2026-04-06 | 13 (1.0.1) | Verified |
 | Android | 2026-04-06 | 12 (1.0.1) | Verified |
 | Windows | — | — | Untested (shares web build, expected to match) |
 | watchOS | — | — | Untested (separate UI, see watchOS rules below) |
