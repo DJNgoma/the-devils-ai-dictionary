@@ -212,6 +212,58 @@ fun AboutOverlay(
 }
 
 @Composable
+fun CategoryOverlay(
+    category: CategoryStat,
+    store: NativeDictionaryStore,
+    colors: NativeColors,
+    padding: PaddingValues,
+) {
+    val entries = store.entriesForCategory(category.slug)
+
+    LazyColumn(
+        contentPadding = overlayPadding(padding),
+        verticalArrangement = Arrangement.spacedBy(NativeLayout.sectionGap),
+    ) {
+        item {
+            NativeScreenCard(colors = colors, emphasis = true) {
+                SectionLabel(text = "Category")
+                Text(
+                    text = category.title,
+                    style = MaterialTheme.typography.headlineLarge,
+                )
+                Text(
+                    text = category.description,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                NativeChip(
+                    label = "${category.count} terms",
+                    colors = colors,
+                    accent = true,
+                )
+            }
+        }
+
+        if (entries.isEmpty()) {
+            item {
+                NativeScreenCard(colors = colors) {
+                    Text(
+                        text = "No entries published in this category yet.",
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                }
+            }
+        } else {
+            items(entries) { entry ->
+                EntryCard(entry = entry, colors = colors, compact = true) {
+                    store.presentEntry(entry)
+                }
+            }
+        }
+    }
+}
+
+@Composable
 fun MissingEntryOverlay(
     colors: NativeColors,
     padding: PaddingValues,

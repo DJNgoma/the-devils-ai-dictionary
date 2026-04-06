@@ -162,8 +162,8 @@ Full design system with colors, typography, spacing, and per-platform rules: [do
 | Platform | Last verified | Build | Status |
 |----------|--------------|-------|--------|
 | Web | 2026-04-05 | — | Verified |
-| iOS | 2026-04-06 | 11 (1.0.1) | Verified |
-| Android | 2026-04-06 | 11 (1.0.1) | Verified |
+| iOS | 2026-04-06 | 12 (1.0.1) | Verified |
+| Android | 2026-04-06 | 12 (1.0.1) | Verified |
 | Windows | — | — | **Untested** (shares web build, expected to match) |
 | watchOS | — | — | **Untested** (separate UI) |
 

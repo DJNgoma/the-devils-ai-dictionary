@@ -39,6 +39,7 @@ sealed interface NativeOverlay {
     data object Book : NativeOverlay
     data object Guide : NativeOverlay
     data class EntryDetail(val slug: String) : NativeOverlay
+    data class Category(val slug: String) : NativeOverlay
 }
 
 enum class Difficulty {
@@ -253,6 +254,13 @@ class NativeDictionaryStore(
 
     var lastCatalogCheckAtMs by mutableStateOf(storage.loadCatalogManifestCheckedAtMs())
         private set
+
+    var savedToast by mutableStateOf<String?>(null)
+        private set
+
+    fun consumeSavedToast() {
+        savedToast = null
+    }
 
     init {
         savedPlace = storage.loadSavedPlace()
@@ -493,6 +501,17 @@ class NativeDictionaryStore(
         activeOverlay = NativeOverlay.Guide
     }
 
+    fun presentCategory(slug: String) {
+        if (categoryStats.any { it.slug == slug }) {
+            activeOverlay = NativeOverlay.Category(slug)
+        }
+    }
+
+    fun entriesForCategory(slug: String): List<Entry> =
+        catalog?.filteredEntries(categorySlug = slug)
+            ?.sortedBy { it.title.lowercase() }
+            .orEmpty()
+
     fun presentAbout() {
         activeOverlay = NativeOverlay.About
     }
@@ -717,6 +736,7 @@ class NativeDictionaryStore(
     private fun persistSavedPlace(record: BookmarkRecord) {
         storage.saveSavedPlace(record)
         savedPlace = record
+        savedToast = "Saved to your reading place."
     }
 
     private fun persistCurrentWord(record: CurrentWordRecord) {

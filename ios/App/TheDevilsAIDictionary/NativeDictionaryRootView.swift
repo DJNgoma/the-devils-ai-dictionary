@@ -23,6 +23,9 @@ struct NativeDictionaryRootView: View {
             .tint(NativePalette.accent)
             .id(themeManager.current)
             .preferredColorScheme(themeManager.current.colorScheme)
+            .overlay(alignment: .bottom) {
+                NativeSavedToast(model: model)
+            }
             .sheet(item: $model.activeSheet) { sheet in
                 NavigationView {
                     switch sheet {
@@ -35,6 +38,12 @@ struct NativeDictionaryRootView: View {
                     case .entry(let slug):
                         if let entry = model.entry(slug: slug) {
                             NativeEntryDetailView(model: model, entry: entry)
+                        } else {
+                            NativeMissingEntryView()
+                        }
+                    case .category(let slug):
+                        if let category = model.categoryStats.first(where: { $0.slug == slug }) {
+                            NativeCategoryDetailView(model: model, category: category)
                         } else {
                             NativeMissingEntryView()
                         }
@@ -465,7 +474,7 @@ private struct NativeHomeView: View {
                     LazyVGrid(columns: layout.cardGridItems, spacing: 12) {
                         ForEach(model.categoryStats, id: \.slug) { category in
                             Button {
-                                model.showCategoryInSearch(category.slug)
+                                model.presentCategory(category.slug)
                             } label: {
                                 NativeCard {
                                     Text(category.title)
@@ -605,6 +614,18 @@ private struct NativeSearchView: View {
                         showFilters = true
                     }
                     .buttonStyle(NativeSecondaryButtonStyle())
+                    .overlay(alignment: .topTrailing) {
+                        if model.hasSearchFilters {
+                            Circle()
+                                .fill(NativePalette.accent)
+                                .frame(width: 8, height: 8)
+                                .offset(x: 2, y: -2)
+                        }
+                    }
+                }
+
+                if model.hasSearchFilters {
+                    NativeActiveFilterChips(model: model)
                 }
 
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -898,7 +919,7 @@ private struct NativeSettingsView: View {
             }
 
             NativeCard {
-                NativeSectionLabel(text: "Notifications and links")
+                NativeSectionLabel(text: "Notifications")
 
                 NativeSettingsValueRow(label: "Push permission", value: model.pushAuthorizationStatus)
                 NativeSettingsValueRow(label: "Push token", value: model.pushTokenAvailable ? "Available" : "Missing")
@@ -916,16 +937,20 @@ private struct NativeSettingsView: View {
                     }
                 }
                 .buttonStyle(NativeSecondaryButtonStyle())
+            }
+
+            NativeCard {
+                NativeSectionLabel(text: "Slug probe")
+
+                Text("Exercise the slug-resolution path that refreshes once when production has a newer catalogue.")
+                    .font(.system(size: 14, weight: .regular, design: .rounded))
+                    .foregroundStyle(NativePalette.mutedText)
 
                 NativeSettingsTextField(
                     title: "Testing slug",
                     placeholder: "new-word-slug",
                     text: $testingSlug
                 )
-
-                Text("Both buttons below exercise the slug-resolution path that should refresh once when production has a newer catalogue.")
-                    .font(.system(size: 14, weight: .regular, design: .rounded))
-                    .foregroundStyle(NativePalette.mutedText)
 
                 HStack {
                     Button("Use suggested slug") {
@@ -1306,6 +1331,93 @@ private struct NativeMissingEntryView: View {
     }
 }
 
+private struct NativeCategoryDetailView: View {
+    @Environment(\.dismiss) private var dismiss
+    @ObservedObject var model: NativeDictionaryModel
+    let category: CategoryStat
+
+    var body: some View {
+        NativeScreen { _ in
+            NativeCard(emphasis: true) {
+                NativeSectionLabel(text: "Category")
+
+                Text(category.title)
+                    .font(.system(size: 32, weight: .bold, design: .serif))
+
+                Text(category.description)
+                    .font(.system(size: 17, weight: .medium, design: .rounded))
+                    .foregroundStyle(NativePalette.mutedText)
+
+                Text("\(category.count) terms")
+                    .font(.system(size: 13, weight: .semibold, design: .rounded))
+                    .foregroundStyle(NativePalette.accent)
+            }
+
+            let entries = model.entries(forCategory: category.slug)
+            if entries.isEmpty {
+                NativeCard {
+                    Text("No entries published in this category yet.")
+                        .font(.system(size: 17, weight: .medium, design: .rounded))
+                        .foregroundStyle(NativePalette.mutedText)
+                }
+            } else {
+                ForEach(entries, id: \.slug) { entry in
+                    NativeEntryCard(entry: entry, compact: true) {
+                        model.presentEntry(entry)
+                    }
+                }
+            }
+        }
+        .navigationTitle(category.title)
+        .nativeNavigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Done") {
+                    dismiss()
+                }
+            }
+        }
+    }
+}
+
+private struct NativeSavedToast: View {
+    @ObservedObject var model: NativeDictionaryModel
+
+    var body: some View {
+        if let message = model.savedToast {
+            HStack(spacing: 12) {
+                Image(systemName: "bookmark.fill")
+                    .foregroundStyle(NativePalette.accent)
+                Text(message)
+                    .font(.system(size: 15, weight: .medium, design: .rounded))
+                    .foregroundStyle(.primary)
+                Spacer(minLength: 0)
+                Button("Open") {
+                    model.dismissSavedToast()
+                    model.showSection(.saved)
+                }
+                .font(.system(size: 14, weight: .semibold, design: .rounded))
+                .foregroundStyle(NativePalette.accent)
+            }
+            .padding(.horizontal, 18)
+            .padding(.vertical, 12)
+            .background(NativePalette.panelStrong, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .stroke(NativePalette.border, lineWidth: 1)
+            )
+            .shadow(color: .black.opacity(0.12), radius: 16, y: 6)
+            .padding(.horizontal, 18)
+            .padding(.bottom, 80)
+            .transition(.move(edge: .bottom).combined(with: .opacity))
+            .animation(.easeOut(duration: 0.2), value: model.savedToast)
+            .onTapGesture {
+                model.dismissSavedToast()
+            }
+        }
+    }
+}
+
 private struct NativeOverflowToolbar: ToolbarContent {
     @ObservedObject var model: NativeDictionaryModel
     @ObservedObject var themeManager: ThemeManager
@@ -1332,6 +1444,10 @@ private struct NativeOverflowToolbar: ToolbarContent {
 
                 Button("Random entry") {
                     model.openRandomEntry()
+                }
+
+                Button("Sync now") {
+                    Task { await model.syncCatalogNow() }
                 }
 
                 Divider()
@@ -1386,5 +1502,61 @@ struct NativeFilterChipButtonStyle: ButtonStyle {
 
     private var border: Color {
         isSelected ? NativePalette.accent.opacity(0.24) : NativePalette.border
+    }
+}
+
+private struct NativeActiveFilterChips: View {
+    @ObservedObject var model: NativeDictionaryModel
+
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                if let slug = model.searchCategorySlug,
+                   let category = model.categoryStats.first(where: { $0.slug == slug }) {
+                    chip(label: category.title) {
+                        model.searchCategorySlug = nil
+                    }
+                }
+
+                if let difficulty = model.searchDifficulty {
+                    chip(label: nativeDifficultyLabel(difficulty)) {
+                        model.searchDifficulty = nil
+                    }
+                }
+
+                if let depth = model.searchTechnicalDepth {
+                    chip(label: nativeTechnicalDepthLabel(depth)) {
+                        model.searchTechnicalDepth = nil
+                    }
+                }
+
+                if model.searchVendorFilter != .all {
+                    chip(label: model.searchVendorFilter == .vendorOnly ? "Vendor only" : "No vendor terms") {
+                        model.searchVendorFilter = .all
+                    }
+                }
+            }
+        }
+    }
+
+    private func chip(label: String, onClear: @escaping () -> Void) -> some View {
+        Button {
+            onClear()
+        } label: {
+            HStack(spacing: 6) {
+                Text(label)
+                    .font(.system(size: 12, weight: .semibold, design: .rounded))
+                Image(systemName: "xmark.circle.fill")
+                    .font(.system(size: 12, weight: .semibold))
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(NativePalette.accentMuted, in: Capsule())
+            .overlay(
+                Capsule().stroke(NativePalette.accent.opacity(0.28), lineWidth: 1)
+            )
+            .foregroundStyle(NativePalette.accent)
+        }
+        .buttonStyle(.plain)
     }
 }

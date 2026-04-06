@@ -134,11 +134,6 @@ fun NativeHomeScreen(
                             leadingIcon = Icons.Rounded.Share,
                         )
                     }
-                    Text(
-                        text = "Notifications are not yet available on Android.",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
                 }
             }
         }
@@ -165,7 +160,7 @@ fun NativeHomeScreen(
                     CategoryGrid(
                         categories = store.categoryStats,
                         colors = colors,
-                        onClick = { category -> store.showCategoryInSearch(category.slug) },
+                        onClick = { category -> store.presentCategory(category.slug) },
                     )
                 }
             }
@@ -487,7 +482,7 @@ fun NativeSavedScreen(
         store.currentWord?.let { currentWord ->
             item {
                 NativeScreenCard(colors = colors) {
-                    SectionLabel(text = "Current word")
+                    SectionLabel(text = "Today's word")
                     Text(
                         text = currentWord.title,
                         style = MaterialTheme.typography.titleLarge,
@@ -811,10 +806,7 @@ fun NativeCategoriesScreen(
             }
         }
         items(store.categoryStats) { category ->
-            NativeCard(colors = colors, onClick = {
-                store.searchCategorySlug = category.slug
-                store.selectTab(NativeTab.Search)
-            }) {
+            NativeCard(colors = colors, onClick = { store.presentCategory(category.slug) }) {
                 Text(
                     text = category.title,
                     style = MaterialTheme.typography.headlineSmall,

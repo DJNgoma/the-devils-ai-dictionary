@@ -58,6 +58,7 @@ final class NativeDictionaryModel: ObservableObject {
         case book
         case guide
         case entry(String)
+        case category(String)
 
         var id: String {
             switch self {
@@ -69,6 +70,8 @@ final class NativeDictionaryModel: ObservableObject {
                 return "guide"
             case .entry(let slug):
                 return "entry-\(slug)"
+            case .category(let slug):
+                return "category-\(slug)"
             }
         }
     }
@@ -114,6 +117,9 @@ final class NativeDictionaryModel: ObservableObject {
     @Published private(set) var liveCatalogManifest: CatalogManifest?
     @Published private(set) var liveCatalogCheckedAt: Date?
     @Published private(set) var liveCatalogError: String?
+    @Published private(set) var savedToast: String?
+
+    private var savedToastTask: Task<Void, Never>?
 
     private let manager: PhoneCurrentWordManager
     private let savedPlaceStore = NativeSavedPlaceStore()
@@ -153,6 +159,12 @@ final class NativeDictionaryModel: ObservableObject {
 
     var misunderstoodEntries: [Entry] {
         catalogSnapshot?.catalog.misunderstoodEntries(limit: 4) ?? []
+    }
+
+    func entries(forCategory slug: String) -> [Entry] {
+        let filter = EntryFilter(categorySlug: slug)
+        return (catalogSnapshot?.catalog.entries(matching: filter) ?? [])
+            .sorted { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }
     }
 
     var categoryStats: [CategoryStat] {
@@ -414,6 +426,14 @@ final class NativeDictionaryModel: ObservableObject {
         activeSheet = .about
     }
 
+    func presentCategory(_ slug: String) {
+        guard categoryStats.contains(where: { $0.slug == slug }) else {
+            return
+        }
+
+        activeSheet = .category(slug)
+    }
+
     func dismissSheet() {
         activeSheet = nil
         macDetailRoute = .section(macSidebarSelection)
@@ -615,6 +635,22 @@ final class NativeDictionaryModel: ObservableObject {
     private func persistSavedPlace(_ record: BookmarkRecord) {
         savedPlaceStore.save(record)
         savedPlace = record
+        showSavedToast("Saved to your reading place.")
+    }
+
+    private func showSavedToast(_ message: String) {
+        savedToastTask?.cancel()
+        savedToast = message
+        savedToastTask = Task { [weak self] in
+            try? await Task.sleep(nanoseconds: 2_500_000_000)
+            guard !Task.isCancelled else { return }
+            await MainActor.run { self?.savedToast = nil }
+        }
+    }
+
+    func dismissSavedToast() {
+        savedToastTask?.cancel()
+        savedToast = nil
     }
 
     func handleSceneActivation() async {

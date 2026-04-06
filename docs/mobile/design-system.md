@@ -95,8 +95,8 @@ Web uses a top navigation bar with: Home, Dictionary, Categories, Random, About,
 | Platform | Last verified | Build | Status |
 |---|---|---|---|
 | Web | 2026-04-05 | — | Verified |
-| iOS | 2026-04-06 | 11 (1.0.1) | Verified |
-| Android | 2026-04-06 | 11 (1.0.1) | Verified |
+| iOS | 2026-04-06 | 12 (1.0.1) | Verified |
+| Android | 2026-04-06 | 12 (1.0.1) | Verified |
 | Windows | — | — | Untested (shares web build, expected to match) |
 | watchOS | — | — | Untested (separate UI, see watchOS rules below) |
 
@@ -332,12 +332,35 @@ Per-screen emphasis:
 | success | success | success @ 12% | success @ 28% |
 | warning | warning/danger | warning @ 12% | warning @ 28% |
 
-### Sheets
+### Sheets and modals
 
-- Bottom-anchored
+- Bottom-anchored where it suits the gesture (filters, mobile menu)
+- Full-screen sheets for content that benefits from a clean canvas
 - Safe-area-aware
 - Scrollable internally
-- Used for mobile menu and mobile filters
+
+#### Modal inventory
+
+| Surface | iOS presentation | Android presentation | Web equivalent |
+|---|---|---|---|
+| Entry detail | `.sheet(item:)` | `NativeOverlayScaffold` (full-screen overlay) | route `/dictionary/[slug]` |
+| Category detail | `.sheet(item:)` | `NativeOverlayScaffold` (full-screen overlay) | route `/categories/[slug]` |
+| Book | `.sheet(item:)` | `NativeOverlayScaffold` | route `/book` |
+| Guide | `.sheet(item:)` | `NativeOverlayScaffold` | route `/how-to-read` |
+| About | `.sheet(item:)` | `NativeOverlayScaffold` | route `/about` |
+| Search filters | `.sheet(isPresented:)` Form | `ModalBottomSheet` | mobile filter `AppSheet` |
+| Overflow menu | `Menu` toolbar | `DropdownMenu` | mobile menu `AppSheet` |
+
+Tapping a category card on the apps opens the category modal with the entries inside. Tapping an entry inside the modal opens the entry detail on top of it. Closing the entry returns you to the category modal; closing the category returns you to whichever tab you came from. The web stays on routes — the apps use modals because tab + push navigation would lose the user's place.
+
+### Save feedback
+
+After saving an entry or the book landing page, both apps show a brief confirmation:
+
+| Platform | Mechanism | Action |
+|---|---|---|
+| iOS | Toast banner overlay (`NativeSavedToast`), 2.5s auto-dismiss | "Open" jumps to Saved tab |
+| Android | `SnackbarHost` from main scaffold | "Open" jumps to Saved tab |
 
 ### Feedback states
 
