@@ -147,6 +147,7 @@ export async function sendCurrentWordPush({
       "apns-priority": "10",
       "apns-push-type": "alert",
       "apns-topic": credentials.bundleId,
+      "apns-expiration": String(Math.floor(Date.now() / 1000) + 3600),
       "content-type": "application/json",
     },
     body: createNotificationBody(entry, sentAt),

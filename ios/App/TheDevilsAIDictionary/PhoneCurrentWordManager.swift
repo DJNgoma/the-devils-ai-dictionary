@@ -466,7 +466,11 @@ final class PhoneCurrentWordManager {
                 #endif
             }(),
             optInStatus: status.rawValue,
-            appVersion: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0",
+            appVersion: {
+                let short = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+                let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
+                return "\(short) (\(build))"
+            }(),
             locale: Locale.preferredLanguages.first ?? Locale.current.identifier
         )
 
