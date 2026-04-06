@@ -96,23 +96,24 @@ The repo ships a native SwiftUI iPhone app in `ios/` and a native Kotlin/Compose
 
 | Platform | Version | Status |
 |----------|---------|--------|
-| iOS (App Store) | 1.0.1 | Live |
-| Android (Google Play) | 1.0.1 | Listing in progress |
+| iOS (App Store) | 1.0.2 | Live |
+| Android (Google Play) | 1.0.2 | Listing in progress |
 | Web | — | [thedevilsaidictionary.com](https://thedevilsaidictionary.com) |
 
 ### Beta / TestFlight builds
 
 | Platform | Build | What changed |
 |----------|-------|--------------|
-| iOS (TestFlight) | 9 (v1.0.1) | Swift core shared via JNI, home page alignment (Open current word, Browse by category, push prompt), R8 shrinking |
-| Android (Play internal) | 9 (v1.0.1) | Same Swift core, daily word scheduling, home page alignment, push placeholder |
+| iOS (TestFlight) | 13 (v1.0.2) | Grouped glossary with remove-confirmation, unified buttons, pull-to-refresh on Home, resilient APNs delivery for transient offline devices |
+| Android (Play internal) | 12 (v1.0.2) | Daily push fan-out at parity with iOS, Home push prompt, grouped glossary, pull-to-refresh |
 
 ### Recent mobile changes
 
-- Android now runs the shared Swift core (`DevilsAIDictionaryCore`) via JNI — single source of truth for models, daily word, and filtering
-- Home page aligned across web, iOS, and Android (see design language below)
-- R8 minification and native debug symbols enabled for Android release builds
-- Gradle Play Publisher wired for automated internal-track deployment
+- Glossary now groups entries with a confirmation step before removal
+- Home pulls to refresh on both platforms; menu and buttons unified across the app
+- Daily push fan-out shared across iOS and Android, with iOS no longer dropping pushes for transient offline devices
+- Android reached push parity with iOS and gained the Home prompt it was missing
+- Server routes rescued from their underscored exile
 
 ### Mobile documentation
 
@@ -162,8 +163,8 @@ Full design system with colors, typography, spacing, and per-platform rules: [do
 | Platform | Last verified | Build | Status |
 |----------|--------------|-------|--------|
 | Web | 2026-04-05 | — | Verified |
-| iOS | 2026-04-06 | 13 (1.0.1) | Verified |
-| Android | 2026-04-06 | 12 (1.0.1) | Verified |
+| iOS | 2026-04-06 | 13 (1.0.2) | Verified |
+| Android | 2026-04-06 | 12 (1.0.2) | Verified |
 | Windows | — | — | **Untested** (shares web build, expected to match) |
 | watchOS | — | — | **Untested** (separate UI) |
 
