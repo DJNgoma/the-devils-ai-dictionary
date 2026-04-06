@@ -61,9 +61,11 @@ Shown inside the today's word card, below the action buttons.
 
 | Platform | Behaviour |
 |---|---|
-| iOS | Live prompt: "Enable notifications" or "Open Settings" depending on permission state |
-| Android | Placeholder: "Notifications are not yet available on Android." |
+| iOS | Live prompt: "Enable notifications" or "Open Settings" depending on permission state (APNs) |
+| Android | Live prompt: "Enable notifications" wired to the POST_NOTIFICATIONS runtime permission, status surfaced in Settings → Push diagnostics (FCM) |
 | Web / Windows | Not shown |
+
+Both mobile apps register the device token with `POST /api/mobile/push/installations`. iOS dispatches via APNs HTTP/2, Android via FCM HTTP v1 (`src/lib/server/fcm.ts`), branching per installation row in the shared test-send route. The `daily-word` notification channel is created in `DictionaryApplication`, and `DevilsFirebaseMessagingService` builds a `NotificationCompat` with a `slug` extra that `NativeDictionaryStore.handleIntent` reads as `CurrentWordSource.notificationTap`.
 
 ### Featured entry
 

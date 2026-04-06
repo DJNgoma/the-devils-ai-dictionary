@@ -11,6 +11,10 @@ import {
   sendCurrentWordPush,
 } from "@/lib/server/apns";
 import {
+  isTerminalFcmFailure,
+  sendCurrentWordFcm,
+} from "@/lib/server/fcm";
+import {
   listTargetInstallations,
   markPushInstallationInvalid,
   markPushInstallationSuccess,
@@ -21,6 +25,7 @@ export const dynamic = "force-dynamic";
 const testSendSchema = z.object({
   slug: z.string().trim().min(1).optional(),
   token: z.string().trim().min(1).optional(),
+  platform: z.enum(["ios", "android"]).optional(),
 });
 
 const entries = generatedData.entries as Entry[];
@@ -78,28 +83,23 @@ export async function POST(request: Request) {
       );
     }
 
-    if (
-      !env.APNS_BUNDLE_ID ||
-      !env.APNS_KEY_ID ||
-      !env.APNS_PRIVATE_KEY ||
-      !env.APNS_TEAM_ID
-    ) {
-      throw new Error("APNs credentials are not fully configured.");
-    }
+    const apnsConfigured =
+      env.APNS_BUNDLE_ID &&
+      env.APNS_KEY_ID &&
+      env.APNS_PRIVATE_KEY &&
+      env.APNS_TEAM_ID;
+    const fcmConfigured = env.FCM_PROJECT_ID && env.FCM_SERVICE_ACCOUNT_JSON;
 
-    const credentials = {
-      bundleId: env.APNS_BUNDLE_ID,
-      keyId: env.APNS_KEY_ID,
-      privateKey: env.APNS_PRIVATE_KEY,
-      teamId: env.APNS_TEAM_ID,
-    };
-
-    const installations = await listTargetInstallations(database, payload.token);
+    const installations = await listTargetInstallations(
+      database,
+      payload.token,
+      payload.platform,
+    );
 
     if (installations.length === 0) {
       return NextResponse.json(
         {
-          error: "No authorized iOS installations were found.",
+          error: "No authorized push installations were found.",
           ok: false,
         },
         { status: 404 },
@@ -108,25 +108,65 @@ export async function POST(request: Request) {
 
     const results = await Promise.all(
       installations.map(async (installation) => {
-        const result = await sendCurrentWordPush({
-          credentials: {
-            bundleId: credentials.bundleId,
-            environment: installation.environment,
-            keyId: credentials.keyId,
-            privateKey: credentials.privateKey,
-            teamId: credentials.teamId,
-          },
-          entry,
-          token: installation.token,
-        });
-
-        if (result.ok) {
-          await markPushInstallationSuccess(database, installation.token);
-        } else if (isTerminalApnsFailure(result)) {
-          await markPushInstallationInvalid(database, installation.token);
+        if (installation.platform === "ios") {
+          if (!apnsConfigured) {
+            return {
+              ok: false,
+              status: 503,
+              reason: "APNs credentials are not configured.",
+              token: installation.token,
+            };
+          }
+          const result = await sendCurrentWordPush({
+            credentials: {
+              bundleId: env.APNS_BUNDLE_ID!,
+              environment: installation.environment,
+              keyId: env.APNS_KEY_ID!,
+              privateKey: env.APNS_PRIVATE_KEY!,
+              teamId: env.APNS_TEAM_ID!,
+            },
+            entry,
+            token: installation.token,
+          });
+          if (result.ok) {
+            await markPushInstallationSuccess(database, installation.token);
+          } else if (isTerminalApnsFailure(result)) {
+            await markPushInstallationInvalid(database, installation.token);
+          }
+          return result;
         }
 
-        return result;
+        if (installation.platform === "android") {
+          if (!fcmConfigured) {
+            return {
+              ok: false,
+              status: 503,
+              reason: "FCM credentials are not configured.",
+              token: installation.token,
+            };
+          }
+          const result = await sendCurrentWordFcm({
+            credentials: {
+              projectId: env.FCM_PROJECT_ID!,
+              serviceAccountJson: env.FCM_SERVICE_ACCOUNT_JSON!,
+            },
+            entry,
+            token: installation.token,
+          });
+          if (result.ok) {
+            await markPushInstallationSuccess(database, installation.token);
+          } else if (isTerminalFcmFailure(result)) {
+            await markPushInstallationInvalid(database, installation.token);
+          }
+          return result;
+        }
+
+        return {
+          ok: false,
+          status: 501,
+          reason: `Unknown platform "${installation.platform}".`,
+          token: installation.token,
+        };
       }),
     );
 

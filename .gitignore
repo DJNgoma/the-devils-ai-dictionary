@@ -71,6 +71,12 @@ ios/App/.mcp.json
 ios/App/opencode.json
 ios/App/backend/
 
+# local secrets — never commit
+/secrets/
+*.p8
+fcm-service-account*.json
+devils-ai-dictionary-firebase-adminsdk-*.json
+
 # local planning, export, and scratch artifacts
 .asc/
 .codex-workstreams.md

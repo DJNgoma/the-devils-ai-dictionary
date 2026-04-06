@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "92282569531",
+    "project_id": "devils-ai-dictionary",
+    "storage_bucket": "devils-ai-dictionary.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92282569531:android:3a271c6f9f577bb861ed1e",
+        "android_client_info": {
+          "package_name": "com.djngoma.devilsaidictionary"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_uOUInUVETZLICOHoaCVrmBm_WTKJBLM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

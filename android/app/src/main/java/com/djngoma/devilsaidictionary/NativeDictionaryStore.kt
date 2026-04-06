@@ -189,6 +189,8 @@ class DictionaryCatalog internal constructor(
 
 class NativeDictionaryStore(
     context: Context,
+    val pushManager: PhonePushManager? = null,
+    private val requestPushPermission: (() -> Unit)? = null,
 ) {
     private val appContext = context.applicationContext
     private val storage = NativeDictionaryStorage(
@@ -371,13 +373,51 @@ class NativeDictionaryStore(
             }
         }
 
+    val pushOptInStatus: PushOptInStatus
+        get() = pushManager?.optInStatus ?: PushOptInStatus.unsupported
+
+    val pushFcmToken: String?
+        get() = pushManager?.fcmToken
+
+    val pushRegistrationError: String?
+        get() = pushManager?.lastRegistrationError
+
     val pushTestingMessage: String
-        get() =
-            if (BuildConfig.NATIVE_PUSH_CONFIGURED) {
-                "Google services are present, but Android push testing is still not wired into the client. The server push test route currently targets iOS installations only."
-            } else {
-                "Android push is not configured in this build. Add google-services.json and the Firebase registration flow before expecting push beta tests."
-            }
+        get() = when {
+            !BuildConfig.NATIVE_PUSH_CONFIGURED ->
+                "Android push is not configured in this build. Add google-services.json to enable FCM."
+            pushManager == null ->
+                "Push manager is not attached to this store."
+            pushOptInStatus == PushOptInStatus.authorized && pushFcmToken != null ->
+                "Android is registered with FCM and the backend."
+            pushOptInStatus == PushOptInStatus.denied ->
+                "Notifications are denied for this app. Enable them in system settings to receive daily words."
+            else ->
+                "Tap \"Enable notifications\" to receive the daily word."
+        }
+
+    fun requestPushOptIn() {
+        requestPushPermission?.invoke()
+    }
+
+    fun simulatePushTap() {
+        val slug = testingSlug.trim().ifEmpty { suggestedTestSlug.orEmpty() }
+        if (slug.isEmpty()) {
+            testingError = "No slug available to simulate a push tap."
+            return
+        }
+        handleRemoteNotificationSlug(slug)
+    }
+
+    fun handleRemoteNotificationSlug(slug: String) {
+        activeOverlay = NativeOverlay.EntryDetail(slug)
+        val entry = entry(slug)
+        if (entry != null) {
+            persistCurrentWord(entry.toCurrentWord(CurrentWordSource.notificationTap))
+            return
+        }
+        refreshCatalogInBackground(force = true, retrySlug = slug)
+    }
 
     val suggestedTestSlug: String?
         get() = recentEntries.firstOrNull()?.slug ?: currentWord?.slug
@@ -620,7 +660,16 @@ class NativeDictionaryStore(
     }
 
     fun handleIntent(intent: Intent?) {
-        val slug = intent?.data?.toDictionarySlug() ?: return
+        if (intent == null) return
+
+        val notificationSlug = intent.getStringExtra(DevilsFirebaseMessagingService.EXTRA_NOTIFICATION_SLUG)
+        if (!notificationSlug.isNullOrEmpty()) {
+            intent.removeExtra(DevilsFirebaseMessagingService.EXTRA_NOTIFICATION_SLUG)
+            handleRemoteNotificationSlug(notificationSlug)
+            return
+        }
+
+        val slug = intent.data?.toDictionarySlug() ?: return
         selectedTab = NativeTab.Search
         activeOverlay = NativeOverlay.EntryDetail(slug)
 

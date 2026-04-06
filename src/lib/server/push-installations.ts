@@ -1,13 +1,14 @@
 import type {
   ClientPushOptInStatus,
   D1DatabaseLike,
+  MobilePushPlatform,
   PushDeliveryEnvironment,
   PushInstallationStatus,
 } from "@/lib/server/cloudflare-context";
 
 export type PushInstallationInput = {
   token: string;
-  platform: "ios";
+  platform: MobilePushPlatform;
   environment: PushDeliveryEnvironment;
   optInStatus: ClientPushOptInStatus;
   appVersion: string;
@@ -97,7 +98,16 @@ export async function markPushInstallationInvalid(
 export async function listTargetInstallations(
   database: D1DatabaseLike,
   token?: string,
+  platform?: MobilePushPlatform,
 ) {
+  const conditions = ["opt_in_status = 'authorized'"];
+  const bindings: unknown[] = [];
+
+  if (platform) {
+    conditions.push("platform = ?");
+    bindings.push(platform);
+  }
+
   const baseQuery = `
     SELECT
       token,
@@ -109,20 +119,20 @@ export async function listTargetInstallations(
       updated_at AS updatedAt,
       last_success_at AS lastSuccessAt
     FROM push_installations
-    WHERE platform = 'ios'
-      AND opt_in_status = 'authorized'
+    WHERE ${conditions.join(" AND ")}
   `;
 
   if (token) {
     const statement = database
       .prepare(`${baseQuery} AND token = ? ORDER BY updated_at DESC LIMIT 1`)
-      .bind(token);
+      .bind(...bindings, token);
     const record = await statement.first<PushInstallationRecord>();
     return record ? [record] : [];
   }
 
   const result = await database
     .prepare(`${baseQuery} ORDER BY updated_at DESC LIMIT 20`)
+    .bind(...bindings)
     .all<PushInstallationRecord>();
 
   return result.results;

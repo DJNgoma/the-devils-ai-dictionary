@@ -37,11 +37,16 @@ export type D1DatabaseLike = {
   prepare: (query: string) => D1PreparedStatementLike;
 };
 
+export const mobilePushPlatforms = ["ios", "android"] as const;
+export type MobilePushPlatform = (typeof mobilePushPlatforms)[number];
+
 export type MobilePushEnv = {
   APNS_BUNDLE_ID?: string;
   APNS_KEY_ID?: string;
   APNS_PRIVATE_KEY?: string;
   APNS_TEAM_ID?: string;
+  FCM_PROJECT_ID?: string;
+  FCM_SERVICE_ACCOUNT_JSON?: string;
   PUSH_INSTALLATIONS_DB?: D1DatabaseLike;
   PUSH_TEST_SEND_SECRET?: string;
 };

@@ -204,6 +204,9 @@ dependencies {
     implementation "androidx.compose.material3:material3"
     implementation "androidx.compose.ui:ui"
     implementation "androidx.compose.ui:ui-tooling-preview"
+    implementation platform("com.google.firebase:firebase-bom:33.5.1")
+    implementation "com.google.firebase:firebase-messaging-ktx"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1"
     debugImplementation "androidx.compose.ui:ui-tooling"
     debugImplementation "androidx.compose.ui:ui-test-manifest"
     testImplementation "junit:junit:$junitVersion"

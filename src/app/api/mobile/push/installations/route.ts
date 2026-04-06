@@ -20,7 +20,7 @@ const installationSchema = z.object({
       ...ClientPushOptInStatus[],
     ],
   ),
-  platform: z.literal("ios"),
+  platform: z.enum(["ios", "android"]),
   token: z.string().trim().min(1),
 });
 

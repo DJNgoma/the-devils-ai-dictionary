@@ -43,7 +43,7 @@ vi.mock("@/lib/server/push-installations", () => ({
   markPushInstallationSuccess: pushInstallationMocks.markPushInstallationSuccess,
 }));
 
-import { POST } from "@/app/_api-server-only/mobile/push/test-send/route";
+import { POST } from "@/app/api/mobile/push/test-send/route";
 
 const database = {
   prepare: vi.fn(),
@@ -119,7 +119,7 @@ describe("POST /api/mobile/push/test-send", () => {
 
     expect(response.status).toBe(404);
     await expect(response.json()).resolves.toMatchObject({
-      error: "No authorized iOS installations were found.",
+      error: "No authorized push installations were found.",
       ok: false,
     });
   });

@@ -10,7 +10,8 @@
     "global_fetch_strictly_public"
   ],
   "vars": {
-    "NEXT_PUBLIC_SITE_URL": "https://thedevilsaidictionary.com"
+    "NEXT_PUBLIC_SITE_URL": "https://thedevilsaidictionary.com",
+    "FCM_PROJECT_ID": "devils-ai-dictionary"
   },
   "assets": {
     "directory": ".open-next/assets",

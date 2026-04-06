@@ -23,6 +23,7 @@ import androidx.compose.material.icons.automirrored.rounded.MenuBook
 import androidx.compose.material.icons.rounded.AutoStories
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.FilterList
+import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material.icons.rounded.Shuffle
@@ -756,6 +757,12 @@ fun NativeSettingsScreen(
                         onClick = store::syncCatalogNow,
                         leadingIcon = Icons.Rounded.Refresh,
                     )
+                    NativeSecondaryButton(
+                        label = "Simulate push tap",
+                        colors = colors,
+                        onClick = store::simulatePushTap,
+                        leadingIcon = Icons.Rounded.Notifications,
+                    )
                 }
                 store.testingError?.let { testingError ->
                     Text(
@@ -771,17 +778,33 @@ fun NativeSettingsScreen(
             NativeScreenCard(colors = colors) {
                 SectionLabel(text = "Push diagnostics")
                 NativeSettingsValueRow(
-                    label = "Push readiness",
-                    value = if (BuildConfig.NATIVE_PUSH_CONFIGURED) {
-                        "Config present, client wiring pending"
-                    } else {
-                        "Not configured"
-                    },
+                    label = "Opt-in status",
+                    value = store.pushOptInStatus.wireValue,
                 )
+                NativeSettingsValueRow(
+                    label = "FCM token",
+                    value = store.pushFcmToken?.take(32)?.let { "$it…" } ?: "—",
+                )
+                store.pushRegistrationError?.let { error ->
+                    Text(
+                        text = error,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = colors.warning,
+                    )
+                }
                 Text(
                     text = store.pushTestingMessage,
                     style = MaterialTheme.typography.bodyMedium,
                 )
+                if (BuildConfig.NATIVE_PUSH_CONFIGURED &&
+                    store.pushOptInStatus != PushOptInStatus.authorized) {
+                    NativePrimaryButton(
+                        label = "Enable notifications",
+                        colors = colors,
+                        onClick = store::requestPushOptIn,
+                        leadingIcon = Icons.Rounded.Notifications,
+                    )
+                }
             }
         }
         }
