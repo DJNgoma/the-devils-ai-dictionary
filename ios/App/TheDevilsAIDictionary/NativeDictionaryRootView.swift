@@ -481,6 +481,7 @@ private struct NativeHomeView: View {
                                         .font(.system(size: 12, weight: .semibold, design: .rounded))
                                         .foregroundStyle(NativePalette.accent)
                                 }
+                                .contentShape(Rectangle())
                             }
                             .buttonStyle(.plain)
                         }
