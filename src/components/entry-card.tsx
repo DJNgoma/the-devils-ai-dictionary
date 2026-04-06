@@ -34,11 +34,6 @@ export function EntryCard({ entry, compact = false }: EntryCardProps) {
             {entry.plainDefinition}
           </p>
         ) : null}
-        {entry.warningLabel ? (
-          <p className="rounded-2xl border border-dashed border-danger/30 bg-[color:rgba(166,59,50,0.06)] px-4 py-3 text-sm leading-6 text-danger">
-            {entry.warningLabel}
-          </p>
-        ) : null}
         <div className="flex flex-wrap gap-2">
           {entry.categories.map((category) => (
             <span key={category} className="text-xs tracking-wide text-foreground-soft">

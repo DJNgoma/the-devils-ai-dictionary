@@ -48,12 +48,12 @@ that purpose.
 | Word title | Entry title | Large serif heading |
 | Devil definition | Full text | Primary body text |
 | Plain definition | Full text | Muted body text |
-| Primary CTA | **Open current word** | `button-primary` |
-| Share button | **Share** | Secondary, all platforms |
-| Random entry button | **Random entry** | Secondary, iOS only (inside card) |
+| Primary CTA | **Open** | `button-primary` |
+| Share button | **Share** | Secondary, inline in the same action row |
+| Random entry button | None | The Home hero already exposes Random entry; do not duplicate |
 | Refresh button | None | Removed — this is a daily word, not manually refreshable |
 | Date chip | None | Do not show the date under the word title |
-| Warning label | Shown if present | Danger-toned card |
+| Warning label | None | `warningLabel` is retained in the data model but not rendered in any UI |
 
 ### Push notification prompt
 
@@ -94,13 +94,36 @@ Both mobile apps register the device token with `POST /api/mobile/push/installat
 
 Web uses a top navigation bar with: Home, Dictionary, Categories, Random, About, Search.
 
+### Action buttons
+
+One spec for every screen and every platform. The same conceptual action gets the same label, emphasis, and position everywhere.
+
+| Rule | Value |
+|---|---|
+| No leading icons | Action-row buttons are label-only on every platform. Reserve icons for toolbar/nav affordances, not inline actions. |
+| Share lives inline | Share is a secondary button inside the primary action row, not a standalone button below it. |
+| Order | Primary action first, then secondaries left-to-right: Related terms → Share → Clear. Destructive/neutralising actions rightmost. |
+
+Canonical labels (do not paraphrase):
+
+| Concept | Label |
+|---|---|
+| Open the Today's word entry | **Open** |
+| Open the saved place | **Open saved place** |
+| Save the current entry as the saved place | **Save place** |
+| Jump to related terms for an entry | **Related terms** |
+| Share an entry or the daily word | **Share** |
+| Clear the saved place | **Clear** |
+| Read the book from the Home hero | **Read the book** |
+| Random entry from the Home hero | **Random entry** |
+
 ### Platform verification status
 
 | Platform | Last verified | Build | Status |
 |---|---|---|---|
 | Web | 2026-04-05 | — | Verified |
-| iOS | 2026-04-06 | 13 (1.0.1) | Verified |
-| Android | 2026-04-06 | 12 (1.0.1) | Verified |
+| iOS | 2026-04-06 | 14 (1.0.2) | Verified |
+| Android | 2026-04-06 | 14 (1.0.2) | Verified |
 | Windows | — | — | Untested (shares web build, expected to match) |
 | watchOS | — | — | Untested (separate UI, see watchOS rules below) |
 

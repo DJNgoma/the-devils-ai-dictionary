@@ -28,11 +28,14 @@ import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material.icons.rounded.Shuffle
 import androidx.compose.material.icons.rounded.Visibility
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -46,12 +49,18 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NativeHomeScreen(
     store: NativeDictionaryStore,
     colors: NativeColors,
     padding: PaddingValues,
 ) {
+    PullToRefreshBox(
+        isRefreshing = store.isRefreshingCatalog,
+        onRefresh = store::syncCatalogNow,
+        modifier = Modifier.fillMaxSize(),
+    ) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -92,14 +101,12 @@ fun NativeHomeScreen(
                         label = "Read the book",
                         colors = colors,
                         onClick = store::presentBook,
-                        leadingIcon = Icons.Rounded.AutoStories,
                         modifier = Modifier.weight(1f),
                     )
                     NativeSecondaryButton(
                         label = "Random entry",
                         colors = colors,
                         onClick = store::openRandomEntry,
-                        leadingIcon = Icons.Rounded.Shuffle,
                         modifier = Modifier.weight(1f),
                     )
                 }
@@ -123,21 +130,16 @@ fun NativeHomeScreen(
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
-                    currentWord.warningLabel?.let { warningLabel ->
-                        WarningCard(text = warningLabel, colors = colors)
-                    }
                     NativeActionRow {
                         NativePrimaryButton(
-                            label = "Open current word",
+                            label = "Open",
                             colors = colors,
                             onClick = store::openCurrentWord,
-                            leadingIcon = Icons.Rounded.Visibility,
                         )
                         NativeSecondaryButton(
                             label = "Share",
                             colors = colors,
                             onClick = store::shareCurrentWord,
-                            leadingIcon = Icons.Rounded.Share,
                         )
                     }
                     if (BuildConfig.NATIVE_PUSH_CONFIGURED &&
@@ -212,6 +214,7 @@ fun NativeHomeScreen(
             }
         }
     }
+    }
 }
 
 @Composable
@@ -251,7 +254,6 @@ fun NativeSearchScreen(
                         colors = colors,
                         onClick = { filtersOpen = true },
                         modifier = Modifier.testTag(NativeUiTags.SearchFiltersButton),
-                        leadingIcon = Icons.Rounded.FilterList,
                     )
                     if (store.searchQuery.isNotBlank() || store.hasSearchFilters) {
                         NativeSecondaryButton(
@@ -469,7 +471,6 @@ fun NativeSavedScreen(
                             label = "Open saved place",
                             colors = colors,
                             onClick = store::openSavedPlace,
-                            leadingIcon = Icons.Rounded.Visibility,
                         )
                         NativeSecondaryButton(
                             label = "Clear",
@@ -487,36 +488,6 @@ fun NativeSavedScreen(
                         EntryCard(entry = entry, colors = colors, compact = true) {
                             store.presentEntry(entry)
                         }
-                    }
-                }
-            }
-        }
-
-        store.currentWord?.let { currentWord ->
-            item {
-                NativeScreenCard(colors = colors) {
-                    SectionLabel(text = "Today's word")
-                    Text(
-                        text = currentWord.title,
-                        style = MaterialTheme.typography.titleLarge,
-                    )
-                    Text(
-                        text = currentWord.devilDefinition.trim(),
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                    NativeActionRow {
-                        NativeSecondaryButton(
-                            label = "Open current word",
-                            colors = colors,
-                            onClick = store::openCurrentWord,
-                            leadingIcon = Icons.AutoMirrored.Rounded.MenuBook,
-                        )
-                        NativeSecondaryButton(
-                            label = "Share",
-                            colors = colors,
-                            onClick = store::shareCurrentWord,
-                            leadingIcon = Icons.Rounded.Share,
-                        )
                     }
                 }
             }
@@ -706,13 +677,6 @@ fun NativeSettingsScreen(
                         label = "Check live site",
                         colors = colors,
                         onClick = store::checkLiveCatalog,
-                        leadingIcon = Icons.Rounded.Visibility,
-                    )
-                    NativeSecondaryButton(
-                        label = "Sync now",
-                        colors = colors,
-                        onClick = store::syncCatalogNow,
-                        leadingIcon = Icons.Rounded.Refresh,
                     )
                 }
                 NativeActionRow {
@@ -756,19 +720,16 @@ fun NativeSettingsScreen(
                         label = "Probe slug",
                         colors = colors,
                         onClick = store::probeSlug,
-                        leadingIcon = Icons.Rounded.Visibility,
                     )
                     NativeSecondaryButton(
                         label = "Sync first",
                         colors = colors,
                         onClick = store::syncCatalogNow,
-                        leadingIcon = Icons.Rounded.Refresh,
                     )
                     NativeSecondaryButton(
                         label = "Simulate push tap",
                         colors = colors,
                         onClick = store::simulatePushTap,
-                        leadingIcon = Icons.Rounded.Notifications,
                     )
                 }
                 store.testingError?.let { testingError ->
@@ -809,7 +770,6 @@ fun NativeSettingsScreen(
                         label = "Enable notifications",
                         colors = colors,
                         onClick = store::requestPushOptIn,
-                        leadingIcon = Icons.Rounded.Notifications,
                     )
                 }
             }
@@ -899,7 +859,6 @@ private fun HomePushPromptCard(
                 label = actionLabel,
                 colors = colors,
                 onClick = store::requestPushOptIn,
-                leadingIcon = Icons.Rounded.Notifications,
             )
         }
     }

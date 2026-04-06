@@ -231,12 +231,6 @@ fun EntryCard(
                 colors = colors,
                 accent = true,
             )
-            if (entry.warningLabel != null) {
-                NativeChip(
-                    label = "Warning",
-                    colors = colors,
-                )
-            }
         }
         Text(
             text = entry.title,

@@ -74,11 +74,6 @@ export function TodayWordCard({
             <Badge>{entry.categories[0]}</Badge>
             {entry.isVendorTerm ? <Badge tone="success">Vendor term</Badge> : null}
           </div>
-          {entry.warningLabel ? (
-            <p className="mt-5 rounded-2xl border border-dashed border-danger/30 bg-[color:rgba(166,59,50,0.06)] px-4 py-3 text-sm leading-6 text-danger">
-              {entry.warningLabel}
-            </p>
-          ) : null}
         </aside>
       </div>
     </section>

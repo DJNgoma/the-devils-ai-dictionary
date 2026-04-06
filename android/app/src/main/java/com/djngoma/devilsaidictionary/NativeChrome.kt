@@ -1,5 +1,12 @@
 package com.djngoma.devilsaidictionary
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
@@ -133,12 +140,27 @@ fun NativeMainScaffold(
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { padding ->
-        when (store.selectedTab) {
-            NativeTab.Home -> NativeHomeScreen(store, colors, padding)
-            NativeTab.Search -> NativeSearchScreen(store, colors, padding)
-            NativeTab.Categories -> NativeCategoriesScreen(store, colors, padding)
-            NativeTab.Saved -> NativeSavedScreen(store, colors, padding)
-            NativeTab.Settings -> NativeSettingsScreen(store, colors, padding)
+        AnimatedContent(
+            targetState = store.selectedTab,
+            transitionSpec = {
+                val forward = targetState.ordinal > initialState.ordinal
+                val offset = 48
+                (slideInHorizontally(animationSpec = tween(220)) { full ->
+                    if (forward) offset else -offset
+                } + fadeIn(animationSpec = tween(220))) togetherWith
+                    (slideOutHorizontally(animationSpec = tween(180)) { full ->
+                        if (forward) -offset else offset
+                    } + fadeOut(animationSpec = tween(180)))
+            },
+            label = "NativeTabTransition",
+        ) { tab ->
+            when (tab) {
+                NativeTab.Home -> NativeHomeScreen(store, colors, padding)
+                NativeTab.Search -> NativeSearchScreen(store, colors, padding)
+                NativeTab.Categories -> NativeCategoriesScreen(store, colors, padding)
+                NativeTab.Saved -> NativeSavedScreen(store, colors, padding)
+                NativeTab.Settings -> NativeSettingsScreen(store, colors, padding)
+            }
         }
     }
 }
@@ -211,31 +233,6 @@ private fun NativeTopBar(
                                 store.openRandomEntry()
                             },
                         )
-                        DropdownMenuItem(
-                            text = { Text("Sync now") },
-                            onClick = {
-                                onMenuOpenChange(false)
-                                store.syncCatalogNow()
-                            },
-                        )
-                        HorizontalDivider()
-                        SiteTheme.entries.forEach { theme ->
-                            DropdownMenuItem(
-                                text = { Text(theme.label) },
-                                leadingIcon = {
-                                    if (theme == store.siteTheme) {
-                                        Icon(
-                                            imageVector = Icons.Rounded.Check,
-                                            contentDescription = null,
-                                        )
-                                    }
-                                },
-                                onClick = {
-                                    onMenuOpenChange(false)
-                                    store.setTheme(theme)
-                                },
-                            )
-                        }
                     }
                 },
             )

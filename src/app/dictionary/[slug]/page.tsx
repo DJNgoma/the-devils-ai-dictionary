@@ -125,11 +125,6 @@ export default async function EntryPage({ params }: EntryPageProps) {
             Back to the book
           </Link>
         </div>
-        {entry.warningLabel ? (
-          <div className="rounded-[1.25rem] border border-dashed border-danger/30 bg-[color:rgba(166,59,50,0.06)] px-5 py-4 text-sm leading-7 text-danger">
-            {entry.warningLabel}
-          </div>
-        ) : null}
       </section>
 
       {entry.translations.length > 0 ? (

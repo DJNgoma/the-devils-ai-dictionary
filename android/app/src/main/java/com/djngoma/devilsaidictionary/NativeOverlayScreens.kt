@@ -63,10 +63,9 @@ fun BookOverlay(
                 )
                 NativeActionRow {
                     NativePrimaryButton(
-                        label = "Save this page",
+                        label = "Save place",
                         colors = colors,
                         onClick = store::saveBook,
-                        leadingIcon = Icons.Rounded.BookmarkBorder,
                     )
                     NativeSecondaryButton(
                         label = "Search entries",
@@ -75,7 +74,6 @@ fun BookOverlay(
                             store.dismissOverlay()
                             store.selectTab(NativeTab.Search)
                         },
-                        leadingIcon = Icons.Rounded.Search,
                     )
                 }
             }
@@ -349,30 +347,24 @@ fun EntryDetailOverlay(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
-                entry.warningLabel?.let { warningLabel ->
-                    WarningCard(text = warningLabel, colors = colors)
-                }
                 NativeActionRow {
                     NativePrimaryButton(
-                        label = "Save this entry",
+                        label = "Save place",
                         colors = colors,
                         onClick = { store.save(entry) },
-                        leadingIcon = Icons.Rounded.BookmarkBorder,
                     )
                     NativeSecondaryButton(
-                        label = "Share",
-                        colors = colors,
-                        onClick = { store.shareEntry(entry) },
-                        leadingIcon = Icons.Rounded.Share,
-                    )
-                    NativeSecondaryButton(
-                        label = "Browse related terms",
+                        label = "Related terms",
                         colors = colors,
                         onClick = {
                             store.dismissOverlay()
                             store.showCategoryInSearch(entry.categorySlugs.firstOrNull())
                         },
-                        leadingIcon = Icons.Rounded.Search,
+                    )
+                    NativeSecondaryButton(
+                        label = "Share",
+                        colors = colors,
+                        onClick = { store.shareEntry(entry) },
                     )
                 }
             }

@@ -46,14 +46,6 @@ struct WatchCurrentWordView: View {
                     }
                     .buttonStyle(.plain)
 
-                    if let warningLabel = todayWord.warningLabel {
-                        Text(warningLabel)
-                            .font(.system(.footnote, design: .rounded, weight: .medium))
-                            .padding(8)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(Color.red.opacity(0.14), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-                    }
-
                     HStack {
                         if let randomEntry = model.randomEntry() {
                             NavigationLink(value: randomEntry.slug) {
@@ -192,14 +184,6 @@ private struct WatchEntryDetailView: View {
                 Text(entry.plainDefinition.trimmingCharacters(in: .whitespacesAndNewlines))
                     .font(.system(.footnote, design: .rounded))
                     .foregroundStyle(.secondary)
-
-                if let warningLabel = entry.warningLabel {
-                    Text(warningLabel)
-                        .font(.system(.footnote, design: .rounded, weight: .medium))
-                        .padding(8)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(Color.red.opacity(0.14), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-                }
 
                 WatchDetailSection(title: "Why it exists", text: entry.whyExists)
                 WatchDetailSection(title: "In practice", text: entry.practicalMeaning)

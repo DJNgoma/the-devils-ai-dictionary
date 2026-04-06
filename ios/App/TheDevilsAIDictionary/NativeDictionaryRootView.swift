@@ -306,15 +306,6 @@ private struct NativeMacToolbar: ToolbarContent {
                 Label("Random entry", systemImage: "shuffle")
             }
 
-            Button {
-                Task {
-                    await model.syncCatalogNow()
-                }
-            } label: {
-                Label(model.isRefreshingCatalog ? "Syncing" : "Sync now", systemImage: "arrow.clockwise")
-            }
-            .disabled(model.isRefreshingCatalog)
-
             Menu {
                 Button("Read the book") {
                     model.presentBook()
@@ -406,33 +397,19 @@ private struct NativeHomeView: View {
                         .font(.system(size: 13, weight: .medium, design: .rounded))
                         .foregroundStyle(NativePalette.mutedText)
 
-                    if let warningLabel = todayWord.warningLabel {
-                        Text(warningLabel)
-                            .font(.system(size: 14, weight: .medium, design: .rounded))
-                            .foregroundStyle(NativePalette.warning)
-                            .padding(14)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(NativePalette.warning.opacity(0.10), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-                    }
-
                     HStack {
-                        Button("Open current word") {
+                        Button("Open") {
                             model.openTodayWord()
                         }
                         .buttonStyle(NativePrimaryButtonStyle())
 
-                        Button("Random entry") {
-                            model.openRandomEntry()
+                        if let shareURL = model.shareURL(for: todayWord) {
+                            NativeShareButton(
+                                url: shareURL,
+                                subject: todayWord.title,
+                                message: "Read \(todayWord.title) in The Devil's AI Dictionary."
+                            )
                         }
-                        .buttonStyle(NativeSecondaryButtonStyle())
-                    }
-
-                    if let shareURL = model.shareURL(for: todayWord) {
-                        NativeShareButton(
-                            url: shareURL,
-                            subject: todayWord.title,
-                            message: "Read \(todayWord.title) in The Devil's AI Dictionary."
-                        )
                     }
 
                     if model.shouldShowPushPrompt {
@@ -532,6 +509,9 @@ private struct NativeHomeView: View {
         }
         .navigationTitle("Home")
         .nativeNavigationBarTitleDisplayMode(.large)
+        .refreshable {
+            await model.syncCatalogNow()
+        }
         .toolbar {
             NativeOverflowToolbar(model: model, themeManager: .shared)
         }
@@ -801,7 +781,9 @@ private struct NativeSettingsView: View {
                                     .foregroundStyle(NativePalette.accent)
                             }
                         }
-                        .padding(.vertical, 4)
+                        .padding(.vertical, 8)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
                 }
@@ -894,13 +876,6 @@ private struct NativeSettingsView: View {
                         }
                     }
                     .buttonStyle(NativePrimaryButtonStyle())
-
-                    Button("Sync now") {
-                        Task {
-                            await model.syncCatalogNow()
-                        }
-                    }
-                    .buttonStyle(NativeSecondaryButtonStyle())
                 }
 
                 HStack {
@@ -1447,28 +1422,6 @@ private struct NativeOverflowToolbar: ToolbarContent {
 
                 Button("Random entry") {
                     model.openRandomEntry()
-                }
-
-                Button("Sync now") {
-                    Task { await model.syncCatalogNow() }
-                }
-
-                Divider()
-
-                Picker(selection: Binding(
-                    get: { themeManager.current },
-                    set: { themeManager.setTheme($0) }
-                )) {
-                    ForEach(SiteTheme.allCases) { theme in
-                        Label {
-                            Text(theme.label)
-                        } icon: {
-                            Image(systemName: theme == .night ? "moon" : "paintpalette")
-                        }
-                        .tag(theme)
-                    }
-                } label: {
-                    Label("Theme", systemImage: "paintpalette")
                 }
             } label: {
                 Image(systemName: "ellipsis.circle")

@@ -66,23 +66,14 @@ struct NativeEntryDetailView: View {
                         }
                     }
                     .buttonStyle(NativeSecondaryButtonStyle())
-                }
 
-                if let shareURL = model.shareURL(for: entry) {
-                    NativeShareButton(
-                        url: shareURL,
-                        subject: entry.title,
-                        message: "Read \(entry.title) in The Devil's AI Dictionary."
-                    )
-                }
-
-                if let warningLabel = entry.warningLabel {
-                    Text(warningLabel)
-                        .font(.system(size: 14, weight: .medium, design: .rounded))
-                        .foregroundStyle(NativePalette.warning)
-                        .padding(14)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(NativePalette.warning.opacity(0.10), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+                    if let shareURL = model.shareURL(for: entry) {
+                        NativeShareButton(
+                            url: shareURL,
+                            subject: entry.title,
+                            message: "Read \(entry.title) in The Devil's AI Dictionary."
+                        )
+                    }
                 }
             }
             .frame(maxWidth: layout.readingColumnWidth, alignment: .leading)

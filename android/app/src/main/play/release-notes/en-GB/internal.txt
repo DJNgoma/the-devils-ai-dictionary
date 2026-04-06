@@ -1,0 +1,2 @@
+Initial internal testing build.
+Native Android baseline for QA and install verification.

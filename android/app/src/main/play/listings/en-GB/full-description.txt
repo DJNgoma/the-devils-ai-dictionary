@@ -1,0 +1,22 @@
+The Devil's AI Dictionary is a pocket reference for the language of artificial intelligence — the real terms, the marketing terms, and the ones that try to be both.
+
+Each entry gives you two things: a plain-English definition that treats you like an adult, and a devil's definition that says the quiet part out loud. No hedging, no glossy vendor copy, no listicle padding.
+
+What you get:
+
+• An A–Z dictionary you can browse like a book, not a search engine
+• Fast local search with filters by category and tag
+• Category browsing for the big themes: hype, safety, evaluation, products, data, infrastructure
+• A daily "Today's word" rotation so you pick up one solid idea at a time
+• Save your reading place and come back to it later
+• A random entry button for the idly curious
+• Dark mode, offline-first entry content, no accounts, no trackers
+• A notification each day when a new word goes up (opt-in)
+
+Who it's for:
+
+People who have to read AI news, sit through AI pitches, buy AI products, or explain AI to someone else — and who would prefer to do it without being quietly lied to. Engineers, PMs, analysts, journalists, founders, and anyone who has ever nodded politely at the word "agentic".
+
+The dictionary is deliberately editorial. It is written, not generated. It has a point of view. It is small on purpose.
+
+If you want a sober, well-written reference that respects your time and your intelligence, this is for you.
