@@ -553,7 +553,7 @@ private struct NativeCategoriesView: View {
             LazyVGrid(columns: layout.cardGridItems, alignment: .leading, spacing: 12) {
                 ForEach(model.categoryStats, id: \.slug) { category in
                     Button {
-                        model.showCategoryInSearch(category.slug)
+                        model.presentCategory(category.slug)
                     } label: {
                         NativeCard {
                             Text(category.title)

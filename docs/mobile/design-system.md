@@ -35,6 +35,8 @@ order, and with what labels. If a platform diverges from this list, it is a bug.
 | Primary CTA | **Read the book** | `button-primary`, navigates to /book |
 | Secondary CTA | **Random entry** | `button-secondary`, navigates to /random |
 
+Hero CTAs sit in a single row and share the available width equally. On Android use `Row` with `Modifier.weight(1f)` on each button (not `FlowRow`, which wraps them onto two lines on narrower devices). On iOS use an `HStack` with equal-width buttons. Never let one CTA push the other to a second row.
+
 No "Browse the dictionary" link. The categories section lower on the page serves
 that purpose.
 
@@ -350,6 +352,8 @@ Per-screen emphasis:
 | About | `.sheet(item:)` | `NativeOverlayScaffold` | route `/about` |
 | Search filters | `.sheet(isPresented:)` Form | `ModalBottomSheet` | mobile filter `AppSheet` |
 | Overflow menu | `Menu` toolbar | `DropdownMenu` | mobile menu `AppSheet` |
+
+Tapping a category card anywhere in the apps (Home hero grid **and** the Categories tab) opens the category modal with the entries inside — never a filtered Search view. The old "show in search" path is reserved for developer-mode affordances only.
 
 Tapping a category card on the apps opens the category modal with the entries inside. Tapping an entry inside the modal opens the entry detail on top of it. Closing the entry returns you to the category modal; closing the category returns you to whichever tab you came from. The web stays on routes — the apps use modals because tab + push navigation would lose the user's place.
 

@@ -83,18 +83,23 @@ fun NativeHomeScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
-                NativeActionRow {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
                     NativePrimaryButton(
                         label = "Read the book",
                         colors = colors,
                         onClick = store::presentBook,
                         leadingIcon = Icons.Rounded.AutoStories,
+                        modifier = Modifier.weight(1f),
                     )
                     NativeSecondaryButton(
                         label = "Random entry",
                         colors = colors,
                         onClick = store::openRandomEntry,
                         leadingIcon = Icons.Rounded.Shuffle,
+                        modifier = Modifier.weight(1f),
                     )
                 }
             }
