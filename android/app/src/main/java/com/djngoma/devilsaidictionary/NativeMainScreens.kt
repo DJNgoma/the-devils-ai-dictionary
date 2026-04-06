@@ -140,6 +140,13 @@ fun NativeHomeScreen(
                             leadingIcon = Icons.Rounded.Share,
                         )
                     }
+                    if (BuildConfig.NATIVE_PUSH_CONFIGURED &&
+                        store.pushOptInStatus != PushOptInStatus.authorized) {
+                        HomePushPromptCard(
+                            store = store,
+                            colors = colors,
+                        )
+                    }
                 }
             }
         }
@@ -850,6 +857,50 @@ fun NativeCategoriesScreen(
                     accent = true,
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun HomePushPromptCard(
+    store: NativeDictionaryStore,
+    colors: NativeColors,
+) {
+    val title: String
+    val body: String
+    val actionLabel: String
+    when (store.pushOptInStatus) {
+        PushOptInStatus.denied -> {
+            title = "Notifications are off"
+            body = "Turn them on in system settings to receive the daily word."
+            actionLabel = "Open settings"
+        }
+        PushOptInStatus.unsupported -> {
+            title = "Notifications unavailable"
+            body = "This device can't deliver push notifications for the dictionary."
+            actionLabel = ""
+        }
+        else -> {
+            title = "Get the daily word"
+            body = "A single push each morning with a fresh entry from the book. No other interruptions."
+            actionLabel = "Enable notifications"
+        }
+    }
+
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        SectionLabel(text = title)
+        Text(
+            text = body,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        if (actionLabel.isNotEmpty()) {
+            NativePrimaryButton(
+                label = actionLabel,
+                colors = colors,
+                onClick = store::requestPushOptIn,
+                leadingIcon = Icons.Rounded.Notifications,
+            )
         }
     }
 }

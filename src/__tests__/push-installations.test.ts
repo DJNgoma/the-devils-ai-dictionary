@@ -96,7 +96,7 @@ describe("push installation persistence", () => {
     expect(statements[0]?.statement.run).toHaveBeenCalledTimes(1);
   });
 
-  it("only selects authorized iOS installations", async () => {
+  it("only selects authorized installations regardless of platform", async () => {
     const { database, statements } = createDatabaseMock();
     const records: PushInstallationRecord[] = [
       {
@@ -120,8 +120,8 @@ describe("push installation persistence", () => {
 
     const result = await listTargetInstallations(database);
 
-    expect(statements[0]?.query).toContain("platform = 'ios'");
     expect(statements[0]?.query).toContain("opt_in_status = 'authorized'");
+    expect(statements[0]?.query).not.toContain("platform = 'ios'");
     expect(result).toEqual(records);
   });
 
