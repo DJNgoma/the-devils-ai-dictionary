@@ -12,6 +12,7 @@ Ship only if every box is checked.
 - [ ] App Store Connect still treats `The Devil's AI Dictionary` as the single Apple app record. Do not ship from or maintain a separate watch app record.
 - [ ] Apple silicon Mac and Apple Vision Pro compatibility availability remain enabled for the iPhone/iPad app unless this release is intentionally iPhone/iPad-only.
 - [ ] Native macOS and native visionOS version records, if part of the release, live under that same Apple record rather than as sibling apps.
+- [ ] Developer Mode remains a testing-only surface and is unavailable in the public App Store release.
 
 ## OTA catalogue checks
 

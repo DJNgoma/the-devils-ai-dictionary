@@ -1,6 +1,7 @@
 package com.djngoma.devilsaidictionary
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -107,6 +108,28 @@ class NativeDictionaryLogicTest {
                 title = "Agent",
                 slug = "agent",
                 summary = "A workflow with delusions of grandeur.",
+            ),
+        )
+    }
+
+    @Test
+    fun `developer mode only stays enabled when the build allows it`() {
+        assertTrue(
+            resolveDeveloperModeEnabled(
+                developerModeAvailable = true,
+                storedDeveloperMode = true,
+            ),
+        )
+        assertFalse(
+            resolveDeveloperModeEnabled(
+                developerModeAvailable = false,
+                storedDeveloperMode = true,
+            ),
+        )
+        assertFalse(
+            resolveDeveloperModeEnabled(
+                developerModeAvailable = true,
+                storedDeveloperMode = false,
             ),
         )
     }

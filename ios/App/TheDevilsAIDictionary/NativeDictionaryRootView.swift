@@ -4,6 +4,26 @@ import SwiftUI
 import DevilsAIDictionaryCore
 #endif
 
+private enum NativeDeveloperModeAvailability {
+    static let storageKey = "developer-mode"
+
+    static var isAvailable: Bool {
+        #if DEBUG
+        return true
+        #else
+        if Bundle.main.path(forResource: "embedded", ofType: "mobileprovision") != nil {
+            return true
+        }
+
+        return Bundle.main.appStoreReceiptURL?.lastPathComponent == "sandboxReceipt"
+        #endif
+    }
+
+    static func isEnabled(storedValue: Bool) -> Bool {
+        isAvailable && storedValue
+    }
+}
+
 struct NativeDictionaryRootView: View {
     @StateObject private var model: NativeDictionaryModel
     @ObservedObject private var themeManager = ThemeManager.shared
@@ -110,6 +130,11 @@ private struct NativePhoneDictionaryRoot: View {
                 Label("Settings", systemImage: NativeDictionaryModel.AppTab.settings.systemImage)
             }
             .tag(NativeDictionaryModel.AppTab.settings)
+        }
+        .onAppear {
+            if !NativeDeveloperModeAvailability.isAvailable {
+                UserDefaults.standard.set(false, forKey: NativeDeveloperModeAvailability.storageKey)
+            }
         }
     }
 }
@@ -347,6 +372,7 @@ private struct NativeMacToolbar: ToolbarContent {
 
 private struct NativeHomeView: View {
     @ObservedObject var model: NativeDictionaryModel
+    @AppStorage(NativeDeveloperModeAvailability.storageKey) private var storedDeveloperMode = false
 
     var body: some View {
         NativeScreen { layout in
@@ -366,7 +392,7 @@ private struct NativeHomeView: View {
                     .font(.system(size: 18, weight: .medium, design: .rounded))
                     .foregroundStyle(.primary)
 
-                if UserDefaults.standard.bool(forKey: "developer-mode") {
+                if NativeDeveloperModeAvailability.isEnabled(storedValue: storedDeveloperMode) {
                     Text("This is the native Apple edition: bundled content, local search, saved reading place, deep links, notifications, and watch sync without the webview in the middle pretending to be architecture.")
                         .font(.system(size: 15, weight: .regular, design: .rounded))
                         .foregroundStyle(NativePalette.mutedText)
@@ -815,8 +841,15 @@ private struct NativeSavedView: View {
 private struct NativeSettingsView: View {
     @ObservedObject var model: NativeDictionaryModel
     @ObservedObject private var themeManager = ThemeManager.shared
-    @AppStorage("developer-mode") private var developerMode = false
+    @AppStorage(NativeDeveloperModeAvailability.storageKey) private var storedDeveloperMode = false
     @State private var testingSlug = ""
+
+    private var developerModeBinding: Binding<Bool> {
+        Binding(
+            get: { NativeDeveloperModeAvailability.isEnabled(storedValue: storedDeveloperMode) },
+            set: { storedDeveloperMode = NativeDeveloperModeAvailability.isAvailable && $0 }
+        )
+    }
 
     var body: some View {
         NativeScreen { _ in
@@ -850,15 +883,17 @@ private struct NativeSettingsView: View {
                 }
             }
 
-            NativeCard {
-                NativeSectionLabel(text: "Developer")
+            if NativeDeveloperModeAvailability.isAvailable {
+                NativeCard {
+                    NativeSectionLabel(text: "Developer")
 
-                Toggle("Developer mode", isOn: $developerMode)
-                    .font(.system(size: 17, weight: .medium, design: .rounded))
-                    .tint(NativePalette.accent)
+                    Toggle("Developer mode", isOn: developerModeBinding)
+                        .font(.system(size: 17, weight: .medium, design: .rounded))
+                        .tint(NativePalette.accent)
+                }
             }
 
-            if developerMode {
+            if NativeDeveloperModeAvailability.isEnabled(storedValue: storedDeveloperMode) {
             NativeCard(emphasis: true) {
                 NativeSectionLabel(text: "Internal testing")
 

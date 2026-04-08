@@ -566,22 +566,24 @@ fun NativeSettingsScreen(
             }
         }
 
-        item {
-            NativeScreenCard(colors = colors) {
-                SectionLabel(text = "Developer")
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = "Developer mode",
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.weight(1f),
-                    )
-                    Switch(
-                        checked = store.developerMode,
-                        onCheckedChange = { store.toggleDeveloperMode(it) },
-                    )
+        if (store.developerModeAvailable) {
+            item {
+                NativeScreenCard(colors = colors) {
+                    SectionLabel(text = "Developer")
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            text = "Developer mode",
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier.weight(1f),
+                        )
+                        Switch(
+                            checked = store.developerMode,
+                            onCheckedChange = { store.toggleDeveloperMode(it) },
+                        )
+                    }
                 }
             }
         }

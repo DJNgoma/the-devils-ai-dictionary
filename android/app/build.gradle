@@ -72,6 +72,9 @@ def playReleaseStatus = findProperty('PLAY_RELEASE_STATUS')
     ?: System.getenv('PLAY_RELEASE_STATUS')
 def playImpersonatedServiceAccount = findProperty('PLAY_IMPERSONATE_SERVICE_ACCOUNT')
     ?: System.getenv('PLAY_IMPERSONATE_SERVICE_ACCOUNT')
+def releaseDeveloperModeAvailable = (findProperty('ENABLE_DEVELOPER_MODE')
+    ?: System.getenv('ENABLE_DEVELOPER_MODE')
+    ?: 'false').toString().toBoolean()
 def requireReleaseSigning = (findProperty('REQUIRE_RELEASE_SIGNING')
     ?: System.getenv('REQUIRE_RELEASE_SIGNING')
     ?: 'false').toString().toBoolean()
@@ -148,7 +151,11 @@ android {
         }
     }
     buildTypes {
+        debug {
+            buildConfigField "boolean", "DEVELOPER_MODE_AVAILABLE", "true"
+        }
         release {
+            buildConfigField "boolean", "DEVELOPER_MODE_AVAILABLE", releaseDeveloperModeAvailable ? "true" : "false"
             signingConfig hasReleaseSigning ? signingConfigs.release : signingConfigs.debug
             minifyEnabled true
             shrinkResources true

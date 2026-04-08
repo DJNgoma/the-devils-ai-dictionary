@@ -223,7 +223,14 @@ class NativeDictionaryStore(
     var siteTheme by mutableStateOf(storage.loadTheme())
         private set
 
-    var developerMode by mutableStateOf(storage.loadDeveloperMode())
+    val developerModeAvailable = BuildConfig.DEVELOPER_MODE_AVAILABLE
+
+    var developerMode by mutableStateOf(
+        resolveDeveloperModeEnabled(
+            developerModeAvailable = developerModeAvailable,
+            storedDeveloperMode = storage.loadDeveloperMode(),
+        ),
+    )
 
     var currentWord by mutableStateOf<CurrentWordRecord?>(null)
         private set
@@ -268,6 +275,9 @@ class NativeDictionaryStore(
     }
 
     init {
+        if (!developerModeAvailable && storage.loadDeveloperMode()) {
+            storage.saveDeveloperMode(false)
+        }
         savedPlace = storage.loadSavedPlace()
         loadCatalog()
         seedCurrentWordIfNeeded()
@@ -527,8 +537,12 @@ class NativeDictionaryStore(
     }
 
     fun toggleDeveloperMode(enabled: Boolean) {
-        developerMode = enabled
-        storage.saveDeveloperMode(enabled)
+        val resolvedMode = resolveDeveloperModeEnabled(
+            developerModeAvailable = developerModeAvailable,
+            storedDeveloperMode = enabled,
+        )
+        developerMode = resolvedMode
+        storage.saveDeveloperMode(resolvedMode)
     }
 
     fun presentEntry(slug: String) {
@@ -1045,6 +1059,11 @@ internal fun scoreSearchMatch(
         }
     }
 }
+
+internal fun resolveDeveloperModeEnabled(
+    developerModeAvailable: Boolean,
+    storedDeveloperMode: Boolean,
+): Boolean = developerModeAvailable && storedDeveloperMode
 
 internal fun slugFromDictionaryPath(path: String?): String? {
     val trimmed = path?.trim().orEmpty()
