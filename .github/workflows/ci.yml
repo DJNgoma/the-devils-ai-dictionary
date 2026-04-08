@@ -54,16 +54,7 @@ jobs:
         run: |
           SDK_VERSION="swift-6.3-RELEASE_android"
           swift sdk install https://download.swift.org/swift-6.3-release/android-sdk/swift-6.3-RELEASE/swift-6.3-RELEASE_android.artifactbundle.tar.gz --checksum 2f2942c4bcea7965a08665206212c66991dabe23725aeec7c4365fc91acad088
-          SDK_BUNDLE=""
-          for candidate in \
-            "$HOME/Library/org.swift.swiftpm/swift-sdks/${SDK_VERSION}.artifactbundle/swift-android" \
-            "$HOME/.swiftpm/swift-sdks/${SDK_VERSION}.artifactbundle/swift-android"
-          do
-            if [[ -d "$candidate" ]]; then
-              SDK_BUNDLE="$candidate"
-              break
-            fi
-          done
+          SDK_BUNDLE="$(find "$HOME" -type d -path "*/${SDK_VERSION}.artifactbundle/swift-android" -print -quit)"
           if [[ -z "$SDK_BUNDLE" ]]; then
             echo "Swift Android SDK bundle not found after installation" >&2
             exit 1
