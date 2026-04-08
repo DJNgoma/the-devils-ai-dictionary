@@ -1,0 +1,55 @@
+---
+title: "Test-Time Compute"
+slug: "test-time-compute"
+letter: "T"
+categories:
+  - "Core concepts"
+  - "Model usage"
+  - "Economics and operations of AI"
+aliases:
+  - "inference-time compute"
+  - "thinking budget"
+devilDefinition: |
+  The principle that if a model is allowed to spend more compute on a question, the invoice and the answer may both become more elaborate.
+plainDefinition: |
+  Test-time compute refers to the amount of computation a model uses while handling an input at inference time, including extra decoding steps, search, tool calls, verification passes, or deliberate reasoning effort.
+whyExists: |
+  It exists because performance is not determined only during training. Many systems improve on harder tasks when they are allowed more time, more samples, or more internal work at the moment of answering.
+misuse: |
+  It is misused when greater compute is treated as proof of deeper intelligence rather than as a trade-off. More compute can buy better results on some tasks, but it can also buy slower answers, higher cost, and a longer walk to the wrong place.
+practicalMeaning: |
+  In practice it usually means setting policies for which requests deserve slower, more expensive handling and which should be answered quickly with a lighter touch. The interesting part is budget allocation, not mystical thinking.
+example: |
+  "They added more test-time compute for the thorny cases and promptly discovered that half their workload was only thorny because the prompt was poor."
+askNext:
+  - "Which tasks actually improve when more inference-time budget is spent?"
+  - "How is extra compute triggered, measured, and capped?"
+  - "Are you solving a hard problem, or subsidising a badly specified one?"
+related:
+  - "reasoning-model"
+  - "reasoning-tokens"
+  - "latency"
+  - "model-router"
+seeAlso:
+  - "Deliberate decoding"
+  - "Adaptive inference"
+  - "Search budget"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-08"
+updatedAt: "2026-04-08"
+tags:
+  - "inference"
+  - "compute"
+  - "latency"
+misunderstoodScore: 4
+translations:
+  - label: "research meaning"
+    text: "Performance may improve if the system is allowed to work harder at answer time."
+  - label: "what it usually means in reality"
+    text: "Spending more inference-time budget on selected requests to improve results where it is worth the cost."
+---
+
+The mature version of this idea is resource management. The immature version is calling every slow answer thoughtful.

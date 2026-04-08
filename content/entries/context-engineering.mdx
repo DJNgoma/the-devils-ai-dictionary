@@ -1,0 +1,56 @@
+---
+title: "Context Engineering"
+slug: "context-engineering"
+letter: "C"
+categories:
+  - "Agents and workflows"
+  - "Model usage"
+  - "Cultural terms"
+aliases:
+  - "context design"
+  - "prompt plumbing"
+devilDefinition: |
+  The rebranding of prompt fiddling once people realised the prompt had quietly become half the product.
+plainDefinition: |
+  "Context engineering" is the practice of deciding what instructions, tools, retrieved information, memory, examples, and constraints a model should receive so it can perform a task reliably.
+whyExists: |
+  It exists because model quality depends heavily on what reaches the context window and in what order. Once systems grew beyond a single prompt box, teams needed a name for the work of shaping that information flow deliberately.
+misuse: |
+  It gets inflated into a grand discipline whenever someone wants ordinary application design to sound frontier and proprietary. Sometimes it really is nuanced systems work. Sometimes it is just a long string and a lucky example.
+practicalMeaning: |
+  In practice it means prompt templates, retrieval rules, truncation policies, memory selection, tool schemas, system instructions, and a permanent struggle over what the model should see before it starts improvising.
+example: |
+  "The context engineering improved dramatically once they stopped stuffing every policy document into the prompt and calling it judgment."
+askNext:
+  - "What information earns its place in the context, and what is merely comforting to the team?"
+  - "How do you decide what gets retrieved, summarised, or dropped?"
+  - "Which failures are caused by the model, and which are caused by bad context assembly?"
+related:
+  - "prompt"
+  - "context-window"
+  - "rag"
+  - "system-prompt"
+seeAlso:
+  - "Prompt architecture"
+  - "Memory policy"
+  - "Retrieval strategy"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-04-08"
+updatedAt: "2026-04-08"
+warningLabel: "Often a real discipline wearing a slightly theatrical name."
+tags:
+  - "prompts"
+  - "retrieval"
+  - "systems"
+misunderstoodScore: 4
+translations:
+  - label: "conference meaning"
+    text: "We have moved beyond prompt engineering and would like you to notice."
+  - label: "what it usually means in reality"
+    text: "Designing the information bundle that shapes model behaviour before the first token appears."
+---
+
+The term is useful when it names concrete design choices. It becomes perfume when it is used to imply that context alone can rescue a sloppy product.

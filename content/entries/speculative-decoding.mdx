@@ -1,0 +1,56 @@
+---
+title: "Speculative Decoding"
+slug: "speculative-decoding"
+letter: "S"
+categories:
+  - "Infrastructure and deployment"
+  - "Model usage"
+  - "Core concepts"
+aliases:
+  - "draft model decoding"
+  - "assisted decoding"
+devilDefinition: |
+  The serving trick where one model guesses ahead so a larger one can spend more time being selective than surprised.
+plainDefinition: |
+  Speculative decoding is an inference technique where a smaller or faster model proposes candidate tokens and a larger model verifies or corrects them, allowing generation to run faster without fully giving up the stronger model's quality.
+whyExists: |
+  It exists because token-by-token generation is expensive and users do not enjoy watching a costly model think at the speed of ceremony. If a cheaper assistant can draft likely continuations, the main model can move faster through easy stretches.
+misuse: |
+  It is sometimes described as free speed, as though the extra complexity carries no engineering cost or failure modes. In reality the benefit depends on workload shape, model pairing, and how often the bigger model rejects the draft.
+practicalMeaning: |
+  In practice it means systems work: pairing models, tuning acceptance rates, measuring latency improvements honestly, and deciding whether the added serving complexity is worth the throughput gain.
+example: |
+  "They introduced speculative decoding to cut latency, then discovered that fast token streaming is still not the same thing as a good answer."
+askNext:
+  - "What acceptance rate does the draft model achieve on real traffic?"
+  - "Where does the added serving complexity pay for itself?"
+  - "Are you improving user experience, system efficiency, or both?"
+related:
+  - "latency"
+  - "inference"
+  - "distillation"
+seeAlso:
+  - "Token generation"
+  - "Serving optimisation"
+  - "Draft model"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-04-08"
+updatedAt: "2026-04-08"
+tags:
+  - "serving"
+  - "latency"
+  - "optimisation"
+misunderstoodScore: 3
+translations:
+  - label: "infrastructure meaning"
+    text: "Spend a little complexity to buy back a noticeable amount of speed."
+  - label: "what it usually means in reality"
+    text: "Using a fast draft model to help a slower model generate tokens with better throughput."
+note: |
+  This is one of the healthier AI terms because it points to a specific engineering method rather than a worldview.
+---
+
+The user sees a snappier model. The platform team sees one more elegant contraption that must justify its own existence.

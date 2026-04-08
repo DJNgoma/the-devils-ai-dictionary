@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "catalogVersion": "8f83667a6cbfe5fa2f8a590180dc4804697808156fa1d0eff86ffcf2d06d0d8b",
-  "generatedAt": "2026-04-04T11:51:23.371Z",
-  "entryCount": 110,
+  "catalogVersion": "cd954d515a4060d38d9c72a8828479676ad537d4aca2e60d306fe16e642d507c",
+  "generatedAt": "2026-04-08T09:41:16.792Z",
+  "entryCount": 118,
   "entries": [
     {
       "title": "Agent",
@@ -1354,6 +1354,152 @@
       ]
     },
     {
+      "title": "Computer Use",
+      "slug": "computer-use",
+      "letter": "C",
+      "categories": [
+        "Model usage",
+        "Agents and workflows",
+        "Product and vendor terms"
+      ],
+      "aliases": [
+        "computer use model",
+        "CUA"
+      ],
+      "devilDefinition": "The feature where a model is allowed to click around software with the confidence of a junior employee and the supervision requirements of a forklift.\n",
+      "plainDefinition": "\"Computer use\" refers to AI systems that can operate graphical user interfaces by observing screens, deciding actions, and interacting through clicks, typing, scrolling, or other desktop and browser controls.\n",
+      "whyExists": "It exists because many real workflows still live inside user interfaces rather than neat APIs. If a system can only answer questions but cannot operate the tools where work actually happens, its usefulness in operations remains politely theoretical.\n",
+      "misuse": "It is oversold as if seeing a screen and moving a cursor were the same as understanding business process, edge cases, or risk. A demo that closes one support ticket can be described as labour disruption by lunch.\n",
+      "practicalMeaning": "In practice it means brittle automation with vision, planning, retries, guardrails, and a strong need for scoped permissions. It can save time on repetitive interface work, provided someone is willing to own the mistakes made at machine speed.\n",
+      "example": "\"Their computer use agent could navigate the vendor portal beautifully, right up to the point a cookie banner became a strategic surprise.\"\n",
+      "askNext": [
+        "Which parts of the workflow still require human approval or exception handling?",
+        "How does the system recover when the UI changes or a modal appears?",
+        "Why is GUI automation the right choice instead of integrating an API?"
+      ],
+      "related": [
+        "agentic-ai",
+        "tool-use",
+        "guardrails"
+      ],
+      "seeAlso": [
+        "Browser automation",
+        "Robotic process automation",
+        "Desktop agent"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-08",
+      "updatedAt": "2026-04-08",
+      "warningLabel": "Useful, but only if the workflow can survive the UI misbehaving.",
+      "tags": [
+        "automation",
+        "ui",
+        "agents"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "demo meaning",
+          "text": "Watch the model use software like a person, and please do not ask what happens on the twelfth click."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Vision-guided UI automation that still depends on tight boundaries and patient operators."
+        }
+      ],
+      "note": "The interesting question is not whether the model can use a computer. It is whether the surrounding workflow is structured enough for that to be safe.\n",
+      "vendorReferences": [],
+      "body": "Computer use is often a confession that the software stack was never designed to cooperate cleanly in the first place.",
+      "categorySlugs": [
+        "model-usage",
+        "agents-and-workflows",
+        "product-and-vendor-terms"
+      ],
+      "url": "/dictionary/computer-use",
+      "searchText": "Computer Use computer use model CUA Model usage Agents and workflows Product and vendor terms automation ui agents The feature where a model is allowed to click around software with the confidence of a junior employee and the supervision requirements of a forklift.\n \"Computer use\" refers to AI systems that can operate graphical user interfaces by observing screens, deciding actions, and interacting through clicks, typing, scrolling, or other desktop and browser controls.\n It exists because many real workflows still live inside user interfaces rather than neat APIs. If a system can only answer questions but cannot operate the tools where work actually happens, its usefulness in operations remains politely theoretical.\n It is oversold as if seeing a screen and moving a cursor were the same as understanding business process, edge cases, or risk. A demo that closes one support ticket can be described as labour disruption by lunch.\n In practice it means brittle automation with vision, planning, retries, guardrails, and a strong need for scoped permissions. It can save time on repetitive interface work, provided someone is willing to own the mistakes made at machine speed.\n \"Their computer use agent could navigate the vendor portal beautifully, right up to the point a cookie banner became a strategic surprise.\"\n Which parts of the workflow still require human approval or exception handling? How does the system recover when the UI changes or a modal appears? Why is GUI automation the right choice instead of integrating an API? Browser automation Robotic process automation Desktop agent The interesting question is not whether the model can use a computer. It is whether the surrounding workflow is structured enough for that to be safe.",
+      "relatedSlugs": [
+        "agentic-ai",
+        "tool-use",
+        "guardrails"
+      ]
+    },
+    {
+      "title": "Context Engineering",
+      "slug": "context-engineering",
+      "letter": "C",
+      "categories": [
+        "Agents and workflows",
+        "Model usage",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "context design",
+        "prompt plumbing"
+      ],
+      "devilDefinition": "The rebranding of prompt fiddling once people realised the prompt had quietly become half the product.\n",
+      "plainDefinition": "\"Context engineering\" is the practice of deciding what instructions, tools, retrieved information, memory, examples, and constraints a model should receive so it can perform a task reliably.\n",
+      "whyExists": "It exists because model quality depends heavily on what reaches the context window and in what order. Once systems grew beyond a single prompt box, teams needed a name for the work of shaping that information flow deliberately.\n",
+      "misuse": "It gets inflated into a grand discipline whenever someone wants ordinary application design to sound frontier and proprietary. Sometimes it really is nuanced systems work. Sometimes it is just a long string and a lucky example.\n",
+      "practicalMeaning": "In practice it means prompt templates, retrieval rules, truncation policies, memory selection, tool schemas, system instructions, and a permanent struggle over what the model should see before it starts improvising.\n",
+      "example": "\"The context engineering improved dramatically once they stopped stuffing every policy document into the prompt and calling it judgment.\"\n",
+      "askNext": [
+        "What information earns its place in the context, and what is merely comforting to the team?",
+        "How do you decide what gets retrieved, summarised, or dropped?",
+        "Which failures are caused by the model, and which are caused by bad context assembly?"
+      ],
+      "related": [
+        "prompt",
+        "context-window",
+        "rag",
+        "system-prompt"
+      ],
+      "seeAlso": [
+        "Prompt architecture",
+        "Memory policy",
+        "Retrieval strategy"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-08",
+      "updatedAt": "2026-04-08",
+      "warningLabel": "Often a real discipline wearing a slightly theatrical name.",
+      "tags": [
+        "prompts",
+        "retrieval",
+        "systems"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "conference meaning",
+          "text": "We have moved beyond prompt engineering and would like you to notice."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Designing the information bundle that shapes model behaviour before the first token appears."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The term is useful when it names concrete design choices. It becomes perfume when it is used to imply that context alone can rescue a sloppy product.",
+      "categorySlugs": [
+        "agents-and-workflows",
+        "model-usage",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/context-engineering",
+      "searchText": "Context Engineering context design prompt plumbing Agents and workflows Model usage Cultural terms prompts retrieval systems The rebranding of prompt fiddling once people realised the prompt had quietly become half the product.\n \"Context engineering\" is the practice of deciding what instructions, tools, retrieved information, memory, examples, and constraints a model should receive so it can perform a task reliably.\n It exists because model quality depends heavily on what reaches the context window and in what order. Once systems grew beyond a single prompt box, teams needed a name for the work of shaping that information flow deliberately.\n It gets inflated into a grand discipline whenever someone wants ordinary application design to sound frontier and proprietary. Sometimes it really is nuanced systems work. Sometimes it is just a long string and a lucky example.\n In practice it means prompt templates, retrieval rules, truncation policies, memory selection, tool schemas, system instructions, and a permanent struggle over what the model should see before it starts improvising.\n \"The context engineering improved dramatically once they stopped stuffing every policy document into the prompt and calling it judgment.\"\n What information earns its place in the context, and what is merely comforting to the team? How do you decide what gets retrieved, summarised, or dropped? Which failures are caused by the model, and which are caused by bad context assembly? Prompt architecture Memory policy Retrieval strategy",
+      "relatedSlugs": [
+        "prompt",
+        "context-window",
+        "rag"
+      ]
+    },
+    {
       "title": "Context Stuffing",
       "slug": "context-stuffing",
       "letter": "C",
@@ -1926,6 +2072,76 @@
         "agent",
         "agentic-ai",
         "human-in-the-loop"
+      ]
+    },
+    {
+      "title": "Distillation",
+      "slug": "distillation",
+      "letter": "D",
+      "categories": [
+        "Model building",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "knowledge distillation",
+        "student model training"
+      ],
+      "devilDefinition": "The art of teaching a smaller model to imitate a larger one, then introducing the result as efficiency rather than inherited opinion.\n",
+      "plainDefinition": "Distillation is a training approach in which a smaller or cheaper model learns from the outputs, preferences, or intermediate signals of a larger model so it can reproduce some of its performance at lower cost.\n",
+      "whyExists": "It exists because frontier-grade behaviour is expensive to serve everywhere. If a smaller system can absorb enough of a stronger model's behaviour, products gain speed, lower inference cost, and a better shot at running locally or at scale.\n",
+      "misuse": "It is misused when people describe the resulting model as independent genius rather than compressed imitation. Distillation can preserve capability surprisingly well, but it also preserves blind spots, style, and hidden assumptions.\n",
+      "practicalMeaning": "In practice it usually means generating a large synthetic training set from a stronger model, fine-tuning a cheaper one on that data, and accepting a careful trade-off between cost, latency, and capability.\n",
+      "example": "\"Their distilled model was impressively cheap, which was another way of saying they had purchased fewer surprises per request.\"\n",
+      "askNext": [
+        "What behaviour was the student model trained to copy?",
+        "Which capabilities held up after distillation, and which quietly fell off?",
+        "Did the process reduce cost without merely packaging the same errors more efficiently?"
+      ],
+      "related": [
+        "fine-tuning",
+        "synthetic-data",
+        "inference"
+      ],
+      "seeAlso": [
+        "Teacher model",
+        "Student model",
+        "Compression"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-08",
+      "updatedAt": "2026-04-08",
+      "tags": [
+        "training",
+        "efficiency",
+        "compression"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "exec meaning",
+          "text": "Keep most of the magic, lose most of the bill."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Training a smaller model to mimic a stronger one closely enough to be cheaper and still useful."
+        }
+      ],
+      "note": "Distillation is often described as model compression, but the interesting part is not just size. It is which behaviours survive the squeeze.\n",
+      "vendorReferences": [],
+      "body": "The smaller model may be faster, cheaper, and easier to deploy. It is still carrying somebody else's worldview in a lighter suitcase.",
+      "categorySlugs": [
+        "model-building",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/distillation",
+      "searchText": "Distillation knowledge distillation student model training Model building Economics and operations of AI training efficiency compression The art of teaching a smaller model to imitate a larger one, then introducing the result as efficiency rather than inherited opinion.\n Distillation is a training approach in which a smaller or cheaper model learns from the outputs, preferences, or intermediate signals of a larger model so it can reproduce some of its performance at lower cost.\n It exists because frontier-grade behaviour is expensive to serve everywhere. If a smaller system can absorb enough of a stronger model's behaviour, products gain speed, lower inference cost, and a better shot at running locally or at scale.\n It is misused when people describe the resulting model as independent genius rather than compressed imitation. Distillation can preserve capability surprisingly well, but it also preserves blind spots, style, and hidden assumptions.\n In practice it usually means generating a large synthetic training set from a stronger model, fine-tuning a cheaper one on that data, and accepting a careful trade-off between cost, latency, and capability.\n \"Their distilled model was impressively cheap, which was another way of saying they had purchased fewer surprises per request.\"\n What behaviour was the student model trained to copy? Which capabilities held up after distillation, and which quietly fell off? Did the process reduce cost without merely packaging the same errors more efficiently? Teacher model Student model Compression Distillation is often described as model compression, but the interesting part is not just size. It is which behaviours survive the squeeze.",
+      "relatedSlugs": [
+        "fine-tuning",
+        "synthetic-data",
+        "inference"
       ]
     },
     {
@@ -4601,6 +4817,78 @@
       ]
     },
     {
+      "title": "Open Weight",
+      "slug": "open-weight",
+      "letter": "O",
+      "categories": [
+        "Product and vendor terms",
+        "Model building",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "open weights",
+        "weight release"
+      ],
+      "devilDefinition": "The compromise term for when a company wants the glow of openness without the administrative burden of actually being open source.\n",
+      "plainDefinition": "An open-weight model is one whose trained parameters are released for others to download and run, even if the training code, data, licences, or usage rights remain restricted.\n",
+      "whyExists": "The term exists because there is a meaningful difference between sharing a model's weights and sharing the full ingredients behind it. The industry needed language for that middle ground, if only to avoid calling everything open source with a straight face.\n",
+      "misuse": "It is misused whenever \"open weight\" is presented as equivalent to full transparency, unrestricted reuse, or community governance. A downloadable checkpoint can still arrive with significant legal, technical, and commercial strings attached.\n",
+      "practicalMeaning": "In practice it usually means you can run or fine-tune the model yourself, but you may not know precisely how it was trained, what data shaped it, or what terms govern your most lucrative use case.\n",
+      "example": "\"The vendor called it open weight, which was accurate enough if you ignored the licence, the data secrecy, and the very expensive preferred hosting arrangement.\"\n",
+      "askNext": [
+        "What exactly has been released besides the checkpoint?",
+        "What restrictions apply to commercial use, redistribution, or modification?",
+        "Can the model be audited meaningfully, or only downloaded?"
+      ],
+      "related": [
+        "weights",
+        "fine-tuning",
+        "mistral-ai"
+      ],
+      "seeAlso": [
+        "Open source",
+        "Source available",
+        "Model licence"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-08",
+      "updatedAt": "2026-04-08",
+      "warningLabel": "Not the same thing as open source.",
+      "tags": [
+        "licensing",
+        "models",
+        "distribution"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "press-release meaning",
+          "text": "We are generous enough to share the artefact, though not necessarily the power."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "The model checkpoint is available, while other parts of the stack or rights remain controlled."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "This is one of the more honest euphemisms in AI. At least it admits there is a difference between access and openness.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "model-building",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/open-weight",
+      "searchText": "Open Weight open weights weight release Product and vendor terms Model building Economics and operations of AI licensing models distribution The compromise term for when a company wants the glow of openness without the administrative burden of actually being open source.\n An open-weight model is one whose trained parameters are released for others to download and run, even if the training code, data, licences, or usage rights remain restricted.\n The term exists because there is a meaningful difference between sharing a model's weights and sharing the full ingredients behind it. The industry needed language for that middle ground, if only to avoid calling everything open source with a straight face.\n It is misused whenever \"open weight\" is presented as equivalent to full transparency, unrestricted reuse, or community governance. A downloadable checkpoint can still arrive with significant legal, technical, and commercial strings attached.\n In practice it usually means you can run or fine-tune the model yourself, but you may not know precisely how it was trained, what data shaped it, or what terms govern your most lucrative use case.\n \"The vendor called it open weight, which was accurate enough if you ignored the licence, the data secrecy, and the very expensive preferred hosting arrangement.\"\n What exactly has been released besides the checkpoint? What restrictions apply to commercial use, redistribution, or modification? Can the model be audited meaningfully, or only downloaded? Open source Source available Model licence",
+      "relatedSlugs": [
+        "weights",
+        "fine-tuning",
+        "mistral-ai"
+      ]
+    },
+    {
       "title": "OpenAI",
       "slug": "openai",
       "letter": "O",
@@ -6302,6 +6590,223 @@
       ]
     },
     {
+      "title": "Small Language Model",
+      "slug": "small-language-model",
+      "letter": "S",
+      "categories": [
+        "Core concepts",
+        "Model usage",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "SLM",
+        "compact model"
+      ],
+      "devilDefinition": "A model celebrated for efficiency, usually by people who have just discovered that not every task requires a digital cathedral.\n",
+      "plainDefinition": "A small language model is a comparatively lightweight language model designed to deliver acceptable performance with lower memory, compute, latency, or deployment demands than a frontier-scale model.\n",
+      "whyExists": "It exists because many business tasks are narrow, repetitive, and unforgiving about latency or cost. A smaller model can be the better engineering choice when the problem is constrained and the environment matters more than prestige.\n",
+      "misuse": "It is oversold in two opposite ways: as proof that frontier models are unnecessary for everything, or as if a compact model can casually replace them on hard reasoning and open-ended generation. Both claims are mostly branding with a benchmark attached.\n",
+      "practicalMeaning": "In practice it usually means cheaper inference, easier on-device or edge deployment, tighter control over predictable tasks, and a shorter list of things the system should be trusted to improvise.\n",
+      "example": "\"The team finally adopted a small language model after spending six months paying frontier-model prices to classify support emails.\"\n",
+      "askNext": [
+        "What task quality is actually required, and is a smaller model good enough on that distribution?",
+        "Are latency, privacy, or unit economics the main reason to go smaller?",
+        "Which failure modes appear when the task drifts beyond the narrow lane?"
+      ],
+      "related": [
+        "llm",
+        "inference",
+        "latency",
+        "npu"
+      ],
+      "seeAlso": [
+        "Edge model",
+        "On-device AI",
+        "Task-specific model"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-08",
+      "updatedAt": "2026-04-08",
+      "tags": [
+        "efficiency",
+        "deployment",
+        "cost"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "operations meaning",
+          "text": "A model sized for the workload rather than the keynote."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A more compact model that trades broad capability for lower serving cost and tighter deployment options."
+        }
+      ],
+      "note": "Small is relative. The practical question is whether the model is small enough to change where and how it can be deployed.\n",
+      "vendorReferences": [],
+      "body": "The term is healthiest when it signals discipline. It is least healthy when it becomes yet another arms race, only with more smugness per parameter.",
+      "categorySlugs": [
+        "core-concepts",
+        "model-usage",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/small-language-model",
+      "searchText": "Small Language Model SLM compact model Core concepts Model usage Economics and operations of AI efficiency deployment cost A model celebrated for efficiency, usually by people who have just discovered that not every task requires a digital cathedral.\n A small language model is a comparatively lightweight language model designed to deliver acceptable performance with lower memory, compute, latency, or deployment demands than a frontier-scale model.\n It exists because many business tasks are narrow, repetitive, and unforgiving about latency or cost. A smaller model can be the better engineering choice when the problem is constrained and the environment matters more than prestige.\n It is oversold in two opposite ways: as proof that frontier models are unnecessary for everything, or as if a compact model can casually replace them on hard reasoning and open-ended generation. Both claims are mostly branding with a benchmark attached.\n In practice it usually means cheaper inference, easier on-device or edge deployment, tighter control over predictable tasks, and a shorter list of things the system should be trusted to improvise.\n \"The team finally adopted a small language model after spending six months paying frontier-model prices to classify support emails.\"\n What task quality is actually required, and is a smaller model good enough on that distribution? Are latency, privacy, or unit economics the main reason to go smaller? Which failure modes appear when the task drifts beyond the narrow lane? Edge model On-device AI Task-specific model Small is relative. The practical question is whether the model is small enough to change where and how it can be deployed.",
+      "relatedSlugs": [
+        "llm",
+        "inference",
+        "latency"
+      ]
+    },
+    {
+      "title": "Sovereign AI",
+      "slug": "sovereign-ai",
+      "letter": "S",
+      "categories": [
+        "Economics and operations of AI",
+        "Product and vendor terms",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "national AI stack",
+        "AI sovereignty"
+      ],
+      "devilDefinition": "The promise that a nation can keep its models, compute, data, and strategic dependence inside the border, or at least inside the speech.\n",
+      "plainDefinition": "\"Sovereign AI\" refers to national or regional efforts to build, host, govern, or control AI infrastructure and capabilities domestically rather than depending entirely on foreign providers.\n",
+      "whyExists": "It exists because AI capacity now touches economic leverage, public services, security concerns, language coverage, and industrial policy. Governments and large regional blocs do not enjoy discovering that critical capability is rented from somewhere else.\n",
+      "misuse": "It is misused when procurement theatre is presented as autonomy, or when a datacentre announcement stands in for a credible ecosystem of talent, governance, hardware supply, and locally useful models. Flags are cheaper than capability.\n",
+      "practicalMeaning": "In practice it usually means public-private funding, domestic hosting requirements, preferred vendor partnerships, regional data controls, and a long negotiation over what degree of dependence still counts as sovereignty.\n",
+      "example": "\"The sovereign AI strategy was unveiled with great ceremony and a familiar dependence on imported chips, imported cloud, and imported certainty.\"\n",
+      "askNext": [
+        "Which parts of the stack are actually domestic: data, compute, models, governance, or merely the press conference?",
+        "What strategic risk is being reduced, and at what cost?",
+        "Does the programme serve local languages and institutions, or mainly national branding?"
+      ],
+      "related": [
+        "nvidia",
+        "cloudflare",
+        "inference-provider"
+      ],
+      "seeAlso": [
+        "Industrial policy",
+        "Data localisation",
+        "National compute"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-08",
+      "updatedAt": "2026-04-08",
+      "warningLabel": "Can describe serious capability-building or ceremonial procurement. Ask which.",
+      "tags": [
+        "policy",
+        "infrastructure",
+        "geopolitics"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "policy meaning",
+          "text": "We would prefer not to outsource strategic capacity by default."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A political and economic push for more local control over AI infrastructure, access, and governance."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "Sovereignty is not a vibe. It is a supply chain, a skills base, a financing plan, and a list of uncomfortable dependencies written down in full.",
+      "categorySlugs": [
+        "economics-and-operations-of-ai",
+        "product-and-vendor-terms",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/sovereign-ai",
+      "searchText": "Sovereign AI national AI stack AI sovereignty Economics and operations of AI Product and vendor terms Cultural terms policy infrastructure geopolitics The promise that a nation can keep its models, compute, data, and strategic dependence inside the border, or at least inside the speech.\n \"Sovereign AI\" refers to national or regional efforts to build, host, govern, or control AI infrastructure and capabilities domestically rather than depending entirely on foreign providers.\n It exists because AI capacity now touches economic leverage, public services, security concerns, language coverage, and industrial policy. Governments and large regional blocs do not enjoy discovering that critical capability is rented from somewhere else.\n It is misused when procurement theatre is presented as autonomy, or when a datacentre announcement stands in for a credible ecosystem of talent, governance, hardware supply, and locally useful models. Flags are cheaper than capability.\n In practice it usually means public-private funding, domestic hosting requirements, preferred vendor partnerships, regional data controls, and a long negotiation over what degree of dependence still counts as sovereignty.\n \"The sovereign AI strategy was unveiled with great ceremony and a familiar dependence on imported chips, imported cloud, and imported certainty.\"\n Which parts of the stack are actually domestic: data, compute, models, governance, or merely the press conference? What strategic risk is being reduced, and at what cost? Does the programme serve local languages and institutions, or mainly national branding? Industrial policy Data localisation National compute",
+      "relatedSlugs": [
+        "nvidia",
+        "cloudflare",
+        "inference-provider"
+      ]
+    },
+    {
+      "title": "Speculative Decoding",
+      "slug": "speculative-decoding",
+      "letter": "S",
+      "categories": [
+        "Infrastructure and deployment",
+        "Model usage",
+        "Core concepts"
+      ],
+      "aliases": [
+        "draft model decoding",
+        "assisted decoding"
+      ],
+      "devilDefinition": "The serving trick where one model guesses ahead so a larger one can spend more time being selective than surprised.\n",
+      "plainDefinition": "Speculative decoding is an inference technique where a smaller or faster model proposes candidate tokens and a larger model verifies or corrects them, allowing generation to run faster without fully giving up the stronger model's quality.\n",
+      "whyExists": "It exists because token-by-token generation is expensive and users do not enjoy watching a costly model think at the speed of ceremony. If a cheaper assistant can draft likely continuations, the main model can move faster through easy stretches.\n",
+      "misuse": "It is sometimes described as free speed, as though the extra complexity carries no engineering cost or failure modes. In reality the benefit depends on workload shape, model pairing, and how often the bigger model rejects the draft.\n",
+      "practicalMeaning": "In practice it means systems work: pairing models, tuning acceptance rates, measuring latency improvements honestly, and deciding whether the added serving complexity is worth the throughput gain.\n",
+      "example": "\"They introduced speculative decoding to cut latency, then discovered that fast token streaming is still not the same thing as a good answer.\"\n",
+      "askNext": [
+        "What acceptance rate does the draft model achieve on real traffic?",
+        "Where does the added serving complexity pay for itself?",
+        "Are you improving user experience, system efficiency, or both?"
+      ],
+      "related": [
+        "latency",
+        "inference",
+        "distillation"
+      ],
+      "seeAlso": [
+        "Token generation",
+        "Serving optimisation",
+        "Draft model"
+      ],
+      "difficulty": "advanced",
+      "technicalDepth": "high",
+      "hypeLevel": "low",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-08",
+      "updatedAt": "2026-04-08",
+      "tags": [
+        "serving",
+        "latency",
+        "optimisation"
+      ],
+      "misunderstoodScore": 3,
+      "translations": [
+        {
+          "label": "infrastructure meaning",
+          "text": "Spend a little complexity to buy back a noticeable amount of speed."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Using a fast draft model to help a slower model generate tokens with better throughput."
+        }
+      ],
+      "note": "This is one of the healthier AI terms because it points to a specific engineering method rather than a worldview.\n",
+      "vendorReferences": [],
+      "body": "The user sees a snappier model. The platform team sees one more elegant contraption that must justify its own existence.",
+      "categorySlugs": [
+        "infrastructure-and-deployment",
+        "model-usage",
+        "core-concepts"
+      ],
+      "url": "/dictionary/speculative-decoding",
+      "searchText": "Speculative Decoding draft model decoding assisted decoding Infrastructure and deployment Model usage Core concepts serving latency optimisation The serving trick where one model guesses ahead so a larger one can spend more time being selective than surprised.\n Speculative decoding is an inference technique where a smaller or faster model proposes candidate tokens and a larger model verifies or corrects them, allowing generation to run faster without fully giving up the stronger model's quality.\n It exists because token-by-token generation is expensive and users do not enjoy watching a costly model think at the speed of ceremony. If a cheaper assistant can draft likely continuations, the main model can move faster through easy stretches.\n It is sometimes described as free speed, as though the extra complexity carries no engineering cost or failure modes. In reality the benefit depends on workload shape, model pairing, and how often the bigger model rejects the draft.\n In practice it means systems work: pairing models, tuning acceptance rates, measuring latency improvements honestly, and deciding whether the added serving complexity is worth the throughput gain.\n \"They introduced speculative decoding to cut latency, then discovered that fast token streaming is still not the same thing as a good answer.\"\n What acceptance rate does the draft model achieve on real traffic? Where does the added serving complexity pay for itself? Are you improving user experience, system efficiency, or both? Token generation Serving optimisation Draft model This is one of the healthier AI terms because it points to a specific engineering method rather than a worldview.",
+      "relatedSlugs": [
+        "latency",
+        "inference",
+        "distillation"
+      ]
+    },
+    {
       "title": "Structured Outputs",
       "slug": "structured-outputs",
       "letter": "S",
@@ -6788,6 +7293,78 @@
         "super-apps",
         "openclaw",
         "orchestration"
+      ]
+    },
+    {
+      "title": "Test-Time Compute",
+      "slug": "test-time-compute",
+      "letter": "T",
+      "categories": [
+        "Core concepts",
+        "Model usage",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "inference-time compute",
+        "thinking budget"
+      ],
+      "devilDefinition": "The principle that if a model is allowed to spend more compute on a question, the invoice and the answer may both become more elaborate.\n",
+      "plainDefinition": "Test-time compute refers to the amount of computation a model uses while handling an input at inference time, including extra decoding steps, search, tool calls, verification passes, or deliberate reasoning effort.\n",
+      "whyExists": "It exists because performance is not determined only during training. Many systems improve on harder tasks when they are allowed more time, more samples, or more internal work at the moment of answering.\n",
+      "misuse": "It is misused when greater compute is treated as proof of deeper intelligence rather than as a trade-off. More compute can buy better results on some tasks, but it can also buy slower answers, higher cost, and a longer walk to the wrong place.\n",
+      "practicalMeaning": "In practice it usually means setting policies for which requests deserve slower, more expensive handling and which should be answered quickly with a lighter touch. The interesting part is budget allocation, not mystical thinking.\n",
+      "example": "\"They added more test-time compute for the thorny cases and promptly discovered that half their workload was only thorny because the prompt was poor.\"\n",
+      "askNext": [
+        "Which tasks actually improve when more inference-time budget is spent?",
+        "How is extra compute triggered, measured, and capped?",
+        "Are you solving a hard problem, or subsidising a badly specified one?"
+      ],
+      "related": [
+        "reasoning-model",
+        "reasoning-tokens",
+        "latency",
+        "model-router"
+      ],
+      "seeAlso": [
+        "Deliberate decoding",
+        "Adaptive inference",
+        "Search budget"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-08",
+      "updatedAt": "2026-04-08",
+      "tags": [
+        "inference",
+        "compute",
+        "latency"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "research meaning",
+          "text": "Performance may improve if the system is allowed to work harder at answer time."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Spending more inference-time budget on selected requests to improve results where it is worth the cost."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The mature version of this idea is resource management. The immature version is calling every slow answer thoughtful.",
+      "categorySlugs": [
+        "core-concepts",
+        "model-usage",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/test-time-compute",
+      "searchText": "Test-Time Compute inference-time compute thinking budget Core concepts Model usage Economics and operations of AI inference compute latency The principle that if a model is allowed to spend more compute on a question, the invoice and the answer may both become more elaborate.\n Test-time compute refers to the amount of computation a model uses while handling an input at inference time, including extra decoding steps, search, tool calls, verification passes, or deliberate reasoning effort.\n It exists because performance is not determined only during training. Many systems improve on harder tasks when they are allowed more time, more samples, or more internal work at the moment of answering.\n It is misused when greater compute is treated as proof of deeper intelligence rather than as a trade-off. More compute can buy better results on some tasks, but it can also buy slower answers, higher cost, and a longer walk to the wrong place.\n In practice it usually means setting policies for which requests deserve slower, more expensive handling and which should be answered quickly with a lighter touch. The interesting part is budget allocation, not mystical thinking.\n \"They added more test-time compute for the thorny cases and promptly discovered that half their workload was only thorny because the prompt was poor.\"\n Which tasks actually improve when more inference-time budget is spent? How is extra compute triggered, measured, and capped? Are you solving a hard problem, or subsidising a badly specified one? Deliberate decoding Adaptive inference Search budget",
+      "relatedSlugs": [
+        "reasoning-model",
+        "reasoning-tokens",
+        "latency"
       ]
     },
     {
@@ -7763,10 +8340,10 @@
     }
   ],
   "recentSlugs": [
-    "agent-washing",
-    "agi",
-    "ai-companion",
-    "ai-overviews"
+    "computer-use",
+    "context-engineering",
+    "distillation",
+    "open-weight"
   ],
   "misunderstoodSlugs": [
     "agent",
@@ -7787,12 +8364,12 @@
     },
     {
       "letter": "C",
-      "count": 8,
+      "count": 10,
       "href": "/dictionary?letter=C"
     },
     {
       "letter": "D",
-      "count": 5,
+      "count": 6,
       "href": "/dictionary?letter=D"
     },
     {
@@ -7847,7 +8424,7 @@
     },
     {
       "letter": "O",
-      "count": 5,
+      "count": 6,
       "href": "/dictionary?letter=O"
     },
     {
@@ -7867,12 +8444,12 @@
     },
     {
       "letter": "S",
-      "count": 11,
+      "count": 14,
       "href": "/dictionary?letter=S"
     },
     {
       "letter": "T",
-      "count": 5,
+      "count": 6,
       "href": "/dictionary?letter=T"
     },
     {
@@ -7911,7 +8488,7 @@
       "title": "Core concepts",
       "description": "Terms people use as if they were self-explanatory, usually before the definitions start fraying.",
       "slug": "core-concepts",
-      "count": 18,
+      "count": 21,
       "sampleTerms": [
         "AGI",
         "AI Psychosis",
@@ -7922,7 +8499,7 @@
       "title": "Cultural terms",
       "description": "The social weirdness around AI: belief, taste, cringe, status games, and the internet behaving as it usually does when handed a new machine.",
       "slug": "cultural-terms",
-      "count": 38,
+      "count": 40,
       "sampleTerms": [
         "Agent Washing",
         "AGI",
@@ -7933,18 +8510,18 @@
       "title": "Model building",
       "description": "How models are trained, tuned, evaluated, and occasionally overpraised.",
       "slug": "model-building",
-      "count": 20,
+      "count": 22,
       "sampleTerms": [
         "Arthur Mensch",
         "Demis Hassabis",
-        "Evals"
+        "Distillation"
       ]
     },
     {
       "title": "Model usage",
       "description": "What it means to actually run a model in production, where invoices and latency live.",
       "slug": "model-usage",
-      "count": 45,
+      "count": 50,
       "sampleTerms": [
         "Agent",
         "AI Companion",
@@ -7955,7 +8532,7 @@
       "title": "Agents and workflows",
       "description": "Automation patterns, orchestration, and the difference between useful autonomy and stagecraft.",
       "slug": "agents-and-workflows",
-      "count": 27,
+      "count": 29,
       "sampleTerms": [
         "Agent",
         "Agentic AI",
@@ -7977,7 +8554,7 @@
       "title": "Product and vendor terms",
       "description": "Company names, product labels, and the branding haze around them.",
       "slug": "product-and-vendor-terms",
-      "count": 45,
+      "count": 48,
       "sampleTerms": [
         "Agent Washing",
         "AI Companion",
@@ -7999,7 +8576,7 @@
       "title": "Infrastructure and deployment",
       "description": "The machinery underneath the demo: compute, serving, throughput, and operational trade-offs.",
       "slug": "infrastructure-and-deployment",
-      "count": 21,
+      "count": 22,
       "sampleTerms": [
         "Alexandr Wang",
         "Cloudflare",
@@ -8010,7 +8587,7 @@
       "title": "Economics and operations of AI",
       "description": "Cost, labour, incentives, and the very unmagical business of running AI systems.",
       "slug": "economics-and-operations-of-ai",
-      "count": 41,
+      "count": 46,
       "sampleTerms": [
         "Agent Washing",
         "AGI",
@@ -8130,8 +8707,16 @@
     "alignment",
     "context-stuffing",
     "inference-provider",
-    "npu"
+    "npu",
+    "computer-use",
+    "context-engineering",
+    "distillation",
+    "open-weight",
+    "small-language-model",
+    "sovereign-ai",
+    "speculative-decoding",
+    "test-time-compute"
   ],
   "featuredSlug": "microsoft-copilot",
-  "latestPublishedAt": "2026-04-03"
+  "latestPublishedAt": "2026-04-08"
 }

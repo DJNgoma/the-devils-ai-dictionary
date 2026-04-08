@@ -1,0 +1,55 @@
+---
+title: "Distillation"
+slug: "distillation"
+letter: "D"
+categories:
+  - "Model building"
+  - "Economics and operations of AI"
+aliases:
+  - "knowledge distillation"
+  - "student model training"
+devilDefinition: |
+  The art of teaching a smaller model to imitate a larger one, then introducing the result as efficiency rather than inherited opinion.
+plainDefinition: |
+  Distillation is a training approach in which a smaller or cheaper model learns from the outputs, preferences, or intermediate signals of a larger model so it can reproduce some of its performance at lower cost.
+whyExists: |
+  It exists because frontier-grade behaviour is expensive to serve everywhere. If a smaller system can absorb enough of a stronger model's behaviour, products gain speed, lower inference cost, and a better shot at running locally or at scale.
+misuse: |
+  It is misused when people describe the resulting model as independent genius rather than compressed imitation. Distillation can preserve capability surprisingly well, but it also preserves blind spots, style, and hidden assumptions.
+practicalMeaning: |
+  In practice it usually means generating a large synthetic training set from a stronger model, fine-tuning a cheaper one on that data, and accepting a careful trade-off between cost, latency, and capability.
+example: |
+  "Their distilled model was impressively cheap, which was another way of saying they had purchased fewer surprises per request."
+askNext:
+  - "What behaviour was the student model trained to copy?"
+  - "Which capabilities held up after distillation, and which quietly fell off?"
+  - "Did the process reduce cost without merely packaging the same errors more efficiently?"
+related:
+  - "fine-tuning"
+  - "synthetic-data"
+  - "inference"
+seeAlso:
+  - "Teacher model"
+  - "Student model"
+  - "Compression"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-08"
+updatedAt: "2026-04-08"
+tags:
+  - "training"
+  - "efficiency"
+  - "compression"
+misunderstoodScore: 4
+translations:
+  - label: "exec meaning"
+    text: "Keep most of the magic, lose most of the bill."
+  - label: "what it usually means in reality"
+    text: "Training a smaller model to mimic a stronger one closely enough to be cheaper and still useful."
+note: |
+  Distillation is often described as model compression, but the interesting part is not just size. It is which behaviours survive the squeeze.
+---
+
+The smaller model may be faster, cheaper, and easier to deploy. It is still carrying somebody else's worldview in a lighter suitcase.

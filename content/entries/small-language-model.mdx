@@ -1,0 +1,57 @@
+---
+title: "Small Language Model"
+slug: "small-language-model"
+letter: "S"
+categories:
+  - "Core concepts"
+  - "Model usage"
+  - "Economics and operations of AI"
+aliases:
+  - "SLM"
+  - "compact model"
+devilDefinition: |
+  A model celebrated for efficiency, usually by people who have just discovered that not every task requires a digital cathedral.
+plainDefinition: |
+  A small language model is a comparatively lightweight language model designed to deliver acceptable performance with lower memory, compute, latency, or deployment demands than a frontier-scale model.
+whyExists: |
+  It exists because many business tasks are narrow, repetitive, and unforgiving about latency or cost. A smaller model can be the better engineering choice when the problem is constrained and the environment matters more than prestige.
+misuse: |
+  It is oversold in two opposite ways: as proof that frontier models are unnecessary for everything, or as if a compact model can casually replace them on hard reasoning and open-ended generation. Both claims are mostly branding with a benchmark attached.
+practicalMeaning: |
+  In practice it usually means cheaper inference, easier on-device or edge deployment, tighter control over predictable tasks, and a shorter list of things the system should be trusted to improvise.
+example: |
+  "The team finally adopted a small language model after spending six months paying frontier-model prices to classify support emails."
+askNext:
+  - "What task quality is actually required, and is a smaller model good enough on that distribution?"
+  - "Are latency, privacy, or unit economics the main reason to go smaller?"
+  - "Which failure modes appear when the task drifts beyond the narrow lane?"
+related:
+  - "llm"
+  - "inference"
+  - "latency"
+  - "npu"
+seeAlso:
+  - "Edge model"
+  - "On-device AI"
+  - "Task-specific model"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-08"
+updatedAt: "2026-04-08"
+tags:
+  - "efficiency"
+  - "deployment"
+  - "cost"
+misunderstoodScore: 4
+translations:
+  - label: "operations meaning"
+    text: "A model sized for the workload rather than the keynote."
+  - label: "what it usually means in reality"
+    text: "A more compact model that trades broad capability for lower serving cost and tighter deployment options."
+note: |
+  Small is relative. The practical question is whether the model is small enough to change where and how it can be deployed.
+---
+
+The term is healthiest when it signals discipline. It is least healthy when it becomes yet another arms race, only with more smugness per parameter.
