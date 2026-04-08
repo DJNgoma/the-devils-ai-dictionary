@@ -7,7 +7,6 @@ import {
   createCatalogSnapshot,
   createMobileCatalogManifest,
   publishMobileCatalogArtifacts,
-  serializeCatalogSnapshot,
   sha256Hex,
 } from "@/lib/mobile-catalog.mjs";
 
@@ -47,35 +46,36 @@ describe("mobile catalog manifest", () => {
   });
 
   it("derives catalogVersion from stable catalog content", () => {
-    // The mobile catalog snapshot has the full entries (including searchText)
-    // that the catalog version is derived from.  The web JSON strips searchText
-    // to keep the worker bundle lean, so we read the mobile snapshot here.
-    const manifestPath = path.resolve(__dirname, "../../public/mobile-catalog/manifest.json");
-    if (!fs.existsSync(manifestPath)) return; // gitignored; CI checks post-build
-    const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
-    const mobileSnapshotPath = path.resolve(
-      __dirname, "../../public", manifest.snapshotPath.slice(1),
+    // The tracked catalog snapshot in public/catalog keeps the full entries
+    // (including searchText) that the catalog version is derived from. The
+    // generated web JSON strips searchText to keep the worker bundle lean.
+    const versionManifestPath = path.resolve(__dirname, "../../public/catalog/version.json");
+    if (!fs.existsSync(versionManifestPath)) return;
+    const versionManifest = JSON.parse(fs.readFileSync(versionManifestPath, "utf8"));
+    const catalogSnapshotPath = path.resolve(
+      __dirname, "../../public", versionManifest.path.slice(1),
     );
-    const mobileSnapshot = JSON.parse(fs.readFileSync(mobileSnapshotPath, "utf8"));
+    const catalogSnapshot = JSON.parse(fs.readFileSync(catalogSnapshotPath, "utf8"));
 
     const baseCatalog = {
-      entries: mobileSnapshot.entries,
-      recentSlugs: mobileSnapshot.recentSlugs,
-      misunderstoodSlugs: mobileSnapshot.misunderstoodSlugs,
-      letterStats: mobileSnapshot.letterStats,
-      categoryStats: mobileSnapshot.categoryStats,
-      editorialTimeZone: mobileSnapshot.editorialTimeZone,
-      dailyWordStartDate: mobileSnapshot.dailyWordStartDate,
-      dailyWordSlugs: mobileSnapshot.dailyWordSlugs,
-      featuredSlug: mobileSnapshot.featuredSlug,
-      latestPublishedAt: mobileSnapshot.latestPublishedAt,
+      entries: catalogSnapshot.entries,
+      recentSlugs: catalogSnapshot.recentSlugs,
+      misunderstoodSlugs: catalogSnapshot.misunderstoodSlugs,
+      letterStats: catalogSnapshot.letterStats,
+      categoryStats: catalogSnapshot.categoryStats,
+      editorialTimeZone: catalogSnapshot.editorialTimeZone,
+      dailyWordStartDate: catalogSnapshot.dailyWordStartDate,
+      dailyWordSlugs: catalogSnapshot.dailyWordSlugs,
+      featuredSlug: catalogSnapshot.featuredSlug,
+      latestPublishedAt: catalogSnapshot.latestPublishedAt,
     };
 
     const snapshot = createCatalogSnapshot({
       ...baseCatalog,
-      generatedAt: mobileSnapshot.generatedAt,
+      generatedAt: catalogSnapshot.generatedAt,
     });
 
+    expect(snapshot.catalogVersion).toBe(versionManifest.version);
     expect(snapshot.catalogVersion).toBe(generatedData.catalogVersion);
   });
 

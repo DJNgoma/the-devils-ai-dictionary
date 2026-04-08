@@ -6,6 +6,7 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SWIFT_CORE_DIR="$REPO_ROOT/shared/swift-core"
 JNILIBS_DIR="$REPO_ROOT/android/app/src/main/jniLibs"
+SWIFT_ANDROID_SDK_VERSION="swift-6.3-RELEASE_android"
 
 # Prefer the open-source Swift 6.3 toolchain over the Xcode one.
 OSS_TOOLCHAIN="$HOME/Library/Developer/Toolchains/swift-6.3-RELEASE.xctoolchain/usr/bin"
@@ -16,7 +17,31 @@ else
 fi
 
 # SDK artifact bundle path.
-SDK_BUNDLE="$HOME/Library/org.swift.swiftpm/swift-sdks/swift-6.3-RELEASE_android.artifactbundle/swift-android"
+SDK_BUNDLE="${SWIFT_ANDROID_SDK_BUNDLE:-}"
+if [[ -z "$SDK_BUNDLE" ]]; then
+    for candidate in \
+        "$HOME/Library/org.swift.swiftpm/swift-sdks/${SWIFT_ANDROID_SDK_VERSION}.artifactbundle/swift-android" \
+        "$HOME/.swiftpm/swift-sdks/${SWIFT_ANDROID_SDK_VERSION}.artifactbundle/swift-android"
+    do
+        if [[ -d "$candidate" ]]; then
+            SDK_BUNDLE="$candidate"
+            break
+        fi
+    done
+fi
+
+if [[ -z "$SDK_BUNDLE" || ! -d "$SDK_BUNDLE" ]]; then
+    echo "Swift Android SDK bundle not found." >&2
+    echo "Install ${SWIFT_ANDROID_SDK_VERSION} and set SWIFT_ANDROID_SDK_BUNDLE if needed." >&2
+    exit 1
+fi
+
+NDK_PREBUILT_ROOT="$(find "$SDK_BUNDLE/android-ndk-r27d/toolchains/llvm/prebuilt" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | head -n 1)"
+if [[ -z "$NDK_PREBUILT_ROOT" || ! -d "$NDK_PREBUILT_ROOT/sysroot" ]]; then
+    echo "Android NDK r27d was not found under $SDK_BUNDLE." >&2
+    echo "Install the NDK into the Swift Android SDK bundle and run scripts/setup-android-sdk.sh." >&2
+    exit 1
+fi
 
 # Swift runtime shared libraries required at runtime.
 SWIFT_RUNTIME_LIBS="
@@ -66,7 +91,7 @@ build_arch() {
 
     # Copy libc++_shared.so from the NDK (required by libswiftCore.so).
     local ndk_triple="$4"
-    local ndk_sysroot="$SDK_BUNDLE/android-ndk-r27d/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+    local ndk_sysroot="$NDK_PREBUILT_ROOT/sysroot"
     local cxx_shared="$ndk_sysroot/usr/lib/$ndk_triple/libc++_shared.so"
     if [[ -f "$cxx_shared" ]]; then
         cp "$cxx_shared" "$out_dir/"
