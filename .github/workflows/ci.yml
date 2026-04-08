@@ -16,10 +16,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run lint
-      - run: npm run typecheck
-      - run: npm run test
-      - run: npm run build
+      - run: npm run test:ci
       - run: test -f public/mobile-catalog/manifest.json
       - run: find public/mobile-catalog -maxdepth 1 -name 'entries.*.json' | grep -q .
 
