@@ -1,0 +1,61 @@
+---
+title: "Prompt Caching"
+slug: "prompt-caching"
+letter: "P"
+categories:
+  - "Infrastructure and deployment"
+  - "Model usage"
+  - "Economics and operations of AI"
+aliases:
+  - "prompt cache"
+  - "prefix caching"
+  - "cached prompts"
+devilDefinition: |
+  The serving trick where you pay full price once so the model can stop rereading your sacred system prompt on every request.
+plainDefinition: |
+  Prompt caching is a technique where a provider reuses the already processed prefix of repeated prompts, reducing latency and input cost when the beginning of the request stays the same.
+whyExists: |
+  It exists because long instructions, tool schemas, examples, and reference context are expensive to process from scratch every time. If large parts of a prompt repeat, caching lets systems avoid doing the same preparatory work over and over.
+misuse: |
+  It gets pitched as free speed or magical memory. In reality it only helps when prompts share the right prefix, the provider's cache keeps it warm, and the traffic pattern is disciplined enough to hit it again before it expires.
+practicalMeaning: |
+  In practice it usually means putting stable instructions first, volatile user data later, watching cache hit rates, and discovering that prompt order has quietly become a finance decision.
+example: |
+  "Prompt caching finally started paying off once they stopped putting the customer-specific chaos before the reusable instructions."
+askNext:
+  - "Which part of the prompt is actually stable enough to be reused?"
+  - "How long do cache hits survive on this provider before they quietly disappear?"
+  - "Are you measuring real latency and cost gains, or just admiring the idea of efficiency?"
+related:
+  - "context-engineering"
+  - "latency"
+  - "tokens"
+  - "inference"
+seeAlso:
+  - "Prefix reuse"
+  - "Serving optimisation"
+  - "Context assembly"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-09"
+updatedAt: "2026-04-09"
+vendorReferences:
+  - "OpenAI Prompt Caching"
+tags:
+  - "latency"
+  - "cost"
+  - "serving"
+  - "prompts"
+misunderstoodScore: 4
+translations:
+  - label: "platform meaning"
+    text: "Reuse the expensive beginning of a prompt so the invoice and the wait both shrink a little."
+  - label: "what it usually means in reality"
+    text: "A provider-side shortcut that rewards repeated prompt prefixes and punishes sloppy prompt layout."
+note: |
+  The cache is not your application's memory. It is an opportunistic discount for repeated prompt structure.
+---
+
+Prompt caching is one of those useful terms that sounds more glamorous than it is. The glamour fades the moment someone randomises the first thousand tokens and wonders why the savings have left the building.

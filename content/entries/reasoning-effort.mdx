@@ -1,0 +1,60 @@
+---
+title: "Reasoning Effort"
+slug: "reasoning-effort"
+letter: "R"
+categories:
+  - "Model usage"
+  - "Product and vendor terms"
+  - "Economics and operations of AI"
+aliases:
+  - "thinking budget"
+  - "effort setting"
+  - "reasoning level"
+devilDefinition: |
+  The polite little dial that lets you spend extra time and money so the model can look more thoughtful before disappointing you with greater ceremony.
+plainDefinition: |
+  Reasoning effort is a model setting that asks a reasoning-capable model to spend more or less internal computation before answering, usually trading speed and cost for stronger performance on harder tasks.
+whyExists: |
+  It exists because not every prompt deserves the same amount of computational attention. A quick classification task and a multi-step coding problem should not be billed as though they require identical intellectual theatre.
+misuse: |
+  It is often treated as a truth slider. Higher effort can improve performance on difficult tasks, but it does not guarantee correctness, judgement, or freedom from the model's usual bad habits.
+practicalMeaning: |
+  In practice it usually means deciding whether the task is worth the latency and token burn. Low effort is sensible for routine work. Higher effort is better reserved for coding, planning, maths, and the kinds of questions people later pretend were obvious.
+example: |
+  "They turned reasoning effort to high for a simple extraction job, which was a costly way to discover the value of restraint."
+askNext:
+  - "What kinds of tasks genuinely improve when the model spends longer reasoning?"
+  - "How much latency and cost does a higher setting add in production?"
+  - "Are you buying better performance, or just a slower answer with nicer posture?"
+related:
+  - "reasoning-model"
+  - "reasoning-tokens"
+  - "test-time-compute"
+  - "latency"
+seeAlso:
+  - "Inference budget"
+  - "Thinking time"
+  - "Task difficulty"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: true
+publishedAt: "2026-04-09"
+updatedAt: "2026-04-09"
+vendorReferences:
+  - "OpenAI reasoning.effort"
+tags:
+  - "reasoning"
+  - "latency"
+  - "pricing"
+  - "controls"
+misunderstoodScore: 4
+translations:
+  - label: "product meaning"
+    text: "A user-facing way to expose the trade-off between speed, cost, and extra internal computation."
+  - label: "what it usually means in reality"
+    text: "A knob for deciding when a task deserves more machine time than your budget wanted to give it."
+warningLabel: "Useful control, unreliable status symbol."
+---
+
+The term is genuinely practical. It only becomes ridiculous when people start treating a compute budget as a personality trait.

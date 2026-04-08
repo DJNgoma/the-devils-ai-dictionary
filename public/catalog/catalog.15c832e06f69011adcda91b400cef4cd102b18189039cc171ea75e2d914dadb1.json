@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "catalogVersion": "728acf42312980e047f893c2990c6fa7caa0fe6996dc3eb4765f3e35b58044e8",
-  "generatedAt": "2026-04-08T09:55:02.912Z",
-  "entryCount": 122,
+  "catalogVersion": "15c832e06f69011adcda91b400cef4cd102b18189039cc171ea75e2d914dadb1",
+  "generatedAt": "2026-04-08T23:19:37.002Z",
+  "entryCount": 128,
   "entries": [
     {
       "title": "Agent",
@@ -3944,6 +3944,84 @@
       ]
     },
     {
+      "title": "Lovable",
+      "slug": "lovable",
+      "letter": "L",
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "Lovable.dev",
+        "AI app builder",
+        "vibe coding platform"
+      ],
+      "devilDefinition": "A chat-driven builder for turning \"I have an idea\" into a working app before anyone asks who will inherit the code.\n",
+      "plainDefinition": "Lovable is a product for generating and iterating on web applications from natural-language instructions, with modes for planning, editing code, and increasingly agent-like execution across a project.\n",
+      "whyExists": "It exists because many people want software outcomes without local setup, framework literacy, or the traditional rite of discovering three build errors before lunch. Products like this collapse prototyping, editing, and deployment into one highly persuasive loop.\n",
+      "misuse": "It gets sold as though describing software and owning software are the same discipline. The tool can absolutely shorten the road to a useful prototype. It cannot repeal the maintenance burden or make architecture an optional hobby.\n",
+      "practicalMeaning": "In practice Lovable usually means faster internal tools, MVPs, marketing sites, and founder demos, plus a fresh opportunity to confuse visible progress with durable engineering.\n",
+      "example": "\"Lovable got them from idea to live demo in a weekend, which was excellent right up to the moment the product had to become a system.\"\n",
+      "askNext": [
+        "Is this a prototype, an internal tool, or something expected to survive real users?",
+        "Who understands the resulting code once the initial chat session is over?",
+        "Did the tool remove engineering work, or merely defer it to a less festive day?"
+      ],
+      "related": [
+        "bolt-new",
+        "cursor",
+        "vibe-engineer",
+        "agentic-ai"
+      ],
+      "seeAlso": [
+        "Vibe coding",
+        "Prototype builder",
+        "One-person unicorn"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "high",
+      "isVendorTerm": true,
+      "publishedAt": "2026-04-09",
+      "updatedAt": "2026-04-09",
+      "vendorReferences": [
+        "Agent mode",
+        "Plan mode",
+        "Lovable Cloud"
+      ],
+      "tags": [
+        "prototyping",
+        "developer tools",
+        "founders",
+        "agents"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "founder meaning",
+          "text": "A short route from idea to demo, ideally before caution schedules a meeting."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A product that makes app creation more accessible while leaving long-term code ownership very much alive."
+        }
+      ],
+      "body": "The category is real. So is the temptation to treat software as finished the moment it becomes presentable.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "agents-and-workflows",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/lovable",
+      "searchText": "Lovable Lovable.dev AI app builder vibe coding platform Product and vendor terms Agents and workflows Cultural terms prototyping developer tools founders agents A chat-driven builder for turning \"I have an idea\" into a working app before anyone asks who will inherit the code.\n Lovable is a product for generating and iterating on web applications from natural-language instructions, with modes for planning, editing code, and increasingly agent-like execution across a project.\n It exists because many people want software outcomes without local setup, framework literacy, or the traditional rite of discovering three build errors before lunch. Products like this collapse prototyping, editing, and deployment into one highly persuasive loop.\n It gets sold as though describing software and owning software are the same discipline. The tool can absolutely shorten the road to a useful prototype. It cannot repeal the maintenance burden or make architecture an optional hobby.\n In practice Lovable usually means faster internal tools, MVPs, marketing sites, and founder demos, plus a fresh opportunity to confuse visible progress with durable engineering.\n \"Lovable got them from idea to live demo in a weekend, which was excellent right up to the moment the product had to become a system.\"\n Is this a prototype, an internal tool, or something expected to survive real users? Who understands the resulting code once the initial chat session is over? Did the tool remove engineering work, or merely defer it to a less festive day? Vibe coding Prototype builder One-person unicorn  Agent mode Plan mode Lovable Cloud",
+      "relatedSlugs": [
+        "bolt-new",
+        "cursor",
+        "vibe-engineer"
+      ]
+    },
+    {
       "title": "Mac mini",
       "slug": "mac-mini",
       "letter": "M",
@@ -4967,6 +5045,82 @@
       ]
     },
     {
+      "title": "One-Person Unicorn",
+      "slug": "one-person-unicorn",
+      "letter": "O",
+      "categories": [
+        "Economics and operations of AI",
+        "Cultural terms",
+        "Agents and workflows"
+      ],
+      "aliases": [
+        "solo unicorn",
+        "AI solopreneur unicorn",
+        "single-founder unicorn"
+      ],
+      "devilDefinition": "The recurring fantasy that one founder, several agents, and a cloud invoice can replace an organisation and still count as a company instead of an episode.\n",
+      "plainDefinition": "The \"one-person unicorn\" is the idea that AI tools and automation could let a single founder build and run a company worth a billion dollars with little or no traditional staff.\n",
+      "whyExists": "It exists because AI has genuinely reduced the cost of coding, design, support, research, and back-office work enough for solo founders to reach farther than they could a few years ago. That makes the old dream of extreme leverage newly discussable and newly distortive.\n",
+      "misuse": "The term gets used as if headcount were simply a regrettable inefficiency. It understates the boring things companies are still made of: trust, sales, operations, compliance, customer support, and the general inconvenience of reality needing more than one pair of eyes.\n",
+      "practicalMeaning": "In practice it usually means smaller teams doing more, solo founders getting to revenue faster, and investors testing how much organisational fragility they can rename as leverage.\n",
+      "example": "\"The one-person unicorn thesis sounds marvellous until the founder discovers that support, tax, contracts, and incident response still decline to become vibes.\"\n",
+      "askNext": [
+        "Which parts of the company are actually automated, and which parts are being silently done by contractors, software, or wishful thinking?",
+        "Does the business model scale without a team, or only the demo?",
+        "What breaks first when a supposedly solo company meets regulation, churn, or enterprise procurement?"
+      ],
+      "related": [
+        "digital-worker",
+        "agentic-ai",
+        "bolt-new",
+        "openclaw"
+      ],
+      "seeAlso": [
+        "Solo founder",
+        "Operating leverage",
+        "Invisible enterprise"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "severe",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-09",
+      "updatedAt": "2026-04-09",
+      "warningLabel": "Usually a prediction, occasionally a business.",
+      "tags": [
+        "founders",
+        "labour",
+        "startups",
+        "automation"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "investor meaning",
+          "text": "A company with software margins, heroic narrative density, and almost no payroll."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A real shift toward smaller teams and solo builders, wrapped in a much larger fantasy about how many people organisations require."
+        }
+      ],
+      "note": "The important point is not whether the perfect solo billion-dollar company appears. The important point is that a lot of people now behave as if it is imminent.\n",
+      "vendorReferences": [],
+      "body": "As with many AI-era myths, the term reveals something true by exaggerating it until it becomes unusable.",
+      "categorySlugs": [
+        "economics-and-operations-of-ai",
+        "cultural-terms",
+        "agents-and-workflows"
+      ],
+      "url": "/dictionary/one-person-unicorn",
+      "searchText": "One-Person Unicorn solo unicorn AI solopreneur unicorn single-founder unicorn Economics and operations of AI Cultural terms Agents and workflows founders labour startups automation The recurring fantasy that one founder, several agents, and a cloud invoice can replace an organisation and still count as a company instead of an episode.\n The \"one-person unicorn\" is the idea that AI tools and automation could let a single founder build and run a company worth a billion dollars with little or no traditional staff.\n It exists because AI has genuinely reduced the cost of coding, design, support, research, and back-office work enough for solo founders to reach farther than they could a few years ago. That makes the old dream of extreme leverage newly discussable and newly distortive.\n The term gets used as if headcount were simply a regrettable inefficiency. It understates the boring things companies are still made of: trust, sales, operations, compliance, customer support, and the general inconvenience of reality needing more than one pair of eyes.\n In practice it usually means smaller teams doing more, solo founders getting to revenue faster, and investors testing how much organisational fragility they can rename as leverage.\n \"The one-person unicorn thesis sounds marvellous until the founder discovers that support, tax, contracts, and incident response still decline to become vibes.\"\n Which parts of the company are actually automated, and which parts are being silently done by contractors, software, or wishful thinking? Does the business model scale without a team, or only the demo? What breaks first when a supposedly solo company meets regulation, churn, or enterprise procurement? Solo founder Operating leverage Invisible enterprise The important point is not whether the perfect solo billion-dollar company appears. The important point is that a lot of people now behave as if it is imminent.",
+      "relatedSlugs": [
+        "digital-worker",
+        "agentic-ai",
+        "bolt-new"
+      ]
+    },
+    {
       "title": "Open Weight",
       "slug": "open-weight",
       "letter": "O",
@@ -5682,6 +5836,83 @@
       ]
     },
     {
+      "title": "Prompt Caching",
+      "slug": "prompt-caching",
+      "letter": "P",
+      "categories": [
+        "Infrastructure and deployment",
+        "Model usage",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "prompt cache",
+        "prefix caching",
+        "cached prompts"
+      ],
+      "devilDefinition": "The serving trick where you pay full price once so the model can stop rereading your sacred system prompt on every request.\n",
+      "plainDefinition": "Prompt caching is a technique where a provider reuses the already processed prefix of repeated prompts, reducing latency and input cost when the beginning of the request stays the same.\n",
+      "whyExists": "It exists because long instructions, tool schemas, examples, and reference context are expensive to process from scratch every time. If large parts of a prompt repeat, caching lets systems avoid doing the same preparatory work over and over.\n",
+      "misuse": "It gets pitched as free speed or magical memory. In reality it only helps when prompts share the right prefix, the provider's cache keeps it warm, and the traffic pattern is disciplined enough to hit it again before it expires.\n",
+      "practicalMeaning": "In practice it usually means putting stable instructions first, volatile user data later, watching cache hit rates, and discovering that prompt order has quietly become a finance decision.\n",
+      "example": "\"Prompt caching finally started paying off once they stopped putting the customer-specific chaos before the reusable instructions.\"\n",
+      "askNext": [
+        "Which part of the prompt is actually stable enough to be reused?",
+        "How long do cache hits survive on this provider before they quietly disappear?",
+        "Are you measuring real latency and cost gains, or just admiring the idea of efficiency?"
+      ],
+      "related": [
+        "context-engineering",
+        "latency",
+        "tokens",
+        "inference"
+      ],
+      "seeAlso": [
+        "Prefix reuse",
+        "Serving optimisation",
+        "Context assembly"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-09",
+      "updatedAt": "2026-04-09",
+      "vendorReferences": [
+        "OpenAI Prompt Caching"
+      ],
+      "tags": [
+        "latency",
+        "cost",
+        "serving",
+        "prompts"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "platform meaning",
+          "text": "Reuse the expensive beginning of a prompt so the invoice and the wait both shrink a little."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A provider-side shortcut that rewards repeated prompt prefixes and punishes sloppy prompt layout."
+        }
+      ],
+      "note": "The cache is not your application's memory. It is an opportunistic discount for repeated prompt structure.\n",
+      "body": "Prompt caching is one of those useful terms that sounds more glamorous than it is. The glamour fades the moment someone randomises the first thousand tokens and wonders why the savings have left the building.",
+      "categorySlugs": [
+        "infrastructure-and-deployment",
+        "model-usage",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/prompt-caching",
+      "searchText": "Prompt Caching prompt cache prefix caching cached prompts Infrastructure and deployment Model usage Economics and operations of AI latency cost serving prompts The serving trick where you pay full price once so the model can stop rereading your sacred system prompt on every request.\n Prompt caching is a technique where a provider reuses the already processed prefix of repeated prompts, reducing latency and input cost when the beginning of the request stays the same.\n It exists because long instructions, tool schemas, examples, and reference context are expensive to process from scratch every time. If large parts of a prompt repeat, caching lets systems avoid doing the same preparatory work over and over.\n It gets pitched as free speed or magical memory. In reality it only helps when prompts share the right prefix, the provider's cache keeps it warm, and the traffic pattern is disciplined enough to hit it again before it expires.\n In practice it usually means putting stable instructions first, volatile user data later, watching cache hit rates, and discovering that prompt order has quietly become a finance decision.\n \"Prompt caching finally started paying off once they stopped putting the customer-specific chaos before the reusable instructions.\"\n Which part of the prompt is actually stable enough to be reused? How long do cache hits survive on this provider before they quietly disappear? Are you measuring real latency and cost gains, or just admiring the idea of efficiency? Prefix reuse Serving optimisation Context assembly The cache is not your application's memory. It is an opportunistic discount for repeated prompt structure.\n OpenAI Prompt Caching",
+      "relatedSlugs": [
+        "context-engineering",
+        "latency",
+        "tokens"
+      ]
+    },
+    {
       "title": "Prompt Engineer",
       "slug": "prompt-engineer",
       "letter": "P",
@@ -6026,6 +6257,83 @@
         "embeddings",
         "vector-database",
         "grounding"
+      ]
+    },
+    {
+      "title": "Reasoning Effort",
+      "slug": "reasoning-effort",
+      "letter": "R",
+      "categories": [
+        "Model usage",
+        "Product and vendor terms",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "thinking budget",
+        "effort setting",
+        "reasoning level"
+      ],
+      "devilDefinition": "The polite little dial that lets you spend extra time and money so the model can look more thoughtful before disappointing you with greater ceremony.\n",
+      "plainDefinition": "Reasoning effort is a model setting that asks a reasoning-capable model to spend more or less internal computation before answering, usually trading speed and cost for stronger performance on harder tasks.\n",
+      "whyExists": "It exists because not every prompt deserves the same amount of computational attention. A quick classification task and a multi-step coding problem should not be billed as though they require identical intellectual theatre.\n",
+      "misuse": "It is often treated as a truth slider. Higher effort can improve performance on difficult tasks, but it does not guarantee correctness, judgement, or freedom from the model's usual bad habits.\n",
+      "practicalMeaning": "In practice it usually means deciding whether the task is worth the latency and token burn. Low effort is sensible for routine work. Higher effort is better reserved for coding, planning, maths, and the kinds of questions people later pretend were obvious.\n",
+      "example": "\"They turned reasoning effort to high for a simple extraction job, which was a costly way to discover the value of restraint.\"\n",
+      "askNext": [
+        "What kinds of tasks genuinely improve when the model spends longer reasoning?",
+        "How much latency and cost does a higher setting add in production?",
+        "Are you buying better performance, or just a slower answer with nicer posture?"
+      ],
+      "related": [
+        "reasoning-model",
+        "reasoning-tokens",
+        "test-time-compute",
+        "latency"
+      ],
+      "seeAlso": [
+        "Inference budget",
+        "Thinking time",
+        "Task difficulty"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": true,
+      "publishedAt": "2026-04-09",
+      "updatedAt": "2026-04-09",
+      "vendorReferences": [
+        "OpenAI reasoning.effort"
+      ],
+      "tags": [
+        "reasoning",
+        "latency",
+        "pricing",
+        "controls"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "product meaning",
+          "text": "A user-facing way to expose the trade-off between speed, cost, and extra internal computation."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A knob for deciding when a task deserves more machine time than your budget wanted to give it."
+        }
+      ],
+      "warningLabel": "Useful control, unreliable status symbol.",
+      "body": "The term is genuinely practical. It only becomes ridiculous when people start treating a compute budget as a personality trait.",
+      "categorySlugs": [
+        "model-usage",
+        "product-and-vendor-terms",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/reasoning-effort",
+      "searchText": "Reasoning Effort thinking budget effort setting reasoning level Model usage Product and vendor terms Economics and operations of AI reasoning latency pricing controls The polite little dial that lets you spend extra time and money so the model can look more thoughtful before disappointing you with greater ceremony.\n Reasoning effort is a model setting that asks a reasoning-capable model to spend more or less internal computation before answering, usually trading speed and cost for stronger performance on harder tasks.\n It exists because not every prompt deserves the same amount of computational attention. A quick classification task and a multi-step coding problem should not be billed as though they require identical intellectual theatre.\n It is often treated as a truth slider. Higher effort can improve performance on difficult tasks, but it does not guarantee correctness, judgement, or freedom from the model's usual bad habits.\n In practice it usually means deciding whether the task is worth the latency and token burn. Low effort is sensible for routine work. Higher effort is better reserved for coding, planning, maths, and the kinds of questions people later pretend were obvious.\n \"They turned reasoning effort to high for a simple extraction job, which was a costly way to discover the value of restraint.\"\n What kinds of tasks genuinely improve when the model spends longer reasoning? How much latency and cost does a higher setting add in production? Are you buying better performance, or just a slower answer with nicer posture? Inference budget Thinking time Task difficulty  OpenAI reasoning.effort",
+      "relatedSlugs": [
+        "reasoning-model",
+        "reasoning-tokens",
+        "test-time-compute"
       ]
     },
     {
@@ -6812,6 +7120,81 @@
         "slop",
         "taste",
         "human-taste"
+      ]
+    },
+    {
+      "title": "Slopsquatting",
+      "slug": "slopsquatting",
+      "letter": "S",
+      "categories": [
+        "Safety and evaluation",
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "hallucinated dependency attack",
+        "AI package squatting",
+        "package hallucination exploit"
+      ],
+      "devilDefinition": "Registering malware under the package name the model just invented, then waiting for a hurried developer to install it with full synthetic confidence.\n",
+      "plainDefinition": "Slopsquatting is the practice of publishing malicious packages under names that AI coding tools hallucinate, so developers who trust the suggestion can accidentally install them.\n",
+      "whyExists": "It exists because code models generate plausible nonsense, package registries reward being first with a name, and some teams now review dependency suggestions with less suspicion than a spam folder.\n",
+      "misuse": "The term can get stretched to mean any bad dependency advice from an AI tool. The more precise problem is the attacker exploiting hallucinated package names by occupying them before a human notices the package never legitimately existed.\n",
+      "practicalMeaning": "In practice it means verifying packages before installation, preferring known libraries over plausible ones, locking dependencies properly, and treating AI-suggested imports as a security surface rather than a convenience feature.\n",
+      "example": "\"The prototype moved fast until someone realised the package only existed because the model had dreamt it and an attacker had been paying attention.\"\n",
+      "askNext": [
+        "Was this dependency verified against a real project, maintainer, and source repository?",
+        "Are developers allowed to install AI-suggested packages without review?",
+        "What controls catch a convincing package name that should never have existed?"
+      ],
+      "related": [
+        "prompt-injection",
+        "rubber-stamp-review",
+        "cursor",
+        "tool-use"
+      ],
+      "seeAlso": [
+        "Typosquatting",
+        "Dependency confusion",
+        "Supply-chain security"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-09",
+      "updatedAt": "2026-04-09",
+      "warningLabel": "Funny name, ordinary breach path.",
+      "tags": [
+        "security",
+        "dependencies",
+        "packages",
+        "hallucinations"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "security meaning",
+          "text": "An attacker monetising the gap between a model's plausible fiction and a developer's missing verification step."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Malicious packages published to catch AI-generated dependency hallucinations before a human notices."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "It is a tidy example of the modern software stack: one system invents the dependency, another system publishes the trap, and the human appears mainly to confirm the transaction.",
+      "categorySlugs": [
+        "safety-and-evaluation",
+        "agents-and-workflows",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/slopsquatting",
+      "searchText": "Slopsquatting hallucinated dependency attack AI package squatting package hallucination exploit Safety and evaluation Agents and workflows Cultural terms security dependencies packages hallucinations Registering malware under the package name the model just invented, then waiting for a hurried developer to install it with full synthetic confidence.\n Slopsquatting is the practice of publishing malicious packages under names that AI coding tools hallucinate, so developers who trust the suggestion can accidentally install them.\n It exists because code models generate plausible nonsense, package registries reward being first with a name, and some teams now review dependency suggestions with less suspicion than a spam folder.\n The term can get stretched to mean any bad dependency advice from an AI tool. The more precise problem is the attacker exploiting hallucinated package names by occupying them before a human notices the package never legitimately existed.\n In practice it means verifying packages before installation, preferring known libraries over plausible ones, locking dependencies properly, and treating AI-suggested imports as a security surface rather than a convenience feature.\n \"The prototype moved fast until someone realised the package only existed because the model had dreamt it and an attacker had been paying attention.\"\n Was this dependency verified against a real project, maintainer, and source repository? Are developers allowed to install AI-suggested packages without review? What controls catch a convincing package name that should never have existed? Typosquatting Dependency confusion Supply-chain security",
+      "relatedSlugs": [
+        "prompt-injection",
+        "rubber-stamp-review",
+        "cursor"
       ]
     },
     {
@@ -8292,6 +8675,84 @@
       ]
     },
     {
+      "title": "Windsurf",
+      "slug": "windsurf",
+      "letter": "W",
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "Windsurf Editor",
+        "Cascade",
+        "AI IDE"
+      ],
+      "devilDefinition": "An IDE for developers who would like to remain in flow state while the model edits the repo with the confidence of a colleague who has never been fired.\n",
+      "plainDefinition": "Windsurf is an AI coding editor centred on autocomplete, codebase-aware assistance, agentic task execution, rules, memory features, and integrated tooling inside the development environment.\n",
+      "whyExists": "It exists because developers want help where the work already happens, not in a separate tab that requires manual copy-pasting and a fresh performance of context every ten minutes.\n",
+      "misuse": "It is marketed as if constant AI presence dissolves the need for design judgement, review discipline, or the occasional suspicion that the machine may be freelancing. The editor can speed up real work. It can also accelerate a bad idea with unusual grace.\n",
+      "practicalMeaning": "In practice Windsurf usually means more generated diffs, faster navigation through unfamiliar code, less tab switching, and a sharper need for tests because the tool can now create confident mistakes at native speed.\n",
+      "example": "\"Windsurf kept the team in flow until the generated refactor reached production and introduced a more expensive kind of interruption.\"\n",
+      "askNext": [
+        "What guardrails exist when the editor can modify multiple files quickly?",
+        "Which gains come from better context inside the IDE, and which come from lowering the user's standards?",
+        "Who reviews the fast changes with enough context to reject them?"
+      ],
+      "related": [
+        "cursor",
+        "codex",
+        "rubber-stamp-review",
+        "mcp"
+      ],
+      "seeAlso": [
+        "Agentic IDE",
+        "Autocomplete",
+        "Developer workflow"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "high",
+      "isVendorTerm": true,
+      "publishedAt": "2026-04-09",
+      "updatedAt": "2026-04-09",
+      "vendorReferences": [
+        "Cascade",
+        "Memories",
+        "Rules"
+      ],
+      "tags": [
+        "coding",
+        "ide",
+        "developer tools",
+        "productivity"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "developer meaning",
+          "text": "A more deeply embedded coding assistant that can help right where the work is happening."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "An AI-heavy editor that reduces context switching while increasing the importance of sober review."
+        }
+      ],
+      "body": "The sales pitch is flow. The operational question is whether the flow ends before or after the regression.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "agents-and-workflows",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/windsurf",
+      "searchText": "Windsurf Windsurf Editor Cascade AI IDE Product and vendor terms Agents and workflows Economics and operations of AI coding ide developer tools productivity An IDE for developers who would like to remain in flow state while the model edits the repo with the confidence of a colleague who has never been fired.\n Windsurf is an AI coding editor centred on autocomplete, codebase-aware assistance, agentic task execution, rules, memory features, and integrated tooling inside the development environment.\n It exists because developers want help where the work already happens, not in a separate tab that requires manual copy-pasting and a fresh performance of context every ten minutes.\n It is marketed as if constant AI presence dissolves the need for design judgement, review discipline, or the occasional suspicion that the machine may be freelancing. The editor can speed up real work. It can also accelerate a bad idea with unusual grace.\n In practice Windsurf usually means more generated diffs, faster navigation through unfamiliar code, less tab switching, and a sharper need for tests because the tool can now create confident mistakes at native speed.\n \"Windsurf kept the team in flow until the generated refactor reached production and introduced a more expensive kind of interruption.\"\n What guardrails exist when the editor can modify multiple files quickly? Which gains come from better context inside the IDE, and which come from lowering the user's standards? Who reviews the fast changes with enough context to reject them? Agentic IDE Autocomplete Developer workflow  Cascade Memories Rules",
+      "relatedSlugs": [
+        "cursor",
+        "codex",
+        "rubber-stamp-review"
+      ]
+    },
+    {
       "title": "World Model",
       "slug": "world-model",
       "letter": "W",
@@ -8640,10 +9101,10 @@
     }
   ],
   "recentSlugs": [
-    "andrej-karpathy",
-    "bolt-new",
-    "computer-use",
-    "context-engineering"
+    "lovable",
+    "one-person-unicorn",
+    "prompt-caching",
+    "reasoning-effort"
   ],
   "misunderstoodSlugs": [
     "agent",
@@ -8709,7 +9170,7 @@
     },
     {
       "letter": "L",
-      "count": 3,
+      "count": 4,
       "href": "/dictionary?letter=L"
     },
     {
@@ -8724,12 +9185,12 @@
     },
     {
       "letter": "O",
-      "count": 6,
+      "count": 7,
       "href": "/dictionary?letter=O"
     },
     {
       "letter": "P",
-      "count": 6,
+      "count": 7,
       "href": "/dictionary?letter=P"
     },
     {
@@ -8739,12 +9200,12 @@
     },
     {
       "letter": "R",
-      "count": 7,
+      "count": 8,
       "href": "/dictionary?letter=R"
     },
     {
       "letter": "S",
-      "count": 15,
+      "count": 16,
       "href": "/dictionary?letter=S"
     },
     {
@@ -8764,7 +9225,7 @@
     },
     {
       "letter": "W",
-      "count": 2,
+      "count": 3,
       "href": "/dictionary?letter=W"
     },
     {
@@ -8799,7 +9260,7 @@
       "title": "Cultural terms",
       "description": "The social weirdness around AI: belief, taste, cringe, status games, and the internet behaving as it usually does when handed a new machine.",
       "slug": "cultural-terms",
-      "count": 44,
+      "count": 47,
       "sampleTerms": [
         "Agent Washing",
         "AGI",
@@ -8821,7 +9282,7 @@
       "title": "Model usage",
       "description": "What it means to actually run a model in production, where invoices and latency live.",
       "slug": "model-usage",
-      "count": 50,
+      "count": 52,
       "sampleTerms": [
         "Agent",
         "AI Companion",
@@ -8832,7 +9293,7 @@
       "title": "Agents and workflows",
       "description": "Automation patterns, orchestration, and the difference between useful autonomy and stagecraft.",
       "slug": "agents-and-workflows",
-      "count": 30,
+      "count": 34,
       "sampleTerms": [
         "Agent",
         "Agentic AI",
@@ -8854,7 +9315,7 @@
       "title": "Product and vendor terms",
       "description": "Company names, product labels, and the branding haze around them.",
       "slug": "product-and-vendor-terms",
-      "count": 52,
+      "count": 55,
       "sampleTerms": [
         "Agent Washing",
         "AI Companion",
@@ -8865,7 +9326,7 @@
       "title": "Safety and evaluation",
       "description": "Guardrails, tests, preferences, and the uncomfortable gap between lab scores and reality.",
       "slug": "safety-and-evaluation",
-      "count": 24,
+      "count": 25,
       "sampleTerms": [
         "Alignment",
         "Anthropic",
@@ -8876,7 +9337,7 @@
       "title": "Infrastructure and deployment",
       "description": "The machinery underneath the demo: compute, serving, throughput, and operational trade-offs.",
       "slug": "infrastructure-and-deployment",
-      "count": 22,
+      "count": 23,
       "sampleTerms": [
         "Alexandr Wang",
         "Cloudflare",
@@ -8887,7 +9348,7 @@
       "title": "Economics and operations of AI",
       "description": "Cost, labour, incentives, and the very unmagical business of running AI systems.",
       "slug": "economics-and-operations-of-ai",
-      "count": 48,
+      "count": 52,
       "sampleTerms": [
         "Agent Washing",
         "AGI",
@@ -9019,8 +9480,14 @@
     "sovereign-ai",
     "speculative-decoding",
     "sundar-pichai",
-    "test-time-compute"
+    "test-time-compute",
+    "lovable",
+    "one-person-unicorn",
+    "prompt-caching",
+    "reasoning-effort",
+    "slopsquatting",
+    "windsurf"
   ],
   "featuredSlug": "microsoft-copilot",
-  "latestPublishedAt": "2026-04-08"
+  "latestPublishedAt": "2026-04-09"
 }

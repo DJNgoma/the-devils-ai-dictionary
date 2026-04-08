@@ -1,0 +1,58 @@
+---
+title: "Slopsquatting"
+slug: "slopsquatting"
+letter: "S"
+categories:
+  - "Safety and evaluation"
+  - "Agents and workflows"
+  - "Cultural terms"
+aliases:
+  - "hallucinated dependency attack"
+  - "AI package squatting"
+  - "package hallucination exploit"
+devilDefinition: |
+  Registering malware under the package name the model just invented, then waiting for a hurried developer to install it with full synthetic confidence.
+plainDefinition: |
+  Slopsquatting is the practice of publishing malicious packages under names that AI coding tools hallucinate, so developers who trust the suggestion can accidentally install them.
+whyExists: |
+  It exists because code models generate plausible nonsense, package registries reward being first with a name, and some teams now review dependency suggestions with less suspicion than a spam folder.
+misuse: |
+  The term can get stretched to mean any bad dependency advice from an AI tool. The more precise problem is the attacker exploiting hallucinated package names by occupying them before a human notices the package never legitimately existed.
+practicalMeaning: |
+  In practice it means verifying packages before installation, preferring known libraries over plausible ones, locking dependencies properly, and treating AI-suggested imports as a security surface rather than a convenience feature.
+example: |
+  "The prototype moved fast until someone realised the package only existed because the model had dreamt it and an attacker had been paying attention."
+askNext:
+  - "Was this dependency verified against a real project, maintainer, and source repository?"
+  - "Are developers allowed to install AI-suggested packages without review?"
+  - "What controls catch a convincing package name that should never have existed?"
+related:
+  - "prompt-injection"
+  - "rubber-stamp-review"
+  - "cursor"
+  - "tool-use"
+seeAlso:
+  - "Typosquatting"
+  - "Dependency confusion"
+  - "Supply-chain security"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-09"
+updatedAt: "2026-04-09"
+warningLabel: "Funny name, ordinary breach path."
+tags:
+  - "security"
+  - "dependencies"
+  - "packages"
+  - "hallucinations"
+misunderstoodScore: 5
+translations:
+  - label: "security meaning"
+    text: "An attacker monetising the gap between a model's plausible fiction and a developer's missing verification step."
+  - label: "what it usually means in reality"
+    text: "Malicious packages published to catch AI-generated dependency hallucinations before a human notices."
+---
+
+It is a tidy example of the modern software stack: one system invents the dependency, another system publishes the trap, and the human appears mainly to confirm the transaction.
