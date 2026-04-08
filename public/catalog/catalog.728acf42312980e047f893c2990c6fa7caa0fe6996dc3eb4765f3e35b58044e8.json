@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "catalogVersion": "cd954d515a4060d38d9c72a8828479676ad537d4aca2e60d306fe16e642d507c",
-  "generatedAt": "2026-04-08T09:41:16.792Z",
-  "entryCount": 118,
+  "catalogVersion": "728acf42312980e047f893c2990c6fa7caa0fe6996dc3eb4765f3e35b58044e8",
+  "generatedAt": "2026-04-08T09:55:02.912Z",
+  "entryCount": 122,
   "entries": [
     {
       "title": "Agent",
@@ -695,6 +695,80 @@
       ]
     },
     {
+      "title": "Andrej Karpathy",
+      "slug": "andrej-karpathy",
+      "letter": "A",
+      "categories": [
+        "Product and vendor terms",
+        "Model building",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "Karpathy",
+        "Eureka Labs founder",
+        "Software 2.0"
+      ],
+      "devilDefinition": "The explainer who makes advanced AI feel understandable enough that half the audience learns something and the other half acquires dangerous self-confidence.\n",
+      "plainDefinition": "Andrej Karpathy is an AI researcher, educator, and founder of Eureka Labs, previously a founding member of OpenAI and Director of AI at Tesla. In AI culture, his name often signals unusually clear explanations of how modern model systems are trained, steered, and productised.\n",
+      "whyExists": "Because the field produces a great deal of mystique and not enough lucid interpretation. Karpathy became a reference point for people who want the underlying mechanics explained plainly enough to build with, argue about, or misuse in a keynote.\n",
+      "misuse": "By quoting his clarity as if it removed the field's uncertainty. Good explanations do not eliminate trade-offs, and a memorable framing of how models work is not a permission slip to skip evaluation, grounding, or operational caution.\n",
+      "practicalMeaning": "In practice, invoking Karpathy usually means the conversation wants to become more builder-oriented and less ceremonial: more about data, training, prompting, software ergonomics, and what these systems are actually doing under the bonnet.\n",
+      "example": "\"Once the team circulated the Karpathy talk, the mood became refreshingly less mystical and slightly more reckless, because now everyone felt they understood enough to ship.\"\n",
+      "askNext": [
+        "Is he being cited for pedagogy, architecture, or product philosophy?",
+        "Which part of the explanation applies here, and which part is just elegant framing?",
+        "Are we using clarity to improve judgement, or to justify moving faster than evidence warrants?"
+      ],
+      "related": [
+        "training",
+        "llm",
+        "openai",
+        "synthetic-data"
+      ],
+      "seeAlso": [
+        "Software 2.0",
+        "CS231n",
+        "Eureka Labs"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-08",
+      "updatedAt": "2026-04-08",
+      "tags": [
+        "research",
+        "education",
+        "software-2.0",
+        "llms"
+      ],
+      "misunderstoodScore": 3,
+      "translations": [
+        {
+          "label": "engineer meaning",
+          "text": "A cue that the conversation would like to be more legible, practical, and slightly less theatrical."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A person-shaped reference for clear AI pedagogy and builder-centric explanations of model systems."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "Karpathy's real contribution to discourse is not merely that he explains well. It is that he makes inflated language about AI harder to hide behind.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "model-building",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/andrej-karpathy",
+      "searchText": "Andrej Karpathy Karpathy Eureka Labs founder Software 2.0 Product and vendor terms Model building Cultural terms research education software-2.0 llms The explainer who makes advanced AI feel understandable enough that half the audience learns something and the other half acquires dangerous self-confidence.\n Andrej Karpathy is an AI researcher, educator, and founder of Eureka Labs, previously a founding member of OpenAI and Director of AI at Tesla. In AI culture, his name often signals unusually clear explanations of how modern model systems are trained, steered, and productised.\n Because the field produces a great deal of mystique and not enough lucid interpretation. Karpathy became a reference point for people who want the underlying mechanics explained plainly enough to build with, argue about, or misuse in a keynote.\n By quoting his clarity as if it removed the field's uncertainty. Good explanations do not eliminate trade-offs, and a memorable framing of how models work is not a permission slip to skip evaluation, grounding, or operational caution.\n In practice, invoking Karpathy usually means the conversation wants to become more builder-oriented and less ceremonial: more about data, training, prompting, software ergonomics, and what these systems are actually doing under the bonnet.\n \"Once the team circulated the Karpathy talk, the mood became refreshingly less mystical and slightly more reckless, because now everyone felt they understood enough to ship.\"\n Is he being cited for pedagogy, architecture, or product philosophy? Which part of the explanation applies here, and which part is just elegant framing? Are we using clarity to improve judgement, or to justify moving faster than evidence warrants? Software 2.0 CS231n Eureka Labs",
+      "relatedSlugs": [
+        "training",
+        "llm",
+        "openai"
+      ]
+    },
+    {
       "title": "Anthropic",
       "slug": "anthropic",
       "letter": "A",
@@ -903,6 +977,82 @@
         "evals",
         "guardrails",
         "pilot-purgatory"
+      ]
+    },
+    {
+      "title": "bolt.new",
+      "slug": "bolt-new",
+      "letter": "B",
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "Bolt",
+        "StackBlitz Bolt",
+        "AI app builder"
+      ],
+      "devilDefinition": "The browser-based promise that you are one prompt away from a startup and one afternoon away from discovering what maintenance feels like.\n",
+      "plainDefinition": "bolt.new is StackBlitz's chat-driven product for generating and iterating on web apps, prototypes, and full-stack projects inside a browser-based development environment.\n",
+      "whyExists": "Because many people want software outcomes without local setup, framework archaeology, or the social burden of admitting they mainly need a decent prototype by Thursday. Products like bolt.new exist to collapse ideation, scaffolding, editing, and preview into one persuasive loop.\n",
+      "misuse": "By implying that producing a working demo is the same as producing an enduring software system. The jump from promptable prototype to maintainable product remains as real as ever; the product just postpones the moment you notice.\n",
+      "practicalMeaning": "In practice, bolt.new usually means faster mock-ups, internal tools, landing pages, and MVP experiments, plus a renewed temptation to confuse visible progress with engineering certainty.\n",
+      "example": "\"They used bolt.new to launch the prototype in a weekend, then spent the following week learning that a demo and a codebase are not quite the same species.\"\n",
+      "askNext": [
+        "Is this being used for prototyping, internal tooling, or something expected to survive production traffic?",
+        "Who owns the code once the initial chat session has done its party trick?",
+        "Did the tool reduce real product effort, or just move the hard part to later?"
+      ],
+      "related": [
+        "cursor",
+        "vibe-engineer",
+        "agentic-ai",
+        "rubber-stamp-review"
+      ],
+      "seeAlso": [
+        "Prototype builder",
+        "Vibe coding",
+        "Full-stack scaffolding"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "high",
+      "isVendorTerm": true,
+      "publishedAt": "2026-04-08",
+      "updatedAt": "2026-04-08",
+      "vendorReferences": [
+        "Bolt",
+        "Bolt Cloud"
+      ],
+      "tags": [
+        "developer tools",
+        "prototyping",
+        "vibe coding"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "founder meaning",
+          "text": "A quicker route from idea to launch page, preferably before prudence gets a vote."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A browser-native AI builder that can accelerate prototypes while leaving the long-term engineering bill intact."
+        }
+      ],
+      "body": "The product is most convincing when the task is genuinely small. It becomes theology when people start treating speed of first output as proof of product maturity.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "agents-and-workflows",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/bolt-new",
+      "searchText": "bolt.new Bolt StackBlitz Bolt AI app builder Product and vendor terms Agents and workflows Cultural terms developer tools prototyping vibe coding The browser-based promise that you are one prompt away from a startup and one afternoon away from discovering what maintenance feels like.\n bolt.new is StackBlitz's chat-driven product for generating and iterating on web apps, prototypes, and full-stack projects inside a browser-based development environment.\n Because many people want software outcomes without local setup, framework archaeology, or the social burden of admitting they mainly need a decent prototype by Thursday. Products like bolt.new exist to collapse ideation, scaffolding, editing, and preview into one persuasive loop.\n By implying that producing a working demo is the same as producing an enduring software system. The jump from promptable prototype to maintainable product remains as real as ever; the product just postpones the moment you notice.\n In practice, bolt.new usually means faster mock-ups, internal tools, landing pages, and MVP experiments, plus a renewed temptation to confuse visible progress with engineering certainty.\n \"They used bolt.new to launch the prototype in a weekend, then spent the following week learning that a demo and a codebase are not quite the same species.\"\n Is this being used for prototyping, internal tooling, or something expected to survive production traffic? Who owns the code once the initial chat session has done its party trick? Did the tool reduce real product effort, or just move the hard part to later? Prototype builder Vibe coding Full-stack scaffolding  Bolt Bolt Cloud",
+      "relatedSlugs": [
+        "cursor",
+        "vibe-engineer",
+        "agentic-ai"
       ]
     },
     {
@@ -5322,6 +5472,81 @@
       ]
     },
     {
+      "title": "Pieter Levels",
+      "slug": "pieter-levels",
+      "letter": "P",
+      "categories": [
+        "Product and vendor terms",
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "@levelsio",
+        "Peter Levels",
+        "Levels"
+      ],
+      "devilDefinition": "The indie-hacker folk hero who makes ordinary organisations look less underpowered than overexcused.\n",
+      "plainDefinition": "Pieter Levels is an indie maker known for products such as Nomad List and Remote OK and, in contemporary AI culture, for representing the argument that one person with distribution, taste, and AI tooling can build more than many small teams would care to admit.\n",
+      "whyExists": "Because some names stop referring only to a person and start referring to a method. Invoking Levels usually means shipping in public, bootstrapping, keeping teams tiny, and treating software as something to release before the deck is finished apologising.\n",
+      "misuse": "By turning an unusual operator with an audience into a universal organisational theory. His style is instructive, but it does not erase survivorship bias, domain complexity, support work, or the awkward truth that most founders are not Pieter Levels with a timeline full of customers.\n",
+      "practicalMeaning": "In practice, invoking Levels usually means solo-founder leverage, fast iteration, blunt market testing, and a belief that AI tools amplify people who already know how to ship, write, and sell.\n",
+      "example": "\"The moment someone invoked @levelsio, the roadmap became less a plan than an accusation that the company might simply have too many meetings.\"\n",
+      "askNext": [
+        "Are they borrowing his execution style, or just his mythology?",
+        "Is the lesson about distribution, speed, team size, or public accountability?",
+        "Would this approach still hold once the product had enterprise customers, compliance, or a support queue?"
+      ],
+      "related": [
+        "bolt-new",
+        "vibe-engineer",
+        "ai-wrapper",
+        "slop"
+      ],
+      "seeAlso": [
+        "Indie hacker",
+        "Build in public",
+        "Solo founder"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-08",
+      "updatedAt": "2026-04-08",
+      "tags": [
+        "indie hackers",
+        "bootstrapping",
+        "solo founders",
+        "distribution"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "founder meaning",
+          "text": "An uncomfortable reminder that speed, taste, and an audience can outcompete a small committee."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A person-shaped symbol for solo-builder leverage in the age of AI-assisted product work."
+        }
+      ],
+      "note": "His own site uses the name Pieter Levels, even though people online often flatten it to Peter Levels. The distinction is minor; the mythology is not.\n",
+      "vendorReferences": [],
+      "body": "The useful lesson is not that every company should be one person. It is that many companies became inefficient long before AI gave anyone a sharper mirror.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "cultural-terms",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/pieter-levels",
+      "searchText": "Pieter Levels @levelsio Peter Levels Levels Product and vendor terms Cultural terms Economics and operations of AI indie hackers bootstrapping solo founders distribution The indie-hacker folk hero who makes ordinary organisations look less underpowered than overexcused.\n Pieter Levels is an indie maker known for products such as Nomad List and Remote OK and, in contemporary AI culture, for representing the argument that one person with distribution, taste, and AI tooling can build more than many small teams would care to admit.\n Because some names stop referring only to a person and start referring to a method. Invoking Levels usually means shipping in public, bootstrapping, keeping teams tiny, and treating software as something to release before the deck is finished apologising.\n By turning an unusual operator with an audience into a universal organisational theory. His style is instructive, but it does not erase survivorship bias, domain complexity, support work, or the awkward truth that most founders are not Pieter Levels with a timeline full of customers.\n In practice, invoking Levels usually means solo-founder leverage, fast iteration, blunt market testing, and a belief that AI tools amplify people who already know how to ship, write, and sell.\n \"The moment someone invoked @levelsio, the roadmap became less a plan than an accusation that the company might simply have too many meetings.\"\n Are they borrowing his execution style, or just his mythology? Is the lesson about distribution, speed, team size, or public accountability? Would this approach still hold once the product had enterprise customers, compliance, or a support queue? Indie hacker Build in public Solo founder His own site uses the name Pieter Levels, even though people online often flatten it to Peter Levels. The distinction is minor; the mythology is not.",
+      "relatedSlugs": [
+        "bolt-new",
+        "vibe-engineer",
+        "ai-wrapper"
+      ]
+    },
+    {
       "title": "Pilot Purgatory",
       "slug": "pilot-purgatory",
       "letter": "P",
@@ -6871,6 +7096,81 @@
       ]
     },
     {
+      "title": "Sundar Pichai",
+      "slug": "sundar-pichai",
+      "letter": "S",
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "Google CEO",
+        "Alphabet CEO",
+        "Sundar"
+      ],
+      "devilDefinition": "The executive voice of AI incumbency: calm enough to sound inevitable, careful enough to make strategic delay resemble wisdom.\n",
+      "plainDefinition": "Sundar Pichai is the CEO of Google and Alphabet. In AI conversations, his name often stands for Google's attempt to convert enormous distribution, infrastructure, and research depth into an orderly response to the generative-AI era.\n",
+      "whyExists": "Because some public figures become shorthand for institutional posture. Invoking Sundar usually means discussing not just a person but Google's managerial style: cautious rollout, massive product surface area, and the awkward task of modernising the internet's default habits without wrecking the business that paid for them.\n",
+      "misuse": "By treating him as either proof that Google has already won AI because it has reach, or proof that it has already lost because it once looked slow. Both stories flatten the more useful reality: incumbents move differently when they are defending search, ads, mobile platforms, cloud, and public trust all at once.\n",
+      "practicalMeaning": "In practice, invoking Sundar usually means Google's AI strategy under executive discipline: Gemini folded through consumer and enterprise products, AI Overviews inserted into search, and a company trying to make aggressive technical change look like prudent continuity.\n",
+      "example": "\"The debate stopped being about model quality the moment someone said Sundar, and the room quietly shifted to distribution, regulation, and who gets to rewrite search without admitting it.\"\n",
+      "askNext": [
+        "Do they mean Google's technical capability, its product rollouts, or Pichai's management style?",
+        "Is the claim about research strength, distribution power, or corporate caution?",
+        "Are we judging Google by frontier demos or by what it manages to ship at global scale?"
+      ],
+      "related": [
+        "google-deepmind",
+        "gemini",
+        "ai-overviews",
+        "demis-hassabis"
+      ],
+      "seeAlso": [
+        "Google",
+        "Alphabet",
+        "Search",
+        "Gemini"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-08",
+      "updatedAt": "2026-04-08",
+      "tags": [
+        "leadership",
+        "google",
+        "distribution",
+        "search"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "boardroom meaning",
+          "text": "The AI transition as handled by a company with too much reach to behave like a startup."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A person-shaped proxy for Google's AI strategy, risk tolerance, and product discipline."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "When a firm already sits inside search, mobile, cloud, and office software, its AI posture is never just technical. It is managerial choreography with global defaults attached.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "economics-and-operations-of-ai",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/sundar-pichai",
+      "searchText": "Sundar Pichai Google CEO Alphabet CEO Sundar Product and vendor terms Economics and operations of AI Cultural terms leadership google distribution search The executive voice of AI incumbency: calm enough to sound inevitable, careful enough to make strategic delay resemble wisdom.\n Sundar Pichai is the CEO of Google and Alphabet. In AI conversations, his name often stands for Google's attempt to convert enormous distribution, infrastructure, and research depth into an orderly response to the generative-AI era.\n Because some public figures become shorthand for institutional posture. Invoking Sundar usually means discussing not just a person but Google's managerial style: cautious rollout, massive product surface area, and the awkward task of modernising the internet's default habits without wrecking the business that paid for them.\n By treating him as either proof that Google has already won AI because it has reach, or proof that it has already lost because it once looked slow. Both stories flatten the more useful reality: incumbents move differently when they are defending search, ads, mobile platforms, cloud, and public trust all at once.\n In practice, invoking Sundar usually means Google's AI strategy under executive discipline: Gemini folded through consumer and enterprise products, AI Overviews inserted into search, and a company trying to make aggressive technical change look like prudent continuity.\n \"The debate stopped being about model quality the moment someone said Sundar, and the room quietly shifted to distribution, regulation, and who gets to rewrite search without admitting it.\"\n Do they mean Google's technical capability, its product rollouts, or Pichai's management style? Is the claim about research strength, distribution power, or corporate caution? Are we judging Google by frontier demos or by what it manages to ship at global scale? Google Alphabet Search Gemini",
+      "relatedSlugs": [
+        "google-deepmind",
+        "gemini",
+        "ai-overviews"
+      ]
+    },
+    {
       "title": "Super-Apps",
       "slug": "super-apps",
       "letter": "S",
@@ -8340,10 +8640,10 @@
     }
   ],
   "recentSlugs": [
+    "andrej-karpathy",
+    "bolt-new",
     "computer-use",
-    "context-engineering",
-    "distillation",
-    "open-weight"
+    "context-engineering"
   ],
   "misunderstoodSlugs": [
     "agent",
@@ -8354,12 +8654,12 @@
   "letterStats": [
     {
       "letter": "A",
-      "count": 12,
+      "count": 13,
       "href": "/dictionary?letter=A"
     },
     {
       "letter": "B",
-      "count": 2,
+      "count": 3,
       "href": "/dictionary?letter=B"
     },
     {
@@ -8429,7 +8729,7 @@
     },
     {
       "letter": "P",
-      "count": 5,
+      "count": 6,
       "href": "/dictionary?letter=P"
     },
     {
@@ -8444,7 +8744,7 @@
     },
     {
       "letter": "S",
-      "count": 14,
+      "count": 15,
       "href": "/dictionary?letter=S"
     },
     {
@@ -8499,7 +8799,7 @@
       "title": "Cultural terms",
       "description": "The social weirdness around AI: belief, taste, cringe, status games, and the internet behaving as it usually does when handed a new machine.",
       "slug": "cultural-terms",
-      "count": 40,
+      "count": 44,
       "sampleTerms": [
         "Agent Washing",
         "AGI",
@@ -8510,11 +8810,11 @@
       "title": "Model building",
       "description": "How models are trained, tuned, evaluated, and occasionally overpraised.",
       "slug": "model-building",
-      "count": 22,
+      "count": 23,
       "sampleTerms": [
+        "Andrej Karpathy",
         "Arthur Mensch",
-        "Demis Hassabis",
-        "Distillation"
+        "Demis Hassabis"
       ]
     },
     {
@@ -8532,11 +8832,11 @@
       "title": "Agents and workflows",
       "description": "Automation patterns, orchestration, and the difference between useful autonomy and stagecraft.",
       "slug": "agents-and-workflows",
-      "count": 29,
+      "count": 30,
       "sampleTerms": [
         "Agent",
         "Agentic AI",
-        "Codex"
+        "bolt.new"
       ]
     },
     {
@@ -8554,7 +8854,7 @@
       "title": "Product and vendor terms",
       "description": "Company names, product labels, and the branding haze around them.",
       "slug": "product-and-vendor-terms",
-      "count": 48,
+      "count": 52,
       "sampleTerms": [
         "Agent Washing",
         "AI Companion",
@@ -8587,7 +8887,7 @@
       "title": "Economics and operations of AI",
       "description": "Cost, labour, incentives, and the very unmagical business of running AI systems.",
       "slug": "economics-and-operations-of-ai",
-      "count": 46,
+      "count": 48,
       "sampleTerms": [
         "Agent Washing",
         "AGI",
@@ -8708,13 +9008,17 @@
     "context-stuffing",
     "inference-provider",
     "npu",
+    "andrej-karpathy",
+    "bolt-new",
     "computer-use",
     "context-engineering",
     "distillation",
     "open-weight",
+    "pieter-levels",
     "small-language-model",
     "sovereign-ai",
     "speculative-decoding",
+    "sundar-pichai",
     "test-time-compute"
   ],
   "featuredSlug": "microsoft-copilot",
