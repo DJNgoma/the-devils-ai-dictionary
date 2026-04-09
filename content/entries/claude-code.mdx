@@ -1,0 +1,63 @@
+---
+title: "Claude Code"
+slug: "claude-code"
+letter: "C"
+categories:
+  - "Product and vendor terms"
+  - "Agents and workflows"
+  - "Model usage"
+aliases:
+  - "Anthropic Claude Code"
+  - "Claude coding agent"
+  - "Claude CLI"
+devilDefinition: |
+  A terminal agent for developers who would like to automate the typing without surrendering the blame.
+plainDefinition: |
+  Claude Code is Anthropic's terminal-oriented coding agent, designed to inspect repositories, edit files, run commands, and assist with multi-step software tasks from the command line.
+whyExists: |
+  It exists because coding work is not just completion inside an editor. It is shell commands, repo spelunking, test runs, patching, retries, and the general administrative burden of turning intent into a working diff.
+misuse: |
+  It is oversold as if a terminal agent has somehow escaped the need for software judgement. Faster patch generation is real. So are bad assumptions, missing context, flaky tests, and the delightful persistence of undefined behaviour.
+practicalMeaning: |
+  In practice it means quicker navigation of unfamiliar codebases, cheaper first drafts of refactors, and more pressure on humans to review command effects instead of admiring how confidently the machine found `package.json`.
+example: |
+  "Claude Code saved an hour of grep and patching, then presented the team with the ancient obligation to read the diff."
+askNext:
+  - "What can it read, edit, and execute in this environment?"
+  - "Did it reduce real engineering effort or just accelerate the production of plausible changes?"
+  - "Who owns verification once the agent has finished being certain?"
+related:
+  - "codex"
+  - "cursor"
+  - "tool-use"
+  - "rubber-stamp-review"
+seeAlso:
+  - "Terminal agent"
+  - "CLI workflow"
+  - "Code review"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: true
+publishedAt: "2026-04-09"
+updatedAt: "2026-04-09"
+vendorReferences:
+  - "Anthropic"
+  - "Claude Code"
+  - "Terminal coding agent"
+tags:
+  - "coding"
+  - "terminal"
+  - "developer tools"
+  - "automation"
+misunderstoodScore: 4
+translations:
+  - label: "developer meaning"
+    text: "A useful repo operator that shortens the boring parts while raising the value of disciplined review."
+  - label: "what it usually means in reality"
+    text: "An agentic shell workflow that helps with real software tasks, provided the human stays in charge of correctness."
+note: |
+  The key distinction is not whether it can edit code. Many tools can. The distinction is that it lives comfortably in the command line where engineering work tends to become consequential.
+---
+
+The terminal has always been powerful. The novelty is that it can now misunderstand your codebase in full colour.

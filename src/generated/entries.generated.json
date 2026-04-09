@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "catalogVersion": "15c832e06f69011adcda91b400cef4cd102b18189039cc171ea75e2d914dadb1",
-  "generatedAt": "2026-04-08T23:19:37.002Z",
-  "entryCount": 128,
+  "catalogVersion": "6f72ed91f4468a333261ff90e85519e5f3444744d161d86574d56820458fe428",
+  "generatedAt": "2026-04-09T05:53:11.464Z",
+  "entryCount": 135,
   "entries": [
     {
       "title": "Agent",
@@ -475,6 +475,79 @@
         "hallucination",
         "agentic-ai",
         "frontier-model"
+      ]
+    },
+    {
+      "title": "AI Roll-Up",
+      "slug": "ai-roll-up",
+      "letter": "A",
+      "categories": [
+        "Economics and operations of AI",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "AI-enabled roll-up",
+        "AI private equity thesis",
+        "AI service consolidation"
+      ],
+      "devilDefinition": "The theory that buying a normal business becomes innovation once the margin plan learns to say \"agentic\".\n",
+      "plainDefinition": "An AI roll-up is a strategy in which operators or investors acquire existing businesses and try to improve profitability or scale by standardising processes, adding software, and using AI to automate parts of service delivery or operations.\n",
+      "whyExists": "It exists because many industries remain fragmented, process-heavy, and badly digitised. That creates a tempting thesis: buy the businesses, modernise the workflows, and collect the efficiency gains before anyone else learns to describe them as inevitable.\n",
+      "misuse": "The term is misused when people speak as if labour were just software waiting for courage. Acquired businesses are full of local habits, tacit knowledge, regulation, customer trust, and operational ugliness that does not vanish because a deck says automation.\n",
+      "practicalMeaning": "In practice it usually means some real workflow improvement, some software unification, some headcount pressure, and a great many founders discovering that regional service businesses have more edge cases than a prompt can politely absorb.\n",
+      "example": "\"The AI roll-up thesis was elegant until the portfolio companies introduced themselves as actual businesses instead of a margin abstraction.\"\n",
+      "askNext": [
+        "Which tasks are genuinely automatable across the acquired businesses, and which are being romanticised?",
+        "Does the value come from AI, operational discipline, or ordinary consolidation dressed for the moment?",
+        "What happens to service quality, trust, and compliance when the efficiency plan meets local reality?"
+      ],
+      "related": [
+        "digital-worker",
+        "one-person-unicorn",
+        "agentic-ai",
+        "pilot-purgatory"
+      ],
+      "seeAlso": [
+        "Operational leverage",
+        "Private equity software thesis",
+        "Services consolidation"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-09",
+      "updatedAt": "2026-04-09",
+      "tags": [
+        "startups",
+        "private equity",
+        "operations",
+        "labour"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "investor meaning",
+          "text": "A chance to buy boring cash flows and reprice them with software-era margins."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A consolidation strategy that may use AI effectively, but still lives or dies on operational execution rather than slogan density."
+        }
+      ],
+      "note": "The AI is rarely the whole thesis. It is the fashionable part of a much older consolidation playbook.\n",
+      "vendorReferences": [],
+      "body": "The interesting question is not whether AI can improve these businesses. It is whether the improvement survives contact with the businesses themselves.",
+      "categorySlugs": [
+        "economics-and-operations-of-ai",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/ai-roll-up",
+      "searchText": "AI Roll-Up AI-enabled roll-up AI private equity thesis AI service consolidation Economics and operations of AI Cultural terms startups private equity operations labour The theory that buying a normal business becomes innovation once the margin plan learns to say \"agentic\".\n An AI roll-up is a strategy in which operators or investors acquire existing businesses and try to improve profitability or scale by standardising processes, adding software, and using AI to automate parts of service delivery or operations.\n It exists because many industries remain fragmented, process-heavy, and badly digitised. That creates a tempting thesis: buy the businesses, modernise the workflows, and collect the efficiency gains before anyone else learns to describe them as inevitable.\n The term is misused when people speak as if labour were just software waiting for courage. Acquired businesses are full of local habits, tacit knowledge, regulation, customer trust, and operational ugliness that does not vanish because a deck says automation.\n In practice it usually means some real workflow improvement, some software unification, some headcount pressure, and a great many founders discovering that regional service businesses have more edge cases than a prompt can politely absorb.\n \"The AI roll-up thesis was elegant until the portfolio companies introduced themselves as actual businesses instead of a margin abstraction.\"\n Which tasks are genuinely automatable across the acquired businesses, and which are being romanticised? Does the value come from AI, operational discipline, or ordinary consolidation dressed for the moment? What happens to service quality, trust, and compliance when the efficiency plan meets local reality? Operational leverage Private equity software thesis Services consolidation The AI is rarely the whole thesis. It is the fashionable part of a much older consolidation playbook.",
+      "relatedSlugs": [
+        "digital-worker",
+        "one-person-unicorn",
+        "agentic-ai"
       ]
     },
     {
@@ -1335,6 +1408,85 @@
       ]
     },
     {
+      "title": "Claude Code",
+      "slug": "claude-code",
+      "letter": "C",
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "aliases": [
+        "Anthropic Claude Code",
+        "Claude coding agent",
+        "Claude CLI"
+      ],
+      "devilDefinition": "A terminal agent for developers who would like to automate the typing without surrendering the blame.\n",
+      "plainDefinition": "Claude Code is Anthropic's terminal-oriented coding agent, designed to inspect repositories, edit files, run commands, and assist with multi-step software tasks from the command line.\n",
+      "whyExists": "It exists because coding work is not just completion inside an editor. It is shell commands, repo spelunking, test runs, patching, retries, and the general administrative burden of turning intent into a working diff.\n",
+      "misuse": "It is oversold as if a terminal agent has somehow escaped the need for software judgement. Faster patch generation is real. So are bad assumptions, missing context, flaky tests, and the delightful persistence of undefined behaviour.\n",
+      "practicalMeaning": "In practice it means quicker navigation of unfamiliar codebases, cheaper first drafts of refactors, and more pressure on humans to review command effects instead of admiring how confidently the machine found `package.json`.\n",
+      "example": "\"Claude Code saved an hour of grep and patching, then presented the team with the ancient obligation to read the diff.\"\n",
+      "askNext": [
+        "What can it read, edit, and execute in this environment?",
+        "Did it reduce real engineering effort or just accelerate the production of plausible changes?",
+        "Who owns verification once the agent has finished being certain?"
+      ],
+      "related": [
+        "codex",
+        "cursor",
+        "tool-use",
+        "rubber-stamp-review"
+      ],
+      "seeAlso": [
+        "Terminal agent",
+        "CLI workflow",
+        "Code review"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": true,
+      "publishedAt": "2026-04-09",
+      "updatedAt": "2026-04-09",
+      "vendorReferences": [
+        "Anthropic",
+        "Claude Code",
+        "Terminal coding agent"
+      ],
+      "tags": [
+        "coding",
+        "terminal",
+        "developer tools",
+        "automation"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "developer meaning",
+          "text": "A useful repo operator that shortens the boring parts while raising the value of disciplined review."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "An agentic shell workflow that helps with real software tasks, provided the human stays in charge of correctness."
+        }
+      ],
+      "note": "The key distinction is not whether it can edit code. Many tools can. The distinction is that it lives comfortably in the command line where engineering work tends to become consequential.\n",
+      "body": "The terminal has always been powerful. The novelty is that it can now misunderstand your codebase in full colour.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "agents-and-workflows",
+        "model-usage"
+      ],
+      "url": "/dictionary/claude-code",
+      "searchText": "Claude Code Anthropic Claude Code Claude coding agent Claude CLI Product and vendor terms Agents and workflows Model usage coding terminal developer tools automation A terminal agent for developers who would like to automate the typing without surrendering the blame.\n Claude Code is Anthropic's terminal-oriented coding agent, designed to inspect repositories, edit files, run commands, and assist with multi-step software tasks from the command line.\n It exists because coding work is not just completion inside an editor. It is shell commands, repo spelunking, test runs, patching, retries, and the general administrative burden of turning intent into a working diff.\n It is oversold as if a terminal agent has somehow escaped the need for software judgement. Faster patch generation is real. So are bad assumptions, missing context, flaky tests, and the delightful persistence of undefined behaviour.\n In practice it means quicker navigation of unfamiliar codebases, cheaper first drafts of refactors, and more pressure on humans to review command effects instead of admiring how confidently the machine found `package.json`.\n \"Claude Code saved an hour of grep and patching, then presented the team with the ancient obligation to read the diff.\"\n What can it read, edit, and execute in this environment? Did it reduce real engineering effort or just accelerate the production of plausible changes? Who owns verification once the agent has finished being certain? Terminal agent CLI workflow Code review The key distinction is not whether it can edit code. Many tools can. The distinction is that it lives comfortably in the command line where engineering work tends to become consequential.\n Anthropic Claude Code Terminal coding agent",
+      "relatedSlugs": [
+        "codex",
+        "cursor",
+        "tool-use"
+      ]
+    },
+    {
       "title": "Cloudflare",
       "slug": "cloudflare",
       "letter": "C",
@@ -2005,6 +2157,86 @@
         "perplexity",
         "rag",
         "output-laundering"
+      ]
+    },
+    {
+      "title": "DeepSeek",
+      "slug": "deepseek",
+      "letter": "D",
+      "categories": [
+        "Product and vendor terms",
+        "Model building",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "DeepSeek-R1",
+        "DeepSeek-V3",
+        "DeepSeek models"
+      ],
+      "devilDefinition": "The lab that reminded the market an expensive frontier strategy is still a strategy, not a law of nature.\n",
+      "plainDefinition": "DeepSeek is a Chinese AI lab and model family associated with high-performing open-weight and reasoning-oriented releases that have influenced pricing, benchmarking, and model strategy across the industry.\n",
+      "whyExists": "It matters because the field needed a serious reminder that capability can emerge outside the usual American shortlist, and that open releases plus aggressive price-performance claims can reset expectations very quickly.\n",
+      "misuse": "It gets used as proof of whatever the speaker already wanted to believe: that frontier spending was absurd, that export controls are irrelevant, or that one viral release settles the economics of the whole sector. It does not.\n",
+      "practicalMeaning": "In practice it means more pressure on incumbents to justify their pricing, more enterprise curiosity about open-weight deployment, and more geopolitical theatre attached to what is still, at base, a model evaluation problem.\n",
+      "example": "\"DeepSeek did not end the frontier race. It merely made several board decks look overpriced overnight.\"\n",
+      "askNext": [
+        "Which DeepSeek model and version are we actually discussing?",
+        "Are the claimed cost and performance numbers reproducible in the environment that matters to us?",
+        "Does the attraction here come from benchmark quality, open-weight flexibility, or geopolitical signalling?"
+      ],
+      "related": [
+        "qwen",
+        "open-weight",
+        "reasoning-model",
+        "frontier-model"
+      ],
+      "seeAlso": [
+        "Model pricing war",
+        "Open-weight competition",
+        "Chinese model ecosystem"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "severe",
+      "isVendorTerm": true,
+      "publishedAt": "2026-04-09",
+      "updatedAt": "2026-04-09",
+      "warningLabel": "Often discussed as a verdict when it is really a market event.",
+      "vendorReferences": [
+        "DeepSeek-V3",
+        "DeepSeek-R1",
+        "Open-weight releases"
+      ],
+      "tags": [
+        "models",
+        "competition",
+        "pricing",
+        "geopolitics"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "investor meaning",
+          "text": "Evidence that the moat may be shallower, cheaper, or at least more internationally inconvenient than expected."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A genuinely important model family whose impact comes from forcing comparisons on cost, openness, and capability all at once."
+        }
+      ],
+      "note": "The name now refers both to a lab and to a category of market anxiety. Those are related, but not identical.\n",
+      "body": "Its real achievement was not merely releasing a strong model. It was making everyone else's certainty look newly rented.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "model-building",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/deepseek",
+      "searchText": "DeepSeek DeepSeek-R1 DeepSeek-V3 DeepSeek models Product and vendor terms Model building Economics and operations of AI models competition pricing geopolitics The lab that reminded the market an expensive frontier strategy is still a strategy, not a law of nature.\n DeepSeek is a Chinese AI lab and model family associated with high-performing open-weight and reasoning-oriented releases that have influenced pricing, benchmarking, and model strategy across the industry.\n It matters because the field needed a serious reminder that capability can emerge outside the usual American shortlist, and that open releases plus aggressive price-performance claims can reset expectations very quickly.\n It gets used as proof of whatever the speaker already wanted to believe: that frontier spending was absurd, that export controls are irrelevant, or that one viral release settles the economics of the whole sector. It does not.\n In practice it means more pressure on incumbents to justify their pricing, more enterprise curiosity about open-weight deployment, and more geopolitical theatre attached to what is still, at base, a model evaluation problem.\n \"DeepSeek did not end the frontier race. It merely made several board decks look overpriced overnight.\"\n Which DeepSeek model and version are we actually discussing? Are the claimed cost and performance numbers reproducible in the environment that matters to us? Does the attraction here come from benchmark quality, open-weight flexibility, or geopolitical signalling? Model pricing war Open-weight competition Chinese model ecosystem The name now refers both to a lab and to a category of market anxiety. Those are related, but not identical.\n DeepSeek-V3 DeepSeek-R1 Open-weight releases",
+      "relatedSlugs": [
+        "qwen",
+        "open-weight",
+        "reasoning-model"
       ]
     },
     {
@@ -4096,6 +4328,86 @@
       ]
     },
     {
+      "title": "Manus",
+      "slug": "manus",
+      "letter": "M",
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "Manus agent",
+        "general AI agent",
+        "Monica Manus"
+      ],
+      "devilDefinition": "An invite-only demonstration that autonomy feels much more plausible when scarcity does some of the marketing.\n",
+      "plainDefinition": "Manus is an agent product associated with multi-step task execution across browsing, research, and software tools, marketed as a system that can carry out longer chains of work than a standard chatbot.\n",
+      "whyExists": "The appeal is obvious: people do not merely want better answers, they want finished tasks. A product that promises to browse, compare, draft, click, and return with the work already done sits directly on that desire.\n",
+      "misuse": "It gets treated as evidence that general-purpose autonomous agents are effectively solved. In reality, a polished demo reel, a waitlist, and a few successful runs do not abolish brittleness, supervision, or task selection.\n",
+      "practicalMeaning": "In practice it means a carefully packaged long-running agent workflow with browser actions, tool calls, and enough narrative polish to make ordinary automation feel like a historical turning point.\n",
+      "example": "\"Manus looked like a digital chief of staff until the workflow left the happy path and became a queue with ambition.\"\n",
+      "askNext": [
+        "What permissions, applications, and environments does it actually control?",
+        "How often does it recover from website changes, edge cases, or ambiguous instructions without human rescue?",
+        "Is the impressive part the autonomy, or the fact that someone selected a task where autonomy photographs well?"
+      ],
+      "related": [
+        "agent",
+        "computer-use",
+        "deep-research",
+        "tool-use"
+      ],
+      "seeAlso": [
+        "General agent",
+        "Browser automation",
+        "Invite-code economy"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "severe",
+      "isVendorTerm": true,
+      "publishedAt": "2026-04-09",
+      "updatedAt": "2026-04-09",
+      "warningLabel": "A product launch and a cultural event, not a proof of solved autonomy.",
+      "vendorReferences": [
+        "Manus",
+        "Agent workflow",
+        "Computer use"
+      ],
+      "tags": [
+        "agents",
+        "automation",
+        "startups",
+        "browser"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "timeline meaning",
+          "text": "The agent moment has arrived and all remaining doubt is administrative."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A credible but constrained automation product whose strongest feature may be how vividly it dramatises the future."
+        }
+      ],
+      "note": "The term often refers as much to the reaction around the product as to the product itself.\n",
+      "body": "Manus matters because it compressed three separate things into one launch: agent capability, agent theatre, and agent envy.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "agents-and-workflows",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/manus",
+      "searchText": "Manus Manus agent general AI agent Monica Manus Product and vendor terms Agents and workflows Cultural terms agents automation startups browser An invite-only demonstration that autonomy feels much more plausible when scarcity does some of the marketing.\n Manus is an agent product associated with multi-step task execution across browsing, research, and software tools, marketed as a system that can carry out longer chains of work than a standard chatbot.\n The appeal is obvious: people do not merely want better answers, they want finished tasks. A product that promises to browse, compare, draft, click, and return with the work already done sits directly on that desire.\n It gets treated as evidence that general-purpose autonomous agents are effectively solved. In reality, a polished demo reel, a waitlist, and a few successful runs do not abolish brittleness, supervision, or task selection.\n In practice it means a carefully packaged long-running agent workflow with browser actions, tool calls, and enough narrative polish to make ordinary automation feel like a historical turning point.\n \"Manus looked like a digital chief of staff until the workflow left the happy path and became a queue with ambition.\"\n What permissions, applications, and environments does it actually control? How often does it recover from website changes, edge cases, or ambiguous instructions without human rescue? Is the impressive part the autonomy, or the fact that someone selected a task where autonomy photographs well? General agent Browser automation Invite-code economy The term often refers as much to the reaction around the product as to the product itself.\n Manus Agent workflow Computer use",
+      "relatedSlugs": [
+        "agent",
+        "computer-use",
+        "deep-research"
+      ]
+    },
+    {
       "title": "MCP",
       "slug": "mcp",
       "letter": "M",
@@ -4892,6 +5204,79 @@
         "agentic-ai",
         "orchestration",
         "chatgpt"
+      ]
+    },
+    {
+      "title": "Neocloud",
+      "slug": "neocloud",
+      "letter": "N",
+      "categories": [
+        "Infrastructure and deployment",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "GPU cloud startup",
+        "AI-native cloud",
+        "GPU landlord"
+      ],
+      "devilDefinition": "A cloud provider whose most disruptive feature is often discovering that scarce Nvidia hardware can be resold with excellent posture.\n",
+      "plainDefinition": "\"Neocloud\" is an informal label for newer cloud providers focused on AI infrastructure, especially GPU capacity for training and inference, rather than broad general-purpose enterprise cloud offerings.\n",
+      "whyExists": "The term exists because demand for accelerators outran easy supply, while many teams wanted alternatives to the hyperscalers on price, access, support, geography, or simple willingness to answer the phone.\n",
+      "misuse": "It is misused whenever specialised capacity is treated as a permanent moat. Owning or brokering GPUs can be valuable. It does not automatically solve networking, reliability, data governance, procurement, or the small inconvenience of debt.\n",
+      "practicalMeaning": "In practice it usually means a provider that can get you machines faster, sometimes cheaper, sometimes with better human support, in exchange for narrower platform breadth and a closer relationship with the physics of hardware finance.\n",
+      "example": "\"The neocloud pitch was compelling right up to the moment finance noticed the business model involved both GPUs and optimism.\"\n",
+      "askNext": [
+        "Are we choosing this provider for price, access, support, location, or all four?",
+        "What happens to reliability, networking, and compliance once we leave the big clouds?",
+        "Is this a real platform advantage or an opportunistic position in a supply shortage?"
+      ],
+      "related": [
+        "nvidia",
+        "inference",
+        "latency",
+        "sovereign-ai"
+      ],
+      "seeAlso": [
+        "GPU cloud",
+        "Hyperscaler alternative",
+        "Compute scarcity"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-09",
+      "updatedAt": "2026-04-09",
+      "tags": [
+        "cloud",
+        "gpu",
+        "infrastructure",
+        "startups"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "operator meaning",
+          "text": "A cloud that may treat AI workloads as its first-class citizen instead of an unusually demanding tenant."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A specialist compute provider offering real advantages in some cases and a very concentrated exposure to hardware economics in others."
+        }
+      ],
+      "note": "The term describes a market position more than a technical architecture. Some neoclouds are serious platforms. Some are very earnest forwarding businesses with GPUs.\n",
+      "vendorReferences": [],
+      "body": "The honest version of the pitch is simple: the big clouds were busy, so a new class of landlord arrived.",
+      "categorySlugs": [
+        "infrastructure-and-deployment",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/neocloud",
+      "searchText": "Neocloud GPU cloud startup AI-native cloud GPU landlord Infrastructure and deployment Economics and operations of AI cloud gpu infrastructure startups A cloud provider whose most disruptive feature is often discovering that scarce Nvidia hardware can be resold with excellent posture.\n \"Neocloud\" is an informal label for newer cloud providers focused on AI infrastructure, especially GPU capacity for training and inference, rather than broad general-purpose enterprise cloud offerings.\n The term exists because demand for accelerators outran easy supply, while many teams wanted alternatives to the hyperscalers on price, access, support, geography, or simple willingness to answer the phone.\n It is misused whenever specialised capacity is treated as a permanent moat. Owning or brokering GPUs can be valuable. It does not automatically solve networking, reliability, data governance, procurement, or the small inconvenience of debt.\n In practice it usually means a provider that can get you machines faster, sometimes cheaper, sometimes with better human support, in exchange for narrower platform breadth and a closer relationship with the physics of hardware finance.\n \"The neocloud pitch was compelling right up to the moment finance noticed the business model involved both GPUs and optimism.\"\n Are we choosing this provider for price, access, support, location, or all four? What happens to reliability, networking, and compliance once we leave the big clouds? Is this a real platform advantage or an opportunistic position in a supply shortage? GPU cloud Hyperscaler alternative Compute scarcity The term describes a market position more than a technical architecture. Some neoclouds are serious platforms. Some are very earnest forwarding businesses with GPUs.",
+      "relatedSlugs": [
+        "nvidia",
+        "inference",
+        "latency"
       ]
     },
     {
@@ -8536,6 +8921,82 @@
       ]
     },
     {
+      "title": "Vibe Coding",
+      "slug": "vibe-coding",
+      "letter": "V",
+      "categories": [
+        "Cultural terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "aliases": [
+        "vibecoding",
+        "AI prototyping by feel",
+        "prompt-first coding"
+      ],
+      "devilDefinition": "Programming by aesthetic momentum: if the demo works and the cursor keeps moving, architecture can file its complaint later.\n",
+      "plainDefinition": "Vibe coding is an informal style of software creation where a person steers AI coding tools with high-level intent, accepting rapid generated changes without necessarily understanding every implementation detail as they go.\n",
+      "whyExists": "It exists because modern coding tools are good enough to turn rough intent into working prototypes quickly, and because many users value momentum, experimentation, and novelty more than immediate mastery of the underlying code.\n",
+      "misuse": "The term gets used as if craftsmanship, debugging, and systems thinking have become optional relics. They have not. Vibe coding is a useful mode for certain stages, not a constitutional replacement for engineering.\n",
+      "practicalMeaning": "In practice it means faster demos, more disposable side projects, more willingness to build without permission, and a very real risk that nobody in the room fully understands the thing that is now somehow in production.\n",
+      "example": "\"The team vibe-coded the prototype in a weekend and spent the following month discovering which parts had also been improvised by destiny.\"\n",
+      "askNext": [
+        "Is this a prototype, an internal tool, or a system someone will eventually have to maintain?",
+        "Who understands the generated code well enough to debug it under pressure?",
+        "What standards stop fast iteration from becoming permanent mystery meat?"
+      ],
+      "related": [
+        "vibe-engineer",
+        "cursor",
+        "codex",
+        "rubber-stamp-review"
+      ],
+      "seeAlso": [
+        "Rapid prototyping",
+        "Prompt-first workflow",
+        "Prototype debt"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "severe",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-09",
+      "updatedAt": "2026-04-09",
+      "warningLabel": "Excellent for momentum. Less excellent as an excuse.",
+      "tags": [
+        "coding",
+        "prototyping",
+        "culture",
+        "developer tools"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "founder meaning",
+          "text": "We can build before we can explain, and perhaps that is enough for now."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A high-speed AI-assisted prototyping style whose debts are often deferred rather than erased."
+        }
+      ],
+      "note": "People use the phrase both ironically and aspirationally, which is usually a sign that the behaviour is real and the ideology unstable.\n",
+      "vendorReferences": [],
+      "body": "Like many useful bad habits, it becomes dangerous precisely because it works often enough to build confidence before it builds understanding.",
+      "categorySlugs": [
+        "cultural-terms",
+        "agents-and-workflows",
+        "model-usage"
+      ],
+      "url": "/dictionary/vibe-coding",
+      "searchText": "Vibe Coding vibecoding AI prototyping by feel prompt-first coding Cultural terms Agents and workflows Model usage coding prototyping culture developer tools Programming by aesthetic momentum: if the demo works and the cursor keeps moving, architecture can file its complaint later.\n Vibe coding is an informal style of software creation where a person steers AI coding tools with high-level intent, accepting rapid generated changes without necessarily understanding every implementation detail as they go.\n It exists because modern coding tools are good enough to turn rough intent into working prototypes quickly, and because many users value momentum, experimentation, and novelty more than immediate mastery of the underlying code.\n The term gets used as if craftsmanship, debugging, and systems thinking have become optional relics. They have not. Vibe coding is a useful mode for certain stages, not a constitutional replacement for engineering.\n In practice it means faster demos, more disposable side projects, more willingness to build without permission, and a very real risk that nobody in the room fully understands the thing that is now somehow in production.\n \"The team vibe-coded the prototype in a weekend and spent the following month discovering which parts had also been improvised by destiny.\"\n Is this a prototype, an internal tool, or a system someone will eventually have to maintain? Who understands the generated code well enough to debug it under pressure? What standards stop fast iteration from becoming permanent mystery meat? Rapid prototyping Prompt-first workflow Prototype debt People use the phrase both ironically and aspirationally, which is usually a sign that the behaviour is real and the ideology unstable.",
+      "relatedSlugs": [
+        "vibe-engineer",
+        "cursor",
+        "codex"
+      ]
+    },
+    {
       "title": "Vibe Engineer",
       "slug": "vibe-engineer",
       "letter": "V",
@@ -8601,6 +9062,82 @@
         "prompt",
         "taste",
         "human-taste"
+      ]
+    },
+    {
+      "title": "Voice Agent",
+      "slug": "voice-agent",
+      "letter": "V",
+      "categories": [
+        "Agents and workflows",
+        "Product and vendor terms",
+        "Economics and operations of AI"
+      ],
+      "aliases": [
+        "AI voice agent",
+        "voice AI agent",
+        "phone agent"
+      ],
+      "devilDefinition": "A synthetic colleague hired to answer the phone with perfect stamina and the occasional inability to notice that a human is furious.\n",
+      "plainDefinition": "A voice agent is an AI system that can conduct spoken conversations, usually by combining speech recognition, language models, and text-to-speech in order to handle calls, bookings, support, or outbound interactions.\n",
+      "whyExists": "It exists because phone-based workflows are expensive, repetitive, unevenly staffed, and still surprisingly central to sales, service, healthcare, logistics, and small business operations.\n",
+      "misuse": "It is oversold as if sounding natural were the same as being operationally competent. A smooth voice can still misunderstand intent, mishandle escalation, or create a synthetic version of the same bad call centre experience.\n",
+      "practicalMeaning": "In practice it usually means handling routine conversations, qualification, scheduling, and after-hours coverage, with humans reserved for edge cases, regulated contexts, and the moments when empathy turns out to require more than latency optimisation.\n",
+      "example": "\"The voice agent could book appointments all evening, though it remained oddly serene when people started describing real problems.\"\n",
+      "askNext": [
+        "What percentage of calls can it complete correctly without handoff?",
+        "How does it detect urgency, compliance risk, or emotional escalation?",
+        "Are we automating a workflow that is well defined, or merely hiding a broken phone process behind a better accent?"
+      ],
+      "related": [
+        "agent",
+        "digital-worker",
+        "latency",
+        "human-in-the-loop"
+      ],
+      "seeAlso": [
+        "Call automation",
+        "Conversational IVR",
+        "Speech stack"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-09",
+      "updatedAt": "2026-04-09",
+      "warningLabel": "Natural speech is not the same thing as sound operational judgement.",
+      "tags": [
+        "voice",
+        "automation",
+        "customer support",
+        "operations"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "founder meaning",
+          "text": "A way to scale conversations without hiring proportionally more people."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A speech-driven automation layer that works best on narrow scripts and deteriorates gracefully only if someone designed it to."
+        }
+      ],
+      "note": "The technical stack matters less than the escalation policy. Voice makes mistakes feel personal very quickly.\n",
+      "vendorReferences": [],
+      "body": "The market loves these systems because labour is expensive. Users judge them by the older standard of whether the conversation was helpful.",
+      "categorySlugs": [
+        "agents-and-workflows",
+        "product-and-vendor-terms",
+        "economics-and-operations-of-ai"
+      ],
+      "url": "/dictionary/voice-agent",
+      "searchText": "Voice Agent AI voice agent voice AI agent phone agent Agents and workflows Product and vendor terms Economics and operations of AI voice automation customer support operations A synthetic colleague hired to answer the phone with perfect stamina and the occasional inability to notice that a human is furious.\n A voice agent is an AI system that can conduct spoken conversations, usually by combining speech recognition, language models, and text-to-speech in order to handle calls, bookings, support, or outbound interactions.\n It exists because phone-based workflows are expensive, repetitive, unevenly staffed, and still surprisingly central to sales, service, healthcare, logistics, and small business operations.\n It is oversold as if sounding natural were the same as being operationally competent. A smooth voice can still misunderstand intent, mishandle escalation, or create a synthetic version of the same bad call centre experience.\n In practice it usually means handling routine conversations, qualification, scheduling, and after-hours coverage, with humans reserved for edge cases, regulated contexts, and the moments when empathy turns out to require more than latency optimisation.\n \"The voice agent could book appointments all evening, though it remained oddly serene when people started describing real problems.\"\n What percentage of calls can it complete correctly without handoff? How does it detect urgency, compliance risk, or emotional escalation? Are we automating a workflow that is well defined, or merely hiding a broken phone process behind a better accent? Call automation Conversational IVR Speech stack The technical stack matters less than the escalation policy. Voice makes mistakes feel personal very quickly.",
+      "relatedSlugs": [
+        "agent",
+        "digital-worker",
+        "latency"
       ]
     },
     {
@@ -9101,10 +9638,10 @@
     }
   ],
   "recentSlugs": [
-    "lovable",
-    "one-person-unicorn",
-    "prompt-caching",
-    "reasoning-effort"
+    "ai-roll-up",
+    "claude-code",
+    "deepseek",
+    "lovable"
   ],
   "misunderstoodSlugs": [
     "agent",
@@ -9115,7 +9652,7 @@
   "letterStats": [
     {
       "letter": "A",
-      "count": 13,
+      "count": 14,
       "href": "/dictionary?letter=A"
     },
     {
@@ -9125,12 +9662,12 @@
     },
     {
       "letter": "C",
-      "count": 10,
+      "count": 11,
       "href": "/dictionary?letter=C"
     },
     {
       "letter": "D",
-      "count": 6,
+      "count": 7,
       "href": "/dictionary?letter=D"
     },
     {
@@ -9175,12 +9712,12 @@
     },
     {
       "letter": "M",
-      "count": 12,
+      "count": 13,
       "href": "/dictionary?letter=M"
     },
     {
       "letter": "N",
-      "count": 2,
+      "count": 3,
       "href": "/dictionary?letter=N"
     },
     {
@@ -9220,7 +9757,7 @@
     },
     {
       "letter": "V",
-      "count": 3,
+      "count": 5,
       "href": "/dictionary?letter=V"
     },
     {
@@ -9260,7 +9797,7 @@
       "title": "Cultural terms",
       "description": "The social weirdness around AI: belief, taste, cringe, status games, and the internet behaving as it usually does when handed a new machine.",
       "slug": "cultural-terms",
-      "count": 47,
+      "count": 50,
       "sampleTerms": [
         "Agent Washing",
         "AGI",
@@ -9271,18 +9808,18 @@
       "title": "Model building",
       "description": "How models are trained, tuned, evaluated, and occasionally overpraised.",
       "slug": "model-building",
-      "count": 23,
+      "count": 24,
       "sampleTerms": [
         "Andrej Karpathy",
         "Arthur Mensch",
-        "Demis Hassabis"
+        "DeepSeek"
       ]
     },
     {
       "title": "Model usage",
       "description": "What it means to actually run a model in production, where invoices and latency live.",
       "slug": "model-usage",
-      "count": 52,
+      "count": 54,
       "sampleTerms": [
         "Agent",
         "AI Companion",
@@ -9293,7 +9830,7 @@
       "title": "Agents and workflows",
       "description": "Automation patterns, orchestration, and the difference between useful autonomy and stagecraft.",
       "slug": "agents-and-workflows",
-      "count": 34,
+      "count": 38,
       "sampleTerms": [
         "Agent",
         "Agentic AI",
@@ -9315,7 +9852,7 @@
       "title": "Product and vendor terms",
       "description": "Company names, product labels, and the branding haze around them.",
       "slug": "product-and-vendor-terms",
-      "count": 55,
+      "count": 59,
       "sampleTerms": [
         "Agent Washing",
         "AI Companion",
@@ -9337,7 +9874,7 @@
       "title": "Infrastructure and deployment",
       "description": "The machinery underneath the demo: compute, serving, throughput, and operational trade-offs.",
       "slug": "infrastructure-and-deployment",
-      "count": 23,
+      "count": 24,
       "sampleTerms": [
         "Alexandr Wang",
         "Cloudflare",
@@ -9348,7 +9885,7 @@
       "title": "Economics and operations of AI",
       "description": "Cost, labour, incentives, and the very unmagical business of running AI systems.",
       "slug": "economics-and-operations-of-ai",
-      "count": 52,
+      "count": 56,
       "sampleTerms": [
         "Agent Washing",
         "AGI",
@@ -9481,11 +10018,18 @@
     "speculative-decoding",
     "sundar-pichai",
     "test-time-compute",
+    "ai-roll-up",
+    "claude-code",
+    "deepseek",
     "lovable",
+    "manus",
+    "neocloud",
     "one-person-unicorn",
     "prompt-caching",
     "reasoning-effort",
     "slopsquatting",
+    "vibe-coding",
+    "voice-agent",
     "windsurf"
   ],
   "featuredSlug": "microsoft-copilot",
