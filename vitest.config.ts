@@ -10,6 +10,12 @@ export default defineConfig({
       },
     },
     setupFiles: ["./vitest.setup.ts"],
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html"],
+      include: ["src/**/*.{ts,tsx,mjs}"],
+      exclude: ["src/__tests__/**", "tests/scaffold/**"],
+    },
   },
   resolve: {
     alias: {

@@ -1,5 +1,9 @@
 import { cache } from "react";
-import { getDailyWordSlug, type DailyWordSchedule } from "@/lib/daily-word";
+import {
+  getDailyWordSlug,
+  getFeaturedEntrySlug,
+  type DailyWordSchedule,
+} from "@/lib/daily-word";
 import generatedData from "@/generated/entries.generated.json";
 import type { Difficulty, HypeLevel, TechnicalDepth } from "@/lib/site";
 
@@ -116,10 +120,17 @@ export async function getTodayWord(referenceDate = new globalThis.Date()) {
 }
 
 export async function getFeaturedEntry() {
-  const entry = entryBySlug.get(generatedData.featuredSlug);
+  const slug = getFeaturedEntrySlug({
+    dailyWordSlugs: generatedData.dailyWordSlugs as string[],
+    dailyWordStartDate: generatedData.dailyWordStartDate as string,
+    editorialTimeZone: generatedData.editorialTimeZone as string,
+    recentSlugs: generatedData.recentSlugs as string[],
+    featuredSlug: generatedData.featuredSlug as string,
+  });
+  const entry = slug ? entryBySlug.get(slug) : null;
   if (!entry) {
     throw new Error(
-      `Featured entry "${generatedData.featuredSlug}" was not found.`,
+      `Featured entry "${slug ?? generatedData.featuredSlug}" was not found.`,
     );
   }
   return entry;

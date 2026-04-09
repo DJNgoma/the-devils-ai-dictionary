@@ -1,10 +1,22 @@
 import { describe, expect, it } from "vitest";
-import { getDailyWordIndex, getDailyWordSlug } from "@/lib/daily-word";
+import {
+  getDailyWordIndex,
+  getDailyWordSlug,
+  getFeaturedEntrySlug,
+} from "@/lib/daily-word";
 
 const schedule = {
   dailyWordSlugs: ["fine-tuning", "tokens", "prompt"],
   dailyWordStartDate: "2026-03-03",
   editorialTimeZone: "Africa/Johannesburg",
+  recentSlugs: ["recent-a", "recent-b", "recent-c"],
+  featuredSlug: "recent-a",
+};
+
+const overlappingRecentSchedule = {
+  ...schedule,
+  recentSlugs: ["prompt", "tokens", "fine-tuning"],
+  featuredSlug: "prompt",
 };
 
 function makeUtcDateForScheduleDay(offsetDays: number, hour = 10) {
@@ -45,5 +57,23 @@ describe("daily-word schedule helpers", () => {
         makeUtcDateForScheduleDay(schedule.dailyWordSlugs.length),
       ),
     ).toBe("fine-tuning");
+  });
+
+  it("rotates featured entries weekly across recent slugs", () => {
+    expect(getFeaturedEntrySlug(schedule, makeUtcDateForScheduleDay(0))).toBe(
+      "recent-a",
+    );
+    expect(getFeaturedEntrySlug(schedule, makeUtcDateForScheduleDay(7))).toBe(
+      "recent-b",
+    );
+  });
+
+  it("avoids duplicating today's word in the featured slot when possible", () => {
+    expect(getDailyWordSlug(overlappingRecentSchedule, makeUtcDateForScheduleDay(0))).toBe(
+      "fine-tuning",
+    );
+    expect(
+      getFeaturedEntrySlug(overlappingRecentSchedule, makeUtcDateForScheduleDay(0)),
+    ).not.toBe("fine-tuning");
   });
 });

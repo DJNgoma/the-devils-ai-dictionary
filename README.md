@@ -10,7 +10,7 @@ The project is deliberately not a SaaS dashboard. It is structured as an online 
 - category browsing
 - local search with filters
 - random entry routing
-- featured, recent, and misunderstood term sections
+- a single Today's word spotlight, plus recent and misunderstood sections
 - dark mode
 - SEO metadata, Open Graph images, sitemap, and robots support
 - a file-based content model that can grow without changing the architecture
@@ -82,6 +82,13 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 - Release versioning rules live in [docs/release-versioning.md](docs/release-versioning.md).
 - The codebase journey from the first commit to the current layout is summarized in [docs/repo-history.md](docs/repo-history.md).
 
+## Sponsorship policy
+
+- The product currently uses a single editorial spotlight slot: **Today's word**.
+- The old **Featured** slot is parked unless it becomes a paid sponsorship placement.
+- Any future sponsored placement must be labelled clearly as **Sponsored**.
+- Sponsorship enquiries can go to [info@africantechno.com](mailto:info@africantechno.com).
+
 ## Public repo
 
 - GitHub: [DJNgoma/the-devils-ai-dictionary](https://github.com/DJNgoma/the-devils-ai-dictionary)
@@ -150,6 +157,7 @@ The home page is the surface most likely to drift between platforms. These are t
 | Hero secondary CTA | **Random entry** | All |
 | Today's word section label | **Today's word** | All |
 | Today's word CTA | **Open current word** | All |
+| Featured slot | None for now; park unless clearly marked **Sponsored** | All |
 | Refresh button | None (daily word, not manual) | All |
 | Date chip under word title | None | All |
 | Push prompt | Live prompt (iOS), placeholder (Android), not shown (web/Windows) | Per-platform |

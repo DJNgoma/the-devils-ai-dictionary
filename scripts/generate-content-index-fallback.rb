@@ -15,7 +15,6 @@ OUTPUT_FILE = File.join(OUTPUT_DIR, "entries.generated.json")
 PUBLIC_CATALOG_DIR = File.join(ROOT, "public", "catalog")
 PUBLIC_MOBILE_CATALOG_DIR = File.join(ROOT, "public", "mobile-catalog")
 EDITORIAL_TIME_ZONE = "Africa/Johannesburg"
-FEATURED_ENTRY_SLUG = "microsoft-copilot"
 SCHEMA_VERSION = 1
 
 # Keep this fallback in sync with scripts/generate-content-index.mjs.
@@ -360,9 +359,12 @@ end
 daily_word_entries = entries.sort_by { |entry| [entry["publishedAt"], entry["slug"]] }
 daily_word_start_date = daily_word_entries.first ? daily_word_entries.first["publishedAt"] : ""
 
-unless entries.any? { |entry| entry["slug"] == FEATURED_ENTRY_SLUG }
-  raise "Featured entry \"#{FEATURED_ENTRY_SLUG}\" not found in entries"
-end
+featured_slug =
+  recent_slugs.first ||
+  daily_word_entries.last&.fetch("slug", nil) ||
+  entries.first&.fetch("slug", nil)
+
+raise "Could not derive a featured entry from the catalog" unless non_empty_string?(featured_slug)
 
 catalog = {
   "entries" => entries,
@@ -373,7 +375,7 @@ catalog = {
   "editorialTimeZone" => EDITORIAL_TIME_ZONE,
   "dailyWordStartDate" => daily_word_start_date,
   "dailyWordSlugs" => daily_word_entries.map { |entry| entry["slug"] },
-  "featuredSlug" => FEATURED_ENTRY_SLUG,
+  "featuredSlug" => featured_slug,
   "latestPublishedAt" => latest_published_at,
 }
 

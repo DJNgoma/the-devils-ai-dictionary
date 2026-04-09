@@ -467,15 +467,6 @@ private struct NativeHomeView: View {
                 }
             }
 
-            if let featuredEntry = model.featuredEntry {
-                VStack(alignment: .leading, spacing: 12) {
-                    NativeSectionLabel(text: "Featured")
-                    NativeEntryCard(entry: featuredEntry) {
-                        model.presentEntry(featuredEntry)
-                    }
-                }
-            }
-
             if !model.glossaryCategoryStats.isEmpty {
                 NativeHomeCategoryGroup(
                     title: "Glossary — start here",

@@ -2,10 +2,23 @@
 
 ## Unreleased
 
-### Mobile shell
+### Content and editorial
 
-- Add a phone-first Capacitor shell with a compact app bar, bottom navigation, and an explicit `/saved` route for resume-reading.
-- Add safe-area-aware layout and Capacitor system-bar configuration for modern iPhones and older Android WebViews.
-- Rework dictionary and search controls for mobile by moving secondary filters into a bottom sheet and standardizing touch targets.
-- Lighten mobile surface effects so the editorial look survives Samsung A30s-class hardware without feeling like a browser demo.
+- Add the `Clanker` entry to the dictionary and refresh the generated catalogue.
 
+### Home surfaces
+
+- Park the duplicate `Featured` slot on native home surfaces so `Today's word` is the single editorial spotlight for now.
+- Document that any future paid placement must be clearly labelled `Sponsored`, with sponsorship enquiries routed to `info@africantechno.com`.
+
+## 1.0.2
+
+### Reading flow and catalogue
+
+- Broaden the glossary, add Categories, and fold Browse and Search into one clearer surface.
+- Refresh the Home and Settings screens and bring in a larger run of new entries, including recent AI evasions and figures such as Sundar, Karpathy, Levels, and `bolt.new`.
+
+### Reliability and polish
+
+- Add pull to refresh on Home and smooth out category browsing with fewer awkward taps.
+- Strengthen catalogue updates and notification delivery, add an animated splash screen, and tidy a clutch of mobile rough edges so the dictionary feels faster, clearer, and more deliberate.

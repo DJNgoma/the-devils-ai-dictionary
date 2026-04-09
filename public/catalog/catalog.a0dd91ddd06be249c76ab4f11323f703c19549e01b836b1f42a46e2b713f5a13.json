@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "catalogVersion": "6f72ed91f4468a333261ff90e85519e5f3444744d161d86574d56820458fe428",
-  "generatedAt": "2026-04-09T05:53:11.464Z",
-  "entryCount": 135,
+  "catalogVersion": "a0dd91ddd06be249c76ab4f11323f703c19549e01b836b1f42a46e2b713f5a13",
+  "generatedAt": "2026-04-09T22:51:00.637Z",
+  "entryCount": 136,
   "entries": [
     {
       "title": "Agent",
@@ -1339,6 +1339,73 @@
         "openai",
         "claude",
         "gemini"
+      ]
+    },
+    {
+      "title": "Clanker",
+      "slug": "clanker",
+      "letter": "C",
+      "categories": [
+        "Cultural terms"
+      ],
+      "aliases": [
+        "clanka",
+        "AI slur",
+        "robot slur"
+      ],
+      "devilDefinition": "A slur for machines used by people who want to heckle the future without writing a labour policy.\n",
+      "plainDefinition": "\"Clanker\" is a derogatory slang term for robots and AI systems, especially chatbots or automations that feel intrusive, fake-human, or threatening to human work.\n",
+      "whyExists": "Because people wanted a short insult for the new class of machines now appearing in customer support, content feeds, creative tools, and workplace software. It gives irritation, labour anxiety, and anti-bot sentiment one noisy noun.\n",
+      "misuse": "By using it as if all automation is the same, or by pretending the joke is harmless when it is clearly borrowing the theatre and cadence of real slurs. It is most useful as a signal of resentment toward a technology category, not as an excuse to rehearse bigotry with metallic props.\n",
+      "practicalMeaning": "In practice it usually means \"I am talking about an AI system I find annoying, dehumanising, low-quality, job-threatening, or impossible to avoid\", whether that system is a chatbot, a voice menu, a content engine, or a delivery robot.\n",
+      "example": "\"The bank replaced half its support flow with a clanker, then acted surprised when customers started talking like science-fiction union organisers.\"\n",
+      "askNext": [
+        "What exactly is being criticised here: job replacement, bad output, fake-human interface design, or automation in general?",
+        "Is the insult aimed at the technology, the company deploying it, or the labour decision behind it?",
+        "Does using the term clarify the complaint, or merely make it feel more theatrical?"
+      ],
+      "related": [
+        "digital-worker",
+        "chatgpt",
+        "slop"
+      ],
+      "seeAlso": [
+        "Digital Worker",
+        "ChatGPT",
+        "Slop"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-10",
+      "updatedAt": "2026-04-10",
+      "warningLabel": "Use carefully. Much of the joke works by echoing the form of real slurs.",
+      "note": "The word predates the current AI boom in science-fiction fandom, but its recent spread is tied to social-media backlash against chatbots, robots, and machine-made content.\n",
+      "tags": [
+        "slang",
+        "robots",
+        "culture",
+        "labour"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "what it usually means in reality",
+          "text": "A catch-all insult for the machine or AI interface someone blames for replacing judgement, taste, or human contact."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "What matters about clanker is not whether the machine has feelings. It is that the insult reveals a public mood: people increasingly experience AI not as abstract progress but as an unwanted substitute for service, attention, and paid work.",
+      "categorySlugs": [
+        "cultural-terms"
+      ],
+      "url": "/dictionary/clanker",
+      "searchText": "Clanker clanka AI slur robot slur Cultural terms slang robots culture labour A slur for machines used by people who want to heckle the future without writing a labour policy.\n \"Clanker\" is a derogatory slang term for robots and AI systems, especially chatbots or automations that feel intrusive, fake-human, or threatening to human work.\n Because people wanted a short insult for the new class of machines now appearing in customer support, content feeds, creative tools, and workplace software. It gives irritation, labour anxiety, and anti-bot sentiment one noisy noun.\n By using it as if all automation is the same, or by pretending the joke is harmless when it is clearly borrowing the theatre and cadence of real slurs. It is most useful as a signal of resentment toward a technology category, not as an excuse to rehearse bigotry with metallic props.\n In practice it usually means \"I am talking about an AI system I find annoying, dehumanising, low-quality, job-threatening, or impossible to avoid\", whether that system is a chatbot, a voice menu, a content engine, or a delivery robot.\n \"The bank replaced half its support flow with a clanker, then acted surprised when customers started talking like science-fiction union organisers.\"\n What exactly is being criticised here: job replacement, bad output, fake-human interface design, or automation in general? Is the insult aimed at the technology, the company deploying it, or the labour decision behind it? Does using the term clarify the complaint, or merely make it feel more theatrical? Digital Worker ChatGPT Slop The word predates the current AI boom in science-fiction fandom, but its recent spread is tied to social-media backlash against chatbots, robots, and machine-made content.",
+      "relatedSlugs": [
+        "digital-worker",
+        "chatgpt",
+        "slop"
       ]
     },
     {
@@ -9638,10 +9705,10 @@
     }
   ],
   "recentSlugs": [
+    "clanker",
     "ai-roll-up",
     "claude-code",
-    "deepseek",
-    "lovable"
+    "deepseek"
   ],
   "misunderstoodSlugs": [
     "agent",
@@ -9662,7 +9729,7 @@
     },
     {
       "letter": "C",
-      "count": 11,
+      "count": 12,
       "href": "/dictionary?letter=C"
     },
     {
@@ -9797,7 +9864,7 @@
       "title": "Cultural terms",
       "description": "The social weirdness around AI: belief, taste, cringe, status games, and the internet behaving as it usually does when handed a new machine.",
       "slug": "cultural-terms",
-      "count": 50,
+      "count": 51,
       "sampleTerms": [
         "Agent Washing",
         "AGI",
@@ -10030,8 +10097,9 @@
     "slopsquatting",
     "vibe-coding",
     "voice-agent",
-    "windsurf"
+    "windsurf",
+    "clanker"
   ],
-  "featuredSlug": "microsoft-copilot",
-  "latestPublishedAt": "2026-04-09"
+  "featuredSlug": "clanker",
+  "latestPublishedAt": "2026-04-10"
 }

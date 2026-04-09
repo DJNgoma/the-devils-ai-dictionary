@@ -57,10 +57,37 @@ final class DevilsAIDictionaryCoreTests: XCTestCase {
         )
     }
 
-    func testFeaturedEntryMatchesFeaturedSlug() throws {
+    func testFeaturedSlugReferencesExistingEntry() throws {
         let catalog = try loadCatalog()
 
-        XCTAssertEqual(catalog.featuredEntry()?.slug, catalog.featuredSlug)
+        XCTAssertEqual(catalog.entry(slug: catalog.featuredSlug)?.slug, catalog.featuredSlug)
+    }
+
+    func testFeaturedEntryUsesRecentRotationWithoutDuplicatingTodayWhenPossible() throws {
+        let catalog = try loadCatalog()
+        let referenceDate = try utcDate(fromISODate: catalog.dailyWordStartDate)
+        let todaySlug = try XCTUnwrap(catalog.dailyWordSlug(on: referenceDate))
+        let candidates = catalog.recentSlugs.filter { $0 != todaySlug }
+
+        XCTAssertFalse(candidates.isEmpty)
+        XCTAssertEqual(catalog.featuredEntry(on: referenceDate)?.slug, candidates[0])
+        XCTAssertNotEqual(catalog.featuredEntry(on: referenceDate)?.slug, todaySlug)
+    }
+
+    func testFeaturedEntryRotatesWeeklyAcrossRecentEntries() throws {
+        let catalog = try loadCatalog()
+        let startDate = try utcDate(fromISODate: catalog.dailyWordStartDate)
+        let todaySlug = try XCTUnwrap(catalog.dailyWordSlug(on: startDate))
+        let candidates = catalog.recentSlugs.filter { $0 != todaySlug }
+
+        guard candidates.count > 1 else {
+            throw XCTSkip("Need at least two recent candidates to verify featured rotation.")
+        }
+
+        let nextWeek = try utcDate(fromISODate: catalog.dailyWordStartDate, offsetDays: 7)
+
+        XCTAssertEqual(catalog.featuredEntry(on: startDate)?.slug, candidates[0])
+        XCTAssertEqual(catalog.featuredEntry(on: nextWeek)?.slug, candidates[1 % candidates.count])
     }
 
     func testDailyWordScheduleMatchesPublishedOrder() throws {

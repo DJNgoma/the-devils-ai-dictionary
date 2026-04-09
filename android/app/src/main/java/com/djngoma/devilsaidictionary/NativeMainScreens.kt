@@ -157,17 +157,6 @@ fun NativeHomeScreen(
             item { WarningCard(text = message, colors = colors) }
         }
 
-        store.featuredEntry?.let { entry ->
-            item {
-                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    SectionLabel(text = "Featured")
-                    EntryCard(entry = entry, colors = colors) {
-                        store.presentEntry(entry)
-                    }
-                }
-            }
-        }
-
         if (store.glossaryCategoryStats.isNotEmpty()) {
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {

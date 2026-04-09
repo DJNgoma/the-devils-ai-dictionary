@@ -11,7 +11,6 @@ struct WatchCurrentWordView: View {
         NavigationStack {
             List {
                 currentWordSection
-                featureSection
                 recentSection
                 misunderstoodSection
             }
@@ -71,22 +70,6 @@ struct WatchCurrentWordView: View {
             }
         }
     }
-
-    @ViewBuilder
-    private var featureSection: some View {
-        if let featuredEntry = model.featuredEntry {
-            Section("Featured") {
-                NavigationLink(value: featuredEntry.slug) {
-                        WatchEntryRow(
-                            entry: featuredEntry,
-                            eyebrow: "Editor's pick",
-                            isCurrentWord: model.isTodayWord(featuredEntry)
-                        )
-                }
-            }
-        }
-    }
-
     @ViewBuilder
     private var recentSection: some View {
         if !model.recentEntries.isEmpty {
