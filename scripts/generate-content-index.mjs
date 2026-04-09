@@ -8,7 +8,6 @@ import {
 } from "../src/lib/content-build.mjs";
 import {
   categoryDefinitions,
-  featuredEntrySlug,
 } from "../src/lib/content-catalog.mjs";
 import {
   createCatalogVersion,
@@ -154,9 +153,9 @@ async function buildEntryIndex() {
   });
   const dailyWordStartDate = dailyWordEntries[0]?.publishedAt ?? "";
 
-  const featuredSlug = entries.find((e) => e.slug === featuredEntrySlug)?.slug;
+  const featuredSlug = recentEntries[0] ?? dailyWordEntries.at(-1)?.slug ?? entries[0]?.slug;
   if (!featuredSlug) {
-    throw new Error(`Featured entry "${featuredEntrySlug}" not found in entries`);
+    throw new Error("Could not derive a featured entry from the catalog.");
   }
 
   const catalog = {
@@ -202,7 +201,11 @@ async function buildEntryIndex() {
   // searchText (only needed by native apps) to keep the bundle lean.
   const webSnapshot = {
     ...snapshot,
-    entries: snapshot.entries.map(({ searchText: _, ...rest }) => rest),
+    entries: snapshot.entries.map((entry) => {
+      const { searchText, ...rest } = entry;
+      void searchText;
+      return rest;
+    }),
   };
   const webSnapshotText = serializeCatalogSnapshot(webSnapshot);
 

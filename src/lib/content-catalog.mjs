@@ -1,7 +1,5 @@
 // @ts-check
 
-export const featuredEntrySlug = /** @type {const} */ ("microsoft-copilot");
-
 export const difficultyOptions = /** @type {const} */ ([
   "beginner",
   "intermediate",

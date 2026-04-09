@@ -255,8 +255,12 @@ public struct DictionaryCatalog: Codable, Equatable, Sendable {
         entries.first { $0.slug == slug }
     }
 
-    public func featuredEntry() -> Entry? {
-        entry(slug: featuredSlug)
+    public func featuredEntry(on referenceDate: Date = Date()) -> Entry? {
+        guard let slug = resolvedFeaturedSlug(on: referenceDate) else {
+            return nil
+        }
+
+        return entry(slug: slug)
     }
 
     public func dailyWord(on referenceDate: Date = Date()) -> Entry? {
@@ -278,6 +282,23 @@ public struct DictionaryCatalog: Codable, Equatable, Sendable {
         let elapsedDays = max(0, currentDay - startDay)
 
         return dailyWordSlugs[elapsedDays % dailyWordSlugs.count]
+    }
+
+    public func resolvedFeaturedSlug(on referenceDate: Date = Date()) -> String? {
+        let todaySlug = dailyWordSlug(on: referenceDate)
+        let candidates = recentSlugs.filter { $0 != todaySlug }
+
+        if candidates.isEmpty {
+            return todaySlug ?? featuredSlug
+        }
+
+        let timeZone = TimeZone(identifier: editorialTimeZone) ?? TimeZone(secondsFromGMT: 0)!
+        let currentDay = Self.editorialDayNumber(for: referenceDate, timeZone: timeZone)
+        let startDay = Self.dayNumber(forISODate: dailyWordStartDate) ?? currentDay
+        let elapsedDays = max(0, currentDay - startDay)
+        let elapsedWeeks = elapsedDays / 7
+
+        return candidates[elapsedWeeks % candidates.count]
     }
 
     public func randomEntry(excluding excludedSlug: String? = nil) -> Entry? {
