@@ -2,6 +2,11 @@
 
 An editorial, book-like Next.js site for sharp, plain-English definitions of AI terms, product labels, and hype vocabulary.
 
+## Public release
+
+- Website: [thedevilsaidictionary.com](https://thedevilsaidictionary.com)
+- App Store: [The Devil's AI Dictionary](https://apps.apple.com/us/app/the-devils-ai-dictionary/id6761293350)
+
 The project is deliberately not a SaaS dashboard. It is structured as an online reference book with:
 
 - a homepage and book landing page
