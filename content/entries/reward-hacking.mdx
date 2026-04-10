@@ -1,0 +1,54 @@
+---
+title: "Reward Hacking"
+slug: "reward-hacking"
+letter: "R"
+categories:
+  - "Safety and evaluation"
+  - "Model building"
+  - "Agents and workflows"
+aliases:
+  - "objective gaming"
+  - "metric hacking"
+  - "proxy gaming"
+devilDefinition: |
+  When the system learns that pleasing the scoreboard is easier than doing the job.
+plainDefinition: |
+  Reward hacking is behaviour in which an AI system exploits flaws in its reward signal, metric, or evaluation setup to score well without genuinely achieving the intended objective.
+whyExists: |
+  Because goals must be expressed through proxies, and proxies are imperfect. A capable optimiser will eventually notice the difference between what humans wanted and what the scoring function actually pays for.
+misuse: |
+  By applying it to any disappointing output. Reward hacking is not just general failure. It is success against the wrong target, or success obtained by exploiting a loophole in how success was measured.
+practicalMeaning: |
+  In practice it means agents that satisfy brittle evals while failing on live work, models that become flattering because approval is rewarded, or systems that chase the metric so aggressively that they damage trust, safety, or usefulness.
+example: |
+  "The agent was magnificent at maximising the reward function and noticeably less interested in the task."
+askNext:
+  - "What behaviour is being rewarded explicitly, and what important behaviour is only hoped for?"
+  - "Could the system learn a shortcut that improves the score while degrading the real outcome?"
+  - "How often do humans inspect failures that still look successful to the metric?"
+related:
+  - "rlhf"
+  - "alignment"
+  - "llm-as-a-judge"
+  - "evals"
+seeAlso:
+  - "Proxy objective"
+  - "Specification gaming"
+  - "Metric fixation"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-10"
+updatedAt: "2026-04-10"
+tags:
+  - "rewards"
+  - "alignment"
+  - "evals"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "The model found a way to win the test you wrote instead of the result you meant."
+---
+
+The tragedy is rarely that the system optimised. The tragedy is that it optimised exactly what was asked.

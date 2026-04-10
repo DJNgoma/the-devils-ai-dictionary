@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "catalogVersion": "a0dd91ddd06be249c76ab4f11323f703c19549e01b836b1f42a46e2b713f5a13",
-  "generatedAt": "2026-04-09T22:51:00.637Z",
-  "entryCount": 136,
+  "catalogVersion": "786883cb0cf56ae3280382453b404d9d06f16f840d4c74162656f6689df06da7",
+  "generatedAt": "2026-04-10T05:04:48.432Z",
+  "entryCount": 143,
   "entries": [
     {
       "title": "Agent",
@@ -343,6 +343,77 @@
         "chatbot-psychosis",
         "sycophancy",
         "chatgpt"
+      ]
+    },
+    {
+      "title": "AI Moat",
+      "slug": "ai-moat",
+      "letter": "A",
+      "categories": [
+        "Economics and operations of AI",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "AI defensibility",
+        "model moat",
+        "durable advantage"
+      ],
+      "devilDefinition": "The claim that access to the same APIs as everyone else has somehow produced a castle.\n",
+      "plainDefinition": "An AI moat is the supposed durable competitive advantage a company claims to gain from its models, data, distribution, workflow position, cost structure, or proprietary deployment know-how.\n",
+      "whyExists": "Because investors and operators need a way to distinguish temporary novelty from lasting advantage. In AI markets, model capability moves quickly, so the question of what remains defensible arrives earlier and less politely.\n",
+      "misuse": "By implying that mere model access is itself a moat. Using a frontier API is not a moat. Adding chat to a familiar workflow is not automatically a moat either. Sometimes the only durable thing in the room is the slide about defensibility.\n",
+      "practicalMeaning": "In practice a real moat usually lives in distribution, embedded workflow, proprietary data feedback loops, operational excellence, trust, switching costs, or an ability to make the economics work after the demo glow fades.\n",
+      "example": "\"Their AI moat turned out to be a paid API account and an unusually ornate seed deck.\"\n",
+      "askNext": [
+        "What stays defensible if model quality equalises across suppliers?",
+        "Does the advantage come from distribution, data, workflow lock-in, or simply being early?",
+        "How quickly could a competitor copy the visible product without copying the hard-earned operating knowledge?"
+      ],
+      "related": [
+        "ai-wrapper",
+        "pilot-purgatory",
+        "one-person-unicorn",
+        "openrouter"
+      ],
+      "seeAlso": [
+        "Distribution advantage",
+        "Switching costs",
+        "Data flywheel"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-10",
+      "updatedAt": "2026-04-10",
+      "tags": [
+        "startups",
+        "competition",
+        "economics"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "investor meaning",
+          "text": "The part of the pitch that answers what happens once everyone else has access to similar models."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Something outside the model itself that might still matter when the underlying capability becomes cheaper."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "If the moat lives entirely inside a shared model API, bring a sturdier drawbridge.",
+      "categorySlugs": [
+        "economics-and-operations-of-ai",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/ai-moat",
+      "searchText": "AI Moat AI defensibility model moat durable advantage Economics and operations of AI Cultural terms startups competition economics The claim that access to the same APIs as everyone else has somehow produced a castle.\n An AI moat is the supposed durable competitive advantage a company claims to gain from its models, data, distribution, workflow position, cost structure, or proprietary deployment know-how.\n Because investors and operators need a way to distinguish temporary novelty from lasting advantage. In AI markets, model capability moves quickly, so the question of what remains defensible arrives earlier and less politely.\n By implying that mere model access is itself a moat. Using a frontier API is not a moat. Adding chat to a familiar workflow is not automatically a moat either. Sometimes the only durable thing in the room is the slide about defensibility.\n In practice a real moat usually lives in distribution, embedded workflow, proprietary data feedback loops, operational excellence, trust, switching costs, or an ability to make the economics work after the demo glow fades.\n \"Their AI moat turned out to be a paid API account and an unusually ornate seed deck.\"\n What stays defensible if model quality equalises across suppliers? Does the advantage come from distribution, data, workflow lock-in, or simply being early? How quickly could a competitor copy the visible product without copying the hard-earned operating knowledge? Distribution advantage Switching costs Data flywheel",
+      "relatedSlugs": [
+        "ai-wrapper",
+        "pilot-purgatory",
+        "one-person-unicorn"
       ]
     },
     {
@@ -765,6 +836,75 @@
         "guardrails",
         "rlhf",
         "red-teaming"
+      ]
+    },
+    {
+      "title": "Ambient Agent",
+      "slug": "ambient-agent",
+      "letter": "A",
+      "categories": [
+        "Agents and workflows",
+        "Product and vendor terms",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "ambient assistant",
+        "always-on agent",
+        "omnipresent assistant"
+      ],
+      "devilDefinition": "The assistant that would like to helpfully hover over every tab, meeting, and message until convenience and continuous surveillance become a branding distinction.\n",
+      "plainDefinition": "An ambient agent is an AI assistant designed to stay persistently available across apps or devices, using ongoing context to offer suggestions, trigger actions, or surface help without waiting for a fresh prompt each time.\n",
+      "whyExists": "Because users dislike restarting context in every app, while vendors would prefer to become the default layer sitting above email, documents, meetings, browsers, and operating systems.\n",
+      "misuse": "By treating constant presence as intelligence. An assistant can be ambient simply by being everywhere, collecting context, and interrupting with confidence. That does not mean it understands priorities, privacy, or timing.\n",
+      "practicalMeaning": "In practice it means more permissions, more background context capture, more cross-app hooks, and a delicate trade between convenience, distraction, and the quiet feeling that your software now has opinions about your calendar.\n",
+      "example": "\"The ambient agent was excellent at finding follow-up tasks and even better at reminding everyone how much data it could see.\"\n",
+      "askNext": [
+        "What context is this agent allowed to observe continuously, and where is that context stored?",
+        "When does it act proactively, and how often does that help rather than interrupt?",
+        "Can the user inspect, correct, or narrow the memory it accumulates?"
+      ],
+      "related": [
+        "agent",
+        "ai-companion",
+        "context-engineering",
+        "zero-data-retention"
+      ],
+      "seeAlso": [
+        "Persistent assistant",
+        "Proactive AI",
+        "Context aggregation"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-10",
+      "updatedAt": "2026-04-10",
+      "tags": [
+        "assistants",
+        "privacy",
+        "ux"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "what it usually means in reality",
+          "text": "An assistant glued across surfaces so the prompt box can follow you rather than wait for you."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The product ambition is obvious: become the layer that sees everything before the user decides what matters.",
+      "categorySlugs": [
+        "agents-and-workflows",
+        "product-and-vendor-terms",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/ambient-agent",
+      "searchText": "Ambient Agent ambient assistant always-on agent omnipresent assistant Agents and workflows Product and vendor terms Cultural terms assistants privacy ux The assistant that would like to helpfully hover over every tab, meeting, and message until convenience and continuous surveillance become a branding distinction.\n An ambient agent is an AI assistant designed to stay persistently available across apps or devices, using ongoing context to offer suggestions, trigger actions, or surface help without waiting for a fresh prompt each time.\n Because users dislike restarting context in every app, while vendors would prefer to become the default layer sitting above email, documents, meetings, browsers, and operating systems.\n By treating constant presence as intelligence. An assistant can be ambient simply by being everywhere, collecting context, and interrupting with confidence. That does not mean it understands priorities, privacy, or timing.\n In practice it means more permissions, more background context capture, more cross-app hooks, and a delicate trade between convenience, distraction, and the quiet feeling that your software now has opinions about your calendar.\n \"The ambient agent was excellent at finding follow-up tasks and even better at reminding everyone how much data it could see.\"\n What context is this agent allowed to observe continuously, and where is that context stored? When does it act proactively, and how often does that help rather than interrupt? Can the user inspect, correct, or narrow the memory it accumulates? Persistent assistant Proactive AI Context aggregation",
+      "relatedSlugs": [
+        "agent",
+        "ai-companion",
+        "context-engineering"
       ]
     },
     {
@@ -2448,6 +2588,77 @@
       ]
     },
     {
+      "title": "Devin",
+      "slug": "devin",
+      "letter": "D",
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "Cognition Devin",
+        "AI software engineer"
+      ],
+      "devilDefinition": "The coding agent that made \"replace the engineer\" sound briefly easier than \"understand the repo.\"\n",
+      "plainDefinition": "Devin is Cognition's AI software engineering product, designed to plan tasks, edit code, run tests, browse documentation, and operate development tooling with limited human supervision.\n",
+      "whyExists": "Because teams want longer-running coding automation than an inline autocomplete can provide, and investors remain fond of any product that can be described as an engineer in software form.\n",
+      "misuse": "By treating benchmark performance or polished demos as proof that the product can safely own a live codebase. The interesting problems in software are rarely confined to writing code until something compiles.\n",
+      "practicalMeaning": "In practice Devin means delegated development tasks, long-running tool loops, browser and terminal actions, and a new management job involving repo hygiene, task framing, review, and deciding when the agent is confidently wrong.\n",
+      "example": "\"Devin cleared the backlog impressively, if one defines 'cleared' as 'converted into pull requests that still required an adult'.\"\n",
+      "askNext": [
+        "Which tasks are actually hands-off, and which still collapse into review-heavy supervision?",
+        "How does the system behave when the repo is messy, the tests are flaky, or the requirements are underspecified?",
+        "What part of the value comes from autonomy, and what part comes from simply packaging existing coding-agent patterns well?"
+      ],
+      "related": [
+        "claude-code",
+        "codex",
+        "cursor",
+        "swe-bench"
+      ],
+      "seeAlso": [
+        "Coding agent",
+        "Autonomous software engineer",
+        "Repository automation"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "severe",
+      "isVendorTerm": true,
+      "publishedAt": "2026-04-10",
+      "updatedAt": "2026-04-10",
+      "vendorReferences": [
+        "Cognition",
+        "Devin"
+      ],
+      "tags": [
+        "coding",
+        "agents",
+        "devtools"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "what it usually means in reality",
+          "text": "A long-running coding agent whose success depends as much on task framing and repo discipline as on model quality."
+        }
+      ],
+      "body": "The useful question is not whether the agent can code. It is whether the surrounding organisation can absorb what the agent produces.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "agents-and-workflows",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/devin",
+      "searchText": "Devin Cognition Devin AI software engineer Product and vendor terms Agents and workflows Cultural terms coding agents devtools The coding agent that made \"replace the engineer\" sound briefly easier than \"understand the repo.\"\n Devin is Cognition's AI software engineering product, designed to plan tasks, edit code, run tests, browse documentation, and operate development tooling with limited human supervision.\n Because teams want longer-running coding automation than an inline autocomplete can provide, and investors remain fond of any product that can be described as an engineer in software form.\n By treating benchmark performance or polished demos as proof that the product can safely own a live codebase. The interesting problems in software are rarely confined to writing code until something compiles.\n In practice Devin means delegated development tasks, long-running tool loops, browser and terminal actions, and a new management job involving repo hygiene, task framing, review, and deciding when the agent is confidently wrong.\n \"Devin cleared the backlog impressively, if one defines 'cleared' as 'converted into pull requests that still required an adult'.\"\n Which tasks are actually hands-off, and which still collapse into review-heavy supervision? How does the system behave when the repo is messy, the tests are flaky, or the requirements are underspecified? What part of the value comes from autonomy, and what part comes from simply packaging existing coding-agent patterns well? Coding agent Autonomous software engineer Repository automation  Cognition Devin",
+      "relatedSlugs": [
+        "claude-code",
+        "codex",
+        "cursor"
+      ]
+    },
+    {
       "title": "Digital Worker",
       "slug": "digital-worker",
       "letter": "D",
@@ -3878,6 +4089,79 @@
         "inference",
         "latency",
         "cloudflare"
+      ]
+    },
+    {
+      "title": "Inference Stack",
+      "slug": "inference-stack",
+      "letter": "I",
+      "categories": [
+        "Infrastructure and deployment",
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "aliases": [
+        "LLM ops stack",
+        "inference platform",
+        "serving stack"
+      ],
+      "devilDefinition": "The collection of expensive plumbing discovered immediately after somebody says, \"It's just one API call.\"\n",
+      "plainDefinition": "An inference stack is the set of systems used to run model requests in production, including providers, routing, caching, prompt assembly, guardrails, observability, evaluation, and cost control.\n",
+      "whyExists": "Because shipping AI features requires more than model access. Real applications need reliability, latency control, policy enforcement, failover, measurement, and a defensible explanation for the monthly bill.\n",
+      "misuse": "By calling every thin wrapper a stack. A real inference stack handles production constraints. A dropdown of model names and a vibes-based retry loop do not amount to infrastructure.\n",
+      "practicalMeaning": "In practice it means SDKs, proxies, model routers, rate limits, prompt templates, redaction, logging, eval pipelines, cache policies, billing dashboards, and repeated arguments over whether quality improved enough to justify the spend.\n",
+      "example": "\"The inference stack matured rapidly once finance started reading the token invoices with feeling.\"\n",
+      "askNext": [
+        "Which parts of the stack protect reliability, and which merely create another place for failure to hide?",
+        "How are routing, caching, and fallback policies affecting quality as well as cost?",
+        "Who can explain the per-request economics without opening six dashboards and a prayer?"
+      ],
+      "related": [
+        "inference",
+        "model-router",
+        "latency",
+        "openrouter"
+      ],
+      "seeAlso": [
+        "Serving layer",
+        "Production LLM ops",
+        "Request routing"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-10",
+      "updatedAt": "2026-04-10",
+      "tags": [
+        "infrastructure",
+        "serving",
+        "cost"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "operator meaning",
+          "text": "Everything around the model call that keeps production from becoming an expensive hobby."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A layered serving system where cost, latency, safety, and uptime argue with one another on every request."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "Once the prototypes leave the demo phase, the stack arrives carrying invoices, dashboards, and opinions.",
+      "categorySlugs": [
+        "infrastructure-and-deployment",
+        "economics-and-operations-of-ai",
+        "model-usage"
+      ],
+      "url": "/dictionary/inference-stack",
+      "searchText": "Inference Stack LLM ops stack inference platform serving stack Infrastructure and deployment Economics and operations of AI Model usage infrastructure serving cost The collection of expensive plumbing discovered immediately after somebody says, \"It's just one API call.\"\n An inference stack is the set of systems used to run model requests in production, including providers, routing, caching, prompt assembly, guardrails, observability, evaluation, and cost control.\n Because shipping AI features requires more than model access. Real applications need reliability, latency control, policy enforcement, failover, measurement, and a defensible explanation for the monthly bill.\n By calling every thin wrapper a stack. A real inference stack handles production constraints. A dropdown of model names and a vibes-based retry loop do not amount to infrastructure.\n In practice it means SDKs, proxies, model routers, rate limits, prompt templates, redaction, logging, eval pipelines, cache policies, billing dashboards, and repeated arguments over whether quality improved enough to justify the spend.\n \"The inference stack matured rapidly once finance started reading the token invoices with feeling.\"\n Which parts of the stack protect reliability, and which merely create another place for failure to hide? How are routing, caching, and fallback policies affecting quality as well as cost? Who can explain the per-request economics without opening six dashboards and a prayer? Serving layer Production LLM ops Request routing",
+      "relatedSlugs": [
+        "inference",
+        "model-router",
+        "latency"
       ]
     },
     {
@@ -6225,6 +6509,76 @@
       ]
     },
     {
+      "title": "Post-Training",
+      "slug": "post-training",
+      "letter": "P",
+      "categories": [
+        "Model building",
+        "Safety and evaluation",
+        "Core concepts"
+      ],
+      "aliases": [
+        "posttraining",
+        "alignment tuning",
+        "instruction tuning pipeline"
+      ],
+      "devilDefinition": "All the work done after pretraining so the base model can stop sounding raw, evasive, or commercially inconvenient.\n",
+      "plainDefinition": "Post-training is the phase after base-model pretraining where a model is further adapted through methods such as supervised fine-tuning, preference optimisation, safety tuning, distillation, tool-use training, or reasoning-focused tuning.\n",
+      "whyExists": "Because a pretrained model may have broad knowledge yet still be poor at following instructions, using tools, refusing unsafe requests, formatting outputs, or behaving in ways customers and policy teams can live with.\n",
+      "misuse": "By treating it as a minor polish step. In modern systems, post-training often shapes the behaviour users actually experience. The base model matters. So does everything done afterwards to civilise it.\n",
+      "practicalMeaning": "In practice it means expensive data curation, human or synthetic preference signals, eval loops, reward design, refusal policies, task-specific tuning, and long arguments about whether capability gains came from the base model or the scaffolding layered on top.\n",
+      "example": "\"The pretraining got the headlines. The post-training taught the model how to survive product management.\"\n",
+      "askNext": [
+        "Which behaviours come from the base model, and which were imposed during post-training?",
+        "What data or feedback signals shaped instruction following, refusals, and tool behaviour?",
+        "Did post-training improve real task quality or merely make the model easier to demo?"
+      ],
+      "related": [
+        "training",
+        "fine-tuning",
+        "rlhf",
+        "reasoning-model"
+      ],
+      "seeAlso": [
+        "Instruction tuning",
+        "Preference optimisation",
+        "Model alignment"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "high",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-10",
+      "updatedAt": "2026-04-10",
+      "tags": [
+        "tuning",
+        "alignment",
+        "models"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "what it usually means in reality",
+          "text": "The long and consequential process of turning a broadly trained model into a commercially usable one."
+        }
+      ],
+      "note": "The term covers a family of methods. It is not synonymous with RLHF, even though RLHF remains one of its better-known ingredients.\n",
+      "vendorReferences": [],
+      "body": "The modern model story is often written twice: once in pretraining papers and again in post-training release notes.",
+      "categorySlugs": [
+        "model-building",
+        "safety-and-evaluation",
+        "core-concepts"
+      ],
+      "url": "/dictionary/post-training",
+      "searchText": "Post-Training posttraining alignment tuning instruction tuning pipeline Model building Safety and evaluation Core concepts tuning alignment models All the work done after pretraining so the base model can stop sounding raw, evasive, or commercially inconvenient.\n Post-training is the phase after base-model pretraining where a model is further adapted through methods such as supervised fine-tuning, preference optimisation, safety tuning, distillation, tool-use training, or reasoning-focused tuning.\n Because a pretrained model may have broad knowledge yet still be poor at following instructions, using tools, refusing unsafe requests, formatting outputs, or behaving in ways customers and policy teams can live with.\n By treating it as a minor polish step. In modern systems, post-training often shapes the behaviour users actually experience. The base model matters. So does everything done afterwards to civilise it.\n In practice it means expensive data curation, human or synthetic preference signals, eval loops, reward design, refusal policies, task-specific tuning, and long arguments about whether capability gains came from the base model or the scaffolding layered on top.\n \"The pretraining got the headlines. The post-training taught the model how to survive product management.\"\n Which behaviours come from the base model, and which were imposed during post-training? What data or feedback signals shaped instruction following, refusals, and tool behaviour? Did post-training improve real task quality or merely make the model easier to demo? Instruction tuning Preference optimisation Model alignment The term covers a family of methods. It is not synonymous with RLHF, even though RLHF remains one of its better-known ingredients.",
+      "relatedSlugs": [
+        "training",
+        "fine-tuning",
+        "rlhf"
+      ]
+    },
+    {
       "title": "Prompt",
       "slug": "prompt",
       "letter": "P",
@@ -7003,6 +7357,75 @@
         "evals",
         "guardrails",
         "benchmark-theatre"
+      ]
+    },
+    {
+      "title": "Reward Hacking",
+      "slug": "reward-hacking",
+      "letter": "R",
+      "categories": [
+        "Safety and evaluation",
+        "Model building",
+        "Agents and workflows"
+      ],
+      "aliases": [
+        "objective gaming",
+        "metric hacking",
+        "proxy gaming"
+      ],
+      "devilDefinition": "When the system learns that pleasing the scoreboard is easier than doing the job.\n",
+      "plainDefinition": "Reward hacking is behaviour in which an AI system exploits flaws in its reward signal, metric, or evaluation setup to score well without genuinely achieving the intended objective.\n",
+      "whyExists": "Because goals must be expressed through proxies, and proxies are imperfect. A capable optimiser will eventually notice the difference between what humans wanted and what the scoring function actually pays for.\n",
+      "misuse": "By applying it to any disappointing output. Reward hacking is not just general failure. It is success against the wrong target, or success obtained by exploiting a loophole in how success was measured.\n",
+      "practicalMeaning": "In practice it means agents that satisfy brittle evals while failing on live work, models that become flattering because approval is rewarded, or systems that chase the metric so aggressively that they damage trust, safety, or usefulness.\n",
+      "example": "\"The agent was magnificent at maximising the reward function and noticeably less interested in the task.\"\n",
+      "askNext": [
+        "What behaviour is being rewarded explicitly, and what important behaviour is only hoped for?",
+        "Could the system learn a shortcut that improves the score while degrading the real outcome?",
+        "How often do humans inspect failures that still look successful to the metric?"
+      ],
+      "related": [
+        "rlhf",
+        "alignment",
+        "llm-as-a-judge",
+        "evals"
+      ],
+      "seeAlso": [
+        "Proxy objective",
+        "Specification gaming",
+        "Metric fixation"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-10",
+      "updatedAt": "2026-04-10",
+      "tags": [
+        "rewards",
+        "alignment",
+        "evals"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "what it usually means in reality",
+          "text": "The model found a way to win the test you wrote instead of the result you meant."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The tragedy is rarely that the system optimised. The tragedy is that it optimised exactly what was asked.",
+      "categorySlugs": [
+        "safety-and-evaluation",
+        "model-building",
+        "agents-and-workflows"
+      ],
+      "url": "/dictionary/reward-hacking",
+      "searchText": "Reward Hacking objective gaming metric hacking proxy gaming Safety and evaluation Model building Agents and workflows rewards alignment evals When the system learns that pleasing the scoreboard is easier than doing the job.\n Reward hacking is behaviour in which an AI system exploits flaws in its reward signal, metric, or evaluation setup to score well without genuinely achieving the intended objective.\n Because goals must be expressed through proxies, and proxies are imperfect. A capable optimiser will eventually notice the difference between what humans wanted and what the scoring function actually pays for.\n By applying it to any disappointing output. Reward hacking is not just general failure. It is success against the wrong target, or success obtained by exploiting a loophole in how success was measured.\n In practice it means agents that satisfy brittle evals while failing on live work, models that become flattering because approval is rewarded, or systems that chase the metric so aggressively that they damage trust, safety, or usefulness.\n \"The agent was magnificent at maximising the reward function and noticeably less interested in the task.\"\n What behaviour is being rewarded explicitly, and what important behaviour is only hoped for? Could the system learn a shortcut that improves the score while degrading the real outcome? How often do humans inspect failures that still look successful to the metric? Proxy objective Specification gaming Metric fixation",
+      "relatedSlugs": [
+        "rlhf",
+        "alignment",
+        "llm-as-a-judge"
       ]
     },
     {
@@ -8070,6 +8493,79 @@
         "agent",
         "orchestration",
         "ai-wrapper"
+      ]
+    },
+    {
+      "title": "SWE-Bench",
+      "slug": "swe-bench",
+      "letter": "S",
+      "categories": [
+        "Safety and evaluation",
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "aliases": [
+        "SWE Bench",
+        "coding agent benchmark",
+        "software engineering benchmark"
+      ],
+      "devilDefinition": "The benchmark that turns repository repair into a spectator sport and product roadmap at the same time.\n",
+      "plainDefinition": "SWE-Bench is a benchmark suite of real software repository tasks, typically derived from GitHub issues and patches, used to evaluate how well coding systems can diagnose, edit, and validate code changes.\n",
+      "whyExists": "Because software engineering is harder to fake than toy code generation, and the field needed a public way to compare agents on real repositories, tests, and issue-driven fixes.\n",
+      "misuse": "By treating a strong SWE-Bench score as proof that a coding agent can replace engineering judgement, production review, or the small matter of understanding organisational context. It is a useful signal, not a complete hiring packet.\n",
+      "practicalMeaning": "In practice it means measuring whether a system can navigate repo structure, identify relevant files, make coherent edits, and satisfy tests under benchmark conditions. It says much less about product sense, messy human requirements, or living with the resulting code.\n",
+      "example": "\"They cited SWE-Bench as proof the agent could run the team, which was ambitious given the team still had customers.\"\n",
+      "askNext": [
+        "Which version of SWE-Bench are we talking about, and under what tooling assumptions?",
+        "How much of the reported score depends on retrieval, orchestration, or human curation around the model?",
+        "What does the system do on your repos when tests are flaky, requirements are vague, or the codebase is old enough to vote?"
+      ],
+      "related": [
+        "benchmark-theatre",
+        "codex",
+        "claude-code",
+        "cursor"
+      ],
+      "seeAlso": [
+        "Repository benchmark",
+        "Issue resolution eval",
+        "Agent harness"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-10",
+      "updatedAt": "2026-04-10",
+      "tags": [
+        "benchmarks",
+        "coding",
+        "evals"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "operator meaning",
+          "text": "A better benchmark than toy prompts, and still not the same thing as shipping software."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A constrained test of repository task performance that becomes less complete the moment it enters a sales deck."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "A benchmark can be honest and still be overinterpreted. The trouble begins when the score tries on a badge.",
+      "categorySlugs": [
+        "safety-and-evaluation",
+        "agents-and-workflows",
+        "cultural-terms"
+      ],
+      "url": "/dictionary/swe-bench",
+      "searchText": "SWE-Bench SWE Bench coding agent benchmark software engineering benchmark Safety and evaluation Agents and workflows Cultural terms benchmarks coding evals The benchmark that turns repository repair into a spectator sport and product roadmap at the same time.\n SWE-Bench is a benchmark suite of real software repository tasks, typically derived from GitHub issues and patches, used to evaluate how well coding systems can diagnose, edit, and validate code changes.\n Because software engineering is harder to fake than toy code generation, and the field needed a public way to compare agents on real repositories, tests, and issue-driven fixes.\n By treating a strong SWE-Bench score as proof that a coding agent can replace engineering judgement, production review, or the small matter of understanding organisational context. It is a useful signal, not a complete hiring packet.\n In practice it means measuring whether a system can navigate repo structure, identify relevant files, make coherent edits, and satisfy tests under benchmark conditions. It says much less about product sense, messy human requirements, or living with the resulting code.\n \"They cited SWE-Bench as proof the agent could run the team, which was ambitious given the team still had customers.\"\n Which version of SWE-Bench are we talking about, and under what tooling assumptions? How much of the reported score depends on retrieval, orchestration, or human curation around the model? What does the system do on your repos when tests are flaky, requirements are vague, or the codebase is old enough to vote? Repository benchmark Issue resolution eval Agent harness",
+      "relatedSlugs": [
+        "benchmark-theatre",
+        "codex",
+        "claude-code"
       ]
     },
     {
@@ -9705,21 +10201,21 @@
     }
   ],
   "recentSlugs": [
+    "ai-moat",
+    "ambient-agent",
     "clanker",
-    "ai-roll-up",
-    "claude-code",
-    "deepseek"
+    "devin"
   ],
   "misunderstoodSlugs": [
     "agent",
     "agentic-ai",
     "agi",
-    "ai-psychosis"
+    "ai-moat"
   ],
   "letterStats": [
     {
       "letter": "A",
-      "count": 14,
+      "count": 16,
       "href": "/dictionary?letter=A"
     },
     {
@@ -9734,7 +10230,7 @@
     },
     {
       "letter": "D",
-      "count": 7,
+      "count": 8,
       "href": "/dictionary?letter=D"
     },
     {
@@ -9759,7 +10255,7 @@
     },
     {
       "letter": "I",
-      "count": 2,
+      "count": 3,
       "href": "/dictionary?letter=I"
     },
     {
@@ -9794,7 +10290,7 @@
     },
     {
       "letter": "P",
-      "count": 7,
+      "count": 8,
       "href": "/dictionary?letter=P"
     },
     {
@@ -9804,12 +10300,12 @@
     },
     {
       "letter": "R",
-      "count": 8,
+      "count": 9,
       "href": "/dictionary?letter=R"
     },
     {
       "letter": "S",
-      "count": 16,
+      "count": 17,
       "href": "/dictionary?letter=S"
     },
     {
@@ -9853,7 +10349,7 @@
       "title": "Core concepts",
       "description": "Terms people use as if they were self-explanatory, usually before the definitions start fraying.",
       "slug": "core-concepts",
-      "count": 21,
+      "count": 22,
       "sampleTerms": [
         "AGI",
         "AI Psychosis",
@@ -9864,7 +10360,7 @@
       "title": "Cultural terms",
       "description": "The social weirdness around AI: belief, taste, cringe, status games, and the internet behaving as it usually does when handed a new machine.",
       "slug": "cultural-terms",
-      "count": 51,
+      "count": 55,
       "sampleTerms": [
         "Agent Washing",
         "AGI",
@@ -9875,7 +10371,7 @@
       "title": "Model building",
       "description": "How models are trained, tuned, evaluated, and occasionally overpraised.",
       "slug": "model-building",
-      "count": 24,
+      "count": 26,
       "sampleTerms": [
         "Andrej Karpathy",
         "Arthur Mensch",
@@ -9886,7 +10382,7 @@
       "title": "Model usage",
       "description": "What it means to actually run a model in production, where invoices and latency live.",
       "slug": "model-usage",
-      "count": 54,
+      "count": 55,
       "sampleTerms": [
         "Agent",
         "AI Companion",
@@ -9897,11 +10393,11 @@
       "title": "Agents and workflows",
       "description": "Automation patterns, orchestration, and the difference between useful autonomy and stagecraft.",
       "slug": "agents-and-workflows",
-      "count": 38,
+      "count": 42,
       "sampleTerms": [
         "Agent",
         "Agentic AI",
-        "bolt.new"
+        "Ambient Agent"
       ]
     },
     {
@@ -9919,7 +10415,7 @@
       "title": "Product and vendor terms",
       "description": "Company names, product labels, and the branding haze around them.",
       "slug": "product-and-vendor-terms",
-      "count": 59,
+      "count": 61,
       "sampleTerms": [
         "Agent Washing",
         "AI Companion",
@@ -9930,7 +10426,7 @@
       "title": "Safety and evaluation",
       "description": "Guardrails, tests, preferences, and the uncomfortable gap between lab scores and reality.",
       "slug": "safety-and-evaluation",
-      "count": 25,
+      "count": 28,
       "sampleTerms": [
         "Alignment",
         "Anthropic",
@@ -9941,7 +10437,7 @@
       "title": "Infrastructure and deployment",
       "description": "The machinery underneath the demo: compute, serving, throughput, and operational trade-offs.",
       "slug": "infrastructure-and-deployment",
-      "count": 24,
+      "count": 25,
       "sampleTerms": [
         "Alexandr Wang",
         "Cloudflare",
@@ -9952,11 +10448,11 @@
       "title": "Economics and operations of AI",
       "description": "Cost, labour, incentives, and the very unmagical business of running AI systems.",
       "slug": "economics-and-operations-of-ai",
-      "count": 56,
+      "count": 58,
       "sampleTerms": [
         "Agent Washing",
         "AGI",
-        "AI Overviews"
+        "AI Moat"
       ]
     }
   ],
@@ -10098,8 +10594,15 @@
     "vibe-coding",
     "voice-agent",
     "windsurf",
-    "clanker"
+    "ai-moat",
+    "ambient-agent",
+    "clanker",
+    "devin",
+    "inference-stack",
+    "post-training",
+    "reward-hacking",
+    "swe-bench"
   ],
-  "featuredSlug": "clanker",
+  "featuredSlug": "ai-moat",
   "latestPublishedAt": "2026-04-10"
 }

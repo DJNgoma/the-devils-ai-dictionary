@@ -1,0 +1,56 @@
+---
+title: "Post-Training"
+slug: "post-training"
+letter: "P"
+categories:
+  - "Model building"
+  - "Safety and evaluation"
+  - "Core concepts"
+aliases:
+  - "posttraining"
+  - "alignment tuning"
+  - "instruction tuning pipeline"
+devilDefinition: |
+  All the work done after pretraining so the base model can stop sounding raw, evasive, or commercially inconvenient.
+plainDefinition: |
+  Post-training is the phase after base-model pretraining where a model is further adapted through methods such as supervised fine-tuning, preference optimisation, safety tuning, distillation, tool-use training, or reasoning-focused tuning.
+whyExists: |
+  Because a pretrained model may have broad knowledge yet still be poor at following instructions, using tools, refusing unsafe requests, formatting outputs, or behaving in ways customers and policy teams can live with.
+misuse: |
+  By treating it as a minor polish step. In modern systems, post-training often shapes the behaviour users actually experience. The base model matters. So does everything done afterwards to civilise it.
+practicalMeaning: |
+  In practice it means expensive data curation, human or synthetic preference signals, eval loops, reward design, refusal policies, task-specific tuning, and long arguments about whether capability gains came from the base model or the scaffolding layered on top.
+example: |
+  "The pretraining got the headlines. The post-training taught the model how to survive product management."
+askNext:
+  - "Which behaviours come from the base model, and which were imposed during post-training?"
+  - "What data or feedback signals shaped instruction following, refusals, and tool behaviour?"
+  - "Did post-training improve real task quality or merely make the model easier to demo?"
+related:
+  - "training"
+  - "fine-tuning"
+  - "rlhf"
+  - "reasoning-model"
+seeAlso:
+  - "Instruction tuning"
+  - "Preference optimisation"
+  - "Model alignment"
+difficulty: "intermediate"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-10"
+updatedAt: "2026-04-10"
+tags:
+  - "tuning"
+  - "alignment"
+  - "models"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "The long and consequential process of turning a broadly trained model into a commercially usable one."
+note: |
+  The term covers a family of methods. It is not synonymous with RLHF, even though RLHF remains one of its better-known ingredients.
+---
+
+The modern model story is often written twice: once in pretraining papers and again in post-training release notes.

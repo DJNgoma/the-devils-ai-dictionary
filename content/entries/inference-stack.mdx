@@ -1,0 +1,56 @@
+---
+title: "Inference Stack"
+slug: "inference-stack"
+letter: "I"
+categories:
+  - "Infrastructure and deployment"
+  - "Economics and operations of AI"
+  - "Model usage"
+aliases:
+  - "LLM ops stack"
+  - "inference platform"
+  - "serving stack"
+devilDefinition: |
+  The collection of expensive plumbing discovered immediately after somebody says, "It's just one API call."
+plainDefinition: |
+  An inference stack is the set of systems used to run model requests in production, including providers, routing, caching, prompt assembly, guardrails, observability, evaluation, and cost control.
+whyExists: |
+  Because shipping AI features requires more than model access. Real applications need reliability, latency control, policy enforcement, failover, measurement, and a defensible explanation for the monthly bill.
+misuse: |
+  By calling every thin wrapper a stack. A real inference stack handles production constraints. A dropdown of model names and a vibes-based retry loop do not amount to infrastructure.
+practicalMeaning: |
+  In practice it means SDKs, proxies, model routers, rate limits, prompt templates, redaction, logging, eval pipelines, cache policies, billing dashboards, and repeated arguments over whether quality improved enough to justify the spend.
+example: |
+  "The inference stack matured rapidly once finance started reading the token invoices with feeling."
+askNext:
+  - "Which parts of the stack protect reliability, and which merely create another place for failure to hide?"
+  - "How are routing, caching, and fallback policies affecting quality as well as cost?"
+  - "Who can explain the per-request economics without opening six dashboards and a prayer?"
+related:
+  - "inference"
+  - "model-router"
+  - "latency"
+  - "openrouter"
+seeAlso:
+  - "Serving layer"
+  - "Production LLM ops"
+  - "Request routing"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-10"
+updatedAt: "2026-04-10"
+tags:
+  - "infrastructure"
+  - "serving"
+  - "cost"
+misunderstoodScore: 4
+translations:
+  - label: "operator meaning"
+    text: "Everything around the model call that keeps production from becoming an expensive hobby."
+  - label: "what it usually means in reality"
+    text: "A layered serving system where cost, latency, safety, and uptime argue with one another on every request."
+---
+
+Once the prototypes leave the demo phase, the stack arrives carrying invoices, dashboards, and opinions.

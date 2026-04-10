@@ -1,0 +1,56 @@
+---
+title: "SWE-Bench"
+slug: "swe-bench"
+letter: "S"
+categories:
+  - "Safety and evaluation"
+  - "Agents and workflows"
+  - "Cultural terms"
+aliases:
+  - "SWE Bench"
+  - "coding agent benchmark"
+  - "software engineering benchmark"
+devilDefinition: |
+  The benchmark that turns repository repair into a spectator sport and product roadmap at the same time.
+plainDefinition: |
+  SWE-Bench is a benchmark suite of real software repository tasks, typically derived from GitHub issues and patches, used to evaluate how well coding systems can diagnose, edit, and validate code changes.
+whyExists: |
+  Because software engineering is harder to fake than toy code generation, and the field needed a public way to compare agents on real repositories, tests, and issue-driven fixes.
+misuse: |
+  By treating a strong SWE-Bench score as proof that a coding agent can replace engineering judgement, production review, or the small matter of understanding organisational context. It is a useful signal, not a complete hiring packet.
+practicalMeaning: |
+  In practice it means measuring whether a system can navigate repo structure, identify relevant files, make coherent edits, and satisfy tests under benchmark conditions. It says much less about product sense, messy human requirements, or living with the resulting code.
+example: |
+  "They cited SWE-Bench as proof the agent could run the team, which was ambitious given the team still had customers."
+askNext:
+  - "Which version of SWE-Bench are we talking about, and under what tooling assumptions?"
+  - "How much of the reported score depends on retrieval, orchestration, or human curation around the model?"
+  - "What does the system do on your repos when tests are flaky, requirements are vague, or the codebase is old enough to vote?"
+related:
+  - "benchmark-theatre"
+  - "codex"
+  - "claude-code"
+  - "cursor"
+seeAlso:
+  - "Repository benchmark"
+  - "Issue resolution eval"
+  - "Agent harness"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-04-10"
+updatedAt: "2026-04-10"
+tags:
+  - "benchmarks"
+  - "coding"
+  - "evals"
+misunderstoodScore: 4
+translations:
+  - label: "operator meaning"
+    text: "A better benchmark than toy prompts, and still not the same thing as shipping software."
+  - label: "what it usually means in reality"
+    text: "A constrained test of repository task performance that becomes less complete the moment it enters a sales deck."
+---
+
+A benchmark can be honest and still be overinterpreted. The trouble begins when the score tries on a badge.
