@@ -65,6 +65,8 @@ npm run build:cf
 npm run windows:build
 ```
 
+GitHub Actions is now the canonical production web deployment path for this repo. Use `.github/workflows/deploy-cloudflare.yml` for normal web releases. Keep `npm run deploy:cf` and `npm run upload:cf` as emergency-only fallback commands.
+
 The supported Apple toolchain for local builds is `/Applications/Xcode.app` (Xcode 26.4). The helper-backed iOS scripts prefer that toolchain automatically even if `xcode-select` still points at `Xcode-beta.app`. Override it only when you intentionally want the beta:
 
 ```bash
