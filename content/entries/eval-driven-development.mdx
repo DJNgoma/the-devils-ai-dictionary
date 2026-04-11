@@ -1,0 +1,58 @@
+---
+title: "Eval-Driven Development"
+slug: "eval-driven-development"
+letter: "E"
+categories:
+  - "Safety and evaluation"
+  - "Agents and workflows"
+  - "Model usage"
+aliases:
+  - "EDD"
+  - "eval-first development"
+  - "evaluation-driven development"
+devilDefinition: |
+  The radical idea that if your product depends on stochastic behaviour, you should probably measure something before calling the demo a platform.
+plainDefinition: |
+  Eval-driven development is the practice of using targeted evaluations to guide prompt changes, model selection, tool design, and release decisions for AI systems.
+whyExists: |
+  Traditional software tests do not fully capture AI behaviour, while pure vibes scale poorly once money, customers, or reputations are involved. Teams need a repeatable way to detect regressions and compare alternatives.
+misuse: |
+  It is misused when a handful of flattering examples are promoted to an evaluation strategy, or when teams treat proxy metrics as if they were the product itself. An eval can discipline judgement. It cannot replace it.
+practicalMeaning: |
+  In practice it usually means curated test sets, grading rubrics, automated checks, and before-after comparisons tied to real tasks. The mature version influences release gates. The immature version produces a dashboard nobody trusts but everyone screenshots.
+example: |
+  "Eval-driven development arrived the day they stopped arguing about prompts in Slack and started arguing about failure rates instead."
+askNext:
+  - "Which behaviours matter enough to measure continuously?"
+  - "Do the evals reflect production tasks, or merely the tasks that are easiest to score?"
+  - "What happens when the metric improves but the user experience quietly worsens?"
+related:
+  - "evals"
+  - "llm-as-a-judge"
+  - "benchmark-theatre"
+  - "rubber-stamp-review"
+seeAlso:
+  - "Golden dataset"
+  - "Regression suite"
+  - "Release gate"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-11"
+updatedAt: "2026-04-11"
+warningLabel: "A useful discipline, especially when it resists becoming a PowerPoint ritual."
+tags:
+  - "testing"
+  - "evaluation"
+  - "product"
+  - "regression"
+misunderstoodScore: 4
+translations:
+  - label: "team meaning"
+    text: "Define the failure cases and score them before changing the system."
+  - label: "what it usually means in reality"
+    text: "Replacing prompt debates with measurable arguments, then discovering the measurements also need supervision."
+---
+
+The concept is sound. The danger begins when the organisation assumes that once a number exists, the thinking has been done.

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "catalogVersion": "786883cb0cf56ae3280382453b404d9d06f16f840d4c74162656f6689df06da7",
-  "generatedAt": "2026-04-10T05:04:48.432Z",
-  "entryCount": 143,
+  "catalogVersion": "c0367b6945d9a55058a4ef5a7b43ee441f4d638f9f1a9b6cccc1bf286534badf",
+  "generatedAt": "2026-04-11T07:16:02.025Z",
+  "entryCount": 151,
   "entries": [
     {
       "title": "Agent",
@@ -68,6 +68,81 @@
         "agentic-ai",
         "orchestration",
         "tool-use"
+      ]
+    },
+    {
+      "title": "Agent Ops",
+      "slug": "agent-ops",
+      "letter": "A",
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI",
+        "Product and vendor terms"
+      ],
+      "aliases": [
+        "agent operations",
+        "agent observability",
+        "agent run operations"
+      ],
+      "devilDefinition": "The emerging discipline of watching autonomous systems fail with enough instrumentation that management will continue funding the autonomy programme.\n",
+      "plainDefinition": "Agent ops refers to the operational practice of monitoring, debugging, evaluating, governing, and improving agent-style systems once they run in real workflows.\n",
+      "whyExists": "Agents create long traces, tool calls, permissions, side effects, retries, approvals, and costs. Ordinary application logs are rarely enough when the system can go wrong in six steps and a cheerful tone.\n",
+      "misuse": "It gets abused when a tracing dashboard is mistaken for control. Visibility helps, but it does not solve brittle plans, weak tools, or the small issue of giving software enough access to embarrass the company at scale.\n",
+      "practicalMeaning": "In practice it usually means collecting run histories, replaying failures, scoring outcomes, tracking tool use, setting approvals, and deciding which errors deserve engineering rather than theology.\n",
+      "example": "\"The agent ops review revealed that the system was not autonomous so much as confidently unsupervised.\"\n",
+      "askNext": [
+        "What can we inspect after an agent run fails halfway through a task?",
+        "Which actions require approval, rollback, or auditability?",
+        "Are we measuring task success, tool misuse, latency, and cost in the same place?"
+      ],
+      "related": [
+        "orchestration",
+        "human-in-the-loop",
+        "evals",
+        "mcp"
+      ],
+      "seeAlso": [
+        "Trace replay",
+        "Approval workflow",
+        "Operational telemetry"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-11",
+      "updatedAt": "2026-04-11",
+      "warningLabel": "Instrumentation is not the same thing as restraint.",
+      "tags": [
+        "operations",
+        "observability",
+        "agents",
+        "governance"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "platform meaning",
+          "text": "The controls and visibility needed to run agent systems without pure faith."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Making the agent's mistakes legible enough to fix them before they become policy."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "Every new software category eventually rediscovers operations. Agent ops is the point at which the romance meets the incident review.",
+      "categorySlugs": [
+        "agents-and-workflows",
+        "economics-and-operations-of-ai",
+        "product-and-vendor-terms"
+      ],
+      "url": "/dictionary/agent-ops",
+      "searchText": "Agent Ops agent operations agent observability agent run operations Agents and workflows Economics and operations of AI Product and vendor terms operations observability agents governance The emerging discipline of watching autonomous systems fail with enough instrumentation that management will continue funding the autonomy programme.\n Agent ops refers to the operational practice of monitoring, debugging, evaluating, governing, and improving agent-style systems once they run in real workflows.\n Agents create long traces, tool calls, permissions, side effects, retries, approvals, and costs. Ordinary application logs are rarely enough when the system can go wrong in six steps and a cheerful tone.\n It gets abused when a tracing dashboard is mistaken for control. Visibility helps, but it does not solve brittle plans, weak tools, or the small issue of giving software enough access to embarrass the company at scale.\n In practice it usually means collecting run histories, replaying failures, scoring outcomes, tracking tool use, setting approvals, and deciding which errors deserve engineering rather than theology.\n \"The agent ops review revealed that the system was not autonomous so much as confidently unsupervised.\"\n What can we inspect after an agent run fails halfway through a task? Which actions require approval, rollback, or auditability? Are we measuring task success, tool misuse, latency, and cost in the same place? Trace replay Approval workflow Operational telemetry",
+      "relatedSlugs": [
+        "orchestration",
+        "human-in-the-loop",
+        "evals"
       ]
     },
     {
@@ -138,6 +213,77 @@
         "agent",
         "agentic-ai",
         "orchestration"
+      ]
+    },
+    {
+      "title": "Agent2Agent",
+      "slug": "agent2agent",
+      "letter": "A",
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "aliases": [
+        "A2A",
+        "agent-to-agent protocol"
+      ],
+      "devilDefinition": "A protocol for letting one agent hand work to another agent, because evidently the first thing missing from software was more inter-agent correspondence.\n",
+      "plainDefinition": "Agent2Agent usually refers to a protocol pattern for agents to advertise capabilities, exchange task requests, share status, and return results to one another in a more standardised way.\n",
+      "whyExists": "As agent systems multiply, teams do not want every handoff between assistants, services, and vendors to become a bespoke treaty drafted in JSON and regret. A common contract lowers that integration cost.\n",
+      "misuse": "It gets discussed as though inter-agent communication automatically creates competence, trust, or composability. It does not. A standard message shape cannot rescue a bad agent any more than a calendar invite can rescue a bad meeting.\n",
+      "practicalMeaning": "In practice it usually means one system can delegate a task to another specialised system without hard-coding every detail of the exchange. That can make ecosystems more flexible. It can also spread failure, ambiguity, and responsibility across a larger map.\n",
+      "example": "\"Agent2Agent made the handoff cleaner, which was useful, though it did not improve the quality of the thinking at either end.\"\n",
+      "askNext": [
+        "What exactly is standardised: discovery, task state, result format, authentication, or all four?",
+        "How are permissions, identity, and audit trails handled across agents?",
+        "Are we enabling composability, or merely creating distributed confusion with better packet structure?"
+      ],
+      "related": [
+        "mcp",
+        "orchestration",
+        "agent",
+        "tool-use"
+      ],
+      "seeAlso": [
+        "Task handoff",
+        "Multi-agent protocol",
+        "Delegation boundary"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-11",
+      "updatedAt": "2026-04-11",
+      "tags": [
+        "protocol",
+        "interoperability",
+        "agents",
+        "delegation"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "architect meaning",
+          "text": "A standard way for agentic systems to pass work and state between each other."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Fewer bespoke connectors, plus a new set of questions about trust and ownership."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "Standards matter most when everyone is about to build the same messy thing in slightly incompatible ways.",
+      "categorySlugs": [
+        "agents-and-workflows",
+        "infrastructure-and-deployment"
+      ],
+      "url": "/dictionary/agent2agent",
+      "searchText": "Agent2Agent A2A agent-to-agent protocol Agents and workflows Infrastructure and deployment protocol interoperability agents delegation A protocol for letting one agent hand work to another agent, because evidently the first thing missing from software was more inter-agent correspondence.\n Agent2Agent usually refers to a protocol pattern for agents to advertise capabilities, exchange task requests, share status, and return results to one another in a more standardised way.\n As agent systems multiply, teams do not want every handoff between assistants, services, and vendors to become a bespoke treaty drafted in JSON and regret. A common contract lowers that integration cost.\n It gets discussed as though inter-agent communication automatically creates competence, trust, or composability. It does not. A standard message shape cannot rescue a bad agent any more than a calendar invite can rescue a bad meeting.\n In practice it usually means one system can delegate a task to another specialised system without hard-coding every detail of the exchange. That can make ecosystems more flexible. It can also spread failure, ambiguity, and responsibility across a larger map.\n \"Agent2Agent made the handoff cleaner, which was useful, though it did not improve the quality of the thinking at either end.\"\n What exactly is standardised: discovery, task state, result format, authentication, or all four? How are permissions, identity, and audit trails handled across agents? Are we enabling composability, or merely creating distributed confusion with better packet structure? Task handoff Multi-agent protocol Delegation boundary",
+      "relatedSlugs": [
+        "mcp",
+        "orchestration",
+        "agent"
       ]
     },
     {
@@ -272,6 +418,81 @@
         "frontier-model",
         "reasoning-model",
         "benchmark-theatre"
+      ]
+    },
+    {
+      "title": "AI Browser",
+      "slug": "ai-browser",
+      "letter": "A",
+      "categories": [
+        "Product and vendor terms",
+        "Cultural terms",
+        "Model usage"
+      ],
+      "aliases": [
+        "browser with AI",
+        "assistant browser",
+        "agent browser"
+      ],
+      "devilDefinition": "A web browser that has decided the tab was never the star and that what you really wanted all along was a resident opinion machine with toolbar privileges.\n",
+      "plainDefinition": "An AI browser is a browser product that integrates chat, summarisation, search assistance, and sometimes agentic actions directly into the browsing experience.\n",
+      "whyExists": "The browser remains a strategic surface for search, discovery, work, and distribution. If assistants are going to sit anywhere all day, vendors would prefer that somewhere to be under their own chrome.\n",
+      "misuse": "It is sold as a reinvention of the web when it is often a conventional browser wrapped around a sidebar, some workflow shortcuts, and a larger ambition about owning the default surface.\n",
+      "practicalMeaning": "In practice it usually means built-in page summaries, tab understanding, search assistance, form filling, shopping help, and occasional task automation. It may also mean a fresh argument about privacy, telemetry, and who gets to mediate your view of the internet.\n",
+      "example": "\"The AI browser promised a calmer web and delivered a more conversational way to accumulate open tabs.\"\n",
+      "askNext": [
+        "What does the browser genuinely do that extensions or a pinned chat window do not?",
+        "How much browsing data is being used to power the assistant features?",
+        "Is the real play productivity, search distribution, or user lock-in?"
+      ],
+      "related": [
+        "perplexity",
+        "computer-use",
+        "deep-research",
+        "chatgpt"
+      ],
+      "seeAlso": [
+        "Default surface",
+        "Search replacement",
+        "Browser distribution"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-11",
+      "updatedAt": "2026-04-11",
+      "warningLabel": "A convenience layer and a distribution battle, often at the same time.",
+      "tags": [
+        "browser",
+        "search",
+        "distribution",
+        "privacy"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "product meaning",
+          "text": "Put the assistant inside the browser so help, search, and automation are always one click away."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "The browser wants to be the operating system for your next prompt."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The browser wars have returned with a new claim: this time the winner will be whichever tab learns to speak first.",
+      "categorySlugs": [
+        "product-and-vendor-terms",
+        "cultural-terms",
+        "model-usage"
+      ],
+      "url": "/dictionary/ai-browser",
+      "searchText": "AI Browser browser with AI assistant browser agent browser Product and vendor terms Cultural terms Model usage browser search distribution privacy A web browser that has decided the tab was never the star and that what you really wanted all along was a resident opinion machine with toolbar privileges.\n An AI browser is a browser product that integrates chat, summarisation, search assistance, and sometimes agentic actions directly into the browsing experience.\n The browser remains a strategic surface for search, discovery, work, and distribution. If assistants are going to sit anywhere all day, vendors would prefer that somewhere to be under their own chrome.\n It is sold as a reinvention of the web when it is often a conventional browser wrapped around a sidebar, some workflow shortcuts, and a larger ambition about owning the default surface.\n In practice it usually means built-in page summaries, tab understanding, search assistance, form filling, shopping help, and occasional task automation. It may also mean a fresh argument about privacy, telemetry, and who gets to mediate your view of the internet.\n \"The AI browser promised a calmer web and delivered a more conversational way to accumulate open tabs.\"\n What does the browser genuinely do that extensions or a pinned chat window do not? How much browsing data is being used to power the assistant features? Is the real play productivity, search distribution, or user lock-in? Default surface Search replacement Browser distribution",
+      "relatedSlugs": [
+        "perplexity",
+        "computer-use",
+        "deep-research"
       ]
     },
     {
@@ -2009,6 +2230,80 @@
       ]
     },
     {
+      "title": "Context Rot",
+      "slug": "context-rot",
+      "letter": "C",
+      "categories": [
+        "Cultural terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "aliases": [
+        "session rot",
+        "prompt rot",
+        "context decay"
+      ],
+      "devilDefinition": "The slow corruption of a long AI session as every clarification, exception, and half-fixed mistake is preserved with the reverence of scripture.\n",
+      "plainDefinition": "Context rot is the degradation that happens in long-running chats or agent workflows when accumulated instructions, stale assumptions, noisy history, and partial fixes start reducing output quality.\n",
+      "whyExists": "People needed a name for the very practical observation that more context is not always better context. Once a session becomes long enough, the model may carry forward the wrong facts with admirable loyalty.\n",
+      "misuse": "The phrase gets used to blame the model for every bad answer in a long thread, including cases where the human supplied contradictory instructions, never reset the task, or kept shovelling debris into the prompt like a municipal service.\n",
+      "practicalMeaning": "In practice it usually means the session needs pruning, a fresh summary, or a clean restart. For agent systems it often means state management is doing a worse job than the demo admitted.\n",
+      "example": "\"By the eighth refinement the coding assistant had context rot: it remembered every detour and none of the point.\"\n",
+      "askNext": [
+        "Which parts of the current context are still relevant, and which are now archival clutter?",
+        "Would a reset plus a clean handover summary improve quality more than adding another paragraph?",
+        "Is the problem the model's memory, or our refusal to curate it?"
+      ],
+      "related": [
+        "context-engineering",
+        "context-stuffing",
+        "context-window",
+        "vibe-coding"
+      ],
+      "seeAlso": [
+        "Session reset",
+        "Prompt hygiene",
+        "State compaction"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-11",
+      "updatedAt": "2026-04-11",
+      "tags": [
+        "prompting",
+        "state",
+        "coding",
+        "workflow"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "operator meaning",
+          "text": "The working context has become too bloated, stale, or contradictory to be useful."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Start a new thread before the old one becomes a constitutional monarchy of bad assumptions."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "Context rot is what happens when people confuse retention with understanding. A long memory is only helpful if someone occasionally removes the rubbish.",
+      "categorySlugs": [
+        "cultural-terms",
+        "agents-and-workflows",
+        "model-usage"
+      ],
+      "url": "/dictionary/context-rot",
+      "searchText": "Context Rot session rot prompt rot context decay Cultural terms Agents and workflows Model usage prompting state coding workflow The slow corruption of a long AI session as every clarification, exception, and half-fixed mistake is preserved with the reverence of scripture.\n Context rot is the degradation that happens in long-running chats or agent workflows when accumulated instructions, stale assumptions, noisy history, and partial fixes start reducing output quality.\n People needed a name for the very practical observation that more context is not always better context. Once a session becomes long enough, the model may carry forward the wrong facts with admirable loyalty.\n The phrase gets used to blame the model for every bad answer in a long thread, including cases where the human supplied contradictory instructions, never reset the task, or kept shovelling debris into the prompt like a municipal service.\n In practice it usually means the session needs pruning, a fresh summary, or a clean restart. For agent systems it often means state management is doing a worse job than the demo admitted.\n \"By the eighth refinement the coding assistant had context rot: it remembered every detour and none of the point.\"\n Which parts of the current context are still relevant, and which are now archival clutter? Would a reset plus a clean handover summary improve quality more than adding another paragraph? Is the problem the model's memory, or our refusal to curate it? Session reset Prompt hygiene State compaction",
+      "relatedSlugs": [
+        "context-engineering",
+        "context-stuffing",
+        "context-window"
+      ]
+    },
+    {
       "title": "Context Stuffing",
       "slug": "context-stuffing",
       "letter": "C",
@@ -2940,6 +3235,81 @@
       ]
     },
     {
+      "title": "Eval-Driven Development",
+      "slug": "eval-driven-development",
+      "letter": "E",
+      "categories": [
+        "Safety and evaluation",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "aliases": [
+        "EDD",
+        "eval-first development",
+        "evaluation-driven development"
+      ],
+      "devilDefinition": "The radical idea that if your product depends on stochastic behaviour, you should probably measure something before calling the demo a platform.\n",
+      "plainDefinition": "Eval-driven development is the practice of using targeted evaluations to guide prompt changes, model selection, tool design, and release decisions for AI systems.\n",
+      "whyExists": "Traditional software tests do not fully capture AI behaviour, while pure vibes scale poorly once money, customers, or reputations are involved. Teams need a repeatable way to detect regressions and compare alternatives.\n",
+      "misuse": "It is misused when a handful of flattering examples are promoted to an evaluation strategy, or when teams treat proxy metrics as if they were the product itself. An eval can discipline judgement. It cannot replace it.\n",
+      "practicalMeaning": "In practice it usually means curated test sets, grading rubrics, automated checks, and before-after comparisons tied to real tasks. The mature version influences release gates. The immature version produces a dashboard nobody trusts but everyone screenshots.\n",
+      "example": "\"Eval-driven development arrived the day they stopped arguing about prompts in Slack and started arguing about failure rates instead.\"\n",
+      "askNext": [
+        "Which behaviours matter enough to measure continuously?",
+        "Do the evals reflect production tasks, or merely the tasks that are easiest to score?",
+        "What happens when the metric improves but the user experience quietly worsens?"
+      ],
+      "related": [
+        "evals",
+        "llm-as-a-judge",
+        "benchmark-theatre",
+        "rubber-stamp-review"
+      ],
+      "seeAlso": [
+        "Golden dataset",
+        "Regression suite",
+        "Release gate"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-11",
+      "updatedAt": "2026-04-11",
+      "warningLabel": "A useful discipline, especially when it resists becoming a PowerPoint ritual.",
+      "tags": [
+        "testing",
+        "evaluation",
+        "product",
+        "regression"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "team meaning",
+          "text": "Define the failure cases and score them before changing the system."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Replacing prompt debates with measurable arguments, then discovering the measurements also need supervision."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The concept is sound. The danger begins when the organisation assumes that once a number exists, the thinking has been done.",
+      "categorySlugs": [
+        "safety-and-evaluation",
+        "agents-and-workflows",
+        "model-usage"
+      ],
+      "url": "/dictionary/eval-driven-development",
+      "searchText": "Eval-Driven Development EDD eval-first development evaluation-driven development Safety and evaluation Agents and workflows Model usage testing evaluation product regression The radical idea that if your product depends on stochastic behaviour, you should probably measure something before calling the demo a platform.\n Eval-driven development is the practice of using targeted evaluations to guide prompt changes, model selection, tool design, and release decisions for AI systems.\n Traditional software tests do not fully capture AI behaviour, while pure vibes scale poorly once money, customers, or reputations are involved. Teams need a repeatable way to detect regressions and compare alternatives.\n It is misused when a handful of flattering examples are promoted to an evaluation strategy, or when teams treat proxy metrics as if they were the product itself. An eval can discipline judgement. It cannot replace it.\n In practice it usually means curated test sets, grading rubrics, automated checks, and before-after comparisons tied to real tasks. The mature version influences release gates. The immature version produces a dashboard nobody trusts but everyone screenshots.\n \"Eval-driven development arrived the day they stopped arguing about prompts in Slack and started arguing about failure rates instead.\"\n Which behaviours matter enough to measure continuously? Do the evals reflect production tasks, or merely the tasks that are easiest to score? What happens when the metric improves but the user experience quietly worsens? Golden dataset Regression suite Release gate",
+      "relatedSlugs": [
+        "evals",
+        "llm-as-a-judge",
+        "benchmark-theatre"
+      ]
+    },
+    {
       "title": "Evals",
       "slug": "evals",
       "letter": "E",
@@ -3315,7 +3685,7 @@
       "relatedSlugs": [
         "rag",
         "grounding",
-        "arthur-mensch"
+        "agent-ops"
       ]
     },
     {
@@ -4022,6 +4392,80 @@
       ]
     },
     {
+      "title": "Inference Arbitrage",
+      "slug": "inference-arbitrage",
+      "letter": "I",
+      "categories": [
+        "Economics and operations of AI",
+        "Product and vendor terms",
+        "Infrastructure and deployment"
+      ],
+      "aliases": [
+        "model arbitrage",
+        "inference margin",
+        "token arbitrage"
+      ],
+      "devilDefinition": "Buying intelligence wholesale from one provider, retailing it through a cleaner interface, and hoping the margin survives long enough to become a strategy.\n",
+      "plainDefinition": "Inference arbitrage is the practice of profiting from differences in model price, latency, quality, or access by routing demand across providers and packaging the result as a product or service.\n",
+      "whyExists": "Model markets are uneven. Providers price differently, regions behave differently, and many users would rather pay one intermediary than personally compare latency tables like a day trader with a prompt addiction.\n",
+      "misuse": "The term is stretched when any wrapper, gateway, or comparison site is described as though routing alone were a durable moat. Arbitrage can be real. It is also famously allergic to permanence.\n",
+      "practicalMeaning": "In practice it usually means mixing models behind the scenes, swapping suppliers when pricing shifts, and capturing some spread through UX, bundling, reliability, or customer ignorance. The better businesses add real workflow value. The thinner ones are mostly tariffs with branding.\n",
+      "example": "\"Their moat turned out to be inference arbitrage with a charming UI and a very aggressive newsletter.\"\n",
+      "askNext": [
+        "What part of the margin comes from routing skill, and what part from customer convenience?",
+        "How quickly does the advantage disappear if providers cut prices or copy the feature?",
+        "Is there product substance here, or mainly a spread between wholesale tokens and retail confidence?"
+      ],
+      "related": [
+        "model-router",
+        "openrouter",
+        "inference-provider",
+        "ai-wrapper"
+      ],
+      "seeAlso": [
+        "Margin compression",
+        "Gateway business",
+        "Wholesale intelligence"
+      ],
+      "difficulty": "intermediate",
+      "technicalDepth": "medium",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-11",
+      "updatedAt": "2026-04-11",
+      "tags": [
+        "pricing",
+        "routing",
+        "margin",
+        "startups"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "operator meaning",
+          "text": "Capture value from differences between model suppliers instead of betting on a single one."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Someone else is shopping the model market so the customer can pretend not to notice."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "Arbitrage is not shameful. It is merely less mythic than many decks would prefer.",
+      "categorySlugs": [
+        "economics-and-operations-of-ai",
+        "product-and-vendor-terms",
+        "infrastructure-and-deployment"
+      ],
+      "url": "/dictionary/inference-arbitrage",
+      "searchText": "Inference Arbitrage model arbitrage inference margin token arbitrage Economics and operations of AI Product and vendor terms Infrastructure and deployment pricing routing margin startups Buying intelligence wholesale from one provider, retailing it through a cleaner interface, and hoping the margin survives long enough to become a strategy.\n Inference arbitrage is the practice of profiting from differences in model price, latency, quality, or access by routing demand across providers and packaging the result as a product or service.\n Model markets are uneven. Providers price differently, regions behave differently, and many users would rather pay one intermediary than personally compare latency tables like a day trader with a prompt addiction.\n The term is stretched when any wrapper, gateway, or comparison site is described as though routing alone were a durable moat. Arbitrage can be real. It is also famously allergic to permanence.\n In practice it usually means mixing models behind the scenes, swapping suppliers when pricing shifts, and capturing some spread through UX, bundling, reliability, or customer ignorance. The better businesses add real workflow value. The thinner ones are mostly tariffs with branding.\n \"Their moat turned out to be inference arbitrage with a charming UI and a very aggressive newsletter.\"\n What part of the margin comes from routing skill, and what part from customer convenience? How quickly does the advantage disappear if providers cut prices or copy the feature? Is there product substance here, or mainly a spread between wholesale tokens and retail confidence? Margin compression Gateway business Wholesale intelligence",
+      "relatedSlugs": [
+        "model-router",
+        "openrouter",
+        "inference-provider"
+      ]
+    },
+    {
       "title": "Inference Provider",
       "slug": "inference-provider",
       "letter": "I",
@@ -4381,6 +4825,79 @@
         "tokens",
         "reasoning-model",
         "function-calling"
+      ]
+    },
+    {
+      "title": "Liar's Dividend",
+      "slug": "liars-dividend",
+      "letter": "L",
+      "categories": [
+        "Cultural terms",
+        "Safety and evaluation"
+      ],
+      "aliases": [
+        "liar dividend",
+        "synthetic deniability",
+        "deepfake alibi"
+      ],
+      "devilDefinition": "The social profit earned when fake media becomes plausible enough that real evidence can be waved away as synthetic inconvenience.\n",
+      "plainDefinition": "The liar's dividend is the benefit people gain when the existence of convincing AI-generated or manipulated media lets them deny authentic evidence as fake.\n",
+      "whyExists": "AI has lowered the cost of producing persuasive synthetic audio, images, and video. That does not only create fake evidence. It also weakens confidence in real evidence by giving bad actors a ready-made excuse.\n",
+      "misuse": "The phrase can be used too theatrically, as though trust has already collapsed beyond recovery. Verification, provenance, and forensic methods still matter. The problem is not total epistemic ruin. It is a higher and more expensive burden of proof.\n",
+      "practicalMeaning": "In practice it usually means journalists, courts, platforms, and the public need stronger provenance checks while opportunists claim every inconvenient recording is probably AI. The immediate damage is often delay, confusion, and public doubt rather than perfect deception.\n",
+      "example": "\"The clip was real, but the liar's dividend arrived on schedule and turned basic verification into a partisan hobby.\"\n",
+      "askNext": [
+        "What provenance or verification evidence accompanies this media?",
+        "Who benefits from uncertainty around its authenticity?",
+        "Are we discussing actual forensic doubts, or opportunistic denial dressed as prudence?"
+      ],
+      "related": [
+        "multimodal",
+        "red-teaming",
+        "guardrails",
+        "slop-flood"
+      ],
+      "seeAlso": [
+        "Content provenance",
+        "Forensic verification",
+        "Authenticity crisis"
+      ],
+      "difficulty": "beginner",
+      "technicalDepth": "low",
+      "hypeLevel": "medium",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-11",
+      "updatedAt": "2026-04-11",
+      "warningLabel": "The damage often comes from doubt, not from perfectly convincing fakery.",
+      "tags": [
+        "deepfakes",
+        "trust",
+        "media",
+        "verification"
+      ],
+      "misunderstoodScore": 5,
+      "translations": [
+        {
+          "label": "policy meaning",
+          "text": "Synthetic media makes it easier to dispute authentic evidence."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "Once fakes are cheap, denial gets cheaper too."
+        }
+      ],
+      "vendorReferences": [],
+      "body": "The liar's dividend is one of the more serious AI terms because it describes a failure mode with no product demo. It arrives as a shrug, a doubt, and a very convenient excuse.",
+      "categorySlugs": [
+        "cultural-terms",
+        "safety-and-evaluation"
+      ],
+      "url": "/dictionary/liars-dividend",
+      "searchText": "Liar's Dividend liar dividend synthetic deniability deepfake alibi Cultural terms Safety and evaluation deepfakes trust media verification The social profit earned when fake media becomes plausible enough that real evidence can be waved away as synthetic inconvenience.\n The liar's dividend is the benefit people gain when the existence of convincing AI-generated or manipulated media lets them deny authentic evidence as fake.\n AI has lowered the cost of producing persuasive synthetic audio, images, and video. That does not only create fake evidence. It also weakens confidence in real evidence by giving bad actors a ready-made excuse.\n The phrase can be used too theatrically, as though trust has already collapsed beyond recovery. Verification, provenance, and forensic methods still matter. The problem is not total epistemic ruin. It is a higher and more expensive burden of proof.\n In practice it usually means journalists, courts, platforms, and the public need stronger provenance checks while opportunists claim every inconvenient recording is probably AI. The immediate damage is often delay, confusion, and public doubt rather than perfect deception.\n \"The clip was real, but the liar's dividend arrived on schedule and turned basic verification into a partisan hobby.\"\n What provenance or verification evidence accompanies this media? Who benefits from uncertainty around its authenticity? Are we discussing actual forensic doubts, or opportunistic denial dressed as prudence? Content provenance Forensic verification Authenticity crisis",
+      "relatedSlugs": [
+        "multimodal",
+        "red-teaming",
+        "guardrails"
       ]
     },
     {
@@ -7489,6 +8006,80 @@
       ]
     },
     {
+      "title": "RLVR",
+      "slug": "rlvr",
+      "letter": "R",
+      "categories": [
+        "Model building",
+        "Safety and evaluation"
+      ],
+      "aliases": [
+        "reinforcement learning with verifiable rewards",
+        "verifiable reward tuning",
+        "outcome-verifiable RL"
+      ],
+      "devilDefinition": "Teaching a model by only rewarding answers reality can mark for itself, which is wonderfully clean right up to the point where most useful work refuses to be that tidy.\n",
+      "plainDefinition": "RLVR stands for reinforcement learning with verifiable rewards. It is a post-training approach that improves model behaviour on tasks where success can be checked automatically, such as maths, code, or constrained reasoning problems.\n",
+      "whyExists": "Human preference data is expensive, inconsistent, and not always suited to questions with objectively checkable answers. RLVR exists because some domains offer a cleaner signal: the answer passes or it does not.\n",
+      "misuse": "It gets treated as though objective scoring automatically produces general intelligence, reliability, or wisdom. It does not. It works best where correctness can be verified, not where judgement, taste, or social context remain stubbornly involved.\n",
+      "practicalMeaning": "In practice it usually means labs are squeezing better reasoning performance out of domains with tests, validators, or exact outcomes. The gains can be real. So is the temptation to pretend that a model good at verifiable tasks now understands everything else.\n",
+      "example": "\"The RLVR gains were genuine, but they were still a poor substitute for checking whether the model could survive an ordinary human workflow.\"\n",
+      "askNext": [
+        "What proportion of the target task can actually be verified automatically?",
+        "Are we improving a useful behaviour, or only the parts of it that grade well?",
+        "What failure modes remain once the answer is no longer mathematically checkable?"
+      ],
+      "related": [
+        "rlhf",
+        "post-training",
+        "evals",
+        "reasoning-model"
+      ],
+      "seeAlso": [
+        "Verifier model",
+        "Checkable domains",
+        "Training signal quality"
+      ],
+      "difficulty": "advanced",
+      "technicalDepth": "high",
+      "hypeLevel": "high",
+      "isVendorTerm": false,
+      "publishedAt": "2026-04-11",
+      "updatedAt": "2026-04-11",
+      "warningLabel": "Strong where the answers can be checked, dramatically less magical elsewhere.",
+      "tags": [
+        "training",
+        "reinforcement-learning",
+        "verification",
+        "reasoning"
+      ],
+      "misunderstoodScore": 4,
+      "translations": [
+        {
+          "label": "research meaning",
+          "text": "Use reinforcement learning on tasks where a machine can tell whether the output is right."
+        },
+        {
+          "label": "what it usually means in reality",
+          "text": "A way to make models look sharper in domains that come with their own marking scheme."
+        }
+      ],
+      "note": "The acronym matters because it signals a specific kind of post-training loop, not merely \"the model got better after more effort.\"\n",
+      "vendorReferences": [],
+      "body": "RLVR is one of the few bits of current training jargon that deserves both scepticism and respect. The trick is remembering that a verifier is not a philosopher.",
+      "categorySlugs": [
+        "model-building",
+        "safety-and-evaluation"
+      ],
+      "url": "/dictionary/rlvr",
+      "searchText": "RLVR reinforcement learning with verifiable rewards verifiable reward tuning outcome-verifiable RL Model building Safety and evaluation training reinforcement-learning verification reasoning Teaching a model by only rewarding answers reality can mark for itself, which is wonderfully clean right up to the point where most useful work refuses to be that tidy.\n RLVR stands for reinforcement learning with verifiable rewards. It is a post-training approach that improves model behaviour on tasks where success can be checked automatically, such as maths, code, or constrained reasoning problems.\n Human preference data is expensive, inconsistent, and not always suited to questions with objectively checkable answers. RLVR exists because some domains offer a cleaner signal: the answer passes or it does not.\n It gets treated as though objective scoring automatically produces general intelligence, reliability, or wisdom. It does not. It works best where correctness can be verified, not where judgement, taste, or social context remain stubbornly involved.\n In practice it usually means labs are squeezing better reasoning performance out of domains with tests, validators, or exact outcomes. The gains can be real. So is the temptation to pretend that a model good at verifiable tasks now understands everything else.\n \"The RLVR gains were genuine, but they were still a poor substitute for checking whether the model could survive an ordinary human workflow.\"\n What proportion of the target task can actually be verified automatically? Are we improving a useful behaviour, or only the parts of it that grade well? What failure modes remain once the answer is no longer mathematically checkable? Verifier model Checkable domains Training signal quality The acronym matters because it signals a specific kind of post-training loop, not merely \"the model got better after more effort.\"",
+      "relatedSlugs": [
+        "rlhf",
+        "post-training",
+        "evals"
+      ]
+    },
+    {
       "title": "Rubber-Stamp Review",
       "slug": "rubber-stamp-review",
       "letter": "R",
@@ -10201,10 +10792,10 @@
     }
   ],
   "recentSlugs": [
-    "ai-moat",
-    "ambient-agent",
-    "clanker",
-    "devin"
+    "agent-ops",
+    "agent2agent",
+    "ai-browser",
+    "context-rot"
   ],
   "misunderstoodSlugs": [
     "agent",
@@ -10215,7 +10806,7 @@
   "letterStats": [
     {
       "letter": "A",
-      "count": 16,
+      "count": 19,
       "href": "/dictionary?letter=A"
     },
     {
@@ -10225,7 +10816,7 @@
     },
     {
       "letter": "C",
-      "count": 12,
+      "count": 13,
       "href": "/dictionary?letter=C"
     },
     {
@@ -10235,7 +10826,7 @@
     },
     {
       "letter": "E",
-      "count": 3,
+      "count": 4,
       "href": "/dictionary?letter=E"
     },
     {
@@ -10255,7 +10846,7 @@
     },
     {
       "letter": "I",
-      "count": 3,
+      "count": 4,
       "href": "/dictionary?letter=I"
     },
     {
@@ -10270,7 +10861,7 @@
     },
     {
       "letter": "L",
-      "count": 4,
+      "count": 5,
       "href": "/dictionary?letter=L"
     },
     {
@@ -10300,7 +10891,7 @@
     },
     {
       "letter": "R",
-      "count": 9,
+      "count": 10,
       "href": "/dictionary?letter=R"
     },
     {
@@ -10360,18 +10951,18 @@
       "title": "Cultural terms",
       "description": "The social weirdness around AI: belief, taste, cringe, status games, and the internet behaving as it usually does when handed a new machine.",
       "slug": "cultural-terms",
-      "count": 55,
+      "count": 58,
       "sampleTerms": [
         "Agent Washing",
         "AGI",
-        "AI Companion"
+        "AI Browser"
       ]
     },
     {
       "title": "Model building",
       "description": "How models are trained, tuned, evaluated, and occasionally overpraised.",
       "slug": "model-building",
-      "count": 26,
+      "count": 27,
       "sampleTerms": [
         "Andrej Karpathy",
         "Arthur Mensch",
@@ -10382,22 +10973,22 @@
       "title": "Model usage",
       "description": "What it means to actually run a model in production, where invoices and latency live.",
       "slug": "model-usage",
-      "count": 55,
+      "count": 58,
       "sampleTerms": [
         "Agent",
-        "AI Companion",
-        "BYOK"
+        "AI Browser",
+        "AI Companion"
       ]
     },
     {
       "title": "Agents and workflows",
       "description": "Automation patterns, orchestration, and the difference between useful autonomy and stagecraft.",
       "slug": "agents-and-workflows",
-      "count": 42,
+      "count": 46,
       "sampleTerms": [
         "Agent",
-        "Agentic AI",
-        "Ambient Agent"
+        "Agent Ops",
+        "Agent2Agent"
       ]
     },
     {
@@ -10415,18 +11006,18 @@
       "title": "Product and vendor terms",
       "description": "Company names, product labels, and the branding haze around them.",
       "slug": "product-and-vendor-terms",
-      "count": 61,
+      "count": 64,
       "sampleTerms": [
+        "Agent Ops",
         "Agent Washing",
-        "AI Companion",
-        "AI Overviews"
+        "AI Browser"
       ]
     },
     {
       "title": "Safety and evaluation",
       "description": "Guardrails, tests, preferences, and the uncomfortable gap between lab scores and reality.",
       "slug": "safety-and-evaluation",
-      "count": 28,
+      "count": 31,
       "sampleTerms": [
         "Alignment",
         "Anthropic",
@@ -10437,22 +11028,22 @@
       "title": "Infrastructure and deployment",
       "description": "The machinery underneath the demo: compute, serving, throughput, and operational trade-offs.",
       "slug": "infrastructure-and-deployment",
-      "count": 25,
+      "count": 27,
       "sampleTerms": [
+        "Agent2Agent",
         "Alexandr Wang",
-        "Cloudflare",
-        "Inference"
+        "Cloudflare"
       ]
     },
     {
       "title": "Economics and operations of AI",
       "description": "Cost, labour, incentives, and the very unmagical business of running AI systems.",
       "slug": "economics-and-operations-of-ai",
-      "count": 58,
+      "count": 60,
       "sampleTerms": [
+        "Agent Ops",
         "Agent Washing",
-        "AGI",
-        "AI Moat"
+        "AGI"
       ]
     }
   ],
@@ -10601,8 +11192,16 @@
     "inference-stack",
     "post-training",
     "reward-hacking",
-    "swe-bench"
+    "swe-bench",
+    "agent-ops",
+    "agent2agent",
+    "ai-browser",
+    "context-rot",
+    "eval-driven-development",
+    "inference-arbitrage",
+    "liars-dividend",
+    "rlvr"
   ],
-  "featuredSlug": "ai-moat",
-  "latestPublishedAt": "2026-04-10"
+  "featuredSlug": "agent-ops",
+  "latestPublishedAt": "2026-04-11"
 }

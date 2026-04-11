@@ -1,0 +1,57 @@
+---
+title: "Context Rot"
+slug: "context-rot"
+letter: "C"
+categories:
+  - "Cultural terms"
+  - "Agents and workflows"
+  - "Model usage"
+aliases:
+  - "session rot"
+  - "prompt rot"
+  - "context decay"
+devilDefinition: |
+  The slow corruption of a long AI session as every clarification, exception, and half-fixed mistake is preserved with the reverence of scripture.
+plainDefinition: |
+  Context rot is the degradation that happens in long-running chats or agent workflows when accumulated instructions, stale assumptions, noisy history, and partial fixes start reducing output quality.
+whyExists: |
+  People needed a name for the very practical observation that more context is not always better context. Once a session becomes long enough, the model may carry forward the wrong facts with admirable loyalty.
+misuse: |
+  The phrase gets used to blame the model for every bad answer in a long thread, including cases where the human supplied contradictory instructions, never reset the task, or kept shovelling debris into the prompt like a municipal service.
+practicalMeaning: |
+  In practice it usually means the session needs pruning, a fresh summary, or a clean restart. For agent systems it often means state management is doing a worse job than the demo admitted.
+example: |
+  "By the eighth refinement the coding assistant had context rot: it remembered every detour and none of the point."
+askNext:
+  - "Which parts of the current context are still relevant, and which are now archival clutter?"
+  - "Would a reset plus a clean handover summary improve quality more than adding another paragraph?"
+  - "Is the problem the model's memory, or our refusal to curate it?"
+related:
+  - "context-engineering"
+  - "context-stuffing"
+  - "context-window"
+  - "vibe-coding"
+seeAlso:
+  - "Session reset"
+  - "Prompt hygiene"
+  - "State compaction"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-11"
+updatedAt: "2026-04-11"
+tags:
+  - "prompting"
+  - "state"
+  - "coding"
+  - "workflow"
+misunderstoodScore: 4
+translations:
+  - label: "operator meaning"
+    text: "The working context has become too bloated, stale, or contradictory to be useful."
+  - label: "what it usually means in reality"
+    text: "Start a new thread before the old one becomes a constitutional monarchy of bad assumptions."
+---
+
+Context rot is what happens when people confuse retention with understanding. A long memory is only helpful if someone occasionally removes the rubbish.

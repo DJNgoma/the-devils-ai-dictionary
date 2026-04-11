@@ -1,0 +1,55 @@
+---
+title: "Agent2Agent"
+slug: "agent2agent"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "A2A"
+  - "agent-to-agent protocol"
+devilDefinition: |
+  A protocol for letting one agent hand work to another agent, because evidently the first thing missing from software was more inter-agent correspondence.
+plainDefinition: |
+  Agent2Agent usually refers to a protocol pattern for agents to advertise capabilities, exchange task requests, share status, and return results to one another in a more standardised way.
+whyExists: |
+  As agent systems multiply, teams do not want every handoff between assistants, services, and vendors to become a bespoke treaty drafted in JSON and regret. A common contract lowers that integration cost.
+misuse: |
+  It gets discussed as though inter-agent communication automatically creates competence, trust, or composability. It does not. A standard message shape cannot rescue a bad agent any more than a calendar invite can rescue a bad meeting.
+practicalMeaning: |
+  In practice it usually means one system can delegate a task to another specialised system without hard-coding every detail of the exchange. That can make ecosystems more flexible. It can also spread failure, ambiguity, and responsibility across a larger map.
+example: |
+  "Agent2Agent made the handoff cleaner, which was useful, though it did not improve the quality of the thinking at either end."
+askNext:
+  - "What exactly is standardised: discovery, task state, result format, authentication, or all four?"
+  - "How are permissions, identity, and audit trails handled across agents?"
+  - "Are we enabling composability, or merely creating distributed confusion with better packet structure?"
+related:
+  - "mcp"
+  - "orchestration"
+  - "agent"
+  - "tool-use"
+seeAlso:
+  - "Task handoff"
+  - "Multi-agent protocol"
+  - "Delegation boundary"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-04-11"
+updatedAt: "2026-04-11"
+tags:
+  - "protocol"
+  - "interoperability"
+  - "agents"
+  - "delegation"
+misunderstoodScore: 4
+translations:
+  - label: "architect meaning"
+    text: "A standard way for agentic systems to pass work and state between each other."
+  - label: "what it usually means in reality"
+    text: "Fewer bespoke connectors, plus a new set of questions about trust and ownership."
+---
+
+Standards matter most when everyone is about to build the same messy thing in slightly incompatible ways.

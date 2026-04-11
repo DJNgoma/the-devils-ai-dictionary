@@ -1,0 +1,59 @@
+---
+title: "RLVR"
+slug: "rlvr"
+letter: "R"
+categories:
+  - "Model building"
+  - "Safety and evaluation"
+aliases:
+  - "reinforcement learning with verifiable rewards"
+  - "verifiable reward tuning"
+  - "outcome-verifiable RL"
+devilDefinition: |
+  Teaching a model by only rewarding answers reality can mark for itself, which is wonderfully clean right up to the point where most useful work refuses to be that tidy.
+plainDefinition: |
+  RLVR stands for reinforcement learning with verifiable rewards. It is a post-training approach that improves model behaviour on tasks where success can be checked automatically, such as maths, code, or constrained reasoning problems.
+whyExists: |
+  Human preference data is expensive, inconsistent, and not always suited to questions with objectively checkable answers. RLVR exists because some domains offer a cleaner signal: the answer passes or it does not.
+misuse: |
+  It gets treated as though objective scoring automatically produces general intelligence, reliability, or wisdom. It does not. It works best where correctness can be verified, not where judgement, taste, or social context remain stubbornly involved.
+practicalMeaning: |
+  In practice it usually means labs are squeezing better reasoning performance out of domains with tests, validators, or exact outcomes. The gains can be real. So is the temptation to pretend that a model good at verifiable tasks now understands everything else.
+example: |
+  "The RLVR gains were genuine, but they were still a poor substitute for checking whether the model could survive an ordinary human workflow."
+askNext:
+  - "What proportion of the target task can actually be verified automatically?"
+  - "Are we improving a useful behaviour, or only the parts of it that grade well?"
+  - "What failure modes remain once the answer is no longer mathematically checkable?"
+related:
+  - "rlhf"
+  - "post-training"
+  - "evals"
+  - "reasoning-model"
+seeAlso:
+  - "Verifier model"
+  - "Checkable domains"
+  - "Training signal quality"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-04-11"
+updatedAt: "2026-04-11"
+warningLabel: "Strong where the answers can be checked, dramatically less magical elsewhere."
+tags:
+  - "training"
+  - "reinforcement-learning"
+  - "verification"
+  - "reasoning"
+misunderstoodScore: 4
+translations:
+  - label: "research meaning"
+    text: "Use reinforcement learning on tasks where a machine can tell whether the output is right."
+  - label: "what it usually means in reality"
+    text: "A way to make models look sharper in domains that come with their own marking scheme."
+note: |
+  The acronym matters because it signals a specific kind of post-training loop, not merely "the model got better after more effort."
+---
+
+RLVR is one of the few bits of current training jargon that deserves both scepticism and respect. The trick is remembering that a verifier is not a philosopher.

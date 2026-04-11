@@ -1,0 +1,58 @@
+---
+title: "Agent Ops"
+slug: "agent-ops"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Economics and operations of AI"
+  - "Product and vendor terms"
+aliases:
+  - "agent operations"
+  - "agent observability"
+  - "agent run operations"
+devilDefinition: |
+  The emerging discipline of watching autonomous systems fail with enough instrumentation that management will continue funding the autonomy programme.
+plainDefinition: |
+  Agent ops refers to the operational practice of monitoring, debugging, evaluating, governing, and improving agent-style systems once they run in real workflows.
+whyExists: |
+  Agents create long traces, tool calls, permissions, side effects, retries, approvals, and costs. Ordinary application logs are rarely enough when the system can go wrong in six steps and a cheerful tone.
+misuse: |
+  It gets abused when a tracing dashboard is mistaken for control. Visibility helps, but it does not solve brittle plans, weak tools, or the small issue of giving software enough access to embarrass the company at scale.
+practicalMeaning: |
+  In practice it usually means collecting run histories, replaying failures, scoring outcomes, tracking tool use, setting approvals, and deciding which errors deserve engineering rather than theology.
+example: |
+  "The agent ops review revealed that the system was not autonomous so much as confidently unsupervised."
+askNext:
+  - "What can we inspect after an agent run fails halfway through a task?"
+  - "Which actions require approval, rollback, or auditability?"
+  - "Are we measuring task success, tool misuse, latency, and cost in the same place?"
+related:
+  - "orchestration"
+  - "human-in-the-loop"
+  - "evals"
+  - "mcp"
+seeAlso:
+  - "Trace replay"
+  - "Approval workflow"
+  - "Operational telemetry"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-04-11"
+updatedAt: "2026-04-11"
+warningLabel: "Instrumentation is not the same thing as restraint."
+tags:
+  - "operations"
+  - "observability"
+  - "agents"
+  - "governance"
+misunderstoodScore: 4
+translations:
+  - label: "platform meaning"
+    text: "The controls and visibility needed to run agent systems without pure faith."
+  - label: "what it usually means in reality"
+    text: "Making the agent's mistakes legible enough to fix them before they become policy."
+---
+
+Every new software category eventually rediscovers operations. Agent ops is the point at which the romance meets the incident review.
