@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { EntryCard } from "@/components/entry-card";
 import { ResumeReadingCard } from "@/components/resume-reading-card";
-import { SavePlaceButton } from "@/components/save-place-button";
 import { getEntryBySlug, getSearchableEntries } from "@/lib/content";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -35,12 +34,6 @@ export default async function BookPage() {
           looking less inevitable.
         </p>
         <div className="flex flex-wrap gap-3">
-          <SavePlaceButton
-            href="/book"
-            title="The Devil's AI Dictionary"
-            label="Book landing page"
-            description="A field guide for people already in the room."
-          />
           <Link
             href="/random"
             className="button button-secondary"

@@ -3,7 +3,9 @@ import {
   categoryMap,
   difficultyLabels,
   getCategoryBySlug,
+  resolveAutoTheme,
   technicalDepthLabels,
+  themeOptionsByAppearance,
   themeOptions,
 } from "@/lib/site";
 
@@ -23,8 +25,23 @@ describe("site helpers", () => {
       "book",
       "codex",
       "absolutely",
+      "devil",
       "night",
     ]);
+    expect(themeOptionsByAppearance.light.map((option) => option.value)).toEqual([
+      "book",
+      "codex",
+      "absolutely",
+    ]);
+    expect(themeOptionsByAppearance.dark.map((option) => option.value)).toEqual([
+      "devil",
+      "night",
+    ]);
+  });
+
+  it("resolves auto appearance to the editorial defaults", () => {
+    expect(resolveAutoTheme(false)).toBe("book");
+    expect(resolveAutoTheme(true)).toBe("night");
   });
 
   it("keeps the public labels stable", () => {

@@ -1,6 +1,10 @@
 import Foundation
 import SwiftUI
 
+#if os(iOS)
+import AuthenticationServices
+#endif
+
 #if canImport(DevilsAIDictionaryCore)
 import DevilsAIDictionaryCore
 #endif
@@ -45,57 +49,68 @@ enum NativeDeveloperModeAvailability {
 struct NativeDictionaryRootView: View {
     @StateObject private var model: NativeDictionaryModel
     @ObservedObject private var themeManager = ThemeManager.shared
+    @Environment(\.colorScheme) private var systemColorScheme
 
     init(model: NativeDictionaryModel) {
         _model = StateObject(wrappedValue: model)
     }
 
     var body: some View {
-        #if os(macOS)
-        NativeMacDictionaryRoot(model: model, themeManager: themeManager)
-            .tint(NativePalette.accent)
-            .id(themeManager.current)
-            .preferredColorScheme(themeManager.current.colorScheme)
-        #else
-        NativePhoneDictionaryRoot(model: model)
-            .tint(NativePalette.accent)
-            .id(themeManager.current)
-            .preferredColorScheme(themeManager.current.colorScheme)
-            .overlay(alignment: .bottom) {
-                NativeSavedToast(model: model)
-            }
-            .sheet(item: $model.activeSheet) { sheet in
-                NavigationView {
-                    switch sheet {
-                    case .about:
-                        NativeAboutView(model: model)
-                    case .book:
-                        NativeBookView(model: model)
-                    case .guide:
-                        NativeGuideView()
-                    case .entry(let slug):
-                        if let entry = model.entry(slug: slug) {
-                            NativeEntryDetailView(model: model, entry: entry)
-                        } else {
-                            NativeMissingEntryView()
-                        }
-                    case .category(let slug):
-                        if let category = model.categoryStats.first(where: { $0.slug == slug }) {
-                            NativeCategoryDetailView(model: model, category: category)
-                        } else {
-                            NativeMissingEntryView()
-                        }
-                    case .related(let slug):
-                        if let entry = model.entry(slug: slug) {
-                            NativeRelatedTermsView(model: model, entry: entry)
-                        } else {
-                            NativeMissingEntryView()
+        Group {
+            #if os(macOS)
+            NativeMacDictionaryRoot(model: model, themeManager: themeManager)
+                .tint(NativePalette.accent)
+                .id(themeManager.current)
+                .preferredColorScheme(themeManager.preferredColorSchemeOverride)
+            #else
+            NativePhoneDictionaryRoot(model: model)
+                .tint(NativePalette.accent)
+                .id(themeManager.current)
+                .preferredColorScheme(themeManager.preferredColorSchemeOverride)
+                .overlay(alignment: .bottom) {
+                    NativeSavedToast(model: model)
+                }
+                .sheet(item: $model.activeSheet) { sheet in
+                    NavigationView {
+                        switch sheet {
+                        case .onboarding:
+                            NativeOnboardingGuideView(model: model)
+                        case .about:
+                            NativeAboutView(model: model)
+                        case .book:
+                            NativeBookView(model: model)
+                        case .guide:
+                            NativeGuideView()
+                        case .entry(let slug):
+                            if let entry = model.entry(slug: slug) {
+                                NativeEntryDetailView(model: model, entry: entry)
+                            } else {
+                                NativeMissingEntryView()
+                            }
+                        case .category(let slug):
+                            if let category = model.categoryStats.first(where: { $0.slug == slug }) {
+                                NativeCategoryDetailView(model: model, category: category)
+                            } else {
+                                NativeMissingEntryView()
+                            }
+                        case .related(let slug):
+                            if let entry = model.entry(slug: slug) {
+                                NativeRelatedTermsView(model: model, entry: entry)
+                            } else {
+                                NativeMissingEntryView()
+                            }
                         }
                     }
+                    .nativeStackNavigationViewStyle()
                 }
-                .nativeStackNavigationViewStyle()
-            }
-        #endif
+            #endif
+        }
+        .onAppear {
+            themeManager.updateSystemColorScheme(systemColorScheme)
+        }
+        .onChange(of: systemColorScheme) { newValue in
+            themeManager.updateSystemColorScheme(newValue)
+        }
     }
 }
 
@@ -157,6 +172,84 @@ private struct NativePhoneDictionaryRoot: View {
 
             model.syncDeveloperScreenshotModeFromDefaults()
         }
+    }
+}
+
+private struct NativeOnboardingGuideView: View {
+    @ObservedObject var model: NativeDictionaryModel
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 18) {
+                NativeCard(emphasis: true) {
+                    NativeSectionLabel(text: "Welcome")
+
+                    Text("The Devil's AI Dictionary")
+                        .font(.system(size: 32, weight: .bold, design: .serif))
+
+                    Text("A small guide before the jargon starts performing again.")
+                        .font(.system(size: 18, weight: .medium, design: .rounded))
+
+                    Text("Start with Today's word, read the book straight through if you prefer, and save anything worth keeping. The app can sync saved words through Apple and send one daily reminder if invited with sufficient dignity.")
+                        .font(.system(size: 15, weight: .regular, design: .rounded))
+                        .foregroundStyle(NativePalette.mutedText)
+
+                    VStack(alignment: .leading, spacing: 12) {
+                        NativeOnboardingStep(
+                            title: "1. Start on Home",
+                            bodyText: "Today's word lives there, along with the quickest route into the book and a random detour."
+                        )
+                        NativeOnboardingStep(
+                            title: "2. Save words worth keeping",
+                            bodyText: "You can save from Today's word, any entry, or the Saved tab. Sign in with Apple if those words should survive across installs."
+                        )
+                        NativeOnboardingStep(
+                            title: "3. Invite the daily word",
+                            bodyText: "Notifications are optional, dry, and scheduled by local hour rather than whim."
+                        )
+                    }
+
+                    HStack {
+                        Button("Start reading") {
+                            model.completeOnboarding()
+                        }
+                        .buttonStyle(NativePrimaryButtonStyle())
+
+                        Button("Read the guide") {
+                            model.completeOnboarding(openGuide: true)
+                        }
+                        .buttonStyle(NativeSecondaryButtonStyle())
+                    }
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 24)
+        }
+        .background(NativePalette.paper.ignoresSafeArea())
+        .navigationTitle("Onboarding")
+        .nativeNavigationBarTitleDisplayMode(.inline)
+    }
+}
+
+private struct NativeOnboardingStep: View {
+    let title: String
+    let bodyText: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(title)
+                .font(.system(size: 16, weight: .semibold, design: .rounded))
+            Text(bodyText)
+                .font(.system(size: 15, weight: .regular, design: .rounded))
+                .foregroundStyle(NativePalette.mutedText)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(14)
+        .background(NativePalette.panel, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 18, style: .continuous)
+                .stroke(NativePalette.border, lineWidth: 1)
+        )
     }
 }
 
@@ -281,10 +374,16 @@ private struct NativeMacSidebar: View {
                                 .font(.system(size: 15, weight: .medium, design: .rounded))
                                 .lineLimit(4)
 
-                            Button("Open today's word") {
-                                model.openTodayWord()
+                            VStack(alignment: .leading, spacing: 8) {
+                                Button("Open today's word") {
+                                    model.openTodayWord()
+                                }
+                                .buttonStyle(NativeSecondaryButtonStyle())
+
+                                SaveConfirmButton(label: "Save word") {
+                                    model.save(entry: todayWord)
+                                }
                             }
-                            .buttonStyle(NativeSecondaryButtonStyle())
                         }
                     }
                 }
@@ -373,15 +472,29 @@ private struct NativeMacToolbar: ToolbarContent {
 
                 Divider()
 
-                Picker(selection: Binding(
-                    get: { themeManager.current },
-                    set: { themeManager.setTheme($0) }
-                )) {
-                    ForEach(SiteTheme.allCases) { theme in
-                        Text(theme.label).tag(theme)
+                Toggle(
+                    isOn: Binding(
+                        get: { themeManager.mode == .auto },
+                        set: { themeManager.setMode($0 ? .auto : .manual) }
+                    )
+                ) {
+                    Text("Auto appearance")
+                }
+
+                if themeManager.mode == .auto {
+                    Button(themeManager.autoSummary) {}
+                        .disabled(true)
+                } else {
+                    Picker(selection: Binding(
+                        get: { themeManager.manualSelection },
+                        set: { themeManager.setTheme($0) }
+                    )) {
+                        ForEach(SiteTheme.allCases) { theme in
+                            Text(theme.label).tag(theme)
+                        }
+                    } label: {
+                        Text("Theme")
                     }
-                } label: {
-                    Text("Theme")
                 }
             } label: {
                 Label("Display", systemImage: "paintpalette")
@@ -414,7 +527,7 @@ private struct NativeHomeView: View {
                     .foregroundStyle(.primary)
 
                 if NativeDeveloperModeAvailability.isEnabled(storedValue: storedDeveloperMode) && !model.isDeveloperScreenshotMode {
-                    Text("This is the native Apple edition: bundled content, local search, saved reading place, deep links, notifications, and watch sync without the webview in the middle pretending to be architecture.")
+                    Text("This is the native Apple edition: bundled content, local search, saved words, deep links, notifications, and watch sync without the webview in the middle pretending to be architecture.")
                         .font(.system(size: 15, weight: .regular, design: .rounded))
                         .foregroundStyle(NativePalette.mutedText)
                 }
@@ -429,6 +542,12 @@ private struct NativeHomeView: View {
                         model.openRandomEntry()
                     }
                     .buttonStyle(NativeSecondaryButtonStyle())
+                }
+
+                if model.shouldShowPushPrompt && !model.isDeveloperScreenshotMode {
+                    Divider()
+
+                    NativeHeroDailyReminderPrompt(model: model)
                 }
             }
 
@@ -456,33 +575,16 @@ private struct NativeHomeView: View {
                         }
                         .buttonStyle(NativePrimaryButtonStyle())
 
+                        SaveConfirmButton(label: "Save word") {
+                            model.save(entry: todayWord)
+                        }
+
                         if let shareURL = model.shareURL(for: todayWord) {
                             NativeShareButton(
                                 url: shareURL,
                                 subject: todayWord.title,
                                 message: "Read \(todayWord.title) in The Devil's AI Dictionary."
                             )
-                        }
-                    }
-
-                    if model.shouldShowPushPrompt && !model.isDeveloperScreenshotMode {
-                        Divider()
-
-                        Text(model.pushStatusMessage)
-                            .font(.system(size: 14, weight: .regular, design: .rounded))
-                            .foregroundStyle(NativePalette.mutedText)
-
-                        Button(model.pushPermissionButtonTitle) {
-                            Task {
-                                await model.handlePushPermissionAction()
-                            }
-                        }
-                        .buttonStyle(NativeSecondaryButtonStyle())
-
-                        if let actionError = model.actionError {
-                            Text(actionError)
-                                .font(.system(size: 13, weight: .medium, design: .rounded))
-                                .foregroundStyle(NativePalette.warning)
                         }
                     }
                 }
@@ -544,6 +646,37 @@ private struct NativeHomeView: View {
             await model.syncCatalogNow()
         }
         .nativeOverflowToolbarIfNeeded(model: model, themeManager: .shared)
+    }
+}
+
+private struct NativeHeroDailyReminderPrompt: View {
+    @ObservedObject var model: NativeDictionaryModel
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(model.homePushPromptTitle)
+                .font(.system(size: 14, weight: .semibold, design: .rounded))
+                .foregroundStyle(.primary)
+
+            Text(model.homePushPromptMessage)
+                .font(.system(size: 14, weight: .regular, design: .rounded))
+                .foregroundStyle(NativePalette.mutedText)
+
+            if let actionTitle = model.homePushPromptButtonTitle {
+                Button(actionTitle) {
+                    Task {
+                        await model.handlePushPermissionAction()
+                    }
+                }
+                .buttonStyle(NativeSecondaryButtonStyle())
+            }
+
+            if let actionError = model.actionError {
+                Text(actionError)
+                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                    .foregroundStyle(NativePalette.warning)
+            }
+        }
     }
 }
 
@@ -778,6 +911,101 @@ private struct NativeSavedView: View {
 
     var body: some View {
         NativeScreen { _ in
+            #if os(iOS)
+            NativeCard(emphasis: true) {
+                NativeSectionLabel(text: "Saved")
+
+                Text(model.appleSession == nil
+                     ? "Saved words live here until you sign in. Less cloud romance, more useful memory."
+                     : "Saved words sync through your Apple account. The app keeps its receipts.")
+                    .font(.system(size: 17, weight: .medium, design: .rounded))
+            }
+
+            if model.savedWords.isEmpty {
+                NativeCard {
+                    Text("Nothing saved yet.")
+                        .font(.system(size: 20, weight: .semibold, design: .serif))
+
+                    Text(model.appleSession == nil
+                         ? "Save a word while you read, then sign in to sync it. The app will not pretend a singleton is a strategy."
+                         : "Save a word while you read. It will show up here and make a small, useful nuisance of itself.")
+                        .font(.system(size: 15, weight: .regular, design: .rounded))
+                        .foregroundStyle(NativePalette.mutedText)
+
+                    HStack {
+                        Button("Search entries") {
+                            model.showSection(.search)
+                        }
+                        .buttonStyle(NativePrimaryButtonStyle())
+
+                        if model.appleSession == nil {
+                            Button("Open Settings") {
+                                model.showSection(.settings)
+                            }
+                            .buttonStyle(NativeSecondaryButtonStyle())
+                        } else {
+                            Button(model.appleSyncButtonTitle) {
+                                Task {
+                                    await model.refreshSavedWordsSyncState()
+                                }
+                            }
+                            .buttonStyle(NativeSecondaryButtonStyle())
+                            .disabled(model.isRefreshingSavedWordsSync)
+                        }
+                    }
+                }
+            } else {
+                VStack(alignment: .leading, spacing: 12) {
+                    NativeSectionLabel(text: "Saved words")
+
+                    Text(model.appleSyncStatusMessage)
+                        .font(.system(size: 15, weight: .regular, design: .rounded))
+                        .foregroundStyle(NativePalette.mutedText)
+
+                    if let lastSynced = model.appleLastSyncedLabel {
+                        Text("Last synced \(lastSynced).")
+                            .font(.system(size: 13, weight: .regular, design: .rounded))
+                            .foregroundStyle(NativePalette.mutedText)
+                    }
+
+                    ForEach(model.savedWords) { savedWord in
+                        NativeCard {
+                            HStack(alignment: .top, spacing: 12) {
+                                VStack(alignment: .leading, spacing: 6) {
+                                    Text(savedWord.title)
+                                        .font(.system(size: 22, weight: .semibold, design: .serif))
+
+                                    if let description = savedWord.description {
+                                        Text(description)
+                                            .font(.system(size: 15, weight: .regular, design: .rounded))
+                                            .foregroundStyle(NativePalette.mutedText)
+                                    }
+
+                                    Text("Saved \(nativeFormattedDate(savedWord.savedAt))")
+                                        .font(.system(size: 13, weight: .regular, design: .rounded))
+                                        .foregroundStyle(NativePalette.mutedText)
+                                }
+
+                                Spacer(minLength: 8)
+
+                                VStack(alignment: .trailing, spacing: 10) {
+                                    Button("Open word") {
+                                        if let entry = model.entry(slug: savedWord.slug) {
+                                            model.presentEntry(entry)
+                                        }
+                                    }
+                                    .buttonStyle(NativeSecondaryButtonStyle())
+
+                                    ConfirmRemoveButton {
+                                        model.removeSavedWord(savedWord)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            #else
             NativeCard(emphasis: true) {
                 NativeSectionLabel(text: "Saved")
 
@@ -843,6 +1071,7 @@ private struct NativeSavedView: View {
                     }
                 }
             }
+            #endif
         }
         .navigationTitle("Saved")
         .nativeNavigationBarTitleDisplayMode(.large)
@@ -872,35 +1101,186 @@ private struct NativeSettingsView: View {
         )
     }
 
+    private var notificationsBinding: Binding<Bool> {
+        Binding(
+            get: { model.pushNotificationsPreferenceEnabled },
+            set: { enabled in
+                Task {
+                    await model.setPushNotificationsEnabled(enabled)
+                }
+            }
+        )
+    }
+
+    private var autoAppearanceBinding: Binding<Bool> {
+        Binding(
+            get: { themeManager.mode == .auto },
+            set: { enabled in
+                themeManager.setMode(enabled ? .auto : .manual)
+            }
+        )
+    }
+
     var body: some View {
         NativeScreen { _ in
             NativeCard(emphasis: true) {
                 NativeSectionLabel(text: "Appearance")
 
-                ForEach(SiteTheme.allCases) { theme in
-                    Button {
-                        themeManager.setTheme(theme)
-                    } label: {
-                        HStack {
-                            let (s1, s2, s3) = theme.swatches
-                            HStack(spacing: 4) {
-                                Circle().fill(s1).frame(width: 14, height: 14)
-                                Circle().fill(s2).frame(width: 14, height: 14)
-                                Circle().fill(s3).frame(width: 14, height: 14)
-                            }
-                            Text(theme.label)
-                                .font(.system(size: 17, weight: .medium, design: .rounded))
-                            Spacer()
-                            if theme == themeManager.current {
-                                Image(systemName: "checkmark")
-                                    .foregroundStyle(NativePalette.accent)
+                Text("Auto keeps to Book in light mode and Night after dark. Turn it off if this device deserves a more opinionated edition.")
+                    .font(.system(size: 15, weight: .regular, design: .rounded))
+                    .foregroundStyle(NativePalette.mutedText)
+
+                Toggle("Auto appearance", isOn: autoAppearanceBinding)
+                    .font(.system(size: 17, weight: .medium, design: .rounded))
+                    .tint(NativePalette.accent)
+
+                if themeManager.mode == .auto {
+                    Text("Currently using \(themeManager.current.label), because this device is in \(themeManager.currentModeLabel) appearance.")
+                        .font(.system(size: 15, weight: .regular, design: .rounded))
+                        .foregroundStyle(NativePalette.mutedText)
+                } else {
+                    ForEach(ThemeAppearanceGroup.allCases) { appearance in
+                        VStack(alignment: .leading, spacing: 8) {
+                            NativeSectionLabel(text: appearance.label)
+
+                            ForEach(SiteTheme.allCases.filter { $0.appearanceGroup == appearance }) { theme in
+                                Button {
+                                    themeManager.setTheme(theme)
+                                } label: {
+                                    HStack {
+                                        let (s1, s2, s3) = theme.swatches
+                                        HStack(spacing: 4) {
+                                            Circle()
+                                                .fill(s1)
+                                                .overlay(Circle().stroke(Color.black, lineWidth: 1))
+                                                .frame(width: 14, height: 14)
+                                            Circle()
+                                                .fill(s2)
+                                                .overlay(Circle().stroke(Color.black, lineWidth: 1))
+                                                .frame(width: 14, height: 14)
+                                            Circle()
+                                                .fill(s3)
+                                                .overlay(Circle().stroke(Color.black, lineWidth: 1))
+                                                .frame(width: 14, height: 14)
+                                        }
+                                        Text(theme.label)
+                                            .font(.system(size: 17, weight: .medium, design: .rounded))
+                                        Spacer()
+                                        if theme == themeManager.manualSelection {
+                                            Image(systemName: "checkmark")
+                                                .foregroundStyle(NativePalette.accent)
+                                        }
+                                    }
+                                    .padding(.vertical, 8)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .contentShape(Rectangle())
+                                }
+                                .buttonStyle(.plain)
                             }
                         }
-                        .padding(.vertical, 8)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .contentShape(Rectangle())
                     }
-                    .buttonStyle(.plain)
+                }
+            }
+
+            NativeCard {
+                NativeSectionLabel(text: "Notifications")
+
+                Toggle("Daily word notifications", isOn: notificationsBinding)
+                    .font(.system(size: 17, weight: .medium, design: .rounded))
+                    .tint(NativePalette.accent)
+                    .disabled(model.pushAuthorizationStatus == "unsupported")
+
+                NativeSettingsHourPicker(
+                    title: "Delivery hour",
+                    selectionLabel: model.pushPreferredDeliveryHourLabel,
+                    selection: model.pushPreferredDeliveryHour,
+                    enabled: model.pushAuthorizationStatus != "unsupported"
+                ) { hour in
+                    Task {
+                        await model.setPushPreferredDeliveryHour(hour)
+                    }
+                }
+
+                Text("Local time on this device. The machinery still needs the discipline to send hourly.")
+                    .font(.system(size: 14, weight: .regular, design: .rounded))
+                    .foregroundStyle(NativePalette.mutedText)
+
+                Text(model.pushStatusMessage)
+                    .font(.system(size: 15, weight: .regular, design: .rounded))
+                    .foregroundStyle(NativePalette.mutedText)
+
+                if model.shouldShowPushPrompt {
+                    Button(model.pushPermissionButtonTitle) {
+                        Task {
+                            await model.handlePushPermissionAction()
+                        }
+                    }
+                    .buttonStyle(NativeSecondaryButtonStyle())
+                }
+            }
+
+            #if os(iOS)
+            NativeCard {
+                NativeSectionLabel(text: "Account")
+
+                Text(model.appleAccountStatusMessage)
+                    .font(.system(size: 15, weight: .regular, design: .rounded))
+                    .foregroundStyle(NativePalette.mutedText)
+
+                Text(model.appleSyncStatusMessage)
+                    .font(.system(size: 14, weight: .regular, design: .rounded))
+                    .foregroundStyle(NativePalette.mutedText)
+
+                if let lastSynced = model.appleLastSyncedLabel {
+                    Text("Last synced \(lastSynced).")
+                        .font(.system(size: 13, weight: .regular, design: .rounded))
+                        .foregroundStyle(NativePalette.mutedText)
+                }
+
+                if model.isAppleAccountSignedIn {
+                    HStack {
+                        Button(model.appleSyncButtonTitle) {
+                            Task {
+                                await model.refreshSavedWordsSyncState()
+                            }
+                        }
+                        .buttonStyle(NativePrimaryButtonStyle())
+                        .disabled(model.isRefreshingSavedWordsSync)
+
+                        Button("Sign out") {
+                            Task {
+                                await model.signOutOfApple()
+                            }
+                        }
+                        .buttonStyle(NativeSecondaryButtonStyle())
+                        .disabled(model.isRefreshingSavedWordsSync)
+                    }
+                } else {
+                    SignInWithAppleButton(.signIn, onRequest: { request in
+                        request.requestedScopes = [.fullName, .email]
+                    }, onCompletion: { result in
+                        Task {
+                            await model.handleAppleSignIn(result)
+                        }
+                    })
+                    .signInWithAppleButtonStyle(.black)
+                    .frame(maxWidth: .infinity, minHeight: 44)
+                }
+            }
+            #endif
+
+            if model.canReviewApp {
+                NativeCard {
+                    NativeSectionLabel(text: "Review")
+
+                    Text(model.reviewStatusMessage)
+                        .font(.system(size: 15, weight: .regular, design: .rounded))
+                        .foregroundStyle(NativePalette.mutedText)
+
+                    Button(model.reviewActionTitle) {
+                        model.openAppReviewPage()
+                    }
+                    .buttonStyle(NativeSecondaryButtonStyle())
                 }
             }
 
@@ -1080,12 +1460,14 @@ private struct NativeSettingsView: View {
                     .font(.system(size: 14, weight: .regular, design: .rounded))
                     .foregroundStyle(NativePalette.mutedText)
 
-                Button(model.pushPermissionButtonTitle) {
-                    Task {
-                        await model.handlePushPermissionAction()
+                if model.shouldShowPushPrompt {
+                    Button(model.pushPermissionButtonTitle) {
+                        Task {
+                            await model.handlePushPermissionAction()
+                        }
                     }
+                    .buttonStyle(NativeSecondaryButtonStyle())
                 }
-                .buttonStyle(NativeSecondaryButtonStyle())
             }
 
             NativeCard {
@@ -1155,6 +1537,52 @@ private struct NativeSettingsValueRow: View {
             Text(value)
                 .font(.system(size: 15, weight: .regular, design: .rounded))
                 .textSelection(.enabled)
+        }
+    }
+}
+
+private struct NativeSettingsHourPicker: View {
+    let title: String
+    let selectionLabel: String
+    let selection: Int
+    let enabled: Bool
+    let onSelected: (Int) -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title)
+                .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                .textCase(.uppercase)
+                .foregroundStyle(NativePalette.mutedText)
+
+            Menu {
+                Picker(title, selection: Binding(
+                    get: { selection },
+                    set: { onSelected($0) }
+                )) {
+                    ForEach(0..<24, id: \.self) { hour in
+                        Text(String(format: "%02d:00", hour)).tag(hour)
+                    }
+                }
+            } label: {
+                HStack {
+                    Text(selectionLabel)
+                        .font(.system(size: 15, weight: .regular, design: .rounded))
+                    Spacer()
+                    Image(systemName: "chevron.up.chevron.down")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(NativePalette.mutedText)
+                }
+                .padding(.horizontal, 14)
+                .padding(.vertical, 12)
+                .background(NativePalette.panelStrong, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .stroke(NativePalette.border, lineWidth: 1)
+                )
+                .opacity(enabled ? 1 : 0.55)
+            }
+            .disabled(!enabled)
         }
     }
 }
@@ -1283,19 +1711,13 @@ private struct NativeBookView: View {
                     .font(.system(size: 15, weight: .regular, design: .rounded))
                     .foregroundStyle(NativePalette.mutedText)
 
-                HStack {
-                    SaveConfirmButton(label: "Save word") {
-                        model.saveBook()
+                Button("Search entries") {
+                    if showsCloseButton {
+                        dismiss()
                     }
-
-                    Button("Search entries") {
-                        if showsCloseButton {
-                            dismiss()
-                        }
-                        model.showSection(.search)
-                    }
-                    .buttonStyle(NativeSecondaryButtonStyle())
+                    model.showSection(.search)
                 }
+                .buttonStyle(NativeSecondaryButtonStyle())
             }
 
             NativeCard {

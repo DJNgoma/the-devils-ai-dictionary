@@ -1,419 +1,412 @@
 // @vitest-environment jsdom
 /**
- * Tests for the bookmark/save-place/resume-reading system.
- *
- * Covers:
- * - parseSavedPlace validation logic
- * - Safe localStorage helpers (readStorage, writeStorage, removeStorage)
- * - SavePlaceButton toggle behaviour
- * - ResumeReadingCard visibility rules
+ * Tests for the saved-word collection and sync surfaces.
  */
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { act, render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
   BookmarkProvider,
-  parseSavedPlace,
+  parseSavedWords,
   readStorage,
   removeStorage,
   writeStorage,
 } from "@/components/bookmark-provider";
-import { SavePlaceButton } from "@/components/save-place-button";
+import { TodayWordCard } from "@/components/featured-entry";
 import { ResumeReadingCard } from "@/components/resume-reading-card";
+import { SaveWordButton } from "@/components/save-place-button";
+import { SavedPagePanel } from "@/components/saved-page-panel";
+import { SavedWordsSyncPanel } from "@/components/saved-words-sync-panel";
 
-/* ---------- parseSavedPlace ---------- */
+const STORAGE_KEY = "saved-words";
 
-describe("parseSavedPlace", () => {
-  const validJSON = JSON.stringify({
-    href: "/dictionary/agent",
-    title: "Agent",
-    label: "Dictionary entry",
-    description: "A software system granted just enough initiative.",
-    savedAt: "2026-03-20T10:00:00.000Z",
-  });
-
-  it("returns null for null input", () => {
-    expect(parseSavedPlace(null)).toBeNull();
-  });
-
-  it("returns null for empty string", () => {
-    expect(parseSavedPlace("")).toBeNull();
-  });
-
-  it("returns null for invalid JSON", () => {
-    expect(parseSavedPlace("not json {{{")).toBeNull();
-  });
-
-  it("returns null when href is missing", () => {
-    expect(
-      parseSavedPlace(
-        JSON.stringify({ title: "X", label: "Y", savedAt: "Z" }),
-      ),
-    ).toBeNull();
-  });
-
-  it("returns null when title is missing", () => {
-    expect(
-      parseSavedPlace(
-        JSON.stringify({ href: "/x", label: "Y", savedAt: "Z" }),
-      ),
-    ).toBeNull();
-  });
-
-  it("returns null when label is missing", () => {
-    expect(
-      parseSavedPlace(
-        JSON.stringify({ href: "/x", title: "X", savedAt: "Z" }),
-      ),
-    ).toBeNull();
-  });
-
-  it("returns null when savedAt is missing", () => {
-    expect(
-      parseSavedPlace(
-        JSON.stringify({ href: "/x", title: "X", label: "Y" }),
-      ),
-    ).toBeNull();
-  });
-
-  it("returns null when a required field has wrong type", () => {
-    expect(
-      parseSavedPlace(
-        JSON.stringify({ href: 123, title: "X", label: "Y", savedAt: "Z" }),
-      ),
-    ).toBeNull();
-  });
-
-  it("returns a valid SavedPlace for correct input", () => {
-    const result = parseSavedPlace(validJSON);
-    expect(result).toEqual({
-      href: "/dictionary/agent",
-      title: "Agent",
-      label: "Dictionary entry",
-      description: "A software system granted just enough initiative.",
-      savedAt: "2026-03-20T10:00:00.000Z",
-    });
-  });
-
-  it("strips unknown fields", () => {
-    const input = JSON.stringify({
-      href: "/x",
-      title: "X",
-      label: "Y",
-      savedAt: "Z",
-      unknownField: "should be removed",
-      anotherField: 42,
-    });
-    const result = parseSavedPlace(input);
-    expect(result).toEqual({
-      href: "/x",
-      title: "X",
-      label: "Y",
-      savedAt: "Z",
-      description: undefined,
-    });
-    expect(result).not.toHaveProperty("unknownField");
-    expect(result).not.toHaveProperty("anotherField");
-  });
-
-  it("handles description being absent", () => {
-    const input = JSON.stringify({
-      href: "/x",
-      title: "X",
-      label: "Y",
-      savedAt: "Z",
-    });
-    expect(parseSavedPlace(input)?.description).toBeUndefined();
-  });
-
-  it("handles description being a non-string", () => {
-    const input = JSON.stringify({
-      href: "/x",
-      title: "X",
-      label: "Y",
-      savedAt: "Z",
-      description: 999,
-    });
-    expect(parseSavedPlace(input)?.description).toBeUndefined();
-  });
-});
-
-/* ---------- safe localStorage helpers ---------- */
-
-describe("readStorage", () => {
-  beforeEach(() => {
-    localStorage.clear();
-  });
-
-  it("returns the stored value", () => {
-    localStorage.setItem("key", "value");
-    expect(readStorage("key")).toBe("value");
-  });
-
-  it("returns null for missing key", () => {
-    expect(readStorage("missing")).toBeNull();
-  });
-
-  it("returns null when localStorage throws", () => {
-    const spy = vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => {
-      throw new Error("Access denied");
-    });
-    expect(readStorage("key")).toBeNull();
-    spy.mockRestore();
-  });
-});
-
-describe("writeStorage", () => {
-  beforeEach(() => {
-    localStorage.clear();
-  });
-
-  it("writes the value", () => {
-    writeStorage("key", "value");
-    expect(localStorage.getItem("key")).toBe("value");
-  });
-
-  it("silently fails when localStorage throws", () => {
-    const spy = vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
-      throw new Error("Quota exceeded");
-    });
-    expect(() => writeStorage("key", "value")).not.toThrow();
-    spy.mockRestore();
-  });
-});
-
-describe("removeStorage", () => {
-  beforeEach(() => {
-    localStorage.clear();
-  });
-
-  it("removes the value", () => {
-    localStorage.setItem("key", "value");
-    removeStorage("key");
-    expect(localStorage.getItem("key")).toBeNull();
-  });
-
-  it("silently fails when localStorage throws", () => {
-    const spy = vi.spyOn(Storage.prototype, "removeItem").mockImplementation(() => {
-      throw new Error("Access denied");
-    });
-    expect(() => removeStorage("key")).not.toThrow();
-    spy.mockRestore();
-  });
-});
-
-/* ---------- component test helpers ---------- */
-
-const STORAGE_KEY = "saved-reading-place";
-
-const savedPlaceData = {
-  href: "/dictionary/agent",
-  title: "Agent",
-  label: "Dictionary entry",
-  description: "A software system.",
-  savedAt: "2026-03-20T10:00:00.000Z",
+type FetchConfig = {
+  sessionStatus: number;
+  sessionBody: unknown;
+  savedWordsStatus: number;
+  savedWordsBody: unknown;
+  logoutStatus: number;
+  putStatus: number;
+  deleteStatus: number;
 };
 
-function seedStorage() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(savedPlaceData));
+const defaultFetchConfig: FetchConfig = {
+  sessionStatus: 401,
+  sessionBody: { authenticated: false },
+  savedWordsStatus: 200,
+  savedWordsBody: { savedWords: [] },
+  logoutStatus: 204,
+  putStatus: 200,
+  deleteStatus: 204,
+};
+
+let fetchConfig = { ...defaultFetchConfig };
+const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+  const url = typeof input === "string" ? input : input.toString();
+  const method = init?.method ?? (input instanceof Request ? input.method : "GET");
+
+  const jsonResponse = (body: unknown, status = 200) =>
+    new Response(JSON.stringify(body), {
+      status,
+      headers: { "content-type": "application/json" },
+    });
+
+  if (url.endsWith("/api/auth/session")) {
+    return jsonResponse(fetchConfig.sessionBody, fetchConfig.sessionStatus);
+  }
+
+  if (url.endsWith("/api/me/saved-words")) {
+    if (method === "GET") {
+      return jsonResponse(fetchConfig.savedWordsBody, fetchConfig.savedWordsStatus);
+    }
+
+    if (method === "PUT") {
+      return jsonResponse(fetchConfig.savedWordsBody, fetchConfig.putStatus);
+    }
+
+    if (method === "DELETE") {
+      return new Response(null, { status: fetchConfig.deleteStatus });
+    }
+  }
+
+  if (url.endsWith("/api/auth/logout")) {
+    return new Response(null, { status: fetchConfig.logoutStatus });
+  }
+
+  return new Response(null, { status: 404 });
+});
+
+function seedStorage(savedWords: unknown) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(savedWords));
 }
 
-/* ---------- SavePlaceButton ---------- */
+function renderWithProvider(ui: React.ReactElement) {
+  return render(<BookmarkProvider>{ui}</BookmarkProvider>);
+}
 
-describe("SavePlaceButton", () => {
-  beforeEach(() => {
+beforeEach(() => {
+    fetchConfig = { ...defaultFetchConfig };
+    fetchMock.mockReset();
     localStorage.clear();
+    vi.useRealTimers();
+    vi.stubGlobal("fetch", fetchMock);
   });
 
-  afterEach(() => {
-    localStorage.clear();
+afterEach(() => {
+  localStorage.clear();
+  vi.useRealTimers();
+  vi.unstubAllGlobals();
+});
+
+describe("parseSavedWords", () => {
+  it("returns an empty array for missing or invalid data", () => {
+    expect(parseSavedWords(null)).toEqual([]);
+    expect(parseSavedWords("")).toEqual([]);
+    expect(parseSavedWords("not json")).toEqual([]);
+    expect(parseSavedWords(JSON.stringify({ title: "Agent" }))).toEqual([]);
   });
 
-  it("is disabled until isReady", () => {
-    render(
-      <BookmarkProvider>
-        <SavePlaceButton href="/test" title="Test" label="Test" />
-      </BookmarkProvider>,
-    );
-    // On first render, before useEffect runs, isReady is false
-    // But act() in render may flush effects. The button should be enabled after mount.
-    // This test ensures it does not crash.
-    expect(screen.getByRole("button")).toBeDefined();
-  });
-
-  it('shows "Save this place" when no place is saved', async () => {
-    render(
-      <BookmarkProvider>
-        <SavePlaceButton href="/test" title="Test" label="Test" />
-      </BookmarkProvider>,
-    );
-
-    // Wait for useEffect to fire
-    await act(async () => {});
-
-    expect(screen.getByRole("button").textContent).toBe("Save this place");
-    expect(screen.getByRole("button").getAttribute("aria-pressed")).toBe("false");
-  });
-
-  it('shows "Unsave this place" when the current place matches', async () => {
-    seedStorage();
-
-    render(
-      <BookmarkProvider>
-        <SavePlaceButton
-          href="/dictionary/agent"
-          title="Agent"
-          label="Dictionary entry"
-        />
-      </BookmarkProvider>,
+  it("normalizes and sorts a saved-word collection", () => {
+    const result = parseSavedWords(
+      JSON.stringify([
+        {
+          slug: "tokens",
+          href: "/dictionary/tokens",
+          title: "Tokens",
+          description: "The currency of model usage.",
+          savedAt: "2026-03-20T10:00:00.000Z",
+        },
+        {
+          slug: "agent",
+          href: "/dictionary/agent",
+          title: "Agent",
+          savedAt: "2026-03-21T10:00:00.000Z",
+        },
+      ]),
     );
 
-    await act(async () => {});
-
-    expect(screen.getByRole("button").textContent).toBe("Unsave this place");
-    expect(screen.getByRole("button").getAttribute("aria-pressed")).toBe("true");
+    expect(result.map((word) => word.slug)).toEqual(["agent", "tokens"]);
   });
 
-  it("saves on click when no place is saved", async () => {
-    const user = userEvent.setup();
-
-    render(
-      <BookmarkProvider>
-        <SavePlaceButton href="/test" title="Test" label="Test label" />
-      </BookmarkProvider>,
+  it("accepts the legacy single saved-place object", () => {
+    const result = parseSavedWords(
+      JSON.stringify({
+        slug: "agent",
+        href: "/dictionary/agent",
+        title: "Agent",
+        description: "A software system.",
+        savedAt: "2026-03-20T10:00:00.000Z",
+      }),
     );
 
-    await act(async () => {});
-    await user.click(screen.getByRole("button"));
-
-    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY)!);
-    expect(stored.href).toBe("/test");
-    expect(stored.title).toBe("Test");
-    expect(stored.label).toBe("Test label");
-    expect(screen.getByRole("button").textContent).toBe("Unsave this place");
-  });
-
-  it("clears on click when current place matches (toggle)", async () => {
-    seedStorage();
-    const user = userEvent.setup();
-
-    render(
-      <BookmarkProvider>
-        <SavePlaceButton
-          href="/dictionary/agent"
-          title="Agent"
-          label="Dictionary entry"
-        />
-      </BookmarkProvider>,
-    );
-
-    await act(async () => {});
-    expect(screen.getByRole("button").textContent).toBe("Unsave this place");
-
-    await user.click(screen.getByRole("button"));
-
-    expect(localStorage.getItem(STORAGE_KEY)).toBeNull();
-    expect(screen.getByRole("button").textContent).toBe("Save this place");
+    expect(result).toEqual([
+      {
+        slug: "agent",
+        href: "/dictionary/agent",
+        title: "Agent",
+        description: "A software system.",
+        savedAt: "2026-03-20T10:00:00.000Z",
+      },
+    ]);
   });
 });
 
-/* ---------- ResumeReadingCard ---------- */
-
-describe("ResumeReadingCard", () => {
+describe("safe localStorage helpers", () => {
   beforeEach(() => {
     localStorage.clear();
   });
 
-  afterEach(() => {
-    localStorage.clear();
+  it("reads, writes, and removes values", () => {
+    writeStorage("key", "value");
+    expect(readStorage("key")).toBe("value");
+    removeStorage("key");
+    expect(readStorage("key")).toBeNull();
   });
+});
 
-  it("renders nothing when no place is saved", async () => {
-    const { container } = render(
-      <BookmarkProvider>
-        <ResumeReadingCard />
-      </BookmarkProvider>,
-    );
-
-    await act(async () => {});
-
-    expect(container.innerHTML).toBe("");
-  });
-
-  it("renders the saved place when one exists", async () => {
-    seedStorage();
-
-    render(
-      <BookmarkProvider>
-        <ResumeReadingCard />
-      </BookmarkProvider>,
-    );
-
-    await act(async () => {});
-
-    expect(screen.getByText("Agent")).toBeDefined();
-    expect(screen.getByText("Dictionary entry")).toBeDefined();
-    expect(screen.getByText("Resume reading")).toBeDefined();
-    expect(screen.getByText("Clear saved place")).toBeDefined();
-  });
-
-  it("hides when savedPlace.href matches hideIfCurrentHref", async () => {
-    seedStorage();
-
-    const { container } = render(
-      <BookmarkProvider>
-        <ResumeReadingCard hideIfCurrentHref="/dictionary/agent" />
-      </BookmarkProvider>,
-    );
-
-    await act(async () => {});
-
-    expect(container.innerHTML).toBe("");
-  });
-
-  it("shows when savedPlace.href does not match hideIfCurrentHref", async () => {
-    seedStorage();
-
-    render(
-      <BookmarkProvider>
-        <ResumeReadingCard hideIfCurrentHref="/some-other-page" />
-      </BookmarkProvider>,
-    );
-
-    await act(async () => {});
-
-    expect(screen.getByText("Agent")).toBeDefined();
-  });
-
-  it("clears the saved place when Clear button is clicked", async () => {
-    seedStorage();
+describe("SaveWordButton", () => {
+  it("saves and removes a word from the collection", async () => {
     const user = userEvent.setup();
 
-    render(
-      <BookmarkProvider>
-        <ResumeReadingCard />
-      </BookmarkProvider>,
+    renderWithProvider(
+      <SaveWordButton
+        slug="agent"
+        href="/dictionary/agent"
+        title="Agent"
+        description="A software system."
+      />,
     );
 
-    await act(async () => {});
+    await waitFor(() => {
+      expect(screen.getByRole("button").textContent).toBe("Save this word");
+    });
 
-    await user.click(screen.getByText("Clear saved place"));
+    await user.click(screen.getByRole("button"));
 
-    expect(localStorage.getItem(STORAGE_KEY)).toBeNull();
+    await waitFor(() => {
+      expect(screen.getByRole("button").textContent).toBe("Remove from saved words");
+    });
+
+    expect(JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]")).toEqual([
+      expect.objectContaining({ slug: "agent", href: "/dictionary/agent" }),
+    ]);
+
+    await user.click(screen.getByRole("button"));
+
+    await waitFor(() => {
+      expect(screen.getByRole("button").textContent).toBe("Save this word");
+    });
+
+    expect(JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]")).toEqual([]);
+  });
+});
+
+describe("TodayWordCard", () => {
+  it("offers the saved-word control on the daily feature card", async () => {
+    const user = userEvent.setup();
+    const entry = {
+      slug: "agent",
+      title: "Agent",
+      devilDefinition: "A software system.",
+      plainDefinition: "A system that pursues a goal across steps.",
+      letter: "A",
+      categories: ["Agents and workflows"],
+      isVendorTerm: false,
+    };
+
+    renderWithProvider(
+      <TodayWordCard
+        entries={[]}
+        schedule={{
+          dailyWordSlugs: [],
+          dailyWordStartDate: "2026-03-03",
+          editorialTimeZone: "Africa/Johannesburg",
+        }}
+        initialEntry={entry as never}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.getByRole("button", { name: "Save this word" }),
+      ).toBeDefined();
+    });
+
+    await user.click(screen.getByRole("button", { name: "Save this word" }));
+
+    await waitFor(() => {
+      expect(
+        screen.getByRole("button", { name: "Remove from saved words" }),
+      ).toBeDefined();
+    });
+  });
+});
+
+describe("ResumeReadingCard", () => {
+  it("renders a preview list for saved words", async () => {
+    seedStorage([
+      {
+        slug: "agent",
+        href: "/dictionary/agent",
+        title: "Agent",
+        description: "A software system.",
+        savedAt: "2026-03-21T10:00:00.000Z",
+      },
+      {
+        slug: "tokens",
+        href: "/dictionary/tokens",
+        title: "Tokens",
+        description: "The currency of model usage.",
+        savedAt: "2026-03-20T10:00:00.000Z",
+      },
+    ]);
+
+    renderWithProvider(<ResumeReadingCard hideIfCurrentHref="/dictionary/agent" />);
+
+    await waitFor(() => {
+      expect(screen.getByText("Saved words")).toBeDefined();
+    });
+
+    expect(screen.queryByText("Agent")).toBeNull();
+    expect(screen.getByText("Tokens")).toBeDefined();
+    expect(screen.getByRole("link", { name: "Open saved words" })).toBeDefined();
+  });
+});
+
+describe("SavedPagePanel", () => {
+  it("renders the empty state when nothing is saved", async () => {
+    renderWithProvider(<SavedPagePanel />);
+
+    await waitFor(() => {
+      expect(screen.getByText("Save words while you read.")).toBeDefined();
+    });
   });
 
-  it("shows the description when present", async () => {
-    seedStorage();
+  it("renders and removes saved words", async () => {
+    const user = userEvent.setup();
 
-    render(
-      <BookmarkProvider>
-        <ResumeReadingCard />
-      </BookmarkProvider>,
+    seedStorage([
+      {
+        slug: "agent",
+        href: "/dictionary/agent",
+        title: "Agent",
+        description: "A software system.",
+        savedAt: "2026-03-21T10:00:00.000Z",
+      },
+      {
+        slug: "tokens",
+        href: "/dictionary/tokens",
+        title: "Tokens",
+        description: "The currency of model usage.",
+        savedAt: "2026-03-20T10:00:00.000Z",
+      },
+    ]);
+
+    renderWithProvider(<SavedPagePanel />);
+
+    await waitFor(() => {
+      expect(screen.getByText("2 saved words")).toBeDefined();
+    });
+
+    await user.click(screen.getAllByRole("button", { name: "Remove" })[0]);
+
+    await waitFor(() => {
+      expect(screen.queryByText("Agent")).toBeNull();
+    });
+
+    expect(JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]")).toEqual([
+      expect.objectContaining({ slug: "tokens" }),
+    ]);
+  });
+});
+
+describe("SavedWordsSyncPanel", () => {
+  it("shows signed-out state when no session exists", async () => {
+    renderWithProvider(<SavedWordsSyncPanel />);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("Saved words stay on this device until you sign in."),
+      ).toBeDefined();
+    });
+
+    expect(screen.getByRole("button", { name: "Sign in with Apple" })).toBeDefined();
+  });
+
+  it("shows account and sync state when signed in", async () => {
+    fetchConfig = {
+      ...defaultFetchConfig,
+      sessionStatus: 200,
+      sessionBody: {
+        authenticated: true,
+        lastSyncedAt: "2026-03-21T10:05:00.000Z",
+        user: { name: "Ada", email: "ada@example.test" },
+      },
+      savedWordsBody: {
+        lastSyncedAt: "2026-03-21T10:05:00.000Z",
+        savedWords: [
+          {
+            slug: "agent",
+            href: "/dictionary/agent",
+            title: "Agent",
+            savedAt: "2026-03-21T10:00:00.000Z",
+          },
+        ],
+      },
+    };
+
+    renderWithProvider(<SavedWordsSyncPanel />);
+
+    await waitFor(() => {
+      expect(screen.getByText("Signed in with Apple.")).toBeDefined();
+    });
+
+    expect(screen.getByText("Saved words are in step with your account.")).toBeDefined();
+    expect(screen.getByText(/Last synced/i)).toBeDefined();
+    expect(screen.getByRole("button", { name: "Sign out" })).toBeDefined();
+  });
+
+  it("debounces signed-in saved-word changes before syncing", async () => {
+    fetchConfig = {
+      ...defaultFetchConfig,
+      sessionStatus: 200,
+      sessionBody: {
+        authenticated: true,
+        lastSyncedAt: "2026-03-21T10:05:00.000Z",
+        user: { name: "Ada", email: "ada@example.test" },
+      },
+      savedWordsBody: {
+        lastSyncedAt: "2026-03-21T10:05:00.000Z",
+        savedWords: [],
+      },
+    };
+
+    renderWithProvider(
+      <SaveWordButton
+        slug="agent"
+        href="/dictionary/agent"
+        title="Agent"
+        description="A software system."
+      />,
     );
 
-    await act(async () => {});
+    await waitFor(() => {
+      expect(screen.getByRole("button", { name: "Save this word" })).toBeDefined();
+    });
 
-    expect(screen.getByText("A software system.")).toBeDefined();
+    vi.useFakeTimers();
+    screen.getByRole("button", { name: "Save this word" }).click();
+
+    expect(
+      fetchMock.mock.calls.filter(([, init]) => (init?.method ?? "GET") === "PUT"),
+    ).toHaveLength(0);
+
+    await vi.advanceTimersByTimeAsync(1600);
+    await Promise.resolve();
+
+    expect(
+      fetchMock.mock.calls.filter(([, init]) => (init?.method ?? "GET") === "PUT"),
+    ).toHaveLength(1);
   });
 });

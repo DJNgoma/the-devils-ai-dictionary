@@ -2,11 +2,503 @@ import Foundation
 import SwiftUI
 
 #if os(iOS)
+import AuthenticationServices
+import Security
+import StoreKit
 import UIKit
 #endif
 
 #if canImport(DevilsAIDictionaryCore)
 import DevilsAIDictionaryCore
+#endif
+
+// MARK: - Apple account sync
+
+#if os(iOS)
+private enum NativeAppleBackendError: LocalizedError {
+    case missingBaseURL
+    case invalidResponse
+    case invalidStatus(Int, String?)
+
+    var errorDescription: String? {
+        switch self {
+        case .missingBaseURL:
+            return "The app does not have a valid API base URL."
+        case .invalidResponse:
+            return "The server returned an invalid response."
+        case .invalidStatus(let status, let body):
+            if let body, !body.isEmpty {
+                return "Request failed with status \(status): \(body)"
+            }
+            return "Request failed with status \(status)."
+        }
+    }
+}
+
+struct NativeAppleSessionState: Codable, Equatable, Sendable {
+    let isAuthenticated: Bool
+    let displayName: String?
+    let email: String?
+    let lastSyncedAt: String?
+    let savedWordCount: Int?
+
+    init(
+        isAuthenticated: Bool = true,
+        displayName: String?,
+        email: String?,
+        lastSyncedAt: String?,
+        savedWordCount: Int?
+    ) {
+        self.isAuthenticated = isAuthenticated
+        self.displayName = displayName
+        self.email = email
+        self.lastSyncedAt = lastSyncedAt
+        self.savedWordCount = savedWordCount
+    }
+}
+
+private struct NativeAppleAuthRequest: Encodable {
+    let authorizationCode: String
+    let identityToken: String?
+    let userIdentifier: String
+    let name: String?
+    let email: String?
+}
+
+private struct NativeAppleAuthResponse: Decodable {
+    let sessionToken: String
+}
+
+private struct NativeSavedWordsBatchRequest: Encodable {
+    let replace: Bool?
+    let words: [SavedWordRecord]
+}
+
+struct NativeSavedWordsSyncSnapshot: Sendable {
+    let lastSyncedAt: String?
+    let savedWordCount: Int?
+    let savedWords: [SavedWordRecord]
+}
+
+private final class NativeAppleSessionTokenStore {
+    private let account = "apple-session-token"
+    private let service = "com.djngoma.devilsaidictionary"
+
+    func load() -> String? {
+        let query: [CFString: Any] = [
+            kSecAttrAccount: account,
+            kSecAttrService: service,
+            kSecClass: kSecClassGenericPassword,
+            kSecMatchLimit: kSecMatchLimitOne,
+            kSecReturnData: true,
+        ]
+        var result: CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &result)
+
+        guard status == errSecSuccess,
+              let data = result as? Data,
+              let token = String(data: data, encoding: .utf8)
+        else {
+            return nil
+        }
+
+        return token
+    }
+
+    func save(_ token: String?) {
+        clear()
+
+        guard let token,
+              let data = token.data(using: .utf8)
+        else {
+            return
+        }
+
+        let query: [CFString: Any] = [
+            kSecAttrAccount: account,
+            kSecAttrService: service,
+            kSecClass: kSecClassGenericPassword,
+            kSecValueData: data,
+        ]
+
+        SecItemAdd(query as CFDictionary, nil)
+    }
+
+    func clear() {
+        let query: [CFString: Any] = [
+            kSecAttrAccount: account,
+            kSecAttrService: service,
+            kSecClass: kSecClassGenericPassword,
+        ]
+
+        SecItemDelete(query as CFDictionary)
+    }
+}
+
+final class NativeAppleBackendClient {
+    private let decoder = JSONDecoder()
+    private let encoder = JSONEncoder()
+    private let sessionTokenStore = NativeAppleSessionTokenStore()
+
+    func exchangeAuthorizationCode(
+        authorizationCode: String,
+        identityToken: String?,
+        userIdentifier: String,
+        name: String?,
+        email: String?
+    ) async throws {
+        let result = try await send(
+            path: "/api/auth/apple/native",
+            method: "POST",
+            body: NativeAppleAuthRequest(
+                authorizationCode: authorizationCode,
+                identityToken: identityToken,
+                userIdentifier: userIdentifier,
+                name: name,
+                email: email
+            )
+        )
+
+        let payload = try decoder.decode(NativeAppleAuthResponse.self, from: result.data)
+        sessionTokenStore.save(payload.sessionToken)
+    }
+
+    func fetchSession() async throws -> NativeAppleSessionState? {
+        guard sessionTokenStore.load() != nil else {
+            return nil
+        }
+
+        let result = try await send(path: "/api/auth/session", method: "GET", allowUnauthorized: true)
+
+        return parseSession(from: result.data)
+    }
+
+    func signOut() async throws {
+        defer { sessionTokenStore.clear() }
+        _ = try await send(path: "/api/auth/logout", method: "POST", allowUnauthorized: true)
+    }
+
+    func clearSessionToken() {
+        sessionTokenStore.clear()
+    }
+
+    func fetchSavedWords() async throws -> [SavedWordRecord] {
+        guard sessionTokenStore.load() != nil else {
+            return []
+        }
+
+        let result = try await send(path: "/api/me/saved-words", method: "GET", allowUnauthorized: true)
+        guard result.http.statusCode != 401 else {
+            return []
+        }
+
+        return parseSavedWords(from: result.data)
+    }
+
+    func upsertSavedWords(_ savedWords: [SavedWordRecord]) async throws -> NativeSavedWordsSyncSnapshot {
+        guard !savedWords.isEmpty else {
+            return NativeSavedWordsSyncSnapshot(lastSyncedAt: nil, savedWordCount: 0, savedWords: [])
+        }
+
+        let result = try await send(
+            path: "/api/me/saved-words",
+            method: "PUT",
+            body: NativeSavedWordsBatchRequest(replace: nil, words: savedWords)
+        )
+
+        return parseSavedWordsSnapshot(from: result.data)
+    }
+
+    func replaceSavedWords(_ savedWords: [SavedWordRecord]) async throws -> NativeSavedWordsSyncSnapshot {
+        let result = try await send(
+            path: "/api/me/saved-words",
+            method: "PUT",
+            body: NativeSavedWordsBatchRequest(replace: true, words: savedWords)
+        )
+
+        return parseSavedWordsSnapshot(from: result.data)
+    }
+
+    private func send(
+        path: String,
+        method: String,
+        queryItems: [URLQueryItem] = [],
+        allowUnauthorized: Bool = false
+    ) async throws -> (data: Data, http: HTTPURLResponse) {
+        guard let baseURL = baseURL() else {
+            throw NativeAppleBackendError.missingBaseURL
+        }
+
+        var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)
+        components?.path = baseURL.path.trimmingCharacters(in: CharacterSet(charactersIn: "/")) + path
+        if !queryItems.isEmpty {
+            components?.queryItems = queryItems
+        }
+
+        guard let url = components?.url else {
+            throw NativeAppleBackendError.missingBaseURL
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = method
+        request.timeoutInterval = 15
+
+        if let sessionToken = sessionTokenStore.load() {
+            request.setValue("Bearer \(sessionToken)", forHTTPHeaderField: "Authorization")
+        }
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        guard let http = response as? HTTPURLResponse else {
+            throw NativeAppleBackendError.invalidResponse
+        }
+
+        if allowUnauthorized && http.statusCode == 401 {
+            sessionTokenStore.clear()
+        }
+
+        guard (200...299).contains(http.statusCode) || (allowUnauthorized && http.statusCode == 401) else {
+            let body = String(data: data, encoding: .utf8)
+            throw NativeAppleBackendError.invalidStatus(http.statusCode, body)
+        }
+
+        return (data: data, http: http)
+    }
+
+    private func send<Body: Encodable>(
+        path: String,
+        method: String,
+        queryItems: [URLQueryItem] = [],
+        body: Body,
+        allowUnauthorized: Bool = false
+    ) async throws -> (data: Data, http: HTTPURLResponse) {
+        guard let baseURL = baseURL() else {
+            throw NativeAppleBackendError.missingBaseURL
+        }
+
+        var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)
+        components?.path = baseURL.path.trimmingCharacters(in: CharacterSet(charactersIn: "/")) + path
+        if !queryItems.isEmpty {
+            components?.queryItems = queryItems
+        }
+
+        guard let url = components?.url else {
+            throw NativeAppleBackendError.missingBaseURL
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = method
+        request.timeoutInterval = 15
+        request.httpBody = try encoder.encode(body)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        if let sessionToken = sessionTokenStore.load() {
+            request.setValue("Bearer \(sessionToken)", forHTTPHeaderField: "Authorization")
+        }
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        guard let http = response as? HTTPURLResponse else {
+            throw NativeAppleBackendError.invalidResponse
+        }
+
+        if allowUnauthorized && http.statusCode == 401 {
+            sessionTokenStore.clear()
+        }
+
+        guard (200...299).contains(http.statusCode) || (allowUnauthorized && http.statusCode == 401) else {
+            let body = String(data: data, encoding: .utf8)
+            throw NativeAppleBackendError.invalidStatus(http.statusCode, body)
+        }
+
+        return (data: data, http: http)
+    }
+
+    private func baseURL() -> URL? {
+        guard
+            let baseURLString = Bundle.main.object(forInfoDictionaryKey: "MobileAPIBaseURL") as? String,
+            let url = URL(string: baseURLString)
+        else {
+            return nil
+        }
+
+        return url
+    }
+
+    private func parseSession(from data: Data) -> NativeAppleSessionState? {
+        guard
+            let json = try? JSONSerialization.jsonObject(with: data),
+            let dictionary = json as? [String: Any]
+        else {
+            return nil
+        }
+
+        let userDictionary = Self.dictionary(from: dictionary["user"]) ?? dictionary
+        let isAuthenticated = Self.bool(
+            dictionary["authenticated"],
+            dictionary["isAuthenticated"],
+            dictionary["ok"]
+        ) ?? true
+        let displayName = Self.firstString(
+            userDictionary["displayName"],
+            userDictionary["name"],
+            dictionary["displayName"],
+            dictionary["name"]
+        )
+        let email = Self.firstString(userDictionary["email"], dictionary["email"])
+        let savedWordCount = Self.int(
+            dictionary["savedWordCount"],
+            dictionary["savedWordsCount"],
+            dictionary["count"]
+        )
+        let lastSyncedAt = Self.firstString(
+            dictionary["lastSyncedAt"],
+            dictionary["syncedAt"],
+            dictionary["updatedAt"]
+        )
+
+        if !isAuthenticated {
+            return nil
+        }
+
+        return NativeAppleSessionState(
+            isAuthenticated: true,
+            displayName: displayName,
+            email: email,
+            lastSyncedAt: lastSyncedAt,
+            savedWordCount: savedWordCount
+        )
+    }
+
+    private func parseSavedWords(from data: Data) -> [SavedWordRecord] {
+        if let savedWords = try? decoder.decode([SavedWordRecord].self, from: data) {
+            return savedWords.sorted(by: savedWordSort)
+        }
+
+        guard
+            let json = try? JSONSerialization.jsonObject(with: data),
+            let dictionary = json as? [String: Any]
+        else {
+            return []
+        }
+
+        for key in ["savedWords", "saved_words", "words", "items"] {
+            if let array = dictionary[key] as? [[String: Any]] {
+                return decodeSavedWordArray(array)
+            }
+        }
+
+        return []
+    }
+
+    private func parseSavedWordsSnapshot(from data: Data) -> NativeSavedWordsSyncSnapshot {
+        let savedWords = parseSavedWords(from: data)
+
+        guard
+            let json = try? JSONSerialization.jsonObject(with: data),
+            let dictionary = json as? [String: Any]
+        else {
+            return NativeSavedWordsSyncSnapshot(
+                lastSyncedAt: nil,
+                savedWordCount: savedWords.count,
+                savedWords: savedWords
+            )
+        }
+
+        let lastSyncedAt = Self.firstString(
+            dictionary["lastSyncedAt"],
+            dictionary["syncedAt"],
+            dictionary["updatedAt"]
+        )
+        let savedWordCount = Self.int(
+            dictionary["savedWordCount"],
+            dictionary["savedWordsCount"],
+            dictionary["count"]
+        ) ?? savedWords.count
+
+        return NativeSavedWordsSyncSnapshot(
+            lastSyncedAt: lastSyncedAt,
+            savedWordCount: savedWordCount,
+            savedWords: savedWords
+        )
+    }
+
+    private func decodeSavedWordArray(_ array: [[String: Any]]) -> [SavedWordRecord] {
+        array.compactMap { dictionary in
+            guard
+                JSONSerialization.isValidJSONObject(dictionary),
+                let data = try? JSONSerialization.data(withJSONObject: dictionary),
+                let record = try? decoder.decode(SavedWordRecord.self, from: data)
+            else {
+                return nil
+            }
+
+            return record
+        }
+        .sorted(by: savedWordSort)
+    }
+
+    private func savedWordSort(lhs: SavedWordRecord, rhs: SavedWordRecord) -> Bool {
+        lhs.savedAt > rhs.savedAt
+    }
+
+    private static func dictionary(from value: Any?) -> [String: Any]? {
+        value as? [String: Any]
+    }
+
+    private static func firstString(_ values: Any?...) -> String? {
+        for value in values {
+            if let string = value as? String, !string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                return string
+            }
+        }
+
+        return nil
+    }
+
+    private static func int(_ values: Any?...) -> Int? {
+        for value in values {
+            if let int = value as? Int {
+                return int
+            }
+
+            if let number = value as? NSNumber {
+                return number.intValue
+            }
+
+            if let string = value as? String, let int = Int(string) {
+                return int
+            }
+        }
+
+        return nil
+    }
+
+    private static func bool(_ values: Any?...) -> Bool? {
+        for value in values {
+            if let bool = value as? Bool {
+                return bool
+            }
+
+            if let number = value as? NSNumber {
+                return number.boolValue
+            }
+
+            if let string = value as? String {
+                let lowercased = string.lowercased()
+                if ["true", "yes", "1", "authenticated", "signedin"].contains(lowercased) {
+                    return true
+                }
+
+                if ["false", "no", "0", "unauthenticated", "signedout"].contains(lowercased) {
+                    return false
+                }
+            }
+        }
+
+        return nil
+    }
+}
 #endif
 
 @MainActor
@@ -54,6 +546,7 @@ final class NativeDictionaryModel: ObservableObject {
     }
 
     enum ActiveSheet: Identifiable, Equatable {
+        case onboarding
         case about
         case book
         case guide
@@ -63,6 +556,8 @@ final class NativeDictionaryModel: ObservableObject {
 
         var id: String {
             switch self {
+            case .onboarding:
+                return "onboarding"
             case .about:
                 return "about"
             case .book:
@@ -131,7 +626,7 @@ final class NativeDictionaryModel: ObservableObject {
             case .categories:
                 return "Editorial categories without extra chrome."
             case .saved:
-                return "Saved-reading-place card seeded with a real entry."
+                return "Saved words list seeded with a real entry."
             case .entry:
                 return "Entry detail sheet for a reliable hero term."
             }
@@ -157,9 +652,18 @@ final class NativeDictionaryModel: ObservableObject {
     @Published private(set) var catalogSnapshot: DictionaryCatalogSnapshot?
     @Published private(set) var currentWord: CurrentWordRecord?
     @Published private(set) var pushAuthorizationStatus = "unknown"
+    @Published private(set) var pushNotificationsPreferenceEnabled = false
+    @Published private(set) var pushNotificationsPreferenceConfigured = false
+    @Published private(set) var pushPreferredDeliveryHour = CurrentWordStorage.defaultPushPreferredDeliveryHour
     @Published private(set) var pushTokenAvailable = false
     @Published private(set) var catalogVersion: String?
-    @Published private(set) var savedPlace: BookmarkRecord?
+    @Published private(set) var savedWords: [SavedWordRecord] = []
+    @Published private(set) var appleSession: NativeAppleSessionState?
+    @Published private(set) var appleAccountIdentity: AppleAccountIdentity?
+    @Published private(set) var savedWordsSyncError: String?
+    @Published private(set) var hasPendingSavedWordsSync = false
+    @Published private(set) var isRefreshingSavedWordsSync = false
+    @Published private(set) var lastSavedWordsSyncAt: Date?
     @Published private(set) var loadError: String?
     @Published private(set) var actionError: String?
     @Published private(set) var isCheckingLiveCatalog = false
@@ -172,22 +676,37 @@ final class NativeDictionaryModel: ObservableObject {
     @Published private(set) var developerScreenshotPreset: DeveloperScreenshotPreset?
 
     private var savedToastTask: Task<Void, Never>?
+    private var pendingSavedWordsSyncTask: Task<Void, Never>?
     private var pendingDeveloperScreenshotPreset: DeveloperScreenshotPreset?
 
     private let manager: PhoneCurrentWordManager
-    private let savedPlaceStore = NativeSavedPlaceStore()
+    private var savedWordsStorage = CurrentWordStorage()
+    private let appleBackendClient = NativeAppleBackendClient()
+    private let reviewManager = NativeAppReviewManager()
     private var notificationTokens: [NSObjectProtocol] = []
 
     init(manager: PhoneCurrentWordManager) {
         self.manager = manager
 
-        savedPlace = savedPlaceStore.load()
+        if savedWordsStorage.markInstallationIfNeeded() {
+            appleBackendClient.clearSessionToken()
+        }
+
+        savedWords = savedWordsStorage.loadSavedWords()
+        appleAccountIdentity = savedWordsStorage.loadAppleAccountIdentity()
         refreshFromManager()
         syncDeveloperScreenshotModeFromDefaults()
         observeNativeState()
+
+        #if os(iOS)
+        if !savedWordsStorage.loadHasCompletedOnboarding() && !isDeveloperScreenshotMode {
+            activeSheet = .onboarding
+        }
+        #endif
     }
 
     deinit {
+        pendingSavedWordsSyncTask?.cancel()
         notificationTokens.forEach(NotificationCenter.default.removeObserver)
     }
 
@@ -295,6 +814,10 @@ final class NativeDictionaryModel: ObservableObject {
         return base
     }
 
+    var savedPlace: BookmarkRecord? {
+        savedWords.first?.bookmarkRecord
+    }
+
     var savedEntry: Entry? {
         guard let slug = savedPlaceSlug else {
             return nil
@@ -304,39 +827,142 @@ final class NativeDictionaryModel: ObservableObject {
     }
 
     var savedPlaceSlug: String? {
-        guard let href = savedPlace?.href else {
-            return nil
+        savedWords.first?.slug
+    }
+
+    var isAppleAccountSignedIn: Bool {
+        appleSession != nil
+    }
+
+    var appleAccountStatusMessage: String {
+        if appleSession != nil {
+            return "Signed in with Apple."
         }
 
-        return slugFromDictionaryPath(href)
+        return "Saved words stay on this device until you sign in with Apple."
+    }
+
+    var appleSyncStatusMessage: String {
+        if isRefreshingSavedWordsSync {
+            return "Syncing saved words now."
+        }
+
+        if hasPendingSavedWordsSync {
+            return "Recent changes are queued. The clerk will send them shortly."
+        }
+
+        if let error = savedWordsSyncError {
+            return error
+        }
+
+        if appleSession != nil {
+            return "Saved words sync through your Apple account."
+        }
+
+        return "Sign in to sync saved words across installs."
+    }
+
+    var appleLastSyncedLabel: String? {
+        if let lastSavedWordsSyncAt, appleSession != nil {
+            return nativeFormattedDate(lastSavedWordsSyncAt)
+        }
+
+        if let lastSyncedAt = appleSession?.lastSyncedAt {
+            return nativeFormattedDateTime(lastSyncedAt)
+        }
+
+        return nil
+    }
+
+    var appleSyncButtonTitle: String {
+        if isRefreshingSavedWordsSync {
+            return "Syncing…"
+        }
+
+        return isAppleAccountSignedIn ? "Sync now" : "Sign in with Apple"
     }
 
     var isDeveloperScreenshotMode: Bool {
         developerScreenshotPreset != nil
     }
 
+    var pushNotificationsEnabled: Bool {
+        pushNotificationsPreferenceEnabled &&
+            ["authorized", "ephemeral", "provisional"].contains(pushAuthorizationStatus)
+    }
+
     var shouldShowPushPrompt: Bool {
-        !["authorized", "unsupported"].contains(pushAuthorizationStatus)
+        guard pushAuthorizationStatus != "unsupported" else {
+            return false
+        }
+
+        if pushNotificationsPreferenceEnabled {
+            return !pushNotificationsEnabled
+        }
+
+        return !pushNotificationsPreferenceConfigured
     }
 
     var pushPermissionButtonTitle: String {
-        pushAuthorizationStatus == "denied" ? "Open Settings" : "Enable notifications"
+        pushAuthorizationStatus == "denied" && pushNotificationsPreferenceEnabled ? "Open Settings" : "Allow notifications"
+    }
+
+    var homePushPromptTitle: String {
+        if pushAuthorizationStatus == "denied" && pushNotificationsPreferenceEnabled {
+            return "The daily word is waiting outside"
+        }
+
+        return "Let the daily word find you"
+    }
+
+    var homePushPromptMessage: String {
+        if pushAuthorizationStatus == "denied" && pushNotificationsPreferenceEnabled {
+            return "iOS has notifications barred in Settings. Reopen the door there if you want the daily word sent here."
+        }
+
+        return "One entry a day, at the hour you choose. Useful correspondence, not a campaign."
+    }
+
+    var homePushPromptButtonTitle: String? {
+        guard pushAuthorizationStatus != "unsupported" else {
+            return nil
+        }
+
+        if pushAuthorizationStatus == "denied" && pushNotificationsPreferenceEnabled {
+            return "Open Settings"
+        }
+
+        return "Send the daily word"
+    }
+
+    var pushPreferredDeliveryHourLabel: String {
+        Self.pushDeliveryHourLabel(for: pushPreferredDeliveryHour)
     }
 
     var pushStatusMessage: String {
+        if pushAuthorizationStatus == "unsupported" {
+            return "Push is not wired for this Apple edition yet."
+        }
+
+        if !pushNotificationsPreferenceEnabled {
+            return pushNotificationsPreferenceConfigured
+                ? "This device is off the daily-word list."
+                : "Pick an hour and let the app deliver one civilized interruption a day."
+        }
+
         switch pushAuthorizationStatus {
         case "authorized":
-            return "Notifications are enabled for this device."
+            return "The daily word has a standing booking for \(pushPreferredDeliveryHourLabel) local time."
         case "denied":
-            return "Notifications are currently denied in system settings."
+            return "The app filed the request. iOS barred the door in Settings."
+        case "ephemeral":
+            return "The daily word is booked for \(pushPreferredDeliveryHourLabel) local time, for as long as this permission remains on speaking terms."
         case "provisional":
-            return "Notifications are being delivered quietly."
-        case "unsupported":
-            return "Push notifications are not wired for this Apple platform yet."
+            return "The daily word is booked for \(pushPreferredDeliveryHourLabel) local time and arriving quietly."
         case "notDetermined":
-            return "Enable notifications to let this app deliver the next good word."
+            return "When iOS asks, allow notifications and the app will keep to \(pushPreferredDeliveryHourLabel) local time."
         default:
-            return "Native push is wired, but iOS has not confirmed the final permission state yet."
+            return "Push is wired, but iOS has not yet produced a final answer."
         }
     }
 
@@ -488,6 +1114,7 @@ final class NativeDictionaryModel: ObservableObject {
         }
 
         routeToEntry(slug: slug)
+        reviewManager.recordEntryOpenIfEligible()
     }
 
     private func routeToEntry(slug: String) {
@@ -507,6 +1134,16 @@ final class NativeDictionaryModel: ObservableObject {
     func presentGuide() {
         macDetailRoute = .guide
         activeSheet = .guide
+    }
+
+    func completeOnboarding(openGuide: Bool = false) {
+        savedWordsStorage.saveHasCompletedOnboarding(true)
+
+        if openGuide {
+            presentGuide()
+        } else {
+            dismissSheet()
+        }
     }
 
     func presentAbout() {
@@ -550,52 +1187,42 @@ final class NativeDictionaryModel: ObservableObject {
     }
 
     func save(entry: Entry) {
-        let record = BookmarkRecord(
-            href: "/dictionary/\(entry.slug)",
-            title: entry.title,
-            label: "Dictionary entry",
-            description: entry.devilDefinition.trimmingCharacters(in: .whitespacesAndNewlines),
-            savedAt: Self.timestamp()
-        )
-        persistSavedPlace(record)
-    }
-
-    func saveBook() {
-        let record = BookmarkRecord(
-            href: "/book",
-            title: "The Devil's AI Dictionary",
-            label: "Book landing page",
-            description: "A field guide for people already in the room.",
-            savedAt: Self.timestamp()
-        )
-        persistSavedPlace(record)
-    }
-
-    func clearSavedPlace() {
-        savedPlaceStore.clear()
-        savedPlace = nil
+        let record = SavedWordRecord(entry: entry, savedAt: Self.timestamp())
+        persistSavedWord(record)
+        scheduleSavedWordsSyncIfNeeded()
     }
 
     func openSavedPlace() {
-        guard let savedPlace else {
+        guard let savedWord = savedWords.first else {
             showSection(.search)
             return
         }
 
-        switch savedPlace.href {
-        case "/book":
-            presentBook()
-        case "/about":
-            presentAbout()
-        case "/how-to-read":
-            presentGuide()
-        default:
-            if let slug = slugFromDictionaryPath(savedPlace.href) {
-                presentEntry(slug: slug)
-            } else {
-                showSection(.search)
-            }
+        if let entry = entry(slug: savedWord.slug) {
+            presentEntry(entry)
+        } else {
+            showSection(.search)
         }
+    }
+
+    func clearSavedPlace() {
+        clearSavedWords()
+    }
+
+    func clearSavedWords() {
+        savedWordsStorage.saveSavedWords([])
+        savedWords = []
+        scheduleSavedWordsSyncIfNeeded()
+    }
+
+    func removeSavedWord(_ savedWord: SavedWordRecord) {
+        let updated = savedWords.filter { $0.slug != savedWord.slug }
+        guard updated.count != savedWords.count else {
+            return
+        }
+
+        persistSavedWords(updated)
+        scheduleSavedWordsSyncIfNeeded()
     }
 
     func openCurrentWord() {
@@ -705,23 +1332,319 @@ final class NativeDictionaryModel: ObservableObject {
     }
 
     func requestPushPermission() async {
+        await setPushNotificationsEnabled(true)
+    }
+
+    func setPushNotificationsEnabled(_ enabled: Bool) async {
+        let wasDenied = pushAuthorizationStatus == "denied"
+
         do {
-            _ = try await manager.requestPushAuthorization()
+            _ = try await manager.setPushNotificationsEnabled(enabled)
             actionError = nil
             refreshFromManager()
+
+            if enabled && wasDenied {
+                openSystemSettings()
+            }
         } catch {
             actionError = error.localizedDescription
         }
     }
 
+    func setPushPreferredDeliveryHour(_ hour: Int) async {
+        _ = await manager.setPushPreferredDeliveryHour(hour)
+        actionError = nil
+        refreshFromManager()
+    }
+
+    func refreshAppleAccountState() async {
+        #if os(iOS)
+        if appleSession != nil && hasPendingSavedWordsSync {
+            await flushPendingSavedWordsSync()
+        }
+
+        do {
+            let session = try await appleBackendClient.fetchSession()
+            appleSession = session
+
+            if let session {
+                if let displayName = session.displayName, !displayName.isEmpty,
+                   appleAccountIdentity?.name != displayName || appleAccountIdentity?.email != session.email {
+                    let updatedIdentity = AppleAccountIdentity(
+                        userIdentifier: appleAccountIdentity?.userIdentifier ?? "",
+                        name: displayName,
+                        email: session.email
+                    )
+                    appleAccountIdentity = updatedIdentity
+                    savedWordsStorage.saveAppleAccountIdentity(updatedIdentity)
+                }
+
+                do {
+                    let remoteSavedWords = try await appleBackendClient.fetchSavedWords()
+                    persistSavedWords(
+                        Self.mergeSavedWords(savedWordsStorage.loadSavedWords(), remoteSavedWords),
+                        showsToast: false
+                    )
+                    savedWordsSyncError = nil
+                    if let lastSyncedAt = session.lastSyncedAt,
+                       let parsedDate = SharedDateParser.iso8601.date(from: lastSyncedAt) {
+                        lastSavedWordsSyncAt = parsedDate
+                    }
+                } catch {
+                    savedWordsSyncError = error.localizedDescription
+                    if savedWords.isEmpty {
+                        persistSavedWords(savedWordsStorage.loadSavedWords(), showsToast: false)
+                    }
+                }
+            } else {
+                persistSavedWords(savedWordsStorage.loadSavedWords(), showsToast: false)
+                savedWordsSyncError = nil
+            }
+        } catch {
+            savedWordsSyncError = error.localizedDescription
+            persistSavedWords(savedWordsStorage.loadSavedWords(), showsToast: false)
+        }
+        #else
+        appleSession = nil
+        persistSavedWords(savedWordsStorage.loadSavedWords(), showsToast: false)
+        savedWordsSyncError = nil
+        #endif
+    }
+
+    func completeAppleSignIn(
+        authorizationCode: String,
+        identityToken: String?,
+        userIdentifier: String,
+        name: String?,
+        email: String?
+    ) async {
+        #if os(iOS)
+        let existingIdentity = appleAccountIdentity
+        let trimmedName = name?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedEmail = email?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let normalizedName = trimmedName?.isEmpty == false ? trimmedName : existingIdentity?.name
+        let normalizedEmail = trimmedEmail?.isEmpty == false ? trimmedEmail : existingIdentity?.email
+        let identity = AppleAccountIdentity(
+            userIdentifier: userIdentifier,
+            name: normalizedName,
+            email: normalizedEmail
+        )
+
+        appleAccountIdentity = identity
+        savedWordsStorage.saveAppleAccountIdentity(identity)
+        let localSavedWords = savedWords
+
+        do {
+            try await appleBackendClient.exchangeAuthorizationCode(
+                authorizationCode: authorizationCode,
+                identityToken: identityToken,
+                userIdentifier: userIdentifier,
+                name: normalizedName,
+                email: normalizedEmail
+            )
+            savedWordsSyncError = nil
+            await syncLocalSavedWordsToBackend(localSavedWords)
+            await refreshAppleAccountState()
+        } catch {
+            savedWordsSyncError = error.localizedDescription
+        }
+        #endif
+    }
+
+    #if os(iOS)
+    func handleAppleSignIn(_ result: Result<ASAuthorization, Error>) async {
+        switch result {
+        case .success(let authorization):
+            guard
+                let credential = authorization.credential as? ASAuthorizationAppleIDCredential,
+                let authorizationCodeData = credential.authorizationCode,
+                let authorizationCode = String(data: authorizationCodeData, encoding: .utf8)
+            else {
+                actionError = "Apple did not hand over a usable authorization code."
+                return
+            }
+            let identityToken = credential.identityToken.flatMap { String(data: $0, encoding: .utf8) }
+
+            let givenName = credential.fullName?.givenName?.trimmingCharacters(in: .whitespacesAndNewlines)
+            let familyName = credential.fullName?.familyName?.trimmingCharacters(in: .whitespacesAndNewlines)
+            let nameParts = [givenName, familyName].compactMap { value -> String? in
+                guard let value, !value.isEmpty else { return nil }
+                return value
+            }
+            let name = nameParts.isEmpty ? nil : nameParts.joined(separator: " ")
+
+            await completeAppleSignIn(
+                authorizationCode: authorizationCode,
+                identityToken: identityToken,
+                userIdentifier: credential.user,
+                name: name,
+                email: credential.email
+            )
+        case .failure(let error):
+            savedWordsSyncError = error.localizedDescription
+        }
+    }
+    #endif
+
+    func signOutOfApple() async {
+        #if os(iOS)
+        pendingSavedWordsSyncTask?.cancel()
+        pendingSavedWordsSyncTask = nil
+        hasPendingSavedWordsSync = false
+
+        do {
+            try await appleBackendClient.signOut()
+            savedWordsSyncError = nil
+        } catch {
+            savedWordsSyncError = error.localizedDescription
+            appleBackendClient.clearSessionToken()
+        }
+
+        appleSession = nil
+        appleAccountIdentity = nil
+        lastSavedWordsSyncAt = nil
+        savedWordsStorage.saveAppleAccountIdentity(nil)
+        persistSavedWords(savedWordsStorage.loadSavedWords(), showsToast: false)
+        #endif
+    }
+
+    func refreshSavedWordsSyncState() async {
+        guard !isRefreshingSavedWordsSync else {
+            return
+        }
+
+        isRefreshingSavedWordsSync = true
+        defer { isRefreshingSavedWordsSync = false }
+
+        if hasPendingSavedWordsSync {
+            await flushPendingSavedWordsSync()
+        }
+
+        await refreshAppleAccountState()
+    }
+
+    private func syncLocalSavedWordsToBackend(_ localSavedWords: [SavedWordRecord]? = nil) async {
+        guard appleSession != nil || localSavedWords != nil else {
+            return
+        }
+
+        let desiredWords = (localSavedWords ?? savedWords).sorted(by: { $0.savedAt > $1.savedAt })
+
+        guard !desiredWords.isEmpty else {
+            await refreshAppleAccountState()
+            return
+        }
+
+        do {
+            let snapshot = try await appleBackendClient.upsertSavedWords(desiredWords)
+            applySavedWordsSyncSnapshot(snapshot, desiredWords: desiredWords)
+            savedWordsSyncError = nil
+        } catch {
+            savedWordsSyncError = error.localizedDescription
+            return
+        }
+
+        await refreshAppleAccountState()
+    }
+
+    private func scheduleSavedWordsSyncIfNeeded() {
+        #if os(iOS)
+        guard appleSession != nil else {
+            return
+        }
+
+        pendingSavedWordsSyncTask?.cancel()
+        hasPendingSavedWordsSync = true
+        savedWordsSyncError = nil
+
+        pendingSavedWordsSyncTask = Task { [weak self] in
+            try? await Task.sleep(nanoseconds: 1_500_000_000)
+            guard !Task.isCancelled else {
+                return
+            }
+
+            await self?.flushPendingSavedWordsSync()
+        }
+        #endif
+    }
+
+    private func flushPendingSavedWordsSync() async {
+        #if os(iOS)
+        guard appleSession != nil else {
+            hasPendingSavedWordsSync = false
+            pendingSavedWordsSyncTask?.cancel()
+            pendingSavedWordsSyncTask = nil
+            return
+        }
+
+        pendingSavedWordsSyncTask?.cancel()
+        pendingSavedWordsSyncTask = nil
+
+        let desiredWords = savedWordsStorage.loadSavedWords().sorted(by: { $0.savedAt > $1.savedAt })
+
+        do {
+            let snapshot = try await appleBackendClient.replaceSavedWords(desiredWords)
+            hasPendingSavedWordsSync = false
+            savedWordsSyncError = nil
+            applySavedWordsSyncSnapshot(snapshot, desiredWords: desiredWords)
+        } catch {
+            hasPendingSavedWordsSync = true
+            savedWordsSyncError = error.localizedDescription
+        }
+        #endif
+    }
+
+    private func applySavedWordsSyncSnapshot(
+        _ snapshot: NativeSavedWordsSyncSnapshot,
+        desiredWords: [SavedWordRecord]
+    ) {
+        let syncedWords = snapshot.savedWords.isEmpty && desiredWords.isEmpty
+            ? []
+            : (snapshot.savedWords.isEmpty ? desiredWords : snapshot.savedWords)
+        let sortedWords = syncedWords.sorted(by: { $0.savedAt > $1.savedAt })
+
+        persistSavedWords(sortedWords, showsToast: false)
+
+        let syncedAt = snapshot.lastSyncedAt
+            .flatMap { SharedDateParser.iso8601.date(from: $0) ?? SharedDateParser.calendar.date(from: $0) }
+            ?? Date()
+        lastSavedWordsSyncAt = syncedAt
+
+        if let session = appleSession {
+            appleSession = NativeAppleSessionState(
+                isAuthenticated: session.isAuthenticated,
+                displayName: session.displayName,
+                email: session.email,
+                lastSyncedAt: snapshot.lastSyncedAt ?? SharedDateFormatter.iso8601.string(from: syncedAt),
+                savedWordCount: snapshot.savedWordCount ?? sortedWords.count
+            )
+        }
+    }
+
     func handlePushPermissionAction() async {
-        guard pushAuthorizationStatus == "denied" else {
-            await requestPushPermission()
+        guard pushAuthorizationStatus == "denied" && pushNotificationsPreferenceEnabled else {
+            await setPushNotificationsEnabled(true)
             return
         }
 
         actionError = nil
         openSystemSettings()
+    }
+
+    var reviewStatusMessage: String {
+        reviewManager.statusMessage
+    }
+
+    var reviewActionTitle: String {
+        reviewManager.manualReviewActionTitle
+    }
+
+    var canReviewApp: Bool {
+        reviewManager.canOpenManualReview
+    }
+
+    func openAppReviewPage() {
+        reviewManager.openManualReviewPage()
     }
 
     func syncDeveloperScreenshotModeFromDefaults() {
@@ -765,12 +1688,19 @@ final class NativeDictionaryModel: ObservableObject {
         pendingDeveloperScreenshotPreset = nil
     }
 
-    private func persistSavedPlace(_ record: BookmarkRecord, showsToast: Bool = true) {
-        savedPlaceStore.save(record)
-        savedPlace = record
+    private func persistSavedWord(_ record: SavedWordRecord, showsToast: Bool = true) {
+        var updated = savedWords.filter { $0.slug != record.slug }
+        updated.insert(record, at: 0)
+        persistSavedWords(updated, showsToast: showsToast)
+    }
+
+    private func persistSavedWords(_ records: [SavedWordRecord], showsToast: Bool = true) {
+        let sorted = records.sorted(by: { $0.savedAt > $1.savedAt })
+        savedWordsStorage.saveSavedWords(sorted)
+        savedWords = sorted
 
         if showsToast {
-            showSavedToast("Saved to your reading place.")
+            showSavedToast("Saved to your words list.")
         }
     }
 
@@ -792,6 +1722,8 @@ final class NativeDictionaryModel: ObservableObject {
     func handleSceneActivation() async {
         await PhoneCatalogManager.shared.refreshIfNeeded()
         await manager.refreshDiagnosticsState()
+        await refreshAppleAccountState()
+        reviewManager.recordForegroundActivation()
         refreshFromManager()
     }
 
@@ -819,6 +1751,12 @@ final class NativeDictionaryModel: ObservableObject {
         let state = manager.getState()
         currentWord = Self.decodeCurrentWord(from: state["currentWord"])
         pushAuthorizationStatus = state["pushAuthorizationStatus"] as? String ?? "unknown"
+        pushNotificationsPreferenceEnabled =
+            state["pushNotificationsPreferenceEnabled"] as? Bool ?? false
+        pushNotificationsPreferenceConfigured =
+            state["pushNotificationsPreferenceConfigured"] as? Bool ?? false
+        pushPreferredDeliveryHour =
+            state["pushPreferredDeliveryHour"] as? Int ?? CurrentWordStorage.defaultPushPreferredDeliveryHour
         pushTokenAvailable = state["pushTokenAvailable"] as? Bool ?? false
         catalogVersion = state["catalogVersion"] as? String ?? catalogSnapshot?.version
         lastCatalogCheckAt = CatalogDiskStore().loadLastCheckAt()
@@ -929,14 +1867,8 @@ final class NativeDictionaryModel: ObservableObject {
             if let entry = preferredDeveloperScreenshotEntry(
                 candidates: ["clanker", "agentic-ai", "agent", "prompt-injection"]
             ) {
-                let record = BookmarkRecord(
-                    href: "/dictionary/\(entry.slug)",
-                    title: entry.title,
-                    label: "Dictionary entry",
-                    description: entry.devilDefinition.trimmingCharacters(in: .whitespacesAndNewlines),
-                    savedAt: Self.timestamp()
-                )
-                persistSavedPlace(record, showsToast: false)
+                let record = SavedWordRecord(entry: entry, savedAt: Self.timestamp())
+                persistSavedWord(record, showsToast: false)
             }
         case .entry:
             showSection(.home)
@@ -991,39 +1923,26 @@ final class NativeDictionaryModel: ObservableObject {
             .replacingOccurrences(of: "-+", with: "-", options: .regularExpression)
             .trimmingCharacters(in: CharacterSet(charactersIn: "-"))
     }
-}
 
-private struct NativeSavedPlaceStore {
-    private let key = "saved-reading-place"
-    private let defaults: UserDefaults
-
-    init(defaults: UserDefaults = .standard) {
-        self.defaults = defaults
+    private static func pushDeliveryHourLabel(for hour: Int) -> String {
+        String(format: "%02d:00", min(max(hour, 0), 23))
     }
 
-    func load() -> BookmarkRecord? {
-        guard let json = defaults.string(forKey: key),
-              let data = json.data(using: .utf8),
-              let record = try? JSONDecoder().decode(BookmarkRecord.self, from: data)
-        else {
-            return nil
+    private static func mergeSavedWords(
+        _ localWords: [SavedWordRecord],
+        _ remoteWords: [SavedWordRecord]
+    ) -> [SavedWordRecord] {
+        var mergedBySlug: [String: SavedWordRecord] = [:]
+
+        for word in localWords + remoteWords {
+            if let existing = mergedBySlug[word.slug] {
+                mergedBySlug[word.slug] = word.savedAt >= existing.savedAt ? word : existing
+            } else {
+                mergedBySlug[word.slug] = word
+            }
         }
 
-        return record
-    }
-
-    func save(_ record: BookmarkRecord) {
-        guard let data = try? JSONEncoder().encode(record),
-              let json = String(data: data, encoding: .utf8)
-        else {
-            return
-        }
-
-        defaults.set(json, forKey: key)
-    }
-
-    func clear() {
-        defaults.removeObject(forKey: key)
+        return mergedBySlug.values.sorted(by: { $0.savedAt > $1.savedAt })
     }
 }
 
@@ -1065,6 +1984,18 @@ func nativeFormattedDate(_ value: Date) -> String {
     SharedDateParser.dateTime.string(from: value)
 }
 
+func nativeFormattedDateTime(_ value: String) -> String {
+    if let date = SharedDateParser.iso8601.date(from: value) {
+        return SharedDateParser.dateTime.string(from: date)
+    }
+
+    if let date = SharedDateParser.calendar.date(from: value) {
+        return SharedDateParser.dateTime.string(from: date)
+    }
+
+    return value
+}
+
 private enum SharedDateParser {
     static let iso8601: ISO8601DateFormatter = {
         let formatter = ISO8601DateFormatter()
@@ -1088,4 +2019,133 @@ private enum SharedDateParser {
         formatter.timeStyle = .short
         return formatter
     }()
+}
+
+private final class NativeAppReviewManager {
+    private enum Constants {
+        static let minimumActiveDays = 5
+        static let minimumEntryOpens = 12
+        static let promptCooldown: TimeInterval = 180 * 24 * 60 * 60
+        static let appStoreID = "6761293350"
+    }
+
+    private static let activeDayFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone.current
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
+
+    private let storage: CurrentWordStorage
+
+    init(storage: CurrentWordStorage = CurrentWordStorage()) {
+        self.storage = storage
+    }
+
+    var canOpenManualReview: Bool {
+        #if os(iOS)
+        return Self.manualReviewURL != nil
+        #else
+        return false
+        #endif
+    }
+
+    var manualReviewActionTitle: String {
+        "Review it on the App Store"
+    }
+
+    var statusMessage: String {
+        "After a respectable amount of reading, the app may ask for a review. It has the manners not to ask on launch."
+    }
+
+    func recordForegroundActivation(now: Date = .now) {
+        let dayKey = Self.activeDayFormatter.string(from: now)
+        guard storage.loadReviewLastActiveDay() != dayKey else {
+            return
+        }
+
+        storage.saveReviewLastActiveDay(dayKey)
+        storage.saveReviewActiveDayCount(storage.loadReviewActiveDayCount() + 1)
+    }
+
+    func recordEntryOpenIfEligible(now: Date = .now) {
+        storage.saveReviewEntryOpenCount(storage.loadReviewEntryOpenCount() + 1)
+        requestAutomaticReviewIfEligible(now: now)
+    }
+
+    func openManualReviewPage(now: Date = .now) {
+        #if os(iOS)
+        guard let url = Self.manualReviewURL else {
+            return
+        }
+
+        markPromptAttempt(now: now)
+        UIApplication.shared.open(url)
+        #endif
+    }
+
+    private func requestAutomaticReviewIfEligible(now: Date) {
+        guard shouldRequestReview(now: now) else {
+            return
+        }
+
+        #if os(iOS)
+        guard let scene = activeWindowScene() else {
+            return
+        }
+
+        markPromptAttempt(now: now)
+        SKStoreReviewController.requestReview(in: scene)
+        #endif
+    }
+
+    private func shouldRequestReview(now: Date) -> Bool {
+        guard storage.loadReviewActiveDayCount() >= Constants.minimumActiveDays else {
+            return false
+        }
+
+        guard storage.loadReviewEntryOpenCount() >= Constants.minimumEntryOpens else {
+            return false
+        }
+
+        if storage.loadReviewLastPromptedVersion() == Self.currentAppVersion {
+            return false
+        }
+
+        if let lastPromptAt = storage.loadReviewLastPromptAt(),
+           now.timeIntervalSince(lastPromptAt) < Constants.promptCooldown {
+            return false
+        }
+
+        return true
+    }
+
+    private func markPromptAttempt(now: Date) {
+        storage.saveReviewLastPromptAt(now)
+        storage.saveReviewLastPromptedVersion(Self.currentAppVersion)
+    }
+
+    private static var currentAppVersion: String {
+        (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String) ?? "0"
+    }
+
+    #if os(iOS)
+    private static var manualReviewURL: URL? {
+        URL(string: "itms-apps://itunes.apple.com/app/id\(Constants.appStoreID)?action=write-review")
+    }
+
+    private func activeWindowScene() -> UIWindowScene? {
+        UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first { scene in
+                scene.activationState == .foregroundActive &&
+                    scene.windows.contains(where: \.isKeyWindow)
+            } ??
+            UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .first { $0.activationState == .foregroundActive }
+    }
+    #endif
 }

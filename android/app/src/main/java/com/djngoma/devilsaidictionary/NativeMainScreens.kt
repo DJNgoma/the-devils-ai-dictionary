@@ -1,5 +1,6 @@
 package com.djngoma.devilsaidictionary
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -110,12 +111,21 @@ fun NativeHomeScreen(
                         modifier = Modifier.weight(1f),
                     )
                 }
+                if (BuildConfig.NATIVE_PUSH_CONFIGURED &&
+                    store.shouldShowPushPrompt) {
+                    HomePushPromptCard(
+                        store = store,
+                        colors = colors,
+                    )
+                }
             }
         }
 
         store.currentWord?.let { currentWord ->
             item {
                 NativeScreenCard(colors = colors) {
+                    val todayEntry = store.entry(currentWord.slug)
+
                     SectionLabel(text = "Today's word")
                     Text(
                         text = currentWord.title,
@@ -136,17 +146,17 @@ fun NativeHomeScreen(
                             colors = colors,
                             onClick = store::openCurrentWord,
                         )
+                        if (todayEntry != null) {
+                            ConfirmingSaveButton(
+                                label = "Save word",
+                                colors = colors,
+                                onClick = { store.save(todayEntry) },
+                            )
+                        }
                         NativeSecondaryButton(
                             label = "Share",
                             colors = colors,
                             onClick = store::shareCurrentWord,
-                        )
-                    }
-                    if (BuildConfig.NATIVE_PUSH_CONFIGURED &&
-                        store.pushOptInStatus != PushOptInStatus.authorized) {
-                        HomePushPromptCard(
-                            store = store,
-                            colors = colors,
                         )
                     }
                 }
@@ -526,39 +536,141 @@ fun NativeSettingsScreen(
         item {
             NativeScreenCard(colors = colors, emphasis = true) {
                 SectionLabel(text = "Appearance")
-                SiteTheme.entries.forEach { theme ->
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { store.setTheme(theme) }
-                            .padding(vertical = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        val themeColors = remember(theme) { themeSwatches(theme) }
-                        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                            themeColors.forEach { color ->
-                                Box(
-                                    modifier = Modifier
-                                        .size(14.dp)
-                                        .background(color, CircleShape),
-                                )
-                            }
-                        }
-                        Spacer(modifier = Modifier.width(12.dp))
-                        Text(
-                            text = theme.label,
-                            style = MaterialTheme.typography.bodyLarge,
-                            modifier = Modifier.weight(1f),
-                        )
-                        if (theme == store.siteTheme) {
-                            Icon(
-                                imageVector = Icons.Rounded.Check,
-                                contentDescription = null,
-                                tint = colors.accent,
-                            )
+                Text(
+                    text = "Auto keeps to Book in light mode and Night after dark. Turn it off if this device deserves a more opinionated edition.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = "Auto appearance",
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.weight(1f),
+                    )
+                    Switch(
+                        checked = store.siteThemeMode == SiteThemeMode.auto,
+                        onCheckedChange = { enabled ->
+                            store.setThemeMode(if (enabled) SiteThemeMode.auto else SiteThemeMode.manual)
+                        },
+                    )
+                }
+
+                if (store.siteThemeMode == SiteThemeMode.auto) {
+                    Text(
+                        text = "Currently using ${store.siteTheme.label}, because this device is in ${if (store.siteTheme.isDark) "dark" else "light"} appearance.",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                } else {
+                    ThemeAppearanceGroup.entries.forEach { appearance ->
+                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            SectionLabel(text = appearance.label)
+                            SiteTheme.entries
+                                .filter { it.appearanceGroup == appearance }
+                                .forEach { theme ->
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .clickable { store.setTheme(theme) }
+                                            .padding(vertical = 8.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                    ) {
+                                        val themeColors = remember(theme) { themeSwatches(theme) }
+                                        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                                            themeColors.forEach { color ->
+                                                Box(
+                                                    modifier = Modifier
+                                                        .size(14.dp)
+                                                        .background(color, CircleShape)
+                                                        .border(1.dp, Color.Black, CircleShape),
+                                                )
+                                            }
+                                        }
+                                        Spacer(modifier = Modifier.width(12.dp))
+                                        Text(
+                                            text = theme.label,
+                                            style = MaterialTheme.typography.bodyLarge,
+                                            modifier = Modifier.weight(1f),
+                                        )
+                                        if (theme == store.manualSiteTheme) {
+                                            Icon(
+                                                imageVector = Icons.Rounded.Check,
+                                                contentDescription = null,
+                                                tint = colors.accent,
+                                            )
+                                        }
+                                    }
+                                }
                         }
                     }
                 }
+            }
+        }
+
+        item {
+            NativeScreenCard(colors = colors) {
+                SectionLabel(text = "Notifications")
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = "Daily word notifications",
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.weight(1f),
+                    )
+                    Switch(
+                        checked = store.pushNotificationsPreferenceEnabled,
+                        onCheckedChange = { enabled -> store.setPushNotificationsEnabled(enabled) },
+                        enabled = BuildConfig.NATIVE_PUSH_CONFIGURED && store.pushManager != null,
+                    )
+                }
+                Text(
+                    text = store.pushStatusMessage,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                SimpleDropdown(
+                    label = "Delivery hour",
+                    value = store.pushPreferredDeliveryHourLabel,
+                    options = (0..23).map { hour -> formatPushDeliveryHour(hour) to hour },
+                    onSelected = { hour ->
+                        if (hour != null) {
+                            store.setPushPreferredDeliveryHour(hour)
+                        }
+                    },
+                )
+                Text(
+                    text = "Local time on this device. The machinery still needs the discipline to send hourly.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                if (store.shouldShowPushPrompt) {
+                    NativeSecondaryButton(
+                        label = store.pushPermissionButtonTitle,
+                        colors = colors,
+                        onClick = store::handlePushPermissionAction,
+                    )
+                }
+            }
+        }
+
+        item {
+            NativeScreenCard(colors = colors) {
+                SectionLabel(text = "Review")
+                Text(
+                    text = store.reviewStatusMessage,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                NativeSecondaryButton(
+                    label = store.reviewActionTitle,
+                    colors = colors,
+                    onClick = store::openAppReviewPage,
+                )
             }
         }
 
@@ -774,12 +886,11 @@ fun NativeSettingsScreen(
                     text = store.pushTestingMessage,
                     style = MaterialTheme.typography.bodyMedium,
                 )
-                if (BuildConfig.NATIVE_PUSH_CONFIGURED &&
-                    store.pushOptInStatus != PushOptInStatus.authorized) {
+                if (BuildConfig.NATIVE_PUSH_CONFIGURED && store.shouldShowPushPrompt) {
                     NativePrimaryButton(
-                        label = "Enable notifications",
+                        label = store.pushPermissionButtonTitle,
                         colors = colors,
-                        onClick = store::requestPushOptIn,
+                        onClick = store::handlePushPermissionAction,
                     )
                 }
             }
@@ -867,9 +978,9 @@ private fun HomePushPromptCard(
     val actionLabel: String
     when (store.pushOptInStatus) {
         PushOptInStatus.denied -> {
-            title = "Notifications are off"
-            body = "Turn them on in system settings to receive the daily word."
-            actionLabel = "Open settings"
+            title = "The daily word is waiting outside"
+            body = "Android has notifications barred in Settings. Reopen the door there if you want delivery."
+            actionLabel = "Open Settings"
         }
         PushOptInStatus.unsupported -> {
             title = "Notifications unavailable"
@@ -877,9 +988,9 @@ private fun HomePushPromptCard(
             actionLabel = ""
         }
         else -> {
-            title = "Get the daily word"
-            body = "A single push each morning with a fresh entry from the book. No other interruptions."
-            actionLabel = "Enable notifications"
+            title = "Let the daily word find you"
+            body = "One entry a day, at the hour you choose. Useful correspondence, not a campaign."
+            actionLabel = "Send the daily word"
         }
     }
 
@@ -894,7 +1005,7 @@ private fun HomePushPromptCard(
             NativePrimaryButton(
                 label = actionLabel,
                 colors = colors,
-                onClick = store::requestPushOptIn,
+                onClick = store::handlePushPermissionAction,
             )
         }
     }
@@ -919,5 +1030,6 @@ private fun themeSwatches(theme: SiteTheme): List<Color> =
         SiteTheme.book -> listOf(Color(0xFFB2552F), Color(0xFF26594A), Color(0xFFF4EFE6))
         SiteTheme.codex -> listOf(Color(0xFF0169CC), Color(0xFF751ED9), Color(0xFFF3F8FD))
         SiteTheme.absolutely -> listOf(Color(0xFFCC7D5E), Color(0xFFF9F9F7), Color(0xFF2D2D2B))
+        SiteTheme.devil -> listOf(Color(0xFFC92A2A), Color(0xFFF08B57), Color(0xFF170909))
         SiteTheme.night -> listOf(Color(0xFFE4864D), Color(0xFF5EC9A1), Color(0xFF12100D))
     }

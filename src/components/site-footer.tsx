@@ -8,7 +8,7 @@ export function SiteFooter() {
       <div className="page-shell flex flex-col gap-6 py-8 sm:flex-row sm:items-end sm:justify-between">
         <div className="max-w-2xl">
           <div className="flex items-center gap-3">
-            <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-accent text-white shadow-[0_10px_30px_rgba(178,85,47,0.18)]">
+            <span className="site-brand-mark">
               <BrandMark className="size-7" />
             </span>
             <p className="font-mono text-[0.68rem] uppercase tracking-[0.28em] text-foreground-soft">
@@ -59,6 +59,14 @@ export function SiteFooter() {
           <Link href="/search" className="hover:text-foreground">
             Search
           </Link>
+          <a
+            href={siteConfig.appStoreUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-foreground"
+          >
+            App Store
+          </a>
           <a
             href={siteConfig.repoUrl}
             target="_blank"

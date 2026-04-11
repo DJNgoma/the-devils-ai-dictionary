@@ -5,6 +5,7 @@ import { TodayWordCard } from "@/components/featured-entry";
 import { LetterGrid } from "@/components/letter-grid";
 import { ResumeReadingCard } from "@/components/resume-reading-card";
 import { SearchBox } from "@/components/search-box";
+import { WebNotificationHeroPrompt } from "@/components/web-notification-settings";
 import {
   getCategoryStats,
   getDailyWordSchedule,
@@ -16,6 +17,7 @@ import {
   getTodayWord,
 } from "@/lib/content";
 import { buildMetadata } from "@/lib/metadata";
+import { siteConfig } from "@/lib/site";
 import { formatDate } from "@/lib/utils";
 
 export const metadata = buildMetadata({
@@ -82,6 +84,18 @@ export default async function HomePage() {
               >
                 Random entry
               </Link>
+            </div>
+            <WebNotificationHeroPrompt />
+            <div className="mt-5 inline-flex max-w-2xl flex-wrap items-center gap-3 rounded-[var(--radius-control)] border border-line bg-surface px-4 py-3 text-sm leading-7 text-foreground-soft">
+              <span>Prefer the native iPhone app?</span>
+              <a
+                href={siteConfig.appStoreUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="font-medium text-accent hover:text-foreground"
+              >
+                Download it on the App Store
+              </a>
             </div>
             <ResumeReadingCard className="mt-6 max-w-2xl" compact hideIfCurrentHref="/" />
           </div>

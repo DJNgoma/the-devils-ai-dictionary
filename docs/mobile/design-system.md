@@ -34,6 +34,8 @@ order, and with what labels. If a platform diverges from this list, it is a bug.
 | Title | "The Devil's AI Dictionary" | h1/page title |
 | Primary CTA | **Read the book** | `button-primary`, navigates to /book |
 | Secondary CTA | **Random entry** | `button-secondary`, navigates to /random |
+| Daily reminder prompt | "Let the daily word find you" | Sits beneath the hero CTAs as a quieter opt-in note, not a third equal-width hero button |
+| App Store callout | "Prefer the native iPhone app? Download it on the App Store" | Web only, subordinate beneath the hero CTAs |
 
 Hero CTAs sit in a single row and share the available width equally. On Android use `Row` with `Modifier.weight(1f)` on each button (not `FlowRow`, which wraps them onto two lines on narrower devices). On iOS use an `HStack` with equal-width buttons. Never let one CTA push the other to a second row.
 
@@ -57,15 +59,28 @@ that purpose.
 
 ### Push notification prompt
 
-Shown inside the today's word card, below the action buttons.
+The quick notification ask belongs in the hero section, directly below **Read the
+book** and **Random entry**. Settings remains the place for the full toggle,
+delivery-hour picker, and status details.
 
 | Platform | Behaviour |
 |---|---|
-| iOS | Live prompt: "Enable notifications" or "Open Settings" depending on permission state (APNs) |
-| Android | Live prompt: "Enable notifications" wired to the POST_NOTIFICATIONS runtime permission, status surfaced in Settings → Push diagnostics (FCM) |
-| Web / Windows | Not shown |
+| iOS | Hero prompt asks to send the daily word; action becomes **Open Settings** when permission is denied (APNs) |
+| Android | Hero prompt asks to send the daily word; action becomes **Open Settings** when permission is denied (FCM / POST_NOTIFICATIONS) |
+| Web | Hero prompt offers browser opt-in; Settings still owns the full web-push toggle and delivery-hour picker |
+| Windows | Shares the web settings flow inside the Electron shell; hero behaviour follows the web build when browser push is available |
 
-Both mobile apps register the device token with `POST /api/mobile/push/installations`. iOS dispatches via APNs HTTP/2, Android via FCM HTTP v1 (`src/lib/server/fcm.ts`), branching per installation row in the shared test-send route. The `daily-word` notification channel is created in `DictionaryApplication`, and `DevilsFirebaseMessagingService` builds a `NotificationCompat` with a `slug` extra that `NativeDictionaryStore.handleIntent` reads as `CurrentWordSource.notificationTap`.
+The native apps and the website share the same installation store behind `POST /api/mobile/push/installations`, including each install's preferred local delivery hour and time zone. iOS dispatches via APNs HTTP/2, Android via FCM HTTP v1 (`src/lib/server/fcm.ts`), and the web sends a standards-based Web Push wake-up (`src/lib/server/web-push.ts`) that lets `public/web-push-sw.js` fetch the current word and show the browser notification. The `daily-word` notification channel is created in `DictionaryApplication`, and `DevilsFirebaseMessagingService` builds a `NotificationCompat` with a `slug` extra that `NativeDictionaryStore.handleIntent` reads as `CurrentWordSource.notificationTap`.
+
+### Review prompt
+
+The native apps expose a manual review action in Settings and may also ask for a store review automatically, but only after sustained use.
+
+| Platform | Behaviour |
+|---|---|
+| iOS | Settings exposes **Review on the App Store**; automatic prompts use StoreKit and are gated behind repeated reading activity rather than launch |
+| Android | Settings exposes **Review on Google Play**; automatic prompts use Play In-App Review and are gated behind repeated reading activity rather than launch |
+| Web / Windows | No review prompt |
 
 ### Featured entry
 
@@ -109,12 +124,12 @@ Canonical labels (do not paraphrase):
 | Concept | Label |
 |---|---|
 | Open the Today's word entry | **Open** |
-| Open the saved place | **Open saved place** |
-| Save the current entry as the saved place | **Save word** |
-| Save the current book page as the saved place | **Save place** |
+| Open a saved word | **Open word** |
+| Save the current entry to saved words | **Save word** |
 | Jump to related terms for an entry | **Related terms** |
 | Share an entry or the daily word | **Share** |
-| Clear the saved place | **Clear** |
+| Remove a saved word | **Remove** |
+| Clear the saved words list | **Clear all** |
 | Read the book from the Home hero | **Read the book** |
 | Random entry from the Home hero | **Random entry** |
 
@@ -132,16 +147,21 @@ Canonical labels (do not paraphrase):
 
 ## Themes
 
-Four themes ship on every platform. Only Night is dark; the rest use `color-scheme: light`.
+Five themes ship on every platform. Devil and Night are dark; the rest use `color-scheme: light`.
+Appearance now has two modes:
+
+- `Auto`: resolves to Book in light mode and Night in dark mode.
+- `Manual`: reveals the full theme list, grouped into light and dark editions.
 
 | Theme | Mood | Color scheme |
 |---|---|---|
 | Book | warm, literary | light |
 | Codex | cool, technical | light |
 | Absolutely | muted, minimalist | light |
+| Devil | red, infernal | dark |
 | Night | dark, amber | dark |
 
-Theme is persisted per-platform (`localStorage` on web, `UserDefaults` on Apple, `SharedPreferences` on Android). Default is Book.
+Theme mode is persisted per-platform (`localStorage` on web, `UserDefaults` on Apple, `SharedPreferences` on Android). New installs default to Auto; older installs that already chose a theme stay in manual mode.
 
 ---
 

@@ -1,18 +1,20 @@
 import type {
   ClientPushOptInStatus,
   D1DatabaseLike,
-  MobilePushPlatform,
+  PushInstallationPlatform,
   PushDeliveryEnvironment,
   PushInstallationStatus,
 } from "@/lib/server/cloudflare-context";
 
 export type PushInstallationInput = {
   token: string;
-  platform: MobilePushPlatform;
+  platform: PushInstallationPlatform;
   environment: PushDeliveryEnvironment;
   optInStatus: ClientPushOptInStatus;
   appVersion: string;
   locale: string;
+  preferredDeliveryHour?: number | null;
+  timeZone?: string | null;
 };
 
 export type PushInstallationRecord = Omit<PushInstallationInput, "optInStatus"> & {
@@ -35,16 +37,20 @@ export async function upsertPushInstallation(
           opt_in_status,
           app_version,
           locale,
+          preferred_delivery_hour,
+          time_zone,
           updated_at,
           last_success_at
         )
-        VALUES (?, ?, ?, ?, ?, ?, datetime('now'), NULL)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), NULL)
         ON CONFLICT(token) DO UPDATE SET
           platform = excluded.platform,
           environment = excluded.environment,
           opt_in_status = excluded.opt_in_status,
           app_version = excluded.app_version,
           locale = excluded.locale,
+          preferred_delivery_hour = excluded.preferred_delivery_hour,
+          time_zone = excluded.time_zone,
           updated_at = datetime('now')
       `,
     )
@@ -55,6 +61,8 @@ export async function upsertPushInstallation(
       installation.optInStatus,
       installation.appVersion,
       installation.locale,
+      installation.preferredDeliveryHour ?? null,
+      installation.timeZone ?? null,
     )
     .run();
 }
@@ -98,7 +106,7 @@ export async function markPushInstallationInvalid(
 export async function listTargetInstallations(
   database: D1DatabaseLike,
   token?: string,
-  platform?: MobilePushPlatform,
+  platform?: PushInstallationPlatform,
 ) {
   const conditions = ["opt_in_status = 'authorized'"];
   const bindings: unknown[] = [];
@@ -116,6 +124,8 @@ export async function listTargetInstallations(
       opt_in_status AS optInStatus,
       app_version AS appVersion,
       locale,
+      preferred_delivery_hour AS preferredDeliveryHour,
+      time_zone AS timeZone,
       updated_at AS updatedAt,
       last_success_at AS lastSuccessAt
     FROM push_installations

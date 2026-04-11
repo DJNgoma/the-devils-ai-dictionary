@@ -18,6 +18,11 @@ import {
   markPushInstallationInvalid,
   markPushInstallationSuccess,
 } from "@/lib/server/push-installations";
+import { isPushInstallationDueNow } from "@/lib/server/push-delivery-schedule";
+import {
+  isTerminalWebPushFailure,
+  sendCurrentWordWebPush,
+} from "@/lib/server/web-push";
 
 export const dynamic = "force-dynamic";
 
@@ -62,7 +67,8 @@ function isAuthorized(request: Request, secret: string | undefined): boolean {
 async function runDailySend() {
   const env = await getMobilePushEnv();
   const database = requirePushInstallationsDatabase(env);
-  const entry = pickEntryForDate(new Date());
+  const now = new Date();
+  const entry = pickEntryForDate(now);
 
   if (!entry) {
     return NextResponse.json(
@@ -77,8 +83,15 @@ async function runDailySend() {
     env.APNS_PRIVATE_KEY &&
     env.APNS_TEAM_ID;
   const fcmConfigured = env.FCM_PROJECT_ID && env.FCM_SERVICE_ACCOUNT_JSON;
+  const webPushConfigured =
+    env.WEB_PUSH_VAPID_PRIVATE_KEY &&
+    env.WEB_PUSH_VAPID_PUBLIC_KEY &&
+    env.WEB_PUSH_VAPID_SUBJECT;
 
-  const installations = await listTargetInstallations(database);
+  const authorizedInstallations = await listTargetInstallations(database);
+  const installations = authorizedInstallations.filter((installation) =>
+    isPushInstallationDueNow(installation, now),
+  );
 
   const results = await Promise.all(
     installations.map(async (installation) => {
@@ -135,6 +148,32 @@ async function runDailySend() {
         return result;
       }
 
+      if (installation.platform === "web") {
+        if (!webPushConfigured) {
+          return {
+            ok: false,
+            status: 503,
+            reason: "Web Push credentials are not configured.",
+            token: installation.token,
+          };
+        }
+        const result = await sendCurrentWordWebPush({
+          credentials: {
+            privateKey: env.WEB_PUSH_VAPID_PRIVATE_KEY!,
+            publicKey: env.WEB_PUSH_VAPID_PUBLIC_KEY!,
+            subject: env.WEB_PUSH_VAPID_SUBJECT!,
+          },
+          entry,
+          token: installation.token,
+        });
+        if (result.ok) {
+          await markPushInstallationSuccess(database, installation.token);
+        } else if (isTerminalWebPushFailure(result)) {
+          await markPushInstallationInvalid(database, installation.token);
+        }
+        return result;
+      }
+
       return {
         ok: false,
         status: 501,
@@ -150,7 +189,12 @@ async function runDailySend() {
   return NextResponse.json({
     ok: sent > 0 || installations.length === 0,
     entry: { slug: entry.slug, title: entry.title },
-    counts: { total: installations.length, sent, failed },
+    counts: {
+      authorized: authorizedInstallations.length,
+      due: installations.length,
+      sent,
+      failed,
+    },
     results,
   });
 }

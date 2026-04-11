@@ -193,9 +193,14 @@ final class PhoneCurrentWordManager {
     }
 
     func getState() -> [String: Any] {
+        let pushPreferenceEnabled = pushNotificationsPreferenceEnabled(for: lastPushAuthorizationState)
         var state: [String: Any] = [
             "isNativePushAvailable": supportsNativePush,
             "pushAuthorizationStatus": lastPushAuthorizationState.rawValue,
+            "pushNotificationsPreferenceEnabled": pushPreferenceEnabled,
+            "pushNotificationsPreferenceConfigured":
+                storage.loadPushNotificationsPreferenceEnabled() != nil,
+            "pushPreferredDeliveryHour": storage.loadPushPreferredDeliveryHour(),
             "pushTokenAvailable": supportsNativePush && storage.loadPushDeviceToken() != nil,
         ]
 
@@ -230,6 +235,7 @@ final class PhoneCurrentWordManager {
 
     func requestPushAuthorization() async throws -> [String: Any] {
         #if os(iOS)
+        storage.savePushNotificationsPreferenceEnabled(true)
         let center = UNUserNotificationCenter.current()
         _ = try await center.requestAuthorization(options: [.alert, .badge, .sound])
         UIApplication.shared.registerForRemoteNotifications()
@@ -256,6 +262,54 @@ final class PhoneCurrentWordManager {
         }
 
         notifyPushStateChanged()
+    }
+
+    func setPushNotificationsEnabled(_ enabled: Bool) async throws -> [String: Any] {
+        guard supportsNativePush else {
+            lastPushAuthorizationState = .unsupported
+            notifyPushStateChanged()
+            throw NSError(
+                domain: "PhoneCurrentWordManager",
+                code: 1,
+                userInfo: [NSLocalizedDescriptionKey: "Push notifications are not wired for this Apple platform yet."]
+            )
+        }
+
+        storage.savePushNotificationsPreferenceEnabled(enabled)
+
+        if enabled {
+            let status = await currentPushAuthorizationStatus()
+            if status == .notDetermined || status == .unknown {
+                return try await requestPushAuthorization()
+            }
+
+            #if os(iOS)
+            if status.canDeliver {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+            #endif
+        } else {
+            #if os(iOS)
+            UIApplication.shared.unregisterForRemoteNotifications()
+            #endif
+        }
+
+        await refreshPushInstallation()
+        notifyPushStateChanged()
+        return getState()
+    }
+
+    func setPushPreferredDeliveryHour(_ hour: Int) async -> [String: Any] {
+        storage.savePushPreferredDeliveryHour(hour)
+
+        if supportsNativePush {
+            await refreshPushInstallation()
+        } else {
+            lastPushAuthorizationState = .unsupported
+        }
+
+        notifyPushStateChanged()
+        return getState()
     }
 
     func registerDeviceToken(_ deviceToken: Data) {
@@ -465,16 +519,28 @@ final class PhoneCurrentWordManager {
                 "production"
                 #endif
             }(),
-            optInStatus: status.rawValue,
+            optInStatus: pushNotificationsPreferenceEnabled(for: status) ? status.rawValue : PushAuthorizationState.denied.rawValue,
             appVersion: {
                 let short = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
                 let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
                 return "\(short) (\(build))"
             }(),
-            locale: Locale.preferredLanguages.first ?? Locale.current.identifier
+            locale: Locale.preferredLanguages.first ?? Locale.current.identifier,
+            preferredDeliveryHour: storage.loadPushPreferredDeliveryHour(),
+            timeZone: TimeZone.current.identifier
         )
 
         await installationRegistrar.register(payload: payload, url: url)
+    }
+
+    private func pushNotificationsPreferenceEnabled(
+        for status: PushAuthorizationState
+    ) -> Bool {
+        if let storedValue = storage.loadPushNotificationsPreferenceEnabled() {
+            return storedValue
+        }
+
+        return status.canDeliver
     }
 
     private func notificationSlug(from userInfo: [AnyHashable: Any]) -> String? {
@@ -526,6 +592,15 @@ private enum PushAuthorizationState: String {
         }
     }
     #endif
+
+    var canDeliver: Bool {
+        switch self {
+        case .authorized, .ephemeral, .provisional:
+            return true
+        case .denied, .notDetermined, .unsupported, .unknown:
+            return false
+        }
+    }
 }
 
 private struct PushInstallationPayload: Encodable {
@@ -535,6 +610,8 @@ private struct PushInstallationPayload: Encodable {
     let optInStatus: String
     let appVersion: String
     let locale: String
+    let preferredDeliveryHour: Int
+    let timeZone: String
 }
 
 private actor PushInstallationRegistrar {

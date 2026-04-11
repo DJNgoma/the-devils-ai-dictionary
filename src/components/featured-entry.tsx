@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSyncExternalStore } from "react";
 import { Badge } from "@/components/badge";
 import { OpenInIPhoneAppButton } from "@/components/open-in-iphone-app-button";
+import { SaveWordButton } from "@/components/save-place-button";
 import { getDailyWordSlug, type DailyWordSchedule } from "@/lib/daily-word";
 import type { SearchableEntry } from "@/lib/content";
 
@@ -58,6 +59,12 @@ export function TodayWordCard({
             >
               Open current word
             </Link>
+            <SaveWordButton
+              slug={entry.slug}
+              href={`/dictionary/${entry.slug}`}
+              title={entry.title}
+              description={entry.devilDefinition.trim()}
+            />
             <OpenInIPhoneAppButton slug={entry.slug} />
           </div>
         </div>

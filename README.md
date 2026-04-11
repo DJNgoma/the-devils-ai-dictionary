@@ -102,7 +102,7 @@ The app runs at [http://localhost:3000](http://localhost:3000).
 
 ## Mobile apps
 
-The repo ships a native SwiftUI iPhone app in `ios/` and a native Kotlin/Compose Android app in `android/`. Both are fully native with no WebView — bundled catalogue, local search, saved reading place, and theme switching.
+The repo ships a native SwiftUI iPhone app in `ios/` and a native Kotlin/Compose Android app in `android/`. Both are fully native with no WebView. The iPhone app now supports Sign in with Apple for synced saved words; Android still keeps saved words local for the moment.
 
 ### Stable releases
 
@@ -116,19 +116,31 @@ The repo ships a native SwiftUI iPhone app in `ios/` and a native Kotlin/Compose
 
 | Platform | Build | What changed |
 |----------|-------|--------------|
-| iOS (TestFlight) | 13 (v1.0.2) | Grouped glossary with remove-confirmation, unified buttons, pull-to-refresh on Home, resilient APNs delivery for transient offline devices |
-| Android (Play internal) | 12 (v1.0.2) | Daily push fan-out at parity with iOS, Home push prompt, grouped glossary, pull-to-refresh |
+| iOS (TestFlight) | 21 (v1.0.5) | Sign in with Apple saved-word sync on iPhone, clearer sync state and last-synced feedback, delivery-hour notification settings, Devil theme, review gating, save-from-Today's-Word |
+| Android (Play internal) | 21 (v1.0.5) | Delivery-hour notification settings, Devil theme, review gating, save-from-Today's-Word, native settings polish |
 
 ### Recent mobile changes
 
 - Glossary now groups entries with a confirmation step before removal
+- iPhone saved words can now sync through Sign in with Apple instead of pretending one local bookmark was a strategy
 - Home pulls to refresh on both platforms; menu and buttons unified across the app
 - Daily push fan-out shared across iOS and Android, with iOS no longer dropping pushes for transient offline devices
+- Notification settings on native apps now let you choose the local delivery hour for the daily word
+- Native settings now include a manual store-review action, while the automatic review prompt waits for repeated use instead of pouncing on launch
 - Android reached push parity with iOS and gained the Home prompt it was missing
 - Server routes rescued from their underscored exile
+- Current prerelease notes and Apple tester focus now live in [docs/mobile/current-beta-notes.md](docs/mobile/current-beta-notes.md)
+
+### Recent web changes
+
+- Added a dedicated `/settings` page for browser-local preferences
+- Saved words now form a real collection on the site, with optional Sign in with Apple sync instead of a single local reading-place slot
+- Supported browsers can now opt into the daily word through standard Web Push, with the toggle and delivery-hour picker living in site settings
+- Privacy copy and the shared push-delivery notes now cover the browser flow alongside iOS and Android
 
 ### Mobile documentation
 
+- Current beta change log and TestFlight "What to Test" draft: [docs/mobile/current-beta-notes.md](docs/mobile/current-beta-notes.md)
 - iOS distribution notes: [docs/ios-testflight.md](docs/ios-testflight.md)
 - Android native setup, release, and Play testing notes: [docs/mobile/android-native.md](docs/mobile/android-native.md)
 - Track-by-track Google Play testing runbook: [docs/mobile/google-play-testing.md](docs/mobile/google-play-testing.md)
@@ -165,7 +177,7 @@ The home page is the surface most likely to drift between platforms. These are t
 | Featured slot | None for now; park unless clearly marked **Sponsored** | All |
 | Refresh button | None (daily word, not manual) | All |
 | Date chip under word title | None | All |
-| Push prompt | Live prompt (iOS), placeholder (Android), not shown (web/Windows) | Per-platform |
+| Push prompt | Quick daily-reminder ask sits under the hero CTAs; settings retains full controls and delivery-hour detail | Per-platform |
 | Categories section label | **Browse by category** | All |
 | Tab bar | Home, Search, Categories, Saved, Settings (apps) | iOS, Android |
 

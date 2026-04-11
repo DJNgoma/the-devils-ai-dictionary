@@ -23,7 +23,7 @@ export function SiteHeader() {
       <div className="page-shell flex flex-col gap-4 py-4 sm:py-5">
         <div className="flex items-center justify-between gap-4">
           <Link href="/" className="group flex min-w-0 items-center gap-3">
-            <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-accent text-white shadow-[0_10px_30px_rgba(178,85,47,0.22)]">
+            <span className="site-brand-mark">
               <BrandMark className="size-7" />
             </span>
             <span className="min-w-0">
@@ -35,7 +35,10 @@ export function SiteHeader() {
               </p>
             </span>
           </Link>
-          <div className="hidden md:block">
+          <div className="hidden items-center gap-3 md:flex">
+            <Link href="/settings" className="button button-ghost">
+              Settings
+            </Link>
             <ThemeSwitcher />
           </div>
         </div>

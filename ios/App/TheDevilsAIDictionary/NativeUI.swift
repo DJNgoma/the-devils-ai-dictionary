@@ -10,8 +10,27 @@ import DevilsAIDictionaryCore
 
 // MARK: - Theme system
 
+enum ThemeAppearanceGroup: String, CaseIterable, Identifiable {
+    case light
+    case dark
+
+    var id: String { rawValue }
+
+    var label: String {
+        switch self {
+        case .light: "Light editions"
+        case .dark: "Dark editions"
+        }
+    }
+}
+
+enum SiteThemeMode: String {
+    case auto
+    case manual
+}
+
 enum SiteTheme: String, CaseIterable, Identifiable, Hashable {
-    case book, codex, absolutely, night
+    case book, codex, absolutely, devil, night
 
     var id: String { rawValue }
 
@@ -20,12 +39,26 @@ enum SiteTheme: String, CaseIterable, Identifiable, Hashable {
         case .book: "Book"
         case .codex: "Codex"
         case .absolutely: "Absolutely"
+        case .devil: "Devil"
         case .night: "Night"
         }
     }
 
+    var appearanceGroup: ThemeAppearanceGroup {
+        switch self {
+        case .devil, .night:
+            return .dark
+        default:
+            return .light
+        }
+    }
+
+    var isDark: Bool {
+        appearanceGroup == .dark
+    }
+
     var colorScheme: ColorScheme {
-        self == .night ? .dark : .light
+        isDark ? .dark : .light
     }
 
     var swatches: (Color, Color, Color) {
@@ -33,6 +66,7 @@ enum SiteTheme: String, CaseIterable, Identifiable, Hashable {
         case .book: (Self.hex("b2552f"), Self.hex("26594a"), Self.hex("f4efe6"))
         case .codex: (Self.hex("0169cc"), Self.hex("751ed9"), Self.hex("f3f8fd"))
         case .absolutely: (Self.hex("cc7d5e"), Self.hex("f9f9f7"), Self.hex("2d2d2b"))
+        case .devil: (Self.hex("c92a2a"), Self.hex("f08b57"), Self.hex("170909"))
         case .night: (Self.hex("e4864d"), Self.hex("5ec9a1"), Self.hex("12100d"))
         }
     }
@@ -96,6 +130,18 @@ struct ThemeColorSet {
                 success: .hex("00c853"),
                 warning: .hex("ff5f38"),
                 mutedText: .hex("6e685f")
+            )
+        case .devil:
+            return ThemeColorSet(
+                paper: .hex("170909"),
+                panel: .hex("241110"),
+                panelStrong: .hex("2f1615"),
+                border: .hex("5a2d2a"),
+                accent: .hex("c92a2a"),
+                accentMuted: .hex("4a1717"),
+                success: .hex("f0b35e"),
+                warning: .hex("ff8b78"),
+                mutedText: .hex("c5a7a1")
             )
         case .night:
             return ThemeColorSet(
@@ -199,22 +245,87 @@ extension ToolbarItemPlacement {
 final class ThemeManager: ObservableObject {
     static let shared = ThemeManager()
 
+    @Published private(set) var mode: SiteThemeMode
+    @Published private(set) var manualSelection: SiteTheme
     @Published private(set) var current: SiteTheme
     @Published private(set) var colors: ThemeColorSet
+    @Published private(set) var preferredColorSchemeOverride: ColorScheme?
 
-    private static let storageKey = "site-theme"
+    private static let themeStorageKey = "site-theme"
+    private static let modeStorageKey = "site-theme-mode"
+    private var systemColorScheme: ColorScheme = .light
 
     private init() {
-        let stored = UserDefaults.standard.string(forKey: Self.storageKey) ?? "book"
-        let theme = SiteTheme(rawValue: stored) ?? .book
-        current = theme
-        colors = ThemeColorSet.palette(for: theme)
+        let defaults = UserDefaults.standard
+        let storedTheme = defaults.string(forKey: Self.themeStorageKey) ?? "book"
+        let manualTheme = SiteTheme(rawValue: storedTheme) ?? .book
+        let storedMode = defaults.string(forKey: Self.modeStorageKey)
+        let resolvedMode: SiteThemeMode
+        if let storedMode,
+           let mode = SiteThemeMode(rawValue: storedMode) {
+            resolvedMode = mode
+        } else if defaults.string(forKey: Self.themeStorageKey) != nil {
+            resolvedMode = .manual
+        } else {
+            resolvedMode = .auto
+        }
+
+        mode = resolvedMode
+        manualSelection = manualTheme
+        current = .book
+        colors = ThemeColorSet.palette(for: .book)
+        preferredColorSchemeOverride = nil
+        applyResolvedTheme()
     }
 
     func setTheme(_ theme: SiteTheme) {
-        current = theme
-        colors = ThemeColorSet.palette(for: theme)
-        UserDefaults.standard.set(theme.rawValue, forKey: Self.storageKey)
+        manualSelection = theme
+        UserDefaults.standard.set(theme.rawValue, forKey: Self.themeStorageKey)
+
+        if mode == .manual {
+            applyResolvedTheme()
+        }
+    }
+
+    func setMode(_ nextMode: SiteThemeMode) {
+        guard mode != nextMode else {
+            return
+        }
+
+        mode = nextMode
+        UserDefaults.standard.set(nextMode.rawValue, forKey: Self.modeStorageKey)
+        applyResolvedTheme()
+    }
+
+    func updateSystemColorScheme(_ colorScheme: ColorScheme) {
+        systemColorScheme = colorScheme
+
+        if mode == .auto {
+            applyResolvedTheme()
+        }
+    }
+
+    var autoSummary: String {
+        "Book in light mode. Night after dark."
+    }
+
+    var currentModeLabel: String {
+        current.appearanceGroup == .dark ? "dark" : "light"
+    }
+
+    private func applyResolvedTheme() {
+        let resolvedTheme: SiteTheme
+        switch mode {
+        case .auto:
+            resolvedTheme = systemColorScheme == .dark ? .night : .book
+            preferredColorSchemeOverride = nil
+        case .manual:
+            resolvedTheme = manualSelection
+            preferredColorSchemeOverride = manualSelection.colorScheme
+        }
+
+        current = resolvedTheme
+        colors = ThemeColorSet.palette(for: resolvedTheme)
     }
 }
 

@@ -77,6 +77,19 @@ private fun themeColors(theme: SiteTheme): NativeColors =
             success = Color(0xFF00C853),
             foregroundSoft = Color(0xFF6E685F),
         )
+        SiteTheme.devil -> NativeColors(
+            paper = Color(0xFF170909),
+            surface = Color(0xFF241110),
+            surfaceStrong = Color(0xFF2F1615),
+            surfaceMuted = Color(0xFF1D0F0F),
+            chrome = Color(0xFF211111),
+            border = Color(0xFF5A2D2A),
+            accent = Color(0xFFC92A2A),
+            accentMuted = Color(0xFF4A1717),
+            warning = Color(0xFFFF8B78),
+            success = Color(0xFFF0B35E),
+            foregroundSoft = Color(0xFFC5A7A1),
+        )
         SiteTheme.night -> NativeColors(
             paper = Color(0xFF12100D),
             surface = Color(0xFF1C1814),

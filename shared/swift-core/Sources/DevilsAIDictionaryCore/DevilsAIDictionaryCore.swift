@@ -46,6 +46,50 @@ public struct BookmarkRecord: Codable, Equatable, Sendable {
     }
 }
 
+public struct SavedWordRecord: Codable, Equatable, Sendable, Identifiable {
+    public var id: String { slug }
+
+    public let slug: String
+    public let href: String
+    public let title: String
+    public let description: String?
+    public let savedAt: String
+
+    public init(
+        slug: String,
+        href: String,
+        title: String,
+        description: String? = nil,
+        savedAt: String
+    ) {
+        self.slug = slug
+        self.href = href
+        self.title = title
+        self.description = description
+        self.savedAt = savedAt
+    }
+
+    public init(entry: Entry, savedAt: String) {
+        self.init(
+            slug: entry.slug,
+            href: entry.url,
+            title: entry.title,
+            description: entry.devilDefinition.trimmingCharacters(in: .whitespacesAndNewlines),
+            savedAt: savedAt
+        )
+    }
+
+    public var bookmarkRecord: BookmarkRecord {
+        BookmarkRecord(
+            href: href,
+            title: title,
+            label: "Saved word",
+            description: description,
+            savedAt: savedAt
+        )
+    }
+}
+
 public enum CurrentWordSource: String, Codable, CaseIterable, Sendable {
     case seeded
     case manualRefresh

@@ -27,11 +27,30 @@ enum class NativeTab {
     Settings,
 }
 
-enum class SiteTheme(val label: String, val isDark: Boolean) {
-    book("Book", false),
-    codex("Codex", false),
-    absolutely("Absolutely", false),
-    night("Night", true),
+enum class ThemeAppearanceGroup(val label: String) {
+    light("Light editions"),
+    dark("Dark editions"),
+}
+
+enum class SiteThemeMode {
+    auto,
+    manual,
+}
+
+enum class SiteTheme(
+    val label: String,
+    val appearanceGroup: ThemeAppearanceGroup,
+) {
+    book("Book", ThemeAppearanceGroup.light),
+    codex("Codex", ThemeAppearanceGroup.light),
+    absolutely("Absolutely", ThemeAppearanceGroup.light),
+    devil("Devil", ThemeAppearanceGroup.dark),
+    night("Night", ThemeAppearanceGroup.dark),
+
+    ;
+
+    val isDark: Boolean
+        get() = appearanceGroup == ThemeAppearanceGroup.dark
 }
 
 sealed interface NativeOverlay {
@@ -75,6 +94,11 @@ enum class CurrentWordSource {
     notificationTap,
     phoneSync,
 }
+
+private const val DEFAULT_PUSH_DELIVERY_HOUR = 9
+
+fun formatPushDeliveryHour(hour: Int): String =
+    String.format(Locale.US, "%02d:00", hour.coerceIn(0, 23))
 
 data class Translation(
     val label: String,
@@ -193,7 +217,10 @@ class DictionaryCatalog internal constructor(
 class NativeDictionaryStore(
     context: Context,
     val pushManager: PhonePushManager? = null,
+    private val openPushSettings: (() -> Unit)? = null,
     private val requestPushPermission: (() -> Unit)? = null,
+    private val launchInAppReview: (() -> Unit)? = null,
+    private val openAppReviewListing: (() -> Unit)? = null,
 ) {
     private val appContext = context.applicationContext
     private val storage = NativeDictionaryStorage(
@@ -228,8 +255,16 @@ class NativeDictionaryStore(
     var searchTechnicalDepth by mutableStateOf<TechnicalDepth?>(null)
     var searchVendorFilter by mutableStateOf(VendorFilter.all)
 
-    var siteTheme by mutableStateOf(storage.loadTheme())
+    var siteThemeMode by mutableStateOf(storage.loadThemeMode())
         private set
+
+    var manualSiteTheme by mutableStateOf(storage.loadTheme())
+        private set
+
+    var siteTheme by mutableStateOf(resolveTheme(storage.loadThemeMode(), storage.loadTheme(), false))
+        private set
+
+    private var systemDarkMode by mutableStateOf(false)
 
     val developerModeAvailable = BuildConfig.DEVELOPER_MODE_AVAILABLE
 
@@ -278,6 +313,22 @@ class NativeDictionaryStore(
     var savedToast by mutableStateOf<String?>(null)
         private set
 
+    private var pushOptInStatusState by mutableStateOf(pushManager?.optInStatus ?: PushOptInStatus.unsupported)
+    private var pushNotificationsPreferenceConfiguredState by mutableStateOf(
+        pushManager?.notificationsPreferenceConfigured ?: false,
+    )
+    private var pushNotificationsPreferenceEnabledState by mutableStateOf(
+        pushManager?.notificationsPreferenceEnabled ?: false,
+    )
+    private var pushPreferredDeliveryHourState by mutableStateOf(
+        pushManager?.preferredDeliveryHour ?: DEFAULT_PUSH_DELIVERY_HOUR,
+    )
+    private var pushNotificationsEnabledState by mutableStateOf(
+        pushManager?.notificationsEnabled ?: false,
+    )
+    private var pushFcmTokenState by mutableStateOf(pushManager?.fcmToken)
+    private var pushRegistrationErrorState by mutableStateOf(pushManager?.lastRegistrationError)
+
     fun consumeSavedToast() {
         savedToast = null
     }
@@ -289,6 +340,7 @@ class NativeDictionaryStore(
         savedPlace = storage.loadSavedPlace()
         loadCatalog()
         seedCurrentWordIfNeeded()
+        refreshPushState()
         testingSlug = recentEntries.firstOrNull()?.slug ?: currentWord?.slug.orEmpty()
         refreshCatalogInBackground()
     }
@@ -313,6 +365,12 @@ class NativeDictionaryStore(
 
     val catalogManifestUrlString: String
         get() = BuildConfig.CATALOG_MANIFEST_URL
+
+    val reviewStatusMessage: String
+        get() = "After a respectable amount of reading, the app may ask for a review. It has the manners not to ask on launch."
+
+    val reviewActionTitle: String
+        get() = "Review it on Google Play"
 
     val deviceEntryCount: Int
         get() = entries.size
@@ -401,13 +459,51 @@ class NativeDictionaryStore(
         }
 
     val pushOptInStatus: PushOptInStatus
-        get() = pushManager?.optInStatus ?: PushOptInStatus.unsupported
+        get() = pushOptInStatusState
+
+    val pushNotificationsPreferenceConfigured: Boolean
+        get() = pushNotificationsPreferenceConfiguredState
+
+    val pushNotificationsPreferenceEnabled: Boolean
+        get() = pushNotificationsPreferenceEnabledState
+
+    val pushPreferredDeliveryHour: Int
+        get() = pushPreferredDeliveryHourState
+
+    val pushPreferredDeliveryHourLabel: String
+        get() = formatPushDeliveryHour(pushPreferredDeliveryHour)
+
+    val pushNotificationsEnabled: Boolean
+        get() = pushNotificationsEnabledState
 
     val pushFcmToken: String?
-        get() = pushManager?.fcmToken
+        get() = pushFcmTokenState
 
     val pushRegistrationError: String?
-        get() = pushManager?.lastRegistrationError
+        get() = pushRegistrationErrorState
+
+    val shouldShowPushPrompt: Boolean
+        get() {
+            if (pushOptInStatus == PushOptInStatus.unsupported) {
+                return false
+            }
+
+            if (pushNotificationsPreferenceEnabled) {
+                return !pushNotificationsEnabled
+            }
+
+            return !pushNotificationsPreferenceConfigured
+        }
+
+    val pushPermissionButtonTitle: String
+        get() = if (
+            pushOptInStatus == PushOptInStatus.denied &&
+            pushNotificationsPreferenceEnabled
+        ) {
+            "Open Settings"
+        } else {
+            "Allow notifications"
+        }
 
     val pushTestingMessage: String
         get() = when {
@@ -420,11 +516,84 @@ class NativeDictionaryStore(
             pushOptInStatus == PushOptInStatus.denied ->
                 "Notifications are denied for this app. Enable them in system settings to receive daily words."
             else ->
-                "Tap \"Enable notifications\" to receive the daily word."
+                "Tap \"Enable notifications\" to put the daily word on the schedule."
+        }
+
+    val pushStatusMessage: String
+        get() = when {
+            !BuildConfig.NATIVE_PUSH_CONFIGURED ->
+                "Push is not wired for this Android build."
+            pushManager == null ->
+                "Push has not been attached to this build properly."
+            !pushNotificationsPreferenceEnabled ->
+                if (pushNotificationsPreferenceConfigured) {
+                    "This device is off the daily-word list."
+                } else {
+                    "Pick an hour and let the app deliver one civilized interruption a day."
+                }
+            pushOptInStatus == PushOptInStatus.authorized ->
+                "The daily word has a standing booking for $pushPreferredDeliveryHourLabel local time."
+            pushOptInStatus == PushOptInStatus.denied ->
+                "The app filed the request. Android barred the door in Settings."
+            else ->
+                "When Android asks, allow notifications and the app will keep to $pushPreferredDeliveryHourLabel local time."
         }
 
     fun requestPushOptIn() {
         requestPushPermission?.invoke()
+    }
+
+    fun setPushNotificationsEnabled(enabled: Boolean) {
+        val manager = pushManager ?: return
+        manager.setNotificationsPreferenceEnabled(enabled)
+        refreshPushState()
+
+        if (!enabled) {
+            return
+        }
+
+        if (pushOptInStatus == PushOptInStatus.authorized) {
+            return
+        }
+
+        if (pushOptInStatus == PushOptInStatus.denied && pushNotificationsPreferenceEnabled) {
+            openPushSettings?.invoke()
+            return
+        }
+
+        requestPushPermission?.invoke()
+    }
+
+    fun setPushPreferredDeliveryHour(hour: Int) {
+        pushManager?.setPreferredDeliveryHour(hour)
+        refreshPushState()
+    }
+
+    fun refreshPushState() {
+        pushOptInStatusState = pushManager?.optInStatus ?: PushOptInStatus.unsupported
+        pushNotificationsPreferenceConfiguredState =
+            pushManager?.notificationsPreferenceConfigured ?: false
+        pushNotificationsPreferenceEnabledState =
+            pushManager?.notificationsPreferenceEnabled ?: false
+        pushPreferredDeliveryHourState =
+            pushManager?.preferredDeliveryHour ?: DEFAULT_PUSH_DELIVERY_HOUR
+        pushNotificationsEnabledState = pushManager?.notificationsEnabled ?: false
+        pushFcmTokenState = pushManager?.fcmToken
+        pushRegistrationErrorState = pushManager?.lastRegistrationError
+    }
+
+    fun handlePushPermissionAction() {
+        if (pushOptInStatus == PushOptInStatus.denied && pushNotificationsPreferenceEnabled) {
+            openPushSettings?.invoke()
+            return
+        }
+
+        setPushNotificationsEnabled(true)
+    }
+
+    fun openAppReviewPage() {
+        markReviewPromptAttempt(nowMs = System.currentTimeMillis())
+        openAppReviewListing?.invoke()
     }
 
     fun simulatePushTap() {
@@ -540,8 +709,26 @@ class NativeDictionaryStore(
     }
 
     fun setTheme(theme: SiteTheme) {
-        siteTheme = theme
+        manualSiteTheme = theme
         storage.saveTheme(theme)
+
+        if (siteThemeMode == SiteThemeMode.manual) {
+            siteTheme = theme
+        }
+    }
+
+    fun setThemeMode(mode: SiteThemeMode) {
+        siteThemeMode = mode
+        storage.saveThemeMode(mode)
+        siteTheme = resolveTheme(mode, manualSiteTheme, systemDarkMode)
+    }
+
+    fun updateSystemDarkMode(isDark: Boolean) {
+        systemDarkMode = isDark
+
+        if (siteThemeMode == SiteThemeMode.auto) {
+            siteTheme = resolveTheme(siteThemeMode, manualSiteTheme, systemDarkMode)
+        }
     }
 
     fun toggleDeveloperMode(enabled: Boolean) {
@@ -557,7 +744,10 @@ class NativeDictionaryStore(
         activeOverlay = NativeOverlay.EntryDetail(slug)
         if (entry(slug) == null) {
             refreshCatalogInBackground(force = true, retrySlug = slug)
+            return
         }
+
+        recordReviewEntryOpen()
     }
 
     fun presentEntry(entry: Entry) {
@@ -732,7 +922,25 @@ class NativeDictionaryStore(
     }
 
     fun onResume() {
+        storage.recordReviewForegroundActivation(System.currentTimeMillis())
         refreshCatalogInBackground()
+    }
+
+    private fun recordReviewEntryOpen(nowMs: Long = System.currentTimeMillis()) {
+        val totalEntryOpens = storage.incrementReviewEntryOpenCount()
+        val state = storage.loadReviewPromptState(entryOpenCount = totalEntryOpens)
+
+        if (!ReviewPromptPolicy.shouldPrompt(state, nowMs, BuildConfig.APP_VERSION_NAME)) {
+            return
+        }
+
+        markReviewPromptAttempt(nowMs)
+        launchInAppReview?.invoke()
+    }
+
+    private fun markReviewPromptAttempt(nowMs: Long) {
+        storage.saveReviewLastPromptAtMs(nowMs)
+        storage.saveReviewLastPromptedVersion(BuildConfig.APP_VERSION_NAME)
     }
 
     private fun loadCatalog() {
@@ -993,8 +1201,21 @@ private class NativeDictionaryStorage(
         return runCatching { SiteTheme.valueOf(name) }.getOrDefault(SiteTheme.book)
     }
 
+    fun loadThemeMode(): SiteThemeMode {
+        val name = preferences.getString(THEME_MODE_KEY, null)
+        if (name != null) {
+            return runCatching { SiteThemeMode.valueOf(name) }.getOrDefault(SiteThemeMode.auto)
+        }
+
+        return if (preferences.contains(THEME_KEY)) SiteThemeMode.manual else SiteThemeMode.auto
+    }
+
     fun saveTheme(theme: SiteTheme) {
         preferences.edit().putString(THEME_KEY, theme.name).apply()
+    }
+
+    fun saveThemeMode(mode: SiteThemeMode) {
+        preferences.edit().putString(THEME_MODE_KEY, mode.name).apply()
     }
 
     fun loadDeveloperMode(): Boolean =
@@ -1023,14 +1244,108 @@ private class NativeDictionaryStorage(
         preferences.edit().putString(BUNDLED_CATALOG_VERSION_KEY, value).apply()
     }
 
+    fun recordReviewForegroundActivation(nowMs: Long) {
+        val dayKey = ReviewPromptPolicy.activeDayKey(nowMs)
+        if (preferences.getString(REVIEW_LAST_ACTIVE_DAY_KEY, null) == dayKey) {
+            return
+        }
+
+        val nextCount = preferences.getInt(REVIEW_ACTIVE_DAY_COUNT_KEY, 0) + 1
+        preferences.edit()
+            .putString(REVIEW_LAST_ACTIVE_DAY_KEY, dayKey)
+            .putInt(REVIEW_ACTIVE_DAY_COUNT_KEY, nextCount)
+            .apply()
+    }
+
+    fun incrementReviewEntryOpenCount(): Int {
+        val nextCount = preferences.getInt(REVIEW_ENTRY_OPEN_COUNT_KEY, 0) + 1
+        preferences.edit().putInt(REVIEW_ENTRY_OPEN_COUNT_KEY, nextCount).apply()
+        return nextCount
+    }
+
+    fun loadReviewPromptState(entryOpenCount: Int = preferences.getInt(REVIEW_ENTRY_OPEN_COUNT_KEY, 0)): ReviewPromptState =
+        ReviewPromptState(
+            activeDayCount = preferences.getInt(REVIEW_ACTIVE_DAY_COUNT_KEY, 0),
+            entryOpenCount = entryOpenCount,
+            lastPromptAtMs = if (preferences.contains(REVIEW_LAST_PROMPT_AT_MS_KEY)) {
+                preferences.getLong(REVIEW_LAST_PROMPT_AT_MS_KEY, 0L)
+            } else {
+                null
+            },
+            lastPromptedVersion = preferences.getString(REVIEW_LAST_PROMPTED_VERSION_KEY, null),
+        )
+
+    fun saveReviewLastPromptAtMs(value: Long) {
+        preferences.edit().putLong(REVIEW_LAST_PROMPT_AT_MS_KEY, value).apply()
+    }
+
+    fun saveReviewLastPromptedVersion(value: String) {
+        preferences.edit().putString(REVIEW_LAST_PROMPTED_VERSION_KEY, value).apply()
+    }
+
     private companion object {
         const val BUNDLED_CATALOG_VERSION_KEY = "bundled-catalog-version"
         const val CATALOG_MANIFEST_CHECKED_AT_MS_KEY = "catalog-manifest-checked-at-ms"
         const val CURRENT_WORD_KEY = "current-word-record"
         const val SAVED_PLACE_KEY = "saved-reading-place"
         const val THEME_KEY = "site-theme"
+        const val THEME_MODE_KEY = "site-theme-mode"
         const val DEVELOPER_MODE_KEY = "developer-mode"
+        const val REVIEW_ACTIVE_DAY_COUNT_KEY = "review-active-day-count"
+        const val REVIEW_ENTRY_OPEN_COUNT_KEY = "review-entry-open-count"
+        const val REVIEW_LAST_ACTIVE_DAY_KEY = "review-last-active-day"
+        const val REVIEW_LAST_PROMPT_AT_MS_KEY = "review-last-prompt-at-ms"
+        const val REVIEW_LAST_PROMPTED_VERSION_KEY = "review-last-prompted-version"
     }
+}
+
+private fun resolveTheme(
+    mode: SiteThemeMode,
+    manualTheme: SiteTheme,
+    systemDarkMode: Boolean,
+): SiteTheme =
+    if (mode == SiteThemeMode.auto) {
+        if (systemDarkMode) SiteTheme.night else SiteTheme.book
+    } else {
+        manualTheme
+    }
+
+internal data class ReviewPromptState(
+    val activeDayCount: Int,
+    val entryOpenCount: Int,
+    val lastPromptAtMs: Long?,
+    val lastPromptedVersion: String?,
+)
+
+internal object ReviewPromptPolicy {
+    private const val minimumActiveDays = 5
+    private const val minimumEntryOpens = 12
+    private const val promptCooldownMs = 180L * 24 * 60 * 60 * 1000
+
+    fun shouldPrompt(state: ReviewPromptState, nowMs: Long, currentVersion: String): Boolean {
+        if (state.activeDayCount < minimumActiveDays) {
+            return false
+        }
+
+        if (state.entryOpenCount < minimumEntryOpens) {
+            return false
+        }
+
+        if (state.lastPromptedVersion == currentVersion) {
+            return false
+        }
+
+        if (state.lastPromptAtMs != null && nowMs - state.lastPromptAtMs < promptCooldownMs) {
+            return false
+        }
+
+        return true
+    }
+
+    fun activeDayKey(nowMs: Long): String =
+        SimpleDateFormat("yyyy-MM-dd", Locale.US).apply {
+            timeZone = TimeZone.getDefault()
+        }.format(Date(nowMs))
 }
 
 internal fun scoreSearchMatch(

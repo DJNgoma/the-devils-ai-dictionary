@@ -19,13 +19,17 @@ import {
   markPushInstallationInvalid,
   markPushInstallationSuccess,
 } from "@/lib/server/push-installations";
+import {
+  isTerminalWebPushFailure,
+  sendCurrentWordWebPush,
+} from "@/lib/server/web-push";
 
 export const dynamic = "force-dynamic";
 
 const testSendSchema = z.object({
   slug: z.string().trim().min(1).optional(),
   token: z.string().trim().min(1).optional(),
-  platform: z.enum(["ios", "android"]).optional(),
+  platform: z.enum(["ios", "android", "web"]).optional(),
 });
 
 const entries = generatedData.entries as Entry[];
@@ -89,6 +93,10 @@ export async function POST(request: Request) {
       env.APNS_PRIVATE_KEY &&
       env.APNS_TEAM_ID;
     const fcmConfigured = env.FCM_PROJECT_ID && env.FCM_SERVICE_ACCOUNT_JSON;
+    const webPushConfigured =
+      env.WEB_PUSH_VAPID_PRIVATE_KEY &&
+      env.WEB_PUSH_VAPID_PUBLIC_KEY &&
+      env.WEB_PUSH_VAPID_SUBJECT;
 
     const installations = await listTargetInstallations(
       database,
@@ -156,6 +164,32 @@ export async function POST(request: Request) {
           if (result.ok) {
             await markPushInstallationSuccess(database, installation.token);
           } else if (isTerminalFcmFailure(result)) {
+            await markPushInstallationInvalid(database, installation.token);
+          }
+          return result;
+        }
+
+        if (installation.platform === "web") {
+          if (!webPushConfigured) {
+            return {
+              ok: false,
+              status: 503,
+              reason: "Web Push credentials are not configured.",
+              token: installation.token,
+            };
+          }
+          const result = await sendCurrentWordWebPush({
+            credentials: {
+              privateKey: env.WEB_PUSH_VAPID_PRIVATE_KEY!,
+              publicKey: env.WEB_PUSH_VAPID_PUBLIC_KEY!,
+              subject: env.WEB_PUSH_VAPID_SUBJECT!,
+            },
+            entry,
+            token: installation.token,
+          });
+          if (result.ok) {
+            await markPushInstallationSuccess(database, installation.token);
+          } else if (isTerminalWebPushFailure(result)) {
             await markPushInstallationInvalid(database, installation.token);
           }
           return result;

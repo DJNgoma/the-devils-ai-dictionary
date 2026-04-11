@@ -58,6 +58,8 @@ describe("push installation persistence", () => {
       optInStatus: "provisional" as const,
       appVersion: "1.2.3",
       locale: "en-ZA",
+      preferredDeliveryHour: 7,
+      timeZone: "Africa/Johannesburg",
     };
 
     await upsertPushInstallation(database, installation);
@@ -71,6 +73,8 @@ describe("push installation persistence", () => {
       installation.optInStatus,
       installation.appVersion,
       installation.locale,
+      installation.preferredDeliveryHour,
+      installation.timeZone,
     );
     expect(statements[0]?.statement.run).toHaveBeenCalledTimes(1);
   });
@@ -106,6 +110,8 @@ describe("push installation persistence", () => {
         optInStatus: "authorized",
         appVersion: "2.0.0",
         locale: "en-US",
+        preferredDeliveryHour: 9,
+        timeZone: "Africa/Johannesburg",
         updatedAt: "2026-03-31T10:00:00.000Z",
         lastSuccessAt: null,
       },
@@ -134,6 +140,8 @@ describe("push installation persistence", () => {
       optInStatus: "authorized",
       appVersion: "2.0.1",
       locale: "en-GB",
+      preferredDeliveryHour: 13,
+      timeZone: "Europe/London",
       updatedAt: "2026-03-31T11:00:00.000Z",
       lastSuccessAt: "2026-03-31T11:05:00.000Z",
     };

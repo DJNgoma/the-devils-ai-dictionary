@@ -78,7 +78,7 @@
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "next typegen && tsc --noEmit",
+    "typecheck": "node -e \"const fs=require('node:fs'); fs.rmSync('tsconfig.tsbuildinfo', { force: true }); fs.rmSync('.next/types', { recursive: true, force: true }); fs.rmSync('.next/dev/types', { recursive: true, force: true });\" && next typegen && tsc --noEmit --incremental false",
     "test": "vitest run",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",

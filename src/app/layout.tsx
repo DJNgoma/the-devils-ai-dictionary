@@ -139,13 +139,27 @@ export default function RootLayout({
   const themeBootScript = `
     try {
       var theme = localStorage.getItem("site-theme");
-      var allowed = ["book", "codex", "absolutely", "night"];
+      var mode = localStorage.getItem("site-theme-mode");
+      var allowed = ["book", "codex", "absolutely", "devil", "night"];
+      var allowedModes = ["auto", "manual"];
+      var resolvedMode = allowedModes.includes(mode)
+        ? mode
+        : allowed.includes(theme)
+          ? "manual"
+          : "auto";
+      var resolvedTheme = resolvedMode === "auto"
+        ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "night" : "book")
+        : allowed.includes(theme)
+          ? theme
+          : "book";
       document.documentElement.setAttribute(
         "data-theme",
-        allowed.includes(theme) ? theme : "book"
+        resolvedTheme
       );
+      document.documentElement.setAttribute("data-theme-mode", resolvedMode);
     } catch (error) {
       document.documentElement.setAttribute("data-theme", "book");
+      document.documentElement.setAttribute("data-theme-mode", "auto");
     }
   `;
 

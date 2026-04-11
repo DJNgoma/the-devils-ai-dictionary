@@ -49,6 +49,8 @@ describe("POST /api/mobile/push/installations", () => {
           locale: "en-ZA",
           optInStatus: "authorized",
           platform: "ios",
+          preferredDeliveryHour: 8,
+          timeZone: "Africa/Johannesburg",
           token: "device-token",
         }),
         method: "POST",
@@ -61,7 +63,42 @@ describe("POST /api/mobile/push/installations", () => {
       expect.any(Object),
       expect.objectContaining({
         optInStatus: "authorized",
+        preferredDeliveryHour: 8,
         token: "device-token",
+        timeZone: "Africa/Johannesburg",
+      }),
+    );
+  });
+
+  it("accepts web push installations", async () => {
+    pushInstallationMocks.upsertPushInstallation.mockResolvedValue(undefined);
+
+    const response = await POST(
+      new Request("https://example.com/api/mobile/push/installations", {
+        body: JSON.stringify({
+          appVersion: "web",
+          environment: "production",
+          locale: "en-US",
+          optInStatus: "authorized",
+          platform: "web",
+          preferredDeliveryHour: 14,
+          timeZone: "America/New_York",
+          token: "https://push.example.test/subscriptions/abc123",
+        }),
+        method: "POST",
+      }),
+    );
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toEqual({ ok: true });
+    expect(pushInstallationMocks.upsertPushInstallation).toHaveBeenCalledWith(
+      expect.any(Object),
+      expect.objectContaining({
+        appVersion: "web",
+        platform: "web",
+        preferredDeliveryHour: 14,
+        token: "https://push.example.test/subscriptions/abc123",
+        timeZone: "America/New_York",
       }),
     );
   });

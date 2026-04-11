@@ -28,6 +28,7 @@ describe("mobile navigation helpers", () => {
     expect(getMobileChromeTitle("/dictionary/agent")).toBe("Entry");
     expect(getMobileChromeTitle("/categories")).toBe("Categories");
     expect(getMobileChromeTitle("/saved")).toBe("Saved");
+    expect(getMobileChromeTitle("/settings")).toBe("Settings");
   });
 
   it("provides back destinations for detail routes", () => {

@@ -7,6 +7,10 @@ const cloudflareMocks = vi.hoisted(() => ({
 const apnsMocks = vi.hoisted(() => ({
   sendCurrentWordPush: vi.fn(),
 }));
+const webPushMocks = vi.hoisted(() => ({
+  isTerminalWebPushFailure: vi.fn(),
+  sendCurrentWordWebPush: vi.fn(),
+}));
 const pushInstallationMocks = vi.hoisted(() => ({
   listTargetInstallations: vi.fn(),
   markPushInstallationInvalid: vi.fn(),
@@ -37,6 +41,18 @@ vi.mock("@/lib/server/apns", async () => {
   };
 });
 
+vi.mock("@/lib/server/web-push", async () => {
+  const actual = await vi.importActual<typeof import("@/lib/server/web-push")>(
+    "@/lib/server/web-push",
+  );
+
+  return {
+    ...actual,
+    isTerminalWebPushFailure: webPushMocks.isTerminalWebPushFailure,
+    sendCurrentWordWebPush: webPushMocks.sendCurrentWordWebPush,
+  };
+});
+
 vi.mock("@/lib/server/push-installations", () => ({
   listTargetInstallations: pushInstallationMocks.listTargetInstallations,
   markPushInstallationInvalid: pushInstallationMocks.markPushInstallationInvalid,
@@ -56,6 +72,9 @@ const baseEnv = {
   APNS_TEAM_ID: "TEAM123",
   PUSH_INSTALLATIONS_DB: database,
   PUSH_TEST_SEND_SECRET: "push-secret",
+  WEB_PUSH_VAPID_PRIVATE_KEY: "private-key",
+  WEB_PUSH_VAPID_PUBLIC_KEY: "public-key",
+  WEB_PUSH_VAPID_SUBJECT: "mailto:test@example.com",
 };
 
 const installation = {
@@ -66,6 +85,17 @@ const installation = {
   optInStatus: "authorized" as const,
   platform: "ios" as const,
   token: "device-token",
+  updatedAt: "2026-03-31T10:00:00.000Z",
+};
+
+const webInstallation = {
+  appVersion: "web",
+  environment: "production" as const,
+  lastSuccessAt: null,
+  locale: "en-US",
+  optInStatus: "authorized" as const,
+  platform: "web" as const,
+  token: "https://push.example.test/subscriptions/web-token",
   updatedAt: "2026-03-31T10:00:00.000Z",
 };
 
@@ -84,6 +114,7 @@ describe("POST /api/mobile/push/test-send", () => {
     vi.resetAllMocks();
     cloudflareMocks.getMobilePushEnv.mockResolvedValue(baseEnv);
     cloudflareMocks.requirePushInstallationsDatabase.mockReturnValue(database);
+    webPushMocks.isTerminalWebPushFailure.mockReturnValue(false);
   });
 
   it("rejects unauthorized requests", async () => {
@@ -210,6 +241,81 @@ describe("POST /api/mobile/push/test-send", () => {
       ],
     });
     expect(pushInstallationMocks.markPushInstallationInvalid).not.toHaveBeenCalled();
+    expect(pushInstallationMocks.markPushInstallationSuccess).not.toHaveBeenCalled();
+  });
+
+  it("sends through web push and records success", async () => {
+    pushInstallationMocks.listTargetInstallations.mockResolvedValue([
+      webInstallation,
+    ]);
+    webPushMocks.sendCurrentWordWebPush.mockResolvedValue({
+      ok: true,
+      status: 201,
+      token: webInstallation.token,
+    });
+
+    const response = await POST(
+      createAuthorizedRequest({ platform: "web", slug: "agent" }),
+    );
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toMatchObject({
+      entry: {
+        slug: "agent",
+        title: "Agent",
+      },
+      ok: true,
+      results: [{ ok: true, status: 201, token: webInstallation.token }],
+    });
+    expect(webPushMocks.sendCurrentWordWebPush).toHaveBeenCalledWith(
+      expect.objectContaining({
+        credentials: {
+          privateKey: "private-key",
+          publicKey: "public-key",
+          subject: "mailto:test@example.com",
+        },
+        token: webInstallation.token,
+      }),
+    );
+    expect(pushInstallationMocks.markPushInstallationSuccess).toHaveBeenCalledWith(
+      database,
+      webInstallation.token,
+    );
+    expect(pushInstallationMocks.markPushInstallationInvalid).not.toHaveBeenCalled();
+  });
+
+  it("marks terminal web push failures as invalid", async () => {
+    pushInstallationMocks.listTargetInstallations.mockResolvedValue([
+      webInstallation,
+    ]);
+    webPushMocks.sendCurrentWordWebPush.mockResolvedValue({
+      ok: false,
+      reason: "Subscription is gone.",
+      status: 410,
+      token: webInstallation.token,
+    });
+    webPushMocks.isTerminalWebPushFailure.mockReturnValue(true);
+
+    const response = await POST(
+      createAuthorizedRequest({ platform: "web", slug: "agent" }),
+    );
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toMatchObject({
+      ok: false,
+      results: [
+        {
+          ok: false,
+          reason: "Subscription is gone.",
+          status: 410,
+          token: webInstallation.token,
+        },
+      ],
+    });
+    expect(pushInstallationMocks.markPushInstallationInvalid).toHaveBeenCalledWith(
+      database,
+      webInstallation.token,
+    );
     expect(pushInstallationMocks.markPushInstallationSuccess).not.toHaveBeenCalled();
   });
 });

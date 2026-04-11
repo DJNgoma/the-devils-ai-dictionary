@@ -5,10 +5,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.ui.Modifier
 
 @Composable
@@ -31,8 +33,18 @@ fun NativeDictionaryApp(
     }
 
     var showSplash by remember { mutableStateOf(true) }
+    val systemIsDark = isSystemInDarkTheme()
+    val activeTheme = if (store.siteThemeMode == SiteThemeMode.auto) {
+        if (systemIsDark) SiteTheme.night else SiteTheme.book
+    } else {
+        store.manualSiteTheme
+    }
 
-    NativeAppTheme(theme = store.siteTheme) { colors ->
+    LaunchedEffect(systemIsDark) {
+        store.updateSystemDarkMode(systemIsDark)
+    }
+
+    NativeAppTheme(theme = activeTheme) { colors ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -54,7 +66,7 @@ fun NativeDictionaryApp(
 
             if (showSplash) {
                 SplashScreen(
-                    isDark = store.siteTheme.isDark,
+                    isDark = activeTheme.isDark,
                     onFinished = { showSplash = false },
                 )
             }

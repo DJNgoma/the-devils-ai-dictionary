@@ -4,7 +4,7 @@ import { Badge } from "@/components/badge";
 import { EntryCard } from "@/components/entry-card";
 import { MdxContent } from "@/components/mdx-content";
 import { OpenInIPhoneAppButton } from "@/components/open-in-iphone-app-button";
-import { SavePlaceButton } from "@/components/save-place-button";
+import { SaveWordButton } from "@/components/save-place-button";
 import { TermDiagram } from "@/components/term-diagram";
 import {
   getAllEntries,
@@ -111,11 +111,11 @@ export default async function EntryPage({ params }: EntryPageProps) {
           {entry.aliases.length > 0 ? <span>Also known as {entry.aliases.join(", ")}</span> : null}
         </div>
         <div className="flex flex-wrap gap-3">
-          <SavePlaceButton
+          <SaveWordButton
+            slug={entry.slug}
             href={entry.url}
             title={entry.title}
-            label="Dictionary entry"
-            description={entry.devilDefinition}
+            description={entry.plainDefinition}
           />
           <OpenInIPhoneAppButton slug={entry.slug} />
           <Link

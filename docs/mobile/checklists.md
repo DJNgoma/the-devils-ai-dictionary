@@ -54,8 +54,8 @@ If this Play account is a newly created personal account, plan for the current G
 ## Solo-dev defaults
 
 - Cloudflare Web Analytics only in v1
-- No accounts in v1
-- No remote content sync in v1
+- Sign in with Apple is live for saved-word sync on iPhone and web; Android still keeps saved words local
+- OTA catalogue updates and push state sync remotely; there is still no broader cloud profile beyond saved-word sync
 - Add crash reporting only if manual QA stops being enough
 
 ## Backlog

@@ -13,6 +13,8 @@ export const siteConfig = {
     "A sceptical field guide to the language machines, marketers, founders, and consultants use when they want to sound smarter than they are.",
   url:
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://thedevilsaidictionary.com",
+  appStoreUrl:
+    "https://apps.apple.com/us/app/the-devils-ai-dictionary/id6761293350",
   repoUrl: "https://github.com/DJNgoma/the-devils-ai-dictionary",
   contributeUrl:
     "https://github.com/DJNgoma/the-devils-ai-dictionary/blob/main/CONTRIBUTING.md",
@@ -55,6 +57,7 @@ export const mobilePrimaryNavigation = [
 ] as const;
 
 export const mobileSecondaryNavigation = [
+  { href: "/settings", label: "Settings" },
   { href: "/book", label: "Book" },
   { href: "/how-to-read", label: "Guide" },
   { href: "/about", label: "About" },
@@ -131,6 +134,10 @@ export function getMobileChromeTitle(pathname: string) {
     return "Privacy";
   }
 
+  if (pathname === "/settings") {
+    return "Settings";
+  }
+
   if (pathname === "/random") {
     return "Random";
   }
@@ -154,26 +161,53 @@ export const themeOptions = [
   {
     value: "book",
     label: "Book",
+    appearance: "light",
     swatches: ["#b2552f", "#26594a", "#f4efe6"],
   },
   {
     value: "codex",
     label: "Codex",
+    appearance: "light",
     swatches: ["#0169cc", "#751ed9", "#ffffff"],
   },
   {
     value: "absolutely",
     label: "Absolutely",
+    appearance: "light",
     swatches: ["#cc7d5e", "#f9f9f7", "#2d2d2b"],
+  },
+  {
+    value: "devil",
+    label: "Devil",
+    appearance: "dark",
+    swatches: ["#c92a2a", "#f08b57", "#170909"],
   },
   {
     value: "night",
     label: "Night",
+    appearance: "dark",
     swatches: ["#e4864d", "#5ec9a1", "#12100d"],
   },
 ] as const;
 
-export type ThemeName = (typeof themeOptions)[number]["value"];
+export type ThemeOption = (typeof themeOptions)[number];
+export type ThemeName = ThemeOption["value"];
+export type ThemeAppearance = ThemeOption["appearance"];
+export type ThemeMode = "auto" | "manual";
+
+export const themeAppearanceLabels: Record<ThemeAppearance, string> = {
+  light: "Light editions",
+  dark: "Dark editions",
+};
+
+export const themeOptionsByAppearance: Record<ThemeAppearance, ThemeOption[]> = {
+  light: themeOptions.filter((option) => option.appearance === "light"),
+  dark: themeOptions.filter((option) => option.appearance === "dark"),
+};
+
+export function resolveAutoTheme(prefersDark: boolean): ThemeName {
+  return prefersDark ? "night" : "book";
+}
 
 export type Difficulty = (typeof difficultyOptions)[number];
 export type TechnicalDepth = (typeof technicalDepthOptions)[number];

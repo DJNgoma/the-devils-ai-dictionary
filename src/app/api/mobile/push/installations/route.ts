@@ -4,6 +4,8 @@ import {
   clientPushOptInStatuses,
   type ClientPushOptInStatus,
   getMobilePushEnv,
+  pushInstallationPlatforms,
+  type PushInstallationPlatform,
   requirePushInstallationsDatabase,
 } from "@/lib/server/cloudflare-context";
 import { upsertPushInstallation } from "@/lib/server/push-installations";
@@ -14,13 +16,20 @@ const installationSchema = z.object({
   appVersion: z.string().trim().min(1),
   environment: z.enum(["development", "production"]),
   locale: z.string().trim().min(1),
+  preferredDeliveryHour: z.number().int().min(0).max(23).optional(),
   optInStatus: z.enum(
     clientPushOptInStatuses satisfies readonly [
       ClientPushOptInStatus,
       ...ClientPushOptInStatus[],
     ],
   ),
-  platform: z.enum(["ios", "android"]),
+  platform: z.enum(
+    pushInstallationPlatforms satisfies readonly [
+      PushInstallationPlatform,
+      ...PushInstallationPlatform[],
+    ],
+  ),
+  timeZone: z.string().trim().min(1).optional(),
   token: z.string().trim().min(1),
 });
 

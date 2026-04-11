@@ -8,15 +8,24 @@ import {
   useMemo,
   useState,
 } from "react";
-import { themeOptions, type ThemeName } from "@/lib/site";
+import {
+  resolveAutoTheme,
+  themeOptions,
+  type ThemeMode,
+  type ThemeName,
+} from "@/lib/site";
 
-const STORAGE_KEY = "site-theme";
+const THEME_STORAGE_KEY = "site-theme";
+const MODE_STORAGE_KEY = "site-theme-mode";
 const FALLBACK_THEME: ThemeName = "book";
 const themeValues = new Set<ThemeName>(themeOptions.map((option) => option.value));
 
 type ThemeContextValue = {
   theme: ThemeName;
+  mode: ThemeMode;
+  resolvedTheme: ThemeName;
   setTheme: (theme: ThemeName) => void;
+  setMode: (mode: ThemeMode) => void;
 };
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
@@ -27,7 +36,7 @@ function isThemeName(value: string | null): value is ThemeName {
 
 function readStoredTheme(): string | null {
   try {
-    return window.localStorage.getItem(STORAGE_KEY);
+    return window.localStorage.getItem(THEME_STORAGE_KEY);
   } catch {
     return null;
   }
@@ -35,10 +44,34 @@ function readStoredTheme(): string | null {
 
 function writeStoredTheme(theme: ThemeName) {
   try {
-    window.localStorage.setItem(STORAGE_KEY, theme);
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
   } catch {
     // Ignore storage failures and keep the in-memory theme state.
   }
+}
+
+function isThemeMode(value: string | null): value is ThemeMode {
+  return value === "auto" || value === "manual";
+}
+
+function readStoredThemeMode(): string | null {
+  try {
+    return window.localStorage.getItem(MODE_STORAGE_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function writeStoredThemeMode(mode: ThemeMode) {
+  try {
+    window.localStorage.setItem(MODE_STORAGE_KEY, mode);
+  } catch {
+    // Ignore storage failures and keep the in-memory theme state.
+  }
+}
+
+function canUseMatchMedia() {
+  return typeof window !== "undefined" && typeof window.matchMedia === "function";
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
@@ -47,31 +80,68 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       return FALLBACK_THEME;
     }
 
-    const documentTheme = document.documentElement.getAttribute("data-theme");
-
-    if (isThemeName(documentTheme)) {
-      return documentTheme;
-    }
-
     const storedTheme = readStoredTheme();
     return isThemeName(storedTheme) ? storedTheme : FALLBACK_THEME;
   });
+  const [mode, setModeState] = useState<ThemeMode>(() => {
+    if (typeof window === "undefined") {
+      return "auto";
+    }
+
+    const storedMode = readStoredThemeMode();
+    if (isThemeMode(storedMode)) {
+      return storedMode;
+    }
+
+    return isThemeName(readStoredTheme()) ? "manual" : "auto";
+  });
+  const [prefersDark, setPrefersDark] = useState(() => {
+    if (!canUseMatchMedia()) {
+      return false;
+    }
+
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
+  const resolvedTheme = mode === "auto" ? resolveAutoTheme(prefersDark) : theme;
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
+    if (!canUseMatchMedia()) {
+      return;
+    }
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const listener = (event: MediaQueryListEvent) => {
+      setPrefersDark(event.matches);
+    };
+
+    mediaQuery.addEventListener("change", listener);
+    return () => mediaQuery.removeEventListener("change", listener);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", resolvedTheme);
+    document.documentElement.setAttribute("data-theme-mode", mode);
     writeStoredTheme(theme);
-  }, [theme]);
+    writeStoredThemeMode(mode);
+  }, [mode, resolvedTheme, theme]);
 
   const setTheme = useCallback((nextTheme: ThemeName) => {
     setThemeState(nextTheme);
   }, []);
 
+  const setMode = useCallback((nextMode: ThemeMode) => {
+    setModeState(nextMode);
+  }, []);
+
   const value = useMemo(
     () => ({
       theme,
+      mode,
+      resolvedTheme,
       setTheme,
+      setMode,
     }),
-    [theme, setTheme],
+    [mode, resolvedTheme, setMode, setTheme, theme],
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

@@ -30,7 +30,7 @@ npx wrangler secret put APNS_TEAM_ID
 npx wrangler secret put PUSH_TEST_SEND_SECRET
 ```
 
-The D1 migration lives in `migrations/0001_push_installations.sql`.
+The D1 migrations live in `migrations/0001_push_installations.sql` and `migrations/0002_push_installation_delivery_preferences.sql`.
 
 ## APNs expectations
 
@@ -71,6 +71,7 @@ curl -X POST https://thedevilsaidictionary.com/api/mobile/push/test-send \
 
 ## QA notes
 
+- If you want per-device delivery hours to mean anything in production, the shared `POST /api/mobile/push/daily-send` route needs to run hourly rather than once a day.
 - Ordinary app launch should show the last stored word on phone and watch.
 - Manual refresh should replace the current word and persist it.
 - Notification taps should replace the current word with the pushed slug and route the phone to `/dictionary/{slug}`.
