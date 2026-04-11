@@ -1,6 +1,6 @@
 {
   "name": "devils-ai-dictionary",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": true,
   "engines": {
     "node": ">=22.0.0"
@@ -111,6 +111,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitest/coverage-v8": "^4.1.4",
+    "esbuild": "0.28.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.7",
     "jsdom": "^27.4.0",

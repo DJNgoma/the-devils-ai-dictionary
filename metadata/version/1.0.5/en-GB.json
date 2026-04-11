@@ -1,0 +1,7 @@
+{
+  "description": "The Devil's AI Dictionary cuts through AI hype with sharp, plain-English definitions of AI terms, product labels, and buzzwords. Every entry pairs a devil's definition with a plain definition, then explains why the term exists, how it gets misused, and what it means in practice.\n\nBrowse A-Z, move by category, or search across 100+ entries covering machine learning, large language models, agents, automation, embeddings, and the rest of the AI lexicon. Save your place, jump in from deep links, and choose from four reading themes: Book, Codex, Absolutely, and Night.\n\nNo accounts. No tracking. No ads. Just a sceptical dictionary for people who want AI jargon explained clearly instead of performed at.",
+  "keywords": "artificial intelligence,machine learning,llm,gpt,agents,chatgpt,genai,automation,buzzwords",
+  "marketingUrl": "https://thedevilsaidictionary.com",
+  "supportUrl": "https://github.com/DJNgoma/the-devils-ai-dictionary/issues",
+  "whatsNew": "Version 1.0.5 is a small polish release focused on installed surfaces.\n\nThe app now appears as Devil's AI on iPhone, Apple Watch, visionOS, macOS, and Android so the name fits cleanly on device labels instead of being cut off.\n\nThe dictionary itself is unchanged; this pass is about making the app feel tidier once it is installed."
+}

@@ -3,6 +3,8 @@
 ## Unreleased
 
 - Added a developer-only ASO screenshot preset mode on iOS so simulator launches can stage clean `Home`, `Search`, `Categories`, `Saved`, and `Entry` capture states without shipping that harness in production behaviour.
+- Shortened the installed app label to `Devil's AI` across Apple and Android targets so the name fits cleanly on device surfaces instead of truncating.
+- Added an explicit `esbuild` tool dependency and refreshed the release plumbing so `npm ci` succeeds again under the npm 10 runner used by GitHub Actions.
 
 ## 1.0.3
 
