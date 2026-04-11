@@ -121,3 +121,10 @@ export function serializeDirectoryExplorerState(
 
   return params.toString();
 }
+
+export function resolveLetterForDirectoryQuery(
+  currentLetter: string,
+  query: string,
+) {
+  return query.trim() ? "all" : currentLetter;
+}

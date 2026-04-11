@@ -259,7 +259,7 @@ fun NativeSearchScreen(
                     )
                     if (store.searchQuery.isNotBlank() || store.hasSearchFilters) {
                         NativeSecondaryButton(
-                            label = "Clear search",
+                            label = "Clear filters",
                             colors = colors,
                             onClick = {
                                 store.searchQuery = ""
@@ -287,6 +287,13 @@ fun NativeSearchScreen(
                         store.searchTechnicalDepth?.let { depth ->
                             NativeChip(
                                 label = technicalDepthLabel(depth),
+                                colors = colors,
+                                selected = true,
+                            )
+                        }
+                        store.searchLetter?.let { letter ->
+                            NativeChip(
+                                label = "Letter $letter",
                                 colors = colors,
                                 selected = true,
                             )
@@ -343,7 +350,7 @@ fun NativeSearchScreen(
                     colors = colors,
                     primaryLabel = "Open filters",
                     onPrimary = { filtersOpen = true },
-                    secondaryLabel = "Clear search",
+                    secondaryLabel = "Clear filters",
                     onSecondary = {
                         store.searchQuery = ""
                         store.resetSearchFilters()
@@ -399,7 +406,7 @@ fun NativeSearchScreen(
             )
             NativeActionRow {
                 NativeSecondaryButton(
-                    label = "Reset filters",
+                    label = "Clear filters",
                     colors = colors,
                     onClick = store::resetSearchFilters,
                 )

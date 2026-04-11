@@ -669,6 +669,14 @@ private struct NativeSearchView: View {
 
                     Spacer()
 
+                    if !model.searchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || model.hasSearchFilters {
+                        Button("Clear filters") {
+                            model.searchQuery = ""
+                            model.resetSearchFilters()
+                        }
+                        .buttonStyle(NativeSecondaryButtonStyle())
+                    }
+
                     Button(model.hasSearchFilters ? "Filters on" : "Filters") {
                         showFilters = true
                     }
@@ -1156,7 +1164,7 @@ private struct NativeSearchFiltersView: View {
             }
 
             Section {
-                Button("Reset filters") {
+                Button("Clear filters") {
                     model.resetSearchFilters()
                 }
                 .foregroundStyle(NativePalette.warning)
@@ -1613,6 +1621,12 @@ private struct NativeActiveFilterChips: View {
                 if let depth = model.searchTechnicalDepth {
                     chip(label: nativeTechnicalDepthLabel(depth)) {
                         model.searchTechnicalDepth = nil
+                    }
+                }
+
+                if let letter = model.searchLetter {
+                    chip(label: "Letter \(letter)") {
+                        model.searchLetter = nil
                     }
                 }
 

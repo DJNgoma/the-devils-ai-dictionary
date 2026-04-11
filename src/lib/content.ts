@@ -6,6 +6,7 @@ import {
 } from "@/lib/daily-word";
 import generatedData from "@/generated/entries.generated.json";
 import type { Difficulty, HypeLevel, TechnicalDepth } from "@/lib/site";
+import { slugify } from "@/lib/utils";
 
 /* ---------- types ---------- */
 
@@ -68,6 +69,21 @@ export type DictionaryCatalogSchedule = DailyWordSchedule & {
 
 const entries = generatedData.entries as Entry[];
 const entryBySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+const entryByTitle = new Map(
+  entries.map((entry) => [entry.title.trim().toLowerCase(), entry]),
+);
+const entryByAlias = new Map<string, Entry>();
+
+for (const entry of entries) {
+  for (const alias of entry.aliases) {
+    const key = alias.trim().toLowerCase();
+
+    if (key && !entryByAlias.has(key)) {
+      entryByAlias.set(key, entry);
+    }
+  }
+}
+
 const dailyWordSchedule: DictionaryCatalogSchedule = {
   dailyWordSlugs: generatedData.dailyWordSlugs as string[],
   dailyWordStartDate: generatedData.dailyWordStartDate as string,
@@ -84,6 +100,23 @@ export const getAllEntries = cache(async (): Promise<Entry[]> => {
 export const getEntryBySlug = cache(async (slug: string) => {
   return entryBySlug.get(slug);
 });
+
+export function resolveEntryReference(reference: string) {
+  const trimmed = reference.trim();
+
+  if (!trimmed) {
+    return undefined;
+  }
+
+  const normalized = trimmed.toLowerCase();
+
+  return (
+    entryBySlug.get(trimmed) ??
+    entryBySlug.get(slugify(trimmed)) ??
+    entryByTitle.get(normalized) ??
+    entryByAlias.get(normalized)
+  );
+}
 
 export async function getRelatedEntries(entry: Entry, limit = 3) {
   return (entry.relatedSlugs ?? [])

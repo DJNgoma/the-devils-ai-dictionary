@@ -55,7 +55,7 @@ export function createCatalogSnapshot(catalog) {
 }
 
 export function serializeCatalogSnapshot(snapshot) {
-  return `${JSON.stringify(snapshot, null, 2)}\n`;
+  return `${JSON.stringify(snapshot)}\n`;
 }
 
 export function createMobileCatalogManifest({

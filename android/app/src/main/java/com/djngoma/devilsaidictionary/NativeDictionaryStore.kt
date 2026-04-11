@@ -214,7 +214,15 @@ class NativeDictionaryStore(
         private set
 
     var searchLetter by mutableStateOf<String?>(null)
-    var searchQuery by mutableStateOf("")
+    private var searchQueryState by mutableStateOf("")
+    var searchQuery: String
+        get() = searchQueryState
+        set(value) {
+            searchQueryState = value
+            if (value.isNotBlank()) {
+                searchLetter = null
+            }
+        }
     var searchCategorySlug by mutableStateOf<String?>(null)
     var searchDifficulty by mutableStateOf<Difficulty?>(null)
     var searchTechnicalDepth by mutableStateOf<TechnicalDepth?>(null)

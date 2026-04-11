@@ -17,6 +17,7 @@ import type { SearchableEntry } from "@/lib/content";
 import {
   areDirectoryExplorerStatesEqual,
   normalizeDirectoryExplorerState,
+  resolveLetterForDirectoryQuery,
   serializeDirectoryExplorerState,
 } from "@/lib/directory-explorer-state";
 import { difficultyLabels, technicalDepthLabels } from "@/lib/site";
@@ -266,6 +267,18 @@ export function DirectoryExplorer({
     });
   };
 
+  const updateQuery = (nextValue: string) => {
+    syncOriginRef.current = "local";
+    startTransition(() => {
+      setQuery(nextValue);
+
+      const nextLetter = resolveLetterForDirectoryQuery(activeLetter, nextValue);
+      if (nextLetter !== activeLetter) {
+        setActiveLetter(nextLetter);
+      }
+    });
+  };
+
   const clearFilter = (key: ActiveFilterKey) => {
     markLocalSync();
 
@@ -364,11 +377,7 @@ export function DirectoryExplorer({
               value={query}
               autoComplete="off"
               inputMode="search"
-              onChange={(event) => {
-                const nextValue = event.target.value;
-                syncOriginRef.current = "local";
-                startTransition(() => setQuery(nextValue));
-              }}
+              onChange={(event) => updateQuery(event.target.value)}
               placeholder="Search by term, alias, category, or explanation"
               className="field-input text-base placeholder:text-foreground-soft/80"
             />
@@ -388,7 +397,7 @@ export function DirectoryExplorer({
                 onClick={clearFilters}
                 className="button button-ghost"
               >
-                Clear all
+                Clear filters
               </button>
             ) : null}
           </div>
@@ -433,7 +442,7 @@ export function DirectoryExplorer({
           </div>
         </div>
 
-        <div className="hidden gap-5 lg:grid lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+        <div className="hidden gap-5 md:grid xl:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
           <label className="flex flex-col gap-2">
             <span className="font-mono text-xs uppercase tracking-[0.22em] text-foreground-soft">
               Search
@@ -443,11 +452,7 @@ export function DirectoryExplorer({
               value={query}
               autoComplete="off"
               inputMode="search"
-              onChange={(event) => {
-                const nextValue = event.target.value;
-                syncOriginRef.current = "local";
-                startTransition(() => setQuery(nextValue));
-              }}
+              onChange={(event) => updateQuery(event.target.value)}
               placeholder="Search by term, alias, category, or explanation"
               className="field-input"
             />
@@ -630,7 +635,7 @@ export function DirectoryExplorer({
               }}
               className="button button-secondary"
             >
-              Clear all
+              Clear filters
             </button>
           </div>
         </div>

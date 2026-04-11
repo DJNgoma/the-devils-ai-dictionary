@@ -8,6 +8,7 @@ import { MobileShellController } from "@/components/mobile-shell-controller";
 import { ThemeProvider } from "@/components/theme-provider";
 import {
   normalizeDirectoryExplorerState,
+  resolveLetterForDirectoryQuery,
 } from "@/lib/directory-explorer-state";
 import type { SearchableEntry } from "@/lib/content";
 
@@ -125,6 +126,11 @@ describe("normalizeDirectoryExplorerState", () => {
       depth: "all",
       letter: "M",
     });
+  });
+
+  it("drops the letter filter once a query is present", () => {
+    expect(resolveLetterForDirectoryQuery("A", "agent")).toBe("all");
+    expect(resolveLetterForDirectoryQuery("A", "   ")).toBe("A");
   });
 });
 
@@ -260,4 +266,5 @@ describe("DirectoryExplorer URL state", () => {
 
     expect(replaceMock).not.toHaveBeenCalled();
   });
+
 });

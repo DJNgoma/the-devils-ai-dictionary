@@ -395,7 +395,7 @@ output = {
   "generatedAt" => generated_at,
   "entryCount" => entries.length,
 }.merge(catalog)
-snapshot_text = "#{JSON.pretty_generate(output)}\n"
+snapshot_text = "#{JSON.generate(output)}\n"
 
 versioned_catalog_filename = "catalog.#{catalog_version}.json"
 versioned_catalog_path = File.join(PUBLIC_CATALOG_DIR, versioned_catalog_filename)

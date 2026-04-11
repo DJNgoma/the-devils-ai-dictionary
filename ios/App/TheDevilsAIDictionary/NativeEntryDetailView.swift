@@ -136,7 +136,10 @@ struct NativeEntryDetailView: View {
                                 }
                                 .buttonStyle(NativeFilterChipButtonStyle(isSelected: false))
                             } else {
-                                NativeChip(label: label)
+                                Button(label) {
+                                    model.showSeeAlsoResults(for: label)
+                                }
+                                .buttonStyle(NativeFilterChipButtonStyle(isSelected: false))
                             }
                         }
                     }

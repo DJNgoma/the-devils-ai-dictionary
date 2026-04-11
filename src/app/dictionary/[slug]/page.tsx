@@ -10,10 +10,11 @@ import {
   getAllEntries,
   getEntryBySlug,
   getRelatedEntries,
+  resolveEntryReference,
 } from "@/lib/content";
 import { buildMetadata } from "@/lib/metadata";
 import { difficultyLabels, technicalDepthLabels } from "@/lib/site";
-import { formatDate, slugify } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 
 type EntryPageProps = {
   params: Promise<{
@@ -65,19 +66,18 @@ export default async function EntryPage({ params }: EntryPageProps) {
     notFound();
   }
 
-  const [allEntries, relatedEntries] = await Promise.all([
-    getAllEntries(),
-    getRelatedEntries(entry),
-  ]);
+  const relatedEntries = await getRelatedEntries(entry);
   const seeAlso = entry.seeAlso.map((label) => {
-    const matchingEntry = allEntries.find(
-      (candidate) =>
-        candidate.slug === label || candidate.slug === slugify(label),
-    );
+    const matchingEntry = resolveEntryReference(label);
+    const href =
+      matchingEntry?.url ??
+      `/dictionary?${new URLSearchParams({
+        q: label,
+      }).toString()}`;
 
     return {
       label,
-      href: matchingEntry?.url,
+      href,
     };
   });
 
@@ -170,21 +170,15 @@ export default async function EntryPage({ params }: EntryPageProps) {
         {seeAlso.length > 0 ? (
           <Section title="See also">
             <div className="flex flex-wrap gap-2">
-              {seeAlso.map((item) =>
-                item.href ? (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className="chip hover:border-accent hover:text-accent"
-                  >
-                    {item.label}
-                  </Link>
-                ) : (
-                  <span key={item.label} className="chip">
-                    {item.label}
-                  </span>
-                ),
-              )}
+              {seeAlso.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="chip hover:border-accent hover:text-accent"
+                >
+                  {item.label}
+                </Link>
+              ))}
             </div>
           </Section>
         ) : null}

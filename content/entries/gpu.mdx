@@ -1,0 +1,61 @@
+---
+title: "GPU"
+slug: "gpu"
+letter: "G"
+categories:
+  - "Infrastructure and deployment"
+  - "Economics and operations of AI"
+  - "Model usage"
+aliases:
+  - "graphics processing unit"
+  - "AI GPU"
+  - "accelerator card"
+devilDefinition: |
+  The rectangle of silicon that turns abstract AI ambition into rack diagrams, queueing pain, and a line item large enough to sober up strategy decks.
+plainDefinition: |
+  A GPU is a highly parallel processor originally built for graphics work that is now widely used to train and serve AI models because it handles the underlying matrix computations efficiently.
+whyExists: |
+  Because modern AI workloads need a great deal of parallel numerical work, and GPUs became the practical engine for that before most organisations had learned how physical their software plans were.
+misuse: |
+  By using "GPU" to mean the whole AI stack, or by assuming that access to GPUs automatically solves latency, data quality, product design, or cost discipline. Hardware helps. It does not finish the argument.
+practicalMeaning: |
+  In practice it usually means a constraint on training speed, inference cost, memory limits, model size, procurement timing, and whether your supposedly simple launch now depends on specialist infrastructure.
+example: |
+  "The roadmap called it an AI feature. Finance called it six more GPUs and several uncomfortable follow-up questions."
+askNext:
+  - "Is the bottleneck raw compute, memory, networking, or utilisation?"
+  - "Do we need premium GPU capacity, or are we overbuying for the workload?"
+  - "What part of the user value actually depends on this level of hardware?"
+related:
+  - "nvidia"
+  - "training"
+  - "inference"
+  - "latency"
+seeAlso:
+  - "NVIDIA"
+  - "DGX"
+  - "Inference"
+  - "Training"
+  - "NPU"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-11"
+updatedAt: "2026-04-11"
+tags:
+  - "hardware"
+  - "compute"
+  - "chips"
+  - "infrastructure"
+misunderstoodScore: 4
+translations:
+  - label: "operator meaning"
+    text: "The compute unit that decides whether your AI ambitions are shipping, waiting, or becoming procurement folklore."
+  - label: "what it usually means in reality"
+    text: "A parallel processor that underwrites much of modern AI training and inference, along with a large share of the bill."
+note: |
+  The important distinction is not only which GPU you have, but whether the surrounding system can keep it fed, cooled, scheduled, and worth the money.
+---
+
+A GPU is often described as the engine of AI. More usefully, it is the point where the conversation stops being metaphor and starts being capacity planning.

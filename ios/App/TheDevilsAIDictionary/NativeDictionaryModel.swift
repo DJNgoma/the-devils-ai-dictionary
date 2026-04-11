@@ -101,7 +101,13 @@ final class NativeDictionaryModel: ObservableObject {
     @Published var macDetailRoute: MacDetailRoute = .section(.home)
     @Published var activeSheet: ActiveSheet?
     @Published var searchLetter: String?
-    @Published var searchQuery = ""
+    @Published var searchQuery = "" {
+        didSet {
+            if !searchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                searchLetter = nil
+            }
+        }
+    }
     @Published var searchCategorySlug: String?
     @Published var searchDifficulty: Difficulty?
     @Published var searchTechnicalDepth: TechnicalDepth?
@@ -191,7 +197,8 @@ final class NativeDictionaryModel: ObservableObject {
     }
 
     var hasSearchFilters: Bool {
-        searchCategorySlug != nil ||
+        searchLetter != nil ||
+            searchCategorySlug != nil ||
             searchDifficulty != nil ||
             searchTechnicalDepth != nil ||
             searchVendorFilter != .all
@@ -377,11 +384,26 @@ final class NativeDictionaryModel: ObservableObject {
         }
 
         let slug = Self.slugify(trimmed)
-        guard !slug.isEmpty else {
-            return nil
+        if !slug.isEmpty, let match = entry(slug: slug) {
+            return match
         }
 
-        return entry(slug: slug)
+        let lowercased = trimmed.lowercased()
+        return entries.first { candidate in
+            candidate.title.lowercased() == lowercased ||
+                candidate.aliases.contains(where: { $0.lowercased() == lowercased })
+        }
+    }
+
+    func showSeeAlsoResults(for label: String) {
+        let trimmed = label.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else {
+            return
+        }
+
+        resetSearchFilters()
+        searchQuery = trimmed
+        showSection(.search)
     }
 
     func relatedEntries(for entry: Entry) -> [Entry] {
