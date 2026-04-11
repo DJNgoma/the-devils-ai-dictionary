@@ -6,9 +6,10 @@ import DevilsAIDictionaryCore
 
 struct WatchCurrentWordView: View {
     @ObservedObject var model: WatchCurrentWordModel
+    @State private var navigationPath: [String] = []
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationPath) {
             List {
                 currentWordSection
                 recentSection
@@ -23,6 +24,14 @@ struct WatchCurrentWordView: View {
                     WatchMissingEntryView()
                 }
             }
+        }
+        .onAppear {
+            guard let slug = model.screenshotNavigationSlug,
+                  navigationPath.isEmpty else {
+                return
+            }
+
+            navigationPath = [slug]
         }
     }
 

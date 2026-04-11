@@ -13,6 +13,14 @@
   "bugs": {
     "url": "https://github.com/DJNgoma/the-devils-ai-dictionary/issues"
   },
+  "overrides": {
+    "@node-minify/core": {
+      "glob": "^12.0.0"
+    },
+    "cloudflare": {
+      "formdata-node": "^6.0.3"
+    }
+  },
   "toolVersions": {
     "capacitorAssets": "3.0.5",
     "electron": "38.8.6",
@@ -27,7 +35,7 @@
     "dev": "next dev",
     "build": "next build",
     "build:mobile": "npm run version:sync && npm run catalog:build && node scripts/build-mobile-export.mjs",
-    "build:cf": "npm run version:sync && npm run catalog:build && opennextjs-cloudflare build",
+    "build:cf": "npm run version:sync && npm run catalog:build && node scripts/run-opennext-cloudflare.mjs build",
     "preview:cf": "npm run build:cf && opennextjs-cloudflare preview",
     "deploy:cf": "npm run build:cf && opennextjs-cloudflare deploy",
     "upload:cf": "npm run build:cf && opennextjs-cloudflare upload",
@@ -82,7 +90,7 @@
     "windows:build": "node scripts/build-windows.mjs"
   },
   "dependencies": {
-    "@opennextjs/cloudflare": "^1.17.1",
+    "@opennextjs/cloudflare": "^1.19.0",
     "clsx": "^2.1.1",
     "flexsearch": "^0.8.212",
     "gray-matter": "^4.0.3",
@@ -102,13 +110,13 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/coverage-v8": "^4.1.4",
     "eslint": "^9",
     "eslint-config-next": "16.1.7",
     "jsdom": "^27.4.0",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^3.2.4",
+    "vitest": "^4.1.4",
     "wrangler": "^4.75.0"
   }
 }

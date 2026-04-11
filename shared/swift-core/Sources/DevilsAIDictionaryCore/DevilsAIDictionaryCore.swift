@@ -107,6 +107,79 @@ public struct CurrentWordSyncPayload: Codable, Equatable, Sendable {
     }
 }
 
+public enum PendingDictionaryNavigationAction: Equatable, Sendable {
+    case waitForCatalog
+    case clearPendingPath
+    case routeToEntry(String)
+}
+
+private let supportedDictionaryHosts: Set<String> = [
+    "thedevilsaidictionary.com",
+    "www.thedevilsaidictionary.com",
+]
+
+public func slugFromDictionaryPath(_ path: String?) -> String? {
+    let trimmed = (path ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+    guard trimmed.hasPrefix("/dictionary/") else {
+        return nil
+    }
+
+    let slug = trimmed
+        .replacingOccurrences(of: "/dictionary/", with: "", options: [.anchored])
+        .trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+
+    guard !slug.isEmpty, !slug.contains("/") else {
+        return nil
+    }
+
+    return slug
+}
+
+public func dictionarySlugFromLink(
+    scheme: String?,
+    host: String?,
+    path: String?,
+    directSlug: String? = nil
+) -> String? {
+    switch scheme?.lowercased() {
+    case "devilsaidictionary":
+        let normalizedHost = host?.lowercased()
+        let candidate = normalizedHost == "dictionary" ? directSlug : nil
+
+        if let candidate,
+           !candidate.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return candidate
+        }
+
+        return slugFromDictionaryPath(path)
+    case "https":
+        guard let normalizedHost = host?.lowercased(),
+              supportedDictionaryHosts.contains(normalizedHost) else {
+            return nil
+        }
+
+        return slugFromDictionaryPath(path)
+    default:
+        return nil
+    }
+}
+
+public func resolvePendingDictionaryNavigation(
+    path: String?,
+    hasLoadedCatalog: Bool,
+    hasLoadError: Bool
+) -> PendingDictionaryNavigationAction {
+    guard let slug = slugFromDictionaryPath(path) else {
+        return .clearPendingPath
+    }
+
+    guard hasLoadedCatalog || hasLoadError else {
+        return .waitForCatalog
+    }
+
+    return .routeToEntry(slug)
+}
+
 public struct Entry: Codable, Equatable, Sendable {
     public let title: String
     public let slug: String

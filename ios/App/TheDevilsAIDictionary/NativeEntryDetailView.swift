@@ -193,7 +193,7 @@ struct NativeEntryDetailView: View {
         .nativeNavigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                if showsCloseButton {
+                if showsCloseButton && !model.isDeveloperScreenshotMode {
                     Button("Done") {
                         dismiss()
                     }

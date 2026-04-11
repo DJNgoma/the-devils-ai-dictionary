@@ -331,7 +331,7 @@ Files added for the Cloudflare path:
 
 - `wrangler.jsonc`
 - `open-next.config.ts`
-- `src/middleware.ts`
+- `src/proxy.ts`
 - `public/_headers`
 
 Notes:
@@ -340,7 +340,8 @@ Notes:
 - The app no longer relies on runtime filesystem reads for dictionary content. Entries are compiled into `src/generated/entries.generated.json` during `npm run dev` and `npm run build`, which is much less sentimental and considerably more compatible with Workers.
 - `wrangler.jsonc` now pins `NEXT_PUBLIC_SITE_URL` to `https://thedevilsaidictionary.com` so canonical URLs, Open Graph metadata, and sitemap output stay on the apex domain during Workers deploys.
 - `wrangler.jsonc` publishes the Worker to the existing Cloudflare zone routes `thedevilsaidictionary.com/*` and `www.thedevilsaidictionary.com/*` instead of using Worker Custom Domains. This avoids collisions with existing DNS records in the zone.
-- `src/middleware.ts` permanently redirects the `www` hostname to the apex domain while preserving path and query string. The repo keeps the Edge middleware file because the current OpenNext Cloudflare adapter does not support the Node runtime `proxy.ts` path yet.
+- `src/proxy.ts` permanently redirects the `www` hostname to the apex domain while preserving path and query string.
+- `scripts/run-opennext-cloudflare.mjs` temporarily swaps `src/proxy.ts` into a build-only `src/middleware.ts` while `@opennextjs/cloudflare` still lacks support for Node proxy output. The tracked source stays on the current `proxy` convention.
 - This deploys to Cloudflare Workers, not Vercel. Yes, the Next.js app can live somewhere other than its birthplace. The custody dispute remains philosophical.
 
 ### Domain linking checklist

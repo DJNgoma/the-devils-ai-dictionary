@@ -9,6 +9,22 @@ import DevilsAIDictionaryCore
 
 @MainActor
 final class WatchCurrentWordModel: NSObject, ObservableObject {
+    enum ScreenshotPreset: String {
+        case home
+        case entry
+
+        private static let launchArgument = "-watch-screenshot-preset"
+
+        static func current(arguments: [String] = ProcessInfo.processInfo.arguments) -> ScreenshotPreset? {
+            guard let index = arguments.firstIndex(of: launchArgument),
+                  arguments.indices.contains(index + 1) else {
+                return nil
+            }
+
+            return ScreenshotPreset(rawValue: arguments[index + 1].lowercased())
+        }
+    }
+
     @Published private(set) var currentWord: CurrentWordRecord?
     @Published private(set) var loadError: String?
 
@@ -16,8 +32,10 @@ final class WatchCurrentWordModel: NSObject, ObservableObject {
     private let catalogStore = CatalogDiskStore()
     private var catalogSnapshot: DictionaryCatalogSnapshot?
     private lazy var sessionCoordinator = WatchCurrentWordSessionCoordinator(model: self)
+    let screenshotPreset: ScreenshotPreset?
 
     override init() {
+        screenshotPreset = ScreenshotPreset.current()
         super.init()
 
         do {
@@ -28,10 +46,12 @@ final class WatchCurrentWordModel: NSObject, ObservableObject {
         }
 
         currentWord = storage.loadCurrentWord()
-        sessionCoordinator.activate()
+        if screenshotPreset == nil {
+            sessionCoordinator.activate()
 
-        if let receivedContext = sessionCoordinator.receivedApplicationContext {
-            apply(applicationContext: receivedContext)
+            if let receivedContext = sessionCoordinator.receivedApplicationContext {
+                apply(applicationContext: receivedContext)
+            }
         }
     }
 
@@ -40,15 +60,47 @@ final class WatchCurrentWordModel: NSObject, ObservableObject {
     }
 
     var todayWord: Entry? {
-        catalogSnapshot?.catalog.dailyWord()
+        if screenshotPreset != nil {
+            return preferredScreenshotEntry(
+                candidates: ["agent", "clanker", "rag", "prompt-injection"]
+            )
+        }
+
+        return catalogSnapshot?.catalog.dailyWord()
     }
 
     var recentEntries: [Entry] {
-        catalogSnapshot?.catalog.recentEntries(limit: 6) ?? []
+        if screenshotPreset != nil {
+            return preferredScreenshotEntries(
+                candidates: ["clanker", "agentic-ai", "vibe-coding", "prompt-injection", "rag", "alignment"],
+                limit: 6,
+                excluding: [todayWord?.slug]
+            )
+        }
+
+        return catalogSnapshot?.catalog.recentEntries(limit: 6) ?? []
     }
 
     var misunderstoodEntries: [Entry] {
-        catalogSnapshot?.catalog.misunderstoodEntries(limit: 4) ?? []
+        if screenshotPreset != nil {
+            return preferredScreenshotEntries(
+                candidates: ["synthetic-data", "machine-learning", "deep-learning", "hallucination", "agent"],
+                limit: 4,
+                excluding: [todayWord?.slug] + recentEntries.map(\.slug)
+            )
+        }
+
+        return catalogSnapshot?.catalog.misunderstoodEntries(limit: 4) ?? []
+    }
+
+    var screenshotNavigationSlug: String? {
+        guard screenshotPreset == .entry else {
+            return nil
+        }
+
+        return preferredScreenshotEntry(
+            candidates: ["clanker", "agentic-ai", "agent", "prompt-injection"]
+        )?.slug
     }
 
     func entry(slug: String) -> Entry? {
@@ -56,7 +108,15 @@ final class WatchCurrentWordModel: NSObject, ObservableObject {
     }
 
     func randomEntry() -> Entry? {
-        catalogSnapshot?.catalog.randomEntry(excluding: todayWord?.slug)
+        if screenshotPreset != nil {
+            return preferredScreenshotEntries(
+                candidates: ["rag", "alignment", "hallucination", "synthetic-data", "deep-learning"],
+                limit: 1,
+                excluding: [todayWord?.slug] + recentEntries.map(\.slug) + misunderstoodEntries.map(\.slug)
+            ).first
+        }
+
+        return catalogSnapshot?.catalog.randomEntry(excluding: todayWord?.slug)
     }
 
     func isTodayWord(_ entry: Entry) -> Bool {
@@ -121,6 +181,47 @@ final class WatchCurrentWordModel: NSObject, ObservableObject {
     private func apply(record: CurrentWordRecord) {
         currentWord = record
         storage.saveCurrentWord(record)
+    }
+
+    private func preferredScreenshotEntry(candidates: [String]) -> Entry? {
+        preferredScreenshotEntries(candidates: candidates, limit: 1).first
+            ?? todayWord
+            ?? catalogSnapshot?.catalog.entries.first
+    }
+
+    private func preferredScreenshotEntries(candidates: [String], limit: Int, excluding slugs: [String?] = []) -> [Entry] {
+        guard let catalog = catalogSnapshot?.catalog else {
+            return []
+        }
+
+        let excludedSlugs = Set(slugs.compactMap { $0 })
+        var results: [Entry] = []
+        var seenSlugs = excludedSlugs
+
+        for slug in candidates {
+            guard !seenSlugs.contains(slug),
+                  let entry = catalog.entry(slug: slug) else {
+                continue
+            }
+
+            results.append(entry)
+            seenSlugs.insert(slug)
+
+            if results.count == limit {
+                return results
+            }
+        }
+
+        for entry in catalog.entries where !seenSlugs.contains(entry.slug) {
+            results.append(entry)
+            seenSlugs.insert(entry.slug)
+
+            if results.count == limit {
+                break
+            }
+        }
+
+        return results
     }
 }
 

@@ -250,6 +250,90 @@ final class DevilsAIDictionaryCoreTests: XCTestCase {
         XCTAssertEqual(decoded, bookmark)
     }
 
+    func testSlugFromDictionaryPathExtractsEntrySlugs() {
+        XCTAssertEqual(slugFromDictionaryPath("/dictionary/agent"), "agent")
+        XCTAssertEqual(slugFromDictionaryPath("/dictionary/agent/"), "agent")
+        XCTAssertNil(slugFromDictionaryPath("/search"))
+        XCTAssertNil(slugFromDictionaryPath("/dictionary/"))
+        XCTAssertNil(slugFromDictionaryPath("/dictionary/agent/extra"))
+    }
+
+    func testDictionarySlugFromLinkAcceptsAppSchemeAndWebsiteLinks() {
+        XCTAssertEqual(
+            dictionarySlugFromLink(
+                scheme: "devilsaidictionary",
+                host: "dictionary",
+                path: "/agent",
+                directSlug: "agent"
+            ),
+            "agent"
+        )
+        XCTAssertEqual(
+            dictionarySlugFromLink(
+                scheme: "https",
+                host: "thedevilsaidictionary.com",
+                path: "/dictionary/agent"
+            ),
+            "agent"
+        )
+        XCTAssertEqual(
+            dictionarySlugFromLink(
+                scheme: "https",
+                host: "www.thedevilsaidictionary.com",
+                path: "/dictionary/agent/"
+            ),
+            "agent"
+        )
+        XCTAssertNil(
+            dictionarySlugFromLink(
+                scheme: "https",
+                host: "example.com",
+                path: "/dictionary/agent"
+            )
+        )
+    }
+
+    func testPendingDictionaryNavigationWaitsForCatalogBeforeRouting() {
+        XCTAssertEqual(
+            resolvePendingDictionaryNavigation(
+                path: "/dictionary/agent",
+                hasLoadedCatalog: false,
+                hasLoadError: false
+            ),
+            .waitForCatalog
+        )
+    }
+
+    func testPendingDictionaryNavigationRoutesOnceCatalogIsResolved() {
+        XCTAssertEqual(
+            resolvePendingDictionaryNavigation(
+                path: "/dictionary/agent",
+                hasLoadedCatalog: true,
+                hasLoadError: false
+            ),
+            .routeToEntry("agent")
+        )
+        XCTAssertEqual(
+            resolvePendingDictionaryNavigation(
+                path: "/dictionary/missing-term",
+                hasLoadedCatalog: false,
+                hasLoadError: true
+            ),
+            .routeToEntry("missing-term")
+        )
+    }
+
+    func testPendingDictionaryNavigationClearsInvalidPaths() {
+        XCTAssertEqual(
+            resolvePendingDictionaryNavigation(
+                path: "/search",
+                hasLoadedCatalog: true,
+                hasLoadError: false
+            ),
+            .clearPendingPath
+        )
+    }
+
     func testCurrentWordRecordRoundTrips() throws {
         let catalog = try loadCatalog()
         let entry = try XCTUnwrap(catalog.featuredEntry())

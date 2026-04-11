@@ -96,6 +96,48 @@ final class NativeDictionaryModel: ObservableObject {
         }
     }
 
+    enum DeveloperScreenshotPreset: String, CaseIterable, Identifiable {
+        case home
+        case search
+        case categories
+        case saved
+        case entry
+
+        var id: String {
+            rawValue
+        }
+
+        var label: String {
+            switch self {
+            case .home:
+                return "Home"
+            case .search:
+                return "Search"
+            case .categories:
+                return "Categories"
+            case .saved:
+                return "Saved"
+            case .entry:
+                return "Entry"
+            }
+        }
+
+        var summary: String {
+            switch self {
+            case .home:
+                return "Front page with today's word and category shelves."
+            case .search:
+                return "Search tab with a live query and matching cards."
+            case .categories:
+                return "Editorial categories without extra chrome."
+            case .saved:
+                return "Saved-reading-place card seeded with a real entry."
+            case .entry:
+                return "Entry detail sheet for a reliable hero term."
+            }
+        }
+    }
+
     @Published var selectedTab: AppTab = .home
     @Published var macSidebarSelection: AppTab = .home
     @Published var macDetailRoute: MacDetailRoute = .section(.home)
@@ -127,8 +169,10 @@ final class NativeDictionaryModel: ObservableObject {
     @Published private(set) var liveCatalogCheckedAt: Date?
     @Published private(set) var liveCatalogError: String?
     @Published private(set) var savedToast: String?
+    @Published private(set) var developerScreenshotPreset: DeveloperScreenshotPreset?
 
     private var savedToastTask: Task<Void, Never>?
+    private var pendingDeveloperScreenshotPreset: DeveloperScreenshotPreset?
 
     private let manager: PhoneCurrentWordManager
     private let savedPlaceStore = NativeSavedPlaceStore()
@@ -139,6 +183,7 @@ final class NativeDictionaryModel: ObservableObject {
 
         savedPlace = savedPlaceStore.load()
         refreshFromManager()
+        syncDeveloperScreenshotModeFromDefaults()
         observeNativeState()
     }
 
@@ -263,7 +308,11 @@ final class NativeDictionaryModel: ObservableObject {
             return nil
         }
 
-        return Self.slug(fromDictionaryPath: href)
+        return slugFromDictionaryPath(href)
+    }
+
+    var isDeveloperScreenshotMode: Bool {
+        developerScreenshotPreset != nil
     }
 
     var shouldShowPushPrompt: Bool {
@@ -438,6 +487,10 @@ final class NativeDictionaryModel: ObservableObject {
             return
         }
 
+        routeToEntry(slug: slug)
+    }
+
+    private func routeToEntry(slug: String) {
         macDetailRoute = .entry(slug)
         activeSheet = .entry(slug)
     }
@@ -537,7 +590,7 @@ final class NativeDictionaryModel: ObservableObject {
         case "/how-to-read":
             presentGuide()
         default:
-            if let slug = Self.slug(fromDictionaryPath: savedPlace.href) {
+            if let slug = slugFromDictionaryPath(savedPlace.href) {
                 presentEntry(slug: slug)
             } else {
                 showSection(.search)
@@ -671,10 +724,54 @@ final class NativeDictionaryModel: ObservableObject {
         openSystemSettings()
     }
 
-    private func persistSavedPlace(_ record: BookmarkRecord) {
+    func syncDeveloperScreenshotModeFromDefaults() {
+        let defaults = UserDefaults.standard
+        let isDeveloperModeEnabled = NativeDeveloperModeAvailability.isEnabled(defaults: defaults)
+
+        guard isDeveloperModeEnabled,
+              let rawValue = defaults.string(forKey: NativeDeveloperModeAvailability.screenshotPresetKey),
+              let preset = DeveloperScreenshotPreset(rawValue: rawValue)
+        else {
+            developerScreenshotPreset = nil
+            pendingDeveloperScreenshotPreset = nil
+            return
+        }
+
+        if developerScreenshotPreset == preset && pendingDeveloperScreenshotPreset == nil {
+            return
+        }
+
+        developerScreenshotPreset = preset
+        pendingDeveloperScreenshotPreset = preset
+        applyPendingDeveloperScreenshotPresetIfPossible()
+    }
+
+    func applyDeveloperScreenshotPreset(_ preset: DeveloperScreenshotPreset, persistSelection: Bool = true) {
+        if persistSelection {
+            UserDefaults.standard.set(preset.rawValue, forKey: NativeDeveloperModeAvailability.screenshotPresetKey)
+        }
+
+        developerScreenshotPreset = preset
+        pendingDeveloperScreenshotPreset = preset
+        applyPendingDeveloperScreenshotPresetIfPossible()
+    }
+
+    func clearDeveloperScreenshotPreset(persistSelection: Bool = true) {
+        if persistSelection {
+            UserDefaults.standard.removeObject(forKey: NativeDeveloperModeAvailability.screenshotPresetKey)
+        }
+
+        developerScreenshotPreset = nil
+        pendingDeveloperScreenshotPreset = nil
+    }
+
+    private func persistSavedPlace(_ record: BookmarkRecord, showsToast: Bool = true) {
         savedPlaceStore.save(record)
         savedPlace = record
-        showSavedToast("Saved to your reading place.")
+
+        if showsToast {
+            showSavedToast("Saved to your reading place.")
+        }
     }
 
     private func showSavedToast(_ message: String) {
@@ -730,17 +827,25 @@ final class NativeDictionaryModel: ObservableObject {
         if let path = state["pendingNavigationPath"] as? String {
             consumePendingNavigation(path: path)
         }
+
+        applyPendingDeveloperScreenshotPresetIfPossible()
     }
 
     private func consumePendingNavigation(path: String) {
-        guard let slug = Self.slug(fromDictionaryPath: path) else {
+        switch resolvePendingDictionaryNavigation(
+            path: path,
+            hasLoadedCatalog: catalogSnapshot != nil,
+            hasLoadError: loadError != nil
+        ) {
+        case .clearPendingPath:
             manager.consumePendingNavigationPath(path)
+        case .waitForCatalog:
             return
+        case .routeToEntry(let slug):
+            showSection(.search)
+            routeToEntry(slug: slug)
+            manager.consumePendingNavigationPath(path)
         }
-
-        showSection(.search)
-        presentEntry(slug: slug)
-        manager.consumePendingNavigationPath(path)
     }
 
     private static func decodeCurrentWord(from value: Any?) -> CurrentWordRecord? {
@@ -789,18 +894,69 @@ final class NativeDictionaryModel: ObservableObject {
         }
     }
 
-    private static func slug(fromDictionaryPath path: String) -> String? {
-        let trimmed = path.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard trimmed.hasPrefix("/dictionary/") else {
-            return nil
-        }
-
-        let slug = trimmed.replacingOccurrences(of: "/dictionary/", with: "")
-        return slug.isEmpty ? nil : slug
-    }
-
     private static func timestamp() -> String {
         SharedDateFormatter.iso8601.string(from: Date())
+    }
+
+    private func applyPendingDeveloperScreenshotPresetIfPossible() {
+        guard let preset = pendingDeveloperScreenshotPreset,
+              catalogSnapshot != nil else {
+            return
+        }
+
+        stageDeveloperScreenshotState(for: preset)
+        pendingDeveloperScreenshotPreset = nil
+    }
+
+    private func stageDeveloperScreenshotState(for preset: DeveloperScreenshotPreset) {
+        dismissSavedToast()
+        actionError = nil
+        activeSheet = nil
+        searchQuery = ""
+        resetSearchFilters()
+
+        switch preset {
+        case .home:
+            showSection(.home)
+        case .search:
+            showSection(.search)
+            searchQuery = "agent"
+        case .categories:
+            showSection(.categories)
+        case .saved:
+            showSection(.saved)
+
+            if let entry = preferredDeveloperScreenshotEntry(
+                candidates: ["clanker", "agentic-ai", "agent", "prompt-injection"]
+            ) {
+                let record = BookmarkRecord(
+                    href: "/dictionary/\(entry.slug)",
+                    title: entry.title,
+                    label: "Dictionary entry",
+                    description: entry.devilDefinition.trimmingCharacters(in: .whitespacesAndNewlines),
+                    savedAt: Self.timestamp()
+                )
+                persistSavedPlace(record, showsToast: false)
+            }
+        case .entry:
+            showSection(.home)
+
+            if let entry = preferredDeveloperScreenshotEntry(
+                candidates: ["agentic-ai", "clanker", "prompt-injection", "rag"]
+            ) {
+                routeToEntry(slug: entry.slug)
+            }
+        }
+    }
+
+    private func preferredDeveloperScreenshotEntry(candidates: [String]) -> Entry? {
+        for slug in candidates {
+            if let match = entry(slug: slug) {
+                return match
+            }
+        }
+
+        return todayWord ?? recentEntries.first ?? entries.first
     }
 
     private func openSystemSettings() {

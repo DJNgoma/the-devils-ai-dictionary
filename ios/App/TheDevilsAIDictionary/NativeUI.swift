@@ -166,6 +166,17 @@ extension View {
             .autocorrectionDisabled()
         #endif
     }
+
+    @ViewBuilder
+    func nativeOverflowToolbarIfNeeded(model: NativeDictionaryModel, themeManager: ThemeManager) -> some View {
+        if model.isDeveloperScreenshotMode {
+            self
+        } else {
+            self.toolbar {
+                NativeOverflowToolbar(model: model, themeManager: themeManager)
+            }
+        }
+    }
 }
 
 enum NativeNavigationTitleDisplayMode {

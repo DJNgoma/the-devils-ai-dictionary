@@ -1,11 +1,13 @@
+import Foundation
 import SwiftUI
 
 #if canImport(DevilsAIDictionaryCore)
 import DevilsAIDictionaryCore
 #endif
 
-private enum NativeDeveloperModeAvailability {
+enum NativeDeveloperModeAvailability {
     static let storageKey = "developer-mode"
+    static let screenshotPresetKey = "developer-screenshot-preset"
 
     static var isAvailable: Bool {
         #if DEBUG
@@ -21,6 +23,22 @@ private enum NativeDeveloperModeAvailability {
 
     static func isEnabled(storedValue: Bool) -> Bool {
         isAvailable && storedValue
+    }
+
+    static func isEnabled(defaults: UserDefaults = .standard) -> Bool {
+        if let storedValue = defaults.object(forKey: storageKey) as? Bool {
+            return isEnabled(storedValue: storedValue)
+        }
+
+        if let storedString = defaults.string(forKey: storageKey) {
+            return isEnabled(storedValue: NSString(string: storedString).boolValue)
+        }
+
+        return false
+    }
+
+    static var shouldSkipSplashForScreenshots: Bool {
+        isEnabled() && UserDefaults.standard.string(forKey: screenshotPresetKey) != nil
     }
 }
 
@@ -134,7 +152,10 @@ private struct NativePhoneDictionaryRoot: View {
         .onAppear {
             if !NativeDeveloperModeAvailability.isAvailable {
                 UserDefaults.standard.set(false, forKey: NativeDeveloperModeAvailability.storageKey)
+                UserDefaults.standard.removeObject(forKey: NativeDeveloperModeAvailability.screenshotPresetKey)
             }
+
+            model.syncDeveloperScreenshotModeFromDefaults()
         }
     }
 }
@@ -392,7 +413,7 @@ private struct NativeHomeView: View {
                     .font(.system(size: 18, weight: .medium, design: .rounded))
                     .foregroundStyle(.primary)
 
-                if NativeDeveloperModeAvailability.isEnabled(storedValue: storedDeveloperMode) {
+                if NativeDeveloperModeAvailability.isEnabled(storedValue: storedDeveloperMode) && !model.isDeveloperScreenshotMode {
                     Text("This is the native Apple edition: bundled content, local search, saved reading place, deep links, notifications, and watch sync without the webview in the middle pretending to be architecture.")
                         .font(.system(size: 15, weight: .regular, design: .rounded))
                         .foregroundStyle(NativePalette.mutedText)
@@ -444,7 +465,7 @@ private struct NativeHomeView: View {
                         }
                     }
 
-                    if model.shouldShowPushPrompt {
+                    if model.shouldShowPushPrompt && !model.isDeveloperScreenshotMode {
                         Divider()
 
                         Text(model.pushStatusMessage)
@@ -522,9 +543,7 @@ private struct NativeHomeView: View {
         .refreshable {
             await model.syncCatalogNow()
         }
-        .toolbar {
-            NativeOverflowToolbar(model: model, themeManager: .shared)
-        }
+        .nativeOverflowToolbarIfNeeded(model: model, themeManager: .shared)
     }
 }
 
@@ -598,9 +617,7 @@ private struct NativeCategoriesView: View {
         }
         .navigationTitle("Categories")
         .nativeNavigationBarTitleDisplayMode(.large)
-        .toolbar {
-            NativeOverflowToolbar(model: model, themeManager: .shared)
-        }
+        .nativeOverflowToolbarIfNeeded(model: model, themeManager: .shared)
     }
 }
 
@@ -746,9 +763,7 @@ private struct NativeSearchView: View {
             text: $model.searchQuery,
             prompt: "Look up the phrase before it colonises the meeting"
         )
-        .toolbar {
-            NativeOverflowToolbar(model: model, themeManager: .shared)
-        }
+        .nativeOverflowToolbarIfNeeded(model: model, themeManager: .shared)
         .sheet(isPresented: $showFilters) {
             NavigationView {
                 NativeSearchFiltersView(model: model)
@@ -831,9 +846,7 @@ private struct NativeSavedView: View {
         }
         .navigationTitle("Saved")
         .nativeNavigationBarTitleDisplayMode(.large)
-        .toolbar {
-            NativeOverflowToolbar(model: model, themeManager: .shared)
-        }
+        .nativeOverflowToolbarIfNeeded(model: model, themeManager: .shared)
     }
 }
 
@@ -846,7 +859,16 @@ private struct NativeSettingsView: View {
     private var developerModeBinding: Binding<Bool> {
         Binding(
             get: { NativeDeveloperModeAvailability.isEnabled(storedValue: storedDeveloperMode) },
-            set: { storedDeveloperMode = NativeDeveloperModeAvailability.isAvailable && $0 }
+            set: {
+                let enabled = NativeDeveloperModeAvailability.isAvailable && $0
+                storedDeveloperMode = enabled
+
+                if enabled {
+                    model.syncDeveloperScreenshotModeFromDefaults()
+                } else {
+                    model.clearDeveloperScreenshotPreset()
+                }
+            }
         )
     }
 
@@ -893,6 +915,63 @@ private struct NativeSettingsView: View {
             }
 
             if NativeDeveloperModeAvailability.isEnabled(storedValue: storedDeveloperMode) {
+            NativeCard {
+                NativeSectionLabel(text: "ASO screenshots")
+
+                Text("Stage clean App Store capture states from developer mode. The preset suppresses the splash screen and overflow menu until you clear it.")
+                    .font(.system(size: 15, weight: .regular, design: .rounded))
+                    .foregroundStyle(NativePalette.mutedText)
+
+                if let preset = model.developerScreenshotPreset {
+                    NativeChip(label: "Current preset: \(preset.label)", tone: .accent)
+                }
+
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 144), spacing: 10)], alignment: .leading, spacing: 10) {
+                    ForEach(NativeDictionaryModel.DeveloperScreenshotPreset.allCases) { preset in
+                        Button {
+                            model.applyDeveloperScreenshotPreset(preset)
+                        } label: {
+                            VStack(alignment: .leading, spacing: 6) {
+                                Text(preset.label)
+                                    .font(.system(size: 15, weight: .semibold, design: .rounded))
+
+                                Text(preset.summary)
+                                    .font(.system(size: 13, weight: .regular, design: .rounded))
+                                    .foregroundStyle(NativePalette.mutedText)
+                                    .multilineTextAlignment(.leading)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 14)
+                            .padding(.vertical, 12)
+                            .background(
+                                model.developerScreenshotPreset == preset ? NativePalette.accentMuted : NativePalette.panelStrong,
+                                in: RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                                    .stroke(
+                                        model.developerScreenshotPreset == preset ? NativePalette.accent.opacity(0.28) : NativePalette.border,
+                                        lineWidth: 1
+                                    )
+                            )
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+
+                HStack {
+                    Button("Clear preset") {
+                        model.clearDeveloperScreenshotPreset()
+                    }
+                    .buttonStyle(NativeSecondaryButtonStyle())
+                }
+
+                NativeSettingsValueRow(
+                    label: "Launch arguments",
+                    value: "-developer-mode YES -developer-screenshot-preset search -site-theme book"
+                )
+            }
+
             NativeCard(emphasis: true) {
                 NativeSectionLabel(text: "Internal testing")
 
@@ -1051,13 +1130,12 @@ private struct NativeSettingsView: View {
         }
         .navigationTitle("Settings")
         .nativeNavigationBarTitleDisplayMode(.large)
-        .toolbar {
-            NativeOverflowToolbar(model: model, themeManager: .shared)
-        }
+        .nativeOverflowToolbarIfNeeded(model: model, themeManager: .shared)
         .task {
             if testingSlug.isEmpty {
                 testingSlug = model.suggestedTestSlug ?? ""
             }
+            model.syncDeveloperScreenshotModeFromDefaults()
             await model.checkLiveCatalogIfNeeded()
         }
     }
@@ -1534,7 +1612,7 @@ private struct NativeSavedToast: View {
     }
 }
 
-private struct NativeOverflowToolbar: ToolbarContent {
+struct NativeOverflowToolbar: ToolbarContent {
     @ObservedObject var model: NativeDictionaryModel
     @ObservedObject var themeManager: ThemeManager
 

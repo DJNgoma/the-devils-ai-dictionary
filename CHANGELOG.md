@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Added a developer-only ASO screenshot preset mode on iOS so simulator launches can stage clean `Home`, `Search`, `Categories`, `Saved`, and `Entry` capture states without shipping that harness in production behaviour.
+
+## 1.0.3
+
 ### Content and editorial
 
 - Add the `Clanker` entry to the dictionary and refresh the generated catalogue.
@@ -10,6 +14,14 @@
 
 - Park the duplicate `Featured` slot on native home surfaces so `Today's word` is the single editorial spotlight for now.
 - Document that any future paid placement must be clearly labelled `Sponsored`, with sponsorship enquiries routed to `info@africantechno.com`.
+
+### Mobile reliability
+
+- Fix native Apple deep links so a slug that is still missing after the refresh retry lands in the existing missing-entry state instead of being dropped silently.
+
+### Store listing
+
+- Start the `1.0.3` App Store pass with a tighter subtitle, less wasteful keywords, and a fresh screenshot plan aimed at real reading flows instead of theme variants of the same home screen.
 
 ## 1.0.2
 

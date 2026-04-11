@@ -10,7 +10,7 @@ struct NativeDictionaryApp: App {
     @Environment(\.scenePhase) private var scenePhase
     @StateObject private var model = NativeDictionaryModel(manager: PhoneCurrentWordManager.shared)
     #if os(iOS)
-    @State private var showSplash = true
+    @State private var showSplash = !NativeDeveloperModeAvailability.shouldSkipSplashForScreenshots
     #endif
 
     var body: some Scene {
@@ -20,6 +20,7 @@ struct NativeDictionaryApp: App {
                     .task {
                     PhoneCurrentWordManager.shared.configureForCurrentPlatform()
                     await model.handleSceneActivation()
+                    model.syncDeveloperScreenshotModeFromDefaults()
                     await model.checkLiveCatalogIfNeeded()
                 }
                 .task(id: scenePhase) {
@@ -28,6 +29,7 @@ struct NativeDictionaryApp: App {
                     }
 
                     await model.handleSceneActivation()
+                    model.syncDeveloperScreenshotModeFromDefaults()
                 }
                 .onOpenURL { url in
                     _ = PhoneCurrentWordManager.shared.handleIncomingURL(url)

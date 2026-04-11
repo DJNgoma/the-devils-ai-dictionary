@@ -490,25 +490,12 @@ final class PhoneCurrentWordManager {
     }
 
     private func navigationSlug(for url: URL) -> String? {
-        let components = url.pathComponents.filter { $0 != "/" }
-
-        if url.scheme == "devilsaidictionary" {
-            if url.host == "dictionary" {
-                return components.first
-            }
-
-            if components.first == "dictionary" {
-                return components.dropFirst().first
-            }
-        }
-
-        if let host = url.host,
-           ["thedevilsaidictionary.com", "www.thedevilsaidictionary.com"].contains(host),
-           components.first == "dictionary" {
-            return components.dropFirst().first
-        }
-
-        return nil
+        dictionarySlugFromLink(
+            scheme: url.scheme,
+            host: url.host,
+            path: url.path,
+            directSlug: url.pathComponents.filter { $0 != "/" }.first
+        )
     }
 }
 

@@ -1,6 +1,5 @@
 /**
- * www → apex redirect for Workers and Node deploys. Next 16 prefers `proxy.ts`;
- * keep this file until OpenNext Cloudflare supports that convention (see README, Cloudflare deployment).
+ * www -> apex redirect for Workers and Node deploys using the Next.js proxy convention.
  */
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
@@ -12,7 +11,7 @@ function normaliseHost(host: string | null): string {
   return host?.toLowerCase().split(":")[0] ?? "";
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const host = normaliseHost(
     request.headers.get("x-forwarded-host") ??
       request.headers.get("host") ??
