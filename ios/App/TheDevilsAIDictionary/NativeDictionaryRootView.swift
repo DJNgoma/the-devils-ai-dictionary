@@ -75,6 +75,7 @@ struct NativeDictionaryRootView: View {
                         switch sheet {
                         case .onboarding:
                             NativeOnboardingGuideView(model: model)
+                                .interactiveDismissDisabled()
                         case .about:
                             NativeAboutView(model: model)
                         case .book:
@@ -180,71 +181,93 @@ private struct NativeOnboardingGuideView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 18) {
-                NativeCard(emphasis: true) {
+            VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 10) {
                     NativeSectionLabel(text: "Welcome")
 
-                    Text("The Devil's AI Dictionary")
-                        .font(.system(size: 32, weight: .bold, design: .serif))
+                    Text("The Devil's\nAI Dictionary")
+                        .font(.system(size: 36, weight: .bold, design: .serif))
+                        .lineSpacing(2)
 
                     Text("A small guide before the jargon starts performing again.")
-                        .font(.system(size: 18, weight: .medium, design: .rounded))
-
-                    Text("Start with Today's word, read the book straight through if you prefer, and save anything worth keeping. The app can sync saved words through Apple and send one daily reminder if invited with sufficient dignity.")
-                        .font(.system(size: 15, weight: .regular, design: .rounded))
+                        .font(.system(size: 17, weight: .medium, design: .rounded))
                         .foregroundStyle(NativePalette.mutedText)
+                }
+                .padding(.top, 8)
 
-                    VStack(alignment: .leading, spacing: 12) {
-                        NativeOnboardingStep(
-                            title: "1. Start on Home",
-                            bodyText: "Today's word lives there, along with the quickest route into the book and a random detour."
-                        )
-                        NativeOnboardingStep(
-                            title: "2. Save words worth keeping",
-                            bodyText: "You can save from Today's word, any entry, or the Saved tab. Sign in with Apple if those words should survive across installs."
-                        )
-                        NativeOnboardingStep(
-                            title: "3. Invite the daily word",
-                            bodyText: "Notifications are optional, dry, and scheduled by local hour rather than whim."
-                        )
-                    }
-
-                    HStack {
-                        Button("Start reading") {
-                            model.completeOnboarding()
-                        }
-                        .buttonStyle(NativePrimaryButtonStyle())
-
-                        Button("Read the guide") {
-                            model.completeOnboarding(openGuide: true)
-                        }
-                        .buttonStyle(NativeSecondaryButtonStyle())
-                    }
+                VStack(alignment: .leading, spacing: 14) {
+                    NativeOnboardingFeatureRow(
+                        icon: "house",
+                        title: "Start on Home",
+                        detail: "Today's word lives there, along with the quickest route into the book and a random detour."
+                    )
+                    NativeOnboardingFeatureRow(
+                        icon: "bookmark",
+                        title: "Save words worth keeping",
+                        detail: "Save from any entry or the Saved tab. Sign in with Apple to sync across devices."
+                    )
+                    NativeOnboardingFeatureRow(
+                        icon: "bell",
+                        title: "Invite the daily word",
+                        detail: "Notifications are optional, dry, and scheduled by local hour rather than whim."
+                    )
                 }
             }
-            .padding(.horizontal, 20)
+            .padding(.horizontal, 24)
             .padding(.vertical, 24)
         }
+        .safeAreaInset(edge: .bottom) {
+            VStack(spacing: 10) {
+                Button("Start reading") {
+                    model.completeOnboarding()
+                }
+                .buttonStyle(NativePrimaryButtonStyle())
+                .frame(maxWidth: .infinity)
+
+                Button("Read the full guide instead") {
+                    model.completeOnboarding(openGuide: true)
+                }
+                .font(.system(size: 14, weight: .medium, design: .rounded))
+                .foregroundStyle(NativePalette.mutedText)
+            }
+            .padding(.horizontal, 24)
+            .padding(.top, 14)
+            .padding(.bottom, 8)
+            .background(
+                NativePalette.paper
+                    .shadow(color: .black.opacity(0.06), radius: 8, y: -4)
+                    .ignoresSafeArea()
+            )
+        }
         .background(NativePalette.paper.ignoresSafeArea())
-        .navigationTitle("Onboarding")
-        .nativeNavigationBarTitleDisplayMode(.inline)
+        .navigationBarHidden(true)
     }
 }
 
-private struct NativeOnboardingStep: View {
+private struct NativeOnboardingFeatureRow: View {
+    let icon: String
     let title: String
-    let bodyText: String
+    let detail: String
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(title)
-                .font(.system(size: 16, weight: .semibold, design: .rounded))
-            Text(bodyText)
-                .font(.system(size: 15, weight: .regular, design: .rounded))
-                .foregroundStyle(NativePalette.mutedText)
+        HStack(alignment: .top, spacing: 14) {
+            Image(systemName: icon)
+                .font(.system(size: 20, weight: .medium))
+                .foregroundStyle(NativePalette.accent)
+                .frame(width: 36, height: 36)
+                .background(NativePalette.accentMuted.opacity(0.25), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.system(size: 16, weight: .semibold, design: .rounded))
+                Text(detail)
+                    .font(.system(size: 15, weight: .regular, design: .rounded))
+                    .foregroundStyle(NativePalette.mutedText)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(14)
+        .padding(16)
         .background(NativePalette.panel, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
         .overlay(
             RoundedRectangle(cornerRadius: 18, style: .continuous)
