@@ -2,8 +2,9 @@ name: Daily push dispatch
 
 on:
   schedule:
-    # 08:00 Africa/Johannesburg (SAST = UTC+2) → 06:00 UTC
-    - cron: "0 6 * * *"
+    # Run every 15 minutes on offset minutes so per-device local-hour sends are
+    # picked up without depending on an exact top-of-hour GitHub scheduler start.
+    - cron: "2,17,32,47 * * * *"
   workflow_dispatch:
 
 permissions:

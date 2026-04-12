@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import generatedData from "@/generated/entries.generated.json";
-import type { Entry } from "@/lib/content";
+import { getTodayWord } from "@/lib/content";
 import {
   getMobilePushEnv,
   requirePushInstallationsDatabase,
@@ -26,38 +25,6 @@ import {
 
 export const dynamic = "force-dynamic";
 
-const entries = (generatedData.entries as Entry[]).slice().sort((a, b) =>
-  a.slug.localeCompare(b.slug),
-);
-
-const EDITORIAL_TIMEZONE = "Africa/Johannesburg";
-
-function editorialDateKey(now: Date): string {
-  const formatter = new Intl.DateTimeFormat("en-CA", {
-    timeZone: EDITORIAL_TIMEZONE,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
-  return formatter.format(now);
-}
-
-function hashString(value: string): number {
-  let hash = 2166136261;
-  for (let i = 0; i < value.length; i += 1) {
-    hash ^= value.charCodeAt(i);
-    hash = Math.imul(hash, 16777619);
-  }
-  return hash >>> 0;
-}
-
-function pickEntryForDate(now: Date): Entry | undefined {
-  if (entries.length === 0) return undefined;
-  const key = editorialDateKey(now);
-  const index = hashString(key) % entries.length;
-  return entries[index];
-}
-
 function isAuthorized(request: Request, secret: string | undefined): boolean {
   if (!secret) return false;
   const header = request.headers.get("authorization");
@@ -68,7 +35,7 @@ async function runDailySend() {
   const env = await getMobilePushEnv();
   const database = requirePushInstallationsDatabase(env);
   const now = new Date();
-  const entry = pickEntryForDate(now);
+  const entry = await getTodayWord(now);
 
   if (!entry) {
     return NextResponse.json(
