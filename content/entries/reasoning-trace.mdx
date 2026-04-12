@@ -1,0 +1,59 @@
+---
+title: "Reasoning Trace"
+slug: "reasoning-trace"
+letter: "R"
+categories:
+  - "Model usage"
+  - "Safety and evaluation"
+  - "Product and vendor terms"
+aliases:
+  - "deliberation trace"
+  - "visible reasoning"
+  - "internal reasoning steps"
+devilDefinition: |
+  The part of the model's inner monologue vendors alternately market as proof of thought and hide as a trade secret.
+plainDefinition: |
+  A reasoning trace is the sequence of intermediate deliberative steps a model produces while solving a task, whether shown directly, summarised for the user, or kept internal by the provider.
+whyExists: |
+  It exists because some reasoning-oriented systems allocate extra compute to intermediate steps before producing a final answer, and those steps can improve performance on harder tasks.
+misuse: |
+  The term is abused whenever a long answer is treated as evidence of deep reasoning, or when a visible summary is mistaken for the full internal process. What you see may be curated explanation rather than raw cognition.
+practicalMeaning: |
+  In practice it usually means more latency, more tokens, higher cost, better performance on some tasks, and a new set of arguments about transparency, gaming, privacy, and whether exposing traces helps users or merely helps them feel impressed.
+example: |
+  "The product demo featured a reasoning trace, which was excellent theatre and only partial evidence."
+askNext:
+  - "Are users seeing the raw intermediate steps, a provider summary, or nothing at all?"
+  - "Does the extra reasoning budget improve outcomes on this task enough to justify the cost?"
+  - "Could exposing the trace create privacy, security, or prompt-gaming problems?"
+related:
+  - "reasoning-model"
+  - "reasoning-tokens"
+  - "test-time-compute"
+  - "llm-as-a-judge"
+seeAlso:
+  - "Chain of thought"
+  - "Deliberation tokens"
+  - "Visible reasoning"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-04-12"
+updatedAt: "2026-04-12"
+tags:
+  - "reasoning"
+  - "transparency"
+  - "latency"
+  - "cost"
+misunderstoodScore: 5
+translations:
+  - label: "product meaning"
+    text: "Evidence that the model did more than instantly guess."
+  - label: "what it usually means in reality"
+    text: "A partly visible deliberation process whose usefulness depends on what is shown, hidden, and priced."
+note: |
+  Providers differ sharply in how much of a reasoning trace they reveal. Some expose summaries, some expose raw steps, and some expose only the bill.
+---
+
+The trace often tells you something. It just does not always tell you the thing the demo implies.

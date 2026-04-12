@@ -1,0 +1,57 @@
+---
+title: "Eval Harness"
+slug: "eval-harness"
+letter: "E"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+  - "Model usage"
+aliases:
+  - "evaluation harness"
+  - "eval runner"
+  - "benchmark harness"
+devilDefinition: |
+  The machinery teams build once they realise strong opinions about model quality are not, in fact, a release process.
+plainDefinition: |
+  An eval harness is the framework or runner used to execute repeatable evaluations against models, prompts, tools, or agent workflows and collect comparable results.
+whyExists: |
+  It exists because manual spot checks do not scale, model behaviour drifts, prompts regress quietly, and agent systems fail in more ways than a demo can comfortably admit.
+misuse: |
+  The harness gets mistaken for truth when it only reflects the cases you bothered to encode. A tidy dashboard is still compatible with spectacular blind spots.
+practicalMeaning: |
+  In practice it usually means versioned datasets, scorers, task traces, cost accounting, regression thresholds, and a growing pile of awkward examples nobody wants to drop because they keep catching something embarrassing.
+example: |
+  "The eval harness did not make the agent good. It merely prevented the team from declaring victory after each plausible-looking run."
+askNext:
+  - "Which real failures are represented in the suite, and which remain folklore?"
+  - "What metrics are being scored automatically, and what still needs human judgement?"
+  - "Does the harness catch regressions before release, or just document them after the fact?"
+related:
+  - "evals"
+  - "eval-driven-development"
+  - "swe-bench"
+  - "model-router"
+seeAlso:
+  - "Regression suite"
+  - "Offline evaluation"
+  - "Scoring pipeline"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-12"
+updatedAt: "2026-04-12"
+tags:
+  - "evaluation"
+  - "testing"
+  - "agents"
+  - "tooling"
+misunderstoodScore: 4
+translations:
+  - label: "engineering meaning"
+    text: "The repeatable test rig standing between a model change and an avoidable incident."
+  - label: "what it usually means in reality"
+    text: "A structured way to replay known cases often enough that quality becomes an argument with evidence."
+---
+
+Every mature stack eventually invents a harness. AI teams simply get there after calling the same failure "surprising" three times.

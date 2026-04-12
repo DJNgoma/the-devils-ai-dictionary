@@ -1,0 +1,60 @@
+---
+title: "Jailbreak"
+slug: "jailbreak"
+letter: "J"
+categories:
+  - "Safety and evaluation"
+  - "Model usage"
+  - "Cultural terms"
+aliases:
+  - "prompt jailbreak"
+  - "model jailbreak"
+  - "guardrail bypass"
+devilDefinition: |
+  The art of persuading a safety system that the rules were meant for someone else.
+plainDefinition: |
+  A jailbreak is a prompt or interaction pattern intended to bypass a model's safety rules, system instructions, or refusal policies and elicit behaviour it is supposed to restrict.
+whyExists: |
+  It exists because instruction-following systems are probabilistic, layered defences are imperfect, and many users are curious, mischievous, adversarial, or simply unwilling to accept "no" from a machine.
+misuse: |
+  The term gets stretched to cover any successful prompt tweak. More precisely, a jailbreak is about overriding the intended boundary, not merely asking the question more clearly.
+practicalMeaning: |
+  In practice it means red-team exercises, defence updates, moderation tuning, prompt hardening, and a permanent reminder that a polite interface does not imply a secure one, especially once tools and external systems are attached.
+example: |
+  "The jailbreak was funny right up to the moment someone remembered the model also had access to tools."
+askNext:
+  - "What boundary was bypassed: policy, system prompt, tool permission, or all three?"
+  - "Was this a curiosity, a reproducible exploit, or a path to real-world harm?"
+  - "How quickly can the defence be patched without breaking ordinary use?"
+related:
+  - "guardrails"
+  - "prompt-injection"
+  - "red-teaming"
+  - "system-prompt"
+seeAlso:
+  - "Policy bypass"
+  - "Adversarial prompting"
+  - "Safety boundary"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-12"
+updatedAt: "2026-04-12"
+warningLabel: "Harmless in theory becomes expensive once the model can act."
+tags:
+  - "safety"
+  - "security"
+  - "prompts"
+  - "policy"
+misunderstoodScore: 4
+translations:
+  - label: "security meaning"
+    text: "A test of whether the model's stated boundaries survive contact with a determined user."
+  - label: "what it usually means in reality"
+    text: "Someone found a conversational way around safeguards that were always less absolute than the marketing implied."
+note: |
+  Not every refusal workaround is a serious security event. The risk changes sharply when the model can call tools, access data, or operate in regulated workflows.
+---
+
+The most interesting part is rarely the clever prompt. It is the quiet assumption that the model should have been tougher in the first place.
