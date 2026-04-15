@@ -3,5 +3,5 @@
   "keywords": "artificial intelligence,machine learning,llm,gpt,agents,chatgpt,genai,automation,buzzwords",
   "marketingUrl": "https://thedevilsaidictionary.com",
   "supportUrl": "https://github.com/DJNgoma/the-devils-ai-dictionary/issues",
-  "whatsNew": "Version 1.0.5 is a small polish release focused on installed surfaces.\n\nThe app now appears as Devil's AI on iPhone, Apple Watch, visionOS, macOS, and Android so the name fits cleanly on device labels instead of being cut off.\n\nThe dictionary itself is unchanged; this pass is about making the app feel tidier once it is installed."
+  "whatsNew": "Version 1.0.5 adds optional Sign in with Apple saved-word sync on iPhone, clearer sync status, and delivery-hour controls for the daily reminder.\n\nFresh installs now open with a shorter onboarding guide, while Appearance gains an Auto mode that uses Book in light mode and Night in dark mode until you choose a manual theme, including the new Devil theme.\n\nThis release also tidies settings and review prompting so the app feels calmer and more deliberate once installed."
 }

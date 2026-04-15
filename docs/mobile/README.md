@@ -26,7 +26,7 @@ Legacy static-export verification for the root app remains available with `npm r
 
 ## Runbooks
 
-- [Current beta notes and TestFlight draft](./current-beta-notes.md)
+- [Current beta notes and TestFlight note](./current-beta-notes.md)
 - [Android native delivery](./android-native.md)
 - [Google Play testing](./google-play-testing.md)
 - [Store listing copy](./store-listing-copy.md)

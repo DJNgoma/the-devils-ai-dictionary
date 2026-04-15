@@ -2,9 +2,35 @@
 
 ## Unreleased
 
-- Added a developer-only ASO screenshot preset mode on iOS so simulator launches can stage clean `Home`, `Search`, `Categories`, `Saved`, and `Entry` capture states without shipping that harness in production behaviour.
-- Shortened the installed app label to `Devil's AI` across Apple and Android targets so the name fits cleanly on device surfaces instead of truncating.
-- Added an explicit `esbuild` tool dependency and refreshed the release plumbing so `npm ci` succeeds again under the npm 10 runner used by GitHub Actions.
+## 1.0.5
+
+### Saved words, sync, and settings
+
+- Saved words now behave like a real collection instead of a single reading-place slot, with Sign in with Apple sync on iPhone and clearer queued, syncing, error, and last-synced feedback.
+- Notification settings now expose a real daily-reminder toggle plus per-device delivery-hour control, while native settings add a manual review action and gate the automatic prompt behind actual use.
+
+### Appearance and onboarding
+
+- Appearance now supports Auto mode, which resolves to Book in light mode and Night in dark mode until a manual theme is chosen, and Devil joins the manual theme line-up with clearer swatch contrast.
+- First-run onboarding on iPhone was rewritten into a shorter intro with a pinned primary CTA and a cleaner hand-off into the in-app guide.
+
+### Web, release surfaces, and tooling
+
+- Added a dedicated `/settings` page, browser push controls, Sign in with Apple auth routes, saved-word sync routes, and the supporting D1 migrations for the web side of the same release line.
+- Shortened the installed app label to `Devil's AI` across Apple and Android so it fits cleanly on device surfaces.
+- Added developer-only screenshot presets for stable Apple capture states and restored the missing `esbuild` dependency so `npm ci` and the GitHub Actions release path stay in sync.
+
+## 1.0.4
+
+### Search and cross-references
+
+- Starting a search now clears an active letter filter, and the new Clear Filters action resets the directory in one clean step.
+- See Also resolution is more dependable, so linked terms such as DGX now land in the right entry instead of disappearing into a broken trail.
+
+### Catalogue and store assets
+
+- Added `DGX` and `GPU` as proper entries and regenerated the bundled catalogue.
+- Finished the `1.0.4` App Store screenshot workspace and revised the store subtitle around real reading flows instead of theme variations.
 
 ## 1.0.3
 

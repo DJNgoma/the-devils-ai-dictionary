@@ -93,7 +93,7 @@ Use `npm run ios:destinations` to confirm the current iPad simulator name and to
 
 Use [`docs/mobile/checklists.md`](./mobile/checklists.md) for the shared device QA matrix. This file stays focused on the Apple build, archive, and upload path.
 Use [`docs/mobile/apple-ship-checklist.md`](./mobile/apple-ship-checklist.md) when you need a one-page Apple ship / no-ship gate for TestFlight.
-Use [`docs/mobile/current-beta-notes.md`](./mobile/current-beta-notes.md) for the cumulative change log, the current draft "What to Test" copy, and the Apple-specific feature checks for this prerelease line.
+Use [`docs/mobile/current-beta-notes.md`](./mobile/current-beta-notes.md) for the cumulative change log, the current "What to Test" copy, and the Apple-specific feature checks for this prerelease line.
 
 ## Current TestFlight Focus
 

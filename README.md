@@ -118,8 +118,8 @@ The repo ships a native SwiftUI iPhone app in `ios/` and a native Kotlin/Compose
 
 | Platform | Build | What changed |
 |----------|-------|--------------|
-| iOS (TestFlight) | 21 (v1.0.5) | Sign in with Apple saved-word sync on iPhone, clearer sync state and last-synced feedback, delivery-hour notification settings, Devil theme, review gating, save-from-Today's-Word |
-| Android (Play internal) | 21 (v1.0.5) | Delivery-hour notification settings, Devil theme, review gating, save-from-Today's-Word, native settings polish |
+| iOS (TestFlight) | 21 (v1.0.5) | Sign in with Apple saved-word sync, a shorter first-run onboarding sheet, Auto appearance, delivery-hour reminders, Devil theme, and calmer review prompting |
+| Android (Play internal) | 21 (v1.0.5) | Delivery-hour reminders, Auto appearance, Devil theme, review gating, save-from-Today's-Word, and native settings polish |
 
 ### Recent mobile changes
 
@@ -128,6 +128,7 @@ The repo ships a native SwiftUI iPhone app in `ios/` and a native Kotlin/Compose
 - Home pulls to refresh on both platforms; menu and buttons unified across the app
 - Daily push fan-out shared across iOS and Android, with iOS no longer dropping pushes for transient offline devices
 - Notification settings on native apps now let you choose the local delivery hour for the daily word
+- First-run onboarding on iPhone is shorter, the primary CTA stays pinned, and Auto appearance now picks Book in light mode and Night in dark mode until you choose a manual theme
 - Native settings now include a manual store-review action, while the automatic review prompt waits for repeated use instead of pouncing on launch
 - Android reached push parity with iOS and gained the Home prompt it was missing
 - Server routes rescued from their underscored exile
@@ -142,7 +143,7 @@ The repo ships a native SwiftUI iPhone app in `ios/` and a native Kotlin/Compose
 
 ### Mobile documentation
 
-- Current beta change log and TestFlight "What to Test" draft: [docs/mobile/current-beta-notes.md](docs/mobile/current-beta-notes.md)
+- Current beta change log and TestFlight "What to Test" note: [docs/mobile/current-beta-notes.md](docs/mobile/current-beta-notes.md)
 - iOS distribution notes: [docs/ios-testflight.md](docs/ios-testflight.md)
 - Android native setup, release, and Play testing notes: [docs/mobile/android-native.md](docs/mobile/android-native.md)
 - Track-by-track Google Play testing runbook: [docs/mobile/google-play-testing.md](docs/mobile/google-play-testing.md)

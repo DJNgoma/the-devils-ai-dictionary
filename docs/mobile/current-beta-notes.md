@@ -1,12 +1,13 @@
 # Current beta notes
 
 This file is the running inventory for the current prerelease line between the
-live App Store build (`1.0.2`) and the next Apple beta upload from this repo
-state (`1.0.5`, build `21`).
+live App Store build (`1.0.2`) and the current distributed Apple beta from
+this repo state (`1.0.5`, build `21`).
 
 Use it for three things:
 
-- drafting TestFlight "What to Test" notes
+- keeping the current TestFlight "What to Test" note aligned with the build
+  already in beta testing
 - reminding yourself what actually changed before cutting a build
 - keeping the Apple beta checklist tied to the product that exists, not the one
   we vaguely remember
@@ -64,17 +65,25 @@ Use it for three things:
 
 ### Onboarding and guidance
 
-- A new first-run onboarding sheet on iPhone now points people to Home, saved
-  words, Sign in with Apple sync, and the daily reminder instead of expecting
-  them to infer the app's shape from the furniture.
-- The onboarding flow can hand people directly into the existing guide if they
-  want the longer editorial version before wandering off.
+- The first-run onboarding sheet on iPhone now opens with a shorter intro,
+  icon-led feature rows, and a pinned primary CTA instead of asking people to
+  scroll through a welcome speech before they can move.
+- The onboarding flow can still hand people directly into the existing guide if
+  they want the longer editorial version before wandering off.
 
 ### Reviews and store-facing polish
 
 - Native settings now include a manual review action.
 - Automatic review prompts are now gated behind actual reading activity and a
   cooldown instead of appearing on launch like a desperate waiter.
+
+### Release surfaces and capture tooling
+
+- The installed app name is now shortened to Devil's AI across iPhone, Apple
+  Watch, visionOS, macOS, and Android so device labels stop truncating it.
+- The Apple screenshot workspace now has deterministic Home, Search,
+  Categories, Saved, and Entry presets for cleaner capture passes without
+  exposing that harness in ordinary app behaviour.
 
 ### Web and backend groundwork
 
@@ -107,19 +116,25 @@ deliberate suspicion:
 - The review action is present in Settings, while no automatic review prompt
   appears on cold launch before the usage gate has been earned.
 - Settings copy reads in the same dry register as the rest of the product.
-- Fresh installs should show the onboarding sheet once, dismiss cleanly, and
-  allow the guide button to hand off into the fuller reading guide.
+- Fresh installs should show the onboarding sheet once, keep the primary CTA
+  visible, dismiss cleanly, and allow the guide button to hand off into the
+  fuller reading guide.
 
-## Draft "What to Test" note
+## Current "What to Test" note
 
-If you want a short App Store Connect beta note later, this is the current
-draft:
+The current `en-US` App Store Connect note for build `21` is:
 
-> Saved words can now sync through Sign in with Apple on iPhone and web. Try
-> saving from Today's Word or any entry, then confirm the sync state and last
-> synced time in Settings. Appearance now has an Auto mode that uses Book in
-> light mode and Night in dark mode, manual mode still exposes the full theme
-> line-up, and fresh installs now open with a short onboarding guide.
+```text
+Please focus on the current iPhone beta behavior in this build:
+
+- Fresh install should open the onboarding sheet once, dismiss cleanly, and let "Read the guide" hand off into the fuller in-app guide.
+- Sign in with Apple should succeed, remove the sign-in prompt, and keep saved words synced after relaunch.
+- Saving from Today's Word, any entry, and the Saved tab should all feed the same saved-word collection.
+- The sync panel should show believable queued, syncing, error, and last-synced states instead of requiring faith.
+- Notifications should allow opt-in, opt-out, and local delivery-hour changes without losing the saved preference after relaunch.
+- Appearance should support Auto mode with Book in light mode and Night in dark mode; turning Auto off should expose the full manual theme list, including Devil.
+- Settings copy should still sound like the book rather than an appliance manual.
+```
 
 ## Release-prep notes
 

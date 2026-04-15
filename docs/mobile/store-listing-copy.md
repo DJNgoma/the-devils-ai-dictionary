@@ -70,7 +70,7 @@ Inside the app you can:
 - browse the dictionary by letter and category
 - search across terms, aliases, and definitions
 - read a daily word or jump to a random entry
-- save entries and keep your place on device
+- save entries on device and optionally sync saved words with Sign in with Apple
 - keep reading from a bundled on-device catalogue
 - share canonical web links for individual entries
 
@@ -80,7 +80,15 @@ The app does not require an account, a subscription, or a payment method to read
 
 ### TestFlight What to Test
 
-This build validates the native reading flow on iPhone and the watch companion path. Please focus on launch stability, browsing, search, saved entries, daily-word state, deep links, and whether the app keeps its place cleanly across relaunches. If you are testing with a paired watch, also check that the current word stays in sync after the phone refreshes its catalogue.
+Please focus on the current iPhone beta behavior in this build:
+
+- Fresh install should open the onboarding sheet once, dismiss cleanly, and let "Read the guide" hand off into the fuller in-app guide.
+- Sign in with Apple should succeed, remove the sign-in prompt, and keep saved words synced after relaunch.
+- Saving from Today's Word, any entry, and the Saved tab should all feed the same saved-word collection.
+- The sync panel should show believable queued, syncing, error, and last-synced states instead of requiring faith.
+- Notifications should allow opt-in, opt-out, and local delivery-hour changes without losing the saved preference after relaunch.
+- Appearance should support Auto mode with Book in light mode and Night in dark mode; turning Auto off should expose the full manual theme list, including Devil.
+- Settings copy should still sound like the book rather than an appliance manual.
 
 ## Still manual
 
