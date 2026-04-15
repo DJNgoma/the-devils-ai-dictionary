@@ -13,17 +13,45 @@ import {
   sendCurrentWordFcm,
 } from "@/lib/server/fcm";
 import {
+  claimPushInstallationDelivery,
   listTargetInstallations,
   markPushInstallationInvalid,
   markPushInstallationSuccess,
 } from "@/lib/server/push-installations";
-import { isPushInstallationDueNow } from "@/lib/server/push-delivery-schedule";
+import {
+  getPushInstallationDeliveryDateKey,
+  isPushInstallationDueNow,
+} from "@/lib/server/push-delivery-schedule";
 import {
   isTerminalWebPushFailure,
   sendCurrentWordWebPush,
 } from "@/lib/server/web-push";
 
 export const dynamic = "force-dynamic";
+const pushSendConcurrency = 8;
+
+async function mapWithConcurrencyLimit<T, TResult>(
+  items: T[],
+  limit: number,
+  mapper: (item: T) => Promise<TResult>,
+) {
+  const results = new Array<TResult>(items.length);
+  let nextIndex = 0;
+
+  async function worker() {
+    while (nextIndex < items.length) {
+      const currentIndex = nextIndex;
+      nextIndex += 1;
+      results[currentIndex] = await mapper(items[currentIndex]!);
+    }
+  }
+
+  await Promise.all(
+    Array.from({ length: Math.min(limit, items.length) }, () => worker()),
+  );
+
+  return results;
+}
 
 function isAuthorized(request: Request, secret: string | undefined): boolean {
   if (!secret) return false;
@@ -60,8 +88,30 @@ async function runDailySend() {
     isPushInstallationDueNow(installation, now),
   );
 
-  const results = await Promise.all(
-    installations.map(async (installation) => {
+  const results = await mapWithConcurrencyLimit(
+    installations,
+    pushSendConcurrency,
+    async (installation) => {
+      const deliveryDateKey = getPushInstallationDeliveryDateKey(
+        installation,
+        now,
+      );
+      const claimed = await claimPushInstallationDelivery(
+        database,
+        installation.token,
+        deliveryDateKey,
+      );
+
+      if (!claimed) {
+        return {
+          ok: false,
+          skipped: true,
+          status: 409,
+          reason: "Delivery already claimed or completed for this local day.",
+          token: installation.token,
+        };
+      }
+
       if (installation.platform === "ios") {
         if (!apnsConfigured) {
           return {
@@ -83,7 +133,11 @@ async function runDailySend() {
           token: installation.token,
         });
         if (result.ok) {
-          await markPushInstallationSuccess(database, installation.token);
+          await markPushInstallationSuccess(
+            database,
+            installation.token,
+            deliveryDateKey,
+          );
         } else if (isTerminalApnsFailure(result)) {
           await markPushInstallationInvalid(database, installation.token);
         }
@@ -108,7 +162,11 @@ async function runDailySend() {
           token: installation.token,
         });
         if (result.ok) {
-          await markPushInstallationSuccess(database, installation.token);
+          await markPushInstallationSuccess(
+            database,
+            installation.token,
+            deliveryDateKey,
+          );
         } else if (isTerminalFcmFailure(result)) {
           await markPushInstallationInvalid(database, installation.token);
         }
@@ -134,7 +192,11 @@ async function runDailySend() {
           token: installation.token,
         });
         if (result.ok) {
-          await markPushInstallationSuccess(database, installation.token);
+          await markPushInstallationSuccess(
+            database,
+            installation.token,
+            deliveryDateKey,
+          );
         } else if (isTerminalWebPushFailure(result)) {
           await markPushInstallationInvalid(database, installation.token);
         }
@@ -147,20 +209,24 @@ async function runDailySend() {
         reason: `Unknown platform "${installation.platform}".`,
         token: installation.token,
       };
-    }),
+    },
   );
 
   const sent = results.filter((r) => r.ok).length;
-  const failed = results.length - sent;
+  const skippedAlreadyClaimed = results.filter(
+    (r) => !r.ok && "skipped" in r && r.skipped,
+  ).length;
+  const failed = results.length - sent - skippedAlreadyClaimed;
 
   return NextResponse.json({
-    ok: sent > 0 || installations.length === 0,
+    ok: failed === 0,
     entry: { slug: entry.slug, title: entry.title },
     counts: {
       authorized: authorizedInstallations.length,
       due: installations.length,
       sent,
       failed,
+      skippedAlreadyClaimed,
     },
     results,
   });

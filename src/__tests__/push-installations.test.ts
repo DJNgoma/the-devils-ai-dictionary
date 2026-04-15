@@ -4,6 +4,7 @@ import type {
   D1PreparedStatementLike,
 } from "@/lib/server/cloudflare-context";
 import {
+  claimPushInstallationDelivery,
   listTargetInstallations,
   markPushInstallationInvalid,
   markPushInstallationSuccess,
@@ -82,11 +83,15 @@ describe("push installation persistence", () => {
   it("marks successful sends without changing the installation status", async () => {
     const { database, statements } = createDatabaseMock();
 
-    await markPushInstallationSuccess(database, "token-2");
+    await markPushInstallationSuccess(database, "token-2", "2026-04-15");
 
     expect(statements[0]?.query).toContain("last_success_at = datetime('now')");
+    expect(statements[0]?.query).toContain("last_success_date_key = ?");
     expect(statements[0]?.query).not.toContain("opt_in_status");
-    expect(statements[0]?.statement.bind).toHaveBeenCalledWith("token-2");
+    expect(statements[0]?.statement.bind).toHaveBeenCalledWith(
+      "2026-04-15",
+      "token-2",
+    );
     expect(statements[0]?.statement.run).toHaveBeenCalledTimes(1);
   });
 
@@ -98,6 +103,33 @@ describe("push installation persistence", () => {
     expect(statements[0]?.query).toContain("opt_in_status = 'invalid'");
     expect(statements[0]?.statement.bind).toHaveBeenCalledWith("token-3");
     expect(statements[0]?.statement.run).toHaveBeenCalledTimes(1);
+  });
+
+  it("claims a delivery once per local day", async () => {
+    const { database, statements } = createDatabaseMock();
+    statements.length = 0;
+    database.prepare.mockImplementation((query: string) => {
+      const statement = createPreparedStatementMock();
+      statement.run.mockResolvedValue({ meta: { changes: 1 } });
+      statements.push({ query, statement });
+      return statement;
+    });
+
+    const claimed = await claimPushInstallationDelivery(
+      database,
+      "token-claim",
+      "2026-04-15",
+    );
+
+    expect(claimed).toBe(true);
+    expect(statements[0]?.query).toContain("delivery_claim_date_key = ?");
+    expect(statements[0]?.query).toContain("last_success_date_key != ?");
+    expect(statements[0]?.statement.bind).toHaveBeenCalledWith(
+      "2026-04-15",
+      "token-claim",
+      "2026-04-15",
+      "2026-04-15",
+    );
   });
 
   it("only selects authorized installations regardless of platform", async () => {
@@ -114,6 +146,9 @@ describe("push installation persistence", () => {
         timeZone: "Africa/Johannesburg",
         updatedAt: "2026-03-31T10:00:00.000Z",
         lastSuccessAt: null,
+        lastSuccessDateKey: null,
+        deliveryClaimDateKey: null,
+        deliveryClaimedAt: null,
       },
     ];
 
@@ -144,6 +179,9 @@ describe("push installation persistence", () => {
       timeZone: "Europe/London",
       updatedAt: "2026-03-31T11:00:00.000Z",
       lastSuccessAt: "2026-03-31T11:05:00.000Z",
+      lastSuccessDateKey: "2026-03-31",
+      deliveryClaimDateKey: null,
+      deliveryClaimedAt: null,
     };
 
     database.prepare.mockImplementation((query: string) => {

@@ -20,11 +20,13 @@ const webPushMocks = vi.hoisted(() => ({
   sendCurrentWordWebPush: vi.fn(),
 }));
 const pushInstallationMocks = vi.hoisted(() => ({
+  claimPushInstallationDelivery: vi.fn(),
   listTargetInstallations: vi.fn(),
   markPushInstallationInvalid: vi.fn(),
   markPushInstallationSuccess: vi.fn(),
 }));
 const scheduleMocks = vi.hoisted(() => ({
+  getPushInstallationDeliveryDateKey: vi.fn(),
   isPushInstallationDueNow: vi.fn(),
 }));
 
@@ -61,12 +63,15 @@ vi.mock("@/lib/server/web-push", () => ({
 }));
 
 vi.mock("@/lib/server/push-installations", () => ({
+  claimPushInstallationDelivery: pushInstallationMocks.claimPushInstallationDelivery,
   listTargetInstallations: pushInstallationMocks.listTargetInstallations,
   markPushInstallationInvalid: pushInstallationMocks.markPushInstallationInvalid,
   markPushInstallationSuccess: pushInstallationMocks.markPushInstallationSuccess,
 }));
 
 vi.mock("@/lib/server/push-delivery-schedule", () => ({
+  getPushInstallationDeliveryDateKey:
+    scheduleMocks.getPushInstallationDeliveryDateKey,
   isPushInstallationDueNow: scheduleMocks.isPushInstallationDueNow,
 }));
 
@@ -95,12 +100,15 @@ const installation = {
   appVersion: "1.2.3",
   environment: "production" as const,
   lastSuccessAt: null,
+  lastSuccessDateKey: null,
   locale: "en-ZA",
   optInStatus: "authorized" as const,
   platform: "ios" as const,
   preferredDeliveryHour: 9,
   timeZone: "Africa/Johannesburg",
   token: "device-token",
+  deliveryClaimDateKey: null,
+  deliveryClaimedAt: null,
   updatedAt: "2026-04-12T06:00:00.000Z",
 };
 
@@ -123,6 +131,10 @@ describe("POST /api/mobile/push/daily-send", () => {
     pushInstallationMocks.listTargetInstallations.mockResolvedValue([
       installation,
     ]);
+    pushInstallationMocks.claimPushInstallationDelivery.mockResolvedValue(true);
+    scheduleMocks.getPushInstallationDeliveryDateKey.mockReturnValue(
+      "2026-04-12",
+    );
     scheduleMocks.isPushInstallationDueNow.mockReturnValue(true);
     apnsMocks.isTerminalApnsFailure.mockReturnValue(false);
     fcmMocks.isTerminalFcmFailure.mockReturnValue(false);
@@ -173,9 +185,15 @@ describe("POST /api/mobile/push/daily-send", () => {
         token: installation.token,
       }),
     );
+    expect(pushInstallationMocks.claimPushInstallationDelivery).toHaveBeenCalledWith(
+      database,
+      installation.token,
+      "2026-04-12",
+    );
     expect(pushInstallationMocks.markPushInstallationSuccess).toHaveBeenCalledWith(
       database,
       installation.token,
+      "2026-04-12",
     );
     await expect(response.json()).resolves.toMatchObject({
       entry: {
@@ -205,6 +223,33 @@ describe("POST /api/mobile/push/daily-send", () => {
         title: todayWord.title,
       },
       ok: true,
+    });
+  });
+
+  it("skips installations already claimed by another overlapping run", async () => {
+    pushInstallationMocks.claimPushInstallationDelivery.mockResolvedValue(false);
+
+    const response = await POST(createAuthorizedRequest());
+
+    expect(apnsMocks.sendCurrentWordPush).not.toHaveBeenCalled();
+    await expect(response.json()).resolves.toMatchObject({
+      counts: {
+        authorized: 1,
+        due: 1,
+        failed: 0,
+        sent: 0,
+        skippedAlreadyClaimed: 1,
+      },
+      ok: true,
+      results: [
+        {
+          ok: false,
+          reason: "Delivery already claimed or completed for this local day.",
+          skipped: true,
+          status: 409,
+          token: installation.token,
+        },
+      ],
     });
   });
 });

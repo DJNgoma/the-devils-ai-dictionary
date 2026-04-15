@@ -29,7 +29,12 @@ export type PushInstallationStatus = (typeof pushInstallationStatuses)[number];
 export type D1PreparedStatementLike = {
   bind: (...values: unknown[]) => D1PreparedStatementLike;
   first: <T = Record<string, unknown>>() => Promise<T | null>;
-  run: () => Promise<unknown>;
+  run: () => Promise<{
+    changes?: number;
+    meta?: {
+      changes?: number;
+    };
+  }>;
   all: <T = Record<string, unknown>>() => Promise<{ results: T[] }>;
 };
 

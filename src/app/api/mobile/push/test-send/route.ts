@@ -19,6 +19,7 @@ import {
   markPushInstallationInvalid,
   markPushInstallationSuccess,
 } from "@/lib/server/push-installations";
+import { getPushInstallationDeliveryDateKey } from "@/lib/server/push-delivery-schedule";
 import {
   isTerminalWebPushFailure,
   sendCurrentWordWebPush,
@@ -116,6 +117,11 @@ export async function POST(request: Request) {
 
     const results = await Promise.all(
       installations.map(async (installation) => {
+        const deliveryDateKey = getPushInstallationDeliveryDateKey(
+          installation,
+          new Date(),
+        );
+
         if (installation.platform === "ios") {
           if (!apnsConfigured) {
             return {
@@ -137,7 +143,11 @@ export async function POST(request: Request) {
             token: installation.token,
           });
           if (result.ok) {
-            await markPushInstallationSuccess(database, installation.token);
+            await markPushInstallationSuccess(
+              database,
+              installation.token,
+              deliveryDateKey,
+            );
           } else if (isTerminalApnsFailure(result)) {
             await markPushInstallationInvalid(database, installation.token);
           }
@@ -162,7 +172,11 @@ export async function POST(request: Request) {
             token: installation.token,
           });
           if (result.ok) {
-            await markPushInstallationSuccess(database, installation.token);
+            await markPushInstallationSuccess(
+              database,
+              installation.token,
+              deliveryDateKey,
+            );
           } else if (isTerminalFcmFailure(result)) {
             await markPushInstallationInvalid(database, installation.token);
           }
@@ -188,7 +202,11 @@ export async function POST(request: Request) {
             token: installation.token,
           });
           if (result.ok) {
-            await markPushInstallationSuccess(database, installation.token);
+            await markPushInstallationSuccess(
+              database,
+              installation.token,
+              deliveryDateKey,
+            );
           } else if (isTerminalWebPushFailure(result)) {
             await markPushInstallationInvalid(database, installation.token);
           }

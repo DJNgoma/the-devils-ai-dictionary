@@ -2,9 +2,10 @@ import type { PushInstallationRecord } from "@/lib/server/push-installations";
 
 export const defaultPushDeliveryHour = 9;
 export const fallbackPushTimeZone = "Africa/Johannesburg";
+export const pushDeliveryWindowMinutes = 90;
 
 const dateFormatterCache = new Map<string, Intl.DateTimeFormat>();
-const hourFormatterCache = new Map<string, Intl.DateTimeFormat>();
+const timeFormatterCache = new Map<string, Intl.DateTimeFormat>();
 
 function formatterForDate(timeZone: string) {
   let formatter = dateFormatterCache.get(timeZone);
@@ -22,16 +23,17 @@ function formatterForDate(timeZone: string) {
   return formatter;
 }
 
-function formatterForHour(timeZone: string) {
-  let formatter = hourFormatterCache.get(timeZone);
+function formatterForTime(timeZone: string) {
+  let formatter = timeFormatterCache.get(timeZone);
 
   if (!formatter) {
     formatter = new Intl.DateTimeFormat("en-GB", {
       timeZone,
       hour: "2-digit",
+      minute: "2-digit",
       hour12: false,
     });
-    hourFormatterCache.set(timeZone, formatter);
+    timeFormatterCache.set(timeZone, formatter);
   }
 
   return formatter;
@@ -67,35 +69,74 @@ function localDateKey(date: Date, timeZone: string) {
   return formatterForDate(timeZone).format(date);
 }
 
-function localHour(date: Date, timeZone: string) {
-  return Number(formatterForHour(timeZone).format(date));
+function localMinuteOfDay(date: Date, timeZone: string) {
+  const time = formatterForTime(timeZone).format(date);
+  const [hour, minute] = time.split(":").map(Number);
+  return hour * 60 + minute;
 }
 
-export function isPushInstallationDueNow(
-  installation: Pick<
-    PushInstallationRecord,
-    "lastSuccessAt" | "preferredDeliveryHour" | "timeZone"
-  >,
+type DeliveryScheduleFields = Pick<
+  PushInstallationRecord,
+  "lastSuccessAt" | "lastSuccessDateKey" | "preferredDeliveryHour" | "timeZone"
+>;
+
+export function getPushInstallationDeliveryDateKey(
+  installation: Pick<DeliveryScheduleFields, "timeZone">,
+  now: Date,
+) {
+  return localDateKey(now, normalizePushTimeZone(installation.timeZone));
+}
+
+export function hasPushInstallationDeliveredForDateKey(
+  installation: Pick<DeliveryScheduleFields, "lastSuccessAt" | "lastSuccessDateKey" | "timeZone">,
+  deliveryDateKey: string,
+) {
+  if (installation.lastSuccessDateKey) {
+    return installation.lastSuccessDateKey === deliveryDateKey;
+  }
+
+  if (!installation.lastSuccessAt) {
+    return false;
+  }
+
+  const timeZone = normalizePushTimeZone(installation.timeZone);
+  const lastSuccessAt = new Date(installation.lastSuccessAt);
+
+  if (Number.isNaN(lastSuccessAt.getTime())) {
+    return false;
+  }
+
+  return localDateKey(lastSuccessAt, timeZone) === deliveryDateKey;
+}
+
+export function isPushInstallationInDeliveryWindow(
+  installation: Pick<DeliveryScheduleFields, "preferredDeliveryHour" | "timeZone">,
   now: Date,
 ) {
   const timeZone = normalizePushTimeZone(installation.timeZone);
   const preferredDeliveryHour = normalizePreferredDeliveryHour(
     installation.preferredDeliveryHour,
   );
+  const localMinutes = localMinuteOfDay(now, timeZone);
+  const windowStart = preferredDeliveryHour * 60;
+  const windowEnd = Math.min(
+    windowStart + pushDeliveryWindowMinutes - 1,
+    (24 * 60) - 1,
+  );
 
-  if (localHour(now, timeZone) !== preferredDeliveryHour) {
+  return localMinutes >= windowStart && localMinutes <= windowEnd;
+}
+
+export function isPushInstallationDueNow(
+  installation: DeliveryScheduleFields,
+  now: Date,
+) {
+  if (!isPushInstallationInDeliveryWindow(installation, now)) {
     return false;
   }
 
-  if (!installation.lastSuccessAt) {
-    return true;
-  }
-
-  const lastSuccessAt = new Date(installation.lastSuccessAt);
-
-  if (Number.isNaN(lastSuccessAt.getTime())) {
-    return true;
-  }
-
-  return localDateKey(lastSuccessAt, timeZone) !== localDateKey(now, timeZone);
+  return !hasPushInstallationDeliveredForDateKey(
+    installation,
+    getPushInstallationDeliveryDateKey(installation, now),
+  );
 }

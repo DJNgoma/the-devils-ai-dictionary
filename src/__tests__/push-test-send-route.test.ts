@@ -16,6 +16,9 @@ const pushInstallationMocks = vi.hoisted(() => ({
   markPushInstallationInvalid: vi.fn(),
   markPushInstallationSuccess: vi.fn(),
 }));
+const scheduleMocks = vi.hoisted(() => ({
+  getPushInstallationDeliveryDateKey: vi.fn(),
+}));
 
 vi.mock("@/lib/server/cloudflare-context", async () => {
   const actual = await vi.importActual<
@@ -59,6 +62,11 @@ vi.mock("@/lib/server/push-installations", () => ({
   markPushInstallationSuccess: pushInstallationMocks.markPushInstallationSuccess,
 }));
 
+vi.mock("@/lib/server/push-delivery-schedule", () => ({
+  getPushInstallationDeliveryDateKey:
+    scheduleMocks.getPushInstallationDeliveryDateKey,
+}));
+
 import { POST } from "@/app/api/mobile/push/test-send/route";
 
 const database = {
@@ -81,10 +89,13 @@ const installation = {
   appVersion: "1.2.3",
   environment: "production" as const,
   lastSuccessAt: null,
+  lastSuccessDateKey: null,
   locale: "en-ZA",
   optInStatus: "authorized" as const,
   platform: "ios" as const,
   token: "device-token",
+  deliveryClaimDateKey: null,
+  deliveryClaimedAt: null,
   updatedAt: "2026-03-31T10:00:00.000Z",
 };
 
@@ -92,10 +103,13 @@ const webInstallation = {
   appVersion: "web",
   environment: "production" as const,
   lastSuccessAt: null,
+  lastSuccessDateKey: null,
   locale: "en-US",
   optInStatus: "authorized" as const,
   platform: "web" as const,
   token: "https://push.example.test/subscriptions/web-token",
+  deliveryClaimDateKey: null,
+  deliveryClaimedAt: null,
   updatedAt: "2026-03-31T10:00:00.000Z",
 };
 
@@ -114,6 +128,9 @@ describe("POST /api/mobile/push/test-send", () => {
     vi.resetAllMocks();
     cloudflareMocks.getMobilePushEnv.mockResolvedValue(baseEnv);
     cloudflareMocks.requirePushInstallationsDatabase.mockReturnValue(database);
+    scheduleMocks.getPushInstallationDeliveryDateKey.mockReturnValue(
+      "2026-03-31",
+    );
     webPushMocks.isTerminalWebPushFailure.mockReturnValue(false);
   });
 
@@ -179,6 +196,7 @@ describe("POST /api/mobile/push/test-send", () => {
     expect(pushInstallationMocks.markPushInstallationSuccess).toHaveBeenCalledWith(
       database,
       installation.token,
+      "2026-03-31",
     );
     expect(pushInstallationMocks.markPushInstallationInvalid).not.toHaveBeenCalled();
   });
@@ -280,6 +298,7 @@ describe("POST /api/mobile/push/test-send", () => {
     expect(pushInstallationMocks.markPushInstallationSuccess).toHaveBeenCalledWith(
       database,
       webInstallation.token,
+      "2026-03-31",
     );
     expect(pushInstallationMocks.markPushInstallationInvalid).not.toHaveBeenCalled();
   });
