@@ -1,0 +1,60 @@
+---
+title: "Context Poisoning"
+slug: "context-poisoning"
+letter: "C"
+categories:
+  - "Safety and evaluation"
+  - "Retrieval and memory"
+  - "Agents and workflows"
+aliases:
+  - "memory poisoning"
+  - "poisoned context"
+  - "contaminated context"
+devilDefinition: |
+  Sneaking bad instructions or bad facts into the system's memory and letting future competence be built on polluted paperwork.
+plainDefinition: |
+  Context poisoning is a failure mode or attack in which retrieved context, shared memory, cached notes, or prior state gets contaminated with false, hostile, or manipulative content that later steers model behaviour.
+whyExists: |
+  Agent systems increasingly depend on stored traces, retrieved documents, vector indexes, summaries, and shared working memory. Once those layers become operational dependencies, corrupting them becomes a practical way to corrupt the system.
+misuse: |
+  The term gets overused for any bad answer produced with too much context. The sharper meaning is persistence: poisoned material survives long enough or appears trusted enough to shape future decisions, not just one unlucky response.
+practicalMeaning: |
+  In practice it means untrusted instructions in documents, planted false facts in memory stores, contaminated summaries, or cross-agent state drift that causes the model to retrieve the wrong thing with total procedural confidence.
+example: |
+  "The assistant did not become malicious so much as obedient to a memory layer that had quietly gone feral."
+askNext:
+  - "What memory, retrieval, or shared-state layers can untrusted parties influence?"
+  - "How do we distinguish verified context from merely available context?"
+  - "Can poisoned summaries or cached notes persist across sessions or agents?"
+related:
+  - "prompt-injection"
+  - "rag"
+  - "context-rot"
+  - "tool-poisoning"
+seeAlso:
+  - "Memory hygiene"
+  - "Retrieval provenance"
+  - "Shared state"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-15"
+updatedAt: "2026-04-15"
+warningLabel: "If the system remembers the wrong thing well, it can fail very consistently."
+tags:
+  - "security"
+  - "memory"
+  - "retrieval"
+  - "agents"
+misunderstoodScore: 5
+translations:
+  - label: "security meaning"
+    text: "An attacker or bad input has contaminated the system's working memory so future steps inherit the mistake."
+  - label: "what it usually means in reality"
+    text: "The agent is treating poisoned context as trusted operating truth."
+note: |
+  The risk becomes nastier when multiple agents or long-lived sessions share context over time.
+---
+
+Ordinary software forgets many of its mistakes after the request ends. Agent systems increasingly preserve them for later, which is a less charming habit.

@@ -1,0 +1,58 @@
+---
+title: "Tool Poisoning"
+slug: "tool-poisoning"
+letter: "T"
+categories:
+  - "Safety and evaluation"
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "poisoned tool metadata"
+  - "MCP tool poisoning"
+  - "malicious tool descriptor"
+devilDefinition: |
+  Hiding instructions in the tool layer so the agent mistakes a compromised capability for a helpful one.
+plainDefinition: |
+  Tool poisoning is an attack or failure mode in which a tool's descriptors, schemas, metadata, routing, or surrounding instructions are manipulated so an agent invokes it under false or malicious assumptions.
+whyExists: |
+  Modern agents do not merely call tools; they read about them. If the model relies on tool descriptions to decide what is safe, relevant, or authoritative, poisoning that layer becomes a prompt injection problem with better infrastructure.
+misuse: |
+  It should not be used for every bad tool output. The more precise issue is corruption of the tool interface itself: the agent is misled about what the tool is, what it does, or how it should be used.
+practicalMeaning: |
+  In practice it means malicious MCP descriptors, misleading plugin metadata, tampered schemas, or tool naming collisions that redirect the agent into unsafe actions, data leakage, or expensive nonsense.
+example: |
+  "The agent did not get hacked by sorcery; it was simply handed a poisoned tool description and obeyed it with enterprise enthusiasm."
+askNext:
+  - "Where do tool descriptions, schemas, and permissions come from, and who can change them?"
+  - "Can the agent verify a tool's identity and scope before invoking it?"
+  - "What stops a third-party integration from advertising capabilities it should never have?"
+related:
+  - "prompt-injection"
+  - "mcp"
+  - "tool-use"
+  - "context-poisoning"
+seeAlso:
+  - "Plugin review"
+  - "Metadata sanitisation"
+  - "Supply-chain security"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-15"
+updatedAt: "2026-04-15"
+warningLabel: "The tool layer is part of the prompt whether engineering admits it or not."
+tags:
+  - "security"
+  - "tools"
+  - "mcp"
+  - "integrations"
+misunderstoodScore: 5
+translations:
+  - label: "security meaning"
+    text: "An attacker has manipulated the agent's view of a tool rather than the tool's code alone."
+  - label: "what it usually means in reality"
+    text: "The agent is trusting compromised tool metadata and making unsafe calls because of it."
+---
+
+The software industry spent years learning that configuration is attack surface. Agent systems have helpfully rediscovered the lesson in prose.
