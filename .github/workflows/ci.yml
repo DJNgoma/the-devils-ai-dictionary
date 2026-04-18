@@ -61,7 +61,11 @@ jobs:
       - name: Install Swift Android SDK
         run: |
           SDK_VERSION="${SWIFT_RELEASE_TAG}_android"
-          swift sdk install "https://download.swift.org/swift-${SWIFT_RELEASE_VERSION}-release/android-sdk/${SWIFT_RELEASE_TAG}/${SDK_VERSION}.artifactbundle.tar.gz"
+          SDK_URL="https://download.swift.org/swift-${SWIFT_RELEASE_VERSION}-release/android-sdk/${SWIFT_RELEASE_TAG}/${SDK_VERSION}.artifactbundle.tar.gz"
+          SDK_ARCHIVE="${RUNNER_TEMP:-/tmp}/${SDK_VERSION}.artifactbundle.tar.gz"
+          curl -fSL -o "$SDK_ARCHIVE" "$SDK_URL"
+          swift sdk install "$SDK_ARCHIVE"
+          rm -f "$SDK_ARCHIVE"
           SDK_BUNDLE="$(find "$HOME" -type d -path "*/${SDK_VERSION}.artifactbundle/swift-android" -print -quit)"
           if [[ -z "$SDK_BUNDLE" ]]; then
             echo "Swift Android SDK bundle not found after installation" >&2
