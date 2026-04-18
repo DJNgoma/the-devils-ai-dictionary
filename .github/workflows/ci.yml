@@ -49,11 +49,19 @@ jobs:
           swiftly use latest
           swift --version
           swift --version | grep -Eq 'swift-6\.3(\.[0-9]+)?-RELEASE'
+          SWIFT_RELEASE_VERSION="$(swift --version | sed -n 's/^Swift version \([0-9][0-9.]*\).*/\1/p')"
+          if [[ -z "$SWIFT_RELEASE_VERSION" ]]; then
+            echo "Could not determine installed Swift release version" >&2
+            exit 1
+          fi
+          SWIFT_RELEASE_TAG="swift-${SWIFT_RELEASE_VERSION}-RELEASE"
+          echo "SWIFT_RELEASE_VERSION=$SWIFT_RELEASE_VERSION" >> "$GITHUB_ENV"
+          echo "SWIFT_RELEASE_TAG=$SWIFT_RELEASE_TAG" >> "$GITHUB_ENV"
           echo "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/bin" >> "$GITHUB_PATH"
       - name: Install Swift Android SDK
         run: |
-          SDK_VERSION="swift-6.3-RELEASE_android"
-          swift sdk install https://download.swift.org/swift-6.3-release/android-sdk/swift-6.3-RELEASE/swift-6.3-RELEASE_android.artifactbundle.tar.gz --checksum 2f2942c4bcea7965a08665206212c66991dabe23725aeec7c4365fc91acad088
+          SDK_VERSION="${SWIFT_RELEASE_TAG}_android"
+          swift sdk install "https://download.swift.org/swift-${SWIFT_RELEASE_VERSION}-release/android-sdk/${SWIFT_RELEASE_TAG}/${SDK_VERSION}.artifactbundle.tar.gz"
           SDK_BUNDLE="$(find "$HOME" -type d -path "*/${SDK_VERSION}.artifactbundle/swift-android" -print -quit)"
           if [[ -z "$SDK_BUNDLE" ]]; then
             echo "Swift Android SDK bundle not found after installation" >&2
