@@ -14,7 +14,23 @@ const primaryAppIconPath = path.join(
   "AppIcon.appiconset",
   "AppIcon-512@2x.png",
 );
+const primarySplashImagePaths = [
+  path.join(
+    primaryAppDir,
+    "Assets.xcassets",
+    "Splash.imageset",
+    "Default@1x~universal~anyany.png",
+  ),
+  path.join(
+    primaryAppDir,
+    "Assets.xcassets",
+    "Splash.imageset",
+    "Default@1x~universal~anyany-dark.png",
+  ),
+];
 const capacitorCliArgs = process.argv.slice(2);
+const isCI =
+  process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true";
 
 if (!fs.existsSync(primaryAppDir)) {
   console.error(`Expected Apple app directory at ${primaryAppDir}`);
@@ -190,6 +206,12 @@ function syncVisionOSAppIcons(sourcePath) {
   }
 }
 
+function hasCheckedInPrimaryAppleAssets() {
+  return [primaryAppIconPath, ...primarySplashImagePaths].every((assetPath) =>
+    fs.existsSync(assetPath),
+  );
+}
+
 function runCapacitorIOSAssets() {
   return new Promise((resolve, reject) => {
     let createdCompatibilitySymlink = false;
@@ -253,7 +275,18 @@ function runCapacitorIOSAssets() {
 }
 
 try {
-  await runCapacitorIOSAssets();
+  try {
+    await runCapacitorIOSAssets();
+  } catch (error) {
+    if (!isCI || !hasCheckedInPrimaryAppleAssets()) {
+      throw error;
+    }
+
+    const message = error instanceof Error ? error.message : String(error);
+    console.warn(
+      `Apple asset regeneration failed in CI (${message}); using checked-in Apple assets instead.`,
+    );
+  }
 
   if (!fs.existsSync(primaryAppIconPath)) {
     throw new Error(`Expected generated iOS app icon at ${primaryAppIconPath}`);
