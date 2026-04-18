@@ -48,7 +48,7 @@ jobs:
           swiftly install latest
           swiftly use latest
           swift --version
-          swift --version | grep -q 'swift-6.3-RELEASE'
+          swift --version | grep -Eq 'swift-6\.3(\.[0-9]+)?-RELEASE'
           echo "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/bin" >> "$GITHUB_PATH"
       - name: Install Swift Android SDK
         run: |
