@@ -1,0 +1,59 @@
+---
+title: "Gemini 3.1 Flash-Lite"
+slug: "gemini-3-1-flash-lite"
+letter: "G"
+categories:
+  - "Product and vendor terms"
+  - "Model usage"
+  - "Economics and operations of AI"
+aliases:
+  - "Gemini Flash-Lite"
+  - "3.1 Flash Lite"
+devilDefinition: |
+  The cheaper model tier whose chief virtue is letting ambitious product managers scale their optimism by the million tokens.
+plainDefinition: |
+  Gemini 3.1 Flash-Lite is Google's lower-cost, lower-latency Gemini 3.1 model for high-volume workloads where throughput and unit economics matter more than maximal frontier capability.
+whyExists: |
+  Most production AI systems are constrained less by grand theory than by latency budgets, API spend, and how much traffic the business intends to survive. A cheaper fast model tier exists because the invoice also attends the architecture review.
+misuse: |
+  It gets framed as though cheaper automatically means strategically sufficient. Sometimes it does. Sometimes it simply spreads weaker judgement across more requests and gives procurement a pleasant afternoon.
+practicalMeaning: |
+  In practice it means translation, moderation, UI generation, bulk inference, and the usual industrial workloads where modest capability improvements are less important than response speed and cost discipline.
+example: |
+  "Flash-Lite was exactly the right model until someone quietly expanded the use case from 'classify this' to 'think for us'."
+askNext:
+  - "Is the bottleneck latency, token cost, or answer quality?"
+  - "Are we choosing the smallest model that clears the bar, or the cheapest one that lets the slide deck survive?"
+  - "What errors become acceptable once the per-request price drops?"
+related:
+  - "latency"
+  - "model-router"
+  - "inference-provider"
+seeAlso:
+  - "Cost tier"
+  - "High-volume inference"
+  - "Model SKU"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: true
+publishedAt: "2026-04-19"
+updatedAt: "2026-04-19"
+vendorReferences:
+  - "Google"
+  - "Gemini API"
+  - "Vertex AI"
+tags:
+  - "models"
+  - "latency"
+  - "cost"
+  - "production"
+misunderstoodScore: 4
+translations:
+  - label: "platform meaning"
+    text: "A cost-efficient model tier meant for workloads where volume matters more than dramatic cleverness."
+  - label: "what it usually means in reality"
+    text: "A sensible default for many production calls, right up to the moment someone asks it to be profound."
+---
+
+Model progress now arrives in at least two currencies: capability and affordability. Flash-Lite is the reminder that the second one decides far more deployments than the keynote usually admits.
