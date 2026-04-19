@@ -24,6 +24,19 @@ extension XCUIApplication {
         descendants(matching: .any).matching(identifier: identifier).firstMatch
     }
 
+    func bringToForeground() -> Bool {
+        if state == .runningForeground {
+            return true
+        }
+
+        return forceForeground()
+    }
+
+    func forceForeground() -> Bool {
+        activate()
+        return wait(for: .runningForeground, timeout: 5)
+    }
+
     func tabButton(identifier: String, label: String) -> XCUIElement {
         let identifiedButton = tabBars.buttons.matching(identifier: identifier).firstMatch
         if identifiedButton.exists {

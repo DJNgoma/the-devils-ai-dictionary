@@ -2,7 +2,10 @@
 
 Implemented now:
 - iOS smoke tests run through `npm run ios:test:ui`.
-- The suite targets `platform=iOS Simulator,name=iPhone 17e,OS=latest`.
+- The default build lane runs a representative iPhone matrix: the current iPhone family in the latest installed iOS runtime, plus the latest SE size class.
+- The matrix uses clean managed simulators for those iPhone families instead of reusing lived-in personal devices.
+- Use `npm run ios:test:ui:17e` when you only want the fast single-device pass on `iPhone 17e`.
+- Use `npm run ios:test:ui:all-supported` only when you explicitly want the exhaustive all-supported-iPhone sweep.
 - The app launches in `-ui-testing YES` mode so startup skips the live catalogue, Apple account sync, and other flaky remote noise.
 
 TODO next:

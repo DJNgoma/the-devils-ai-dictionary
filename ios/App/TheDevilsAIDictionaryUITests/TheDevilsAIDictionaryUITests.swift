@@ -19,7 +19,7 @@ final class TheDevilsAIDictionaryUITests: XCTestCase {
         assertTabExists(app, identifier: "tab.settings", label: "Settings")
     }
 
-    func testTabNavigationWorksFromHome() {
+    func testSearchTabNavigationWorksFromHome() {
         let app = XCUIApplication()
         app.launchForSmokeTest(preset: .home)
 
@@ -27,12 +27,33 @@ final class TheDevilsAIDictionaryUITests: XCTestCase {
 
         tapTab(app, identifier: "tab.search", label: "Search")
         XCTAssertTrue(app.uiElement("search.container").waitForExistence(timeout: 5))
+    }
+
+    func testCategoriesTabNavigationWorksFromHome() {
+        let app = XCUIApplication()
+        app.launchForSmokeTest(preset: .home)
+
+        XCTAssertTrue(app.uiElement("home.container").waitForExistence(timeout: 10))
 
         tapTab(app, identifier: "tab.categories", label: "Categories")
         XCTAssertTrue(app.uiElement("categories.container").waitForExistence(timeout: 5))
+    }
+
+    func testSavedTabNavigationWorksFromHome() {
+        let app = XCUIApplication()
+        app.launchForSmokeTest(preset: .home)
+
+        XCTAssertTrue(app.uiElement("home.container").waitForExistence(timeout: 10))
 
         tapTab(app, identifier: "tab.saved", label: "Saved")
         XCTAssertTrue(app.uiElement("saved.container").waitForExistence(timeout: 5))
+    }
+
+    func testSettingsTabNavigationWorksFromHome() {
+        let app = XCUIApplication()
+        app.launchForSmokeTest(preset: .home)
+
+        XCTAssertTrue(app.uiElement("home.container").waitForExistence(timeout: 10))
 
         tapTab(app, identifier: "tab.settings", label: "Settings")
         XCTAssertTrue(app.uiElement("settings.container").waitForExistence(timeout: 5))
@@ -92,6 +113,17 @@ final class TheDevilsAIDictionaryUITests: XCTestCase {
     ) {
         let button = app.tabButton(identifier: identifier, label: label)
         XCTAssertTrue(button.waitForExistence(timeout: 5), file: file, line: line)
+
+        if !button.isHittable {
+            XCTAssertTrue(app.forceForeground(), file: file, line: line)
+
+            let refreshedButton = app.tabButton(identifier: identifier, label: label)
+            XCTAssertTrue(refreshedButton.waitForExistence(timeout: 5), file: file, line: line)
+            XCTAssertTrue(refreshedButton.isHittable, file: file, line: line)
+            refreshedButton.tap()
+            return
+        }
+
         button.tap()
     }
 }
