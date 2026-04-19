@@ -175,19 +175,28 @@ final class PhoneCurrentWordManager {
         configured = true
         PhoneCatalogManager.shared.configure()
         observeCatalogUpdates()
-        watchSessionCoordinator.activate()
-        synchronizeWatchState()
+
+        if !NativeLaunchConfiguration.isUITesting {
+            watchSessionCoordinator.activate()
+            synchronizeWatchState()
+        }
+
         _ = ensureCurrentWord()
 
-        #if os(iOS)
-        UIApplication.shared.registerForRemoteNotifications()
-        #endif
+        if !NativeLaunchConfiguration.isUITesting {
+            #if os(iOS)
+            UIApplication.shared.registerForRemoteNotifications()
+            #endif
 
-        Task {
-            await PhoneCatalogManager.shared.refreshIfNeeded()
-            if supportsNativePush {
-                await refreshPushInstallation()
+            Task {
+                await PhoneCatalogManager.shared.refreshIfNeeded()
+                if supportsNativePush {
+                    await refreshPushInstallation()
+                }
+                notifyPushStateChanged()
             }
+        } else {
+            lastPushAuthorizationState = .unsupported
             notifyPushStateChanged()
         }
     }
@@ -254,6 +263,12 @@ final class PhoneCurrentWordManager {
     }
 
     func refreshDiagnosticsState() async {
+        guard !NativeLaunchConfiguration.isUITesting else {
+            lastPushAuthorizationState = .unsupported
+            notifyPushStateChanged()
+            return
+        }
+
         if supportsNativePush {
             _ = await currentPushAuthorizationStatus()
             await refreshPushInstallation()
