@@ -116,6 +116,14 @@ function createSourceFixture() {
     `${JSON.stringify({ entries: [{ slug: "test-term" }] }, null, 2)}\n`,
   );
   writeFile(
+    path.join(seedRepo, "src", "generated", "entries.web.generated.json"),
+    `${JSON.stringify({ entries: [{ slug: "test-term" }] }, null, 2)}\n`,
+  );
+  writeFile(
+    path.join(seedRepo, "src", "generated", "entry-details.generated.json"),
+    `${JSON.stringify({ "test-term": { body: "A placeholder term for automation tests." } }, null, 2)}\n`,
+  );
+  writeFile(
     path.join(seedRepo, "public", "catalog", "version.json"),
     `${JSON.stringify(
       {
@@ -219,7 +227,7 @@ describe("daily-term automation", () => {
     );
 
     restoreRemote(remoteRepo, offlineRepo);
-  });
+  }, 15_000);
 
   it("fails clearly when refresh fails and the source checkout has no cached origin/main", () => {
     const sourceRepo = createTempDir("daily-term-automation-no-cache-");

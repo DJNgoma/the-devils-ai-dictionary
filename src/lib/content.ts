@@ -4,7 +4,7 @@ import {
   getFeaturedEntrySlug,
   type DailyWordSchedule,
 } from "@/lib/daily-word";
-import generatedData from "@/generated/entries.generated.json";
+import generatedData from "@/generated/entries.web.generated.json";
 import type { Difficulty, HypeLevel, TechnicalDepth } from "@/lib/site";
 import { slugify } from "@/lib/utils";
 
@@ -67,10 +67,27 @@ export type DictionaryCatalogSchedule = DailyWordSchedule & {
 
 /* ---------- pre-computed data (all heavy work done at build time) ---------- */
 
-type GeneratedWebEntry = Omit<Entry, "categorySlugs" | "related" | "url"> & {
+type GeneratedWebEntry = Omit<
+  Entry,
+  | "body"
+  | "categorySlugs"
+  | "note"
+  | "related"
+  | "seeAlso"
+  | "translations"
+  | "url"
+  | "vendorReferences"
+  | "warningLabel"
+> & {
+  body?: string;
   categorySlugs?: string[];
+  note?: string;
   related?: string[];
+  seeAlso?: string[];
+  translations?: Entry["translations"];
   url?: string;
+  vendorReferences?: string[];
+  warningLabel?: string;
 };
 
 type EntryDetailFields = Pick<

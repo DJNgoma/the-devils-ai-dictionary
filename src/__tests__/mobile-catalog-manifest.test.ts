@@ -46,9 +46,8 @@ describe("mobile catalog manifest", () => {
   });
 
   it("derives catalogVersion from stable catalog content", () => {
-    // The tracked catalog snapshot in public/catalog keeps the full entries
-    // (including searchText) that the catalog version is derived from. The
-    // generated web JSON strips searchText to keep the worker bundle lean.
+    // The tracked catalog snapshot in public/catalog is the canonical
+    // full-fidelity version that native clients and OTA publishing use.
     const versionManifestPath = path.resolve(__dirname, "../../public/catalog/version.json");
     if (!fs.existsSync(versionManifestPath)) return;
     const versionManifest = JSON.parse(fs.readFileSync(versionManifestPath, "utf8"));

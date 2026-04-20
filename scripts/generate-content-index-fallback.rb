@@ -12,6 +12,8 @@ ROOT = Dir.pwd
 ENTRIES_DIR = File.join(ROOT, "content", "entries")
 OUTPUT_DIR = File.join(ROOT, "src", "generated")
 OUTPUT_FILE = File.join(OUTPUT_DIR, "entries.generated.json")
+WEB_OUTPUT_FILE = File.join(OUTPUT_DIR, "entries.web.generated.json")
+DETAILS_OUTPUT_FILE = File.join(OUTPUT_DIR, "entry-details.generated.json")
 PUBLIC_CATALOG_DIR = File.join(ROOT, "public", "catalog")
 PUBLIC_MOBILE_CATALOG_DIR = File.join(ROOT, "public", "mobile-catalog")
 EDITORIAL_TIME_ZONE = "Africa/Johannesburg"
@@ -396,6 +398,27 @@ output = {
   "entryCount" => entries.length,
 }.merge(catalog)
 snapshot_text = "#{JSON.generate(output)}\n"
+entry_details = entries.each_with_object({}) do |entry, details|
+  details[entry["slug"]] = {
+    "body" => entry["body"],
+    "note" => entry["note"],
+    "seeAlso" => entry["seeAlso"],
+    "translations" => entry["translations"],
+    "vendorReferences" => entry["vendorReferences"],
+    "warningLabel" => entry["warningLabel"],
+  }
+end
+web_output = output.merge(
+  "entries" => entries.map do |entry|
+    entry.reject do |key, _value|
+      %w[
+        body note searchText categorySlugs related seeAlso translations url
+        vendorReferences warningLabel
+      ].include?(key)
+    end
+  end,
+)
+web_snapshot_text = "#{JSON.generate(web_output)}\n"
 
 versioned_catalog_filename = "catalog.#{catalog_version}.json"
 versioned_catalog_path = File.join(PUBLIC_CATALOG_DIR, versioned_catalog_filename)
@@ -422,6 +445,8 @@ mobile_manifest = {
 
 FileUtils.mkdir_p(OUTPUT_DIR)
 File.write(OUTPUT_FILE, snapshot_text)
+File.write(WEB_OUTPUT_FILE, web_snapshot_text)
+File.write(DETAILS_OUTPUT_FILE, "#{JSON.generate(entry_details)}\n")
 
 FileUtils.mkdir_p(PUBLIC_CATALOG_DIR)
 Dir.glob(File.join(PUBLIC_CATALOG_DIR, "catalog.*.json")).each do |path|

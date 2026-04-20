@@ -9,6 +9,8 @@ import { fileURLToPath } from "node:url";
 const allowedPublishPathPatterns = [
   /^content\/entries\/[^/]+\.mdx$/,
   /^src\/generated\/entries\.generated\.json$/,
+  /^src\/generated\/entries\.web\.generated\.json$/,
+  /^src\/generated\/entry-details\.generated\.json$/,
   /^public\/catalog\/version\.json$/,
   /^public\/catalog\/catalog\.[a-f0-9]{64}\.json$/,
 ];
@@ -617,7 +619,16 @@ async function commandPublish(options) {
     throw new Error("No changed entry files were detected.");
   }
 
-  git(repoRoot, "add", "--", "content/entries", "src/generated/entries.generated.json", "public/catalog");
+  git(
+    repoRoot,
+    "add",
+    "--",
+    "content/entries",
+    "src/generated/entries.generated.json",
+    "src/generated/entries.web.generated.json",
+    "src/generated/entry-details.generated.json",
+    "public/catalog",
+  );
 
   const stagedStatus = readStatus(repoRoot);
   const unstagedChanges = stagedStatus.filter(

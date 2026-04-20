@@ -325,7 +325,7 @@ describe("public catalog artifacts", () => {
 });
 
 describe("generated JSON size budget", () => {
-  const generatedPath = path.resolve(__dirname, "../../src/generated/entries.generated.json");
+  const generatedPath = path.resolve(__dirname, "../../src/generated/entries.web.generated.json");
 
   it("stays under 450 KB to avoid Cloudflare Worker 1102", () => {
     const stats = fs.statSync(generatedPath);

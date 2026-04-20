@@ -20,6 +20,7 @@ const root = process.cwd();
 const entriesDirectory = path.join(root, "content", "entries");
 const outputDirectory = path.join(root, "src", "generated");
 const outputFile = path.join(outputDirectory, "entries.generated.json");
+const webOutputFile = path.join(outputDirectory, "entries.web.generated.json");
 const detailsOutputFile = path.join(outputDirectory, "entry-details.generated.json");
 const publicCatalogDirectory = path.join(root, "public", "catalog");
 const publicMobileCatalogDirectory = path.join(root, "public", "mobile-catalog");
@@ -211,10 +212,10 @@ async function buildEntryIndex() {
     ]),
   );
 
-  // The web worker imports entries.generated.json at cold start. Strip the
-  // fields that can be cheaply reconstructed at runtime so the worker stays
-  // below the Cloudflare size budget, while leaving the full mobile snapshot
-  // intact for native clients.
+  // The web worker imports the lightweight web snapshot at cold start. Strip
+  // fields that can be reconstructed or lazily hydrated so the worker stays
+  // below the Cloudflare size budget, while keeping the full native snapshot
+  // intact for mobile clients and OTA publishing.
   const webSnapshot = {
     ...snapshot,
     entries: snapshot.entries.map((entry) => {
@@ -247,7 +248,8 @@ async function buildEntryIndex() {
   const webSnapshotText = serializeCatalogSnapshot(webSnapshot);
 
   await fs.mkdir(outputDirectory, { recursive: true });
-  await fs.writeFile(outputFile, webSnapshotText, "utf8");
+  await fs.writeFile(outputFile, snapshotText, "utf8");
+  await fs.writeFile(webOutputFile, webSnapshotText, "utf8");
   await fs.writeFile(detailsOutputFile, `${JSON.stringify(entryDetails)}\n`, "utf8");
   await fs.mkdir(publicCatalogDirectory, { recursive: true });
 
@@ -269,15 +271,10 @@ async function buildEntryIndex() {
     `${JSON.stringify(versionManifest, null, 2)}\n`,
     "utf8",
   );
-  // Write the full snapshot (with searchText) to a temp file for the mobile
-  // catalog publisher, which needs the complete entry data for native apps.
-  const mobileCatalogSourceFile = `${outputFile}.mobile.tmp`;
-  await fs.writeFile(mobileCatalogSourceFile, snapshotText, "utf8");
   const { manifest: mobileCatalogManifest } = await publishMobileCatalogArtifacts({
-    snapshotSourceFile: mobileCatalogSourceFile,
+    snapshotSourceFile: outputFile,
     outputDirectory: publicMobileCatalogDirectory,
   });
-  await fs.rm(mobileCatalogSourceFile, { force: true });
 
   console.log(
     `Generated ${entries.length} dictionary entries into ${path.relative(root, outputFile)}`,

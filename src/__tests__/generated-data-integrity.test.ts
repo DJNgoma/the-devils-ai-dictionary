@@ -12,6 +12,7 @@
 
 import { describe, expect, it } from "vitest";
 import generatedData from "@/generated/entries.generated.json";
+import webGeneratedData from "@/generated/entries.web.generated.json";
 import { getAllEntries, getEntryBySlug } from "@/lib/content";
 
 const {
@@ -31,6 +32,8 @@ const {
   latestPublishedAt,
 } =
   generatedData;
+
+const { entries: webEntries } = webGeneratedData;
 
 /* ---------- top-level structure ---------- */
 
@@ -69,7 +72,7 @@ describe("generated data top-level structure", () => {
 /* ---------- entry shape ---------- */
 
 describe("each raw entry keeps the expensive pre-computed fields", () => {
-  it.each(entries.map((e) => [e.slug, e]))(
+  it.each(webEntries.map((e) => [e.slug, e]))(
     "%s has relatedSlugs",
     (_slug, entry) => {
       // Related-entry scoring is still computed at build time so the worker
@@ -77,6 +80,20 @@ describe("each raw entry keeps the expensive pre-computed fields", () => {
       expect(Array.isArray(entry.relatedSlugs)).toBe(true);
     },
   );
+});
+
+describe("web snapshot", () => {
+  it("matches the full catalog version while omitting heavy entry fields", () => {
+    expect(webGeneratedData.catalogVersion).toBe(catalogVersion);
+    expect(webGeneratedData.entryCount).toBe(entryCount);
+    expect(webGeneratedData.entries).toHaveLength(entries.length);
+
+    const entry = webGeneratedData.entries[0];
+    expect(entry).toBeDefined();
+    expect(entry).not.toHaveProperty("body");
+    expect(entry).not.toHaveProperty("categorySlugs");
+    expect(entry).not.toHaveProperty("url");
+  });
 });
 
 describe("runtime entries restore cheap derived fields", () => {
@@ -93,7 +110,7 @@ describe("runtime entries restore cheap derived fields", () => {
 
 describe("runtime entry hydration", () => {
   it("hydrates detail fields when loading a single entry", async () => {
-    const entry = await getEntryBySlug(entries[0]!.slug);
+    const entry = await getEntryBySlug(webEntries[0]!.slug);
 
     expect(entry).toBeDefined();
     expect(Array.isArray(entry!.seeAlso)).toBe(true);
