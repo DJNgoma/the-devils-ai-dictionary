@@ -1,0 +1,60 @@
+---
+title: "vLLM"
+slug: "vllm"
+letter: "V"
+categories:
+  - "Infrastructure and deployment"
+  - "Model usage"
+  - "Economics and operations of AI"
+aliases:
+  - "inference engine"
+  - "model serving engine"
+  - "paged-attention stack"
+devilDefinition: |
+  The serving engine invoked when a team wants more throughput, lower costs, and the right to sound unusually composed about GPU memory pressure.
+plainDefinition: |
+  vLLM is an open-source inference and serving engine for large models, designed to improve throughput and memory efficiency while exposing APIs for self-managed model serving.
+whyExists: |
+  Serving large models naïvely is expensive, wasteful, and a good way to learn that GPU memory disappears faster than confidence. vLLM exists because open-model deployment needed better batching, cache handling, and serving efficiency to become commercially tolerable.
+misuse: |
+  It gets treated as if choosing the serving engine alone solves latency, reliability, or product economics. It also becomes shorthand for any open-model serving stack, which is generous to the rest of the stack to the point of fiction.
+practicalMeaning: |
+  In practice it usually means a core layer in a self-hosted inference platform for teams serving open-weight models at scale. It improves a difficult part of the job, while leaving routing, auth, observability, compatibility, and operational judgement very much on the premises.
+example: |
+  "vLLM improved throughput exactly as promised, which was helpful right up to the point they remembered a production system also needed policies and pagers."
+askNext:
+  - "Which model families and features do we need it to support?"
+  - "Are we optimising for throughput, latency, cost, or all three badly at once?"
+  - "What handles routing, auth, observability, and fallbacks around the serving layer?"
+related:
+  - "inference-stack"
+  - "latency"
+  - "speculative-decoding"
+  - "ollama"
+seeAlso:
+  - "Serving engine"
+  - "KV cache"
+  - "GPU utilisation"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-18"
+updatedAt: "2026-04-18"
+warningLabel: "Important infrastructure component, not the whole platform."
+tags:
+  - "inference"
+  - "serving"
+  - "throughput"
+  - "gpu"
+misunderstoodScore: 4
+translations:
+  - label: "operator meaning"
+    text: "A serious serving layer for people who would prefer not to burn money on avoidable inefficiency."
+  - label: "what it usually means in reality"
+    text: "A high-leverage piece of the open-model serving stack, provided the rest of the stack also exists."
+note: |
+  The name often surfaces in conversations as a badge of technical seriousness. The serious part is not naming it. The serious part is integrating it into a system that survives contact with traffic.
+---
+
+This is the sort of term that shows the market has matured. Nobody glamorises serving engines until the invoices become educational.

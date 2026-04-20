@@ -93,6 +93,7 @@ public struct SavedWordRecord: Codable, Equatable, Sendable, Identifiable {
 public enum CurrentWordSource: String, Codable, CaseIterable, Sendable {
     case seeded
     case manualRefresh
+    case localNotification
     case notificationTap
     case phoneSync
 }

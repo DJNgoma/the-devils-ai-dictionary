@@ -83,7 +83,11 @@ async function runDailySend() {
     env.WEB_PUSH_VAPID_PUBLIC_KEY &&
     env.WEB_PUSH_VAPID_SUBJECT;
 
-  const authorizedInstallations = await listTargetInstallations(database);
+  const authorizedInstallations = await listTargetInstallations(
+    database,
+    undefined,
+    "web",
+  );
   const installations = authorizedInstallations.filter((installation) =>
     isPushInstallationDueNow(installation, now),
   );

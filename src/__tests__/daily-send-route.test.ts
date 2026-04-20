@@ -86,6 +86,9 @@ const baseEnv = {
   APNS_KEY_ID: "KEY123",
   APNS_PRIVATE_KEY: "PRIVATE_KEY",
   APNS_TEAM_ID: "TEAM123",
+  WEB_PUSH_VAPID_PRIVATE_KEY: "PRIVATE_VAPID_KEY",
+  WEB_PUSH_VAPID_PUBLIC_KEY: "PUBLIC_VAPID_KEY",
+  WEB_PUSH_VAPID_SUBJECT: "mailto:hello@example.com",
   PUSH_INSTALLATIONS_DB: database,
   PUSH_TEST_SEND_SECRET: "push-secret",
 };
@@ -103,7 +106,7 @@ const installation = {
   lastSuccessDateKey: null,
   locale: "en-ZA",
   optInStatus: "authorized" as const,
-  platform: "ios" as const,
+  platform: "web" as const,
   preferredDeliveryHour: 9,
   timeZone: "Africa/Johannesburg",
   token: "device-token",
@@ -170,7 +173,7 @@ describe("POST /api/mobile/push/daily-send", () => {
   });
 
   it("sends the scheduled today's word to due installations", async () => {
-    apnsMocks.sendCurrentWordPush.mockResolvedValue({
+    webPushMocks.sendCurrentWordWebPush.mockResolvedValue({
       ok: true,
       status: 200,
       token: installation.token,
@@ -179,7 +182,12 @@ describe("POST /api/mobile/push/daily-send", () => {
     const response = await POST(createAuthorizedRequest());
 
     expect(contentMocks.getTodayWord).toHaveBeenCalledWith(expect.any(Date));
-    expect(apnsMocks.sendCurrentWordPush).toHaveBeenCalledWith(
+    expect(pushInstallationMocks.listTargetInstallations).toHaveBeenCalledWith(
+      database,
+      undefined,
+      "web",
+    );
+    expect(webPushMocks.sendCurrentWordWebPush).toHaveBeenCalledWith(
       expect.objectContaining({
         entry: todayWord,
         token: installation.token,
@@ -210,7 +218,7 @@ describe("POST /api/mobile/push/daily-send", () => {
 
     const response = await POST(createAuthorizedRequest());
 
-    expect(apnsMocks.sendCurrentWordPush).not.toHaveBeenCalled();
+    expect(webPushMocks.sendCurrentWordWebPush).not.toHaveBeenCalled();
     await expect(response.json()).resolves.toMatchObject({
       counts: {
         authorized: 1,
@@ -231,7 +239,7 @@ describe("POST /api/mobile/push/daily-send", () => {
 
     const response = await POST(createAuthorizedRequest());
 
-    expect(apnsMocks.sendCurrentWordPush).not.toHaveBeenCalled();
+    expect(webPushMocks.sendCurrentWordWebPush).not.toHaveBeenCalled();
     await expect(response.json()).resolves.toMatchObject({
       counts: {
         authorized: 1,

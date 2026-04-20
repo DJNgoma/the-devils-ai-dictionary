@@ -1,0 +1,62 @@
+---
+title: "Ollama"
+slug: "ollama"
+letter: "O"
+categories:
+  - "Product and vendor terms"
+  - "Infrastructure and deployment"
+  - "Model usage"
+aliases:
+  - "local model runner"
+  - "Ollama server"
+  - "local inference runtime"
+devilDefinition: |
+  The software that persuaded a great many people to download a model locally and call the resulting fan noise a privacy strategy.
+plainDefinition: |
+  Ollama is a tool and runtime for downloading, serving, and interacting with local AI models through a straightforward CLI and API on a developer machine or private system.
+whyExists: |
+  Running local models used to feel more like a weekend project than a developer workflow. Ollama exists because many teams wanted a simple way to try local inference, private prototypes, and offline model use without assembling the whole stack by hand.
+misuse: |
+  It gets mistaken for a complete production strategy or proof that local inference is automatically secure, cheap, or enterprise-ready. Pulling a model locally is helpful. It does not abolish memory limits, observability, scaling, or the possibility that the chosen model is merely mediocre in private.
+practicalMeaning: |
+  In practice it usually means convenient local model packaging for experiments, prototypes, internal tools, and developer workflows. It is especially useful for reducing friction around self-hosted testing, less useful as a substitute for a real serving platform once traffic, governance, or uptime begin to matter.
+example: |
+  "They rolled the demo on Ollama because the requirement was a private proof of concept, not a treatise on distributed inference."
+askNext:
+  - "Which model and quantisation are we actually running?"
+  - "Is local inference solving privacy, latency, cost, or merely setup friction?"
+  - "Do we need a developer runtime, or do we really need a production serving stack?"
+related:
+  - "llama"
+  - "gemma"
+  - "open-weight"
+  - "vllm"
+seeAlso:
+  - "Local AI"
+  - "Self-hosting"
+  - "Model packaging"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: true
+publishedAt: "2026-04-18"
+updatedAt: "2026-04-18"
+warningLabel: "Excellent developer ergonomics are not the same thing as fleet management."
+vendorReferences:
+  - "Ollama"
+tags:
+  - "local-ai"
+  - "self-hosting"
+  - "developer-tools"
+  - "inference"
+misunderstoodScore: 4
+translations:
+  - label: "developer meaning"
+    text: "A much friendlier way to run local models than manually wrestling the stack into existence."
+  - label: "what it usually means in reality"
+    text: "A convenient local runtime that makes self-hosted model experiments practical before production complexity catches up."
+note: |
+  The term matters because it lowered the activation energy for local AI so dramatically that many more people could form opinions before involving procurement.
+---
+
+Tools like this are why local AI stopped being a niche boast and became normal developer behaviour.

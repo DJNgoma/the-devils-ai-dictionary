@@ -1,14 +1,8 @@
 #if os(iOS)
-import OSLog
 import UIKit
 import UserNotifications
 
 final class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-    private let logger = Logger(
-        subsystem: "com.djngoma.devilsaidictionary",
-        category: "AppDelegate"
-    )
-
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
@@ -16,16 +10,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationC
         UNUserNotificationCenter.current().delegate = self
         PhoneCurrentWordManager.shared.configureForCurrentPlatform()
         return true
-    }
-
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        Task { @MainActor in
-            PhoneCurrentWordManager.shared.registerDeviceToken(deviceToken)
-        }
-    }
-
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        logger.error("APNs registration failed: \(error.localizedDescription, privacy: .public)")
     }
 
     func application(
@@ -62,7 +46,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationC
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
         Task { @MainActor in
-            await PhoneCurrentWordManager.shared.handleRemoteNotificationResponse(
+            await PhoneCurrentWordManager.shared.handleNotificationResponse(
                 userInfo: response.notification.request.content.userInfo
             )
             completionHandler()

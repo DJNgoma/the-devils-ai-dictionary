@@ -349,6 +349,23 @@ final class DevilsAIDictionaryCoreTests: XCTestCase {
         XCTAssertEqual(decoded, record)
     }
 
+    func testCurrentWordRecordRoundTripsLocalNotificationSource() throws {
+        let record = CurrentWordRecord(
+            slug: "agent",
+            title: "Agent",
+            devilDefinition: "Devil definition",
+            plainDefinition: "Plain definition",
+            updatedAt: "2026-03-28T10:00:00Z",
+            source: .localNotification
+        )
+
+        let data = try JSONEncoder().encode(record)
+        let decoded = try JSONDecoder().decode(CurrentWordRecord.self, from: data)
+
+        XCTAssertEqual(decoded.source, .localNotification)
+        XCTAssertEqual(decoded, record)
+    }
+
     func testSyncPayloadRejectsStaleCatalogVersion() {
         let payload = CurrentWordSyncPayload(
             catalogVersion: "catalog-a",

@@ -67,7 +67,60 @@ export type DictionaryCatalogSchedule = DailyWordSchedule & {
 
 /* ---------- pre-computed data (all heavy work done at build time) ---------- */
 
-const entries = generatedData.entries as Entry[];
+type GeneratedWebEntry = Omit<Entry, "categorySlugs" | "related" | "url"> & {
+  categorySlugs?: string[];
+  related?: string[];
+  url?: string;
+};
+
+type EntryDetailFields = Pick<
+  Entry,
+  "body" | "note" | "seeAlso" | "translations" | "vendorReferences" | "warningLabel"
+>;
+
+const defaultEntryDetails: EntryDetailFields = {
+  body: "",
+  note: undefined,
+  seeAlso: [],
+  translations: [],
+  vendorReferences: [],
+  warningLabel: undefined,
+};
+
+const loadEntryDetails = cache(async () => {
+  const detailsModule = await import("@/generated/entry-details.generated.json");
+  return detailsModule.default as Record<string, Partial<EntryDetailFields>>;
+});
+
+function normalizeEntry(entry: GeneratedWebEntry): Entry {
+  return {
+    ...entry,
+    categorySlugs: entry.categorySlugs ?? entry.categories.map((category) => slugify(category)),
+    body: entry.body ?? defaultEntryDetails.body,
+    note: entry.note ?? defaultEntryDetails.note,
+    related: entry.related ?? [],
+    seeAlso: entry.seeAlso ?? defaultEntryDetails.seeAlso,
+    translations: entry.translations ?? defaultEntryDetails.translations,
+    url: entry.url ?? `/dictionary/${entry.slug}`,
+    vendorReferences: entry.vendorReferences ?? defaultEntryDetails.vendorReferences,
+    warningLabel: entry.warningLabel ?? defaultEntryDetails.warningLabel,
+  };
+}
+
+async function hydrateEntry(entry: Entry | undefined) {
+  if (!entry) {
+    return undefined;
+  }
+
+  const details = await loadEntryDetails();
+  return {
+    ...entry,
+    ...defaultEntryDetails,
+    ...(details[entry.slug] ?? {}),
+  };
+}
+
+const entries = (generatedData.entries as GeneratedWebEntry[]).map(normalizeEntry);
 const entryBySlug = new Map(entries.map((entry) => [entry.slug, entry]));
 const entryByTitle = new Map(
   entries.map((entry) => [entry.title.trim().toLowerCase(), entry]),
@@ -98,7 +151,7 @@ export const getAllEntries = cache(async (): Promise<Entry[]> => {
 });
 
 export const getEntryBySlug = cache(async (slug: string) => {
-  return entryBySlug.get(slug);
+  return hydrateEntry(entryBySlug.get(slug));
 });
 
 export function resolveEntryReference(reference: string) {

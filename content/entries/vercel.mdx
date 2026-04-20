@@ -18,7 +18,7 @@ whyExists: |
 misuse: |
   By talking about Vercel as if it were just "hosting" or, in the opposite direction, as if it were uniquely synonymous with the future of frontend. It is a very opinionated platform with genuine developer-experience advantages, especially around Next.js, and equally real questions about coupling, spend, and how much of your architecture now speaks with a Vercel accent.
 practicalMeaning: |
-  In practice it usually means excellent DX for modern web teams, especially those deep in Next.js, plus a growing bundle of AI-era products designed to keep those teams inside one coherent platform: deploy previews, edge/network distribution, fluid compute, AI SDK patterns, model access layers, and agent tooling.
+  In practice it usually means excellent DX for modern web teams, especially those deep in Next.js, plus a growing bundle of AI-era products designed to keep those teams inside one coherent platform: deploy previews, edge/network distribution, fluid compute, AI SDK patterns, model access layers, agent tooling, and increasingly more reasons for code, logs, credentials, and operations to sit near the same vendor surface.
 example: |
   "They chose Vercel because the team wanted fewer deployment arguments, tighter Next.js ergonomics, and less appetite for building their own platform just to feel principled."
 askNext:
@@ -27,7 +27,7 @@ askNext:
   - "Is the team paying for convenience it truly needs, or convenience it has become emotionally attached to?"
 related:
   - "cloudflare"
-  - "chatgpt"
+  - "context-ai"
   - "codex"
   - "orchestration"
 seeAlso:
@@ -42,7 +42,7 @@ technicalDepth: "medium"
 hypeLevel: "medium"
 isVendorTerm: true
 publishedAt: "2026-03-20"
-updatedAt: "2026-03-20"
+updatedAt: "2026-04-20"
 warningLabel: "The premium DX is real. So is the gravitational pull once your app starts fitting the platform a little too well."
 vendorReferences:
   - "Next.js"
@@ -50,6 +50,7 @@ vendorReferences:
   - "AI Gateway"
   - "Fluid Compute"
   - "Sandbox"
+  - "Vercel April 2026 Security Bulletin"
 tags:
   - "nextjs"
   - "hosting"
@@ -64,7 +65,7 @@ translations:
   - label: "what it usually means in reality"
     text: "The high-DX default for many Next.js teams, plus an expanding set of AI and workflow products that aim to make leaving feel increasingly unnecessary."
 note: |
-  As of March 20, 2026, the latest verifiable Vercel–Cloudflare flare-up centres on hosting Next.js outside Vercel's preferred orbit. Cloudflare's early-March 2026 vinext announcement pushed directly at that boundary, while Vercel's own current material includes a February 25, 2026 guide for migrating from Cloudflare to Vercel and a standing recommendation against putting Cloudflare in front of Vercel as a reverse proxy.
+  As of April 20, 2026, the clearest current reality check for Vercel is its own security bulletin rather than the usual Cloudflare theatre. Vercel says its April 2026 incident originated with the compromise of Context.ai, a third-party AI tool used by a Vercel employee, which led to access to some Vercel environments and to environment variables not marked as sensitive. Vercel says a limited subset of customers were impacted and recommends treating any secret stored as a non-sensitive environment variable as potentially exposed.
 ---
 
 Vercel's strongest argument is not theoretical openness. It is that the product experience is often genuinely better when the framework and the platform are designed to flatter each other.

@@ -65,10 +65,18 @@ internal object SwiftCoreBridge {
             return parseEntry(JSONObject(json))
         }
 
+        fun dailyWordAt(epochSeconds: Long): Entry? {
+            val json = nativeCatalogDailyWordJson(handle, epochSeconds) ?: return null
+            return parseEntry(JSONObject(json))
+        }
+
         fun dailyWordSlug(): String? {
             val epochSeconds = System.currentTimeMillis() / 1000
             return nativeCatalogDailyWordSlug(handle, epochSeconds)
         }
+
+        fun dailyWordSlugAt(epochSeconds: Long): String? =
+            nativeCatalogDailyWordSlug(handle, epochSeconds)
 
         fun randomEntry(excluding: String? = null): Entry? {
             val json = nativeCatalogRandomJson(handle, excluding) ?: return null

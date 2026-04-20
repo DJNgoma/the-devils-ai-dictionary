@@ -140,12 +140,17 @@ final class PhoneCurrentWordManager {
     static let shared = PhoneCurrentWordManager()
 
     private let storage = CurrentWordStorage()
-    private let installationRegistrar = PushInstallationRegistrar()
     private lazy var watchSessionCoordinator = PhoneWatchSessionCoordinator()
+    private let logger = Logger(
+        subsystem: "com.djngoma.devilsaidictionary",
+        category: "PhoneCurrentWordManager"
+    )
 
     private var configured = false
     private var lastPushAuthorizationState: PushAuthorizationState
     private var catalogObserver: NSObjectProtocol?
+    private var pushSystemObserverTokens: [NSObjectProtocol] = []
+    private var scheduledLocalNotificationCount = 0
 
     private init() {
         lastPushAuthorizationState = Self.defaultPushAuthorizationState
@@ -175,19 +180,14 @@ final class PhoneCurrentWordManager {
         configured = true
         PhoneCatalogManager.shared.configure()
         observeCatalogUpdates()
+        observePushSystemChanges()
         watchSessionCoordinator.activate()
         synchronizeWatchState()
         _ = ensureCurrentWord()
 
-        #if os(iOS)
-        UIApplication.shared.registerForRemoteNotifications()
-        #endif
-
         Task {
             await PhoneCatalogManager.shared.refreshIfNeeded()
-            if supportsNativePush {
-                await refreshPushInstallation()
-            }
+            await reconcileLocalNotifications()
             notifyPushStateChanged()
         }
     }
@@ -201,8 +201,14 @@ final class PhoneCurrentWordManager {
             "pushNotificationsPreferenceConfigured":
                 storage.loadPushNotificationsPreferenceEnabled() != nil,
             "pushPreferredDeliveryHour": storage.loadPushPreferredDeliveryHour(),
-            "pushTokenAvailable": supportsNativePush && storage.loadPushDeviceToken() != nil,
+            "pushScheduledNotificationCount": scheduledLocalNotificationCount,
         ]
+
+        if let schedule = storage.loadPushLocalNotificationSchedule() {
+            state["pushScheduledCatalogVersion"] = schedule.catalogVersion
+            state["pushScheduledTimeZone"] = schedule.timeZoneIdentifier
+            state["pushNextScheduledFireAt"] = schedule.nextScheduledFireAt
+        }
 
         if let currentWord = storage.loadCurrentWord() ?? ensureCurrentWord() {
             state["currentWord"] = currentWord.dictionaryRepresentation()
@@ -238,8 +244,7 @@ final class PhoneCurrentWordManager {
         storage.savePushNotificationsPreferenceEnabled(true)
         let center = UNUserNotificationCenter.current()
         _ = try await center.requestAuthorization(options: [.alert, .badge, .sound])
-        UIApplication.shared.registerForRemoteNotifications()
-        await refreshPushInstallation()
+        await reconcileLocalNotifications(forceRebuild: true)
         notifyPushStateChanged()
         return getState()
         #else
@@ -256,7 +261,7 @@ final class PhoneCurrentWordManager {
     func refreshDiagnosticsState() async {
         if supportsNativePush {
             _ = await currentPushAuthorizationStatus()
-            await refreshPushInstallation()
+            await reconcileLocalNotifications()
         } else {
             lastPushAuthorizationState = .unsupported
         }
@@ -282,19 +287,9 @@ final class PhoneCurrentWordManager {
             if status == .notDetermined || status == .unknown {
                 return try await requestPushAuthorization()
             }
-
-            #if os(iOS)
-            if status.canDeliver {
-                UIApplication.shared.registerForRemoteNotifications()
-            }
-            #endif
-        } else {
-            #if os(iOS)
-            UIApplication.shared.unregisterForRemoteNotifications()
-            #endif
         }
 
-        await refreshPushInstallation()
+        await reconcileLocalNotifications(forceRebuild: true)
         notifyPushStateChanged()
         return getState()
     }
@@ -303,7 +298,7 @@ final class PhoneCurrentWordManager {
         storage.savePushPreferredDeliveryHour(hour)
 
         if supportsNativePush {
-            await refreshPushInstallation()
+            await reconcileLocalNotifications(forceRebuild: true)
         } else {
             lastPushAuthorizationState = .unsupported
         }
@@ -312,27 +307,14 @@ final class PhoneCurrentWordManager {
         return getState()
     }
 
-    func registerDeviceToken(_ deviceToken: Data) {
-        guard supportsNativePush else {
-            return
-        }
-
-        let token = deviceToken.map { String(format: "%02x", $0) }.joined()
-        storage.savePushDeviceToken(token)
-        Task {
-            await refreshPushInstallation()
-            notifyPushStateChanged()
-        }
-    }
-
-    func handleRemoteNotificationResponse(userInfo: [AnyHashable: Any]) async {
+    func handleNotificationResponse(userInfo: [AnyHashable: Any]) async {
         guard let slug = notificationSlug(from: userInfo) else {
             return
         }
 
         if let record = await resolveRecord(
             slug: slug,
-            source: .notificationTap,
+            source: notificationSource(from: userInfo),
             forceRefreshIfMissing: true
         ) {
             persistCurrentWord(record)
@@ -384,6 +366,33 @@ final class PhoneCurrentWordManager {
         }
     }
 
+    private func observePushSystemChanges() {
+        #if os(iOS)
+        guard pushSystemObserverTokens.isEmpty else {
+            return
+        }
+
+        let center = NotificationCenter.default
+        for name in [
+            UIApplication.significantTimeChangeNotification,
+            .NSCalendarDayChanged,
+            .NSSystemTimeZoneDidChange,
+        ] {
+            let token = center.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
+                Task { @MainActor in
+                    guard let self else {
+                        return
+                    }
+
+                    await self.reconcileLocalNotifications(forceRebuild: true)
+                    self.notifyPushStateChanged()
+                }
+            }
+            pushSystemObserverTokens.append(token)
+        }
+        #endif
+    }
+
     private func handleCatalogSnapshotChange() {
         if let currentWord = storage.loadCurrentWord(),
            let refreshed = refreshedRecord(
@@ -398,6 +407,11 @@ final class PhoneCurrentWordManager {
         }
 
         synchronizeWatchState()
+
+        Task { @MainActor in
+            await reconcileLocalNotifications(forceRebuild: true)
+            notifyPushStateChanged()
+        }
     }
 
     private func resolveRecord(
@@ -497,40 +511,91 @@ final class PhoneCurrentWordManager {
     }
     #endif
 
-    private func refreshPushInstallation() async {
+    private func reconcileLocalNotifications(forceRebuild: Bool = false) async {
         guard supportsNativePush else {
             lastPushAuthorizationState = .unsupported
+            scheduledLocalNotificationCount = 0
+            storage.savePushLocalNotificationSchedule(nil)
             return
         }
 
-        guard let token = storage.loadPushDeviceToken(),
-              let baseURL = Bundle.main.object(forInfoDictionaryKey: "MobileAPIBaseURL") as? String,
-              let url = URL(string: "\(baseURL)/api/mobile/push/installations") else {
-            return
-        }
-
+        #if os(iOS)
         let status = await currentPushAuthorizationStatus()
-        let payload = PushInstallationPayload(
-            token: token,
-            environment: {
-                #if DEBUG
-                "development"
-                #else
-                "production"
-                #endif
-            }(),
-            optInStatus: pushNotificationsPreferenceEnabled(for: status) ? status.rawValue : PushAuthorizationState.denied.rawValue,
-            appVersion: {
-                let short = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
-                let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
-                return "\(short) (\(build))"
-            }(),
-            locale: Locale.preferredLanguages.first ?? Locale.current.identifier,
-            preferredDeliveryHour: storage.loadPushPreferredDeliveryHour(),
-            timeZone: TimeZone.current.identifier
-        )
+        guard status.canDeliver, pushNotificationsPreferenceEnabled(for: status) else {
+            await clearLocalNotifications()
+            return
+        }
 
-        await installationRegistrar.register(payload: payload, url: url)
+        let center = UNUserNotificationCenter.current()
+        guard let snapshot = PhoneCatalogManager.shared.snapshot,
+              let plan = LocalNotificationSchedulePlan(
+                  snapshot: snapshot,
+                  preferredDeliveryHour: storage.loadPushPreferredDeliveryHour(),
+                  deviceTimeZone: .current
+              ) else {
+            let pendingRequests = await center.pendingNotificationRequests()
+            let pendingLocalRequests = LocalNotificationSchedulePlan.localRequests(from: pendingRequests)
+            scheduledLocalNotificationCount = pendingLocalRequests.count
+            if pendingLocalRequests.isEmpty {
+                storage.savePushLocalNotificationSchedule(nil)
+            }
+            return
+        }
+
+        let pendingRequests = await center.pendingNotificationRequests()
+        let pendingLocalRequests = LocalNotificationSchedulePlan.localRequests(from: pendingRequests)
+        let pendingIdentifiers = Set(pendingLocalRequests.map(\.identifier))
+        let plannedIdentifiers = Set(plan.requests.map(\.identifier))
+        let storedSchedule = storage.loadPushLocalNotificationSchedule()
+
+        if !forceRebuild,
+           storedSchedule == plan.metadata,
+           pendingLocalRequests.count == plan.requests.count,
+           pendingIdentifiers == plannedIdentifiers {
+            scheduledLocalNotificationCount = pendingLocalRequests.count
+            return
+        }
+
+        center.removePendingNotificationRequests(withIdentifiers: pendingLocalRequests.map(\.identifier))
+
+        var addedRequests = 0
+        for request in plan.requests {
+            do {
+                try await center.addRequest(request)
+                addedRequests += 1
+            } catch {
+                logger.error(
+                    "Failed to add local daily notification \(request.identifier, privacy: .public): \(error.localizedDescription, privacy: .public)"
+                )
+            }
+        }
+
+        scheduledLocalNotificationCount = addedRequests
+
+        if addedRequests == plan.requests.count {
+            storage.savePushLocalNotificationSchedule(plan.metadata)
+            return
+        }
+
+        storage.savePushLocalNotificationSchedule(nil)
+        logger.error(
+            "Local daily notification rebuild completed with \(addedRequests, privacy: .public) of \(plan.requests.count, privacy: .public) requests queued."
+        )
+        #endif
+    }
+
+    private func clearLocalNotifications() async {
+        #if os(iOS)
+        let center = UNUserNotificationCenter.current()
+        let pendingRequests = await center.pendingNotificationRequests()
+        let localIdentifiers = LocalNotificationSchedulePlan.localRequests(from: pendingRequests).map(\.identifier)
+        if !localIdentifiers.isEmpty {
+            center.removePendingNotificationRequests(withIdentifiers: localIdentifiers)
+        }
+        #endif
+
+        scheduledLocalNotificationCount = 0
+        storage.savePushLocalNotificationSchedule(nil)
     }
 
     private func pushNotificationsPreferenceEnabled(
@@ -553,6 +618,15 @@ final class PhoneCurrentWordManager {
         }
 
         return nil
+    }
+
+    private func notificationSource(from userInfo: [AnyHashable: Any]) -> CurrentWordSource {
+        if let rawValue = userInfo["source"] as? String,
+           let source = CurrentWordSource(rawValue: rawValue) {
+            return source
+        }
+
+        return .notificationTap
     }
 
     private func navigationSlug(for url: URL) -> String? {
@@ -603,49 +677,144 @@ private enum PushAuthorizationState: String {
     }
 }
 
-private struct PushInstallationPayload: Encodable {
-    let token: String
-    let platform = "ios"
-    let environment: String
-    let optInStatus: String
-    let appVersion: String
-    let locale: String
-    let preferredDeliveryHour: Int
-    let timeZone: String
-}
+#if os(iOS)
+private struct LocalNotificationSchedulePlan {
+    static let horizon = 60
+    static let identifierPrefix = "daily-word-local-"
 
-private actor PushInstallationRegistrar {
-    private let logger = Logger(
-        subsystem: "com.djngoma.devilsaidictionary",
-        category: "PushInstallationRegistrar"
-    )
+    let metadata: PushLocalNotificationScheduleMetadata
+    let requests: [UNNotificationRequest]
 
-    func register(payload: PushInstallationPayload, url: URL) async {
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    init?(
+        snapshot: DictionaryCatalogSnapshot,
+        preferredDeliveryHour: Int,
+        deviceTimeZone: TimeZone,
+        now: Date = Date()
+    ) {
+        let fireDates = Self.fireDates(
+            preferredDeliveryHour: preferredDeliveryHour,
+            deviceTimeZone: deviceTimeZone,
+            now: now
+        )
 
-        do {
-            request.httpBody = try JSONEncoder().encode(payload)
-        } catch {
-            logger.error("Failed to encode push installation payload: \(error.localizedDescription, privacy: .public)")
-            return
+        guard let nextFireDate = fireDates.first else {
+            return nil
         }
 
-        do {
-            let (_, response) = try await URLSession.shared.data(for: request)
+        metadata = PushLocalNotificationScheduleMetadata(
+            catalogVersion: snapshot.version,
+            preferredDeliveryHour: preferredDeliveryHour,
+            timeZoneIdentifier: deviceTimeZone.identifier,
+            nextScheduledFireAt: nextFireDate
+        )
 
-            if let httpResponse = response as? HTTPURLResponse,
-               !(200...299).contains(httpResponse.statusCode) {
-                logger.error(
-                    "Push installation registration returned status \(httpResponse.statusCode, privacy: .public)"
-                )
+        let editorialTimeZone = TimeZone(identifier: snapshot.catalog.editorialTimeZone) ?? TimeZone(secondsFromGMT: 0)!
+        requests = fireDates.compactMap { fireDate in
+            guard let slug = snapshot.catalog.dailyWordSlug(on: fireDate),
+                  let entry = snapshot.catalog.entry(slug: slug) else {
+                return nil
             }
-        } catch {
-            logger.error("Push installation registration failed: \(error.localizedDescription, privacy: .public)")
+
+            let editorialDateKey = Self.editorialDateKey(for: fireDate, timeZone: editorialTimeZone)
+            let content = UNMutableNotificationContent()
+            content.title = entry.title
+            content.body = entry.devilDefinition
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+                .replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
+            content.sound = .default
+            content.userInfo = [
+                "slug": entry.slug,
+                "source": CurrentWordSource.localNotification.rawValue,
+                "editorialDateKey": editorialDateKey,
+            ]
+
+            var calendar = Calendar(identifier: .gregorian)
+            calendar.timeZone = deviceTimeZone
+            let components = calendar.dateComponents(
+                [.year, .month, .day, .hour, .minute, .second],
+                from: fireDate
+            )
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+
+            return UNNotificationRequest(
+                identifier: Self.identifier(for: fireDate),
+                content: content,
+                trigger: trigger
+            )
+        }
+
+        guard requests.count == fireDates.count else {
+            return nil
+        }
+    }
+
+    static func localRequests(from requests: [UNNotificationRequest]) -> [UNNotificationRequest] {
+        requests.filter { $0.identifier.hasPrefix(identifierPrefix) }
+    }
+
+    private static func fireDates(
+        preferredDeliveryHour: Int,
+        deviceTimeZone: TimeZone,
+        now: Date
+    ) -> [Date] {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = deviceTimeZone
+
+        let startOfToday = calendar.startOfDay(for: now)
+        guard let todayFireDate = calendar.date(
+            byAdding: DateComponents(hour: min(max(preferredDeliveryHour, 0), 23)),
+            to: startOfToday
+        ) else {
+            return []
+        }
+
+        let firstFireDate = todayFireDate > now ? todayFireDate : calendar.date(byAdding: .day, value: 1, to: todayFireDate)
+        guard let firstFireDate else {
+            return []
+        }
+
+        return (0..<horizon).compactMap { offset in
+            calendar.date(byAdding: .day, value: offset, to: firstFireDate)
+        }
+    }
+
+    private static func identifier(for fireDate: Date) -> String {
+        "\(identifierPrefix)\(SharedDateFormatter.iso8601.string(from: fireDate))"
+    }
+
+    private static func editorialDateKey(for date: Date, timeZone: TimeZone) -> String {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = timeZone
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: date)
+    }
+}
+
+private extension UNUserNotificationCenter {
+    func pendingNotificationRequests() async -> [UNNotificationRequest] {
+        await withCheckedContinuation { continuation in
+            getPendingNotificationRequests { requests in
+                continuation.resume(returning: requests)
+            }
+        }
+    }
+
+    func addRequest(_ request: UNNotificationRequest) async throws {
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            add(request) { error in
+                if let error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+
+                continuation.resume()
+            }
         }
     }
 }
+#endif
 
 private final class PhoneWatchSessionCoordinator {
     #if os(iOS) && canImport(WatchConnectivity)

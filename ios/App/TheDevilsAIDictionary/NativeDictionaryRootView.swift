@@ -1224,7 +1224,7 @@ private struct NativeSettingsView: View {
                     }
                 }
 
-                Text("Local time on this device. The machinery still needs the discipline to send hourly.")
+                Text("Local time on this device. The phone queues the next 60 daily words itself, so delivery is no longer waiting on a server cron.")
                     .font(.system(size: 14, weight: .regular, design: .rounded))
                     .foregroundStyle(NativePalette.mutedText)
 
@@ -1378,7 +1378,7 @@ private struct NativeSettingsView: View {
             NativeCard(emphasis: true) {
                 NativeSectionLabel(text: "Internal testing")
 
-                Text("Use this page to compare the on-device catalogue with production, force a sync when editorial publishes a new word, and exercise the same slug-routing path used by links and push taps.")
+                Text("Use this page to compare the on-device catalogue with production, force a sync when editorial publishes a new word, and exercise the same slug-routing path used by links and local notification taps.")
                     .font(.system(size: 17, weight: .medium, design: .rounded))
 
                 HStack {
@@ -1473,13 +1473,16 @@ private struct NativeSettingsView: View {
             NativeCard {
                 NativeSectionLabel(text: "Notifications")
 
-                NativeSettingsValueRow(label: "Push permission", value: model.pushAuthorizationStatus)
-                NativeSettingsValueRow(label: "Push token", value: model.pushTokenAvailable ? "Available" : "Missing")
+                NativeSettingsValueRow(label: "Permission", value: model.pushAuthorizationStatus)
+                NativeSettingsValueRow(label: "Queued notices", value: model.pushScheduledNotificationCountLabel)
+                NativeSettingsValueRow(label: "Next delivery", value: model.pushNextScheduledFireLabel)
+                NativeSettingsValueRow(label: "Schedule timezone", value: model.pushScheduledTimeZone)
+                NativeSettingsValueRow(label: "Scheduled catalogue", value: model.pushScheduledCatalogVersionLabel)
 
                 Text(model.pushStatusMessage)
                     .font(.system(size: 15, weight: .regular, design: .rounded))
 
-                Text(model.pushTokenStatusMessage)
+                Text(model.pushScheduleStatusMessage)
                     .font(.system(size: 14, weight: .regular, design: .rounded))
                     .foregroundStyle(NativePalette.mutedText)
 
@@ -1517,7 +1520,7 @@ private struct NativeSettingsView: View {
                     }
                     .buttonStyle(NativePrimaryButtonStyle())
 
-                    Button("Simulate push tap") {
+                    Button("Simulate local notification tap") {
                         Task {
                             await model.simulateNotification(slug: testingSlug)
                         }

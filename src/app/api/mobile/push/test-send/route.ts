@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import generatedData from "@/generated/entries.generated.json";
-import type { Entry } from "@/lib/content";
+import { getAllEntries, type Entry } from "@/lib/content";
 import {
   getMobilePushEnv,
   requirePushInstallationsDatabase,
@@ -33,12 +32,9 @@ const testSendSchema = z.object({
   platform: z.enum(["ios", "android", "web"]).optional(),
 });
 
-const entries = generatedData.entries as Entry[];
-const entryBySlug = new Map(entries.map((entry) => [entry.slug, entry]));
-
-function pickEntry(slug?: string) {
+function pickEntry(entries: Entry[], slug?: string) {
   if (slug) {
-    return entryBySlug.get(slug);
+    return entries.find((entry) => entry.slug === slug);
   }
 
   if (entries.length === 0) {
@@ -74,7 +70,8 @@ export async function POST(request: Request) {
 
     const payload = testSendSchema.parse(await request.json());
     const database = requirePushInstallationsDatabase(env);
-    const entry = pickEntry(payload.slug);
+    const entries = await getAllEntries();
+    const entry = pickEntry(entries, payload.slug);
 
     if (!entry) {
       return NextResponse.json(

@@ -1,0 +1,65 @@
+---
+title: "Context.ai"
+slug: "context-ai"
+letter: "C"
+categories:
+  - "Product and vendor terms"
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "Context AI"
+  - "Context"
+  - "Context AI Office Suite"
+devilDefinition: |
+  A platform for giving agents more of your organisation's actual context, and therefore more of your organisation's actual permissions.
+plainDefinition: |
+  Context.ai is an AI workspace and agent platform built around connecting company systems, capturing workflow context, and running agents against real tasks. Its current pitch emphasises enterprise deployments, connectors, sandboxes, and controlled execution surfaces rather than a generic chat interface.
+whyExists: |
+  Because generic models do not know your firm's documents, tools, processes, or standards. Products like Context.ai exist to make agents operate against company-specific context instead of improvising from a prompt and a prayer.
+misuse: |
+  By talking about "context" as if adding more integrations automatically produces better judgement. More context can improve usefulness. It can also widen the blast radius when tokens, connectors, and OAuth grants are handled with the usual startup optimism.
+practicalMeaning: |
+  In practice it usually means connectors, workflow templates, sandboxed runs, eval loops, and an enterprise promise that agents can work across your actual systems rather than merely chat about them. It also now means a public lesson in how broad AI-tool permissions can become someone else's incident report.
+example: |
+  "They bought Context.ai because 'our knowledge plus our workflows plus our systems' sounded more serious than yet another clever chat window."
+askNext:
+  - "Which Context product are we discussing: the current enterprise platform or the deprecated consumer office suite?"
+  - "Where do agents run, and who controls the connectors, tokens, and execution boundary?"
+  - "Are we buying genuine workflow fit, or a prettier place to grant unusually broad permissions?"
+related:
+  - "vercel"
+  - "agent"
+  - "tool-use"
+  - "shadow-ai"
+seeAlso:
+  - "OAuth"
+  - "Agent workspace"
+  - "Enterprise AI"
+  - "Sandbox"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: true
+publishedAt: "2026-04-20"
+updatedAt: "2026-04-20"
+warningLabel: "The word context sounds soft. The permission model usually is not."
+vendorReferences:
+  - "Context Workspace Engine"
+  - "Context Security Incident Response Statement"
+  - "Context AI Office Suite"
+tags:
+  - "agents"
+  - "connectors"
+  - "oauth"
+  - "enterprise ai"
+misunderstoodScore: 5
+translations:
+  - label: "buyer meaning"
+    text: "A platform that promises your agents will finally understand how your organisation actually works."
+  - label: "what it usually means in reality"
+    text: "An enterprise agent workspace with lots of connectors, execution surfaces, and enough permissions to justify a proper security review."
+note: |
+  As of April 19-20, 2026, Context.ai says the security incident affected a now-deprecated consumer AI Office Suite released in June 2025, not its current enterprise deployments, which it says are architecturally separate. Vercel's April 20, 2026 bulletin says a compromise of Context.ai was the origin of Vercel's own April 2026 security incident after a Vercel employee used that product and granted broad Google Workspace permissions.
+---
+
+When a vendor says it captures context, ask whether it means knowledge, workflow state, permissions, or all three. The security review gets more interesting once the answer is all three.

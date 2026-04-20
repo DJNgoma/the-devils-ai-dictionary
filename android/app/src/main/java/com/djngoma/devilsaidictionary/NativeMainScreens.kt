@@ -111,7 +111,7 @@ fun NativeHomeScreen(
                         modifier = Modifier.weight(1f),
                     )
                 }
-                if (BuildConfig.NATIVE_PUSH_CONFIGURED &&
+                if (store.pushManager != null &&
                     store.shouldShowPushPrompt) {
                     HomePushPromptCard(
                         store = store,
@@ -625,7 +625,7 @@ fun NativeSettingsScreen(
                     Switch(
                         checked = store.pushNotificationsPreferenceEnabled,
                         onCheckedChange = { enabled -> store.setPushNotificationsEnabled(enabled) },
-                        enabled = BuildConfig.NATIVE_PUSH_CONFIGURED && store.pushManager != null,
+                        enabled = store.pushManager != null,
                     )
                 }
                 Text(
@@ -644,7 +644,7 @@ fun NativeSettingsScreen(
                     },
                 )
                 Text(
-                    text = "Local time on this device. The machinery still needs the discipline to send hourly.",
+                    text = "Local time on this device. Android now keeps the daily word on its own schedule instead of waiting for an hourly server poll.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -849,7 +849,7 @@ fun NativeSettingsScreen(
                         onClick = store::syncCatalogNow,
                     )
                     NativeSecondaryButton(
-                        label = "Simulate push tap",
+                        label = "Simulate notification tap",
                         colors = colors,
                         onClick = store::simulatePushTap,
                     )
@@ -872,10 +872,30 @@ fun NativeSettingsScreen(
                     value = store.pushOptInStatus.wireValue,
                 )
                 NativeSettingsValueRow(
-                    label = "FCM token",
-                    value = store.pushFcmToken?.take(32)?.let { "$it…" } ?: "—",
+                    label = "Next local fire",
+                    value = store.pushNextScheduledFireLabel ?: "—",
                 )
-                store.pushRegistrationError?.let { error ->
+                NativeSettingsValueRow(
+                    label = "Editorial date",
+                    value = store.pushNextScheduledEditorialDateKey ?: "—",
+                )
+                NativeSettingsValueRow(
+                    label = "Scheduled catalogue",
+                    value = store.pushScheduledCatalogVersion ?: "—",
+                )
+                NativeSettingsValueRow(
+                    label = "Scheduled hour",
+                    value = store.pushScheduledDeliveryHour?.let(::formatPushDeliveryHour) ?: "—",
+                )
+                NativeSettingsValueRow(
+                    label = "Device time zone",
+                    value = store.pushScheduledTimeZoneId ?: "—",
+                )
+                NativeSettingsValueRow(
+                    label = "Last delivered editorial day",
+                    value = store.pushLastDeliveredEditorialDateKey ?: "—",
+                )
+                store.pushSchedulingError?.let { error ->
                     Text(
                         text = error,
                         style = MaterialTheme.typography.bodySmall,
@@ -886,7 +906,7 @@ fun NativeSettingsScreen(
                     text = store.pushTestingMessage,
                     style = MaterialTheme.typography.bodyMedium,
                 )
-                if (BuildConfig.NATIVE_PUSH_CONFIGURED && store.shouldShowPushPrompt) {
+                if (store.pushManager != null && store.shouldShowPushPrompt) {
                     NativePrimaryButton(
                         label = store.pushPermissionButtonTitle,
                         colors = colors,
@@ -989,7 +1009,7 @@ private fun HomePushPromptCard(
         }
         else -> {
             title = "Let the daily word find you"
-            body = "One entry a day, at the hour you choose. Useful correspondence, not a campaign."
+            body = "One entry a day, on this phone, at the hour you choose. Useful correspondence, not a campaign."
             actionLabel = "Send the daily word"
         }
     }

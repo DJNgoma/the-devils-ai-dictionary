@@ -12,6 +12,7 @@ struct CurrentWordStorage {
         static let pushDeviceToken = "current-word-push-device-token"
         static let pushNotificationsPreferenceEnabled = "push-notifications-preference-enabled"
         static let pushPreferredDeliveryHour = "push-preferred-delivery-hour"
+        static let pushLocalNotificationSchedule = "push-local-notification-schedule"
         static let savedWords = "saved-words-records"
         static let appleAccountIdentity = "apple-account-identity"
         static let hasCompletedOnboarding = "has-completed-onboarding"
@@ -91,6 +92,19 @@ struct CurrentWordStorage {
 
     func savePushPreferredDeliveryHour(_ hour: Int) {
         defaults.set(min(max(hour, 0), 23), forKey: Keys.pushPreferredDeliveryHour)
+    }
+
+    func loadPushLocalNotificationSchedule() -> PushLocalNotificationScheduleMetadata? {
+        decode(PushLocalNotificationScheduleMetadata.self, forKey: Keys.pushLocalNotificationSchedule)
+    }
+
+    func savePushLocalNotificationSchedule(_ metadata: PushLocalNotificationScheduleMetadata?) {
+        guard let metadata else {
+            defaults.removeObject(forKey: Keys.pushLocalNotificationSchedule)
+            return
+        }
+
+        encode(metadata, forKey: Keys.pushLocalNotificationSchedule)
     }
 
     func loadSavedWords() -> [SavedWordRecord] {
@@ -206,4 +220,11 @@ struct AppleAccountIdentity: Codable, Equatable, Sendable {
     let userIdentifier: String
     let name: String?
     let email: String?
+}
+
+struct PushLocalNotificationScheduleMetadata: Codable, Equatable, Sendable {
+    let catalogVersion: String
+    let preferredDeliveryHour: Int
+    let timeZoneIdentifier: String
+    let nextScheduledFireAt: Date
 }

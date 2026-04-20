@@ -92,6 +92,7 @@ enum class CurrentWordSource {
     manualRefresh,
     deepLink,
     notificationTap,
+    localNotification,
     phoneSync,
 }
 
@@ -199,6 +200,10 @@ class DictionaryCatalog internal constructor(
 
     fun dailyWord(): Entry? = handle.dailyWord()
 
+    fun dailyWordAt(timestampMs: Long): Entry? = handle.dailyWordAt(timestampMs / 1000)
+
+    fun dailyWordSlugAt(timestampMs: Long): String? = handle.dailyWordSlugAt(timestampMs / 1000)
+
     fun recentEntries(limit: Int = 4): List<Entry> = handle.recentEntries(limit)
 
     fun misunderstoodEntries(limit: Int = 4): List<Entry> = handle.misunderstoodEntries(limit)
@@ -233,6 +238,7 @@ class NativeDictionaryStore(
 
     private var catalog: DictionaryCatalog? = null
     private var pendingMissingSlugRetry: String? = null
+    private var pendingMissingSlugRetrySource: CurrentWordSource? = null
 
     var selectedTab by mutableStateOf(NativeTab.Home)
         private set
@@ -326,8 +332,13 @@ class NativeDictionaryStore(
     private var pushNotificationsEnabledState by mutableStateOf(
         pushManager?.notificationsEnabled ?: false,
     )
-    private var pushFcmTokenState by mutableStateOf(pushManager?.fcmToken)
-    private var pushRegistrationErrorState by mutableStateOf(pushManager?.lastRegistrationError)
+    private var pushScheduledCatalogVersionState by mutableStateOf(pushManager?.scheduledCatalogVersion)
+    private var pushScheduledDeliveryHourState by mutableStateOf(pushManager?.scheduledDeliveryHour)
+    private var pushScheduledTimeZoneIdState by mutableStateOf(pushManager?.scheduledTimeZoneId)
+    private var pushNextScheduledFireAtMsState by mutableStateOf(pushManager?.nextScheduledFireAtMs)
+    private var pushNextScheduledEditorialDateKeyState by mutableStateOf(pushManager?.nextScheduledEditorialDateKey)
+    private var pushLastDeliveredEditorialDateKeyState by mutableStateOf(pushManager?.lastDeliveredEditorialDateKey)
+    private var pushSchedulingErrorState by mutableStateOf(pushManager?.lastSchedulingError)
 
     fun consumeSavedToast() {
         savedToast = null
@@ -476,11 +487,29 @@ class NativeDictionaryStore(
     val pushNotificationsEnabled: Boolean
         get() = pushNotificationsEnabledState
 
-    val pushFcmToken: String?
-        get() = pushFcmTokenState
+    val pushScheduledCatalogVersion: String?
+        get() = pushScheduledCatalogVersionState
 
-    val pushRegistrationError: String?
-        get() = pushRegistrationErrorState
+    val pushScheduledDeliveryHour: Int?
+        get() = pushScheduledDeliveryHourState
+
+    val pushScheduledTimeZoneId: String?
+        get() = pushScheduledTimeZoneIdState
+
+    val pushNextScheduledFireAtMs: Long?
+        get() = pushNextScheduledFireAtMsState
+
+    val pushNextScheduledFireLabel: String?
+        get() = pushNextScheduledFireAtMs?.let(::formatDisplayDateTime)
+
+    val pushNextScheduledEditorialDateKey: String?
+        get() = pushNextScheduledEditorialDateKeyState
+
+    val pushLastDeliveredEditorialDateKey: String?
+        get() = pushLastDeliveredEditorialDateKeyState
+
+    val pushSchedulingError: String?
+        get() = pushSchedulingErrorState
 
     val shouldShowPushPrompt: Boolean
         get() {
@@ -507,32 +536,32 @@ class NativeDictionaryStore(
 
     val pushTestingMessage: String
         get() = when {
-            !BuildConfig.NATIVE_PUSH_CONFIGURED ->
-                "Android push is not configured in this build. Add google-services.json to enable FCM."
             pushManager == null ->
                 "Push manager is not attached to this store."
-            pushOptInStatus == PushOptInStatus.authorized && pushFcmToken != null ->
-                "Android is registered with FCM and the backend."
+            !pushNotificationsPreferenceEnabled ->
+                "Tap \"Enable notifications\" to put the daily word on this phone's local schedule."
             pushOptInStatus == PushOptInStatus.denied ->
                 "Notifications are denied for this app. Enable them in system settings to receive daily words."
+            pushNotificationsEnabled && pushNextScheduledFireAtMs != null ->
+                "Android has scheduled the next daily word locally."
             else ->
-                "Tap \"Enable notifications\" to put the daily word on the schedule."
+                "Allow notifications and the app will keep the daily word on-device."
         }
 
     val pushStatusMessage: String
         get() = when {
-            !BuildConfig.NATIVE_PUSH_CONFIGURED ->
-                "Push is not wired for this Android build."
             pushManager == null ->
                 "Push has not been attached to this build properly."
             !pushNotificationsPreferenceEnabled ->
                 if (pushNotificationsPreferenceConfigured) {
                     "This device is off the daily-word list."
                 } else {
-                    "Pick an hour and let the app deliver one civilized interruption a day."
+                    "Pick an hour and let this phone deliver one civilized interruption a day."
                 }
+            pushOptInStatus == PushOptInStatus.authorized && pushNextScheduledFireLabel != null ->
+                "The next daily word is scheduled on this device for ${pushNextScheduledFireLabel}."
             pushOptInStatus == PushOptInStatus.authorized ->
-                "The daily word has a standing booking for $pushPreferredDeliveryHourLabel local time."
+                "Notifications are allowed; open the app once to rebuild the on-device schedule."
             pushOptInStatus == PushOptInStatus.denied ->
                 "The app filed the request. Android barred the door in Settings."
             else ->
@@ -578,8 +607,13 @@ class NativeDictionaryStore(
         pushPreferredDeliveryHourState =
             pushManager?.preferredDeliveryHour ?: DEFAULT_PUSH_DELIVERY_HOUR
         pushNotificationsEnabledState = pushManager?.notificationsEnabled ?: false
-        pushFcmTokenState = pushManager?.fcmToken
-        pushRegistrationErrorState = pushManager?.lastRegistrationError
+        pushScheduledCatalogVersionState = pushManager?.scheduledCatalogVersion
+        pushScheduledDeliveryHourState = pushManager?.scheduledDeliveryHour
+        pushScheduledTimeZoneIdState = pushManager?.scheduledTimeZoneId
+        pushNextScheduledFireAtMsState = pushManager?.nextScheduledFireAtMs
+        pushNextScheduledEditorialDateKeyState = pushManager?.nextScheduledEditorialDateKey
+        pushLastDeliveredEditorialDateKeyState = pushManager?.lastDeliveredEditorialDateKey
+        pushSchedulingErrorState = pushManager?.lastSchedulingError
     }
 
     fun handlePushPermissionAction() {
@@ -602,17 +636,21 @@ class NativeDictionaryStore(
             testingError = "No slug available to simulate a push tap."
             return
         }
-        handleRemoteNotificationSlug(slug)
+        handleNotificationSlug(slug, CurrentWordSource.localNotification)
     }
 
-    fun handleRemoteNotificationSlug(slug: String) {
+    fun handleNotificationSlug(slug: String, source: CurrentWordSource) {
         activeOverlay = NativeOverlay.EntryDetail(slug)
         val entry = entry(slug)
         if (entry != null) {
-            persistCurrentWord(entry.toCurrentWord(CurrentWordSource.notificationTap))
+            persistCurrentWord(entry.toCurrentWord(source))
             return
         }
-        refreshCatalogInBackground(force = true, retrySlug = slug)
+        refreshCatalogInBackground(
+            force = true,
+            retrySlug = slug,
+            retrySource = source,
+        )
     }
 
     val suggestedTestSlug: String?
@@ -887,10 +925,15 @@ class NativeDictionaryStore(
     fun handleIntent(intent: Intent?) {
         if (intent == null) return
 
-        val notificationSlug = intent.getStringExtra(DevilsFirebaseMessagingService.EXTRA_NOTIFICATION_SLUG)
+        val notificationSlug = intent.getStringExtra(DailyWordNotifications.EXTRA_NOTIFICATION_SLUG)
         if (!notificationSlug.isNullOrEmpty()) {
-            intent.removeExtra(DevilsFirebaseMessagingService.EXTRA_NOTIFICATION_SLUG)
-            handleRemoteNotificationSlug(notificationSlug)
+            val source = notificationSourceFrom(
+                intent.getStringExtra(DailyWordNotifications.EXTRA_NOTIFICATION_SOURCE),
+            )
+            intent.removeExtra(DailyWordNotifications.EXTRA_NOTIFICATION_SLUG)
+            intent.removeExtra(DailyWordNotifications.EXTRA_NOTIFICATION_SOURCE)
+            intent.removeExtra(DailyWordNotifications.EXTRA_EDITORIAL_DATE_KEY)
+            handleNotificationSlug(notificationSlug, source)
             return
         }
 
@@ -1040,14 +1083,17 @@ class NativeDictionaryStore(
         catalog = snapshot.catalog
         catalogVersion = snapshot.catalogVersion
         loadError = null
+        pushManager?.refresh()
     }
 
     private fun refreshCatalogInBackground(
         force: Boolean = false,
         retrySlug: String? = null,
+        retrySource: CurrentWordSource = CurrentWordSource.deepLink,
     ) {
         if (retrySlug != null) {
             pendingMissingSlugRetry = retrySlug
+            pendingMissingSlugRetrySource = retrySource
         }
 
         val nowMs = System.currentTimeMillis()
@@ -1103,15 +1149,17 @@ class NativeDictionaryStore(
 
     private fun resolvePendingMissingSlugRetry() {
         val slug = pendingMissingSlugRetry ?: return
+        val source = pendingMissingSlugRetrySource ?: CurrentWordSource.deepLink
         val entry = entry(slug)
 
         if (entry != null) {
-            persistCurrentWord(entry.toCurrentWord(CurrentWordSource.deepLink))
+            persistCurrentWord(entry.toCurrentWord(source))
             selectedTab = NativeTab.Search
             activeOverlay = NativeOverlay.EntryDetail(slug)
         }
 
         pendingMissingSlugRetry = null
+        pendingMissingSlugRetrySource = null
     }
 
     private fun shareDictionaryItem(

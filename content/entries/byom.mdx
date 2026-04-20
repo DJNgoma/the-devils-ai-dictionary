@@ -1,0 +1,60 @@
+---
+title: "BYOM"
+slug: "byom"
+letter: "B"
+categories:
+  - "Product and vendor terms"
+  - "Economics and operations of AI"
+  - "Model usage"
+aliases:
+  - "Bring Your Own Model"
+  - "customer-supplied model"
+  - "custom-model mode"
+devilDefinition: |
+  The enterprise feature where a vendor graciously lets you plug in your own model while continuing to invoice you for the rest of the costume.
+plainDefinition: |
+  BYOM means "Bring Your Own Model". In AI products it usually means a customer can connect a chosen hosted or self-managed model to a third-party workflow, interface, or agent platform instead of using the vendor's default model.
+whyExists: |
+  Customers already have provider contracts, regional constraints, compliance rules, performance preferences, and strong feelings about paying twice for the same intelligence. Vendors, meanwhile, would still like to sell the interface, orchestration, governance, or workflow layer around the model.
+misuse: |
+  It gets sold as if model portability were clean and universal. In reality prompts, tool schemas, latency, guardrails, rate limits, and output quirks rarely swap over without argument. BYOM often means "bring your own integration work" with better manners.
+practicalMeaning: |
+  In practice it usually means the customer keeps more control over model choice, billing, or data handling while the product keeps control over the surrounding workflow. The interesting question is which capabilities survive once the default model leaves the building.
+example: |
+  "The platform supported BYOM, which turned out to mean we could swap the model and then spend a week rediscovering every hidden assumption in the prompt layer."
+askNext:
+  - "Which features depend on the vendor's default model and degrade once we replace it?"
+  - "Whose billing, retention, and compliance policies apply after our model is in the loop?"
+  - "Are we buying real flexibility or merely renting a connector with optimistic documentation?"
+related:
+  - "byok"
+  - "model-router"
+  - "inference-provider"
+  - "ai-wrapper"
+seeAlso:
+  - "Model portability"
+  - "Abstraction tax"
+  - "Enterprise control"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-18"
+updatedAt: "2026-04-18"
+warningLabel: "Different from BYOK: the key is not the only thing moving."
+tags:
+  - "enterprise"
+  - "pricing"
+  - "integration"
+  - "model-choice"
+misunderstoodScore: 4
+translations:
+  - label: "vendor meaning"
+    text: "Keep your preferred model and still enjoy our workflow, provided nothing important changes."
+  - label: "what it usually means in reality"
+    text: "The customer brings the model; the platform keeps the abstractions and some of the blame."
+note: |
+  BYOM is often pitched as a clean compatibility feature. The practical value depends on how deeply the product was designed around a single provider's behaviour in the first place.
+---
+
+The term sounds liberating because it flatters procurement. The integration work, less flatteringly, still has to happen.

@@ -12,6 +12,7 @@
 
 import { describe, expect, it } from "vitest";
 import generatedData from "@/generated/entries.generated.json";
+import { getAllEntries, getEntryBySlug } from "@/lib/content";
 
 const {
   schemaVersion,
@@ -65,21 +66,41 @@ describe("generated data top-level structure", () => {
   });
 });
 
-/* ---------- entry shape (pre-computed fields) ---------- */
+/* ---------- entry shape ---------- */
 
-describe("each entry has pre-computed fields", () => {
+describe("each raw entry keeps the expensive pre-computed fields", () => {
   it.each(entries.map((e) => [e.slug, e]))(
-    "%s has categorySlugs, url, relatedSlugs",
+    "%s has relatedSlugs",
     (_slug, entry) => {
-      // These fields MUST be pre-computed at build time, NOT at runtime.
-      // Missing any of them means the Worker will either crash or need
-      // to compute them on the fly, risking Error 1102 again.
-      expect(Array.isArray(entry.categorySlugs)).toBe(true);
-      expect(entry.categorySlugs.length).toBeGreaterThan(0);
-      expect(entry.url).toMatch(/^\/dictionary\//);
+      // Related-entry scoring is still computed at build time so the worker
+      // does not have to rebuild those relationships on demand.
       expect(Array.isArray(entry.relatedSlugs)).toBe(true);
     },
   );
+});
+
+describe("runtime entries restore cheap derived fields", () => {
+  it("restores categorySlugs and url for the web app", async () => {
+    const runtimeEntries = await getAllEntries();
+
+    for (const entry of runtimeEntries) {
+      expect(Array.isArray(entry.categorySlugs)).toBe(true);
+      expect(entry.categorySlugs.length).toBe(entry.categories.length);
+      expect(entry.url).toMatch(/^\/dictionary\//);
+    }
+  });
+});
+
+describe("runtime entry hydration", () => {
+  it("hydrates detail fields when loading a single entry", async () => {
+    const entry = await getEntryBySlug(entries[0]!.slug);
+
+    expect(entry).toBeDefined();
+    expect(Array.isArray(entry!.seeAlso)).toBe(true);
+    expect(Array.isArray(entry!.translations)).toBe(true);
+    expect(Array.isArray(entry!.vendorReferences)).toBe(true);
+    expect(typeof entry!.body).toBe("string");
+  });
 });
 
 describe("each entry has required frontmatter fields", () => {
@@ -283,10 +304,11 @@ describe("relatedSlugs reference existing entries", () => {
 /* ---------- categories use valid slugs ---------- */
 
 describe("categorySlugs match categories", () => {
-  it.each(entries.map((e) => [e.slug, e]))(
-    "%s has matching categorySlugs for each category",
-    (_slug, entry) => {
+  it("runtime entries keep category slugs aligned with category titles", async () => {
+    const runtimeEntries = await getAllEntries();
+
+    for (const entry of runtimeEntries) {
       expect(entry.categorySlugs.length).toBe(entry.categories.length);
-    },
-  );
+    }
+  });
 });

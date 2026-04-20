@@ -20,6 +20,7 @@ const root = process.cwd();
 const entriesDirectory = path.join(root, "content", "entries");
 const outputDirectory = path.join(root, "src", "generated");
 const outputFile = path.join(outputDirectory, "entries.generated.json");
+const detailsOutputFile = path.join(outputDirectory, "entry-details.generated.json");
 const publicCatalogDirectory = path.join(root, "public", "catalog");
 const publicMobileCatalogDirectory = path.join(root, "public", "mobile-catalog");
 const editorialTimeZone = "Africa/Johannesburg";
@@ -196,14 +197,50 @@ async function buildEntryIndex() {
     generatedAt: snapshot.generatedAt,
     path: `/catalog/${versionedCatalogFilename}`,
   };
+  const entryDetails = Object.fromEntries(
+    snapshot.entries.map((entry) => [
+      entry.slug,
+      {
+        body: entry.body,
+        note: entry.note,
+        seeAlso: entry.seeAlso,
+        translations: entry.translations,
+        vendorReferences: entry.vendorReferences,
+        warningLabel: entry.warningLabel,
+      },
+    ]),
+  );
 
-  // The web worker imports entries.generated.json at cold start — strip
-  // searchText (only needed by native apps) to keep the bundle lean.
+  // The web worker imports entries.generated.json at cold start. Strip the
+  // fields that can be cheaply reconstructed at runtime so the worker stays
+  // below the Cloudflare size budget, while leaving the full mobile snapshot
+  // intact for native clients.
   const webSnapshot = {
     ...snapshot,
     entries: snapshot.entries.map((entry) => {
-      const { searchText, ...rest } = entry;
+      const {
+        body,
+        note,
+        searchText,
+        categorySlugs,
+        related,
+        seeAlso,
+        translations,
+        url,
+        vendorReferences,
+        warningLabel,
+        ...rest
+      } = entry;
+      void body;
+      void note;
       void searchText;
+      void categorySlugs;
+      void related;
+      void seeAlso;
+      void translations;
+      void url;
+      void vendorReferences;
+      void warningLabel;
       return rest;
     }),
   };
@@ -211,6 +248,7 @@ async function buildEntryIndex() {
 
   await fs.mkdir(outputDirectory, { recursive: true });
   await fs.writeFile(outputFile, webSnapshotText, "utf8");
+  await fs.writeFile(detailsOutputFile, `${JSON.stringify(entryDetails)}\n`, "utf8");
   await fs.mkdir(publicCatalogDirectory, { recursive: true });
 
   const publishedCatalogFiles = await fs.readdir(publicCatalogDirectory);

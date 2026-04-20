@@ -655,7 +655,10 @@ final class NativeDictionaryModel: ObservableObject {
     @Published private(set) var pushNotificationsPreferenceEnabled = false
     @Published private(set) var pushNotificationsPreferenceConfigured = false
     @Published private(set) var pushPreferredDeliveryHour = CurrentWordStorage.defaultPushPreferredDeliveryHour
-    @Published private(set) var pushTokenAvailable = false
+    @Published private(set) var pushScheduledNotificationCount = 0
+    @Published private(set) var pushScheduledCatalogVersion: String?
+    @Published private(set) var pushScheduledTimeZone = TimeZone.current.identifier
+    @Published private(set) var pushNextScheduledFireAt: Date?
     @Published private(set) var catalogVersion: String?
     @Published private(set) var savedWords: [SavedWordRecord] = []
     @Published private(set) var appleSession: NativeAppleSessionState?
@@ -920,7 +923,7 @@ final class NativeDictionaryModel: ObservableObject {
             return "iOS has notifications barred in Settings. Reopen the door there if you want the daily word sent here."
         }
 
-        return "One entry a day, at the hour you choose. Useful correspondence, not a campaign."
+        return "One entry a day, at the hour you choose. This device keeps the next stretch queued locally. Useful correspondence, not a campaign."
     }
 
     var homePushPromptButtonTitle: String? {
@@ -941,28 +944,32 @@ final class NativeDictionaryModel: ObservableObject {
 
     var pushStatusMessage: String {
         if pushAuthorizationStatus == "unsupported" {
-            return "Push is not wired for this Apple edition yet."
+            return "On-device daily notifications are not wired for this Apple edition yet."
         }
 
         if !pushNotificationsPreferenceEnabled {
             return pushNotificationsPreferenceConfigured
                 ? "This device is off the daily-word list."
-                : "Pick an hour and let the app deliver one civilized interruption a day."
+                : "Pick an hour and this device will queue the next 60 daily words locally."
         }
 
         switch pushAuthorizationStatus {
         case "authorized":
-            return "The daily word has a standing booking for \(pushPreferredDeliveryHourLabel) local time."
+            if let pushNextScheduledFireAt, pushScheduledNotificationCount > 0 {
+                return "This device has \(pushScheduledNotificationCount) daily words queued locally. The next one lands at \(nativeFormattedDate(pushNextScheduledFireAt))."
+            }
+
+            return "Notifications are allowed. Open the app once to rebuild the on-device queue."
         case "denied":
-            return "The app filed the request. iOS barred the door in Settings."
+            return "The app can queue daily words locally, but iOS barred the door in Settings."
         case "ephemeral":
-            return "The daily word is booked for \(pushPreferredDeliveryHourLabel) local time, for as long as this permission remains on speaking terms."
+            return "The daily word queue is local to this device and will keep \(pushPreferredDeliveryHourLabel) so long as this permission remains on speaking terms."
         case "provisional":
-            return "The daily word is booked for \(pushPreferredDeliveryHourLabel) local time and arriving quietly."
+            return "The daily word queue is local to this device, arriving quietly at \(pushPreferredDeliveryHourLabel) local time."
         case "notDetermined":
-            return "When iOS asks, allow notifications and the app will keep to \(pushPreferredDeliveryHourLabel) local time."
+            return "When iOS asks, allow notifications and the app will queue the next 60 daily words on this device."
         default:
-            return "Push is wired, but iOS has not yet produced a final answer."
+            return "Notifications are wired locally, but iOS has not yet produced a final answer."
         }
     }
 
@@ -1036,12 +1043,32 @@ final class NativeDictionaryModel: ObservableObject {
         return "The live site has a different catalogue version. Sync now to test the OTA refresh path."
     }
 
-    var pushTokenStatusMessage: String {
+    var pushScheduleStatusMessage: String {
         if pushAuthorizationStatus == "unsupported" {
-            return "Push token delivery is not enabled for this Apple platform."
+            return "Local notification scheduling is not enabled for this Apple platform."
         }
 
-        return pushTokenAvailable ? "APNs token is present for this device." : "APNs token is not available yet."
+        if let pushScheduledCatalogVersion {
+            return "Built from on-device catalogue \(pushScheduledCatalogVersion) for \(pushScheduledTimeZone). No APNs token or backend lease is involved."
+        }
+
+        return "Open the app with notifications enabled to rebuild the on-device queue from the local catalogue."
+    }
+
+    var pushScheduledNotificationCountLabel: String {
+        pushScheduledNotificationCount == 0 ? "None queued" : "\(pushScheduledNotificationCount) queued"
+    }
+
+    var pushNextScheduledFireLabel: String {
+        guard let pushNextScheduledFireAt else {
+            return "Not scheduled"
+        }
+
+        return nativeFormattedDate(pushNextScheduledFireAt)
+    }
+
+    var pushScheduledCatalogVersionLabel: String {
+        pushScheduledCatalogVersion ?? "Unavailable"
     }
 
     func entry(slug: String) -> Entry? {
@@ -1305,7 +1332,10 @@ final class NativeDictionaryModel: ObservableObject {
         }
 
         actionError = nil
-        await manager.handleRemoteNotificationResponse(userInfo: ["slug": trimmedSlug])
+        await manager.handleNotificationResponse(userInfo: [
+            "slug": trimmedSlug,
+            "source": CurrentWordSource.localNotification.rawValue,
+        ])
         refreshFromManager()
     }
 
@@ -1757,7 +1787,10 @@ final class NativeDictionaryModel: ObservableObject {
             state["pushNotificationsPreferenceConfigured"] as? Bool ?? false
         pushPreferredDeliveryHour =
             state["pushPreferredDeliveryHour"] as? Int ?? CurrentWordStorage.defaultPushPreferredDeliveryHour
-        pushTokenAvailable = state["pushTokenAvailable"] as? Bool ?? false
+        pushScheduledNotificationCount = state["pushScheduledNotificationCount"] as? Int ?? 0
+        pushScheduledCatalogVersion = state["pushScheduledCatalogVersion"] as? String
+        pushScheduledTimeZone = state["pushScheduledTimeZone"] as? String ?? TimeZone.current.identifier
+        pushNextScheduledFireAt = state["pushNextScheduledFireAt"] as? Date
         catalogVersion = state["catalogVersion"] as? String ?? catalogSnapshot?.version
         lastCatalogCheckAt = CatalogDiskStore().loadLastCheckAt()
         isRefreshingCatalog = PhoneCatalogManager.shared.isRefreshing

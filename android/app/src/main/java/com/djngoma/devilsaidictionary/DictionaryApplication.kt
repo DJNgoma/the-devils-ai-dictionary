@@ -13,13 +13,8 @@ class DictionaryApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         createDailyWordChannel()
-        pushManager = PhonePushManager(
-            context = this,
-            storage = getSharedPreferences("native-dictionary-store", Context.MODE_PRIVATE),
-        )
-        if (BuildConfig.NATIVE_PUSH_CONFIGURED) {
-            pushManager.refresh()
-        }
+        pushManager = PhonePushManager.from(this)
+        pushManager.refresh()
     }
 
     private fun createDailyWordChannel() {

@@ -4,6 +4,7 @@ import { spawnSync } from "node:child_process";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const allowedPublishPathPatterns = [
   /^content\/entries\/[^/]+\.mdx$/,
@@ -76,8 +77,42 @@ function run(command, args, { cwd, check = true } = {}) {
   return result;
 }
 
+function commandExists(command) {
+  return (
+    spawnSync(command, ["--version"], {
+      encoding: "utf8",
+      stdio: "pipe",
+    }).status === 0
+  );
+}
+
+function gitCommandArgs(args, { useGhCredentialHelper = false } = {}) {
+  if (!useGhCredentialHelper) {
+    return args;
+  }
+
+  return [
+    "-c",
+    "credential.helper=",
+    "-c",
+    "credential.helper=!gh auth git-credential",
+    ...args,
+  ];
+}
+
+function gitWithOptions(repoRoot, args, { check = true, useGhCredentialHelper = false } = {}) {
+  return run("git", gitCommandArgs(args, { useGhCredentialHelper }), {
+    cwd: repoRoot,
+    check,
+  });
+}
+
 function git(repoRoot, ...args) {
-  return run("git", args, { cwd: repoRoot });
+  return gitWithOptions(repoRoot, args);
+}
+
+function gitWithResult(repoRoot, ...args) {
+  return gitWithOptions(repoRoot, args, { check: false });
 }
 
 function resolveRepoRoot(startPath = process.cwd()) {
@@ -155,9 +190,215 @@ async function fileExists(file) {
   }
 }
 
+function sleepMs(durationMs) {
+  if (durationMs <= 0) {
+    return;
+  }
+
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, durationMs);
+}
+
+function formatCommandFailure(command, args, result) {
+  return [
+    `Command failed: ${command} ${args.join(" ")}`,
+    result.stdout?.trim(),
+    result.stderr?.trim(),
+  ]
+    .filter(Boolean)
+    .join("\n");
+}
+
+let ghAuthAvailableCache;
+
+function hasGithubGhCredentials() {
+  if (ghAuthAvailableCache !== undefined) {
+    return ghAuthAvailableCache;
+  }
+
+  if (!commandExists("gh")) {
+    ghAuthAvailableCache = false;
+    return ghAuthAvailableCache;
+  }
+
+  ghAuthAvailableCache =
+    spawnSync("gh", ["auth", "status", "--hostname", "github.com"], {
+      encoding: "utf8",
+      stdio: "pipe",
+    }).status === 0;
+
+  return ghAuthAvailableCache;
+}
+
+function toGithubHttpsUrl(remoteUrl) {
+  if (!remoteUrl) {
+    return null;
+  }
+
+  const scpLikeMatch = remoteUrl.match(/^git@github\.com:(.+)$/);
+  if (scpLikeMatch) {
+    return `https://github.com/${scpLikeMatch[1]}`;
+  }
+
+  const sshUrlMatch = remoteUrl.match(/^ssh:\/\/git@github\.com\/(.+)$/);
+  if (sshUrlMatch) {
+    return `https://github.com/${sshUrlMatch[1]}`;
+  }
+
+  const httpsMatch = remoteUrl.match(/^https?:\/\/github\.com\/(.+)$/);
+  if (httpsMatch) {
+    return `https://github.com/${httpsMatch[1]}`;
+  }
+
+  return null;
+}
+
+function resolveAutomationRemote(originUrl) {
+  const githubHttpsUrl = toGithubHttpsUrl(originUrl);
+
+  if (githubHttpsUrl && hasGithubGhCredentials()) {
+    return {
+      fetchTarget: githubHttpsUrl,
+      pushTarget: githubHttpsUrl,
+      useGhCredentialHelper: true,
+      transport: "https-gh",
+    };
+  }
+
+  return {
+    fetchTarget: "origin",
+    pushTarget: "origin",
+    useGhCredentialHelper: false,
+    transport: "native",
+  };
+}
+
+function resolveSourceOriginMainRef() {
+  return "refs/remotes/origin/main";
+}
+
+function resolveCommit(repoRoot, ref) {
+  const result = gitWithResult(repoRoot, "rev-parse", "--verify", `${ref}^{commit}`);
+  if (result.status !== 0) {
+    return null;
+  }
+
+  return result.stdout.trim();
+}
+
+function describeOriginMainFetch(remote) {
+  if (remote.fetchTarget === "origin") {
+    return "git fetch origin main";
+  }
+
+  return `git fetch ${remote.fetchTarget} main:${resolveSourceOriginMainRef()}`;
+}
+
+function buildOriginMainFetchArgs(remote) {
+  if (remote.fetchTarget === "origin") {
+    return ["fetch", "origin", "main"];
+  }
+
+  return ["fetch", remote.fetchTarget, `main:${resolveSourceOriginMainRef()}`];
+}
+
+function refreshSourceOriginMain(sourceRepo, remote, {
+  attempts = 3,
+  retryDelayMs = [1000, 2000, 4000],
+} = {}) {
+  const fetchArgs = buildOriginMainFetchArgs(remote);
+  let lastFailure = null;
+
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    const result = gitWithOptions(sourceRepo, fetchArgs, {
+      check: false,
+      useGhCredentialHelper: remote.useGhCredentialHelper,
+    });
+
+    if (result.status === 0) {
+      return {
+        status: "fresh",
+        attempts: attempt + 1,
+        warnings: [],
+        fetchDescription: describeOriginMainFetch(remote),
+      };
+    }
+
+    lastFailure = formatCommandFailure("git", fetchArgs, result);
+
+    if (attempt < attempts - 1) {
+      sleepMs(retryDelayMs[attempt] ?? retryDelayMs.at(-1) ?? 0);
+    }
+  }
+
+  return {
+    status: "failed",
+    attempts,
+    warnings: [],
+    lastFailure,
+    fetchDescription: describeOriginMainFetch(remote),
+  };
+}
+
+function resolvePrepareBase(sourceRepo, refreshResult) {
+  const baseRef = resolveSourceOriginMainRef();
+  const baseCommit = resolveCommit(sourceRepo, baseRef);
+
+  if (refreshResult.status === "fresh") {
+    if (!baseCommit) {
+      throw new Error(`Expected ${baseRef} to exist after refreshing origin/main.`);
+    }
+
+    return {
+      originFetchStatus: "fresh",
+      baseRef,
+      baseCommit,
+      warnings: [],
+    };
+  }
+
+  if (!baseCommit) {
+    throw new Error(
+      [
+        `Failed to refresh origin/main after ${refreshResult.attempts} attempts and no cached ${baseRef} exists in the source repo.`,
+        refreshResult.lastFailure,
+      ]
+        .filter(Boolean)
+        .join("\n"),
+    );
+  }
+
+  return {
+    originFetchStatus: "cached",
+    baseRef,
+    baseCommit,
+    warnings: [
+      [
+        `${refreshResult.fetchDescription} failed after ${refreshResult.attempts} attempts; using cached ${baseRef} from the source repo.`,
+        refreshResult.lastFailure,
+      ]
+        .filter(Boolean)
+        .join("\n"),
+    ],
+  };
+}
+
+function seedScratchRepoFromSourceRef(scratchRepo, sourceRepo, sourceRef) {
+  const scratchFetchRef = "refs/remotes/source-cache/origin-main";
+
+  run("git", ["init", scratchRepo]);
+  git(scratchRepo, "remote", "add", "origin", git(sourceRepo, "remote", "get-url", "origin").stdout.trim());
+  run(
+    "git",
+    ["fetch", "--no-tags", sourceRepo, `${sourceRef}:${scratchFetchRef}`],
+    { cwd: scratchRepo },
+  );
+  git(scratchRepo, "checkout", "-B", "automation/daily-term-expansion", scratchFetchRef);
+}
+
 async function commandPrepare(options) {
   const sourceRepo = path.resolve(options.values.get("--source-repo") ?? resolveRepoRoot());
   const originUrl = git(sourceRepo, "remote", "get-url", "origin").stdout.trim();
+  const automationRemote = resolveAutomationRemote(originUrl);
   const runId = `${new Date().toISOString().replace(/[:.]/g, "-")}-${process.pid}`;
   const scratchBase = path.join(os.tmpdir(), "devils-ai-dictionary-daily-term-expansion");
   const scratchRepo = path.join(scratchBase, runId);
@@ -168,12 +409,12 @@ async function commandPrepare(options) {
 
   let prepared = false;
   let copiedNodeModules = false;
+  const refreshResult = refreshSourceOriginMain(sourceRepo, automationRemote);
+  const prepareBase = resolvePrepareBase(sourceRepo, refreshResult);
 
   try {
-    run("git", ["clone", "--no-local", "--branch", "main", "--single-branch", sourceRepo, scratchRepo]);
+    seedScratchRepoFromSourceRef(scratchRepo, sourceRepo, prepareBase.baseRef);
     git(scratchRepo, "remote", "set-url", "origin", originUrl);
-    git(scratchRepo, "fetch", "origin", "main");
-    git(scratchRepo, "checkout", "-B", "automation/daily-term-expansion", "origin/main");
 
     if (await fileExists(sourceNodeModules)) {
       const copyResult = run("cp", ["-cR", sourceNodeModules, scratchNodeModules], {
@@ -196,9 +437,15 @@ async function commandPrepare(options) {
       workspace: scratchRepo,
       branch: git(scratchRepo, "branch", "--show-current").stdout.trim(),
       head: git(scratchRepo, "rev-parse", "HEAD").stdout.trim(),
-      baseRef: "origin/main",
+      originFetchStatus: prepareBase.originFetchStatus,
+      baseRef: prepareBase.baseRef,
+      baseCommit: prepareBase.baseCommit,
       originUrl,
+      automationOriginUrl:
+        automationRemote.fetchTarget === "origin" ? originUrl : automationRemote.fetchTarget,
+      gitTransport: automationRemote.transport,
       copiedNodeModules,
+      warnings: prepareBase.warnings,
     };
 
     if (options.flags.has("--json")) {
@@ -208,7 +455,10 @@ async function commandPrepare(options) {
 
     console.log(`Workspace: ${result.workspace}`);
     console.log(`Branch: ${result.branch}`);
-    console.log(`Base: ${result.baseRef} @ ${result.head}`);
+    console.log(`Base: ${result.baseRef} @ ${result.baseCommit} (${result.originFetchStatus})`);
+    for (const warning of result.warnings) {
+      console.warn(warning);
+    }
   } finally {
     if (!prepared) {
       await fs.rm(scratchRepo, { recursive: true, force: true });
@@ -336,6 +586,8 @@ async function commandVerify(options) {
 async function commandPublish(options) {
   const repoRoot = resolveRepoRoot();
   const commitMessage = options.values.get("--message");
+  const originUrl = git(repoRoot, "remote", "get-url", "origin").stdout.trim();
+  const automationRemote = resolveAutomationRemote(originUrl);
 
   if (!commitMessage) {
     throw new Error("publish requires --message \"<commit subject>\".");
@@ -383,7 +635,9 @@ async function commandPublish(options) {
   git(repoRoot, "commit", "-m", commitMessage);
 
   if (options.flags.has("--push")) {
-    git(repoRoot, "fetch", "origin", "main");
+    gitWithOptions(repoRoot, buildOriginMainFetchArgs(automationRemote), {
+      useGhCredentialHelper: automationRemote.useGhCredentialHelper,
+    });
 
     const ancestorCheck = run(
       "git",
@@ -397,7 +651,9 @@ async function commandPublish(options) {
       );
     }
 
-    git(repoRoot, "push", "origin", "HEAD:main");
+    gitWithOptions(repoRoot, ["push", automationRemote.pushTarget, "HEAD:main"], {
+      useGhCredentialHelper: automationRemote.useGhCredentialHelper,
+    });
   }
 
   const head = git(repoRoot, "rev-parse", "HEAD").stdout.trim();
@@ -406,6 +662,7 @@ async function commandPublish(options) {
     head,
     pushed: options.flags.has("--push"),
     changedSlugs,
+    gitTransport: automationRemote.transport,
   };
 
   if (options.flags.has("--json")) {
@@ -444,7 +701,9 @@ async function main() {
   }
 }
 
-main().catch((error) => {
-  console.error(error.message);
-  process.exit(1);
-});
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main().catch((error) => {
+    console.error(error.message);
+    process.exit(1);
+  });
+}
