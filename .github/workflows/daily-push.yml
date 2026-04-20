@@ -2,9 +2,8 @@ name: Daily push dispatch
 
 on:
   schedule:
-    # Run every 15 minutes on offset minutes so per-device local-hour sends are
-    # picked up without depending on an exact top-of-hour GitHub scheduler start.
-    - cron: "2,17,32,47 * * * *"
+    # Temporary cost-control schedule: run once per day at 23:59 UTC.
+    - cron: "59 23 * * *"
   workflow_dispatch:
 
 permissions:
