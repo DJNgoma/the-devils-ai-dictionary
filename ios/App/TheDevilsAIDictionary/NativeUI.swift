@@ -190,6 +190,15 @@ extension View {
     }
 
     @ViewBuilder
+    func nativeNavigationBarHidden(_ hidden: Bool) -> some View {
+        #if os(macOS)
+        self
+        #else
+        self.navigationBarHidden(hidden)
+        #endif
+    }
+
+    @ViewBuilder
     func nativeSearchable(text: Binding<String>, prompt: String) -> some View {
         #if os(macOS)
         self.searchable(text: text, prompt: prompt)

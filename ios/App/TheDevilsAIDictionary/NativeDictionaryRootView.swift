@@ -240,7 +240,7 @@ private struct NativeOnboardingGuideView: View {
             )
         }
         .background(NativePalette.paper.ignoresSafeArea())
-        .navigationBarHidden(true)
+        .nativeNavigationBarHidden(true)
     }
 }
 

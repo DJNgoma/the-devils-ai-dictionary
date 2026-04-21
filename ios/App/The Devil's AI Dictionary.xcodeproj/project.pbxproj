@@ -16,9 +16,6 @@
 		4665B5BD58BC85CD23B480FC /* PhoneCurrentWordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4AF14050814D11999B6715 /* PhoneCurrentWordManager.swift */; };
 		4C0B203C19BD411DBC43E27E /* The Devil's AI Dictionary Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 88C7C0B4CE4F4B34BB74EC8A /* The Devil's AI Dictionary Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		504EC3081FED79650016851F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
-		C1A0B1C2D3E4F50000020001 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A0B1C2D3E4F50000020000 /* SplashScreenView.swift */; };
-		C1A0B1C2D3E4F50000020002 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A0B1C2D3E4F50000020000 /* SplashScreenView.swift */; };
-		C1A0B1C2D3E4F50000020003 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A0B1C2D3E4F50000020000 /* SplashScreenView.swift */; };
 		504EC30F1FED79650016851F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30E1FED79650016851F /* Assets.xcassets */; };
 		504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
 		51012C01008C18342897545D /* NativeDictionaryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54850C31BD00817BEB793E5 /* NativeDictionaryApp.swift */; };
@@ -50,6 +47,9 @@
 		BC088091C4B0CD6F04825472 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A898DBE6DB7F0A1FE1CBBB1E /* Cocoa.framework */; };
 		BD3E2907275EED25E6FB2224 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E1A0B1C2D3E4F50000100101 /* PrivacyInfo.xcprivacy */; };
 		BE8A67DD9C27AAFD59EE1D1B /* NativeEntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A0B1C2D3E4F5000010008 /* NativeEntryDetailView.swift */; };
+		C1A0B1C2D3E4F50000020001 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A0B1C2D3E4F50000020000 /* SplashScreenView.swift */; };
+		C1A0B1C2D3E4F50000020002 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A0B1C2D3E4F50000020000 /* SplashScreenView.swift */; };
+		C1A0B1C2D3E4F50000020003 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A0B1C2D3E4F50000020000 /* SplashScreenView.swift */; };
 		C33FA904C15CA3A9B9838E6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
 		C9068D8FB0755F904FC24824 /* CurrentWordStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2A300C91341149474E2A5 /* CurrentWordStorage.swift */; };
 		C95B60FB6DAF43CFBEB3C65D /* DevilsAIDictionaryCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CF9E68ADBF4E6D934F5CD2 /* DevilsAIDictionaryCore.swift */; };
@@ -113,10 +113,10 @@
 		AA000002000000000000000A /* WatchCurrentWordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCurrentWordModel.swift; sourceTree = "<group>"; };
 		AA000003000000000000000A /* WatchCurrentWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCurrentWordView.swift; sourceTree = "<group>"; };
 		B4F2A300C91341149474E2A5 /* CurrentWordStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWordStorage.swift; sourceTree = "<group>"; };
+		C1A0B1C2D3E4F50000020000 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		D9F6F913960D46E3874E463D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB4AF14050814D11999B6715 /* PhoneCurrentWordManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = PhoneCurrentWordManager.swift; path = PhoneCurrentWordManager.swift; sourceTree = "<group>"; };
 		E1A0B1C2D3E4F50000100101 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		C1A0B1C2D3E4F50000020000 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		F54850C31BD00817BEB793E5 /* NativeDictionaryApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NativeDictionaryApp.swift; sourceTree = "<group>"; };
 		FA7D2814C3EB4EC8A6C7DADD /* TheDevilsAIDictionary.entitlements */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = TheDevilsAIDictionary.entitlements; path = TheDevilsAIDictionary.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */

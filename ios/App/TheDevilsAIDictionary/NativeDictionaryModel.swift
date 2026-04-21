@@ -3,9 +3,12 @@ import SwiftUI
 
 #if os(iOS)
 import AuthenticationServices
+import UIKit
+#endif
+
+#if os(iOS) || os(macOS) || os(visionOS)
 import Security
 import StoreKit
-import UIKit
 #endif
 
 #if canImport(DevilsAIDictionaryCore)
@@ -14,7 +17,7 @@ import DevilsAIDictionaryCore
 
 // MARK: - Apple account sync
 
-#if os(iOS)
+#if os(iOS) || os(macOS) || os(visionOS)
 private enum NativeAppleBackendError: LocalizedError {
     case missingBaseURL
     case invalidResponse
