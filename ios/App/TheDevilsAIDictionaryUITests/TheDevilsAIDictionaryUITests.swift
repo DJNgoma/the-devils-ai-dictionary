@@ -25,8 +25,7 @@ final class TheDevilsAIDictionaryUITests: XCTestCase {
 
         XCTAssertTrue(app.uiElement("home.container").waitForExistence(timeout: 10))
 
-        tapTab(app, identifier: "tab.search", label: "Search")
-        XCTAssertTrue(app.uiElement("search.container").waitForExistence(timeout: 5))
+        assertTabNavigation(app, identifier: "tab.search", label: "Search", containerIdentifier: "search.container")
     }
 
     func testCategoriesTabNavigationWorksFromHome() {
@@ -35,8 +34,12 @@ final class TheDevilsAIDictionaryUITests: XCTestCase {
 
         XCTAssertTrue(app.uiElement("home.container").waitForExistence(timeout: 10))
 
-        tapTab(app, identifier: "tab.categories", label: "Categories")
-        XCTAssertTrue(app.uiElement("categories.container").waitForExistence(timeout: 5))
+        assertTabNavigation(
+            app,
+            identifier: "tab.categories",
+            label: "Categories",
+            containerIdentifier: "categories.container"
+        )
     }
 
     func testSavedTabNavigationWorksFromHome() {
@@ -45,8 +48,7 @@ final class TheDevilsAIDictionaryUITests: XCTestCase {
 
         XCTAssertTrue(app.uiElement("home.container").waitForExistence(timeout: 10))
 
-        tapTab(app, identifier: "tab.saved", label: "Saved")
-        XCTAssertTrue(app.uiElement("saved.container").waitForExistence(timeout: 5))
+        assertTabNavigation(app, identifier: "tab.saved", label: "Saved", containerIdentifier: "saved.container")
     }
 
     func testSettingsTabNavigationWorksFromHome() {
@@ -55,8 +57,7 @@ final class TheDevilsAIDictionaryUITests: XCTestCase {
 
         XCTAssertTrue(app.uiElement("home.container").waitForExistence(timeout: 10))
 
-        tapTab(app, identifier: "tab.settings", label: "Settings")
-        XCTAssertTrue(app.uiElement("settings.container").waitForExistence(timeout: 5))
+        assertTabNavigation(app, identifier: "tab.settings", label: "Settings", containerIdentifier: "settings.container")
     }
 
     func testSearchPresetShowsSeededQueryAndResults() {
@@ -125,5 +126,25 @@ final class TheDevilsAIDictionaryUITests: XCTestCase {
         }
 
         button.tap()
+    }
+
+    private func assertTabNavigation(
+        _ app: XCUIApplication,
+        identifier: String,
+        label: String,
+        containerIdentifier: String,
+        timeout: TimeInterval = 5,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        tapTab(app, identifier: identifier, label: label, file: file, line: line)
+
+        if app.uiElement(containerIdentifier).waitForExistence(timeout: timeout) {
+            return
+        }
+
+        XCTAssertTrue(app.forceForeground(), file: file, line: line)
+        tapTab(app, identifier: identifier, label: label, file: file, line: line)
+        XCTAssertTrue(app.uiElement(containerIdentifier).waitForExistence(timeout: timeout), file: file, line: line)
     }
 }

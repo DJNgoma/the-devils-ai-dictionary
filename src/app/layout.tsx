@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { BookmarkProvider } from "@/components/bookmark-provider";
 import { MobileAppBar } from "@/components/mobile-app-bar";
 import { MobileBottomNav } from "@/components/mobile-bottom-nav";
 import { MobileShellController } from "@/components/mobile-shell-controller";
@@ -174,17 +173,15 @@ export default function RootLayout({
       </head>
       <body className="min-h-full">
         <ThemeProvider>
-          <BookmarkProvider>
-            <MobileShellController>
-              <div className="site-chrome min-h-full">
-                <SiteHeader />
-                <MobileAppBar />
-                <main className="app-shell-main flex-1">{children}</main>
-                <SiteFooter />
-                <MobileBottomNav />
-              </div>
-            </MobileShellController>
-          </BookmarkProvider>
+          <MobileShellController>
+            <div className="site-chrome min-h-full">
+              <SiteHeader />
+              <MobileAppBar />
+              <main className="app-shell-main flex-1">{children}</main>
+              <SiteFooter />
+              <MobileBottomNav />
+            </div>
+          </MobileShellController>
         </ThemeProvider>
       </body>
     </html>
