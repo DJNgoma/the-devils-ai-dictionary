@@ -13,6 +13,10 @@ const withXcodeScript = path.join(scriptDir, "with-xcode.mjs");
 const xcodeProject = path.join(repoRoot, "ios", "App", "The Devil's AI Dictionary.xcodeproj");
 const xcodeScheme = "The Devil's AI Dictionary";
 const managedSimulatorPrefix = "Codex UI Smoke";
+const managedAppBundleIdentifiers = [
+  "com.djngoma.devilsaidictionary",
+  "com.djngoma.devilsaidictionary.watchkitapp",
+];
 const maxBufferedOutputChars = 500_000;
 const retriableLaunchFailureMarkers = [
   "Simulator device failed to launch",
@@ -239,14 +243,39 @@ function waitForSimulatorBoot(udid) {
   });
 }
 
+function resetManagedAppState(udid) {
+  for (const bundleIdentifier of managedAppBundleIdentifiers) {
+    tryRunSimctl(["uninstall", udid, bundleIdentifier]);
+  }
+}
+
+function readSimulatorState(udid) {
+  const { devices } = readSimctlJson("devices");
+
+  for (const simulators of Object.values(devices)) {
+    const simulator = simulators.find((candidate) => candidate.udid === udid);
+    if (simulator) {
+      return simulator.state;
+    }
+  }
+
+  return null;
+}
+
 function prepareSimulator(udid, device) {
+  if (readSimulatorState(udid) === "Booted") {
+    waitForSimulatorBoot(udid);
+    resetManagedAppState(udid);
+    return udid;
+  }
+
   tryRunSimctl(["shutdown", udid]);
-  tryRunSimctl(["erase", udid]);
 
   for (let attempt = 0; attempt < 2; attempt += 1) {
     try {
       runSimctl(["boot", udid]);
       waitForSimulatorBoot(udid);
+      resetManagedAppState(udid);
       return udid;
     } catch (error) {
       if (attempt > 0) {
