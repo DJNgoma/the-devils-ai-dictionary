@@ -39,7 +39,7 @@ export function SiteHeader() {
             <Link href="/settings" className="button button-ghost">
               Settings
             </Link>
-            <ThemeSwitcher />
+            <ThemeSwitcher variant="compact" />
           </div>
         </div>
         <div className="flex flex-wrap items-center justify-between gap-3">
@@ -58,9 +58,6 @@ export function SiteHeader() {
               </Link>
             ))}
           </nav>
-          <div className="md:hidden">
-            <ThemeSwitcher />
-          </div>
         </div>
       </div>
     </header>

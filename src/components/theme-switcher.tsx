@@ -1,26 +1,77 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { cn } from "@/lib/utils";
 import { useSiteTheme } from "@/components/theme-provider";
 import {
   themeAppearanceLabels,
   themeOptions,
   themeOptionsByAppearance,
+  type ThemeName,
 } from "@/lib/site";
 
-export function ThemeSwitcher() {
+type ThemeSwitcherProps = {
+  variant?: "compact" | "full";
+  className?: string;
+};
+
+export function ThemeSwitcher({
+  variant = "full",
+  className,
+}: ThemeSwitcherProps) {
   const { mode, resolvedTheme, setMode, setTheme, theme } = useSiteTheme();
   const mounted = useSyncExternalStore(
     () => () => {},
     () => true,
     () => false,
   );
+  const displayedTheme = mounted
+    ? (mode === "auto" ? resolvedTheme : theme)
+    : "book";
   const effectiveTheme =
-    themeOptions.find((option) => option.value === (mounted ? resolvedTheme : "book")) ??
+    themeOptions.find((option) => option.value === displayedTheme) ??
     themeOptions[0];
 
+  if (variant === "compact") {
+    return (
+      <div className={cn("flex flex-wrap items-center justify-end gap-2", className)}>
+        <label className="theme-choice whitespace-nowrap">
+          <span className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-foreground-soft">
+            Auto
+          </span>
+          <input
+            type="checkbox"
+            className="h-4 w-4 accent-accent"
+            aria-label="Automatically match the site theme to light or dark mode"
+            checked={mode === "auto"}
+            onChange={(event) => setMode(event.target.checked ? "auto" : "manual")}
+          />
+        </label>
+
+        <label className="theme-choice min-w-[13rem]">
+          <ThemeSwatches colors={effectiveTheme.swatches} className="theme-preview" />
+          <span className="sr-only">Choose a theme</span>
+          <select
+            aria-label="Choose a theme"
+            value={displayedTheme}
+            onChange={(event) => {
+              setMode("manual");
+              setTheme(event.target.value as ThemeName);
+            }}
+          >
+            {themeOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+    );
+  }
+
   return (
-    <div className="space-y-4">
+    <div className={cn("space-y-4", className)}>
       <label className="flex min-h-[var(--control-height)] items-start justify-between gap-4 rounded-[var(--radius-control)] border border-line bg-surface px-4 py-3">
         <span className="space-y-1">
           <span className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-foreground-soft">
@@ -91,9 +142,15 @@ export function ThemeSwitcher() {
   );
 }
 
-function ThemeSwatches({ colors }: { colors: readonly string[] }) {
+function ThemeSwatches({
+  colors,
+  className,
+}: {
+  colors: readonly string[];
+  className?: string;
+}) {
   return (
-    <span className="flex items-center gap-1.5" aria-hidden="true">
+    <span className={cn("flex items-center gap-1.5", className)} aria-hidden="true">
       {colors.map((color) => (
         <span
           key={color}
