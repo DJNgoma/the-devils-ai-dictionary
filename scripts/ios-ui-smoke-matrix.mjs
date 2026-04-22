@@ -13,6 +13,13 @@ const withXcodeScript = path.join(scriptDir, "with-xcode.mjs");
 const xcodeProject = path.join(repoRoot, "ios", "App", "The Devil's AI Dictionary.xcodeproj");
 const xcodeScheme = "The Devil's AI Dictionary";
 const managedSimulatorPrefix = "Codex UI Smoke";
+const maxBufferedOutputChars = 500_000;
+const retriableLaunchFailureMarkers = [
+  "Simulator device failed to launch",
+  "The request was denied by service delegate (SBMainWorkspace)",
+  "Launchd job spawn failed",
+  "Resource temporarily unavailable",
+];
 
 function parseVersion(version) {
   return String(version)
@@ -153,28 +160,55 @@ function findXCTestRunFile(derivedDataPath) {
   throw new Error(`No .xctestrun file was generated in ${productsDirectory}.`);
 }
 
+class CommandFailure extends Error {
+  constructor(message, output = "") {
+    super(message);
+    this.name = "CommandFailure";
+    this.output = output;
+  }
+}
+
 function runCommand(command, args) {
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, {
       cwd: repoRoot,
-      stdio: "inherit",
+      stdio: ["ignore", "pipe", "pipe"],
       shell: false,
     });
+    let bufferedOutput = "";
+
+    const appendOutput = (chunk, stream) => {
+      stream.write(chunk);
+      bufferedOutput = `${bufferedOutput}${chunk.toString("utf8")}`.slice(-maxBufferedOutputChars);
+    };
+
+    child.stdout?.on("data", (chunk) => appendOutput(chunk, process.stdout));
+    child.stderr?.on("data", (chunk) => appendOutput(chunk, process.stderr));
+
+    child.on("error", reject);
 
     child.on("exit", (code, signal) => {
       if (signal) {
-        reject(new Error(`${command} terminated with signal ${signal}.`));
+        reject(new CommandFailure(`${command} terminated with signal ${signal}.`, bufferedOutput));
         return;
       }
 
       if ((code ?? 1) !== 0) {
-        reject(new Error(`${command} ${args.join(" ")} exited with code ${code ?? 1}.`));
+        reject(new CommandFailure(`${command} ${args.join(" ")} exited with code ${code ?? 1}.`, bufferedOutput));
         return;
       }
 
       resolve();
     });
   });
+}
+
+function isRetriableSimulatorLaunchFailure(error) {
+  const output = error instanceof Error
+    ? `${error.message}\n${error.output ?? ""}`
+    : String(error);
+
+  return retriableLaunchFailureMarkers.some((marker) => output.includes(marker));
 }
 
 function runSimctl(args) {
@@ -225,6 +259,13 @@ function prepareSimulator(udid, device) {
       udid = runSimctlText(["create", managedSimulatorName(device), device.deviceTypeIdentifier, device.runtimeIdentifier]);
     }
   }
+}
+
+function recreateManagedSimulator(udid, device) {
+  tryRunSimctl(["shutdown", udid]);
+  tryRunSimctl(["delete", udid]);
+  const freshUdid = runSimctlText(["create", managedSimulatorName(device), device.deviceTypeIdentifier, device.runtimeIdentifier]);
+  return prepareSimulator(freshUdid, device);
 }
 
 function managedSimulatorName(device) {
@@ -329,17 +370,32 @@ async function main(argv = process.argv.slice(2)) {
 
     for (const device of selectedDevices) {
       console.log(`\n==> ${device.name} (${device.runtimeName})`);
-      const udid = prepareSimulator(ensureManagedSimulator(device, devices), device);
-      await runCommand("node", [
-        withXcodeScript,
-        "xcodebuild",
-        "test-without-building",
-        "-xctestrun",
-        xctestrunPath,
-        "-destination",
-        `id=${udid}`,
-        "CODE_SIGNING_ALLOWED=NO",
-      ]);
+      let udid = prepareSimulator(ensureManagedSimulator(device, devices), device);
+
+      for (let attempt = 0; attempt < 2; attempt += 1) {
+        try {
+          await runCommand("node", [
+            withXcodeScript,
+            "xcodebuild",
+            "test-without-building",
+            "-xctestrun",
+            xctestrunPath,
+            "-destination",
+            `id=${udid}`,
+            "CODE_SIGNING_ALLOWED=NO",
+          ]);
+          break;
+        } catch (error) {
+          if (attempt > 0 || !isRetriableSimulatorLaunchFailure(error)) {
+            throw error;
+          }
+
+          console.warn(
+            `UI smoke hit a simulator launch flake on ${device.name}; recreating the managed simulator and retrying once.`,
+          );
+          udid = recreateManagedSimulator(udid, device);
+        }
+      }
     }
 
     console.log(`\nCompleted iPhone UI smoke tests on ${selectedDevices.length} simulator(s).`);
