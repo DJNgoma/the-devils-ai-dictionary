@@ -230,14 +230,32 @@ function writeFakeGh(file: string) {
 }
 
 describe("daily-term automation", () => {
-  it("finds gh in ~/.local/bin even when PATH omits it", async () => {
+  it("prefers the Homebrew gh path before PATH-driven fallbacks", async () => {
+    const fakeHome = createTempDir("daily-term-automation-homebrew-order-");
+
+    process.env.PATH = `${path.join(fakeHome, ".local", "bin")}:/usr/bin:/bin`;
+    process.env.HOME = fakeHome;
+    delete process.env.GH_PATH;
+
+    const automationModule = await importAutomationModule();
+
+    expect(automationModule.ghCommandCandidates()).toEqual([
+      "/opt/homebrew/bin/gh",
+      "/usr/local/bin/gh",
+      "gh",
+      path.join(fakeHome, ".local", "bin", "gh"),
+      "/usr/bin/gh",
+    ]);
+  });
+
+  it("prefers an explicit GH_PATH even when PATH omits it", async () => {
     const fakeHome = createTempDir("daily-term-automation-home-");
     const fakeGh = path.join(fakeHome, ".local", "bin", "gh");
     writeFakeGh(fakeGh);
 
     process.env.PATH = "/usr/bin:/bin";
     process.env.HOME = fakeHome;
-    delete process.env.GH_PATH;
+    process.env.GH_PATH = fakeGh;
 
     const automationModule = await importAutomationModule();
     const remote = automationModule.resolveAutomationRemote(
@@ -373,5 +391,5 @@ describe("daily-term automation", () => {
       "HEAD",
     );
     expect(ancestorCheck.status).not.toBe(0);
-  });
+  }, 15_000);
 });

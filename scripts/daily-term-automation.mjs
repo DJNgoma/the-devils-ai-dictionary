@@ -214,23 +214,25 @@ function shellQuote(value) {
   return `'${value.replace(/'/g, `'\\''`)}'`;
 }
 
+function ghCommandCandidates() {
+  return unique(
+    [
+      process.env.GH_PATH,
+      "/opt/homebrew/bin/gh",
+      "/usr/local/bin/gh",
+      "gh",
+      path.join(os.homedir(), ".local", "bin", "gh"),
+      "/usr/bin/gh",
+    ].filter(Boolean),
+  );
+}
+
 function resolveGhCommand() {
   if (ghCommandCache !== undefined) {
     return ghCommandCache;
   }
 
-  const candidates = unique(
-    [
-      process.env.GH_PATH,
-      "gh",
-      path.join(os.homedir(), ".local", "bin", "gh"),
-      "/opt/homebrew/bin/gh",
-      "/usr/local/bin/gh",
-      "/usr/bin/gh",
-    ].filter(Boolean),
-  );
-
-  for (const candidate of candidates) {
+  for (const candidate of ghCommandCandidates()) {
     if (candidate !== "gh" && !existsSync(candidate)) {
       continue;
     }
@@ -759,6 +761,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
 }
 
 export {
+  ghCommandCandidates,
   gitCommandArgs,
   hasGithubGhCredentials,
   resolveAutomationRemote,

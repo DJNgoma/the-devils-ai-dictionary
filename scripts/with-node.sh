@@ -21,12 +21,20 @@ prepend_path_if_dir() {
   esac
 }
 
-prepend_path_if_dir "$HOME/.local/bin"
-prepend_path_if_dir "/opt/homebrew/bin"
-prepend_path_if_dir "/opt/homebrew/sbin"
-prepend_path_if_dir "/usr/local/bin"
 prepend_path_if_dir "/usr/local/sbin"
+prepend_path_if_dir "/usr/local/bin"
+prepend_path_if_dir "$HOME/.local/bin"
+prepend_path_if_dir "/opt/homebrew/sbin"
+prepend_path_if_dir "/opt/homebrew/bin"
 export PATH
+
+if [ -z "${GH_PATH:-}" ]; then
+  if [ -x "/opt/homebrew/bin/gh" ]; then
+    export GH_PATH="/opt/homebrew/bin/gh"
+  elif [ -x "/usr/local/bin/gh" ]; then
+    export GH_PATH="/usr/local/bin/gh"
+  fi
+fi
 
 if ! command -v node >/dev/null 2>&1; then
   export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
