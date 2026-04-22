@@ -19,6 +19,9 @@ Required Worker secrets:
 - `APNS_PRIVATE_KEY`
 - `APNS_TEAM_ID`
 - `PUSH_TEST_SEND_SECRET`
+- `WEB_PUSH_VAPID_PUBLIC_KEY`
+- `WEB_PUSH_VAPID_PRIVATE_KEY`
+- `WEB_PUSH_VAPID_SUBJECT`
 
 Set them with Wrangler:
 
@@ -28,6 +31,9 @@ npx wrangler secret put APNS_KEY_ID
 npx wrangler secret put APNS_PRIVATE_KEY
 npx wrangler secret put APNS_TEAM_ID
 npx wrangler secret put PUSH_TEST_SEND_SECRET
+npx wrangler secret put WEB_PUSH_VAPID_PUBLIC_KEY
+npx wrangler secret put WEB_PUSH_VAPID_PRIVATE_KEY
+npx wrangler secret put WEB_PUSH_VAPID_SUBJECT
 ```
 
 The D1 migrations live in `migrations/0001_push_installations.sql` and `migrations/0002_push_installation_delivery_preferences.sql`.

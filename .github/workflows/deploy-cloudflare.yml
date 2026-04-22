@@ -66,3 +66,18 @@ jobs:
       - name: Deploy web to Cloudflare
         if: env.CLOUDFLARE_ACCOUNT_ID != '' && env.CLOUDFLARE_API_TOKEN != ''
         run: npm run deploy:cf
+
+      - name: Verify production web push runtime
+        if: env.CLOUDFLARE_ACCOUNT_ID != '' && env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          response=$(curl --fail --silent --show-error https://thedevilsaidictionary.com/api/web/push/config)
+          node - "$response" <<'NODE'
+          const payload = JSON.parse(process.argv[2]);
+
+          if (!payload.enabled || !payload.publicKey) {
+            console.error(
+              "Production web push is disabled. Set WEB_PUSH_VAPID_PUBLIC_KEY, WEB_PUSH_VAPID_PRIVATE_KEY, and WEB_PUSH_VAPID_SUBJECT on the Cloudflare worker.",
+            );
+            process.exit(1);
+          }
+          NODE
