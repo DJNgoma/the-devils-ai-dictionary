@@ -1,0 +1,62 @@
+---
+title: "GPT Image 2"
+slug: "gpt-image-2"
+letter: "G"
+categories:
+  - "Product and vendor terms"
+  - "Model usage"
+aliases:
+  - "OpenAI Images v2"
+  - "images v2"
+  - "OpenAI image model v2"
+devilDefinition: |
+  OpenAI's current image model for people who would like better picture generation, better editing, and one more meeting about whether prompt writing now counts as art direction.
+plainDefinition: |
+  GPT Image 2 is OpenAI's current image-generation and image-editing model. It accepts text plus image inputs, returns image outputs, and can be used through the Image API or through the Responses API image generation tool.
+whyExists: |
+  Image systems are now expected to do more than spit out pretty approximations. They need stronger prompt adherence, better editing, higher-fidelity preservation of input images, and a smoother path from one-off generation to iterative product workflows.
+misuse: |
+  It gets described as though a new image model automatically solves taste, brand judgement, and production readiness. It does not. It mostly means OpenAI has improved the engine while leaving humans in charge of deciding whether the result deserves civilisation.
+practicalMeaning: |
+  In practice it means OpenAI's latest image model for generation and edits, with flexible sizing and stronger image-input handling. The operational wrinkle is that the model itself sits behind two different patterns: direct image endpoints such as `v1/images/generations` and `v1/images/edits`, or a mainline model in the Responses API using the `image_generation` tool for multi-turn editing and prompt revision.
+example: |
+  "They said they had integrated OpenAI's new images v2, which turned out to mean GPT Image 2 plus a mainline model quietly rewriting prompts before the pixels arrived."
+askNext:
+  - "Are you calling the Image API directly, or using the Responses API image generation tool through a mainline model?"
+  - "Do you need high-fidelity editing of an input image, or just one-shot generation?"
+  - "Will the workflow break if someone asks for a transparent background, which GPT Image 2 does not currently support?"
+related:
+  - "openai"
+  - "multimodal"
+  - "midjourney"
+  - "prompt"
+seeAlso:
+  - "Responses API"
+  - "Image API"
+  - "Prompt revision"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: true
+publishedAt: "2026-04-22"
+updatedAt: "2026-04-22"
+warningLabel: "Useful image model. Still not a substitute for taste or production judgement."
+vendorReferences:
+  - "GPT Image 2"
+  - "v1/images/generations"
+  - "v1/images/edits"
+  - "image_generation tool"
+tags:
+  - "images"
+  - "editing"
+  - "openai"
+  - "multimodal"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "OpenAI's newest image engine, plus a fresh round of people discovering that better generation does not remove the need for judgement."
+note: |
+  OpenAI's current docs describe GPT Image 2 as the state-of-the-art image generation model, with the snapshot alias `gpt-image-2-2026-04-21`. The docs also note that when you use image generation through the Responses API, a mainline model such as `gpt-5.4` can revise the prompt and decide whether to generate or edit.
+---
+
+The important distinction is not merely new versus old. It is whether you are buying a standalone image endpoint, a conversational editing loop, or simply a shinier excuse to postpone hiring someone with visual judgement.
