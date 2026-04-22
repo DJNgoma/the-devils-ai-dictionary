@@ -25,6 +25,7 @@ scripts/with-node.sh node scripts/daily-term-automation.mjs prepare --json
 That returns a `workspace` path. Change into that directory and do the rest of the run there.
 `prepare` first tries to refresh the source checkout's cached `origin/main` and retries transient failures before giving up.
 For GitHub remotes, the helper prefers HTTPS git transport authenticated through `gh` when `gh auth status` is available, so the automation does not depend on SSH being healthy.
+It looks for `gh` on `PATH` and in common local install locations such as `~/.local/bin/gh` and `/opt/homebrew/bin/gh`, so scheduled runs do not depend entirely on interactive shell startup files.
 If GitHub is briefly unavailable but the source checkout already has a cached `refs/remotes/origin/main`, `prepare` may still succeed in degraded mode by basing the scratch checkout on that cached ref.
 The JSON result reports whether the base was `fresh` or `cached`, plus the exact ref and commit used.
 When the source checkout already has `node_modules`, the helper tries to clone that dependency tree into the scratch repo with local copy-on-write semantics so lint, typecheck, and build can run without a fresh `npm ci`.

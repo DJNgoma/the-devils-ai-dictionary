@@ -6,9 +6,27 @@ if [ "$#" -eq 0 ]; then
   exit 64
 fi
 
-if [ -x /opt/homebrew/bin/node ]; then
-  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
-fi
+export PATH="${PATH:-/usr/bin:/bin}"
+
+prepend_path_if_dir() {
+  local dir="$1"
+
+  if [ ! -d "$dir" ]; then
+    return
+  fi
+
+  case ":$PATH:" in
+    *":$dir:"*) ;;
+    *) PATH="$dir:$PATH" ;;
+  esac
+}
+
+prepend_path_if_dir "$HOME/.local/bin"
+prepend_path_if_dir "/opt/homebrew/bin"
+prepend_path_if_dir "/opt/homebrew/sbin"
+prepend_path_if_dir "/usr/local/bin"
+prepend_path_if_dir "/usr/local/sbin"
+export PATH
 
 if ! command -v node >/dev/null 2>&1; then
   export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"

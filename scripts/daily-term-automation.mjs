@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { spawnSync } from "node:child_process";
+import { existsSync } from "node:fs";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
@@ -79,17 +80,13 @@ function run(command, args, { cwd, check = true } = {}) {
   return result;
 }
 
-function commandExists(command) {
-  return (
-    spawnSync(command, ["--version"], {
-      encoding: "utf8",
-      stdio: "pipe",
-    }).status === 0
-  );
-}
-
 function gitCommandArgs(args, { useGhCredentialHelper = false } = {}) {
   if (!useGhCredentialHelper) {
+    return args;
+  }
+
+  const ghCommand = resolveGhCommand();
+  if (!ghCommand) {
     return args;
   }
 
@@ -97,7 +94,7 @@ function gitCommandArgs(args, { useGhCredentialHelper = false } = {}) {
     "-c",
     "credential.helper=",
     "-c",
-    "credential.helper=!gh auth git-credential",
+    `credential.helper=!${shellQuote(ghCommand)} auth git-credential`,
     ...args,
   ];
 }
@@ -211,19 +208,61 @@ function formatCommandFailure(command, args, result) {
 }
 
 let ghAuthAvailableCache;
+let ghCommandCache;
+
+function shellQuote(value) {
+  return `'${value.replace(/'/g, `'\\''`)}'`;
+}
+
+function resolveGhCommand() {
+  if (ghCommandCache !== undefined) {
+    return ghCommandCache;
+  }
+
+  const candidates = unique(
+    [
+      process.env.GH_PATH,
+      "gh",
+      path.join(os.homedir(), ".local", "bin", "gh"),
+      "/opt/homebrew/bin/gh",
+      "/usr/local/bin/gh",
+      "/usr/bin/gh",
+    ].filter(Boolean),
+  );
+
+  for (const candidate of candidates) {
+    if (candidate !== "gh" && !existsSync(candidate)) {
+      continue;
+    }
+
+    const result = spawnSync(candidate, ["--version"], {
+      encoding: "utf8",
+      stdio: "pipe",
+    });
+
+    if (result.status === 0) {
+      ghCommandCache = candidate;
+      return ghCommandCache;
+    }
+  }
+
+  ghCommandCache = null;
+  return ghCommandCache;
+}
 
 function hasGithubGhCredentials() {
   if (ghAuthAvailableCache !== undefined) {
     return ghAuthAvailableCache;
   }
 
-  if (!commandExists("gh")) {
+  const ghCommand = resolveGhCommand();
+  if (!ghCommand) {
     ghAuthAvailableCache = false;
     return ghAuthAvailableCache;
   }
 
   ghAuthAvailableCache =
-    spawnSync("gh", ["auth", "status", "--hostname", "github.com"], {
+    spawnSync(ghCommand, ["auth", "status", "--hostname", "github.com"], {
       encoding: "utf8",
       stdio: "pipe",
     }).status === 0;
@@ -718,3 +757,11 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     process.exit(1);
   });
 }
+
+export {
+  gitCommandArgs,
+  hasGithubGhCredentials,
+  resolveAutomationRemote,
+  resolveGhCommand,
+  toGithubHttpsUrl,
+};

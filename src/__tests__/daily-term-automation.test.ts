@@ -2,7 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { afterEach, describe, expect, it } from "vitest";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -12,6 +12,9 @@ const automationScript = path.resolve(
 );
 
 const tempPaths: string[] = [];
+const originalGhPath = process.env.GH_PATH;
+const originalHome = process.env.HOME;
+const originalPath = process.env.PATH;
 
 afterEach(() => {
   while (tempPaths.length > 0) {
@@ -19,6 +22,24 @@ afterEach(() => {
     if (target) {
       fs.rmSync(target, { recursive: true, force: true });
     }
+  }
+
+  if (originalGhPath === undefined) {
+    delete process.env.GH_PATH;
+  } else {
+    process.env.GH_PATH = originalGhPath;
+  }
+
+  if (originalHome === undefined) {
+    delete process.env.HOME;
+  } else {
+    process.env.HOME = originalHome;
+  }
+
+  if (originalPath === undefined) {
+    delete process.env.PATH;
+  } else {
+    process.env.PATH = originalPath;
   }
 });
 
@@ -182,7 +203,61 @@ function runAutomation(args: string[], { check = true, cwd }: { check?: boolean;
   return runCommand(process.execPath, [automationScript, ...args], { check, cwd });
 }
 
+async function importAutomationModule() {
+  return import(`${pathToFileURL(automationScript).href}?t=${Date.now()}-${Math.random()}`);
+}
+
+function writeFakeGh(file: string) {
+  writeFile(
+    file,
+    [
+      "#!/bin/sh",
+      "if [ \"$1\" = \"--version\" ]; then",
+      "  echo \"gh version test\"",
+      "  exit 0",
+      "fi",
+      "if [ \"$1\" = \"auth\" ] && [ \"$2\" = \"status\" ]; then",
+      "  exit 0",
+      "fi",
+      "if [ \"$1\" = \"auth\" ] && [ \"$2\" = \"git-credential\" ]; then",
+      "  exit 0",
+      "fi",
+      "exit 1",
+      "",
+    ].join("\n"),
+  );
+  fs.chmodSync(file, 0o755);
+}
+
 describe("daily-term automation", () => {
+  it("finds gh in ~/.local/bin even when PATH omits it", async () => {
+    const fakeHome = createTempDir("daily-term-automation-home-");
+    const fakeGh = path.join(fakeHome, ".local", "bin", "gh");
+    writeFakeGh(fakeGh);
+
+    process.env.PATH = "/usr/bin:/bin";
+    process.env.HOME = fakeHome;
+    delete process.env.GH_PATH;
+
+    const automationModule = await importAutomationModule();
+    const remote = automationModule.resolveAutomationRemote(
+      "git@github.com:DJNgoma/the-devils-ai-dictionary.git",
+    );
+    const gitArgs = automationModule.gitCommandArgs(
+      ["fetch", "origin", "main"],
+      { useGhCredentialHelper: true },
+    );
+
+    expect(automationModule.resolveGhCommand()).toBe(fakeGh);
+    expect(remote).toMatchObject({
+      fetchTarget: "https://github.com/DJNgoma/the-devils-ai-dictionary.git",
+      pushTarget: "https://github.com/DJNgoma/the-devils-ai-dictionary.git",
+      useGhCredentialHelper: true,
+      transport: "https-gh",
+    });
+    expect(gitArgs.some((arg: string) => arg.includes(fakeGh))).toBe(true);
+  });
+
   it("prepares from a freshly refreshed origin/main when the remote is reachable", () => {
     const { remoteRepo, sourceRepo } = createSourceFixture();
 
