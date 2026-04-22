@@ -1287,6 +1287,10 @@ final class NativeDictionaryModel: ObservableObject {
     }
 
     func checkLiveCatalogIfNeeded() async {
+        guard !NativeLaunchConfiguration.isUITesting else {
+            return
+        }
+
         guard liveCatalogManifest == nil, liveCatalogCheckedAt == nil, liveCatalogError == nil else {
             return
         }
@@ -1295,6 +1299,10 @@ final class NativeDictionaryModel: ObservableObject {
     }
 
     func checkLiveCatalog() async {
+        guard !NativeLaunchConfiguration.isUITesting else {
+            return
+        }
+
         guard !isCheckingLiveCatalog else {
             return
         }
@@ -1391,6 +1399,13 @@ final class NativeDictionaryModel: ObservableObject {
     }
 
     func refreshAppleAccountState() async {
+        guard !NativeLaunchConfiguration.isUITesting else {
+            appleSession = nil
+            persistSavedWords(savedWordsStorage.loadSavedWords(), showsToast: false)
+            savedWordsSyncError = nil
+            return
+        }
+
         #if os(iOS)
         if appleSession != nil && hasPendingSavedWordsSync {
             await flushPendingSavedWordsSync()
@@ -1753,9 +1768,12 @@ final class NativeDictionaryModel: ObservableObject {
     }
 
     func handleSceneActivation() async {
-        await PhoneCatalogManager.shared.refreshIfNeeded()
-        await manager.refreshDiagnosticsState()
-        await refreshAppleAccountState()
+        if !NativeLaunchConfiguration.isUITesting {
+            await PhoneCatalogManager.shared.refreshIfNeeded()
+            await manager.refreshDiagnosticsState()
+            await refreshAppleAccountState()
+        }
+
         reviewManager.recordForegroundActivation()
         refreshFromManager()
     }

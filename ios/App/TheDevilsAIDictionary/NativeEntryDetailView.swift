@@ -33,6 +33,7 @@ struct NativeEntryDetailView: View {
 
                 Text(entry.title)
                     .font(.system(size: 36, weight: .bold, design: .serif))
+                    .accessibilityIdentifier("entry.title")
 
                 Text(entry.devilDefinition.trimmingCharacters(in: .whitespacesAndNewlines))
                     .font(.system(size: 22, weight: .medium, design: .serif))
@@ -191,6 +192,7 @@ struct NativeEntryDetailView: View {
         }
         .navigationTitle(entry.title)
         .nativeNavigationBarTitleDisplayMode(.inline)
+        .accessibilityIdentifier("entry.detail")
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 if showsCloseButton && !model.isDeveloperScreenshotMode {

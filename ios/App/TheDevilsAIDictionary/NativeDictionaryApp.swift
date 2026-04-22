@@ -18,11 +18,14 @@ struct NativeDictionaryApp: App {
             ZStack {
                 NativeDictionaryRootView(model: model)
                     .task {
-                    PhoneCurrentWordManager.shared.configureForCurrentPlatform()
-                    await model.handleSceneActivation()
-                    model.syncDeveloperScreenshotModeFromDefaults()
-                    await model.checkLiveCatalogIfNeeded()
-                }
+                        PhoneCurrentWordManager.shared.configureForCurrentPlatform()
+                        await model.handleSceneActivation()
+                        model.syncDeveloperScreenshotModeFromDefaults()
+
+                        if !NativeLaunchConfiguration.isUITesting {
+                            await model.checkLiveCatalogIfNeeded()
+                        }
+                    }
                 .task(id: scenePhase) {
                     guard scenePhase == .active else {
                         return

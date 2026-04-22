@@ -27,6 +27,7 @@
 		64117A6A2F510A9217BD86B9 /* DictionaryCatalogSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0622FDF8F74772ABE4804F /* DictionaryCatalogSnapshot.swift */; };
 		73D04D90502044E593AC1CF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B1E74A7479F458A9565ED69 /* Assets.xcassets */; };
 		79F316ADCEEA7388D838457D /* PhoneCurrentWordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4AF14050814D11999B6715 /* PhoneCurrentWordManager.swift */; };
+		9698ACCECAB7CB480FE49C16 /* TheDevilsAIDictionaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADFFF9C1AADED404878F480 /* TheDevilsAIDictionaryUITests.swift */; };
 		9D056415EDF9E55D3F3DF8FB /* entries.generated.json in Resources */ = {isa = PBXBuildFile; fileRef = A5EF882FAFD0470E9438EBAA /* entries.generated.json */; };
 		9F17793B374190D8787D720A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64932486DEB26E427C138A95 /* Foundation.framework */; };
 		A11A0B1C2D3E4F5000010001 /* NativeDictionaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A0B1C2D3E4F5000010002 /* NativeDictionaryModel.swift */; };
@@ -42,11 +43,13 @@
 		AA000015000000000000000A /* CurrentWordStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2A300C91341149474E2A5 /* CurrentWordStorage.swift */; };
 		AA000016000000000000000A /* DevilsAIDictionaryCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CF9E68ADBF4E6D934F5CD2 /* DevilsAIDictionaryCore.swift */; };
 		AA000017000000000000000A /* entries.generated.json in Resources */ = {isa = PBXBuildFile; fileRef = A5EF882FAFD0470E9438EBAA /* entries.generated.json */; };
+		B3F6BB9EF14ACD27B5E7D51E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A40D865A2C4BE06F6D7907A4 /* Foundation.framework */; };
 		B5B29B870691F06120CF4D12 /* NativeEntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A0B1C2D3E4F5000010008 /* NativeEntryDetailView.swift */; };
 		BB5A945B1EF2483A80427432 /* DictionaryCatalogSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0622FDF8F74772ABE4804F /* DictionaryCatalogSnapshot.swift */; };
 		BC088091C4B0CD6F04825472 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A898DBE6DB7F0A1FE1CBBB1E /* Cocoa.framework */; };
 		BD3E2907275EED25E6FB2224 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E1A0B1C2D3E4F50000100101 /* PrivacyInfo.xcprivacy */; };
 		BE8A67DD9C27AAFD59EE1D1B /* NativeEntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A0B1C2D3E4F5000010008 /* NativeEntryDetailView.swift */; };
+		BEDB7E2CBFB9E3E26A83675B /* SmokeLaunchSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3515543E39FE7A6795A49BE6 /* SmokeLaunchSupport.swift */; };
 		C1A0B1C2D3E4F50000020001 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A0B1C2D3E4F50000020000 /* SplashScreenView.swift */; };
 		C1A0B1C2D3E4F50000020002 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A0B1C2D3E4F50000020000 /* SplashScreenView.swift */; };
 		C1A0B1C2D3E4F50000020003 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A0B1C2D3E4F50000020000 /* SplashScreenView.swift */; };
@@ -71,6 +74,13 @@
 			remoteGlobalIDString = 626D59828D15422DA3976C40;
 			remoteInfo = "The Devil's AI Dictionary Watch";
 		};
+		60EBF83FB0D1F83C748948AA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 504EC2FC1FED79650016851F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 504EC3031FED79650016851F;
+			remoteInfo = "The Devil's AI Dictionary";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -92,12 +102,14 @@
 		089BC2429A0F5009031CBFCE /* The Devil's AI Dictionary visionOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Devil's AI Dictionary visionOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B1E74A7479F458A9565ED69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1116A1C68E4211268C0C4320 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3515543E39FE7A6795A49BE6 /* SmokeLaunchSupport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SmokeLaunchSupport.swift; sourceTree = "<group>"; };
 		504EC3041FED79650016851F /* The Devil's AI Dictionary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Devil's AI Dictionary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		504EC3071FED79650016851F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		504EC30E1FED79650016851F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		504EC3111FED79650016851F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		504EC3131FED79650016851F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		64932486DEB26E427C138A95 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/XROS.platform/Developer/SDKs/XROS2.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		819398809A9DC68A95BD260B /* TheDevilsAIDictionaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheDevilsAIDictionaryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		88C7C0B4CE4F4B34BB74EC8A /* The Devil's AI Dictionary Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; fileEncoding = undefined; includeInIndex = 0; name = "The Devil's AI Dictionary Watch.app"; path = "The Devil's AI Dictionary Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		958DCC722DB07C7200EA8C5F /* debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = debug.xcconfig; path = ../debug.xcconfig; sourceTree = SOURCE_ROOT; };
 		973BDD3518AB249C5B572760 /* The Devil's AI Dictionary macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Devil's AI Dictionary macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +118,7 @@
 		A11A0B1C2D3E4F5000010004 /* NativeUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeUI.swift; sourceTree = "<group>"; };
 		A11A0B1C2D3E4F5000010006 /* NativeDictionaryRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeDictionaryRootView.swift; sourceTree = "<group>"; };
 		A11A0B1C2D3E4F5000010008 /* NativeEntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEntryDetailView.swift; sourceTree = "<group>"; };
+		A40D865A2C4BE06F6D7907A4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		A5CF9E68ADBF4E6D934F5CD2 /* DevilsAIDictionaryCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = DevilsAIDictionaryCore.swift; path = "../../shared/swift-core/Sources/DevilsAIDictionaryCore/DevilsAIDictionaryCore.swift"; sourceTree = SOURCE_ROOT; };
 		A5EF882FAFD0470E9438EBAA /* entries.generated.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = entries.generated.json; path = ../../src/generated/entries.generated.json; sourceTree = SOURCE_ROOT; };
 		A898DBE6DB7F0A1FE1CBBB1E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
@@ -117,6 +130,7 @@
 		D9F6F913960D46E3874E463D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB4AF14050814D11999B6715 /* PhoneCurrentWordManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = PhoneCurrentWordManager.swift; path = PhoneCurrentWordManager.swift; sourceTree = "<group>"; };
 		E1A0B1C2D3E4F50000100101 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		EADFFF9C1AADED404878F480 /* TheDevilsAIDictionaryUITests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TheDevilsAIDictionaryUITests.swift; sourceTree = "<group>"; };
 		F54850C31BD00817BEB793E5 /* NativeDictionaryApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NativeDictionaryApp.swift; sourceTree = "<group>"; };
 		FA7D2814C3EB4EC8A6C7DADD /* TheDevilsAIDictionary.entitlements */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = TheDevilsAIDictionary.entitlements; path = TheDevilsAIDictionary.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,6 +141,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC088091C4B0CD6F04825472 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		338BC604E4ACF4594AA570FD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3F6BB9EF14ACD27B5E7D51E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,6 +203,7 @@
 			children = (
 				0232947486E8363E12983A57 /* OS X */,
 				66A9FC4F76573D763B816856 /* visionOS */,
+				5FDA340724069558CCF4CB68 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -205,6 +228,7 @@
 				5F3B00FEC14B6C05D0BAB15E /* The Devil's AI Dictionary macOS */,
 				CD0E091F2BC495383914EB4A /* The Devil's AI Dictionary visionOS */,
 				2308435EAFD42898320EF560 /* Frameworks */,
+				7EDBABA07C2EA3523C85820B /* TheDevilsAIDictionaryUITests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -215,6 +239,7 @@
 				88C7C0B4CE4F4B34BB74EC8A /* The Devil's AI Dictionary Watch.app */,
 				973BDD3518AB249C5B572760 /* The Devil's AI Dictionary macOS.app */,
 				089BC2429A0F5009031CBFCE /* The Devil's AI Dictionary visionOS.app */,
+				819398809A9DC68A95BD260B /* TheDevilsAIDictionaryUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -260,12 +285,30 @@
 			path = "TheDevilsAIDictionary-macOS";
 			sourceTree = "<group>";
 		};
+		5FDA340724069558CCF4CB68 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				A40D865A2C4BE06F6D7907A4 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
 		66A9FC4F76573D763B816856 /* visionOS */ = {
 			isa = PBXGroup;
 			children = (
 				64932486DEB26E427C138A95 /* Foundation.framework */,
 			);
 			name = visionOS;
+			sourceTree = "<group>";
+		};
+		7EDBABA07C2EA3523C85820B /* TheDevilsAIDictionaryUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3515543E39FE7A6795A49BE6 /* SmokeLaunchSupport.swift */,
+				EADFFF9C1AADED404878F480 /* TheDevilsAIDictionaryUITests.swift */,
+			);
+			name = TheDevilsAIDictionaryUITests;
+			path = TheDevilsAIDictionaryUITests;
 			sourceTree = "<group>";
 		};
 		CD0E091F2BC495383914EB4A /* The Devil's AI Dictionary visionOS */ = {
@@ -280,6 +323,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3109F68AA38660FEB1FAD58E /* TheDevilsAIDictionaryUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 118E36AF22C5FA80F7117FAA /* Build configuration list for PBXNativeTarget "TheDevilsAIDictionaryUITests" */;
+			buildPhases = (
+				F6288425E799B64BE5FBAEC4 /* Sources */,
+				338BC604E4ACF4594AA570FD /* Frameworks */,
+				4DE1977A53F36FE1810EEF4D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				644985A3A2787B6B91AB4E59 /* PBXTargetDependency */,
+			);
+			name = TheDevilsAIDictionaryUITests;
+			productName = TheDevilsAIDictionaryUITests;
+			productReference = 819398809A9DC68A95BD260B /* TheDevilsAIDictionaryUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		504EC3031FED79650016851F /* The Devil's AI Dictionary */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 504EC3161FED79650016851F /* Build configuration list for PBXNativeTarget "The Devil's AI Dictionary" */;
@@ -359,6 +420,10 @@
 				LastSwiftUpdateCheck = 920;
 				LastUpgradeCheck = 920;
 				TargetAttributes = {
+					3109F68AA38660FEB1FAD58E = {
+						ProvisioningStyle = Automatic;
+						TestTargetID = 504EC3031FED79650016851F;
+					};
 					504EC3031FED79650016851F = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 1100;
@@ -400,6 +465,7 @@
 				626D59828D15422DA3976C40 /* The Devil's AI Dictionary Watch */,
 				8D9072D95C9AED36F766E4BA /* The Devil's AI Dictionary macOS */,
 				F37587F03680401113725B1B /* The Devil's AI Dictionary visionOS */,
+				3109F68AA38660FEB1FAD58E /* TheDevilsAIDictionaryUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -412,6 +478,13 @@
 				59AD0CBA926A1D50B32A4D98 /* Assets.xcassets in Resources */,
 				029719E95AB3DB0610B467D4 /* entries.generated.json in Resources */,
 				BD3E2907275EED25E6FB2224 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4DE1977A53F36FE1810EEF4D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,6 +570,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F6288425E799B64BE5FBAEC4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BEDB7E2CBFB9E3E26A83675B /* SmokeLaunchSupport.swift in Sources */,
+				9698ACCECAB7CB480FE49C16 /* TheDevilsAIDictionaryUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F85EAED6F0BB63CE7F67E5E3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -522,6 +604,12 @@
 			isa = PBXTargetDependency;
 			target = 626D59828D15422DA3976C40 /* The Devil's AI Dictionary Watch */;
 			targetProxy = 5E6BD6232F5A4E7CB41C0CF9 /* PBXContainerItemProxy */;
+		};
+		644985A3A2787B6B91AB4E59 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "The Devil's AI Dictionary";
+			target = 504EC3031FED79650016851F /* The Devil's AI Dictionary */;
+			targetProxy = 60EBF83FB0D1F83C748948AA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -585,6 +673,27 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
+		3E986FC6239584596D8FD769 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 23;
+				DEVELOPMENT_TEAM = 5CND4GK432;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0.6;
+				PRODUCT_BUNDLE_IDENTIFIER = com.djngoma.devilsaidictionaryUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "The Devil's AI Dictionary";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -828,6 +937,26 @@
 			};
 			name = Release;
 		};
+		C995DE3994B1107EDE549ACB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 23;
+				DEVELOPMENT_TEAM = 5CND4GK432;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0.6;
+				PRODUCT_BUNDLE_IDENTIFIER = com.djngoma.devilsaidictionaryUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "The Devil's AI Dictionary";
+			};
+			name = Debug;
+		};
 		E862C6BE998DF07CAB593C6C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -862,6 +991,15 @@
 			buildConfigurations = (
 				20B4DB0041C84BFC8CCB2C9A /* Release */,
 				7300A8338429FBB347EC4606 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		118E36AF22C5FA80F7117FAA /* Build configuration list for PBXNativeTarget "TheDevilsAIDictionaryUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3E986FC6239584596D8FD769 /* Release */,
+				C995DE3994B1107EDE549ACB /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

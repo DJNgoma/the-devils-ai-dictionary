@@ -9,6 +9,33 @@ import AuthenticationServices
 import DevilsAIDictionaryCore
 #endif
 
+enum NativeLaunchConfiguration {
+    static let uiTestingKey = "ui-testing"
+
+    static var isUITesting: Bool {
+        boolValue(for: uiTestingKey)
+    }
+
+    private static func boolValue(for key: String) -> Bool {
+        let flag = "-\(key)"
+        let arguments = ProcessInfo.processInfo.arguments
+
+        if let index = arguments.firstIndex(of: flag), arguments.indices.contains(index + 1) {
+            return NSString(string: arguments[index + 1]).boolValue
+        }
+
+        if let storedValue = UserDefaults.standard.object(forKey: key) as? Bool {
+            return storedValue
+        }
+
+        if let storedString = UserDefaults.standard.string(forKey: key) {
+            return NSString(string: storedString).boolValue
+        }
+
+        return false
+    }
+}
+
 enum NativeDeveloperModeAvailability {
     static let storageKey = "developer-mode"
     static let screenshotPresetKey = "developer-screenshot-preset"
@@ -126,6 +153,7 @@ private struct NativePhoneDictionaryRoot: View {
             .nativeStackNavigationViewStyle()
             .tabItem {
                 Label("Home", systemImage: NativeDictionaryModel.AppTab.home.systemImage)
+                    .accessibilityIdentifier("tab.home")
             }
             .tag(NativeDictionaryModel.AppTab.home)
 
@@ -135,6 +163,7 @@ private struct NativePhoneDictionaryRoot: View {
             .nativeStackNavigationViewStyle()
             .tabItem {
                 Label("Search", systemImage: NativeDictionaryModel.AppTab.search.systemImage)
+                    .accessibilityIdentifier("tab.search")
             }
             .tag(NativeDictionaryModel.AppTab.search)
 
@@ -144,6 +173,7 @@ private struct NativePhoneDictionaryRoot: View {
             .nativeStackNavigationViewStyle()
             .tabItem {
                 Label("Categories", systemImage: NativeDictionaryModel.AppTab.categories.systemImage)
+                    .accessibilityIdentifier("tab.categories")
             }
             .tag(NativeDictionaryModel.AppTab.categories)
 
@@ -153,6 +183,7 @@ private struct NativePhoneDictionaryRoot: View {
             .nativeStackNavigationViewStyle()
             .tabItem {
                 Label("Saved", systemImage: NativeDictionaryModel.AppTab.saved.systemImage)
+                    .accessibilityIdentifier("tab.saved")
             }
             .tag(NativeDictionaryModel.AppTab.saved)
 
@@ -162,6 +193,7 @@ private struct NativePhoneDictionaryRoot: View {
             .nativeStackNavigationViewStyle()
             .tabItem {
                 Label("Settings", systemImage: NativeDictionaryModel.AppTab.settings.systemImage)
+                    .accessibilityIdentifier("tab.settings")
             }
             .tag(NativeDictionaryModel.AppTab.settings)
         }
@@ -597,6 +629,7 @@ private struct NativeHomeView: View {
                             model.openTodayWord()
                         }
                         .buttonStyle(NativePrimaryButtonStyle())
+                        .accessibilityIdentifier("home.today-word.open")
 
                         SaveConfirmButton(label: "Save word") {
                             model.save(entry: todayWord)
@@ -665,6 +698,7 @@ private struct NativeHomeView: View {
         }
         .navigationTitle("Home")
         .nativeNavigationBarTitleDisplayMode(.large)
+        .accessibilityIdentifier("home.container")
         .refreshable {
             await model.syncCatalogNow()
         }
@@ -773,6 +807,7 @@ private struct NativeCategoriesView: View {
         }
         .navigationTitle("Categories")
         .nativeNavigationBarTitleDisplayMode(.large)
+        .accessibilityIdentifier("categories.container")
         .nativeOverflowToolbarIfNeeded(model: model, themeManager: .shared)
     }
 }
@@ -903,6 +938,7 @@ private struct NativeSearchView: View {
                     }
                     .buttonStyle(NativePrimaryButtonStyle())
                 }
+                .accessibilityIdentifier("search.results")
             } else {
                 LazyVGrid(columns: layout.cardGridItems, alignment: .leading, spacing: 12) {
                     ForEach(model.searchResults, id: \.slug) { entry in
@@ -911,6 +947,7 @@ private struct NativeSearchView: View {
                         }
                     }
                 }
+                .accessibilityIdentifier("search.results")
             }
         }
         .navigationTitle("Search")
@@ -919,6 +956,7 @@ private struct NativeSearchView: View {
             text: $model.searchQuery,
             prompt: "Look up the phrase before it colonises the meeting"
         )
+        .accessibilityIdentifier("search.container")
         .nativeOverflowToolbarIfNeeded(model: model, themeManager: .shared)
         .sheet(isPresented: $showFilters) {
             NavigationView {
@@ -1027,6 +1065,7 @@ private struct NativeSavedView: View {
                         }
                     }
                 }
+                .accessibilityIdentifier("saved.words.list")
             }
             #else
             NativeCard(emphasis: true) {
@@ -1098,6 +1137,7 @@ private struct NativeSavedView: View {
         }
         .navigationTitle("Saved")
         .nativeNavigationBarTitleDisplayMode(.large)
+        .accessibilityIdentifier("saved.container")
         .nativeOverflowToolbarIfNeeded(model: model, themeManager: .shared)
     }
 }
@@ -1538,6 +1578,7 @@ private struct NativeSettingsView: View {
         }
         .navigationTitle("Settings")
         .nativeNavigationBarTitleDisplayMode(.large)
+        .accessibilityIdentifier("settings.container")
         .nativeOverflowToolbarIfNeeded(model: model, themeManager: .shared)
         .task {
             if testingSlug.isEmpty {
