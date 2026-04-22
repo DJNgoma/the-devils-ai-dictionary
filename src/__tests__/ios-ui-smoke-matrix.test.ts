@@ -49,43 +49,7 @@ describe("buildSupportedIPhoneMatrix", () => {
       ],
     };
 
-    const matrix = buildSupportedIPhoneMatrix({
-      runtime,
-      devicesByRuntime: {
-        [runtime.identifier]: [
-          {
-            isAvailable: true,
-            udid: "phone-17",
-            name: "iPhone 17",
-            deviceTypeIdentifier: "com.apple.CoreSimulator.SimDeviceType.iPhone-17",
-          },
-          {
-            isAvailable: true,
-            udid: "custom-17",
-            name: "UniverseUnveiled Test iPhone 17",
-            deviceTypeIdentifier: "com.apple.CoreSimulator.SimDeviceType.iPhone-17",
-          },
-          {
-            isAvailable: true,
-            udid: "phone-17e",
-            name: "iPhone 17e",
-            deviceTypeIdentifier: "com.apple.CoreSimulator.SimDeviceType.iPhone-17e",
-          },
-          {
-            isAvailable: false,
-            udid: "air-offline",
-            name: "iPhone Air",
-            deviceTypeIdentifier: "com.apple.CoreSimulator.SimDeviceType.iPhone-Air",
-          },
-          {
-            isAvailable: true,
-            udid: "ipad",
-            name: "iPad Pro 13-inch (M5)",
-            deviceTypeIdentifier: "com.apple.CoreSimulator.SimDeviceType.iPad-Pro-13-inch-M5-12GB",
-          },
-        ],
-      },
-    });
+    const matrix = buildSupportedIPhoneMatrix({ runtime });
 
     expect(matrix).toEqual([
       {
