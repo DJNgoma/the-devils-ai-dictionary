@@ -1,0 +1,56 @@
+---
+title: "Memory Policy"
+slug: "memory-policy"
+letter: "M"
+categories:
+  - "Retrieval and memory"
+  - "Agents and workflows"
+  - "Safety and evaluation"
+aliases:
+  - "memory rules"
+  - "memory retention policy"
+devilDefinition: |
+  The quiet constitution deciding what the system remembers, for how long, and which future mistake inherits the privilege.
+plainDefinition: |
+  Memory policy is the set of rules governing what an AI system stores from interactions, how long it keeps that information, when it retrieves it, and when it must forget or redact it.
+whyExists: |
+  It exists because continuity is useful and indiscriminate memory is dangerous. Long-running systems can become more helpful by remembering preferences, facts, and prior decisions, but they can also become more wrong, more invasive, and more difficult to debug.
+misuse: |
+  The term gets reduced to "we have memory now", as if any retained context were inherently intelligent. It also gets used to dress up ordinary logging or vector storage without answering the harder questions about consent, correction, deletion, and sensitive data.
+practicalMeaning: |
+  In practice it means retention windows, summarisation rules, provenance, retrieval thresholds, redaction filters, user controls, and clear logic for when stale memory should be ignored rather than honoured out of misplaced loyalty.
+example: |
+  "The assistant felt personal right up until its memory policy allowed one outdated preference to haunt every recommendation for the next three months."
+askNext:
+  - "What information qualifies for memory, and what must never be stored?"
+  - "How are stale or incorrect memories corrected, deleted, or superseded?"
+  - "When memory is retrieved, how does the system distinguish relevance from sentimental hoarding?"
+related:
+  - "rag"
+  - "context-engineering"
+  - "context-window"
+  - "prompt-caching"
+seeAlso:
+  - "Personalisation"
+  - "Retention policy"
+  - "Profile memory"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-22"
+updatedAt: "2026-04-22"
+warningLabel: "Useful until it starts remembering the wrong thing with perfect confidence."
+tags:
+  - "memory"
+  - "retention"
+  - "privacy"
+misunderstoodScore: 5
+translations:
+  - label: "product meaning"
+    text: "The rules that make continuity feel helpful instead of mildly creepy."
+  - label: "what it usually means in reality"
+    text: "A set of retention, retrieval, and deletion decisions nobody can safely leave to improvisation."
+---
+
+Memory policy matters because forgetting is part of quality control. A system that never forgets is often just a system that never learned restraint.

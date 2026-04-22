@@ -1,0 +1,53 @@
+---
+title: "Tool Permissions"
+slug: "tool-permissions"
+letter: "T"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+aliases:
+  - "tool scopes"
+  - "action permissions"
+devilDefinition: |
+  The part of the agent design where optimism collides with the list of things the model is absolutely not allowed to touch.
+plainDefinition: |
+  Tool permissions define which tools an AI system may call, what operations each tool may perform, and whether approval or other conditions are required before use.
+whyExists: |
+  They exist because once a model can do more than answer questions, it can also create tickets, write files, query production systems, or send messages somebody will later have to explain. Capability without permission design is merely incident planning in civilian clothes.
+misuse: |
+  The term gets flattened into a yes-or-no question, as if "has tools" were the whole story. Real permissions are granular: read versus write, staging versus production, local versus external, draft versus send, observe versus act.
+practicalMeaning: |
+  In practice it means allowlists, approval gates, budget limits, environment boundaries, impersonation rules, audit logs, and hard stops around actions with irreversible consequences. If the model can act, the permission model is part of the product.
+example: |
+  "The assistant seemed sensible until they realised its tool permissions allowed it to email customers directly, which was brave in precisely the wrong way."
+askNext:
+  - "Which tools are read-only, and which can change external state?"
+  - "What actions require human approval before execution?"
+  - "How are permissions enforced technically rather than merely described in a prompt?"
+related:
+  - "tool-use"
+  - "guardrails"
+  - "agent"
+  - "computer-use"
+seeAlso:
+  - "Least privilege"
+  - "Approval flows"
+  - "Capability boundaries"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-04-22"
+updatedAt: "2026-04-22"
+warningLabel: "A prompt that says 'be careful' is not a permission system."
+tags:
+  - "permissions"
+  - "tools"
+  - "controls"
+misunderstoodScore: 5
+translations:
+  - label: "what it usually means in reality"
+    text: "A map of what the model may read, write, send, and break before a human intervenes."
+---
+
+Tool permissions matter because the most expensive model mistake is often not the wrong sentence. It is the wrong action.

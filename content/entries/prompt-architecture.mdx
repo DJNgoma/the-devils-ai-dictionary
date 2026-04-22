@@ -1,0 +1,53 @@
+---
+title: "Prompt Architecture"
+slug: "prompt-architecture"
+letter: "P"
+categories:
+  - "Model usage"
+  - "Agents and workflows"
+  - "Cultural terms"
+aliases:
+  - "prompt stack"
+  - "prompt layout"
+devilDefinition: |
+  The attempt to turn a growing pile of instructions into something more defensible than folklore and copy-paste.
+plainDefinition: |
+  Prompt architecture is the deliberate structure of system prompts, task instructions, examples, tool schemas, retrieved context, and output constraints across a model-driven workflow.
+whyExists: |
+  It exists because complex AI systems no longer send one neat instruction and hope for the best. They assemble multiple layers of context, and the order, boundaries, and ownership of those layers affect reliability more than anyone wanted to admit in the early prompt-engineering era.
+misuse: |
+  It gets used as a grand title for very long prompts and very little discipline. Sometimes the work really is architectural. Sometimes the phrase is just a more respectable way of saying nobody wants to untangle the string anymore.
+practicalMeaning: |
+  In practice it means separating stable policy from task-level instructions, defining insertion points for retrieval and tool results, deciding what gets versioned, and preventing one helpful addition after another from turning the whole prompt into legal compost.
+example: |
+  "Their prompt architecture improved the moment they stopped letting every new requirement attach itself to the same immortal system message."
+askNext:
+  - "Which parts of the prompt are fixed policy, and which parts are task-specific assembly?"
+  - "Where do retrieved context, examples, and tool outputs enter the stack?"
+  - "What happens when you remove one section: collapse, improvement, or merely a shorter superstition?"
+related:
+  - "prompt"
+  - "context-engineering"
+  - "system-prompt"
+  - "structured-outputs"
+seeAlso:
+  - "Context engineering"
+  - "Prompt engineering"
+  - "Instruction hierarchy"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-22"
+updatedAt: "2026-04-22"
+tags:
+  - "prompts"
+  - "systems"
+  - "templates"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "Designing the prompt stack so the model receives fewer contradictions and the team receives fewer mysteries."
+---
+
+Prompt architecture is useful when it names structure rather than swagger. If the system still consists of one swollen string and a prayer, the architecture remains aspirational.

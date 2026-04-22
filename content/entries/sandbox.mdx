@@ -1,0 +1,55 @@
+---
+title: "Sandbox"
+slug: "sandbox"
+letter: "S"
+categories:
+  - "Infrastructure and deployment"
+  - "Safety and evaluation"
+  - "Agents and workflows"
+aliases:
+  - "sandboxed execution"
+  - "isolated runtime"
+devilDefinition: |
+  A small, supervised patch of computational ground where you let the model act without handing it the keys to the kingdom.
+plainDefinition: |
+  A sandbox is an isolated execution environment with restricted filesystem, network, process, or permission access, used to contain code, tools, or automated actions.
+whyExists: |
+  It exists because useful systems often need to run code, inspect files, or call tools, and "trust us" remains a poor security architecture. Isolation creates room for action without granting production-level freedom by accident.
+misuse: |
+  The term gets treated as if any slightly inconvenient environment counts as safe. A sandbox reduces blast radius; it does not abolish it. Calling something sandboxed can become a tidy way of avoiding a more tedious conversation about escape routes, data access, or operator error.
+practicalMeaning: |
+  In practice it means allowlists, disposable state, time limits, network rules, mount points, audit logs, and clear answers about who can widen access when the task starts making demands. The real question is not whether a sandbox exists, but what it still permits.
+example: |
+  "The code execution feature became tolerable once it ran in a sandbox instead of directly on the machine everyone would later pretend was important."
+askNext:
+  - "What exactly is isolated: files, network, processes, secrets, or all of the above?"
+  - "Who can grant broader access, and under what conditions?"
+  - "What evidence shows the sandbox contains realistic failure modes rather than just friendly demos?"
+related:
+  - "guardrails"
+  - "tool-use"
+  - "agent"
+seeAlso:
+  - "Tool permissions"
+  - "Least privilege"
+  - "Execution isolation"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-22"
+updatedAt: "2026-04-22"
+warningLabel: "Safer than production access is not the same thing as harmless."
+tags:
+  - "security"
+  - "isolation"
+  - "permissions"
+misunderstoodScore: 4
+translations:
+  - label: "security meaning"
+    text: "A constrained environment designed to make mistakes smaller and escalation harder."
+  - label: "what it usually means in reality"
+    text: "A box with rules, useful mainly when somebody has taken the time to define the rules properly."
+---
+
+Sandboxes are valuable because real systems need somewhere to do risky work. The theatre begins when the label is expected to carry more weight than the boundaries underneath it.

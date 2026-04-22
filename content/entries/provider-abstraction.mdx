@@ -1,0 +1,55 @@
+---
+title: "Provider Abstraction"
+slug: "provider-abstraction"
+letter: "P"
+categories:
+  - "Infrastructure and deployment"
+  - "Economics and operations of AI"
+aliases:
+  - "model provider abstraction"
+  - "vendor abstraction layer"
+devilDefinition: |
+  The layer promising freedom from vendor lock-in while quietly becoming a new dependency with opinions of its own.
+plainDefinition: |
+  Provider abstraction is a software layer that normalises differences between model or inference providers so an application can switch vendors, route requests, or support multiple back ends with less app-level change.
+whyExists: |
+  It exists because providers differ in APIs, pricing, uptime, rate limits, model access, and feature support, while product teams would still like to behave as though swapping them were a sign of maturity rather than a fresh integration programme.
+misuse: |
+  It gets sold as effortless interchangeability. In reality, you can abstract the API more easily than you can abstract behaviour, tool support, latency patterns, safety systems, or the awkward fact that different models fail in different accents.
+practicalMeaning: |
+  In practice it means adapter layers, schema translation, feature fallbacks, observability, routing policy, and constant arguments over whether to target the least common denominator or preserve the parts each provider is unusually good at.
+example: |
+  "Their provider abstraction made it easy to switch endpoints and slightly less easy to explain why the outputs changed character the moment finance wanted a cheaper option."
+askNext:
+  - "Which provider differences are truly hidden, and which still leak into the product?"
+  - "What breaks when you switch models: quality, tool behaviour, latency, or compliance?"
+  - "Are you abstracting the transport, the feature set, or the user experience?"
+related:
+  - "inference-provider"
+  - "model-router"
+  - "openrouter"
+  - "byok"
+seeAlso:
+  - "Multi-provider routing"
+  - "Vendor lock-in"
+  - "Fallback strategy"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-22"
+updatedAt: "2026-04-22"
+warningLabel: "Portability usually stops where model behaviour starts."
+tags:
+  - "providers"
+  - "routing"
+  - "portability"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "One interface over several providers, plus a fresh category of mismatch tickets."
+note: |
+  A provider abstraction can reduce switching cost and still fail to make providers meaningfully equivalent.
+---
+
+Provider abstraction is often sensible engineering. It becomes theology when teams speak as if a shared interface has abolished the underlying differences that still decide cost, quality, and risk.
