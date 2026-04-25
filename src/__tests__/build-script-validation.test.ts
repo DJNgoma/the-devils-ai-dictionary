@@ -344,10 +344,22 @@ describe("all content/entries/*.mdx files have required frontmatter keys", () =>
 
   // Light structural check — the real validation runs in the build script,
   // but this catches files that are completely broken (missing frontmatter block).
-  it.each(files)("%s has a YAML frontmatter block", (filename) => {
-    const content = fs.readFileSync(path.join(entriesDir, filename), "utf8");
-    expect(content.startsWith("---")).toBe(true);
-    expect(content.indexOf("---", 3)).toBeGreaterThan(3);
+  it("all files have a YAML frontmatter block", () => {
+    const failures: string[] = [];
+
+    for (const filename of files) {
+      const content = fs.readFileSync(path.join(entriesDir, filename), "utf8");
+
+      if (!content.startsWith("---")) {
+        failures.push(`${filename}: missing opening frontmatter delimiter`);
+      }
+
+      if (content.indexOf("---", 3) <= 3) {
+        failures.push(`${filename}: missing closing frontmatter delimiter`);
+      }
+    }
+
+    expect(failures).toEqual([]);
   });
 });
 
