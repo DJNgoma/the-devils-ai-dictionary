@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { cn, formatDate, slugify, uniqueBy } from "@/lib/utils";
+import { cn, formatCount, formatDate, slugify, uniqueBy } from "@/lib/utils";
 
 describe("utility helpers", () => {
   it("slugifies punctuation and ampersands consistently", () => {
@@ -9,6 +9,10 @@ describe("utility helpers", () => {
 
   it("formats dates in the project locale", () => {
     expect(formatDate("2026-03-20T12:00:00Z")).toBe("20 Mar 2026");
+  });
+
+  it("formats counts in the project locale", () => {
+    expect(formatCount(1234)).toBe("1\u00a0234");
   });
 
   it("deduplicates values while preserving first occurrence order", () => {

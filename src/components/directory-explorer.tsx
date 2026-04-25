@@ -21,7 +21,7 @@ import {
   serializeDirectoryExplorerState,
 } from "@/lib/directory-explorer-state";
 import { difficultyLabels, technicalDepthLabels } from "@/lib/site";
-import { cn } from "@/lib/utils";
+import { cn, formatCount } from "@/lib/utils";
 
 type DirectoryExplorerProps = {
   entries: SearchableEntry[];
@@ -428,6 +428,10 @@ export function DirectoryExplorer({
     key: ActiveFilterKey;
     label: string;
   }>;
+  const totalWordCount = entries.length;
+  const totalWordCountLabel = formatCount(totalWordCount);
+  const resultCountLabel = formatCount(results.length);
+  const totalWordLabel = totalWordCount === 1 ? "word" : "words";
 
   return (
     <section className="space-y-8">
@@ -708,8 +712,17 @@ export function DirectoryExplorer({
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm text-foreground-soft" aria-live="polite">
-          {results.length} {results.length === 1 ? "entry" : "entries"}
-          {filterIsActive ? " match your search." : " in the dictionary."}
+          {filterIsActive ? (
+            <>
+              {resultCountLabel} {results.length === 1 ? "entry" : "entries"}{" "}
+              {results.length === 1 ? "matches" : "match"} your search out of{" "}
+              {totalWordCountLabel} {totalWordLabel}.
+            </>
+          ) : (
+            <>
+              {totalWordCountLabel} {totalWordLabel} in the dictionary.
+            </>
+          )}
         </p>
         {isPending ? (
           <p className="font-mono text-xs uppercase tracking-[0.22em] text-foreground-soft">

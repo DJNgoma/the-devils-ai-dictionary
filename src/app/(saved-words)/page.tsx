@@ -9,6 +9,7 @@ import { WebNotificationHeroPrompt } from "@/components/web-notification-setting
 import {
   getCategoryStats,
   getDailyWordSchedule,
+  getDictionaryWordCount,
   getLatestAddedBatch,
   getLetterStats,
   getLatestPublishedAt,
@@ -19,7 +20,7 @@ import {
 } from "@/lib/content";
 import { buildMetadata } from "@/lib/metadata";
 import { siteConfig } from "@/lib/site";
-import { formatDate } from "@/lib/utils";
+import { formatCount, formatDate } from "@/lib/utils";
 
 export const metadata = buildMetadata({
   title: "A sceptical field guide to AI language",
@@ -32,6 +33,7 @@ export default async function HomePage() {
   const [
     todayWord,
     todayWordSchedule,
+    wordCount,
     letters,
     categories,
     latestPublishedAt,
@@ -43,6 +45,7 @@ export default async function HomePage() {
     await Promise.all([
       getTodayWord(),
       getDailyWordSchedule(),
+      getDictionaryWordCount(),
       getLetterStats(),
       getCategoryStats(),
       getLatestPublishedAt(),
@@ -51,6 +54,8 @@ export default async function HomePage() {
       getMostMisunderstoodEntries(),
       getSearchableEntries(),
     ]);
+  const wordCountLabel = formatCount(wordCount);
+  const wordLabel = wordCount === 1 ? "word" : "words";
 
   return (
     <div className="page-shell space-y-16 py-10 sm:space-y-20 sm:py-14">
@@ -60,7 +65,7 @@ export default async function HomePage() {
             <p className="page-kicker">
               Online book{" "}
               <span className="tracking-normal opacity-60">
-                · Updated {formatDate(latestPublishedAt)}
+                · {wordCountLabel} {wordLabel} · Updated {formatDate(latestPublishedAt)}
               </span>
             </p>
             <h1 className="page-title mt-4">The Devil&apos;s AI Dictionary</h1>
@@ -193,8 +198,8 @@ export default async function HomePage() {
           </div>
           <div className="space-y-4 text-sm leading-7 text-foreground-soft">
             <p>
-              The collection currently includes {searchable.length} published sample
-              entries and is structured to grow without changing the architecture.
+              The dictionary currently includes {wordCountLabel} published {wordLabel}
+              and is structured to grow without changing the architecture.
             </p>
             <p>
               If a term has a precise technical meaning and a swampier marketing

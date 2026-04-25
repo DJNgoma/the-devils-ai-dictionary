@@ -172,6 +172,21 @@ describe("DirectoryExplorer URL state", () => {
     expect(replaceMock).not.toHaveBeenCalled();
   });
 
+  it("states the full dictionary size and filtered total", async () => {
+    renderExplorer();
+
+    expect(screen.getByText("2 words in the dictionary.")).toBeDefined();
+
+    currentSearch = "q=agent";
+    renderExplorer({ initialQuery: "agent" });
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("1 entry matches your search out of 2 words."),
+      ).toBeDefined();
+    });
+  });
+
   it("normalizes invalid dictionary params back to the canonical URL once", async () => {
     currentPathname = "/dictionary";
     currentSearch =

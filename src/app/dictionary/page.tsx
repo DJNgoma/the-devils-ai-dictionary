@@ -2,13 +2,14 @@ import { Suspense } from "react";
 import { DirectoryExplorer } from "@/components/directory-explorer";
 import {
   getCategoryStats,
+  getDictionaryWordCount,
   getLatestPublishedAt,
   getSearchIndexPath,
   getSearchableEntries,
 } from "@/lib/content";
 import { normalizeDirectoryExplorerState } from "@/lib/directory-explorer-state";
 import { buildMetadata } from "@/lib/metadata";
-import { formatDate } from "@/lib/utils";
+import { formatCount, formatDate } from "@/lib/utils";
 
 type DictionaryPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -24,12 +25,15 @@ export const metadata = buildMetadata({
 export default async function DictionaryPage({
   searchParams,
 }: DictionaryPageProps) {
-  const [entries, categories, latestPublishedAt, searchIndexPath] = await Promise.all([
+  const [entries, categories, latestPublishedAt, searchIndexPath, wordCount] = await Promise.all([
     getSearchableEntries(),
     getCategoryStats(),
     getLatestPublishedAt(),
     getSearchIndexPath(),
+    getDictionaryWordCount(),
   ]);
+  const wordCountLabel = formatCount(wordCount);
+  const wordLabel = wordCount === 1 ? "word" : "words";
   const initialState =
     process.env.NEXT_OUTPUT_MODE === "export"
       ? {
@@ -54,7 +58,8 @@ export default async function DictionaryPage({
           technical depth, or vendor baggage if the room needs tighter definitions.
         </p>
         <p className="text-sm leading-7 text-foreground-soft">
-          Last words added {formatDate(latestPublishedAt)}.
+          {wordCountLabel} published {wordLabel} in the dictionary. Last words added{" "}
+          {formatDate(latestPublishedAt)}.
         </p>
       </section>
 

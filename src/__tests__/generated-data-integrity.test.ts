@@ -15,7 +15,7 @@ import generatedData from "@/generated/entries.generated.json";
 import webGeneratedData from "@/generated/entries.web.generated.json";
 import { entryDetailShardLoaders } from "@/generated/entry-detail-shards.generated";
 import { compareMisunderstoodEntries } from "@/lib/content-build.mjs";
-import { getAllEntries, getEntryBySlug } from "@/lib/content";
+import { getAllEntries, getDictionaryWordCount, getEntryBySlug } from "@/lib/content";
 
 const {
   schemaVersion,
@@ -137,6 +137,10 @@ describe("entry detail shards", () => {
 });
 
 describe("runtime entries restore cheap derived fields", () => {
+  it("exposes the generated dictionary word count", async () => {
+    await expect(getDictionaryWordCount()).resolves.toBe(entryCount);
+  });
+
   it("restores categorySlugs and url for the web app", async () => {
     const runtimeEntries = await getAllEntries();
 

@@ -21,6 +21,10 @@ export function formatDate(date: string) {
   }).format(new Date(date));
 }
 
+export function formatCount(value: number) {
+  return new Intl.NumberFormat("en-ZA").format(value);
+}
+
 export function uniqueBy<T>(items: T[], key: (item: T) => string) {
   const seen = new Set<string>();
 

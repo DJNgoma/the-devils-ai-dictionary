@@ -229,6 +229,10 @@ async function hydrateEntry(entry: Entry | undefined) {
 }
 
 const entries = (generatedData.entries as GeneratedWebEntry[]).map(normalizeEntry);
+const dictionaryWordCount =
+  Number.isInteger(generatedCatalog.entryCount) && generatedCatalog.entryCount > 0
+    ? generatedCatalog.entryCount
+    : entries.length;
 const entryBySlug = new Map(entries.map((entry) => [entry.slug, entry]));
 const entryByTitle = new Map(
   entries.map((entry) => [entry.title.trim().toLowerCase(), entry]),
@@ -267,6 +271,10 @@ const publishedEntryBatches: PublishedEntryBatch[] = (
 export const getAllEntries = cache(async (): Promise<Entry[]> => {
   return entries;
 });
+
+export async function getDictionaryWordCount() {
+  return dictionaryWordCount;
+}
 
 export const getEntryBySlug = cache(async (slug: string) => {
   return hydrateEntry(entryBySlug.get(slug));
