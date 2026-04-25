@@ -66,6 +66,36 @@ jobs:
         run: |
           echo "::notice title=Cloudflare deploy skipped::Set CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN to enable production deploys."
 
+      - name: Verify Apple web auth secrets exist
+        if: env.CLOUDFLARE_ACCOUNT_ID != '' && env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          secrets_json=$(npx wrangler secret list --format json)
+          node - "$secrets_json" <<'NODE'
+          const payload = JSON.parse(process.argv[2]);
+          const names = new Set(
+            (Array.isArray(payload) ? payload : [])
+              .map((entry) => (typeof entry === "string" ? entry : entry?.name))
+              .filter(Boolean),
+          );
+
+          const required = [
+            "APPLE_SESSION_SECRET",
+            "APPLE_WEB_CLIENT_ID",
+            "APPLE_TEAM_ID",
+            "APPLE_KEY_ID",
+            "APPLE_PRIVATE_KEY",
+          ];
+
+          const missing = required.filter((name) => !names.has(name));
+
+          if (missing.length) {
+            console.error(
+              `Missing Cloudflare Worker Apple web auth secrets: ${missing.join(", ")}`,
+            );
+            process.exit(1);
+          }
+          NODE
+
       - name: Deploy web to Cloudflare
         if: env.CLOUDFLARE_ACCOUNT_ID != '' && env.CLOUDFLARE_API_TOKEN != ''
         run: npm run release-gate:cf:dry-run && npm run deploy:cf
