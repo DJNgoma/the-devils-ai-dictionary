@@ -1355,6 +1355,12 @@ final class NativeDictionaryModel: ObservableObject {
             liveCatalogManifest = try await CatalogUpdateClient().fetchManifest(baseURL: baseURL)
             liveCatalogCheckedAt = Date()
         } catch {
+            if Self.isCancellation(error) {
+                liveCatalogManifest = nil
+                liveCatalogError = nil
+                return
+            }
+
             liveCatalogManifest = nil
             liveCatalogCheckedAt = Date()
             liveCatalogError = error.localizedDescription
@@ -1376,6 +1382,10 @@ final class NativeDictionaryModel: ObservableObject {
 
         let didFail = PhoneCatalogManager.shared.refreshError != nil
         isRefreshingCatalog = false
+
+        guard !Task.isCancelled else {
+            return
+        }
 
         if !didFail {
             await checkLiveCatalog()
@@ -1873,6 +1883,13 @@ final class NativeDictionaryModel: ObservableObject {
     private static func catalogRefreshStatusMessage(for error: String) -> String {
         let lowercased = error.lowercased()
 
+        if lowercased == "cancelled" ||
+            lowercased == "canceled" ||
+            lowercased.contains("cancelled") ||
+            lowercased.contains("canceled") {
+            return "The refresh was interrupted before the catalogue clerk could finish the paperwork. Try again."
+        }
+
         if lowercased.contains("offline") ||
             lowercased.contains("not connected") ||
             lowercased.contains("network connection was lost") ||
@@ -1885,6 +1902,19 @@ final class NativeDictionaryModel: ObservableObject {
         }
 
         return "The catalogue clerk came back empty-handed: \(error)"
+    }
+
+    private static func isCancellation(_ error: Error) -> Bool {
+        if error is CancellationError {
+            return true
+        }
+
+        if let urlError = error as? URLError {
+            return urlError.code == .cancelled
+        }
+
+        let nsError = error as NSError
+        return nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorCancelled
     }
 
     private func waitForMinimumCatalogSyncDuration(startedAt: Date) async {

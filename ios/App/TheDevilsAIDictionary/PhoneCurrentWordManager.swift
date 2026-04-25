@@ -120,9 +120,28 @@ final class PhoneCatalogManager {
             refreshError = nil
             NotificationCenter.default.post(name: .catalogSnapshotDidChange, object: nil)
         } catch {
+            if Self.isCancellation(error) {
+                logger.debug("Catalog refresh cancelled before completion.")
+                refreshError = nil
+                return
+            }
+
             logger.error("Catalog refresh failed: \(error.localizedDescription, privacy: .public)")
             refreshError = error.localizedDescription
         }
+    }
+
+    private static func isCancellation(_ error: Error) -> Bool {
+        if error is CancellationError {
+            return true
+        }
+
+        if let urlError = error as? URLError {
+            return urlError.code == .cancelled
+        }
+
+        let nsError = error as NSError
+        return nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorCancelled
     }
 
     private func loadInitialSnapshot() {
