@@ -2,7 +2,7 @@
 
 This file is the running inventory for the current prerelease line between the
 live App Store build (`1.0.6`) and the current distributed Apple beta from
-this repo state (`1.0.7`, build `26`).
+this repo state (`1.1.0`, build `27`).
 
 Use it for three things:
 
@@ -18,6 +18,10 @@ Use it for three things:
 
 - The glossary now groups entries more cleanly and asks for confirmation before
   removal.
+- See Also and vendor references now resolve into real dictionary entries
+  across web, Apple, and Android instead of loose labels.
+- Newly linked terms from the expanded catalogue open from category lists,
+  search results, daily word, and entry detail screens.
 - Home can be pulled to refresh on native apps instead of making editorial
   updates feel ceremonial.
 - Buttons and menu treatment were tightened across the native apps so the main
@@ -103,6 +107,10 @@ Use it for three things:
 Focus the iPhone pass on the things that changed recently enough to deserve
 deliberate suspicion:
 
+- See Also and vendor references resolve into real entries instead of loose
+  labels.
+- Newly linked entries open from category lists, search results, daily word,
+  and entry detail screens.
 - Sign in with Apple succeeds, dismisses the sign-in button, and shows the
   signed-in state in Settings.
 - Saved words sync after sign-in, including words saved from Today's Word, entry
@@ -128,19 +136,18 @@ deliberate suspicion:
 
 ## Current "What to Test" note
 
-The proposed `en-US` App Store Connect note for build `26` is:
+The uploaded `en-US` App Store Connect note for build `27` is:
 
 ```text
-Please focus on the current iPhone beta behavior in this build:
+Please focus on the 1.1.0 iPhone beta behavior in this build:
 
-- Fresh install should open the onboarding sheet once, dismiss cleanly, and let "Read the guide" hand off into the fuller in-app guide.
-- Sign in with Apple should succeed, remove the sign-in prompt, and keep saved words synced after relaunch.
-- Saving from Today's Word, any entry, and the Saved tab should all feed the same saved-word collection.
-- The sync panel should show believable queued, syncing, error, and last-synced states instead of requiring faith.
+- Browse and search the expanded dictionary; See Also and vendor references should resolve into real entries instead of loose labels.
+- Open newly linked entries from category lists, search results, daily word, and entry detail screens.
+- Saved words should still behave as one collection across Today's Word, entry pages, and the Saved tab.
+- Sign in with Apple should keep saved-word sync intact after relaunch.
 - Notifications should allow opt-in, opt-out, and local delivery-hour changes without losing the saved preference after relaunch.
-- Appearance should support Auto mode with Book in light mode and Night in dark mode; turning Auto off should expose the full manual theme list, including Devil.
-- Settings copy should still sound like the book rather than an appliance manual.
-- Sharing an entry should include the definition-card image and the word link where the target app supports shared files; text-only targets should still receive a useful link.
+- Appearance should support Auto mode plus the manual themes, including Devil, without losing the chosen setting.
+- Sharing an entry should include the definition-card image and word link where the target app supports shared files.
 ```
 
 ## Release-prep notes

@@ -118,12 +118,13 @@ The repo ships a native SwiftUI iPhone app in `ios/` and a native Kotlin/Compose
 
 | Platform | Build | What changed |
 |----------|-------|--------------|
-| iOS (TestFlight) | 26 (v1.0.7) | Image-backed dictionary sharing, Sign in with Apple saved-word sync, a shorter first-run onboarding sheet, Auto appearance, delivery-hour reminders, Devil theme, and calmer review prompting |
+| iOS (TestFlight) | 27 (v1.1.0) | Expanded dictionary links, resolved See Also and vendor references, image-backed sharing, Sign in with Apple saved-word sync, notifications, Auto appearance, and Devil theme |
 | Android (Play internal) | 21 (v1.0.5) | Delivery-hour reminders, Auto appearance, Devil theme, review gating, save-from-Today's-Word, and native settings polish |
 
 ### Recent mobile changes
 
 - Glossary now groups entries with a confirmation step before removal
+- See Also and vendor references now resolve into real dictionary entries across mobile and web
 - iPhone saved words can now sync through Sign in with Apple instead of pretending one local bookmark was a strategy
 - Home pulls to refresh on both platforms; menu and buttons unified across the app
 - Daily push fan-out shared across iOS and Android, with iOS no longer dropping pushes for transient offline devices

@@ -1,0 +1,124 @@
+{
+  "version": "1.1.0",
+  "brand": {
+    "paper": "#F4EFE6",
+    "accent": "#B2552F",
+    "headline": "#FFFFFF",
+    "frame": "#111111",
+    "shape_light": "#E0CBB9",
+    "shape_dark": "#D7B39A"
+  },
+  "families": {
+    "iphone": {
+      "display_type": "APP_IPHONE_67",
+      "mode": "marketing",
+      "canvas": {
+        "width": 1320,
+        "height": 2868
+      },
+      "upload_dir": "upload/iphone",
+      "contact_sheet": "review/iphone-contact-sheet.png"
+    },
+    "ipad": {
+      "display_type": "APP_IPAD_PRO_3GEN_129",
+      "mode": "marketing",
+      "canvas": {
+        "width": 2064,
+        "height": 2752
+      },
+      "upload_dir": "upload/ipad",
+      "contact_sheet": "review/ipad-contact-sheet.png"
+    },
+    "watch": {
+      "display_type": "APP_WATCH_SERIES_10",
+      "mode": "direct",
+      "canvas": {
+        "width": 416,
+        "height": 496
+      },
+      "upload_dir": "upload/watch",
+      "contact_sheet": "review/watch-contact-sheet.png"
+    }
+  },
+  "slides": [
+    {
+      "family": "iphone",
+      "id": "01-search",
+      "output": "composed/iphone/01-search.png",
+      "source": "raw/iphone/01-search.png",
+      "device": "phone",
+      "line1": "SEARCH",
+      "line2": "AI TERMS FAST"
+    },
+    {
+      "family": "iphone",
+      "id": "02-browse",
+      "output": "composed/iphone/02-browse.png",
+      "source": "raw/iphone/02-browse.png",
+      "device": "phone",
+      "line1": "BROWSE",
+      "line2": "SKEPTICAL DEFINITIONS"
+    },
+    {
+      "family": "iphone",
+      "id": "03-daily",
+      "output": "composed/iphone/03-daily.png",
+      "source": "raw/iphone/03-daily.png",
+      "device": "phone",
+      "line1": "START",
+      "line2": "EACH DAY WITH\nA NEW ENTRY"
+    },
+    {
+      "family": "iphone",
+      "id": "04-save",
+      "output": "composed/iphone/04-save.png",
+      "source": "raw/iphone/04-save.png",
+      "device": "phone",
+      "line1": "SAVE",
+      "line2": "THE TERMS YOU REVISIT"
+    },
+    {
+      "family": "ipad",
+      "id": "01-search",
+      "output": "composed/ipad/01-search.png",
+      "source": "raw/ipad/01-search.png",
+      "device": "tablet",
+      "line1": "SEARCH",
+      "line2": "AI TERMS FAST"
+    },
+    {
+      "family": "ipad",
+      "id": "02-browse",
+      "output": "composed/ipad/02-browse.png",
+      "source": "raw/ipad/02-browse.png",
+      "device": "tablet",
+      "line1": "BROWSE",
+      "line2": "SKEPTICAL DEFINITIONS"
+    },
+    {
+      "family": "ipad",
+      "id": "03-save",
+      "output": "composed/ipad/03-save.png",
+      "source": "raw/ipad/03-save.png",
+      "device": "tablet",
+      "line1": "SAVE",
+      "line2": "THE TERMS YOU REVISIT"
+    },
+    {
+      "family": "ipad",
+      "id": "04-daily",
+      "output": "composed/ipad/04-daily.png",
+      "source": "raw/ipad/04-daily.png",
+      "device": "tablet",
+      "line1": "START",
+      "line2": "EACH DAY WITH\nA NEW ENTRY"
+    },
+    {
+      "family": "watch",
+      "id": "01-home",
+      "output": "composed/watch/01-home.png",
+      "source": "raw/watch/01-home.png",
+      "mode": "direct"
+    }
+  ]
+}
