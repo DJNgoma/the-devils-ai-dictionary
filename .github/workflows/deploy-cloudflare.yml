@@ -34,6 +34,9 @@ jobs:
       - name: Validate web deploy surface
         run: npm run test:ci
 
+      - name: Validate Cloudflare release gate
+        run: npm run build:cf && npm run release-gate:cf
+
   deploy-production:
     name: Deploy Production
     if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
@@ -65,7 +68,7 @@ jobs:
 
       - name: Deploy web to Cloudflare
         if: env.CLOUDFLARE_ACCOUNT_ID != '' && env.CLOUDFLARE_API_TOKEN != ''
-        run: npm run deploy:cf
+        run: npm run release-gate:cf:dry-run && npm run deploy:cf
 
       - name: Verify production web push runtime
         if: env.CLOUDFLARE_ACCOUNT_ID != '' && env.CLOUDFLARE_API_TOKEN != ''

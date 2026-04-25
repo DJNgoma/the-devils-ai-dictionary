@@ -30,6 +30,16 @@ public struct Translation: Codable, Equatable, Sendable {
     public let text: String
 }
 
+public struct EntryReference: Codable, Equatable, Sendable {
+    public let label: String
+    public let entrySlug: String?
+
+    public init(label: String, entrySlug: String? = nil) {
+        self.label = label
+        self.entrySlug = entrySlug
+    }
+}
+
 public struct BookmarkRecord: Codable, Equatable, Sendable {
     public let href: String
     public let title: String
@@ -248,6 +258,8 @@ public struct Entry: Codable, Equatable, Sendable {
     public let updatedAt: String
     public let warningLabel: String?
     public let vendorReferences: [String]
+    public let resolvedSeeAlso: [EntryReference]?
+    public let resolvedVendorReferences: [EntryReference]?
     public let note: String?
     public let tags: [String]
     public let misunderstoodScore: Int

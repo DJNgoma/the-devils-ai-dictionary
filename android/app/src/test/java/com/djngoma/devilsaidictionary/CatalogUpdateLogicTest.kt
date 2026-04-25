@@ -25,7 +25,12 @@ class CatalogUpdateLogicTest {
                       "publishedAt": "2026-04-02T12:33:29.892Z",
                       "snapshotPath": "/mobile-catalog/entries.catalog-v2.json",
                       "sha256": "abc123",
-                      "bytes": 424478
+                      "bytes": 424478,
+                      "compatibility": {
+                        "minimumAndroidVersionCode": 28,
+                        "updateStatus": "required",
+                        "upgradeMessage": "Please update the app."
+                      }
                     }
                     """.trimIndent(),
                 ),
@@ -34,6 +39,11 @@ class CatalogUpdateLogicTest {
         assertEquals("catalog-v2", manifest.catalogVersion)
         assertEquals("/mobile-catalog/entries.catalog-v2.json", manifest.snapshotPath)
         assertEquals(424478L, manifest.bytes)
+        assertEquals(28, manifest.compatibility.minimumAndroidVersionCode)
+        assertEquals("required", manifest.compatibility.updateStatus)
+        assertEquals("Please update the app.", manifest.compatibility.appUpdateMessage)
+        assertTrue(manifest.compatibility.requiresAndroidUpdate(27))
+        assertFalse(manifest.compatibility.requiresAndroidUpdate(28))
     }
 
     @Test

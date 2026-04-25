@@ -45,6 +45,7 @@ final class PhoneCatalogManager {
 
     private(set) var snapshot: DictionaryCatalogSnapshot?
     private(set) var refreshError: String?
+    private(set) var requiresAppUpdate = false
     private(set) var isRefreshing = false
     private(set) var lastRefreshOutcome: PhoneCatalogRefreshOutcome?
     private var configured = false
@@ -109,12 +110,21 @@ final class PhoneCatalogManager {
             guard manifest.schemaVersion <= DictionaryCatalogSnapshot.supportedSchemaVersion else {
                 refreshError = "Catalog schema version \(manifest.schemaVersion) is not supported by this build."
                 lastRefreshOutcome = .unsupportedSchema
+                requiresAppUpdate = true
+                return
+            }
+
+            if manifest.compatibility?.requiresAppleUpdate(currentBuildNumber: Self.currentBuildNumber) == true {
+                refreshError = manifest.compatibility?.appUpdateMessage
+                lastRefreshOutcome = .unsupportedSchema
+                requiresAppUpdate = true
                 return
             }
 
             guard manifest.catalogVersion != snapshot?.version else {
                 refreshError = nil
                 lastRefreshOutcome = .noChange
+                requiresAppUpdate = false
                 return
             }
 
@@ -136,6 +146,7 @@ final class PhoneCatalogManager {
             snapshot = updatedSnapshot
             refreshError = nil
             lastRefreshOutcome = .updated
+            requiresAppUpdate = false
             NotificationCenter.default.post(name: .catalogSnapshotDidChange, object: nil)
         } catch {
             if Self.isCancellation(error) {
@@ -148,6 +159,7 @@ final class PhoneCatalogManager {
             logger.error("Catalog refresh failed: \(error.localizedDescription, privacy: .public)")
             refreshError = error.localizedDescription
             lastRefreshOutcome = .failed
+            requiresAppUpdate = false
         }
     }
 
@@ -168,9 +180,19 @@ final class PhoneCatalogManager {
         do {
             snapshot = try diskStore.loadPreferredSnapshot()
             refreshError = nil
+            requiresAppUpdate = false
         } catch {
             refreshError = error.localizedDescription
+            requiresAppUpdate = false
         }
+    }
+
+    private static var currentBuildNumber: Int? {
+        guard let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String else {
+            return nil
+        }
+
+        return Int(build)
     }
 }
 

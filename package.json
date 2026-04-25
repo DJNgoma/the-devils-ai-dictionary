@@ -1,6 +1,6 @@
 {
   "name": "devils-ai-dictionary",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "private": true,
   "engines": {
     "node": ">=22.0.0"
@@ -39,6 +39,8 @@
     "preview:cf": "npm run build:cf && opennextjs-cloudflare preview",
     "deploy:cf": "npm run build:cf && opennextjs-cloudflare deploy",
     "upload:cf": "npm run build:cf && opennextjs-cloudflare upload",
+    "release-gate:cf": "node scripts/cloudflare-release-gate.mjs",
+    "release-gate:cf:dry-run": "npm run build:cf && mkdir -p /tmp/devils-worker-bundle && bash -lc 'set -o pipefail; wrangler deploy --dry-run --outdir /tmp/devils-worker-bundle/out --outfile /tmp/devils-worker-bundle/worker.bundle --metafile /tmp/devils-worker-bundle/bundle-meta.json 2>&1 | tee /tmp/devils-worker-bundle/wrangler-dry-run.log' && CLOUDFLARE_DRY_RUN_LOG=/tmp/devils-worker-bundle/wrangler-dry-run.log npm run release-gate:cf && wrangler check startup --worker /tmp/devils-worker-bundle/worker.bundle --outfile /tmp/devils-worker-bundle/worker-startup.cpuprofile",
     "android:assets": "node scripts/run-capacitor-assets.mjs generate --android --iconBackgroundColor '#ff5b2c' --iconBackgroundColorDark '#140904' --splashBackgroundColor '#f4efe6' --splashBackgroundColorDark '#12100d' && node scripts/fix-android-assets.mjs",
     "android:open": "open -a 'Android Studio' android",
     "android:swift:build": "bash scripts/build-swift-android.sh",

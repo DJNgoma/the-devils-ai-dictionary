@@ -14,7 +14,28 @@ internal data class CatalogManifest(
     val snapshotPath: String,
     val sha256: String,
     val bytes: Long?,
+    val compatibility: CatalogCompatibility = CatalogCompatibility(),
 )
+
+internal data class CatalogCompatibility(
+    val minimumAppVersion: String? = null,
+    val minimumAppleBuildNumber: Int? = null,
+    val minimumAndroidVersionCode: Int? = null,
+    val updateStatus: String = "none",
+    val upgradeMessage: String? = null,
+)
+
+internal fun CatalogCompatibility.requiresAndroidUpdate(currentVersionCode: Int): Boolean {
+    if (updateStatus != "required") {
+        return false
+    }
+
+    val minimum = minimumAndroidVersionCode ?: return true
+    return currentVersionCode < minimum
+}
+
+internal val CatalogCompatibility.appUpdateMessage: String
+    get() = upgradeMessage ?: "This catalogue needs a newer version of the app."
 
 internal data class CatalogSnapshot(
     val schemaVersion: Int,
@@ -33,7 +54,22 @@ internal fun parseCatalogManifest(root: JSONObject): CatalogManifest =
         snapshotPath = root.getString("snapshotPath"),
         sha256 = root.getString("sha256"),
         bytes = root.optLongOrNull("bytes"),
+        compatibility = parseCatalogCompatibility(root.optJSONObject("compatibility")),
     )
+
+internal fun parseCatalogCompatibility(root: JSONObject?): CatalogCompatibility {
+    if (root == null) {
+        return CatalogCompatibility()
+    }
+
+    return CatalogCompatibility(
+        minimumAppVersion = root.optStringOrNull("minimumAppVersion"),
+        minimumAppleBuildNumber = root.optIntOrNull("minimumAppleBuildNumber"),
+        minimumAndroidVersionCode = root.optIntOrNull("minimumAndroidVersionCode"),
+        updateStatus = root.optString("updateStatus").ifBlank { "none" },
+        upgradeMessage = root.optStringOrNull("upgradeMessage"),
+    )
+}
 
 internal fun parseCatalogSnapshot(bytes: ByteArray): CatalogSnapshot {
     val handle = SwiftCoreBridge.decodeCatalog(bytes)
@@ -84,4 +120,12 @@ private fun JSONObject.optLongOrNull(name: String): Long? {
     }
 
     return optLong(name)
+}
+
+private fun JSONObject.optIntOrNull(name: String): Int? {
+    if (!has(name) || isNull(name)) {
+        return null
+    }
+
+    return optInt(name)
 }

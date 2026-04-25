@@ -5,11 +5,20 @@ import {
   type DailyWordSchedule,
 } from "@/lib/daily-word";
 import generatedData from "@/generated/entries.web.generated.json";
+import {
+  entryDetailShardLoaders,
+  type EntryDetailShardKey,
+} from "@/generated/entry-detail-shards.generated";
 import type { Difficulty, HypeLevel, TechnicalDepth } from "@/lib/site";
 import type { TermDiagramKind } from "@/lib/term-diagrams";
 import { slugify } from "@/lib/utils";
 
 /* ---------- types ---------- */
+
+export type EntryReference = {
+  label: string;
+  entrySlug?: string;
+};
 
 export type Entry = {
   title: string;
@@ -34,6 +43,8 @@ export type Entry = {
   updatedAt: string;
   warningLabel?: string;
   vendorReferences: string[];
+  resolvedSeeAlso: EntryReference[];
+  resolvedVendorReferences: EntryReference[];
   note?: string;
   tags: string[];
   misunderstoodScore: number;
@@ -60,7 +71,10 @@ export type SearchableEntry = Pick<
   | "technicalDepth"
   | "title"
   | "warningLabel"
->;
+> & {
+  seeAlso?: string[];
+  vendorReferences?: string[];
+};
 
 export type PublishedEntryBatch = {
   publishedAt: string;
@@ -82,58 +96,121 @@ export type DictionaryCatalogSchedule = DailyWordSchedule & {
 
 type GeneratedWebEntry = Omit<
   Entry,
+  | "askNext"
   | "body"
   | "categorySlugs"
+  | "example"
+  | "misuse"
   | "note"
+  | "practicalMeaning"
+  | "relatedSlugs"
+  | "resolvedSeeAlso"
+  | "resolvedVendorReferences"
   | "related"
   | "seeAlso"
   | "translations"
   | "url"
   | "vendorReferences"
+  | "whyExists"
   | "warningLabel"
+  | "tags"
+  | "misunderstoodScore"
 > & {
+  askNext?: string[];
   body?: string;
   categorySlugs?: string[];
+  example?: string;
+  misuse?: string;
   note?: string;
+  practicalMeaning?: string;
   related?: string[];
+  relatedSlugs?: string[];
+  resolvedSeeAlso?: EntryReference[];
+  resolvedVendorReferences?: EntryReference[];
   seeAlso?: string[];
   translations?: Entry["translations"];
   url?: string;
   vendorReferences?: string[];
   warningLabel?: string;
+  whyExists?: string;
+  tags?: string[];
+  misunderstoodScore?: number;
 };
 
 type EntryDetailFields = Pick<
   Entry,
-  "body" | "note" | "seeAlso" | "translations" | "vendorReferences" | "warningLabel"
+  | "askNext"
+  | "body"
+  | "example"
+  | "misuse"
+  | "note"
+  | "practicalMeaning"
+  | "relatedSlugs"
+  | "resolvedSeeAlso"
+  | "resolvedVendorReferences"
+  | "seeAlso"
+  | "translations"
+  | "vendorReferences"
+  | "whyExists"
+  | "warningLabel"
 >;
 
 const defaultEntryDetails: EntryDetailFields = {
+  askNext: [],
   body: "",
+  example: "",
+  misuse: "",
   note: undefined,
+  practicalMeaning: "",
+  relatedSlugs: [],
+  resolvedSeeAlso: [],
+  resolvedVendorReferences: [],
   seeAlso: [],
   translations: [],
   vendorReferences: [],
+  whyExists: "",
   warningLabel: undefined,
 };
 
-const loadEntryDetails = cache(async () => {
-  const detailsModule = await import("@/generated/entry-details.generated.json");
+const generatedCatalog = generatedData as typeof generatedData & {
+  searchIndexPath?: string;
+};
+
+function entryDetailShardKeyForEntry(entry: Pick<Entry, "letter">) {
+  const key = entry.letter.trim().toLowerCase();
+  return Object.hasOwn(entryDetailShardLoaders, key)
+    ? (key as EntryDetailShardKey)
+    : undefined;
+}
+
+const loadEntryDetailShard = cache(async (shardKey: EntryDetailShardKey) => {
+  const detailsModule = await entryDetailShardLoaders[shardKey]();
   return detailsModule.default as Record<string, Partial<EntryDetailFields>>;
 });
 
 function normalizeEntry(entry: GeneratedWebEntry): Entry {
   return {
     ...entry,
+    askNext: entry.askNext ?? defaultEntryDetails.askNext,
     categorySlugs: entry.categorySlugs ?? entry.categories.map((category) => slugify(category)),
     body: entry.body ?? defaultEntryDetails.body,
+    example: entry.example ?? defaultEntryDetails.example,
+    misuse: entry.misuse ?? defaultEntryDetails.misuse,
     note: entry.note ?? defaultEntryDetails.note,
+    practicalMeaning: entry.practicalMeaning ?? defaultEntryDetails.practicalMeaning,
     related: entry.related ?? [],
+    relatedSlugs: entry.relatedSlugs ?? defaultEntryDetails.relatedSlugs,
+    resolvedSeeAlso: entry.resolvedSeeAlso ?? defaultEntryDetails.resolvedSeeAlso,
+    resolvedVendorReferences:
+      entry.resolvedVendorReferences ?? defaultEntryDetails.resolvedVendorReferences,
     seeAlso: entry.seeAlso ?? defaultEntryDetails.seeAlso,
     translations: entry.translations ?? defaultEntryDetails.translations,
     url: entry.url ?? `/dictionary/${entry.slug}`,
     vendorReferences: entry.vendorReferences ?? defaultEntryDetails.vendorReferences,
+    whyExists: entry.whyExists ?? defaultEntryDetails.whyExists,
     warningLabel: entry.warningLabel ?? defaultEntryDetails.warningLabel,
+    tags: entry.tags ?? [],
+    misunderstoodScore: entry.misunderstoodScore ?? 3,
   };
 }
 
@@ -142,7 +219,8 @@ async function hydrateEntry(entry: Entry | undefined) {
     return undefined;
   }
 
-  const details = await loadEntryDetails();
+  const shardKey = entryDetailShardKeyForEntry(entry);
+  const details = shardKey ? await loadEntryDetailShard(shardKey) : {};
   return {
     ...entry,
     ...defaultEntryDetails,
@@ -194,7 +272,7 @@ export const getEntryBySlug = cache(async (slug: string) => {
   return hydrateEntry(entryBySlug.get(slug));
 });
 
-export function resolveEntryReference(reference: string) {
+export function resolveEntryReference(reference: string, { excludeSlug }: { excludeSlug?: string } = {}) {
   const trimmed = reference.trim();
 
   if (!trimmed) {
@@ -203,12 +281,17 @@ export function resolveEntryReference(reference: string) {
 
   const normalized = trimmed.toLowerCase();
 
-  return (
+  const match =
     entryBySlug.get(trimmed) ??
     entryBySlug.get(slugify(trimmed)) ??
     entryByTitle.get(normalized) ??
-    entryByAlias.get(normalized)
-  );
+    entryByAlias.get(normalized);
+
+  if (!match || match.slug === excludeSlug) {
+    return undefined;
+  }
+
+  return match;
 }
 
 export async function getRelatedEntries(entry: Entry, limit = 3) {
@@ -245,11 +328,15 @@ export async function getMostMisunderstoodEntries(_limit = 4) {
 }
 
 export async function getLatestPublishedAt() {
-  return generatedData.latestPublishedAt as string;
+  return generatedCatalog.latestPublishedAt as string;
 }
 
 export async function getDailyWordSchedule() {
   return dailyWordSchedule;
+}
+
+export async function getSearchIndexPath() {
+  return generatedCatalog.searchIndexPath ?? "/catalog/search-index.json";
 }
 
 export async function getTodayWord(referenceDate = new globalThis.Date()) {

@@ -43,6 +43,13 @@ describe("mobile catalog manifest", () => {
     );
     expect(manifest.sha256).toBe(sha256Hex(generatedSnapshotText));
     expect(manifest.bytes).toBe(Buffer.byteLength(generatedSnapshotText));
+    expect(manifest.compatibility).toEqual({
+      minimumAppVersion: null,
+      minimumAppleBuildNumber: null,
+      minimumAndroidVersionCode: null,
+      updateStatus: "none",
+      upgradeMessage: null,
+    });
   });
 
   it("derives catalogVersion from stable catalog content", () => {

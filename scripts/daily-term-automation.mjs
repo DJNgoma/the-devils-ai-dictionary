@@ -11,9 +11,11 @@ const allowedPublishPathPatterns = [
   /^content\/entries\/[^/]+\.mdx$/,
   /^src\/generated\/entries\.generated\.json$/,
   /^src\/generated\/entries\.web\.generated\.json$/,
-  /^src\/generated\/entry-details\.generated\.json$/,
+  /^src\/generated\/entry-detail-shards\.generated\.ts$/,
+  /^src\/generated\/entry-details\/[^/]+\.json$/,
   /^public\/catalog\/version\.json$/,
   /^public\/catalog\/catalog\.[a-f0-9]{64}\.json$/,
+  /^public\/catalog\/search-index\.[a-f0-9]{64}\.json$/,
 ];
 
 function usage() {
@@ -717,7 +719,8 @@ async function commandPublish(options) {
     "content/entries",
     "src/generated/entries.generated.json",
     "src/generated/entries.web.generated.json",
-    "src/generated/entry-details.generated.json",
+    "src/generated/entry-detail-shards.generated.ts",
+    "src/generated/entry-details",
     "public/catalog",
   );
 

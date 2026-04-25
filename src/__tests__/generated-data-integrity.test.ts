@@ -13,13 +13,9 @@
 import { describe, expect, it } from "vitest";
 import generatedData from "@/generated/entries.generated.json";
 import webGeneratedData from "@/generated/entries.web.generated.json";
+import { entryDetailShardLoaders } from "@/generated/entry-detail-shards.generated";
 import { compareMisunderstoodEntries } from "@/lib/content-build.mjs";
-import {
-  getAllEntries,
-  getEntryBySlug,
-  getLatestAddedBatch,
-  getPublishedEntryBatches,
-} from "@/lib/content";
+import { getAllEntries, getEntryBySlug } from "@/lib/content";
 
 const {
   schemaVersion,
@@ -36,11 +32,16 @@ const {
   dailyWordSlugs,
   featuredSlug,
   latestPublishedAt,
-  publishedEntryBatches,
 } =
   generatedData;
 
-const { entries: webEntries } = webGeneratedData;
+const { entries: webEntries, searchIndexPath } = webGeneratedData as typeof webGeneratedData & {
+  searchIndexPath: string;
+};
+
+function expectNoFailures(failures: string[]) {
+  expect(failures).toEqual([]);
+}
 
 /* ---------- top-level structure ---------- */
 
@@ -60,7 +61,6 @@ describe("generated data top-level structure", () => {
     expect(generatedData).toHaveProperty("dailyWordSlugs");
     expect(generatedData).toHaveProperty("featuredSlug");
     expect(generatedData).toHaveProperty("latestPublishedAt");
-    expect(generatedData).toHaveProperty("publishedEntryBatches");
   });
 
   it("entries is a non-empty array", () => {
@@ -79,15 +79,20 @@ describe("generated data top-level structure", () => {
 
 /* ---------- entry shape ---------- */
 
-describe("each raw entry keeps the expensive pre-computed fields", () => {
-  it.each(webEntries.map((e) => [e.slug, e]))(
-    "%s has relatedSlugs",
-    (_slug, entry) => {
+describe("each full raw entry keeps the expensive pre-computed fields", () => {
+  it("all entries have relatedSlugs", () => {
+    const failures: string[] = [];
+
+    for (const entry of entries) {
       // Related-entry scoring is still computed at build time so the worker
       // does not have to rebuild those relationships on demand.
-      expect(Array.isArray(entry.relatedSlugs)).toBe(true);
-    },
-  );
+      if (!Array.isArray(entry.relatedSlugs)) {
+        failures.push(`${entry.slug}: relatedSlugs is not an array`);
+      }
+    }
+
+    expectNoFailures(failures);
+  });
 });
 
 describe("web snapshot", () => {
@@ -95,13 +100,34 @@ describe("web snapshot", () => {
     expect(webGeneratedData.catalogVersion).toBe(catalogVersion);
     expect(webGeneratedData.entryCount).toBe(entryCount);
     expect(webGeneratedData.entries).toHaveLength(entries.length);
-    expect(webGeneratedData.publishedEntryBatches).toEqual(publishedEntryBatches);
+    expect(searchIndexPath).toMatch(/^\/catalog\/search-index\.[a-f0-9]{64}\.json$/);
 
     const entry = webGeneratedData.entries[0];
     expect(entry).toBeDefined();
     expect(entry).not.toHaveProperty("body");
     expect(entry).not.toHaveProperty("categorySlugs");
+    expect(entry).not.toHaveProperty("relatedSlugs");
+    expect(entry).not.toHaveProperty("searchText");
+    expect(entry).not.toHaveProperty("seeAlso");
+    expect(entry).not.toHaveProperty("vendorReferences");
+    expect(entry).not.toHaveProperty("tags");
+    expect(entry).not.toHaveProperty("misunderstoodScore");
     expect(entry).not.toHaveProperty("url");
+  });
+});
+
+describe("entry detail shards", () => {
+  it("cover every entry exactly once", async () => {
+    const shards = await Promise.all(
+      Object.values(entryDetailShardLoaders).map(async (loadShard) => {
+        const shardModule = await loadShard();
+        return shardModule.default as Record<string, unknown>;
+      }),
+    );
+    const detailSlugs = shards.flatMap((shard) => Object.keys(shard));
+
+    expect(new Set(detailSlugs).size).toBe(detailSlugs.length);
+    expect(new Set(detailSlugs)).toEqual(new Set(entries.map((entry) => entry.slug)));
   });
 });
 
@@ -123,35 +149,142 @@ describe("runtime entry hydration", () => {
 
     expect(entry).toBeDefined();
     expect(Array.isArray(entry!.seeAlso)).toBe(true);
+    expect(Array.isArray(entry!.resolvedSeeAlso)).toBe(true);
     expect(Array.isArray(entry!.translations)).toBe(true);
     expect(Array.isArray(entry!.vendorReferences)).toBe(true);
+    expect(Array.isArray(entry!.resolvedVendorReferences)).toBe(true);
     expect(typeof entry!.body).toBe("string");
   });
 });
 
+describe("resolved reference metadata", () => {
+  const entrySlugSet = new Set(entries.map((entry) => entry.slug));
+
+  it("all entries resolve every see-also and vendor reference without self-links", () => {
+    const failures: string[] = [];
+
+    for (const entry of entries) {
+      if (entry.resolvedSeeAlso.length !== entry.seeAlso.length) {
+        failures.push(
+          `${entry.slug}: resolvedSeeAlso has ${entry.resolvedSeeAlso.length} items for ${entry.seeAlso.length} seeAlso references`,
+        );
+      }
+
+      if (entry.resolvedVendorReferences.length !== entry.vendorReferences.length) {
+        failures.push(
+          `${entry.slug}: resolvedVendorReferences has ${entry.resolvedVendorReferences.length} items for ${entry.vendorReferences.length} vendor references`,
+        );
+      }
+
+      for (const reference of [
+        ...entry.resolvedSeeAlso,
+        ...entry.resolvedVendorReferences,
+      ]) {
+        if (typeof reference.label !== "string") {
+          failures.push(`${entry.slug}: resolved reference has a non-string label`);
+        }
+
+        if (typeof reference.entrySlug !== "string") {
+          failures.push(
+            `${entry.slug}: resolved reference ${String(reference.label)} has a non-string entrySlug`,
+          );
+          continue;
+        }
+
+        if (!entrySlugSet.has(reference.entrySlug)) {
+          failures.push(
+            `${entry.slug}: resolved reference ${reference.label} points to unknown slug ${reference.entrySlug}`,
+          );
+        }
+
+        if (reference.entrySlug === entry.slug) {
+          failures.push(`${entry.slug}: resolved reference ${reference.label} links to itself`);
+        }
+      }
+    }
+
+    expectNoFailures(failures);
+  });
+});
+
+describe("editorial quality gates", () => {
+  const generatedPlaceholderPhrases = [
+    "deserves a separate entry because it was already doing connective work",
+    "adjacent AI concept used to frame the practical, cultural, product, or operational meaning",
+    "A neighbouring idea that deserves its own definition before it starts doing rhetorical errands",
+    "that tends to enter the room wearing a logo, a pricing model, and several implied assumptions",
+  ];
+
+  it("all entries avoid generated placeholder phrasing", () => {
+    const failures: string[] = [];
+
+    for (const entry of entries) {
+      const searchableEditorialText = [
+        entry.devilDefinition,
+        entry.plainDefinition,
+        entry.whyExists,
+        entry.misuse,
+        entry.practicalMeaning,
+        entry.example,
+        entry.warningLabel ?? "",
+        entry.note ?? "",
+        entry.body,
+        ...entry.translations.map((translation) => translation.text),
+      ].join("\n");
+
+      for (const phrase of generatedPlaceholderPhrases) {
+        if (searchableEditorialText.includes(phrase)) {
+          failures.push(`${entry.slug}: contains generated placeholder phrase "${phrase}"`);
+        }
+      }
+    }
+
+    expectNoFailures(failures);
+  });
+});
+
 describe("each entry has required frontmatter fields", () => {
-  it.each(entries.map((e) => [e.slug, e]))(
-    "%s has all required fields",
-    (_slug, entry) => {
-      expect(typeof entry.title).toBe("string");
-      expect(entry.title.length).toBeGreaterThan(0);
-      expect(typeof entry.slug).toBe("string");
-      expect(typeof entry.letter).toBe("string");
-      expect(entry.letter).toMatch(/^[A-Z]$/);
-      expect(Array.isArray(entry.categories)).toBe(true);
-      expect(entry.categories.length).toBeGreaterThan(0);
-      expect(typeof entry.devilDefinition).toBe("string");
-      expect(typeof entry.plainDefinition).toBe("string");
-      expect(typeof entry.difficulty).toBe("string");
-      expect(["beginner", "intermediate", "advanced"]).toContain(entry.difficulty);
-      expect(typeof entry.technicalDepth).toBe("string");
-      expect(["low", "medium", "high"]).toContain(entry.technicalDepth);
-      expect(typeof entry.hypeLevel).toBe("string");
-      expect(["low", "medium", "high", "severe"]).toContain(entry.hypeLevel);
-      expect(typeof entry.publishedAt).toBe("string");
-      expect(typeof entry.updatedAt).toBe("string");
-    },
-  );
+  it("all entries have all required fields", () => {
+    const failures: string[] = [];
+
+    for (const entry of entries) {
+      if (typeof entry.title !== "string" || entry.title.length === 0) {
+        failures.push(`${entry.slug}: title is missing or empty`);
+      }
+      if (typeof entry.slug !== "string") {
+        failures.push(`${entry.slug}: slug is not a string`);
+      }
+      if (typeof entry.letter !== "string" || !/^[A-Z]$/.test(entry.letter)) {
+        failures.push(`${entry.slug}: letter is not A-Z`);
+      }
+      if (!Array.isArray(entry.categories) || entry.categories.length === 0) {
+        failures.push(`${entry.slug}: categories is missing or empty`);
+      }
+      if (typeof entry.devilDefinition !== "string") {
+        failures.push(`${entry.slug}: devilDefinition is not a string`);
+      }
+      if (typeof entry.plainDefinition !== "string") {
+        failures.push(`${entry.slug}: plainDefinition is not a string`);
+      }
+      if (!["beginner", "intermediate", "advanced"].includes(entry.difficulty)) {
+        failures.push(`${entry.slug}: difficulty is invalid`);
+      }
+      if (!["low", "medium", "high"].includes(entry.technicalDepth)) {
+        failures.push(`${entry.slug}: technicalDepth is invalid`);
+      }
+      if (!["low", "medium", "high", "severe"].includes(entry.hypeLevel)) {
+        failures.push(`${entry.slug}: hypeLevel is invalid`);
+      }
+      if (typeof entry.publishedAt !== "string") {
+        failures.push(`${entry.slug}: publishedAt is not a string`);
+      }
+      if (typeof entry.updatedAt !== "string") {
+        failures.push(`${entry.slug}: updatedAt is not a string`);
+      }
+    }
+
+    expectNoFailures(failures);
+  });
 });
 
 /* ---------- no duplicate slugs ---------- */
@@ -269,43 +402,6 @@ describe("latestPublishedAt", () => {
 
     expect(latestPublishedAt).toBe(newestPublishedAt);
   });
-
-  it("exposes the complete latest publish batch", async () => {
-    const latestBatch = await getLatestAddedBatch();
-    const expectedSlugs = entries
-      .filter((entry) => entry.publishedAt === latestPublishedAt)
-      .map((entry) => entry.slug);
-
-    expect(latestBatch.publishedAt).toBe(latestPublishedAt);
-    expect(latestBatch.count).toBe(expectedSlugs.length);
-    expect(latestBatch.entries.map((entry) => entry.slug)).toEqual(expectedSlugs);
-  });
-});
-
-describe("published entry batches", () => {
-  it("is precomputed in the generated catalog", () => {
-    expect(Array.isArray(publishedEntryBatches)).toBe(true);
-    expect(publishedEntryBatches[0]?.publishedAt).toBe(latestPublishedAt);
-  });
-
-  it("groups all entries by publishedAt in reverse chronological order", async () => {
-    const batches = await getPublishedEntryBatches();
-    const totalEntries = batches.reduce((total, batch) => total + batch.count, 0);
-
-    expect(totalEntries).toBe(entries.length);
-
-    for (let index = 0; index < batches.length; index++) {
-      const batch = batches[index]!;
-      expect(batch.count).toBe(batch.entries.length);
-      expect(batch.entries.every((entry) => entry.publishedAt === batch.publishedAt)).toBe(true);
-
-      if (index > 0) {
-        const previous = new Date(batches[index - 1]!.publishedAt).getTime();
-        const current = new Date(batch.publishedAt).getTime();
-        expect(previous).toBeGreaterThanOrEqual(current);
-      }
-    }
-  });
 });
 
 /* ---------- letterStats ---------- */
@@ -356,21 +452,27 @@ describe("categoryStats", () => {
 describe("relatedSlugs reference existing entries", () => {
   const allSlugs = new Set(entries.map((e) => e.slug));
 
-  it.each(entries.map((e) => [e.slug, e]))(
-    "%s relatedSlugs are all valid",
-    (_slug, entry) => {
-      for (const related of entry.relatedSlugs) {
-        expect(allSlugs.has(related)).toBe(true);
-      }
-    },
-  );
+  it("all relatedSlugs are valid", () => {
+    const failures: string[] = [];
 
-  it.each(entries.map((e) => [e.slug, e]))(
-    "%s does not reference itself in relatedSlugs",
-    (slug, entry) => {
-      expect(entry.relatedSlugs).not.toContain(slug);
-    },
-  );
+    for (const entry of entries) {
+      for (const related of entry.relatedSlugs) {
+        if (!allSlugs.has(related)) {
+          failures.push(`${entry.slug}: relatedSlugs includes unknown slug ${related}`);
+        }
+      }
+    }
+
+    expectNoFailures(failures);
+  });
+
+  it("no entry references itself in relatedSlugs", () => {
+    const failures = entries
+      .filter((entry) => entry.relatedSlugs.includes(entry.slug))
+      .map((entry) => `${entry.slug}: relatedSlugs includes itself`);
+
+    expectNoFailures(failures);
+  });
 });
 
 /* ---------- categories use valid slugs ---------- */

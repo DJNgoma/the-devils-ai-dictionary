@@ -3,6 +3,13 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 export const mobileCatalogSchemaVersion = 1;
+export const defaultCatalogCompatibility = {
+  minimumAppVersion: null,
+  minimumAppleBuildNumber: null,
+  minimumAndroidVersionCode: null,
+  updateStatus: "none",
+  upgradeMessage: null,
+};
 
 export function sha256Hex(value) {
   return crypto.createHash("sha256").update(value).digest("hex");
@@ -80,6 +87,7 @@ export function createMobileCatalogManifest({
     snapshotPath,
     sha256: sha256Hex(snapshotText),
     bytes: Buffer.byteLength(snapshotText),
+    compatibility: defaultCatalogCompatibility,
   };
 }
 

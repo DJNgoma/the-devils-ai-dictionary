@@ -32,6 +32,82 @@ function sortTimestamp(value) {
   return Number.isFinite(timestamp) ? timestamp : 0;
 }
 
+export function slugifyReference(value) {
+  return value
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export function createEntryReferenceResolver(entries) {
+  const entryBySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+  const entryByTitle = new Map(
+    entries.map((entry) => [entry.title.trim().toLowerCase(), entry]),
+  );
+  const entryByAlias = new Map();
+
+  for (const entry of entries) {
+    for (const alias of entry.aliases ?? []) {
+      const key = alias.trim().toLowerCase();
+
+      if (key && !entryByAlias.has(key)) {
+        entryByAlias.set(key, entry);
+      }
+    }
+  }
+
+  return (reference, { excludeSlug } = {}) => {
+    const trimmed = String(reference ?? "").trim();
+
+    if (!trimmed) {
+      return undefined;
+    }
+
+    const normalized = trimmed.toLowerCase();
+    const match =
+      entryBySlug.get(trimmed) ??
+      entryBySlug.get(slugifyReference(trimmed)) ??
+      entryByTitle.get(normalized) ??
+      entryByAlias.get(normalized);
+
+    if (!match || match.slug === excludeSlug) {
+      return undefined;
+    }
+
+    return match;
+  };
+}
+
+export function buildResolvedEntryReferences(entry, field, resolveEntryReference) {
+  return (entry[field] ?? []).map((label) => {
+    const match = resolveEntryReference(label, { excludeSlug: entry.slug });
+    return match ? { label, entrySlug: match.slug } : { label };
+  });
+}
+
+export function collectUnresolvedEntryReferences(entries, fields = ["seeAlso", "vendorReferences"]) {
+  const resolveEntryReference = createEntryReferenceResolver(entries);
+  const unresolved = [];
+
+  for (const entry of entries) {
+    for (const field of fields) {
+      for (const label of entry[field] ?? []) {
+        if (!resolveEntryReference(label, { excludeSlug: entry.slug })) {
+          unresolved.push({
+            entrySlug: entry.slug,
+            field,
+            label,
+            slug: slugifyReference(label),
+          });
+        }
+      }
+    }
+  }
+
+  return unresolved;
+}
+
 export function compareMisunderstoodEntries(left, right) {
   if (right.misunderstoodScore !== left.misunderstoodScore) {
     return right.misunderstoodScore - left.misunderstoodScore;
