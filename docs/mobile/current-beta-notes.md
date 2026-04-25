@@ -1,8 +1,8 @@
 # Current beta notes
 
 This file is the running inventory for the current prerelease line between the
-live App Store build (`1.0.2`) and the current distributed Apple beta from
-this repo state (`1.0.5`, build `21`).
+live App Store build (`1.0.6`) and the current distributed Apple beta from
+this repo state (`1.0.7`, build `26`).
 
 Use it for three things:
 
@@ -84,6 +84,9 @@ Use it for three things:
 - The Apple screenshot workspace now has deterministic Home, Search,
   Categories, Saved, and Entry presets for cleaner capture passes without
   exposing that harness in ordinary app behaviour.
+- Sharing a dictionary entry now sends the definition card image where the
+  platform supports file sharing, while still including the entry link for
+  people who want to read the word.
 
 ### Web and backend groundwork
 
@@ -119,10 +122,13 @@ deliberate suspicion:
 - Fresh installs should show the onboarding sheet once, keep the primary CTA
   visible, dismiss cleanly, and allow the guide button to hand off into the
   fuller reading guide.
+- Sharing an entry from iPhone should offer a definition-card image plus the
+  word link; if an app accepts only text, the fallback should still include the
+  link and readable wording.
 
 ## Current "What to Test" note
 
-The current `en-US` App Store Connect note for build `21` is:
+The proposed `en-US` App Store Connect note for build `26` is:
 
 ```text
 Please focus on the current iPhone beta behavior in this build:
@@ -134,6 +140,7 @@ Please focus on the current iPhone beta behavior in this build:
 - Notifications should allow opt-in, opt-out, and local delivery-hour changes without losing the saved preference after relaunch.
 - Appearance should support Auto mode with Book in light mode and Night in dark mode; turning Auto off should expose the full manual theme list, including Devil.
 - Settings copy should still sound like the book rather than an appliance manual.
+- Sharing an entry should include the definition-card image and the word link where the target app supports shared files; text-only targets should still receive a useful link.
 ```
 
 ## Release-prep notes

@@ -110,7 +110,7 @@ The repo ships a native SwiftUI iPhone app in `ios/` and a native Kotlin/Compose
 
 | Platform | Version | Status |
 |----------|---------|--------|
-| iOS (App Store) | 1.0.2 | Live |
+| iOS (App Store) | 1.0.6 | Live |
 | Android (Google Play) | 1.0.2 | Listing in progress |
 | Web | — | [thedevilsaidictionary.com](https://thedevilsaidictionary.com) |
 
@@ -118,7 +118,7 @@ The repo ships a native SwiftUI iPhone app in `ios/` and a native Kotlin/Compose
 
 | Platform | Build | What changed |
 |----------|-------|--------------|
-| iOS (TestFlight) | 21 (v1.0.5) | Sign in with Apple saved-word sync, a shorter first-run onboarding sheet, Auto appearance, delivery-hour reminders, Devil theme, and calmer review prompting |
+| iOS (TestFlight) | 26 (v1.0.7) | Image-backed dictionary sharing, Sign in with Apple saved-word sync, a shorter first-run onboarding sheet, Auto appearance, delivery-hour reminders, Devil theme, and calmer review prompting |
 | Android (Play internal) | 21 (v1.0.5) | Delivery-hour reminders, Auto appearance, Devil theme, review gating, save-from-Today's-Word, and native settings polish |
 
 ### Recent mobile changes
