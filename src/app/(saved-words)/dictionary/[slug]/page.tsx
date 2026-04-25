@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/badge";
+import { EntryShareButton } from "@/components/entry-share-button";
 import { EntryCard } from "@/components/entry-card";
 import { MdxContent } from "@/components/mdx-content";
 import { OpenInIPhoneAppButton } from "@/components/open-in-iphone-app-button";
@@ -116,6 +117,12 @@ export default async function EntryPage({ params }: EntryPageProps) {
             href={entry.url}
             title={entry.title}
             description={entry.plainDefinition}
+          />
+          <EntryShareButton
+            slug={entry.slug}
+            href={entry.url}
+            title={entry.title}
+            definition={entry.devilDefinition.trim()}
           />
           <OpenInIPhoneAppButton slug={entry.slug} />
           <Link

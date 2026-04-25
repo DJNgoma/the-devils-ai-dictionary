@@ -701,21 +701,24 @@ struct NativeShareButton: View {
     let url: URL
     let subject: String
     let message: String
+    var imageURL: URL?
     var label = "Share"
 
     #if os(iOS)
-    @State private var isPresentingShareSheet = false
+    @State private var sharePayload: NativeSharePayload?
+    @State private var isPreparingShare = false
     #endif
 
     var body: some View {
         #if os(iOS)
-        Button(label) {
-            isPresentingShareSheet = true
+        Button(isPreparingShare ? "Preparing..." : label) {
+            prepareShareSheet()
         }
         .buttonStyle(NativeSecondaryButtonStyle())
-        .sheet(isPresented: $isPresentingShareSheet) {
+        .disabled(isPreparingShare)
+        .sheet(item: $sharePayload) { payload in
             NativeActivityView(
-                activityItems: [message, url],
+                activityItems: payload.activityItems,
                 subject: subject
             )
         }
@@ -730,9 +733,51 @@ struct NativeShareButton: View {
         .buttonStyle(NativeSecondaryButtonStyle())
         #endif
     }
+
+    #if os(iOS)
+    private func prepareShareSheet() {
+        isPreparingShare = true
+
+        Task {
+            var activityItems: [Any] = [message, url]
+
+            if let image = await loadShareImage(from: imageURL) {
+                activityItems = [image, message, url]
+            }
+
+            await MainActor.run {
+                sharePayload = NativeSharePayload(activityItems: activityItems)
+                isPreparingShare = false
+            }
+        }
+    }
+
+    private func loadShareImage(from imageURL: URL?) async -> UIImage? {
+        guard let imageURL else {
+            return nil
+        }
+
+        do {
+            let (data, response) = try await URLSession.shared.data(from: imageURL)
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200..<300).contains(httpResponse.statusCode) else {
+                return nil
+            }
+
+            return UIImage(data: data)
+        } catch {
+            return nil
+        }
+    }
+    #endif
 }
 
 #if os(iOS)
+private struct NativeSharePayload: Identifiable {
+    let id = UUID()
+    let activityItems: [Any]
+}
+
 private struct NativeActivityView: UIViewControllerRepresentable {
     let activityItems: [Any]
     let subject: String

@@ -1281,6 +1281,20 @@ final class NativeDictionaryModel: ObservableObject {
         URL(string: "https://thedevilsaidictionary.com\(entry.url)")
     }
 
+    func shareImageURL(for entry: Entry) -> URL? {
+        shareURL(for: entry)?.appendingPathComponent("opengraph-image")
+    }
+
+    func shareText(for entry: Entry) -> String {
+        let title = entry.title.trimmingCharacters(in: .whitespacesAndNewlines)
+        let summary = entry.devilDefinition.trimmingCharacters(in: .whitespacesAndNewlines)
+        let url = shareURL(for: entry)?.absoluteString ?? "https://thedevilsaidictionary.com\(entry.url)"
+
+        return [title, summary, url]
+            .filter { !$0.isEmpty }
+            .joined(separator: "\n\n")
+    }
+
     func refreshCurrentWord() {
         _ = manager.refreshCurrentWord()
         refreshFromManager()

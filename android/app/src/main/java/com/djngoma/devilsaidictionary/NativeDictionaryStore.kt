@@ -1,5 +1,6 @@
 package com.djngoma.devilsaidictionary
 
+import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -9,7 +10,9 @@ import android.os.Looper
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.core.content.FileProvider
 import org.json.JSONObject
+import java.io.File
 import java.security.MessageDigest
 import java.text.DateFormat
 import java.text.ParseException
@@ -1167,11 +1170,44 @@ class NativeDictionaryStore(
         slug: String,
         summary: String,
     ) {
+        val subject = dictionaryShareSubject(title)
+        val text = dictionaryShareText(title, slug, summary)
+
+        backgroundExecutor.execute {
+            val imageUri = runCatching { cacheShareImage(slug) }.getOrNull()
+
+            mainHandler.post {
+                startShareChooser(
+                    subject = subject,
+                    text = text,
+                    title = title,
+                    imageUri = imageUri,
+                )
+            }
+        }
+    }
+
+    private fun startShareChooser(
+        subject: String,
+        text: String,
+        title: String,
+        imageUri: Uri?,
+    ) {
         val shareIntent =
             Intent(Intent.ACTION_SEND).apply {
-                type = "text/plain"
-                putExtra(Intent.EXTRA_SUBJECT, dictionaryShareSubject(title))
-                putExtra(Intent.EXTRA_TEXT, dictionaryShareText(title, slug, summary))
+                type = if (imageUri == null) "text/plain" else "image/png"
+                putExtra(Intent.EXTRA_SUBJECT, subject)
+                putExtra(Intent.EXTRA_TEXT, text)
+
+                if (imageUri != null) {
+                    putExtra(Intent.EXTRA_STREAM, imageUri)
+                    clipData = ClipData.newUri(
+                        appContext.contentResolver,
+                        "$title share image",
+                        imageUri,
+                    )
+                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                }
             }
 
         val chooser =
@@ -1182,6 +1218,30 @@ class NativeDictionaryStore(
         runCatching {
             appContext.startActivity(chooser)
         }
+    }
+
+    private fun cacheShareImage(slug: String): Uri? {
+        val connection = dictionaryShareImageUrl(slug).toUrl().openConnection().apply {
+            connectTimeout = 3500
+            readTimeout = 3500
+        }
+        val bytes = connection.getInputStream().use { input -> input.readBytes() }
+
+        if (bytes.isEmpty()) {
+            return null
+        }
+
+        val shareDirectory = File(appContext.cacheDir, "share-images").apply {
+            mkdirs()
+        }
+        val shareFile = File(shareDirectory, dictionaryShareImageFileName(slug))
+        shareFile.outputStream().use { output -> output.write(bytes) }
+
+        return FileProvider.getUriForFile(
+            appContext,
+            "${BuildConfig.APPLICATION_ID}.shareprovider",
+            shareFile,
+        )
     }
 }
 
@@ -1564,6 +1624,19 @@ internal fun Uri.toDictionarySlug(): String? =
 
 internal fun dictionaryEntryUrl(slug: String): String =
     "https://thedevilsaidictionary.com/dictionary/$slug"
+
+internal fun dictionaryShareImageUrl(slug: String): String =
+    "${dictionaryEntryUrl(slug)}/opengraph-image"
+
+internal fun dictionaryShareImageFileName(slug: String): String {
+    val safeSlug = slug
+        .lowercase(Locale.US)
+        .replace(Regex("[^a-z0-9._-]"), "-")
+        .trim('-')
+        .ifBlank { "entry" }
+
+    return "devils-ai-dictionary-$safeSlug.png"
+}
 
 internal fun dictionaryShareSubject(title: String): String =
     "${title.trim()} | The Devil's AI Dictionary"

@@ -639,7 +639,8 @@ private struct NativeHomeView: View {
                             NativeShareButton(
                                 url: shareURL,
                                 subject: todayWord.title,
-                                message: "Read \(todayWord.title) in The Devil's AI Dictionary."
+                                message: model.shareText(for: todayWord),
+                                imageURL: model.shareImageURL(for: todayWord)
                             )
                         }
                     }

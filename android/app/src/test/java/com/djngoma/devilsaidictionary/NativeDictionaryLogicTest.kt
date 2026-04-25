@@ -94,6 +94,18 @@ class NativeDictionaryLogicTest {
             dictionaryEntryUrl("agent"),
         )
         assertEquals(
+            "https://thedevilsaidictionary.com/dictionary/agent/opengraph-image",
+            dictionaryShareImageUrl("agent"),
+        )
+        assertEquals(
+            "devils-ai-dictionary-agent-washing.png",
+            dictionaryShareImageFileName("Agent Washing"),
+        )
+        assertEquals(
+            "devils-ai-dictionary-agent-washing.png",
+            dictionaryShareImageFileName("Agent/Washing 🚒"),
+        )
+        assertEquals(
             "Agent | The Devil's AI Dictionary",
             dictionaryShareSubject("Agent"),
         )

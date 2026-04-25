@@ -69,7 +69,8 @@ struct NativeEntryDetailView: View {
                         NativeShareButton(
                             url: shareURL,
                             subject: entry.title,
-                            message: "Read \(entry.title) in The Devil's AI Dictionary."
+                            message: model.shareText(for: entry),
+                            imageURL: model.shareImageURL(for: entry)
                         )
                     }
                 }

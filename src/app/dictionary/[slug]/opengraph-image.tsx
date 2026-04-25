@@ -33,8 +33,8 @@ export default async function EntryOpenGraphImage({
       <EntryShareCard
         title={entry?.title ?? "The Devil's AI Dictionary"}
         definition={
-          entry?.plainDefinition ??
           entry?.devilDefinition ??
+          entry?.plainDefinition ??
           "A sceptical field guide to AI language, hype, and operational reality."
         }
         letter={entry?.letter}
