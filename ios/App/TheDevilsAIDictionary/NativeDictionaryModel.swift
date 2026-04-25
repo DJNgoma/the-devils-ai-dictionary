@@ -1386,13 +1386,9 @@ final class NativeDictionaryModel: ObservableObject {
         await waitForMinimumCatalogSyncDuration(startedAt: startedAt)
 
         let didFail = PhoneCatalogManager.shared.refreshError != nil
-        let refreshOutcome = PhoneCatalogManager.shared.lastRefreshOutcome
+        let refreshOutcome =
+            PhoneCatalogManager.shared.lastRefreshOutcome ?? (Task.isCancelled ? .cancelled : nil)
         isRefreshingCatalog = false
-
-        if Task.isCancelled {
-            catalogSyncNotice = Self.catalogRefreshInterruptedMessage()
-            return
-        }
 
         if didFail {
             catalogSyncNotice = nil
@@ -1404,7 +1400,7 @@ final class NativeDictionaryModel: ObservableObject {
             previousCatalogVersion: previousCatalogVersion
         )
 
-        if refreshOutcome != .cancelled {
+        if !Task.isCancelled && refreshOutcome != .cancelled {
             await checkLiveCatalog()
         }
     }
@@ -1904,7 +1900,7 @@ final class NativeDictionaryModel: ObservableObject {
             lowercased == "canceled" ||
             lowercased.contains("cancelled") ||
             lowercased.contains("canceled") {
-            return Self.catalogRefreshInterruptedMessage()
+            return Self.catalogRefreshStoppedMessage()
         }
 
         if lowercased.contains("offline") ||
@@ -1921,8 +1917,8 @@ final class NativeDictionaryModel: ObservableObject {
         return "The catalogue clerk came back empty-handed: \(error)"
     }
 
-    private static func catalogRefreshInterruptedMessage() -> String {
-        "The refresh was interrupted before the catalogue clerk could finish the paperwork. Try again."
+    private static func catalogRefreshStoppedMessage() -> String {
+        "No new terms loaded. The on-device dictionary is unchanged; the catalogue clerk has put the stamp back in the drawer."
     }
 
     private static func catalogRefreshSuccessMessage(didUpdate: Bool, isRepeatNoChange: Bool) -> String {
@@ -1962,7 +1958,7 @@ final class NativeDictionaryModel: ObservableObject {
                 isRepeatNoChange: false
             )
         case .cancelled:
-            catalogSyncNotice = Self.catalogRefreshInterruptedMessage()
+            catalogSyncNotice = Self.catalogRefreshStoppedMessage()
         case .failed, .unsupportedSchema, nil:
             catalogSyncNotice = nil
         }
