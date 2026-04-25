@@ -114,4 +114,20 @@ class CatalogUpdateLogicTest {
             catalogRefreshFailureMessage("hash mismatch"),
         )
     }
+
+    @Test
+    fun `catalogRefreshSuccessMessage calls out unchanged repeat refreshes`() {
+        assertEquals(
+            "Dictionary is up to date. The catalogue clerk found nothing new to overexplain.",
+            catalogRefreshSuccessMessage(didUpdate = false, unchangedRefreshesWithinWindow = 1),
+        )
+        assertEquals(
+            "Still up to date. Pulling again will not make the buzzwords ripen faster.",
+            catalogRefreshSuccessMessage(didUpdate = false, unchangedRefreshesWithinWindow = 3),
+        )
+        assertEquals(
+            "Dictionary updated. The catalogue clerk found fresh terminology and filed it under necessary mischief.",
+            catalogRefreshSuccessMessage(didUpdate = true, unchangedRefreshesWithinWindow = 0),
+        )
+    }
 }

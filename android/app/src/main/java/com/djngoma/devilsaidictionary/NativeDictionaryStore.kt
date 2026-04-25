@@ -23,6 +23,7 @@ import java.util.TimeZone
 import java.util.concurrent.Executors
 
 private const val minimumCatalogRefreshIndicatorMs = 750L
+private const val repeatedCatalogRefreshWindowMs = 60_000L
 
 internal fun catalogRefreshFailureMessage(message: String?): String {
     val fallback = message?.takeIf(String::isNotBlank)
@@ -44,6 +45,21 @@ internal fun catalogRefreshFailureMessage(message: String?): String {
     }
 
     return "The catalogue clerk came back empty-handed: $fallback"
+}
+
+internal fun catalogRefreshSuccessMessage(
+    didUpdate: Boolean,
+    unchangedRefreshesWithinWindow: Int,
+): String {
+    if (didUpdate) {
+        return "Dictionary updated. The catalogue clerk found fresh terminology and filed it under necessary mischief."
+    }
+
+    if (unchangedRefreshesWithinWindow > 2) {
+        return "Still up to date. Pulling again will not make the buzzwords ripen faster."
+    }
+
+    return "Dictionary is up to date. The catalogue clerk found nothing new to overexplain."
 }
 
 enum class NativeTab {
@@ -320,6 +336,9 @@ class NativeDictionaryStore(
     var loadError by mutableStateOf<String?>(null)
         private set
 
+    var catalogSyncNotice by mutableStateOf<String?>(null)
+        private set
+
     var isRefreshingCatalog by mutableStateOf(false)
         private set
 
@@ -366,6 +385,7 @@ class NativeDictionaryStore(
     private var pushNextScheduledEditorialDateKeyState by mutableStateOf(pushManager?.nextScheduledEditorialDateKey)
     private var pushLastDeliveredEditorialDateKeyState by mutableStateOf(pushManager?.lastDeliveredEditorialDateKey)
     private var pushSchedulingErrorState by mutableStateOf(pushManager?.lastSchedulingError)
+    private val unchangedCatalogRefreshAttemptsMs = mutableListOf<Long>()
 
     fun consumeSavedToast() {
         savedToast = null
@@ -501,6 +521,7 @@ class NativeDictionaryStore(
             when {
                 isRefreshingCatalog -> "Checking whether the jargon has bred overnight."
                 loadError != null -> loadError
+                catalogSyncNotice != null -> catalogSyncNotice
                 else -> null
             }
 
@@ -763,7 +784,7 @@ class NativeDictionaryStore(
     }
 
     fun syncCatalogNow() {
-        refreshCatalogInBackground(force = true)
+        refreshCatalogInBackground(force = true, showStatus = true)
         checkLiveCatalog()
     }
 
@@ -1131,6 +1152,7 @@ class NativeDictionaryStore(
         force: Boolean = false,
         retrySlug: String? = null,
         retrySource: CurrentWordSource = CurrentWordSource.deepLink,
+        showStatus: Boolean = false,
     ) {
         if (retrySlug != null) {
             pendingMissingSlugRetry = retrySlug
@@ -1148,6 +1170,9 @@ class NativeDictionaryStore(
 
         isRefreshingCatalog = true
         loadError = null
+        if (showStatus) {
+            catalogSyncNotice = null
+        }
         val startedAtMs = System.currentTimeMillis()
         val currentVersion = catalogVersion
         backgroundExecutor.execute {
@@ -1162,9 +1187,17 @@ class NativeDictionaryStore(
                         when (update) {
                             is CatalogUpdateResult.NoChange -> {
                                 recordCatalogManifestCheckedAt(update.checkedAtMs)
+                                if (showStatus) {
+                                    catalogSyncNotice = catalogRefreshSuccessMessage(
+                                        didUpdate = false,
+                                        unchangedRefreshesWithinWindow =
+                                            recordUnchangedCatalogRefreshAttempt(update.checkedAtMs),
+                                    )
+                                }
                             }
 
                             is CatalogUpdateResult.UnsupportedSchema -> {
+                                catalogSyncNotice = null
                                 loadError =
                                     "Production has a newer catalogue format. This build is too old to read the latest jargon without supervision."
                                 recordCatalogManifestCheckedAt(update.checkedAtMs)
@@ -1175,14 +1208,23 @@ class NativeDictionaryStore(
                                     catalogDiskStore.writeCatalogBytes(update.bytes)
                                 }.onSuccess {
                                     applyCatalogSnapshot(update.snapshot)
+                                    unchangedCatalogRefreshAttemptsMs.clear()
+                                    if (showStatus) {
+                                        catalogSyncNotice = catalogRefreshSuccessMessage(
+                                            didUpdate = true,
+                                            unchangedRefreshesWithinWindow = 0,
+                                        )
+                                    }
                                     recordCatalogManifestCheckedAt(update.checkedAtMs)
                                     seedCurrentWordIfNeeded()
                                 }.onFailure { error ->
+                                    catalogSyncNotice = null
                                     loadError = catalogRefreshFailureMessage(error.message)
                                 }
                             }
                         }
                     }.onFailure { error ->
+                        catalogSyncNotice = null
                         loadError = catalogRefreshFailureMessage(error.message)
                     }
 
@@ -1201,6 +1243,14 @@ class NativeDictionaryStore(
                 }
             }
         }
+    }
+
+    private fun recordUnchangedCatalogRefreshAttempt(nowMs: Long): Int {
+        unchangedCatalogRefreshAttemptsMs.removeAll { attemptMs ->
+            nowMs - attemptMs > repeatedCatalogRefreshWindowMs
+        }
+        unchangedCatalogRefreshAttemptsMs.add(nowMs)
+        return unchangedCatalogRefreshAttemptsMs.size
     }
 
     private fun recordCatalogManifestCheckedAt(value: Long) {

@@ -671,6 +671,7 @@ final class NativeDictionaryModel: ObservableObject {
     @Published private(set) var isRefreshingSavedWordsSync = false
     @Published private(set) var lastSavedWordsSyncAt: Date?
     @Published private(set) var loadError: String?
+    @Published private(set) var catalogSyncNotice: String?
     @Published private(set) var actionError: String?
     @Published private(set) var isCheckingLiveCatalog = false
     @Published private(set) var isRefreshingCatalog = false
@@ -684,6 +685,8 @@ final class NativeDictionaryModel: ObservableObject {
     private var savedToastTask: Task<Void, Never>?
     private var pendingSavedWordsSyncTask: Task<Void, Never>?
     private var pendingDeveloperScreenshotPreset: DeveloperScreenshotPreset?
+    private var unchangedCatalogSyncAttempts: [Date] = []
+    private let repeatedCatalogSyncWindow: TimeInterval = 60
 
     private let manager: PhoneCurrentWordManager
     private var savedWordsStorage = CurrentWordStorage()
@@ -1052,7 +1055,7 @@ final class NativeDictionaryModel: ObservableObject {
         }
 
         guard let loadError else {
-            return nil
+            return catalogSyncNotice
         }
 
         return Self.catalogRefreshStatusMessage(for: loadError)
@@ -1373,6 +1376,8 @@ final class NativeDictionaryModel: ObservableObject {
         }
 
         let startedAt = Date()
+        let previousCatalogVersion = catalogVersion
+        catalogSyncNotice = nil
         isRefreshingCatalog = true
         await PhoneCatalogManager.shared.refreshIfNeeded(force: true)
         refreshFromManager()
@@ -1381,13 +1386,24 @@ final class NativeDictionaryModel: ObservableObject {
         await waitForMinimumCatalogSyncDuration(startedAt: startedAt)
 
         let didFail = PhoneCatalogManager.shared.refreshError != nil
+        let refreshOutcome = PhoneCatalogManager.shared.lastRefreshOutcome
         isRefreshingCatalog = false
 
         guard !Task.isCancelled else {
             return
         }
 
-        if !didFail {
+        if didFail {
+            catalogSyncNotice = nil
+            return
+        }
+
+        updateCatalogSyncNotice(
+            outcome: refreshOutcome,
+            previousCatalogVersion: previousCatalogVersion
+        )
+
+        if refreshOutcome != .cancelled {
             await checkLiveCatalog()
         }
     }
@@ -1902,6 +1918,58 @@ final class NativeDictionaryModel: ObservableObject {
         }
 
         return "The catalogue clerk came back empty-handed: \(error)"
+    }
+
+    private static func catalogRefreshSuccessMessage(didUpdate: Bool, isRepeatNoChange: Bool) -> String {
+        if didUpdate {
+            return "Dictionary updated. The catalogue clerk found fresh terminology and filed it under necessary mischief."
+        }
+
+        if isRepeatNoChange {
+            return "Still up to date. Pulling again will not make the buzzwords ripen faster."
+        }
+
+        return "Dictionary is up to date. The catalogue clerk found nothing new to overexplain."
+    }
+
+    private func updateCatalogSyncNotice(
+        outcome: PhoneCatalogRefreshOutcome?,
+        previousCatalogVersion: String?
+    ) {
+        switch outcome {
+        case .updated:
+            unchangedCatalogSyncAttempts.removeAll()
+            catalogSyncNotice = Self.catalogRefreshSuccessMessage(
+                didUpdate: true,
+                isRepeatNoChange: false
+            )
+        case .noChange:
+            let repeatedNoChange = recordUnchangedCatalogSyncAttempt(
+                previousCatalogVersion: previousCatalogVersion
+            )
+            catalogSyncNotice = Self.catalogRefreshSuccessMessage(
+                didUpdate: false,
+                isRepeatNoChange: repeatedNoChange
+            )
+        case .skipped:
+            catalogSyncNotice = Self.catalogRefreshSuccessMessage(
+                didUpdate: false,
+                isRepeatNoChange: false
+            )
+        case .cancelled, .failed, .unsupportedSchema, nil:
+            catalogSyncNotice = nil
+        }
+    }
+
+    private func recordUnchangedCatalogSyncAttempt(previousCatalogVersion: String?) -> Bool {
+        let now = Date()
+        unchangedCatalogSyncAttempts = unchangedCatalogSyncAttempts.filter {
+            now.timeIntervalSince($0) <= repeatedCatalogSyncWindow
+        }
+
+        unchangedCatalogSyncAttempts.append(now)
+
+        return previousCatalogVersion == catalogVersion && unchangedCatalogSyncAttempts.count > 2
     }
 
     private static func isCancellation(_ error: Error) -> Bool {

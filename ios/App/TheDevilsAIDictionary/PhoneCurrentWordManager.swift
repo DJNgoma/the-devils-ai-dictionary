@@ -22,6 +22,16 @@ extension Notification.Name {
 }
 
 @MainActor
+enum PhoneCatalogRefreshOutcome: Equatable {
+    case skipped
+    case noChange
+    case updated
+    case unsupportedSchema
+    case failed
+    case cancelled
+}
+
+@MainActor
 final class PhoneCatalogManager {
     static let shared = PhoneCatalogManager()
 
@@ -36,6 +46,7 @@ final class PhoneCatalogManager {
     private(set) var snapshot: DictionaryCatalogSnapshot?
     private(set) var refreshError: String?
     private(set) var isRefreshing = false
+    private(set) var lastRefreshOutcome: PhoneCatalogRefreshOutcome?
     private var configured = false
 
     private init() {}
@@ -70,20 +81,24 @@ final class PhoneCatalogManager {
 
     func refreshIfNeeded(force: Bool = false) async {
         guard configured, !isRefreshing else {
+            lastRefreshOutcome = .skipped
             return
         }
 
         if !force,
            let lastCheck = diskStore.loadLastCheckAt(),
            Date().timeIntervalSince(lastCheck) < refreshInterval {
+            lastRefreshOutcome = .skipped
             return
         }
 
         guard let baseURLString = Bundle.main.object(forInfoDictionaryKey: "MobileAPIBaseURL") as? String,
               let baseURL = URL(string: baseURLString) else {
+            lastRefreshOutcome = .failed
             return
         }
 
+        lastRefreshOutcome = nil
         isRefreshing = true
         defer { isRefreshing = false }
 
@@ -93,11 +108,13 @@ final class PhoneCatalogManager {
 
             guard manifest.schemaVersion <= DictionaryCatalogSnapshot.supportedSchemaVersion else {
                 refreshError = "Catalog schema version \(manifest.schemaVersion) is not supported by this build."
+                lastRefreshOutcome = .unsupportedSchema
                 return
             }
 
             guard manifest.catalogVersion != snapshot?.version else {
                 refreshError = nil
+                lastRefreshOutcome = .noChange
                 return
             }
 
@@ -118,16 +135,19 @@ final class PhoneCatalogManager {
 
             snapshot = updatedSnapshot
             refreshError = nil
+            lastRefreshOutcome = .updated
             NotificationCenter.default.post(name: .catalogSnapshotDidChange, object: nil)
         } catch {
             if Self.isCancellation(error) {
                 logger.debug("Catalog refresh cancelled before completion.")
                 refreshError = nil
+                lastRefreshOutcome = .cancelled
                 return
             }
 
             logger.error("Catalog refresh failed: \(error.localizedDescription, privacy: .public)")
             refreshError = error.localizedDescription
+            lastRefreshOutcome = .failed
         }
     }
 
