@@ -1,0 +1,8455 @@
+{
+  "generatedAt": "2026-04-25T18:50:16.687Z",
+  "sourceEntryCount": 207,
+  "createdEntryCount": 511,
+  "batchSize": 35,
+  "items": [
+    {
+      "batch": 1,
+      "label": "Google",
+      "slug": "google",
+      "fields": [
+        "seeAlso",
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "gemini-3-1-flash-lite",
+        "gemini-3-1-flash-live",
+        "gemma",
+        "google-antigravity",
+        "notebooklm",
+        "personal-intelligence",
+        "sundar-pichai"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Prompt engineering",
+      "slug": "prompt-engineering",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "prompt-architecture",
+        "prompt",
+        "slop",
+        "vibe-engineer"
+      ],
+      "categories": [
+        "Model usage",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Reasoning",
+      "slug": "reasoning",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "chatbot-psychosis",
+        "delusion-amplification",
+        "sycophancy",
+        "taste"
+      ],
+      "categories": [
+        "Safety and evaluation",
+        "Core concepts"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Edge",
+      "slug": "edge",
+      "fields": [
+        "seeAlso",
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "cloudflare",
+        "microsoft-ai",
+        "vercel"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Google AI Studio",
+      "slug": "google-ai-studio",
+      "fields": [
+        "seeAlso",
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "google-antigravity",
+        "google-deepmind"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Instruction hierarchy",
+      "slug": "instruction-hierarchy",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "context-stuffing",
+        "prompt-architecture",
+        "system-prompt"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model usage",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Search",
+      "slug": "search",
+      "fields": [
+        "seeAlso",
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "geo",
+        "perplexity",
+        "sundar-pichai"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Cultural terms",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "AI SDK",
+      "slug": "ai-sdk",
+      "fields": [
+        "seeAlso",
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "vercel"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Canva",
+      "slug": "canva",
+      "fields": [
+        "seeAlso",
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "claude-design"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Code review",
+      "slug": "code-review",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "claude-code",
+        "cursor"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Constitutional AI",
+      "slug": "constitutional-ai",
+      "fields": [
+        "seeAlso",
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "anthropic",
+        "dario-amodei"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Curation",
+      "slug": "curation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "human-taste",
+        "taste"
+      ],
+      "categories": [
+        "Core concepts",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Feedback loop",
+      "slug": "feedback-loop",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "data-flywheel",
+        "model-collapse"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Fluid Compute",
+      "slug": "fluid-compute",
+      "fields": [
+        "seeAlso",
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "vercel"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Google Maps",
+      "slug": "google-maps",
+      "fields": [
+        "seeAlso",
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "ask-maps"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Cultural terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "GPT model families",
+      "slug": "gpt-model-families",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "chatgpt",
+        "openai"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Core concepts"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Least privilege",
+      "slug": "least-privilege",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "sandbox",
+        "tool-permissions"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Local search",
+      "slug": "local-search",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ask-maps",
+        "cursor"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Manual approval",
+      "slug": "manual-approval",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "human-in-the-loop",
+        "rubber-stamp-review"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Model hosting",
+      "slug": "model-hosting",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "inference-provider",
+        "weights"
+      ],
+      "categories": [
+        "Infrastructure and deployment",
+        "Core concepts"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Next.js",
+      "slug": "next-js",
+      "fields": [
+        "seeAlso",
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "vercel"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "NIM API Catalog",
+      "slug": "nim-api-catalog",
+      "fields": [
+        "seeAlso",
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "nvidia-nim"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Infrastructure and deployment",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Open Source AI",
+      "slug": "open-source-ai",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "arthur-mensch",
+        "mistral-ai"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Pages",
+      "slug": "pages",
+      "fields": [
+        "seeAlso",
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "cloudflare",
+        "perplexity"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Prototype builder",
+      "slug": "prototype-builder",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "bolt-new",
+        "lovable"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Provider routing",
+      "slug": "provider-routing",
+      "fields": [
+        "seeAlso",
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "ai-gateway",
+        "openrouter"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "R2",
+      "slug": "r2",
+      "fields": [
+        "seeAlso",
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "cloudflare"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Regression suite",
+      "slug": "regression-suite",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "eval-driven-development",
+        "eval-harness"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model usage",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Release gate",
+      "slug": "release-gate",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "eval-driven-development",
+        "safety-washing"
+      ],
+      "categories": [
+        "Safety and evaluation",
+        "Agents and workflows"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Repository automation",
+      "slug": "repository-automation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "coding-agent",
+        "devin"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Robotic process automation",
+      "slug": "robotic-process-automation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "browser-automation",
+        "computer-use"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Search Live",
+      "slug": "search-live",
+      "fields": [
+        "seeAlso",
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "gemini-3-1-flash-live"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Serving optimisation",
+      "slug": "serving-optimisation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "prompt-caching",
+        "speculative-decoding"
+      ],
+      "categories": [
+        "Infrastructure and deployment",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Solo founder",
+      "slug": "solo-founder",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "one-person-unicorn",
+        "pieter-levels"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 1,
+      "label": "Supply-chain security",
+      "slug": "supply-chain-security",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "slopsquatting",
+        "tool-poisoning"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Task difficulty",
+      "slug": "task-difficulty",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "reasoning-effort",
+        "reasoning-model"
+      ],
+      "categories": [
+        "Model usage",
+        "Core concepts"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Task specification",
+      "slug": "task-specification",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "prompt-engineer",
+        "zero-shot"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Terminal agent",
+      "slug": "terminal-agent",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "claude-code",
+        "opencode"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Z.AI",
+      "slug": "z-ai",
+      "fields": [
+        "seeAlso",
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "glm"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Abstraction tax",
+      "slug": "abstraction-tax",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "byom"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Abuse testing",
+      "slug": "abuse-testing",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "red-teaming"
+      ],
+      "categories": [
+        "Model building",
+        "Model usage",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Acceptance criteria",
+      "slug": "acceptance-criteria",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "benchmark-theatre"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Adaptive inference",
+      "slug": "adaptive-inference",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "test-time-compute"
+      ],
+      "categories": [
+        "Core concepts",
+        "Economics and operations of AI",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Adversarial input",
+      "slug": "adversarial-input",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "prompt-injection"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Adversarial prompting",
+      "slug": "adversarial-prompting",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "jailbreak"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model usage",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Agent capability catalogue",
+      "slug": "agent-capability-catalogue",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "tool-registry"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Agent Cost Control",
+      "slug": "agent-cost-control",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "manifest"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment",
+        "Agents and workflows"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Agent harness",
+      "slug": "agent-harness",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "swe-bench"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Agent memory",
+      "slug": "agent-memory",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "state-compaction"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Agent mode",
+      "slug": "agent-mode",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "chatgpt-agent"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Agent workflow",
+      "slug": "agent-workflow",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "manus"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Agent workspace",
+      "slug": "agent-workspace",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "context-ai"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Agentic Coding",
+      "slug": "agentic-coding",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "nemotron-3"
+      ],
+      "categories": [
+        "Infrastructure and deployment",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Agentic IDE",
+      "slug": "agentic-ide",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "windsurf"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "AI bindings",
+      "slug": "ai-bindings",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "cloudflare"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "AI Mode",
+      "slug": "ai-mode",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "personal-intelligence"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "AI Pin",
+      "slug": "ai-pin",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "humane"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "AI software engineer",
+      "slug": "ai-software-engineer",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "coding-agent"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "AI-first",
+      "slug": "ai-first",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-native"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Alibaba Cloud",
+      "slug": "alibaba-cloud",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "qwen"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model building",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Alphabet",
+      "slug": "alphabet",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "sundar-pichai"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "AlphaFold",
+      "slug": "alphafold",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "google-deepmind"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Analyst brief",
+      "slug": "analyst-brief",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "deep-research"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Answer engine",
+      "slug": "answer-engine",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "perplexity"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Anthropic Agent Skills",
+      "slug": "anthropic-agent-skills",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "agent-skills"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Anthropic API",
+      "slug": "anthropic-api",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "anthropic"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Safety and evaluation",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Anthropic Labs",
+      "slug": "anthropic-labs",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "claude-design"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "API dependency",
+      "slug": "api-dependency",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "closed-weight"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Approval flows",
+      "slug": "approval-flows",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "tool-permissions"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 2,
+      "label": "Approval loop",
+      "slug": "approval-loop",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "cline"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Approval workflow",
+      "slug": "approval-workflow",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "agent-ops"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Audio Overview",
+      "slug": "audio-overview",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "notebooklm"
+      ],
+      "categories": [
+        "Model usage",
+        "Product and vendor terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Audio Overviews",
+      "slug": "audio-overviews",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "notebooklm"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Authenticity crisis",
+      "slug": "authenticity-crisis",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "liars-dividend"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Autocomplete",
+      "slug": "autocomplete",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "windsurf"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Automation theatre",
+      "slug": "automation-theatre",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "agent-washing"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Agents and workflows"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Autonomous software engineer",
+      "slug": "autonomous-software-engineer",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "devin"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Autonomy deployment",
+      "slug": "autonomy-deployment",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "physical-ai"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Back-office automation",
+      "slug": "back-office-automation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "digital-worker"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Backoff",
+      "slug": "backoff",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "rate-limit"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Benchmark overfitting",
+      "slug": "benchmark-overfitting",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "sota"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Bing",
+      "slug": "bing",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "microsoft-ai"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Bolt",
+      "slug": "bolt",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "bolt-new"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Bolt Cloud",
+      "slug": "bolt-cloud",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "bolt-new"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Bots",
+      "slug": "bots",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "telegram"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Browser distribution",
+      "slug": "browser-distribution",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-browser"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Browser takeover",
+      "slug": "browser-takeover",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "chatgpt-agent"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Browser Use Cloud",
+      "slug": "browser-use-cloud",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "browser-use"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Build in public",
+      "slug": "build-in-public",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "pieter-levels"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "build.nvidia.com",
+      "slug": "build-nvidia-com",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "nvidia-nim"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Infrastructure and deployment",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Call automation",
+      "slug": "call-automation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "voice-agent"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Capability boundaries",
+      "slug": "capability-boundaries",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "tool-permissions"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Capability claim",
+      "slug": "capability-claim",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "sota"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Capability forecasting",
+      "slug": "capability-forecasting",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "agi"
+      ],
+      "categories": [
+        "Core concepts",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Capability gating",
+      "slug": "capability-gating",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "claude-mythos-preview"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Cascade",
+      "slug": "cascade",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "windsurf"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Centralised AI operations",
+      "slug": "centralised-ai-operations",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-gateway"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Chain of thought",
+      "slug": "chain-of-thought",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "reasoning-trace"
+      ],
+      "categories": [
+        "Model usage",
+        "Product and vendor terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Change management",
+      "slug": "change-management",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "pilot-purgatory"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Chatbot",
+      "slug": "chatbot",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "rabbit"
+      ],
+      "categories": [
+        "Model usage",
+        "Product and vendor terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Checkable domains",
+      "slug": "checkable-domains",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "rlvr"
+      ],
+      "categories": [
+        "Model building",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Checkpoint politics",
+      "slug": "checkpoint-politics",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "llama"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model building",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Chinese model ecosystem",
+      "slug": "chinese-model-ecosystem",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "deepseek"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Citation layer",
+      "slug": "citation-layer",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "perplexity"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model usage",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 3,
+      "label": "Citations",
+      "slug": "citations",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "geo"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Product and vendor terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Claude API models",
+      "slug": "claude-api-models",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "claude"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Claude app",
+      "slug": "claude-app",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "claude"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Claude Code Skills",
+      "slug": "claude-code-skills",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "agent-skills"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Claude Opus",
+      "slug": "claude-opus",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "claude"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Claude Opus 4.7",
+      "slug": "claude-opus-4-7",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "claude-design"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Claude Sonnet",
+      "slug": "claude-sonnet",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "claude"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "CLI workflow",
+      "slug": "cli-workflow",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "claude-code"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Cloud AI platform",
+      "slug": "cloud-ai-platform",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "model-garden"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Infrastructure and deployment",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Cloudflare AI Gateway",
+      "slug": "cloudflare-ai-gateway",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "ai-gateway"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Cloudflare Pages",
+      "slug": "cloudflare-pages",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "cloudflare"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Cloudflare Workers",
+      "slug": "cloudflare-workers",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "cloudflare"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Codex app",
+      "slug": "codex-app",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "codex"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Codex CLI",
+      "slug": "codex-cli",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "codex"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Codex cloud",
+      "slug": "codex-cloud",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "codex"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Cognition",
+      "slug": "cognition",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "devin"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Companion",
+      "slug": "companion",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "mustafa-suleyman"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Composer",
+      "slug": "composer",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "cursor"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Compression",
+      "slug": "compression",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "distillation"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Compute budget",
+      "slug": "compute-budget",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "reasoning-tokens"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model usage",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Compute scarcity",
+      "slug": "compute-scarcity",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "neocloud"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Concept art",
+      "slug": "concept-art",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "midjourney"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Connected context",
+      "slug": "connected-context",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "personal-intelligence"
+      ],
+      "categories": [
+        "Model usage",
+        "Product and vendor terms",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Connector permissions",
+      "slug": "connector-permissions",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "chatgpt-agent"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Consulting markup",
+      "slug": "consulting-markup",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "agent-washing"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Agents and workflows"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Content provenance",
+      "slug": "content-provenance",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "liars-dividend"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Context aggregation",
+      "slug": "context-aggregation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ambient-agent"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Context AI Office Suite",
+      "slug": "context-ai-office-suite",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "context-ai"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Context assembly",
+      "slug": "context-assembly",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "prompt-caching"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Context pruning",
+      "slug": "context-pruning",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "state-compaction"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Context Security Incident Response Statement",
+      "slug": "context-security-incident-response-statement",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "context-ai"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Context Workspace Engine",
+      "slug": "context-workspace-engine",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "context-ai"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Control problem",
+      "slug": "control-problem",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "alignment"
+      ],
+      "categories": [
+        "Core concepts",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Conversational IVR",
+      "slug": "conversational-ivr",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "voice-agent"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Conversational search",
+      "slug": "conversational-search",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ask-maps"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model usage",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 4,
+      "label": "Copilot Studio",
+      "slug": "copilot-studio",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "microsoft-copilot"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Cosmos",
+      "slug": "cosmos",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "humane"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Cost controls",
+      "slug": "cost-controls",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "inference-budget"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Cost tier",
+      "slug": "cost-tier",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "gemini-3-1-flash-lite"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Creative direction",
+      "slug": "creative-direction",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "midjourney"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "CS231n",
+      "slug": "cs231n",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "andrej-karpathy"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "CUDA",
+      "slug": "cuda",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "nvidia"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Current information",
+      "slug": "current-information",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "knowledge-cutoff"
+      ],
+      "categories": [
+        "Core concepts",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Data governance",
+      "slug": "data-governance",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "shadow-ai"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Data handling",
+      "slug": "data-handling",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "zero-data-retention"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model usage",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Data localisation",
+      "slug": "data-localisation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "sovereign-ai"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Data loss prevention",
+      "slug": "data-loss-prevention",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "prompt-firewall"
+      ],
+      "categories": [
+        "Infrastructure and deployment",
+        "Model usage",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Data network effect",
+      "slug": "data-network-effect",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "data-flywheel"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Data provenance",
+      "slug": "data-provenance",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "model-collapse"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Data quality",
+      "slug": "data-quality",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "synthetic-data"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model building",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Decision memo",
+      "slug": "decision-memo",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "output-laundering"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "DeepSeek-R1",
+      "slug": "deepseek-r1",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "deepseek"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "DeepSeek-V3",
+      "slug": "deepseek-v3",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "deepseek"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "DeepSeek-V4-Flash",
+      "slug": "deepseek-v4-flash",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "deepseek"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "DeepSeek-V4-Pro",
+      "slug": "deepseek-v4-pro",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "deepseek"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Default surface",
+      "slug": "default-surface",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-browser"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Defensive security",
+      "slug": "defensive-security",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "project-glasswing"
+      ],
+      "categories": [
+        "Infrastructure and deployment",
+        "Product and vendor terms",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Delegation boundary",
+      "slug": "delegation-boundary",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "agent2agent"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Deletion request",
+      "slug": "deletion-request",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "unlearning"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Deliberate decoding",
+      "slug": "deliberate-decoding",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "test-time-compute"
+      ],
+      "categories": [
+        "Core concepts",
+        "Economics and operations of AI",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Deliberate mode",
+      "slug": "deliberate-mode",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "reasoning-model"
+      ],
+      "categories": [
+        "Core concepts",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Deliberation mode",
+      "slug": "deliberation-mode",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "reasoning-tokens"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Dense model",
+      "slug": "dense-model",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "mixture-of-experts"
+      ],
+      "categories": [
+        "Core concepts",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Dependency confusion",
+      "slug": "dependency-confusion",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "slopsquatting"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Desk research",
+      "slug": "desk-research",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "deep-research"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Desktop agent",
+      "slug": "desktop-agent",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "computer-use"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Developer message",
+      "slug": "developer-message",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "system-prompt"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Core concepts"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Developer tooling",
+      "slug": "developer-tooling",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "cursor"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Developer workflow",
+      "slug": "developer-workflow",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "windsurf"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "DGX Cloud",
+      "slug": "dgx-cloud",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "dgx"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 5,
+      "label": "Distribution",
+      "slug": "distribution",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-wrapper"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Distribution advantage",
+      "slug": "distribution-advantage",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-moat"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Distribution shift",
+      "slug": "distribution-shift",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "model-collapse"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "DLAM",
+      "slug": "dlam",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "rabbit"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Document corpus",
+      "slug": "document-corpus",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "unstructured-data"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Draft model",
+      "slug": "draft-model",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "speculative-decoding"
+      ],
+      "categories": [
+        "Core concepts",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Durable Objects",
+      "slug": "durable-objects",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "cloudflare"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Ecosystems",
+      "slug": "ecosystems",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "super-apps"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Edge cases",
+      "slug": "edge-cases",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "synthetic-data"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model building",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Edge compute",
+      "slug": "edge-compute",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "npu"
+      ],
+      "categories": [
+        "Infrastructure and deployment",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Edge deployment",
+      "slug": "edge-deployment",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "gemma"
+      ],
+      "categories": [
+        "Model building",
+        "Model usage",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Edge model",
+      "slug": "edge-model",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "small-language-model"
+      ],
+      "categories": [
+        "Core concepts",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Editorial judgement",
+      "slug": "editorial-judgement",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "prompt-engineer"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Embodied AI",
+      "slug": "embodied-ai",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "physical-ai"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Emotional retention",
+      "slug": "emotional-retention",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-companion"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "End-to-end testing",
+      "slug": "end-to-end-testing",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "browser-automation"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Enterprise agentic solutions",
+      "slug": "enterprise-agentic-solutions",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "scale-ai"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Enterprise AI",
+      "slug": "enterprise-ai",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "context-ai"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Enterprise control",
+      "slug": "enterprise-control",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "byom"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Enterprise controls",
+      "slug": "enterprise-controls",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "zero-data-retention"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model usage",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Enterprise tooling",
+      "slug": "enterprise-tooling",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-wrapper"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Escalation path",
+      "slug": "escalation-path",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "human-in-the-loop"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Eureka Labs",
+      "slug": "eureka-labs",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "andrej-karpathy"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Cultural terms",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Exception handling",
+      "slug": "exception-handling",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "digital-worker"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Execution isolation",
+      "slug": "execution-isolation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "sandbox"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "External actions",
+      "slug": "external-actions",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "tool-use"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Core concepts"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Fallback policy",
+      "slug": "fallback-policy",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "model-router"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Fallback routing",
+      "slug": "fallback-routing",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "openrouter"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model usage",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Fallback strategy",
+      "slug": "fallback-strategy",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "provider-abstraction"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Few-shot",
+      "slug": "few-shot",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "zero-shot"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Core concepts"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Figma",
+      "slug": "figma",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "claude-design"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Firebase integration",
+      "slug": "firebase-integration",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "google-antigravity"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Forensic verification",
+      "slug": "forensic-verification",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "liars-dividend"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Frontier lab",
+      "slug": "frontier-lab",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "safe-superintelligence"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Full-stack agent",
+      "slug": "full-stack-agent",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "google-antigravity"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 6,
+      "label": "Full-stack scaffolding",
+      "slug": "full-stack-scaffolding",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "bolt-new"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Gated preview",
+      "slug": "gated-preview",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "project-glasswing"
+      ],
+      "categories": [
+        "Infrastructure and deployment",
+        "Product and vendor terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Gateway",
+      "slug": "gateway",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "openrouter"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model usage",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Gateway business",
+      "slug": "gateway-business",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "inference-arbitrage"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Gemini API",
+      "slug": "gemini-api",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "gemini-3-1-flash-lite"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Gemini Live API",
+      "slug": "gemini-live-api",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "gemini-3-1-flash-live"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Gemini model families",
+      "slug": "gemini-model-families",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "gemini"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Gemma model family",
+      "slug": "gemma-model-family",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "gemma"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model building",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "General agent",
+      "slug": "general-agent",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "manus"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "General intelligence",
+      "slug": "general-intelligence",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "agi"
+      ],
+      "categories": [
+        "Core concepts",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Generative model",
+      "slug": "generative-model",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "llm"
+      ],
+      "categories": [
+        "Core concepts",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Generative summaries",
+      "slug": "generative-summaries",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "ai-overviews"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Git Worktree",
+      "slug": "git-worktree",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "worktree"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "GLM-5.1",
+      "slug": "glm-5-1",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "glm"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Gmail",
+      "slug": "gmail",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "personal-intelligence"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Goal misalignment",
+      "slug": "goal-misalignment",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "agi"
+      ],
+      "categories": [
+        "Core concepts",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Golden dataset",
+      "slug": "golden-dataset",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "eval-driven-development"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model usage",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Google Gemini app",
+      "slug": "google-gemini-app",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "gemini"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Google Labs",
+      "slug": "google-labs",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "notebooklm"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Google Photos",
+      "slug": "google-photos",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "personal-intelligence"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Google Search",
+      "slug": "google-search",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "ai-overviews"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Governance posture",
+      "slug": "governance-posture",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "safe-superintelligence"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Governance theatre",
+      "slug": "governance-theatre",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "safety-washing"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "GPT-5.3-Codex",
+      "slug": "gpt-5-3-codex",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "codex"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "GPT-5.4 in Codex",
+      "slug": "gpt-5-4-in-codex",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "codex"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "GPU cloud",
+      "slug": "gpu-cloud",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "neocloud"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "GPU utilisation",
+      "slug": "gpu-utilisation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "vllm"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Grok Enterprise",
+      "slug": "grok-enterprise",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "grok"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Grok on X",
+      "slug": "grok-on-x",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "grok"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "grok.com",
+      "slug": "grok-com",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "grok"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "High-volume inference",
+      "slug": "high-volume-inference",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "gemini-3-1-flash-lite"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "HP IQ",
+      "slug": "hp-iq",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "humane"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Human evaluation",
+      "slug": "human-evaluation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "llm-as-a-judge"
+      ],
+      "categories": [
+        "Model building",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Human fallback",
+      "slug": "human-fallback",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "agent-washing"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Agents and workflows"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Humane failure",
+      "slug": "humane-failure",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "humane"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Product and vendor terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 7,
+      "label": "Hyperscaler alternative",
+      "slug": "hyperscaler-alternative",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "neocloud"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "IDE agent",
+      "slug": "ide-agent",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "cline"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Image API",
+      "slug": "image-api",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "gpt-image-2"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Image generation",
+      "slug": "image-generation",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "midjourney"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Cultural terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "image_generation tool",
+      "slug": "image-generation-tool",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "gpt-image-2"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Indie hacker",
+      "slug": "indie-hacker",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "pieter-levels"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Industrial policy",
+      "slug": "industrial-policy",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "sovereign-ai"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Instruction tuning",
+      "slug": "instruction-tuning",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "post-training"
+      ],
+      "categories": [
+        "Core concepts",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Integration governance",
+      "slug": "integration-governance",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "tool-registry"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Internal representation",
+      "slug": "internal-representation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "world-model"
+      ],
+      "categories": [
+        "Core concepts",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Invisible enterprise",
+      "slug": "invisible-enterprise",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "one-person-unicorn"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Invite-code economy",
+      "slug": "invite-code-economy",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "manus"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Issue resolution eval",
+      "slug": "issue-resolution-eval",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "swe-bench"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Jailbreaks",
+      "slug": "jailbreaks",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "red-teaming"
+      ],
+      "categories": [
+        "Model building",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Knowledge management",
+      "slug": "knowledge-management",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "unstructured-data"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "KV cache",
+      "slug": "kv-cache",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "vllm"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Labour substitution",
+      "slug": "labour-substitution",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "digital-worker"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Large language model",
+      "slug": "large-language-model",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "llm"
+      ],
+      "categories": [
+        "Core concepts",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Le Chat",
+      "slug": "le-chat",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "mistral-ai"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Leaderboard",
+      "slug": "leaderboard",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "sota"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Lightweight models",
+      "slug": "lightweight-models",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "gemma"
+      ],
+      "categories": [
+        "Model building",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Llama model family",
+      "slug": "llama-model-family",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "llama"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model building",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "LLM application security",
+      "slug": "llm-application-security",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "prompt-firewall"
+      ],
+      "categories": [
+        "Infrastructure and deployment",
+        "Model usage",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "LLM proxy",
+      "slug": "llm-proxy",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-gateway"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Local AI",
+      "slug": "local-ai",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ollama"
+      ],
+      "categories": [
+        "Infrastructure and deployment",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Local inference",
+      "slug": "local-inference",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "gemma"
+      ],
+      "categories": [
+        "Model building",
+        "Model usage",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Local model",
+      "slug": "local-model",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "mac-mini"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Loneliness market",
+      "slug": "loneliness-market",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-companion"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model usage",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Long-Horizon Agent",
+      "slug": "long-horizon-agent",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "glm"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Lovable Cloud",
+      "slug": "lovable-cloud",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "lovable"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Mac mini with M4",
+      "slug": "mac-mini-with-m4",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "mac-mini"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Mac mini with M4 Pro",
+      "slug": "mac-mini-with-m4-pro",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "mac-mini"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Managed inference",
+      "slug": "managed-inference",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "model-garden"
+      ],
+      "categories": [
+        "Infrastructure and deployment",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Managed serving",
+      "slug": "managed-serving",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "inference-provider"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Managerial cover",
+      "slug": "managerial-cover",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "output-laundering"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 8,
+      "label": "Margin compression",
+      "slug": "margin-compression",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "inference-arbitrage"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "MCP Server",
+      "slug": "mcp-server",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "minimax"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model usage",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Memories",
+      "slug": "memories",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "windsurf"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Memory hygiene",
+      "slug": "memory-hygiene",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "context-poisoning"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Meta",
+      "slug": "meta",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "llama"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model building",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Meta AI",
+      "slug": "meta-ai",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "yann-lecun"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Metadata sanitisation",
+      "slug": "metadata-sanitisation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "tool-poisoning"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Metric fixation",
+      "slug": "metric-fixation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "reward-hacking"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Microsoft 365 Copilot",
+      "slug": "microsoft-365-copilot",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "microsoft-copilot"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Mini Apps",
+      "slug": "mini-apps",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "telegram"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "MiniMax API",
+      "slug": "minimax-api",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "minimax"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "MiniMax M2",
+      "slug": "minimax-m2",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "minimax"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "MiniMax MCP",
+      "slug": "minimax-mcp",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "minimax"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Ministral 3",
+      "slug": "ministral-3",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "mistral-ai"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Mistral 3",
+      "slug": "mistral-3",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "mistral-ai"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Mistral Compute",
+      "slug": "mistral-compute",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "mistral-ai"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Mistral Large 3",
+      "slug": "mistral-large-3",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "mistral-ai"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Mistral Studio",
+      "slug": "mistral-studio",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "mistral-ai"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Model access",
+      "slug": "model-access",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "closed-weight"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Model class",
+      "slug": "model-class",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "llm"
+      ],
+      "categories": [
+        "Core concepts",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Model licence",
+      "slug": "model-licence",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "open-weight"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Model packaging",
+      "slug": "model-packaging",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ollama"
+      ],
+      "categories": [
+        "Infrastructure and deployment",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Model portability",
+      "slug": "model-portability",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "byom"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Model pricing war",
+      "slug": "model-pricing-war",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "deepseek"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Model provider routing",
+      "slug": "model-provider-routing",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "cline"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Model registry",
+      "slug": "model-registry",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "model-garden"
+      ],
+      "categories": [
+        "Infrastructure and deployment",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Model Serving",
+      "slug": "model-serving",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "nvidia-nim"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Infrastructure and deployment",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Model SKU",
+      "slug": "model-sku",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "gemini-3-1-flash-lite"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Model-dependent product",
+      "slug": "model-dependent-product",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-native"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Models.dev",
+      "slug": "models-dev",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "opencode"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Mood board",
+      "slug": "mood-board",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "midjourney"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Mood boards",
+      "slug": "mood-boards",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "midjourney"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Cultural terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "multi-agent",
+      "slug": "multi-agent",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "agent"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Multi-agent protocol",
+      "slug": "multi-agent-protocol",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "agent2agent"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Multi-provider routing",
+      "slug": "multi-provider-routing",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "provider-abstraction"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 9,
+      "label": "Multimodal API",
+      "slug": "multimodal-api",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "minimax"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "National compute",
+      "slug": "national-compute",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "sovereign-ai"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "Native architecture",
+      "slug": "native-architecture",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-native"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "Nemotron 3 Nano",
+      "slug": "nemotron-3-nano",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "nemotron-3"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Infrastructure and deployment",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "Nemotron 3 Super",
+      "slug": "nemotron-3-super",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "nemotron-3"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Infrastructure and deployment",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "Nemotron 3 Ultra",
+      "slug": "nemotron-3-ultra",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "nemotron-3"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Infrastructure and deployment",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "Nous Research",
+      "slug": "nous-research",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "hermes-agent"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "NVIDIA DGX",
+      "slug": "nvidia-dgx",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "dgx"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "NVIDIA Nemotron",
+      "slug": "nvidia-nemotron",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "nemotron-3"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Infrastructure and deployment",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "OAuth",
+      "slug": "oauth",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "context-ai"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "office-hours",
+      "slug": "office-hours",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "gstack"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "Offline evaluation",
+      "slug": "offline-evaluation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "eval-harness"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model usage",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "On-device AI",
+      "slug": "on-device-ai",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "small-language-model"
+      ],
+      "categories": [
+        "Core concepts",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "On-device inference",
+      "slug": "on-device-inference",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "npu"
+      ],
+      "categories": [
+        "Infrastructure and deployment",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "Open source",
+      "slug": "open-source",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "open-weight"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "Open-model ecosystem",
+      "slug": "open-model-ecosystem",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "llama"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model building",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "Open-weight competition",
+      "slug": "open-weight-competition",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "deepseek"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "Open-weight releases",
+      "slug": "open-weight-releases",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "deepseek"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "OpenAI API",
+      "slug": "openai-api",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "openai"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Core concepts",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "OpenAI GPT model families",
+      "slug": "openai-gpt-model-families",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "gpt"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Core concepts",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "OpenAI Prompt Caching",
+      "slug": "openai-prompt-caching",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "prompt-caching"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "OpenAI reasoning.effort",
+      "slug": "openai-reasoning-effort",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "reasoning-effort"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "OpenAI-compatible API",
+      "slug": "openai-compatible-api",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "manifest"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "OpenClaw Gateway",
+      "slug": "openclaw-gateway",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "openclaw"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "OpenClaw nodes",
+      "slug": "openclaw-nodes",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "openclaw"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "OpenClaw Telegram",
+      "slug": "openclaw-telegram",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "openclaw"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "OpenRouter API",
+      "slug": "openrouter-api",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "openrouter"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "Operating leverage",
+      "slug": "operating-leverage",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "one-person-unicorn"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "Operational leverage",
+      "slug": "operational-leverage",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-roll-up"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "Operational risk",
+      "slug": "operational-risk",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "human-in-the-loop"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "Operational rollout",
+      "slug": "operational-rollout",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "pilot-purgatory"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "Operational telemetry",
+      "slug": "operational-telemetry",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "agent-ops"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "Operator",
+      "slug": "operator",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "chatgpt-agent"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "Opt-in memory",
+      "slug": "opt-in-memory",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "personal-intelligence"
+      ],
+      "categories": [
+        "Model usage",
+        "Product and vendor terms",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "Pairwise ranking",
+      "slug": "pairwise-ranking",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "llm-as-a-judge"
+      ],
+      "categories": [
+        "Model building",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 10,
+      "label": "Parameters",
+      "slug": "parameters",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "weights"
+      ],
+      "categories": [
+        "Core concepts",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Parasocial software",
+      "slug": "parasocial-software",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-companion"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Persistent assistant",
+      "slug": "persistent-assistant",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ambient-agent"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Persona simulation",
+      "slug": "persona-simulation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "synthetic-user"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Personal data layer",
+      "slug": "personal-data-layer",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "personal-intelligence"
+      ],
+      "categories": [
+        "Model usage",
+        "Product and vendor terms",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Personalisation",
+      "slug": "personalisation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "memory-policy"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Plan mode",
+      "slug": "plan-mode",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "lovable"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "plan-ceo-review",
+      "slug": "plan-ceo-review",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "gstack"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Planning",
+      "slug": "planning",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "world-model"
+      ],
+      "categories": [
+        "Core concepts",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Platform margin",
+      "slug": "platform-margin",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "byok"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Platforms",
+      "slug": "platforms",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "super-apps"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Plugin review",
+      "slug": "plugin-review",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "tool-poisoning"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Policy bypass",
+      "slug": "policy-bypass",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "jailbreak"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model usage",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Policy compliance",
+      "slug": "policy-compliance",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "alignment"
+      ],
+      "categories": [
+        "Core concepts",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Policy enforcement",
+      "slug": "policy-enforcement",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "prompt-firewall"
+      ],
+      "categories": [
+        "Infrastructure and deployment",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "PR churn",
+      "slug": "pr-churn",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "coding-agent"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Prediction",
+      "slug": "prediction",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "world-model"
+      ],
+      "categories": [
+        "Core concepts",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Preference model",
+      "slug": "preference-model",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "llm-as-a-judge"
+      ],
+      "categories": [
+        "Model building",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Preference optimisation",
+      "slug": "preference-optimisation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "post-training"
+      ],
+      "categories": [
+        "Core concepts",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Prefix reuse",
+      "slug": "prefix-reuse",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "prompt-caching"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Privacy",
+      "slug": "privacy",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "zero-data-retention"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model usage",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Private equity software thesis",
+      "slug": "private-equity-software-thesis",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-roll-up"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Pro Search",
+      "slug": "pro-search",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "perplexity"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Cultural terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Proactive AI",
+      "slug": "proactive-ai",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ambient-agent"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Procurement",
+      "slug": "procurement",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "pilot-purgatory"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Procurement lag",
+      "slug": "procurement-lag",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "shadow-ai"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Product telemetry",
+      "slug": "product-telemetry",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "data-flywheel"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Production LLM ops",
+      "slug": "production-llm-ops",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "inference-stack"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Profile memory",
+      "slug": "profile-memory",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "memory-policy"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Progressive Disclosure",
+      "slug": "progressive-disclosure",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "agent-skills"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Prompt design",
+      "slug": "prompt-design",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "prompt-engineer"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Prompt discipline",
+      "slug": "prompt-discipline",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "context-stuffing"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Prompt hygiene",
+      "slug": "prompt-hygiene",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "context-rot"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Prompt leakage",
+      "slug": "prompt-leakage",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "system-prompt"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Core concepts"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Prompt revision",
+      "slug": "prompt-revision",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "gpt-image-2"
+      ],
+      "categories": [
+        "Model usage",
+        "Product and vendor terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 11,
+      "label": "Prompt-first workflow",
+      "slug": "prompt-first-workflow",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "vibe-coding"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Prompting",
+      "slug": "prompting",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "zero-shot"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Core concepts"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Prototype debt",
+      "slug": "prototype-debt",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "vibe-coding"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Prototype handoff",
+      "slug": "prototype-handoff",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "claude-design"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Provider lock-in",
+      "slug": "provider-lock-in",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "byok"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Proxy objective",
+      "slug": "proxy-objective",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "reward-hacking"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Public leaderboard",
+      "slug": "public-leaderboard",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "benchmark-theatre"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Publisher disintermediation",
+      "slug": "publisher-disintermediation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-overviews"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Quality gate",
+      "slug": "quality-gate",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "rubber-stamp-review"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Quota",
+      "slug": "quota",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "rate-limit"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Qwen model families",
+      "slug": "qwen-model-families",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "qwen"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Qwen3",
+      "slug": "qwen3",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "qwen"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Qwen3.6",
+      "slug": "qwen3-6",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "qwen"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "rabbit r1",
+      "slug": "rabbit-r1",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "rabbit"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "rabbitOS 2",
+      "slug": "rabbitos-2",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "rabbit"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Ranking system",
+      "slug": "ranking-system",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "output-laundering"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Rapid prototyping",
+      "slug": "rapid-prototyping",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "vibe-coding"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Recency",
+      "slug": "recency",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "knowledge-cutoff"
+      ],
+      "categories": [
+        "Core concepts",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Repo operator",
+      "slug": "repo-operator",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "cline"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Repository benchmark",
+      "slug": "repository-benchmark",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "swe-bench"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Request routing",
+      "slug": "request-routing",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "inference-stack"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Research assistant",
+      "slug": "research-assistant",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "notebooklm"
+      ],
+      "categories": [
+        "Model usage",
+        "Product and vendor terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Research culture",
+      "slug": "research-culture",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "yann-lecun"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Response time",
+      "slug": "response-time",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "latency"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Responses API",
+      "slug": "responses-api",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "gpt-image-2"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Responsible release",
+      "slug": "responsible-release",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "project-glasswing"
+      ],
+      "categories": [
+        "Infrastructure and deployment",
+        "Product and vendor terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Retention policy",
+      "slug": "retention-policy",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "memory-policy"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Retrieval",
+      "slug": "retrieval",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "unstructured-data"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Retrieval provenance",
+      "slug": "retrieval-provenance",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "context-poisoning"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Retrieval quality",
+      "slug": "retrieval-quality",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "context-stuffing"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Retrieval strategy",
+      "slug": "retrieval-strategy",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "context-engineering"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "review",
+      "slug": "review",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "gstack"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Review pipeline",
+      "slug": "review-pipeline",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "gstack"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Risk acceptance",
+      "slug": "risk-acceptance",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "safety-washing"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Robotics stack",
+      "slug": "robotics-stack",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "physical-ai"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 12,
+      "label": "Rules",
+      "slug": "rules",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "windsurf"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Runtime policy",
+      "slug": "runtime-policy",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "inference-budget"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Safety",
+      "slug": "safety",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "dario-amodei"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Product and vendor terms",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Safety boundary",
+      "slug": "safety-boundary",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "jailbreak"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model usage",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Safety case",
+      "slug": "safety-case",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "red-teaming"
+      ],
+      "categories": [
+        "Model building",
+        "Model usage",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Safety-first branding",
+      "slug": "safety-first-branding",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "safe-superintelligence"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Sandboxing",
+      "slug": "sandboxing",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "prompt-injection"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Scale GenAI Platform",
+      "slug": "scale-genai-platform",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "scale-ai"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Scheduled Automations",
+      "slug": "scheduled-automations",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "hermes-agent"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Scoring pipeline",
+      "slug": "scoring-pipeline",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "eval-harness"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model usage",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Scratch Checkout",
+      "slug": "scratch-checkout",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "worktree"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Search budget",
+      "slug": "search-budget",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "test-time-compute"
+      ],
+      "categories": [
+        "Core concepts",
+        "Economics and operations of AI",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Search engine",
+      "slug": "search-engine",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "perplexity"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model usage",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Search replacement",
+      "slug": "search-replacement",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-browser"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model usage",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Seat expansion",
+      "slug": "seat-expansion",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "microsoft-copilot"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Security research preview",
+      "slug": "security-research-preview",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "claude-mythos-preview"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Selective forgetting",
+      "slug": "selective-forgetting",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "unlearning"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Self-hosted models",
+      "slug": "self-hosted-models",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "llama"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model building",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Self-hosting",
+      "slug": "self-hosting",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ollama"
+      ],
+      "categories": [
+        "Infrastructure and deployment",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "SEO",
+      "slug": "seo",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "geo"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Product and vendor terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Services consolidation",
+      "slug": "services-consolidation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-roll-up"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Serving economics",
+      "slug": "serving-economics",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "inference-budget"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Serving engine",
+      "slug": "serving-engine",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "vllm"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Serving layer",
+      "slug": "serving-layer",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "inference-stack"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Session handoff",
+      "slug": "session-handoff",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "state-compaction"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Session reset",
+      "slug": "session-reset",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "context-rot"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Shadow IT",
+      "slug": "shadow-it",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "shadow-ai"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Shared state",
+      "slug": "shared-state",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "context-poisoning"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Silicon marketing",
+      "slug": "silicon-marketing",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "npu"
+      ],
+      "categories": [
+        "Infrastructure and deployment",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Simulation",
+      "slug": "simulation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "synthetic-data"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model building",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Skill Loading",
+      "slug": "skill-loading",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "agent-skills"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Software 2.0",
+      "slug": "software-2-0",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "andrej-karpathy"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Software bundle",
+      "slug": "software-bundle",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "microsoft-copilot"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Software factory",
+      "slug": "software-factory",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "gstack"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Source availability",
+      "slug": "source-availability",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "closed-weight"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 13,
+      "label": "Source available",
+      "slug": "source-available",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "open-weight"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Source pack",
+      "slug": "source-pack",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "notebooklm"
+      ],
+      "categories": [
+        "Model usage",
+        "Product and vendor terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Source synthesis",
+      "slug": "source-synthesis",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "deep-research"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Sparse model",
+      "slug": "sparse-model",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "mixture-of-experts"
+      ],
+      "categories": [
+        "Core concepts",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Specification gaming",
+      "slug": "specification-gaming",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "reward-hacking"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Speech stack",
+      "slug": "speech-stack",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "voice-agent"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Spend Limit",
+      "slug": "spend-limit",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "rate-limit"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Student model",
+      "slug": "student-model",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "distillation"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Styles",
+      "slug": "styles",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "midjourney"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Cultural terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Subagent Worktree",
+      "slug": "subagent-worktree",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "worktree"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Subagents",
+      "slug": "subagents",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "hermes-agent"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Switching costs",
+      "slug": "switching-costs",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-moat"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "System card",
+      "slug": "system-card",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "claude-mythos-preview"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Tab",
+      "slug": "tab",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "cursor"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Task handoff",
+      "slug": "task-handoff",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "agent2agent"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Task-specific model",
+      "slug": "task-specific-model",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "small-language-model"
+      ],
+      "categories": [
+        "Core concepts",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Teacher model",
+      "slug": "teacher-model",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "distillation"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Telegram Bot API",
+      "slug": "telegram-bot-api",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "telegram"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Telegram Mini Apps",
+      "slug": "telegram-mini-apps",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "telegram"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Telegram Stars",
+      "slug": "telegram-stars",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "telegram"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Thinking time",
+      "slug": "thinking-time",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "reasoning-effort"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Throughput",
+      "slug": "throughput",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "latency"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Throughput target",
+      "slug": "throughput-target",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "rubber-stamp-review"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Token generation",
+      "slug": "token-generation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "speculative-decoding"
+      ],
+      "categories": [
+        "Core concepts",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Tool schema",
+      "slug": "tool-schema",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "tool-registry"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Trace replay",
+      "slug": "trace-replay",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "agent-ops"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Traffic shaping",
+      "slug": "traffic-shaping",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "model-router"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Training signal quality",
+      "slug": "training-signal-quality",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "rlvr"
+      ],
+      "categories": [
+        "Model building",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Transformer",
+      "slug": "transformer",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "gpt"
+      ],
+      "categories": [
+        "Core concepts",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Turn-taking",
+      "slug": "turn-taking",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "gemini-3-1-flash-live"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Typosquatting",
+      "slug": "typosquatting",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "slopsquatting"
+      ],
+      "categories": [
+        "Agents and workflows",
+        "Cultural terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Usage telemetry",
+      "slug": "usage-telemetry",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "reasoning-tokens"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Usage Tier",
+      "slug": "usage-tier",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "rate-limit"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "Usage-based pricing",
+      "slug": "usage-based-pricing",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "byok"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "User experience",
+      "slug": "user-experience",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "latency"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 14,
+      "label": "User research",
+      "slug": "user-research",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "synthetic-user"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "v1/images/edits",
+      "slug": "v1-images-edits",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "gpt-image-2"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "v1/images/generations",
+      "slug": "v1-images-generations",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "gpt-image-2"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "Vendor dependency",
+      "slug": "vendor-dependency",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "inference-provider"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "Vendor lock-in",
+      "slug": "vendor-lock-in",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "provider-abstraction"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "Vercel AI Gateway",
+      "slug": "vercel-ai-gateway",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "ai-gateway"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "Vercel April 2026 Security Bulletin",
+      "slug": "vercel-april-2026-security-bulletin",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "vercel"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "Verification",
+      "slug": "verification",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "unlearning"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Model building"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "Verifier model",
+      "slug": "verifier-model",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "rlvr"
+      ],
+      "categories": [
+        "Model building",
+        "Safety and evaluation"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "Vertex AI",
+      "slug": "vertex-ai",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "gemini-3-1-flash-lite"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "Vinext",
+      "slug": "vinext",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "cloudflare"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "Visible reasoning",
+      "slug": "visible-reasoning",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "reasoning-trace"
+      ],
+      "categories": [
+        "Model usage",
+        "Product and vendor terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "Voice-first agent",
+      "slug": "voice-first-agent",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "gemini-3-1-flash-live"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "Wearables",
+      "slug": "wearables",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "humane"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Product and vendor terms"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "Wholesale intelligence",
+      "slug": "wholesale-intelligence",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "inference-arbitrage"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "Windows",
+      "slug": "windows",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "microsoft-copilot"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "Workers",
+      "slug": "workers",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "cloudflare"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "Workflow software",
+      "slug": "workflow-software",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-wrapper"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Agents and workflows"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "Workplace assistant",
+      "slug": "workplace-assistant",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "microsoft-copilot"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "Workstation",
+      "slug": "workstation",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "mac-mini"
+      ],
+      "categories": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "xAI API",
+      "slug": "xai-api",
+      "fields": [
+        "vendorReferences"
+      ],
+      "sourceSlugs": [
+        "grok"
+      ],
+      "categories": [
+        "Product and vendor terms",
+        "Model usage",
+        "Infrastructure and deployment"
+      ],
+      "status": "created"
+    },
+    {
+      "batch": 15,
+      "label": "Zero-click search",
+      "slug": "zero-click-search",
+      "fields": [
+        "seeAlso"
+      ],
+      "sourceSlugs": [
+        "ai-overviews"
+      ],
+      "categories": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Retrieval and memory"
+      ],
+      "status": "created"
+    }
+  ]
+}
