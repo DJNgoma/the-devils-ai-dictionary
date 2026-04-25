@@ -9,6 +9,17 @@ const categoryTitleSet = new Set(categoryDefinitions.map((category) => category.
 const difficultySet = new Set(difficultyOptions);
 const technicalDepthSet = new Set(technicalDepthOptions);
 const hypeLevelSet = new Set(hypeLevelOptions);
+const diagramSet = new Set([
+  "rag",
+  "embeddings",
+  "context-window",
+  "function-calling",
+  "mcp",
+  "agent-loop",
+  "model-routing",
+  "skill-loading",
+  "worktree",
+]);
 
 function isNonEmptyString(value) {
   return typeof value === "string" && value.trim().length > 0;
@@ -150,6 +161,10 @@ export function collectEntryValidationErrors(
         'Field "translations" must be an array of { label, text } objects with non-empty strings',
       );
     }
+  }
+
+  if (entry.diagram !== undefined && !diagramSet.has(entry.diagram)) {
+    errors.push(`Invalid diagram "${entry.diagram}"`);
   }
 
   if (knownSlugs && Array.isArray(entry.related)) {

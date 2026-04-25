@@ -1,0 +1,63 @@
+---
+title: "NVIDIA NIM"
+slug: "nvidia-nim"
+letter: "N"
+categories:
+  - "Infrastructure and deployment"
+  - "Product and vendor terms"
+  - "Model usage"
+aliases:
+  - "NIM"
+  - "NVIDIA NIM APIs"
+  - "build.nvidia.com"
+  - "NIM microservices"
+devilDefinition: |
+  NVIDIA's reminder that once everyone wants models in production, the pick-and-shovel business starts selling neatly boxed shovels.
+plainDefinition: |
+  NVIDIA NIM is a set of microservices and API surfaces for deploying, serving, and trying foundation models across NVIDIA's AI stack, including hosted NIM APIs exposed through build.nvidia.com.
+whyExists: |
+  It exists because serving models is not just a model choice. Teams also need runtimes, endpoints, containers, security updates, deployment patterns, and enough operational packaging to make inference feel less handmade.
+misuse: |
+  It gets treated as if the presence of an official endpoint solves model selection, quality evaluation, latency budgets, or vendor lock-in. A production-grade serving wrapper still serves whatever decision you made inside it.
+practicalMeaning: |
+  In practice it usually means easier access to NVIDIA-optimised model serving, hosted trials, and deployment recipes for teams already thinking in GPUs, data centres, clouds, and enterprise support contracts.
+example: |
+  "They tried the model through NVIDIA NIM first, which was sensible; they then called the working API call a platform strategy, which was less so."
+askNext:
+  - "Are we using NIM as a hosted API, a deployable microservice, or a reference runtime?"
+  - "Which model, hardware target, latency budget, and data-handling requirements matter here?"
+  - "Does NIM simplify deployment enough to justify the surrounding NVIDIA dependency?"
+related:
+  - "nvidia"
+  - "inference-stack"
+  - "inference"
+  - "latency"
+seeAlso:
+  - "NVIDIA"
+  - "NIM API Catalog"
+  - "Inference Stack"
+  - "Model Serving"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: true
+publishedAt: "2026-04-25"
+updatedAt: "2026-04-25"
+vendorReferences:
+  - "NVIDIA NIM"
+  - "build.nvidia.com"
+  - "NIM API Catalog"
+tags:
+  - "inference"
+  - "serving"
+  - "nvidia"
+  - "deployment"
+misunderstoodScore: 4
+translations:
+  - label: "platform meaning"
+    text: "A packaged way to try and serve models through NVIDIA's deployment machinery."
+  - label: "what it usually means in reality"
+    text: "Inference plumbing with a logo people already associate with the expensive part."
+---
+
+The interesting part is not that NVIDIA has APIs. The interesting part is how neatly the model era keeps turning back into an infrastructure era.

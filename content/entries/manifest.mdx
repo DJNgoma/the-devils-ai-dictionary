@@ -1,0 +1,62 @@
+---
+title: "Manifest"
+slug: "manifest"
+letter: "M"
+categories:
+  - "Product and vendor terms"
+  - "Economics and operations of AI"
+  - "Infrastructure and deployment"
+aliases:
+  - "Manifest.build"
+  - "LLM router"
+  - "personal AI router"
+devilDefinition: |
+  A model router for agents whose first autonomous act was apparently choosing the most expensive model available.
+plainDefinition: |
+  Manifest is an open-source LLM routing layer for personal AI agents, designed to sit behind OpenAI-compatible endpoints and route requests to cheaper or more suitable models based on task complexity and policy.
+whyExists: |
+  It exists because many agents send every request to the same large model, even when the task is tiny, repetitive, or cheap enough to deserve a less theatrical engine.
+misuse: |
+  It gets mistaken for model intelligence rather than routing policy. A router can reduce waste and add fallback behaviour, but it cannot make a weak task definition or poor evaluation strategy suddenly competent.
+practicalMeaning: |
+  In practice it means model-tiering, fallback chains, budget controls, provider abstraction, local or cloud routing, and a sharper view of what each agent request actually costs.
+example: |
+  "Manifest saved money by routing simple agent chores away from the heroic model, which was a cruel blow to the heroic invoice."
+askNext:
+  - "What signals decide whether a task is simple, complex, or reasoning-heavy?"
+  - "How are budgets, fallbacks, and provider failures handled?"
+  - "Does cheaper routing preserve quality on the workloads that actually matter?"
+related:
+  - "model-router"
+  - "ai-gateway"
+  - "openrouter"
+  - "inference-budget"
+seeAlso:
+  - "Provider Abstraction"
+  - "Model Router"
+  - "Agent Cost Control"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: true
+publishedAt: "2026-04-25"
+updatedAt: "2026-04-25"
+vendorReferences:
+  - "Manifest"
+  - "OpenAI-compatible API"
+  - "OpenRouter"
+tags:
+  - "routing"
+  - "cost"
+  - "agents"
+  - "providers"
+misunderstoodScore: 4
+translations:
+  - label: "operator meaning"
+    text: "Stop paying frontier-model prices for every agent cough."
+  - label: "what it usually means in reality"
+    text: "A routing and budget layer that makes agent spending less mystical and more accountable."
+diagram: "model-routing"
+---
+
+The funny thing about autonomy is how quickly it needs accounting. Manifest is what happens when agent ambition meets a spreadsheet that can still feel pain.

@@ -10,6 +10,7 @@ aliases:
   - "OpenAI Codex"
   - "coding agent"
   - "codex cloud"
+  - "GPT-5.4 in Codex"
 devilDefinition: |
   A coding agent for people who looked at autocomplete and thought, "Fine, but can it also open the repo, run the tests, fix the bug, and stop wasting my afternoon?"
 plainDefinition: |
@@ -19,7 +20,7 @@ whyExists: |
 misuse: |
   By talking about Codex as if it were pure autonomous engineering rather than a product built around scoped environments, repo access, tool execution, and human review. The phrase "AI software engineer" tends to arrive several minutes before the conversation about permissions, validation, and merge discipline.
 practicalMeaning: |
-  In practice it usually means a coding agent that can navigate a repository, edit files, execute tests and linters, explain what it changed, and work either alongside a developer or in a delegated sandbox. The useful distinction is not magic versus non-magic. It is suggestion versus accountable execution.
+  In practice it usually means a coding agent that can navigate a repository, edit files, execute tests and linters, explain what it changed, and work either alongside a developer or in a delegated sandbox. The model underneath may change; the durable product question is still whether it can turn a bounded task into reviewable evidence.
 example: |
   "The value of Codex was not that it could write code in the abstract. The value was that it could take a bounded task, touch the repo, run the checks, and come back with evidence instead of vibes."
 askNext:
@@ -41,13 +42,14 @@ technicalDepth: "medium"
 hypeLevel: "medium"
 isVendorTerm: true
 publishedAt: "2026-03-20"
-updatedAt: "2026-03-20"
+updatedAt: "2026-04-25"
 warningLabel: "Product name. Not a synonym for software autonomy in general."
 vendorReferences:
   - "Codex app"
   - "Codex CLI"
   - "Codex cloud"
-  - "codex-1"
+  - "GPT-5.4 in Codex"
+  - "GPT-5.3-Codex"
 tags:
   - "coding agent"
   - "repositories"
@@ -59,7 +61,8 @@ translations:
   - label: "what it usually means in reality"
     text: "A product layer around model-driven coding tasks, repo access, tool execution, and reviewable evidence."
 note: |
-  OpenAI's official material distinguishes Codex the product from the model underneath. Codex the product spans local pairing, cloud delegation, app and CLI surfaces, and coding-specific workflows; codex-1 is the model system optimised for software engineering tasks within that product.
+  OpenAI's official material distinguishes Codex the product from the model underneath. Codex spans local pairing, cloud delegation, app and CLI surfaces, and coding-specific workflows; current model references include GPT-5.4 and GPT-5.3-Codex rather than one timeless "Codex model".
+diagram: "agent-loop"
 ---
 
 Codex is one of the cleaner examples of an "agent" discussion becoming less mystical once the product is described literally. It works on code, inside environments, with tools, under review. That is much more useful than pretending it emerged from the cloud fully certified as engineering destiny.

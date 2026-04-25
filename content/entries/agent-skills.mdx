@@ -1,0 +1,64 @@
+---
+title: "Agent Skills"
+slug: "agent-skills"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Model usage"
+  - "Infrastructure and deployment"
+aliases:
+  - "Skill"
+  - "Skills"
+  - "agent skill"
+  - "Claude Skills"
+  - "Claude Agent Skills"
+devilDefinition: |
+  A way to give an agent specialised habits without shoving the entire employee handbook into every prompt.
+plainDefinition: |
+  Agent skills are reusable bundles of instructions, metadata, scripts, templates, and reference material that an AI agent can load when a task calls for a particular capability.
+whyExists: |
+  They exist because agents need domain procedures and repeatable workflows, but putting every possible instruction into the main context window is expensive, noisy, and a reliable way to teach the model nothing in particular.
+misuse: |
+  They get treated as plugins, permissions, or magic competence capsules. A skill can guide behaviour and provide tools, but it still needs trust boundaries, review, versioning, and a system that knows when not to use it.
+practicalMeaning: |
+  In practice it means packaging domain knowledge so the agent can discover the skill cheaply, load detailed guidance only when needed, and run deterministic helper scripts or consult reference files without bloating every task.
+example: |
+  "The finance skill helped the agent produce the right spreadsheet; the security review then asked why everyone had installed it with the serenity of a gift basket."
+askNext:
+  - "Who authored the skill, and can we audit the instructions and scripts?"
+  - "What triggers the skill, and what context or permissions does it receive?"
+  - "Does the skill reduce repeated prompting, or hide a fragile workflow inside a nicer folder?"
+related:
+  - "mcp"
+  - "tool-use"
+  - "codex"
+  - "claude-code"
+seeAlso:
+  - "Skill Loading"
+  - "Progressive Disclosure"
+  - "Tool Permissions"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-25"
+updatedAt: "2026-04-25"
+warningLabel: "A skill is capability packaging, not proof the agent is safe or competent."
+vendorReferences:
+  - "Anthropic Agent Skills"
+  - "Claude Code Skills"
+tags:
+  - "skills"
+  - "agents"
+  - "workflow"
+  - "context"
+misunderstoodScore: 4
+translations:
+  - label: "operator meaning"
+    text: "A reusable onboarding pack for the agent, loaded only when the work calls for it."
+  - label: "what it usually means in reality"
+    text: "A filesystem-shaped way to make agents more specialised without stuffing every task with every instruction."
+diagram: "skill-loading"
+---
+
+Skills are a healthy idea when treated as maintainable operational assets. They become less healthy when installed like browser extensions and trusted like saints.

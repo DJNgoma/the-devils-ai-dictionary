@@ -253,6 +253,14 @@ private struct NativeTermDiagramView: View {
             return "A model has limited room on the desk"
         case "function-calling":
             return "The model chooses the call, software does the work"
+        case "agent-loop":
+            return "Agents are loops with permission"
+        case "model-routing":
+            return "Routing is policy with a bill attached"
+        case "skill-loading":
+            return "Skills load guidance only when the task earns it"
+        case "worktree":
+            return "A worktree gives the agent a separate bench"
         default:
             return "MCP separates the assistant from the connectors"
         }
@@ -284,6 +292,30 @@ private struct NativeTermDiagramView: View {
                 ("Step 1", "User asks for something", "choose tool"),
                 ("Step 2", "Model emits structured arguments", "execute"),
                 ("Step 3", "Application runs the tool and returns result", ""),
+            ]
+        case "agent-loop":
+            return [
+                ("Step 1", "Goal and constraints", "plan"),
+                ("Step 2", "Tool, browser, or code action", "observe"),
+                ("Step 3", "Continue, ask, or stop", ""),
+            ]
+        case "model-routing":
+            return [
+                ("Step 1", "Application request", "classify"),
+                ("Step 2", "Gateway applies policy and budget", "route"),
+                ("Step 3", "Selected model or fallback", ""),
+            ]
+        case "skill-loading":
+            return [
+                ("Step 1", "User task", "match"),
+                ("Step 2", "Skill instructions load on demand", "use"),
+                ("Step 3", "Scripts and resources stay scoped", ""),
+            ]
+        case "worktree":
+            return [
+                ("Step 1", "Main checkout stays steady", "branch"),
+                ("Step 2", "Linked worktree gets isolated edits", "verify"),
+                ("Step 3", "Merge, keep, or discard", ""),
             ]
         default:
             return [

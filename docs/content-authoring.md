@@ -115,6 +115,10 @@ Optional. Current built-in diagram keys:
 - `context-window`
 - `function-calling`
 - `mcp`
+- `agent-loop`
+- `model-routing`
+- `skill-loading`
+- `worktree`
 
 ## Writing guidance by section
 

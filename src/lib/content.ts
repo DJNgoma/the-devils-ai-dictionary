@@ -37,7 +37,16 @@ export type Entry = {
   tags: string[];
   misunderstoodScore: number;
   translations: { label: string; text: string }[];
-  diagram?: "rag" | "embeddings" | "context-window" | "function-calling" | "mcp";
+  diagram?:
+    | "rag"
+    | "embeddings"
+    | "context-window"
+    | "function-calling"
+    | "mcp"
+    | "agent-loop"
+    | "model-routing"
+    | "skill-loading"
+    | "worktree";
   body: string;
   categorySlugs: string[];
   url: string;

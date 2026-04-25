@@ -1,0 +1,58 @@
+---
+title: "Worktree"
+slug: "worktree"
+letter: "W"
+categories:
+  - "Infrastructure and deployment"
+  - "Agents and workflows"
+aliases:
+  - "git worktree"
+  - "agent worktree"
+  - "worktree isolation"
+devilDefinition: |
+  A separate checkout where the agent can make a mess without immediately decorating the main desk with it.
+plainDefinition: |
+  A worktree is a linked working tree attached to the same Git repository, allowing different branches or tasks to be checked out in separate directories at the same time.
+whyExists: |
+  It exists because parallel work is useful and mixing every branch, experiment, dependency state, and agent task into one checkout is how small mistakes become local archaeology.
+misuse: |
+  It gets treated as a sandbox. It is not one. A worktree isolates files and branches, not credentials, networks, databases, or the agent's ability to run a regrettable command.
+practicalMeaning: |
+  In AI-assisted development, it usually means giving a coding agent or subagent a separate branch and directory so it can edit, test, and report back without colliding with the main checkout or another agent's work.
+example: |
+  "The worktree let three agents work in parallel, which was helpful until everyone remembered they still shared one confused package cache."
+askNext:
+  - "What is isolated by the worktree, and what shared state still leaks across tasks?"
+  - "How will changes be reviewed, merged, kept, or discarded?"
+  - "Do untracked files, environment secrets, and generated artefacts need to be copied or excluded?"
+related:
+  - "coding-agent"
+  - "codex"
+  - "sandbox"
+  - "agent-ops"
+seeAlso:
+  - "Git Worktree"
+  - "Subagent Worktree"
+  - "Scratch Checkout"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-04-25"
+updatedAt: "2026-04-25"
+warningLabel: "A worktree is branch isolation, not a security boundary."
+tags:
+  - "git"
+  - "agents"
+  - "workflow"
+  - "isolation"
+misunderstoodScore: 4
+translations:
+  - label: "developer meaning"
+    text: "Another working directory attached to the same repository, useful for parallel branches."
+  - label: "what it usually means in reality"
+    text: "A practical way to let agents work beside you without immediately trampling the main checkout."
+diagram: "worktree"
+---
+
+Worktrees are boring in the way useful tools often are. They do not make agents safe. They make their edits easier to contain, inspect, and throw away.

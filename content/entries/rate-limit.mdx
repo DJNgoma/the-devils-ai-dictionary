@@ -1,0 +1,61 @@
+---
+title: "Rate Limit"
+slug: "rate-limit"
+letter: "R"
+categories:
+  - "Infrastructure and deployment"
+  - "Economics and operations of AI"
+  - "Model usage"
+aliases:
+  - "usage limit"
+  - "usage limits"
+  - "API limit"
+  - "token limit"
+devilDefinition: |
+  The provider's quiet way of reminding your agent that enthusiasm is not capacity planning.
+plainDefinition: |
+  A rate limit is a cap on how much an API or service can be used over a time period, often measured in requests, input tokens, output tokens, concurrent jobs, or other throughput units.
+whyExists: |
+  It exists to protect shared infrastructure, control abuse, preserve service quality, and make sure one ambitious integration does not turn a provider's capacity plan into a public experiment.
+misuse: |
+  It gets confused with spend limits, context limits, or general product restrictions. Those may interact, but they are not the same thing: one controls throughput, another controls money, and another controls how much the model can read at once.
+practicalMeaning: |
+  In practice it means backoff logic, queues, retries, request shaping, model tier choices, budget alerts, and the discovery that your "real-time" agent is now waiting politely behind its own success.
+example: |
+  "The demo scaled beautifully until the rate limit arrived and taught the agent the ancient discipline of waiting."
+askNext:
+  - "Which limit are we hitting: requests, input tokens, output tokens, concurrency, spend, or context?"
+  - "Do we have backoff, queueing, fallbacks, or a cheaper model tier for overflow?"
+  - "Is the limit a provider constraint, a workspace setting, or self-inflicted traffic design?"
+related:
+  - "ai-gateway"
+  - "inference-budget"
+  - "latency"
+  - "tokens"
+seeAlso:
+  - "Spend Limit"
+  - "Backoff"
+  - "Quota"
+  - "Usage Tier"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-04-25"
+updatedAt: "2026-04-25"
+tags:
+  - "limits"
+  - "api"
+  - "operations"
+  - "cost"
+misunderstoodScore: 4
+translations:
+  - label: "operator meaning"
+    text: "The service is not down; it is declining to be consumed quite so rapidly."
+  - label: "what it usually means in reality"
+    text: "A throughput ceiling that becomes an architecture concern as soon as the product works."
+note: |
+  Usage limits is the umbrella phrase people often use in conversation. For engineering decisions, separate rate limits, spend limits, context limits, and feature caps before designing the workaround.
+---
+
+Rate limits are rarely glamorous. They are, however, one of the first signs that a prototype has wandered into production clothing.

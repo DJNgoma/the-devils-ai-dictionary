@@ -1,5 +1,14 @@
 type TermDiagramProps = {
-  kind: "rag" | "embeddings" | "context-window" | "function-calling" | "mcp";
+  kind:
+    | "rag"
+    | "embeddings"
+    | "context-window"
+    | "function-calling"
+    | "mcp"
+    | "agent-loop"
+    | "model-routing"
+    | "skill-loading"
+    | "worktree";
 };
 
 function DiagramFrame({
@@ -89,6 +98,62 @@ export function TermDiagram({ kind }: TermDiagramProps) {
           <Box>Model emits structured arguments</Box>
           <Arrow label="execute" />
           <Box>Application runs tool and returns result</Box>
+        </div>
+      </DiagramFrame>
+    );
+  }
+
+  if (kind === "agent-loop") {
+    return (
+      <DiagramFrame title="Agents are loops with permission">
+        <div className="grid gap-3 md:grid-cols-5">
+          <Box>Goal and constraints</Box>
+          <Arrow label="plan" />
+          <Box>Tool, browser, or code action</Box>
+          <Arrow label="observe" />
+          <Box>Continue, ask, or stop</Box>
+        </div>
+      </DiagramFrame>
+    );
+  }
+
+  if (kind === "model-routing") {
+    return (
+      <DiagramFrame title="Routing is policy with a bill attached">
+        <div className="grid gap-3 md:grid-cols-5">
+          <Box>Application request</Box>
+          <Arrow label="classify" />
+          <Box>Gateway applies policy and budget</Box>
+          <Arrow label="route" />
+          <Box>Selected model or fallback</Box>
+        </div>
+      </DiagramFrame>
+    );
+  }
+
+  if (kind === "skill-loading") {
+    return (
+      <DiagramFrame title="Skills load guidance only when the task earns it">
+        <div className="grid gap-3 md:grid-cols-5">
+          <Box>User task</Box>
+          <Arrow label="match" />
+          <Box>Skill instructions load on demand</Box>
+          <Arrow label="use" />
+          <Box>Scripts and resources stay scoped</Box>
+        </div>
+      </DiagramFrame>
+    );
+  }
+
+  if (kind === "worktree") {
+    return (
+      <DiagramFrame title="A worktree gives the agent a separate bench">
+        <div className="grid gap-3 md:grid-cols-5">
+          <Box>Main checkout stays steady</Box>
+          <Arrow label="branch" />
+          <Box>Linked worktree gets isolated edits</Box>
+          <Arrow label="verify" />
+          <Box>Merge, keep, or discard</Box>
         </div>
       </DiagramFrame>
     );
