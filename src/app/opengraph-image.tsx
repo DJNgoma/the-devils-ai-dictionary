@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { HomeShareCard } from "@/components/og-card";
+import { loadOgFonts } from "@/lib/og-fonts";
 
 export const dynamic = "force-static";
 
@@ -10,6 +11,7 @@ export const size = {
 
 export const contentType = "image/png";
 
-export default function OpenGraphImage() {
-  return new ImageResponse(<HomeShareCard />, size);
+export default async function OpenGraphImage() {
+  const fonts = await loadOgFonts();
+  return new ImageResponse(<HomeShareCard />, { ...size, fonts });
 }

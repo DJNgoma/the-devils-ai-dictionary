@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import { EntryShareCard } from "@/components/og-card";
 import { getAllEntries, getEntryBySlug } from "@/lib/content";
+import { loadOgFonts } from "@/lib/og-fonts";
 
 export const dynamic = "force-static";
 
@@ -26,7 +27,10 @@ export default async function EntryOpenGraphImage({
   params,
 }: EntryOgImageProps) {
   const { slug } = await params;
-  const entry = await getEntryBySlug(slug);
+  const [entry, fonts] = await Promise.all([
+    getEntryBySlug(slug),
+    loadOgFonts(),
+  ]);
 
   return new ImageResponse(
     (
@@ -40,6 +44,6 @@ export default async function EntryOpenGraphImage({
         letter={entry?.letter}
       />
     ),
-    size,
+    { ...size, fonts },
   );
 }
