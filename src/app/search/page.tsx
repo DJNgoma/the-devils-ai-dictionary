@@ -1,19 +1,16 @@
-import { redirect } from "next/navigation";
+"use client";
 
-type SearchPageProps = {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-};
+import { useEffect } from "react";
 
-export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const params = await searchParams;
-  const search = new URLSearchParams();
+export default function SearchPage() {
+  useEffect(() => {
+    window.location.replace(`/dictionary${window.location.search}`);
+  }, []);
 
-  for (const [key, value] of Object.entries(params)) {
-    if (typeof value === "string") {
-      search.set(key, value);
-    }
-  }
-
-  const query = search.toString();
-  redirect(query ? `/dictionary?${query}` : "/dictionary");
+  return (
+    <div className="page-shell py-16">
+      <p className="page-kicker">Search</p>
+      <h1 className="page-title">Opening the dictionary.</h1>
+    </div>
+  );
 }
