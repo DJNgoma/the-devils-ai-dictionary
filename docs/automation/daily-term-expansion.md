@@ -48,6 +48,7 @@ That command:
 - checks the versioned `public/catalog/catalog.<hash>.json`
 - checks `public/mobile-catalog/manifest.json` and its versioned snapshot
 - reports `diagramCoverage` for the requested slugs so the run explicitly considers whether a mental model should be attached
+- reports `misunderstoodSelection` for the requested slugs so high-scoring terms do not silently reshape the "Most misunderstood" rail
 - requires a real `node_modules` tree in the scratch checkout, then runs `npm run lint`, `npm run typecheck`, and `npm run build`
 
 If `node_modules` could not be copied into the scratch repo, treat that as a blocker and stop rather than downgrading to a lighter verification pass.
@@ -79,4 +80,5 @@ Switching to `gh`-backed HTTPS avoids SSH-specific failures, but it does not byp
 - Keep the humour dry and controlled.
 - Use British or South African leaning spelling where natural.
 - Check the `diagramCoverage` field from `verify --json`. If a new term lacks a diagram, either add the strongest matching diagram key or be ready to say why a mental model would be forced.
+- Set `misunderstoodScore` using the rubric in `docs/content-authoring.md`, then check `misunderstoodSelection` from `verify --json` to see whether the term enters the live rail.
 - Report the exact blocker if network access, Node tooling, or push rights are missing.

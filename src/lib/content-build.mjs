@@ -27,6 +27,34 @@ function isValidDateString(value) {
   return isNonEmptyString(value) && Number.isFinite(Date.parse(value));
 }
 
+function sortTimestamp(value) {
+  const timestamp = Date.parse(value);
+  return Number.isFinite(timestamp) ? timestamp : 0;
+}
+
+export function compareMisunderstoodEntries(left, right) {
+  if (right.misunderstoodScore !== left.misunderstoodScore) {
+    return right.misunderstoodScore - left.misunderstoodScore;
+  }
+
+  const updatedDifference = sortTimestamp(right.updatedAt) - sortTimestamp(left.updatedAt);
+  if (updatedDifference !== 0) {
+    return updatedDifference;
+  }
+
+  const publishedDifference = sortTimestamp(right.publishedAt) - sortTimestamp(left.publishedAt);
+  if (publishedDifference !== 0) {
+    return publishedDifference;
+  }
+
+  const titleDifference = String(left.title ?? "").localeCompare(String(right.title ?? ""));
+  if (titleDifference !== 0) {
+    return titleDifference;
+  }
+
+  return String(left.slug ?? "").localeCompare(String(right.slug ?? ""));
+}
+
 export function buildSearchText(entry) {
   return [
     entry.title,
@@ -111,6 +139,15 @@ export function collectEntryValidationErrors(
 
   if (!hypeLevelSet.has(entry.hypeLevel)) {
     errors.push(`Invalid hypeLevel "${entry.hypeLevel}"`);
+  }
+
+  if (
+    entry.misunderstoodScore !== undefined &&
+    (!Number.isInteger(entry.misunderstoodScore) ||
+      entry.misunderstoodScore < 1 ||
+      entry.misunderstoodScore > 5)
+  ) {
+    errors.push('Field "misunderstoodScore" must be an integer from 1 to 5');
   }
 
   if (!Array.isArray(entry.categories) || entry.categories.length === 0) {

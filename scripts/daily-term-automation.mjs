@@ -185,6 +185,23 @@ function buildDiagramCoverage(entries, slugs) {
   return { withDiagram, withoutDiagram };
 }
 
+function buildMisunderstoodSelection(entries, slugs, misunderstoodSlugs) {
+  const entryBySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+  const selectedSet = new Set(misunderstoodSlugs);
+
+  return {
+    selectedSlugs: misunderstoodSlugs,
+    verifiedSlugs: slugs.map((slug) => {
+      const entry = entryBySlug.get(slug);
+      return {
+        slug,
+        misunderstoodScore: entry?.misunderstoodScore ?? null,
+        selected: selectedSet.has(slug),
+      };
+    }),
+  };
+}
+
 async function readJson(file) {
   return JSON.parse(await fs.readFile(file, "utf8"));
 }
@@ -548,6 +565,11 @@ async function commandVerify(options) {
   }
 
   const diagramCoverage = buildDiagramCoverage(generatedSnapshot.entries, slugs);
+  const misunderstoodSelection = buildMisunderstoodSelection(
+    generatedSnapshot.entries,
+    slugs,
+    generatedSnapshot.misunderstoodSlugs ?? [],
+  );
 
   const versionManifest = await readJson(path.join(repoRoot, "public", "catalog", "version.json"));
 
@@ -621,6 +643,7 @@ async function commandVerify(options) {
   const result = {
     verifiedSlugs: slugs,
     diagramCoverage,
+    misunderstoodSelection,
     catalogVersion: generatedSnapshot.catalogVersion,
     publicCatalogPath: versionManifest.path,
     mobileCatalogPath: mobileManifest.snapshotPath,
@@ -645,6 +668,9 @@ async function commandVerify(options) {
       `Diagram review needed: no diagram set for ${diagramCoverage.withoutDiagram.join(", ")}`,
     );
   }
+  console.log(
+    `Most misunderstood: ${misunderstoodSelection.selectedSlugs.join(", ")}`,
+  );
   console.log(`Catalog version: ${generatedSnapshot.catalogVersion}`);
   console.log(`Public catalog: ${versionManifest.path}`);
   console.log(`Mobile catalog: ${mobileManifest.snapshotPath}`);
@@ -786,6 +812,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
 
 export {
   buildDiagramCoverage,
+  buildMisunderstoodSelection,
   ghCommandCandidates,
   gitCommandArgs,
   resolveAutomationRemote,

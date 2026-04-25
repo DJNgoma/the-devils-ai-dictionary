@@ -247,6 +247,27 @@ describe("daily-term automation", () => {
     });
   });
 
+  it("reports misunderstood score selection for verified slugs", async () => {
+    const automationModule = await importAutomationModule();
+
+    expect(
+      automationModule.buildMisunderstoodSelection(
+        [
+          { slug: "agent", misunderstoodScore: 5 },
+          { slug: "frontier-lab", misunderstoodScore: 4 },
+        ],
+        ["agent", "frontier-lab"],
+        ["agent"],
+      ),
+    ).toEqual({
+      selectedSlugs: ["agent"],
+      verifiedSlugs: [
+        { slug: "agent", misunderstoodScore: 5, selected: true },
+        { slug: "frontier-lab", misunderstoodScore: 4, selected: false },
+      ],
+    });
+  });
+
   it("prefers the Homebrew gh path before PATH-driven fallbacks", async () => {
     const fakeHome = createTempDir("daily-term-automation-homebrew-order-");
 

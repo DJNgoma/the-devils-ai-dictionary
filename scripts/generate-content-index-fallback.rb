@@ -202,6 +202,12 @@ def title_sort_value(value)
   value.to_s.downcase
 end
 
+def timestamp_sort_value(value)
+  Time.parse(value.to_s).to_i
+rescue ArgumentError, TypeError
+  0
+end
+
 def stable_json(value)
   case value
   when Hash
@@ -331,7 +337,15 @@ latest_published_at =
   entries.map { |entry| entry["publishedAt"] }.max_by { |value| Time.parse(value).to_i } || ""
 
 misunderstood_slugs = entries
-  .sort_by { |entry| [-entry["misunderstoodScore"].to_i, title_sort_value(entry["title"])] }
+  .sort_by do |entry|
+    [
+      -entry["misunderstoodScore"].to_i,
+      -timestamp_sort_value(entry["updatedAt"]),
+      -timestamp_sort_value(entry["publishedAt"]),
+      title_sort_value(entry["title"]),
+      entry["slug"].to_s,
+    ]
+  end
   .first(4)
   .map { |entry| entry["slug"] }
 

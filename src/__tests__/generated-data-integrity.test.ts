@@ -13,6 +13,7 @@
 import { describe, expect, it } from "vitest";
 import generatedData from "@/generated/entries.generated.json";
 import webGeneratedData from "@/generated/entries.web.generated.json";
+import { compareMisunderstoodEntries } from "@/lib/content-build.mjs";
 import { getAllEntries, getEntryBySlug } from "@/lib/content";
 
 const {
@@ -196,6 +197,15 @@ describe("misunderstoodSlugs", () => {
     for (const slug of misunderstoodSlugs) {
       expect(allSlugs.has(slug)).toBe(true);
     }
+  });
+
+  it("uses score, recency, and title as deterministic tie-breakers", () => {
+    const expectedSlugs = [...entries]
+      .sort(compareMisunderstoodEntries)
+      .slice(0, 4)
+      .map((entry) => entry.slug);
+
+    expect(misunderstoodSlugs).toEqual(expectedSlugs);
   });
 });
 

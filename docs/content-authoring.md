@@ -106,6 +106,16 @@ Use the exact category titles defined in [`src/lib/site.ts`](../src/lib/site.ts)
 - `high`
 - `severe`
 
+### Misunderstood score
+
+`misunderstoodScore` is an editorial 1-5 score used to select the "Most misunderstood" rail. The build takes the four highest-scoring entries, then breaks ties by most recently updated entry, then most recently published entry, then title.
+
+- `1`: Rarely misunderstood; mostly glossary material.
+- `2`: Occasionally confused, but not a recurring source of bad decisions.
+- `3`: The default; common ambiguity worth explaining.
+- `4`: Frequently stretched, misused, or collapsed into neighbouring terms.
+- `5`: Culturally or operationally costly misunderstanding; the term deserves prominent correction.
+
 ### Diagram
 
 Optional. Current built-in diagram keys:

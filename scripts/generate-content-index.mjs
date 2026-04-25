@@ -4,6 +4,7 @@ import matter from "gray-matter";
 import {
   assertValidEntry,
   buildSearchText,
+  compareMisunderstoodEntries,
   scoreRelatedEntries,
 } from "../src/lib/content-build.mjs";
 import {
@@ -115,12 +116,7 @@ async function buildEntryIndex() {
     }, null) ?? "";
 
   const misunderstoodEntries = [...entries]
-    .sort((a, b) => {
-      if (b.misunderstoodScore !== a.misunderstoodScore) {
-        return b.misunderstoodScore - a.misunderstoodScore;
-      }
-      return a.title.localeCompare(b.title);
-    })
+    .sort(compareMisunderstoodEntries)
     .slice(0, 4)
     .map((e) => e.slug);
 
