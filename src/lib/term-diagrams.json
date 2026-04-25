@@ -1,0 +1,150 @@
+{
+  "rag": {
+    "title": "RAG is retrieval plus stuffing",
+    "steps": [
+      {
+        "label": "User question",
+        "connectorAfter": "search"
+      },
+      {
+        "label": "Retriever fetches documents",
+        "connectorAfter": "stuff"
+      },
+      {
+        "label": "Model answers with extra context"
+      }
+    ]
+  },
+  "embeddings": {
+    "title": "Embeddings turn meaning into coordinates",
+    "steps": [
+      {
+        "label": "Text or image",
+        "connectorAfter": "encode"
+      },
+      {
+        "label": "Vector representation",
+        "connectorAfter": "compare"
+      },
+      {
+        "label": "Nearest neighbours or clusters"
+      }
+    ]
+  },
+  "context-window": {
+    "title": "A model has limited room on the desk",
+    "steps": [
+      {
+        "label": "System instructions",
+        "connectorAfter": "plus"
+      },
+      {
+        "label": "User message",
+        "connectorAfter": "plus"
+      },
+      {
+        "label": "Retrieved context and tool output",
+        "connectorAfter": "leaves room for"
+      },
+      {
+        "label": "Space left for the reply"
+      }
+    ]
+  },
+  "function-calling": {
+    "title": "The model chooses the call, software does the work",
+    "steps": [
+      {
+        "label": "User asks for something",
+        "connectorAfter": "choose tool"
+      },
+      {
+        "label": "Model emits structured arguments",
+        "connectorAfter": "execute"
+      },
+      {
+        "label": "Application runs tool and returns result"
+      }
+    ]
+  },
+  "mcp": {
+    "title": "MCP separates the assistant from the connectors",
+    "steps": [
+      {
+        "label": "Assistant or client app",
+        "connectorAfter": "requests"
+      },
+      {
+        "label": "MCP server",
+        "connectorAfter": "brokers"
+      },
+      {
+        "label": "Tools, resources, prompts"
+      }
+    ]
+  },
+  "agent-loop": {
+    "title": "Agents are loops with permission",
+    "steps": [
+      {
+        "label": "Goal and constraints",
+        "connectorAfter": "plan"
+      },
+      {
+        "label": "Tool, browser, or code action",
+        "connectorAfter": "observe"
+      },
+      {
+        "label": "Continue, ask, or stop"
+      }
+    ]
+  },
+  "model-routing": {
+    "title": "Routing is policy with a bill attached",
+    "steps": [
+      {
+        "label": "Application request",
+        "connectorAfter": "classify"
+      },
+      {
+        "label": "Gateway applies policy and budget",
+        "connectorAfter": "route"
+      },
+      {
+        "label": "Selected model or fallback"
+      }
+    ]
+  },
+  "skill-loading": {
+    "title": "Skills load guidance only when the task earns it",
+    "steps": [
+      {
+        "label": "User task",
+        "connectorAfter": "match"
+      },
+      {
+        "label": "Skill instructions load on demand",
+        "connectorAfter": "use"
+      },
+      {
+        "label": "Scripts and resources stay scoped"
+      }
+    ]
+  },
+  "worktree": {
+    "title": "A worktree gives the agent a separate bench",
+    "steps": [
+      {
+        "label": "Main checkout stays steady",
+        "connectorAfter": "branch"
+      },
+      {
+        "label": "Linked worktree gets isolated edits",
+        "connectorAfter": "verify"
+      },
+      {
+        "label": "Merge, keep, or discard"
+      }
+    ]
+  }
+}

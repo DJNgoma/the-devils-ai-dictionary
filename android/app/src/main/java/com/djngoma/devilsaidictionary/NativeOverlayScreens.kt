@@ -413,6 +413,17 @@ fun EntryDetailOverlay(
             }
         }
 
+        entry.diagram?.let { diagram ->
+            termDiagramDefinition(diagram)?.let { definition ->
+                item {
+                    NativeTermDiagramCard(
+                        definition = definition,
+                        colors = colors,
+                    )
+                }
+            }
+        }
+
         item {
             NativeScreenCard(colors = colors) {
                 SectionLabel(text = "What this term is doing")
@@ -509,6 +520,129 @@ fun EntryDetailOverlay(
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+data class NativeTermDiagramDefinition(
+    val title: String,
+    val steps: List<NativeTermDiagramStep>,
+)
+
+data class NativeTermDiagramStep(
+    val label: String,
+    val text: String,
+    val connectorAfter: String? = null,
+)
+
+fun termDiagramDefinition(kind: String): NativeTermDiagramDefinition? =
+    when (kind) {
+        "rag" -> NativeTermDiagramDefinition(
+            title = "RAG is retrieval plus stuffing",
+            steps = listOf(
+                NativeTermDiagramStep("Step 1", "User question", "search"),
+                NativeTermDiagramStep("Step 2", "Retriever fetches documents", "stuff"),
+                NativeTermDiagramStep("Step 3", "Model answers with extra context"),
+            ),
+        )
+        "embeddings" -> NativeTermDiagramDefinition(
+            title = "Embeddings turn meaning into coordinates",
+            steps = listOf(
+                NativeTermDiagramStep("Step 1", "Text or image", "encode"),
+                NativeTermDiagramStep("Step 2", "Vector representation", "compare"),
+                NativeTermDiagramStep("Step 3", "Nearest neighbours or clusters"),
+            ),
+        )
+        "context-window" -> NativeTermDiagramDefinition(
+            title = "A model has limited room on the desk",
+            steps = listOf(
+                NativeTermDiagramStep("Slot 1", "System instructions", "plus"),
+                NativeTermDiagramStep("Slot 2", "User message", "plus"),
+                NativeTermDiagramStep("Slot 3", "Retrieved context and tool output", "leaves room for"),
+                NativeTermDiagramStep("Slot 4", "Space left for the reply"),
+            ),
+        )
+        "function-calling" -> NativeTermDiagramDefinition(
+            title = "The model chooses the call, software does the work",
+            steps = listOf(
+                NativeTermDiagramStep("Step 1", "User asks for something", "choose tool"),
+                NativeTermDiagramStep("Step 2", "Model emits structured arguments", "execute"),
+                NativeTermDiagramStep("Step 3", "Application runs the tool and returns result"),
+            ),
+        )
+        "mcp" -> NativeTermDiagramDefinition(
+            title = "MCP separates the assistant from the connectors",
+            steps = listOf(
+                NativeTermDiagramStep("Layer 1", "Assistant or client app", "requests"),
+                NativeTermDiagramStep("Layer 2", "MCP server", "brokers"),
+                NativeTermDiagramStep("Layer 3", "Tools, resources, prompts"),
+            ),
+        )
+        "agent-loop" -> NativeTermDiagramDefinition(
+            title = "Agents are loops with permission",
+            steps = listOf(
+                NativeTermDiagramStep("Step 1", "Goal and constraints", "plan"),
+                NativeTermDiagramStep("Step 2", "Tool, browser, or code action", "observe"),
+                NativeTermDiagramStep("Step 3", "Continue, ask, or stop"),
+            ),
+        )
+        "model-routing" -> NativeTermDiagramDefinition(
+            title = "Routing is policy with a bill attached",
+            steps = listOf(
+                NativeTermDiagramStep("Step 1", "Application request", "classify"),
+                NativeTermDiagramStep("Step 2", "Gateway applies policy and budget", "route"),
+                NativeTermDiagramStep("Step 3", "Selected model or fallback"),
+            ),
+        )
+        "skill-loading" -> NativeTermDiagramDefinition(
+            title = "Skills load guidance only when the task earns it",
+            steps = listOf(
+                NativeTermDiagramStep("Step 1", "User task", "match"),
+                NativeTermDiagramStep("Step 2", "Skill instructions load on demand", "use"),
+                NativeTermDiagramStep("Step 3", "Scripts and resources stay scoped"),
+            ),
+        )
+        "worktree" -> NativeTermDiagramDefinition(
+            title = "A worktree gives the agent a separate bench",
+            steps = listOf(
+                NativeTermDiagramStep("Step 1", "Main checkout stays steady", "branch"),
+                NativeTermDiagramStep("Step 2", "Linked worktree gets isolated edits", "verify"),
+                NativeTermDiagramStep("Step 3", "Merge, keep, or discard"),
+            ),
+        )
+        else -> null
+    }
+
+@Composable
+private fun NativeTermDiagramCard(
+    definition: NativeTermDiagramDefinition,
+    colors: NativeColors,
+) {
+    NativeScreenCard(colors = colors) {
+        SectionLabel(text = "Mental model")
+        Text(
+            text = definition.title,
+            style = MaterialTheme.typography.titleLarge,
+        )
+        definition.steps.forEach { step ->
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                NativeChip(label = step.label, colors = colors, accent = true)
+                Text(
+                    text = step.text,
+                    modifier = androidx.compose.ui.Modifier.fillMaxWidth(),
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
+            step.connectorAfter?.let { connector ->
+                Text(
+                    text = connector.uppercase(),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
             }
         }
     }

@@ -223,108 +223,112 @@ private struct NativeTermDiagramView: View {
     let kind: String
 
     var body: some View {
-        NativeCard {
-            NativeSectionLabel(text: "Mental model")
-            Text(title)
-                .font(.system(size: 24, weight: .semibold, design: .serif))
+        Group {
+            if let definition = NativeTermDiagramDefinition(kind: kind) {
+                NativeCard {
+                    NativeSectionLabel(text: "Mental model")
+                    Text(definition.title)
+                        .font(.system(size: 24, weight: .semibold, design: .serif))
 
-            VStack(spacing: 12) {
-                ForEach(rows.indices, id: \.self) { index in
-                    DiagramRow(label: rows[index].0, box: rows[index].1)
+                    VStack(spacing: 12) {
+                        ForEach(definition.steps.indices, id: \.self) { index in
+                            let step = definition.steps[index]
+                            DiagramRow(label: step.label, box: step.text)
 
-                    if index < rows.count - 1 {
-                        Text(rows[index].2)
-                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                            .textCase(.uppercase)
-                            .foregroundStyle(NativePalette.mutedText)
+                            if let connector = step.connectorAfter {
+                                Text(connector)
+                                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                    .textCase(.uppercase)
+                                    .foregroundStyle(NativePalette.mutedText)
+                            }
+                        }
                     }
                 }
             }
         }
     }
+}
 
-    private var title: String {
+private struct NativeTermDiagramDefinition {
+    let title: String
+    let steps: [NativeTermDiagramStep]
+
+    init?(kind: String) {
         switch kind {
         case "rag":
-            return "RAG is retrieval plus stuffing"
+            title = "RAG is retrieval plus stuffing"
+            steps = [
+                NativeTermDiagramStep(label: "Step 1", text: "User question", connectorAfter: "search"),
+                NativeTermDiagramStep(label: "Step 2", text: "Retriever fetches documents", connectorAfter: "stuff"),
+                NativeTermDiagramStep(label: "Step 3", text: "Model answers with extra context"),
+            ]
         case "embeddings":
-            return "Embeddings turn meaning into coordinates"
+            title = "Embeddings turn meaning into coordinates"
+            steps = [
+                NativeTermDiagramStep(label: "Step 1", text: "Text or image", connectorAfter: "encode"),
+                NativeTermDiagramStep(label: "Step 2", text: "Vector representation", connectorAfter: "compare"),
+                NativeTermDiagramStep(label: "Step 3", text: "Nearest neighbours or clusters"),
+            ]
         case "context-window":
-            return "A model has limited room on the desk"
+            title = "A model has limited room on the desk"
+            steps = [
+                NativeTermDiagramStep(label: "Slot 1", text: "System instructions", connectorAfter: "plus"),
+                NativeTermDiagramStep(label: "Slot 2", text: "User message", connectorAfter: "plus"),
+                NativeTermDiagramStep(label: "Slot 3", text: "Retrieved context and tool output", connectorAfter: "leaves room for"),
+                NativeTermDiagramStep(label: "Slot 4", text: "Space left for the reply"),
+            ]
         case "function-calling":
-            return "The model chooses the call, software does the work"
+            title = "The model chooses the call, software does the work"
+            steps = [
+                NativeTermDiagramStep(label: "Step 1", text: "User asks for something", connectorAfter: "choose tool"),
+                NativeTermDiagramStep(label: "Step 2", text: "Model emits structured arguments", connectorAfter: "execute"),
+                NativeTermDiagramStep(label: "Step 3", text: "Application runs the tool and returns result"),
+            ]
+        case "mcp":
+            title = "MCP separates the assistant from the connectors"
+            steps = [
+                NativeTermDiagramStep(label: "Layer 1", text: "Assistant or client app", connectorAfter: "requests"),
+                NativeTermDiagramStep(label: "Layer 2", text: "MCP server", connectorAfter: "brokers"),
+                NativeTermDiagramStep(label: "Layer 3", text: "Tools, resources, prompts"),
+            ]
         case "agent-loop":
-            return "Agents are loops with permission"
+            title = "Agents are loops with permission"
+            steps = [
+                NativeTermDiagramStep(label: "Step 1", text: "Goal and constraints", connectorAfter: "plan"),
+                NativeTermDiagramStep(label: "Step 2", text: "Tool, browser, or code action", connectorAfter: "observe"),
+                NativeTermDiagramStep(label: "Step 3", text: "Continue, ask, or stop"),
+            ]
         case "model-routing":
-            return "Routing is policy with a bill attached"
+            title = "Routing is policy with a bill attached"
+            steps = [
+                NativeTermDiagramStep(label: "Step 1", text: "Application request", connectorAfter: "classify"),
+                NativeTermDiagramStep(label: "Step 2", text: "Gateway applies policy and budget", connectorAfter: "route"),
+                NativeTermDiagramStep(label: "Step 3", text: "Selected model or fallback"),
+            ]
         case "skill-loading":
-            return "Skills load guidance only when the task earns it"
+            title = "Skills load guidance only when the task earns it"
+            steps = [
+                NativeTermDiagramStep(label: "Step 1", text: "User task", connectorAfter: "match"),
+                NativeTermDiagramStep(label: "Step 2", text: "Skill instructions load on demand", connectorAfter: "use"),
+                NativeTermDiagramStep(label: "Step 3", text: "Scripts and resources stay scoped"),
+            ]
         case "worktree":
-            return "A worktree gives the agent a separate bench"
+            title = "A worktree gives the agent a separate bench"
+            steps = [
+                NativeTermDiagramStep(label: "Step 1", text: "Main checkout stays steady", connectorAfter: "branch"),
+                NativeTermDiagramStep(label: "Step 2", text: "Linked worktree gets isolated edits", connectorAfter: "verify"),
+                NativeTermDiagramStep(label: "Step 3", text: "Merge, keep, or discard"),
+            ]
         default:
-            return "MCP separates the assistant from the connectors"
+            return nil
         }
     }
+}
 
-    private var rows: [(String, String, String)] {
-        switch kind {
-        case "rag":
-            return [
-                ("Step 1", "User question", "search"),
-                ("Step 2", "Retriever fetches documents", "stuff"),
-                ("Step 3", "Model answers with extra context", ""),
-            ]
-        case "embeddings":
-            return [
-                ("Step 1", "Text or image", "encode"),
-                ("Step 2", "Vector representation", "compare"),
-                ("Step 3", "Nearest neighbours or clusters", ""),
-            ]
-        case "context-window":
-            return [
-                ("Slot 1", "System instructions", "plus"),
-                ("Slot 2", "User message", "plus"),
-                ("Slot 3", "Retrieved context and tool output", "leaves room for"),
-                ("Slot 4", "Space left for the reply", ""),
-            ]
-        case "function-calling":
-            return [
-                ("Step 1", "User asks for something", "choose tool"),
-                ("Step 2", "Model emits structured arguments", "execute"),
-                ("Step 3", "Application runs the tool and returns result", ""),
-            ]
-        case "agent-loop":
-            return [
-                ("Step 1", "Goal and constraints", "plan"),
-                ("Step 2", "Tool, browser, or code action", "observe"),
-                ("Step 3", "Continue, ask, or stop", ""),
-            ]
-        case "model-routing":
-            return [
-                ("Step 1", "Application request", "classify"),
-                ("Step 2", "Gateway applies policy and budget", "route"),
-                ("Step 3", "Selected model or fallback", ""),
-            ]
-        case "skill-loading":
-            return [
-                ("Step 1", "User task", "match"),
-                ("Step 2", "Skill instructions load on demand", "use"),
-                ("Step 3", "Scripts and resources stay scoped", ""),
-            ]
-        case "worktree":
-            return [
-                ("Step 1", "Main checkout stays steady", "branch"),
-                ("Step 2", "Linked worktree gets isolated edits", "verify"),
-                ("Step 3", "Merge, keep, or discard", ""),
-            ]
-        default:
-            return [
-                ("Layer 1", "Assistant or client app", "requests"),
-                ("Layer 2", "MCP server", "brokers"),
-                ("Layer 3", "Tools, resources, prompts", ""),
-            ]
-        }
-    }
+private struct NativeTermDiagramStep {
+    let label: String
+    let text: String
+    var connectorAfter: String? = nil
 }
 
 private struct DiagramRow: View {

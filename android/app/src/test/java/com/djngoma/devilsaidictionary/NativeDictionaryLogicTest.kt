@@ -145,4 +145,17 @@ class NativeDictionaryLogicTest {
         assertEquals(0, missing)
     }
 
+    @Test
+    fun `term diagram definitions cover known mental models`() {
+        assertEquals(
+            "Agents are loops with permission",
+            termDiagramDefinition("agent-loop")?.title,
+        )
+        assertEquals(
+            "MCP server",
+            termDiagramDefinition("mcp")?.steps?.get(1)?.text,
+        )
+        assertNull(termDiagramDefinition("unknown-diagram"))
+    }
+
 }

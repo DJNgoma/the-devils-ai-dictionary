@@ -230,6 +230,23 @@ function writeFakeGh(file: string, { authStatus = 0 } = {}) {
 }
 
 describe("daily-term automation", () => {
+  it("reports diagram coverage for verified slugs", async () => {
+    const automationModule = await importAutomationModule();
+
+    expect(
+      automationModule.buildDiagramCoverage(
+        [
+          { slug: "agent", diagram: "agent-loop" },
+          { slug: "frontier-lab" },
+        ],
+        ["agent", "frontier-lab"],
+      ),
+    ).toEqual({
+      withDiagram: [{ slug: "agent", diagram: "agent-loop" }],
+      withoutDiagram: ["frontier-lab"],
+    });
+  });
+
   it("prefers the Homebrew gh path before PATH-driven fallbacks", async () => {
     const fakeHome = createTempDir("daily-term-automation-homebrew-order-");
 

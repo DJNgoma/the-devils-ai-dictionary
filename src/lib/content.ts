@@ -6,6 +6,7 @@ import {
 } from "@/lib/daily-word";
 import generatedData from "@/generated/entries.web.generated.json";
 import type { Difficulty, HypeLevel, TechnicalDepth } from "@/lib/site";
+import type { TermDiagramKind } from "@/lib/term-diagrams";
 import { slugify } from "@/lib/utils";
 
 /* ---------- types ---------- */
@@ -37,16 +38,7 @@ export type Entry = {
   tags: string[];
   misunderstoodScore: number;
   translations: { label: string; text: string }[];
-  diagram?:
-    | "rag"
-    | "embeddings"
-    | "context-window"
-    | "function-calling"
-    | "mcp"
-    | "agent-loop"
-    | "model-routing"
-    | "skill-loading"
-    | "worktree";
+  diagram?: TermDiagramKind;
   body: string;
   categorySlugs: string[];
   url: string;

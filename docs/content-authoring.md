@@ -120,6 +120,8 @@ Optional. Current built-in diagram keys:
 - `skill-loading`
 - `worktree`
 
+For each new entry, explicitly check this list before publishing. Use a diagram when it gives the reader a practical mental model; leave it unset when it would merely decorate the page. Daily automation verification reports `diagramCoverage` for the new slugs so this decision is visible in the run output.
+
 ## Writing guidance by section
 
 ### `devilDefinition`

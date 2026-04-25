@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import {
   categoryDefinitions,
   difficultyOptions,
@@ -9,17 +10,10 @@ const categoryTitleSet = new Set(categoryDefinitions.map((category) => category.
 const difficultySet = new Set(difficultyOptions);
 const technicalDepthSet = new Set(technicalDepthOptions);
 const hypeLevelSet = new Set(hypeLevelOptions);
-const diagramSet = new Set([
-  "rag",
-  "embeddings",
-  "context-window",
-  "function-calling",
-  "mcp",
-  "agent-loop",
-  "model-routing",
-  "skill-loading",
-  "worktree",
-]);
+const termDiagramDefinitions = JSON.parse(
+  readFileSync(new URL("./term-diagrams.json", import.meta.url), "utf8"),
+);
+const diagramSet = new Set(Object.keys(termDiagramDefinitions));
 
 function isNonEmptyString(value) {
   return typeof value === "string" && value.trim().length > 0;

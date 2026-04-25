@@ -10,6 +10,8 @@ This workflow exists so the daily content expansion run can add terms without to
 - Only publish diffs that stay inside:
   - `content/entries/*.mdx`
   - `src/generated/entries.generated.json`
+  - `src/generated/entries.web.generated.json`
+  - `src/generated/entry-details.generated.json`
   - `public/catalog/version.json`
   - `public/catalog/catalog.<hash>.json`
 - Do not run `npm run deploy:cf` as part of the daily automation. The repo's normal production deploy path is GitHub Actions on push to `main`. Manual Cloudflare deploy remains an emergency-only fallback.
@@ -45,6 +47,7 @@ That command:
 - checks `public/catalog/version.json`
 - checks the versioned `public/catalog/catalog.<hash>.json`
 - checks `public/mobile-catalog/manifest.json` and its versioned snapshot
+- reports `diagramCoverage` for the requested slugs so the run explicitly considers whether a mental model should be attached
 - requires a real `node_modules` tree in the scratch checkout, then runs `npm run lint`, `npm run typecheck`, and `npm run build`
 
 If `node_modules` could not be copied into the scratch repo, treat that as a blocker and stop rather than downgrading to a lighter verification pass.
@@ -75,4 +78,5 @@ Switching to `gh`-backed HTTPS avoids SSH-specific failures, but it does not byp
 - Avoid recent duplicates from automation memory.
 - Keep the humour dry and controlled.
 - Use British or South African leaning spelling where natural.
+- Check the `diagramCoverage` field from `verify --json`. If a new term lacks a diagram, either add the strongest matching diagram key or be ready to say why a mental model would be forced.
 - Report the exact blocker if network access, Node tooling, or push rights are missing.

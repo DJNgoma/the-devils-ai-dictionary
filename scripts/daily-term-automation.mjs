@@ -168,6 +168,23 @@ function inferChangedSlugs(repoRoot) {
   );
 }
 
+function buildDiagramCoverage(entries, slugs) {
+  const entryBySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+  const withDiagram = [];
+  const withoutDiagram = [];
+
+  for (const slug of slugs) {
+    const entry = entryBySlug.get(slug);
+    if (entry?.diagram) {
+      withDiagram.push({ slug, diagram: entry.diagram });
+    } else {
+      withoutDiagram.push(slug);
+    }
+  }
+
+  return { withDiagram, withoutDiagram };
+}
+
 async function readJson(file) {
   return JSON.parse(await fs.readFile(file, "utf8"));
 }
@@ -530,6 +547,8 @@ async function commandVerify(options) {
     }
   }
 
+  const diagramCoverage = buildDiagramCoverage(generatedSnapshot.entries, slugs);
+
   const versionManifest = await readJson(path.join(repoRoot, "public", "catalog", "version.json"));
 
   if (!/^\/catalog\/catalog\.[a-f0-9]{64}\.json$/.test(versionManifest.path)) {
@@ -601,6 +620,7 @@ async function commandVerify(options) {
 
   const result = {
     verifiedSlugs: slugs,
+    diagramCoverage,
     catalogVersion: generatedSnapshot.catalogVersion,
     publicCatalogPath: versionManifest.path,
     mobileCatalogPath: mobileManifest.snapshotPath,
@@ -613,6 +633,18 @@ async function commandVerify(options) {
   }
 
   console.log(`Verified slugs: ${slugs.join(", ")}`);
+  if (diagramCoverage.withDiagram.length > 0) {
+    console.log(
+      `Diagram coverage: ${diagramCoverage.withDiagram
+        .map(({ slug, diagram }) => `${slug}=${diagram}`)
+        .join(", ")}`,
+    );
+  }
+  if (diagramCoverage.withoutDiagram.length > 0) {
+    console.warn(
+      `Diagram review needed: no diagram set for ${diagramCoverage.withoutDiagram.join(", ")}`,
+    );
+  }
   console.log(`Catalog version: ${generatedSnapshot.catalogVersion}`);
   console.log(`Public catalog: ${versionManifest.path}`);
   console.log(`Mobile catalog: ${mobileManifest.snapshotPath}`);
@@ -753,6 +785,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
 }
 
 export {
+  buildDiagramCoverage,
   ghCommandCandidates,
   gitCommandArgs,
   resolveAutomationRemote,

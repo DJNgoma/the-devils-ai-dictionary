@@ -182,6 +182,29 @@ describe("build-time validation rejects bad entries", () => {
     expect(errors).toContainEqual(expect.stringContaining("hypeLevel"));
   });
 
+  it("rejects invalid diagram keys", () => {
+    const errors = collectEntryValidationErrors({
+      title: "Test",
+      slug: "test",
+      letter: "T",
+      categories: ["Core concepts"],
+      askNext: ["What changes when it ships?"],
+      devilDefinition: "A definition.",
+      plainDefinition: "A plain definition.",
+      whyExists: "Because people need a name for it.",
+      misuse: "People call everything this.",
+      practicalMeaning: "It matters in production.",
+      example: "An example.",
+      difficulty: "beginner",
+      technicalDepth: "low",
+      hypeLevel: "medium",
+      publishedAt: "2026-03-01T00:00:00.000Z",
+      updatedAt: "2026-03-01T00:00:00.000Z",
+      diagram: "powerpoint-fog",
+    });
+    expect(errors).toContainEqual(expect.stringContaining("Invalid diagram"));
+  });
+
   it("rejects related slugs that are not in the catalogue", () => {
     const errors = collectEntryValidationErrors(
       {
