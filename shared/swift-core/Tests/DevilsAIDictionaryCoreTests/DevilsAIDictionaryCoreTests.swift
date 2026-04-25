@@ -170,6 +170,28 @@ final class DevilsAIDictionaryCoreTests: XCTestCase {
         XCTAssertEqual(catalog.editorialTimeZone, "Africa/Johannesburg")
     }
 
+    func testCatalogDecodesLegacyEntriesWithoutResolvedReferences() throws {
+        let data = try Data(contentsOf: fixtureURL())
+        var json = try XCTUnwrap(
+            JSONSerialization.jsonObject(with: data) as? [String: Any]
+        )
+        var entries = try XCTUnwrap(json["entries"] as? [[String: Any]])
+        entries = entries.map { entry in
+            var legacyEntry = entry
+            legacyEntry.removeValue(forKey: "resolvedSeeAlso")
+            legacyEntry.removeValue(forKey: "resolvedVendorReferences")
+            return legacyEntry
+        }
+        json["entries"] = entries
+
+        let legacyData = try JSONSerialization.data(withJSONObject: json)
+        let catalog = try DictionaryCatalog.decode(from: legacyData)
+
+        XCTAssertEqual(catalog.entries.count, entries.count)
+        XCTAssertNil(catalog.entries.first?.resolvedSeeAlso)
+        XCTAssertNil(catalog.entries.first?.resolvedVendorReferences)
+    }
+
     func testRecentEntriesFollowPublishedOrder() throws {
         let catalog = try loadCatalog()
 

@@ -109,6 +109,11 @@ data class Translation(
     val text: String,
 )
 
+data class EntryReference(
+    val label: String,
+    val entrySlug: String? = null,
+)
+
 data class BookmarkRecord(
     val href: String,
     val title: String,
@@ -160,6 +165,8 @@ data class Entry(
     val url: String,
     val searchText: String,
     val relatedSlugs: List<String>,
+    val resolvedSeeAlso: List<EntryReference> = emptyList(),
+    val resolvedVendorReferences: List<EntryReference> = emptyList(),
 )
 
 data class LetterStat(
@@ -294,6 +301,9 @@ class NativeDictionaryStore(
         private set
 
     var loadError by mutableStateOf<String?>(null)
+        private set
+
+    var catalogRequiresAppUpdate by mutableStateOf(false)
         private set
 
     var isRefreshingCatalog by mutableStateOf(false)
@@ -633,6 +643,10 @@ class NativeDictionaryStore(
         openAppReviewListing?.invoke()
     }
 
+    fun openAppStoreListing() {
+        openAppReviewListing?.invoke()
+    }
+
     fun simulatePushTap() {
         val slug = testingSlug.trim().ifEmpty { suggestedTestSlug.orEmpty() }
         if (slug.isEmpty()) {
@@ -663,6 +677,34 @@ class NativeDictionaryStore(
         get() = slugFromDictionaryPath(savedPlace?.href)?.let(::entry)
 
     fun entry(slug: String): Entry? = catalog?.entry(slug)
+
+    fun entryForReference(reference: EntryReference): Entry? {
+        reference.entrySlug?.let { slug ->
+            entry(slug)?.let { return it }
+        }
+
+        return entryForReferenceLabel(reference.label)
+    }
+
+    fun entryForReferenceLabel(label: String): Entry? {
+        val trimmed = label.trim()
+        if (trimmed.isEmpty()) {
+            return null
+        }
+
+        entry(trimmed)?.let { return it }
+
+        val slug = slugifyReference(trimmed)
+        if (slug.isNotEmpty()) {
+            entry(slug)?.let { return it }
+        }
+
+        val normalized = trimmed.lowercase(Locale.getDefault())
+        return entries.firstOrNull { candidate ->
+            candidate.title.lowercase(Locale.getDefault()) == normalized ||
+                candidate.aliases.any { alias -> alias.lowercase(Locale.getDefault()) == normalized }
+        }
+    }
 
     fun relatedEntriesFor(entry: Entry): List<Entry> {
         val explicit = catalog?.entriesFor(entry.relatedSlugs).orEmpty()
@@ -829,6 +871,13 @@ class NativeDictionaryStore(
     fun showBrowse(letter: String?) {
         searchLetter = normalizeLetter(letter)
         selectedTab = NativeTab.Search
+    }
+
+    fun showReferenceResults(label: String) {
+        resetSearchFilters()
+        searchQuery = label
+        selectedTab = NativeTab.Search
+        activeOverlay = null
     }
 
     fun showBrowseCategory(slug: String?) {
@@ -1086,6 +1135,7 @@ class NativeDictionaryStore(
         catalog = snapshot.catalog
         catalogVersion = snapshot.catalogVersion
         loadError = null
+        catalogRequiresAppUpdate = false
         pushManager?.refresh()
     }
 
@@ -1122,10 +1172,20 @@ class NativeDictionaryStore(
                     when (update) {
                         is CatalogUpdateResult.NoChange -> {
                             recordCatalogManifestCheckedAt(update.checkedAtMs)
+                            catalogRequiresAppUpdate = false
                         }
 
                         is CatalogUpdateResult.UnsupportedSchema -> {
                             recordCatalogManifestCheckedAt(update.checkedAtMs)
+                            loadError =
+                                "Catalog schema version ${update.schemaVersion} needs a newer Android build."
+                            catalogRequiresAppUpdate = true
+                        }
+
+                        is CatalogUpdateResult.AppUpdateRequired -> {
+                            recordCatalogManifestCheckedAt(update.checkedAtMs)
+                            loadError = update.message
+                            catalogRequiresAppUpdate = true
                         }
 
                         is CatalogUpdateResult.Updated -> {
@@ -1135,6 +1195,7 @@ class NativeDictionaryStore(
                                 applyCatalogSnapshot(update.snapshot)
                                 recordCatalogManifestCheckedAt(update.checkedAtMs)
                                 seedCurrentWordIfNeeded()
+                                catalogRequiresAppUpdate = false
                             }
                         }
                     }
@@ -1559,6 +1620,13 @@ private fun normalizeLetter(value: String?): String? {
 
     return trimmed.take(1).uppercase(Locale.getDefault())
 }
+
+private fun slugifyReference(value: String): String =
+    value
+        .lowercase(Locale.getDefault())
+        .replace("&", " and ")
+        .replace(Regex("[^a-z0-9]+"), "-")
+        .trim('-')
 
 internal fun JSONObject.optStringOrNull(name: String): String? {
     if (isNull(name)) {

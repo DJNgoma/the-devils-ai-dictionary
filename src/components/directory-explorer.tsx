@@ -29,6 +29,7 @@ type DirectoryExplorerProps = {
     title: string;
     slug: string;
   }[];
+  searchIndexPath?: string;
   initialQuery?: string;
   initialCategory?: string;
   initialDifficulty?: string;
@@ -40,6 +41,13 @@ type DirectoryExplorerProps = {
 type EntryIndexStore = {
   index: Index;
   map: Map<string, SearchableEntry>;
+};
+
+type SearchIndexPayload = {
+  entries?: {
+    slug?: string;
+    searchText?: string;
+  }[];
 };
 
 type ActiveFilterKey =
@@ -58,9 +66,20 @@ function groupByLetter(entries: SearchableEntry[]) {
   }, {});
 }
 
+function fallbackSearchText(entry: SearchableEntry) {
+  return [
+    entry.title,
+    entry.aliases.join(" "),
+    entry.categories.join(" "),
+    entry.devilDefinition,
+    entry.plainDefinition,
+  ].join(" ");
+}
+
 export function DirectoryExplorer({
   entries,
   categories,
+  searchIndexPath,
   initialQuery = "",
   initialCategory = "all",
   initialDifficulty = "all",
@@ -80,6 +99,7 @@ export function DirectoryExplorer({
   const [activeLetter, setActiveLetter] = useState(initialLetter);
   const [results, setResults] = useState<SearchableEntry[]>(entries);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+  const [searchRevision, setSearchRevision] = useState(0);
   const trimmedQuery = query.trim();
   const deferredQuery = useDeferredValue(trimmedQuery);
   const searchStoreRef = useRef<EntryIndexStore | null>(null);
@@ -89,27 +109,71 @@ export function DirectoryExplorer({
   });
 
   useEffect(() => {
-    const index = new Index({
-      tokenize: "forward",
-      resolution: 9,
-      cache: 50,
-    });
-    const map = new Map<string, SearchableEntry>();
+    let cancelled = false;
 
-    for (const entry of entries) {
-      const searchText = [
-        entry.title,
-        entry.aliases.join(" "),
-        entry.categories.join(" "),
-        entry.devilDefinition,
-        entry.plainDefinition,
-      ].join(" ");
-      index.add(entry.slug, searchText);
-      map.set(entry.slug, entry);
+    const buildStore = (payload?: SearchIndexPayload) => {
+      const searchTextBySlug = new Map(
+        (payload?.entries ?? [])
+          .filter(
+            (entry): entry is { slug: string; searchText: string } =>
+              typeof entry.slug === "string" && typeof entry.searchText === "string",
+          )
+          .map((entry) => [entry.slug, entry.searchText]),
+      );
+
+      const nextIndex = new Index({
+        tokenize: "forward",
+        resolution: 9,
+        cache: 50,
+      });
+      const nextMap = new Map<string, SearchableEntry>();
+
+      for (const entry of entries) {
+        nextIndex.add(entry.slug, searchTextBySlug.get(entry.slug) ?? fallbackSearchText(entry));
+        nextMap.set(entry.slug, entry);
+      }
+
+      searchStoreRef.current = { index: nextIndex, map: nextMap };
+    };
+
+    buildStore();
+
+    if (!searchIndexPath) {
+      return () => {
+        cancelled = true;
+      };
     }
 
-    searchStoreRef.current = { index, map };
-  }, [entries]);
+    void fetch(searchIndexPath, {
+      cache: "force-cache",
+      headers: {
+        Accept: "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Search index request failed with HTTP ${response.status}.`);
+        }
+
+        return response.json() as Promise<SearchIndexPayload>;
+      })
+      .then((payload) => {
+        if (cancelled) {
+          return;
+        }
+
+        buildStore(payload);
+        setSearchRevision((revision) => revision + 1);
+      })
+      .catch(() => {
+        // The minimal inlined index still supports basic search if the static
+        // relationship/body search payload is unavailable.
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [entries, searchIndexPath]);
 
   const applySearchParamState = useEffectEvent(
     (
@@ -210,6 +274,7 @@ export function DirectoryExplorer({
     activeVendor,
     deferredQuery,
     entries,
+    searchRevision,
   ]);
 
   const markLocalSync = () => {

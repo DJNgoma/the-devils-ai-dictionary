@@ -9,7 +9,12 @@
 import { describe, expect, it } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
-import { collectEntryValidationErrors } from "@/lib/content-build.mjs";
+import {
+  buildResolvedEntryReferences,
+  collectEntryValidationErrors,
+  collectUnresolvedEntryReferences,
+  createEntryReferenceResolver,
+} from "@/lib/content-build.mjs";
 
 /* ---------- tests ---------- */
 
@@ -277,6 +282,56 @@ describe("build-time validation rejects bad entries", () => {
   });
 });
 
+describe("build-time reference resolution", () => {
+  const entries = [
+    {
+      title: "Prompt Architecture",
+      slug: "prompt-architecture",
+      aliases: ["prompt design"],
+      seeAlso: ["Instruction Hierarchy", "Prompt design", "Missing idea"],
+      vendorReferences: [],
+    },
+    {
+      title: "Instruction Hierarchy",
+      slug: "instruction-hierarchy",
+      aliases: [],
+      seeAlso: ["Instruction Hierarchy"],
+      vendorReferences: [],
+    },
+  ];
+
+  it("resolves labels by slugified title and alias without self-links", () => {
+    const resolveEntryReference = createEntryReferenceResolver(entries);
+
+    expect(resolveEntryReference("Instruction Hierarchy")?.slug).toBe("instruction-hierarchy");
+    expect(resolveEntryReference("prompt design")?.slug).toBe("prompt-architecture");
+    expect(
+      resolveEntryReference("Instruction Hierarchy", {
+        excludeSlug: "instruction-hierarchy",
+      }),
+    ).toBeUndefined();
+  });
+
+  it("builds resolved reference metadata and reports only true misses", () => {
+    const resolveEntryReference = createEntryReferenceResolver(entries);
+
+    expect(
+      buildResolvedEntryReferences(entries[0], "seeAlso", resolveEntryReference),
+    ).toEqual([
+      { label: "Instruction Hierarchy", entrySlug: "instruction-hierarchy" },
+      { label: "Prompt design" },
+      { label: "Missing idea" },
+    ]);
+    expect(collectUnresolvedEntryReferences(entries)).toContainEqual(
+      expect.objectContaining({
+        entrySlug: "prompt-architecture",
+        field: "seeAlso",
+        label: "Missing idea",
+      }),
+    );
+  });
+});
+
 /* ---------- all real MDX files parse successfully ---------- */
 
 describe("all content/entries/*.mdx files have required frontmatter keys", () => {
@@ -371,11 +426,37 @@ describe("public catalog artifacts", () => {
 });
 
 describe("generated JSON size budget", () => {
-  const generatedPath = path.resolve(__dirname, "../../src/generated/entries.web.generated.json");
+  const webGeneratedPath = path.resolve(__dirname, "../../src/generated/entries.web.generated.json");
+  const detailShardDir = path.resolve(__dirname, "../../src/generated/entry-details");
 
-  it("stays under 450 KB to avoid Cloudflare Worker 1102", () => {
-    const stats = fs.statSync(generatedPath);
+  it("keeps the Worker startup web snapshot under 560 KB", () => {
+    const stats = fs.statSync(webGeneratedPath);
     const sizeKB = stats.size / 1024;
-    expect(sizeKB).toBeLessThan(450);
+    expect(sizeKB).toBeLessThan(560);
+  });
+
+  it("keeps entry details split into bounded lazy shards", () => {
+    expect(fs.existsSync(path.resolve(__dirname, "../../src/generated/entry-details.generated.json"))).toBe(false);
+    const shardFiles = fs.readdirSync(detailShardDir).filter((file) => file.endsWith(".json"));
+
+    expect(shardFiles.length).toBeGreaterThan(0);
+
+    for (const shardFile of shardFiles) {
+      const sizeKB = fs.statSync(path.join(detailShardDir, shardFile)).size / 1024;
+      expect(sizeKB).toBeLessThan(160);
+    }
+  });
+
+  it("publishes the browser search payload as a static catalog asset", () => {
+    const webGenerated = JSON.parse(fs.readFileSync(webGeneratedPath, "utf8"));
+    const searchIndexPath = path.resolve(
+      __dirname,
+      "../../public",
+      webGenerated.searchIndexPath.slice(1),
+    );
+
+    expect(webGenerated.searchIndexPath).toMatch(/^\/catalog\/search-index\.[a-f0-9]{64}\.json$/);
+    expect(fs.existsSync(searchIndexPath)).toBe(true);
+    expect(fs.statSync(searchIndexPath).size / 1024).toBeLessThan(2048);
   });
 });

@@ -108,6 +108,35 @@ struct CatalogManifest: Decodable {
     let snapshotPath: String
     let sha256: String
     let bytes: Int
+    let compatibility: CatalogManifestCompatibility?
+}
+
+struct CatalogManifestCompatibility: Decodable {
+    let minimumAppVersion: String?
+    let minimumAppleBuildNumber: Int?
+    let minimumAndroidVersionCode: Int?
+    let updateStatus: String?
+    let upgradeMessage: String?
+
+    func requiresAppleUpdate(currentBuildNumber: Int?) -> Bool {
+        guard updateStatus == "required" else {
+            return false
+        }
+
+        guard let minimumAppleBuildNumber else {
+            return true
+        }
+
+        guard let currentBuildNumber else {
+            return true
+        }
+
+        return currentBuildNumber < minimumAppleBuildNumber
+    }
+
+    var appUpdateMessage: String {
+        upgradeMessage ?? "This catalogue needs a newer version of the app."
+    }
 }
 
 struct CatalogDiskStore {

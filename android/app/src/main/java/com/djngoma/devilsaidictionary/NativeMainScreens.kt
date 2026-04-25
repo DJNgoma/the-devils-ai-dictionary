@@ -743,6 +743,15 @@ fun NativeSettingsScreen(
                         colors.warning
                     },
                 )
+                if (store.catalogRequiresAppUpdate) {
+                    NativeActionRow {
+                        NativePrimaryButton(
+                            label = "Open Play Store",
+                            colors = colors,
+                            onClick = store::openAppStoreListing,
+                        )
+                    }
+                }
                 NativeSettingsValueRow(label = "Website", value = store.siteBaseUrlString)
                 NativeSettingsValueRow(label = "Manifest", value = store.catalogManifestUrlString)
                 store.bundledCatalogVersion?.let { bundledCatalogVersion ->

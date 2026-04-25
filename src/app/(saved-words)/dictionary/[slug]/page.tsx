@@ -11,7 +11,7 @@ import {
   getAllEntries,
   getEntryBySlug,
   getRelatedEntries,
-  resolveEntryReference,
+  type EntryReference,
 } from "@/lib/content";
 import { buildMetadata } from "@/lib/metadata";
 import { difficultyLabels, technicalDepthLabels } from "@/lib/site";
@@ -68,19 +68,14 @@ export default async function EntryPage({ params }: EntryPageProps) {
   }
 
   const relatedEntries = await getRelatedEntries(entry);
-  const seeAlso = entry.seeAlso.map((label) => {
-    const matchingEntry = resolveEntryReference(label);
-    const href =
-      matchingEntry?.url ??
-      `/dictionary?${new URLSearchParams({
-        q: label,
-      }).toString()}`;
-
-    return {
-      label,
-      href,
-    };
-  });
+  const seeAlso: EntryReference[] =
+    entry.resolvedSeeAlso.length > 0
+      ? entry.resolvedSeeAlso
+      : entry.seeAlso.map((label) => ({ label }));
+  const vendorReferences: EntryReference[] =
+    entry.resolvedVendorReferences.length > 0
+      ? entry.resolvedVendorReferences
+      : entry.vendorReferences.map((label) => ({ label }));
 
   return (
     <div className="reading-shell space-y-10">
@@ -180,7 +175,11 @@ export default async function EntryPage({ params }: EntryPageProps) {
               {seeAlso.map((item) => (
                 <Link
                   key={item.label}
-                  href={item.href}
+                  href={
+                    item.entrySlug
+                      ? `/dictionary/${item.entrySlug}`
+                      : `/dictionary?${new URLSearchParams({ q: item.label }).toString()}`
+                  }
                   className="chip hover:border-accent hover:text-accent"
                 >
                   {item.label}
@@ -194,11 +193,22 @@ export default async function EntryPage({ params }: EntryPageProps) {
             <p>{entry.note}</p>
           </Section>
         ) : null}
-        {entry.vendorReferences.length > 0 ? (
+        {vendorReferences.length > 0 ? (
           <Section title="Relevant vendor or product references">
             <ul className="space-y-3">
-              {entry.vendorReferences.map((reference) => (
-                <li key={reference}>{reference}</li>
+              {vendorReferences.map((reference) => (
+                <li key={reference.label}>
+                  {reference.entrySlug ? (
+                    <Link
+                      href={`/dictionary/${reference.entrySlug}`}
+                      className="text-foreground underline decoration-accent/45 underline-offset-4 hover:text-accent"
+                    >
+                      {reference.label}
+                    </Link>
+                  ) : (
+                    reference.label
+                  )}
+                </li>
               ))}
             </ul>
           </Section>
