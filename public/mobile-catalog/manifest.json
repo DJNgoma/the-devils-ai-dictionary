@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "catalogVersion": "0b9f26f3b1a5b5f42e69830cb6d19ea2b20ecbf028d9a3fa0ca4020b7d2ce714",
+  "entryCount": 718,
+  "latestPublishedAt": "2026-04-25",
+  "publishedAt": "2026-04-25T19:33:18.516Z",
+  "snapshotPath": "/mobile-catalog/entries.0b9f26f3b1a5b5f42e69830cb6d19ea2b20ecbf028d9a3fa0ca4020b7d2ce714.json",
+  "sha256": "e820f25968d956a8a4b2618a46e423b6e11dfc5be1e2c05dfea9d7f21015d8b6",
+  "bytes": 2903349,
+  "compatibility": {
+    "minimumAppVersion": null,
+    "minimumAppleBuildNumber": null,
+    "minimumAndroidVersionCode": null,
+    "updateStatus": "none",
+    "upgradeMessage": null
+  }
+}
