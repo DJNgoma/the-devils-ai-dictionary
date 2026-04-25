@@ -233,6 +233,7 @@ def create_catalog_version_seed(catalog)
     "dailyWordSlugs" => catalog["dailyWordSlugs"],
     "featuredSlug" => catalog["featuredSlug"],
     "latestPublishedAt" => catalog["latestPublishedAt"],
+    "publishedEntryBatches" => catalog["publishedEntryBatches"],
   }
 end
 
@@ -335,6 +336,16 @@ recent_slugs = entries
 
 latest_published_at =
   entries.map { |entry| entry["publishedAt"] }.max_by { |value| Time.parse(value).to_i } || ""
+published_entry_batches = entries
+  .group_by { |entry| entry["publishedAt"] }
+  .map do |published_at, batch_entries|
+    {
+      "publishedAt" => published_at,
+      "count" => batch_entries.length,
+      "slugs" => batch_entries.map { |entry| entry["slug"] },
+    }
+  end
+  .sort_by { |batch| -timestamp_sort_value(batch["publishedAt"]) }
 
 misunderstood_slugs = entries
   .sort_by do |entry|
@@ -393,6 +404,7 @@ catalog = {
   "dailyWordSlugs" => daily_word_entries.map { |entry| entry["slug"] },
   "featuredSlug" => featured_slug,
   "latestPublishedAt" => latest_published_at,
+  "publishedEntryBatches" => published_entry_batches,
 }
 
 catalog_version = Digest::SHA256.hexdigest(stable_json(create_catalog_version_seed(catalog)))

@@ -67,6 +67,7 @@ describe("mobile catalog manifest", () => {
       dailyWordSlugs: catalogSnapshot.dailyWordSlugs,
       featuredSlug: catalogSnapshot.featuredSlug,
       latestPublishedAt: catalogSnapshot.latestPublishedAt,
+      publishedEntryBatches: catalogSnapshot.publishedEntryBatches,
     };
 
     const snapshot = createCatalogSnapshot({

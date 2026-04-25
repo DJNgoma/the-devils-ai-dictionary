@@ -37,6 +37,7 @@ export function createCatalogVersionSeed(catalog) {
     dailyWordSlugs: catalog.dailyWordSlugs,
     featuredSlug: catalog.featuredSlug,
     latestPublishedAt: catalog.latestPublishedAt,
+    publishedEntryBatches: catalog.publishedEntryBatches,
   };
 }
 

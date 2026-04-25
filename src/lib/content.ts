@@ -68,6 +68,12 @@ export type PublishedEntryBatch = {
   entries: Entry[];
 };
 
+type GeneratedPublishedEntryBatch = {
+  publishedAt: string;
+  count: number;
+  slugs: string[];
+};
+
 export type DictionaryCatalogSchedule = DailyWordSchedule & {
   latestPublishedAt: string;
 };
@@ -168,27 +174,15 @@ const dailyWordSchedule: DictionaryCatalogSchedule = {
   latestPublishedAt: generatedData.latestPublishedAt as string,
 };
 
-const publishedEntryBatches: PublishedEntryBatch[] = Array.from(
-  entries.reduce<Map<string, Entry[]>>((groups, entry) => {
-    const batch = groups.get(entry.publishedAt) ?? [];
-    batch.push(entry);
-    groups.set(entry.publishedAt, batch);
-    return groups;
-  }, new Map()),
-  ([publishedAt, batchEntries]) => ({
-    publishedAt,
-    count: batchEntries.length,
-    entries: [...batchEntries].sort((left, right) => {
-      const titleDifference = left.title.localeCompare(right.title);
-      return titleDifference !== 0
-        ? titleDifference
-        : left.slug.localeCompare(right.slug);
-    }),
-  }),
-).sort(
-  (left, right) =>
-    new Date(right.publishedAt).getTime() - new Date(left.publishedAt).getTime(),
-);
+const publishedEntryBatches: PublishedEntryBatch[] = (
+  generatedData.publishedEntryBatches as GeneratedPublishedEntryBatch[]
+).map((batch) => ({
+  publishedAt: batch.publishedAt,
+  count: batch.count,
+  entries: batch.slugs
+    .map((slug) => entryBySlug.get(slug))
+    .filter((entry): entry is Entry => Boolean(entry)),
+}));
 
 /* ---------- public API (all effectively zero-cost reads) ---------- */
 
@@ -232,14 +226,11 @@ export async function getRecentlyAddedEntries(_limit = 4) {
 }
 
 export async function getLatestAddedBatch(): Promise<PublishedEntryBatch> {
-  const latestPublishedAt = generatedData.latestPublishedAt as string;
-  return (
-    publishedEntryBatches.find((batch) => batch.publishedAt === latestPublishedAt) ?? {
-      publishedAt: latestPublishedAt,
-      count: 0,
-      entries: [],
-    }
-  );
+  return publishedEntryBatches[0] ?? {
+    publishedAt: generatedData.latestPublishedAt as string,
+    count: 0,
+    entries: [],
+  };
 }
 
 export async function getPublishedEntryBatches() {

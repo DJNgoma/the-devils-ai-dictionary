@@ -36,6 +36,7 @@ const {
   dailyWordSlugs,
   featuredSlug,
   latestPublishedAt,
+  publishedEntryBatches,
 } =
   generatedData;
 
@@ -59,6 +60,7 @@ describe("generated data top-level structure", () => {
     expect(generatedData).toHaveProperty("dailyWordSlugs");
     expect(generatedData).toHaveProperty("featuredSlug");
     expect(generatedData).toHaveProperty("latestPublishedAt");
+    expect(generatedData).toHaveProperty("publishedEntryBatches");
   });
 
   it("entries is a non-empty array", () => {
@@ -93,6 +95,7 @@ describe("web snapshot", () => {
     expect(webGeneratedData.catalogVersion).toBe(catalogVersion);
     expect(webGeneratedData.entryCount).toBe(entryCount);
     expect(webGeneratedData.entries).toHaveLength(entries.length);
+    expect(webGeneratedData.publishedEntryBatches).toEqual(publishedEntryBatches);
 
     const entry = webGeneratedData.entries[0];
     expect(entry).toBeDefined();
@@ -271,12 +274,6 @@ describe("latestPublishedAt", () => {
     const latestBatch = await getLatestAddedBatch();
     const expectedSlugs = entries
       .filter((entry) => entry.publishedAt === latestPublishedAt)
-      .sort((left, right) => {
-        const titleDifference = left.title.localeCompare(right.title);
-        return titleDifference !== 0
-          ? titleDifference
-          : left.slug.localeCompare(right.slug);
-      })
       .map((entry) => entry.slug);
 
     expect(latestBatch.publishedAt).toBe(latestPublishedAt);
@@ -286,6 +283,11 @@ describe("latestPublishedAt", () => {
 });
 
 describe("published entry batches", () => {
+  it("is precomputed in the generated catalog", () => {
+    expect(Array.isArray(publishedEntryBatches)).toBe(true);
+    expect(publishedEntryBatches[0]?.publishedAt).toBe(latestPublishedAt);
+  });
+
   it("groups all entries by publishedAt in reverse chronological order", async () => {
     const batches = await getPublishedEntryBatches();
     const totalEntries = batches.reduce((total, batch) => total + batch.count, 0);

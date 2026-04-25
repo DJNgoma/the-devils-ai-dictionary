@@ -114,6 +114,22 @@ async function buildEntryIndex() {
         ? entry.publishedAt
         : latest;
     }, null) ?? "";
+  const publishedEntryBatches = Array.from(
+    entries.reduce((groups, entry) => {
+      const batch = groups.get(entry.publishedAt) ?? [];
+      batch.push(entry);
+      groups.set(entry.publishedAt, batch);
+      return groups;
+    }, new Map()),
+    ([publishedAt, batchEntries]) => ({
+      publishedAt,
+      count: batchEntries.length,
+      slugs: batchEntries.map((entry) => entry.slug),
+    }),
+  ).sort(
+    (left, right) =>
+      new Date(right.publishedAt).getTime() - new Date(left.publishedAt).getTime(),
+  );
 
   const misunderstoodEntries = [...entries]
     .sort(compareMisunderstoodEntries)
@@ -167,6 +183,7 @@ async function buildEntryIndex() {
     dailyWordSlugs: dailyWordEntries.map((entry) => entry.slug),
     featuredSlug,
     latestPublishedAt,
+    publishedEntryBatches,
   };
   const catalogVersion = createCatalogVersion(catalog);
   let generatedAt = new Date().toISOString();
