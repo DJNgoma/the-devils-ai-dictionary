@@ -39,6 +39,11 @@ const { entries: webEntries, searchIndexPath } = webGeneratedData as typeof webG
   searchIndexPath: string;
 };
 
+type GeneratedReference = {
+  label: string;
+  entrySlug?: string;
+};
+
 function expectNoFailures(failures: string[]) {
   expect(failures).toEqual([]);
 }
@@ -179,7 +184,7 @@ describe("resolved reference metadata", () => {
       for (const reference of [
         ...entry.resolvedSeeAlso,
         ...entry.resolvedVendorReferences,
-      ]) {
+      ] as GeneratedReference[]) {
         if (typeof reference.label !== "string") {
           failures.push(`${entry.slug}: resolved reference has a non-string label`);
         }

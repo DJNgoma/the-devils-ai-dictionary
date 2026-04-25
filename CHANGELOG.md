@@ -6,6 +6,10 @@
 
 - Guard the Cloudflare production deploy against missing Apple web auth secrets so `APPLE_SESSION_SECRET`, `APPLE_WEB_CLIENT_ID`, `APPLE_TEAM_ID`, `APPLE_KEY_ID`, and `APPLE_PRIVATE_KEY` fail in CI before the site falls over at runtime.
 
+### Content and catalogue
+
+- Added six new marketplace-adjacent entries, including Paper, CircleCI, CodeRabbit, Ranked AI, Scite, and Cube, while replacing placeholder Canva and Figma pages with proper entries and raising the dictionary from 718 to 724 terms.
+
 ## 1.0.5
 
 ### Saved words, sync, and settings

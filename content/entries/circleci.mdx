@@ -1,0 +1,59 @@
+---
+title: "CircleCI"
+slug: "circleci"
+letter: "C"
+categories:
+  - "Product and vendor terms"
+  - "Infrastructure and deployment"
+  - "Agents and workflows"
+aliases:
+  - "Circle CI"
+  - "CI pipeline"
+  - "continuous integration"
+devilDefinition: |
+  The machine that reads your agent's confident diff and responds in logs.
+plainDefinition: |
+  CircleCI is a continuous integration and delivery platform used to build, test, and deploy software through configured pipelines.
+whyExists: |
+  It exists because modern software teams need repeatable checks between code and production, especially when many people, bots, and agents can all produce changes faster than humans can review them manually.
+misuse: |
+  It gets treated as a moral authority. A green pipeline means the configured checks passed; it does not mean the product is good, the architecture is sound, or the AI-generated change was wise.
+practicalMeaning: |
+  In practice CircleCI means YAML-defined workflows, test jobs, deployment gates, cache tuning, approvals, and a public record of whether a change survived the checks the team remembered to encode.
+example: |
+  "The coding agent said it was done; CircleCI replied that the test database had some objections."
+askNext:
+  - "Which failures does the pipeline actually catch?"
+  - "Are AI-generated changes being held to the same gates as human changes?"
+  - "Does green mean deployable, or merely not yet disproved?"
+related:
+  - "coding-agent"
+  - "eval-driven-development"
+  - "eval-harness"
+  - "worktree"
+seeAlso:
+  - "Eval Harness"
+  - "Review pipeline"
+  - "Worktree"
+  - "Edge deployment"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: true
+publishedAt: "2026-04-25"
+updatedAt: "2026-04-25"
+vendorReferences: []
+tags:
+  - "ci"
+  - "testing"
+  - "deployment"
+  - "automation"
+misunderstoodScore: 3
+translations:
+  - label: "engineering meaning"
+    text: "The repeatable argument between code and reality, expressed as jobs, caches, and red status dots."
+  - label: "what it usually means in reality"
+    text: "A useful automated gate whose authority is limited to the tests and checks the team actually wrote."
+---
+
+CI became more important once agents started writing more code. Someone still has to be boring on behalf of production.

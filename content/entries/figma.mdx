@@ -6,44 +6,61 @@ categories:
   - "Product and vendor terms"
   - "Agents and workflows"
   - "Model usage"
-aliases: []
+aliases:
+  - "Figma Dev Mode"
+  - "Figma MCP"
+  - "Figma MCP server"
+  - "Dev Mode MCP server"
 devilDefinition: |
-  A phrase that sounds self-explanatory until someone asks it to survive a budget meeting, a product review, or a mildly hostile question.
+  The design file everyone agrees is the source of truth until code, product, and reality each file a competing claim.
 plainDefinition: |
-  Figma names the nearby AI idea that shows up when Claude Design needs a more specific operational handle.
+  Figma is a collaborative design platform used for interface design, prototyping, design systems, developer handoff, and increasingly AI-assisted design-to-code workflows through Dev Mode and MCP integrations.
 whyExists: |
-  It exists because the main term alone is often too blunt. The surrounding conversation needs a way to name the neighbouring idea without pretending it is the same thing.
+  It exists because teams need a shared place to design, discuss, inspect, and hand off product interfaces without passing static files around like office furniture.
 misuse: |
-  It gets abused when people use the phrase as a mood, a shortcut, or a status signal instead of explaining the actual mechanism, incentive, or trade-off they mean.
+  It gets treated as if a neat Figma file guarantees a neat product. Dev Mode, component metadata, and MCP context can improve implementation, but they do not settle product ambiguity, missing states, accessibility, or the difference between a component library and a living app.
 practicalMeaning: |
-  In practice it usually means slowing the conversation down enough to ask whether the label points to a real system property, a commercial incentive, a user behaviour, or just a familiar rhetorical flourish.
+  In practice Figma means design-system source material, inspectable component context, comments, prototypes, and a growing bridge into coding agents that can read design intent before writing UI.
 example: |
-  "Once figma entered the discussion, the team finally had a name for the thing everyone had been gesturing at with less precision."
+  "The agent implemented the Figma screen accurately, including the part where nobody had designed the error state."
 askNext:
-  - "What exact meaning of Figma is being used here?"
-  - "What changes operationally if this label is removed from the sentence?"
-  - "Is this naming a mechanism, a vendor choice, a risk, or a wish?"
+  - "Is the Figma file current enough to guide implementation?"
+  - "Which design tokens, components, and states are actually represented?"
+  - "Does the agent receive structured design context, or just a screenshot with confidence?"
 related:
+  - "paper"
   - "claude-design"
+  - "mcp"
+  - "coding-agent"
 seeAlso:
+  - "Paper"
+  - "MCP"
+  - "Coding Agent"
   - "Claude Design"
 difficulty: "beginner"
 technicalDepth: "medium"
 hypeLevel: "medium"
-isVendorTerm: false
+isVendorTerm: true
 publishedAt: "2026-04-25"
 updatedAt: "2026-04-25"
-vendorReferences: []
+warningLabel: "Design context helps agents. It does not absolve anyone from checking the interface."
+vendorReferences:
+  - "Paper"
+  - "Claude Design"
 tags:
-  - "figma"
-  - "product"
-  - "agents"
-  - "model"
-  - "relationships"
+  - "design"
+  - "mcp"
+  - "design systems"
+  - "coding agents"
 misunderstoodScore: 4
 translations:
+  - label: "designer meaning"
+    text: "The shared design surface where intent, comments, components, and unresolved arguments gather."
+  - label: "engineer meaning"
+    text: "Useful structured context, as long as the design file has not become a historical document."
   - label: "what it usually means in reality"
-    text: "A useful nearby term, provided someone explains the mechanism instead of using it as scenery."
+    text: "A strong handoff and collaboration platform that agents can now query more directly, not a guarantee that the app will make sense."
+diagram: "mcp"
 ---
 
-Figma gets its own page because the surrounding discussion around Claude Design keeps needing this sharper distinction. Used well, it turns a vague AI-adjacent gesture into a claim someone can test, budget for, or push back on.
+Figma's AI-era importance is not just that designs can become code. It is that design context can become part of the agent's working memory before the first component is written.
