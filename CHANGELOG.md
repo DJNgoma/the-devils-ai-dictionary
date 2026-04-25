@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Content and catalogue
+
+- Added eight Codex-marketplace-adjacent entries, including Paper, Figma, Canva, CircleCI, CodeRabbit, Ranked AI, Scite, and Cube, raising the dictionary from 207 to 215 terms.
+
 ## 1.0.5
 
 ### Saved words, sync, and settings

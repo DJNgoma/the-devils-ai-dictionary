@@ -1,0 +1,68 @@
+---
+title: "Figma"
+slug: "figma"
+letter: "F"
+categories:
+  - "Product and vendor terms"
+  - "Agents and workflows"
+  - "Model usage"
+aliases:
+  - "Figma Dev Mode"
+  - "Figma MCP"
+  - "Figma MCP server"
+  - "Dev Mode MCP server"
+devilDefinition: |
+  The design file everyone agrees is the source of truth until code, product, and reality each file a competing claim.
+plainDefinition: |
+  Figma is a collaborative design platform used for interface design, prototyping, design systems, developer handoff, and increasingly AI-assisted design-to-code workflows through Dev Mode and MCP integrations.
+whyExists: |
+  It exists because teams need a shared place to design, discuss, inspect, and hand off product interfaces without passing static files around like office furniture.
+misuse: |
+  It gets treated as if a neat Figma file guarantees a neat product. Dev Mode, component metadata, and MCP context can improve implementation, but they do not settle product ambiguity, missing states, accessibility, or the difference between a component library and a living app.
+practicalMeaning: |
+  In practice Figma means design-system source material, inspectable component context, comments, prototypes, and a growing bridge into coding agents that can read design intent before writing UI.
+example: |
+  "The agent implemented the Figma screen accurately, including the part where nobody had designed the error state."
+askNext:
+  - "Is the Figma file current enough to guide implementation?"
+  - "Which design tokens, components, and states are actually represented?"
+  - "Does the agent receive structured design context, or just a screenshot with confidence?"
+related:
+  - "paper"
+  - "claude-design"
+  - "mcp"
+  - "coding-agent"
+seeAlso:
+  - "Paper"
+  - "Dev Mode"
+  - "Code Connect"
+  - "Design-to-code"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: true
+publishedAt: "2026-04-25"
+updatedAt: "2026-04-25"
+warningLabel: "Design context helps agents. It does not absolve anyone from checking the interface."
+vendorReferences:
+  - "Figma"
+  - "Figma Dev Mode"
+  - "Figma MCP server"
+  - "Code Connect"
+tags:
+  - "design"
+  - "mcp"
+  - "design systems"
+  - "coding agents"
+misunderstoodScore: 4
+translations:
+  - label: "designer meaning"
+    text: "The shared design surface where intent, comments, components, and unresolved arguments gather."
+  - label: "engineer meaning"
+    text: "Useful structured context, as long as the design file has not become a historical document."
+  - label: "what it usually means in reality"
+    text: "A strong handoff and collaboration platform that agents can now query more directly, not a guarantee that the app will make sense."
+diagram: "mcp"
+---
+
+Figma's AI-era importance is not just that designs can become code. It is that design context can become part of the agent's working memory before the first component is written.
