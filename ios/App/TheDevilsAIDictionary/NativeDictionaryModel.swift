@@ -679,6 +679,7 @@ final class NativeDictionaryModel: ObservableObject {
     @Published private(set) var liveCatalogManifest: CatalogManifest?
     @Published private(set) var liveCatalogCheckedAt: Date?
     @Published private(set) var liveCatalogError: String?
+    @Published private(set) var catalogRequiresAppUpdate = false
     @Published private(set) var savedToast: String?
     @Published private(set) var developerScreenshotPreset: DeveloperScreenshotPreset?
 
@@ -985,6 +986,10 @@ final class NativeDictionaryModel: ObservableObject {
         return "\(marketingVersion) (\(buildNumber))"
     }
 
+    var appStoreUpdateURL: URL? {
+        URL(string: "itms-apps://itunes.apple.com/app/id6761293350")
+    }
+
     var siteBaseURLString: String {
         mobileBaseURL()?.absoluteString ?? "https://thedevilsaidictionary.com"
     }
@@ -1099,6 +1104,14 @@ final class NativeDictionaryModel: ObservableObject {
 
     func entry(slug: String) -> Entry? {
         catalogSnapshot?.catalog.entry(slug: slug)
+    }
+
+    func entry(for reference: EntryReference) -> Entry? {
+        if let slug = reference.entrySlug, let match = entry(slug: slug) {
+            return match
+        }
+
+        return entry(forSeeAlsoLabel: reference.label)
     }
 
     func entry(forSeeAlsoLabel label: String) -> Entry? {
@@ -1869,6 +1882,7 @@ final class NativeDictionaryModel: ObservableObject {
     private func refreshFromManager() {
         catalogSnapshot = PhoneCatalogManager.shared.snapshot
         loadError = PhoneCatalogManager.shared.refreshError
+        catalogRequiresAppUpdate = PhoneCatalogManager.shared.requiresAppUpdate
         let state = manager.getState()
         currentWord = Self.decodeCurrentWord(from: state["currentWord"])
         pushAuthorizationStatus = state["pushAuthorizationStatus"] as? String ?? "unknown"

@@ -10,6 +10,22 @@ struct NativeEntryDetailView: View {
     let entry: Entry
     var showsCloseButton = true
 
+    private var seeAlsoReferences: [EntryReference] {
+        if let resolved = entry.resolvedSeeAlso, !resolved.isEmpty {
+            return resolved
+        }
+
+        return entry.seeAlso.map { EntryReference(label: $0) }
+    }
+
+    private var vendorReferenceLinks: [EntryReference] {
+        if let resolved = entry.resolvedVendorReferences, !resolved.isEmpty {
+            return resolved
+        }
+
+        return entry.vendorReferences.map { EntryReference(label: $0) }
+    }
+
     var body: some View {
         NativeScreen { layout in
             NativeCard(emphasis: true) {
@@ -127,19 +143,19 @@ struct NativeEntryDetailView: View {
                 .frame(maxWidth: layout.readingColumnWidth, alignment: .leading)
             }
 
-            if !entry.seeAlso.isEmpty {
+            if !seeAlsoReferences.isEmpty {
                 NativeCard {
                     NativeSectionLabel(text: "See also")
                     FlowLayout(spacing: 8) {
-                        ForEach(entry.seeAlso, id: \.self) { label in
-                            if let related = model.entry(forSeeAlsoLabel: label) {
-                                Button(label) {
+                        ForEach(seeAlsoReferences, id: \.label) { reference in
+                            if let related = model.entry(for: reference) {
+                                Button(reference.label) {
                                     model.presentEntry(related)
                                 }
                                 .buttonStyle(NativeFilterChipButtonStyle(isSelected: false))
                             } else {
-                                Button(label) {
-                                    model.showSeeAlsoResults(for: label)
+                                Button(reference.label) {
+                                    model.showSeeAlsoResults(for: reference.label)
                                 }
                                 .buttonStyle(NativeFilterChipButtonStyle(isSelected: false))
                             }
@@ -154,13 +170,20 @@ struct NativeEntryDetailView: View {
                     .frame(maxWidth: layout.readingColumnWidth, alignment: .leading)
             }
 
-            if !entry.vendorReferences.isEmpty {
+            if !vendorReferenceLinks.isEmpty {
                 NativeCard {
                     NativeSectionLabel(text: "Vendor references")
                     VStack(alignment: .leading, spacing: 10) {
-                        ForEach(entry.vendorReferences, id: \.self) { reference in
-                            Text(reference)
-                                .font(.system(size: 15, weight: .regular, design: .rounded))
+                        ForEach(vendorReferenceLinks, id: \.label) { reference in
+                            if let related = model.entry(for: reference) {
+                                Button(reference.label) {
+                                    model.presentEntry(related)
+                                }
+                                .buttonStyle(NativeSecondaryButtonStyle())
+                            } else {
+                                Text(reference.label)
+                                    .font(.system(size: 15, weight: .regular, design: .rounded))
+                            }
                         }
                     }
                 }

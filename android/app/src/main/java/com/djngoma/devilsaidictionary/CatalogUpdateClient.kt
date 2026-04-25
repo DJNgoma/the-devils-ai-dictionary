@@ -21,6 +21,11 @@ internal sealed interface CatalogUpdateResult {
         val checkedAtMs: Long,
         val schemaVersion: Int,
     ) : CatalogUpdateResult
+
+    data class AppUpdateRequired(
+        val checkedAtMs: Long,
+        val message: String,
+    ) : CatalogUpdateResult
 }
 
 internal data class CatalogManifestFetchResult(
@@ -52,6 +57,13 @@ internal class CatalogUpdateClient(
             return CatalogUpdateResult.UnsupportedSchema(
                 checkedAtMs = checkedAtMs,
                 schemaVersion = manifest.schemaVersion,
+            )
+        }
+
+        if (manifest.compatibility.requiresAndroidUpdate(BuildConfig.APP_VERSION_CODE)) {
+            return CatalogUpdateResult.AppUpdateRequired(
+                checkedAtMs = checkedAtMs,
+                message = manifest.compatibility.appUpdateMessage,
             )
         }
 

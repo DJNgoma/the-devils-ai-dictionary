@@ -33,6 +33,11 @@ describe("content.ts has no expensive runtime operations", () => {
     expect(contentSource).not.toMatch(/function buildSearchText/);
   });
 
+  it("does not import the monolithic entry detail catalog", () => {
+    // Entry detail hydration must load the relevant generated shard only.
+    expect(contentSource).not.toMatch(/entry-details\.generated\.json/);
+  });
+
   it("does not contain validateCategories function", () => {
     // Category validation must happen at build time
     expect(contentSource).not.toMatch(/function validateCategories/);

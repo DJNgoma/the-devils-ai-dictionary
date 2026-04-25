@@ -1502,6 +1502,12 @@ private struct NativeSettingsView: View {
                     )
                 }
 
+                if model.catalogRequiresAppUpdate, let appStoreUpdateURL = model.appStoreUpdateURL {
+                    Link("Update on the App Store", destination: appStoreUpdateURL)
+                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                        .foregroundStyle(NativePalette.accent)
+                }
+
                 NativeSettingsValueRow(label: "Website", value: model.siteBaseURLString)
                 NativeSettingsValueRow(label: "Manifest", value: model.catalogManifestURLString)
                 if let bundledCatalogVersion = model.bundledCatalogVersion {

@@ -141,7 +141,11 @@ function createSourceFixture() {
     `${JSON.stringify({ entries: [{ slug: "test-term" }] }, null, 2)}\n`,
   );
   writeFile(
-    path.join(seedRepo, "src", "generated", "entry-details.generated.json"),
+    path.join(seedRepo, "src", "generated", "entry-detail-shards.generated.ts"),
+    "export const entryDetailShardLoaders = { t: () => import('./entry-details/t.json') } as const;\n",
+  );
+  writeFile(
+    path.join(seedRepo, "src", "generated", "entry-details", "t.json"),
     `${JSON.stringify({ "test-term": { body: "A placeholder term for automation tests." } }, null, 2)}\n`,
   );
   writeFile(

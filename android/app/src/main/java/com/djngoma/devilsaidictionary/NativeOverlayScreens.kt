@@ -346,6 +346,12 @@ fun EntryDetailOverlay(
     padding: PaddingValues,
 ) {
     val relatedEntries = store.relatedEntriesFor(entry)
+    val seeAlsoReferences =
+        entry.resolvedSeeAlso.ifEmpty { entry.seeAlso.map { EntryReference(label = it) } }
+    val vendorReferenceLinks =
+        entry.resolvedVendorReferences.ifEmpty {
+            entry.vendorReferences.map { EntryReference(label = it) }
+        }
 
     LazyColumn(
         contentPadding = overlayPadding(padding),
@@ -463,6 +469,54 @@ fun EntryDetailOverlay(
                             text = "• $question",
                             style = MaterialTheme.typography.bodyMedium,
                         )
+                    }
+                }
+            }
+        }
+
+        if (seeAlsoReferences.isNotEmpty()) {
+            item {
+                NativeScreenCard(colors = colors) {
+                    SectionLabel(text = "See also")
+                    FlowRow(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        seeAlsoReferences.forEach { reference ->
+                            val related = store.entryForReference(reference)
+                            NativeSecondaryButton(
+                                label = reference.label,
+                                colors = colors,
+                                onClick = {
+                                    if (related != null) {
+                                        store.presentEntry(related)
+                                    } else {
+                                        store.showReferenceResults(reference.label)
+                                    }
+                                },
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        if (vendorReferenceLinks.isNotEmpty()) {
+            item {
+                NativeScreenCard(colors = colors) {
+                    SectionLabel(text = "Vendor references")
+                    vendorReferenceLinks.forEach { reference ->
+                        val related = store.entryForReference(reference)
+                        if (related != null) {
+                            TextButton(onClick = { store.presentEntry(related) }) {
+                                Text(text = reference.label)
+                            }
+                        } else {
+                            Text(
+                                text = reference.label,
+                                style = MaterialTheme.typography.bodyMedium,
+                            )
+                        }
                     }
                 }
             }

@@ -3,6 +3,7 @@ import { DirectoryExplorer } from "@/components/directory-explorer";
 import {
   getCategoryStats,
   getLatestPublishedAt,
+  getSearchIndexPath,
   getSearchableEntries,
 } from "@/lib/content";
 import { normalizeDirectoryExplorerState } from "@/lib/directory-explorer-state";
@@ -23,10 +24,11 @@ export const metadata = buildMetadata({
 export default async function DictionaryPage({
   searchParams,
 }: DictionaryPageProps) {
-  const [entries, categories, latestPublishedAt] = await Promise.all([
+  const [entries, categories, latestPublishedAt, searchIndexPath] = await Promise.all([
     getSearchableEntries(),
     getCategoryStats(),
     getLatestPublishedAt(),
+    getSearchIndexPath(),
   ]);
   const initialState =
     process.env.NEXT_OUTPUT_MODE === "export"
@@ -60,6 +62,7 @@ export default async function DictionaryPage({
         <DirectoryExplorer
           entries={entries}
           categories={categories.map(({ title, slug }) => ({ title, slug }))}
+          searchIndexPath={searchIndexPath}
           initialCategory={initialState.category}
           initialDepth={initialState.depth}
           initialDifficulty={initialState.difficulty}

@@ -193,7 +193,23 @@ private fun parseEntry(json: JSONObject): Entry =
         url = json.getString("url"),
         searchText = json.optString("searchText", ""),
         relatedSlugs = jsonArrayToStringList(json.getJSONArray("relatedSlugs")),
+        resolvedSeeAlso = parseEntryReferences(json.optJSONArray("resolvedSeeAlso")),
+        resolvedVendorReferences = parseEntryReferences(json.optJSONArray("resolvedVendorReferences")),
     )
+
+private fun parseEntryReferences(array: JSONArray?): List<EntryReference> {
+    if (array == null) {
+        return emptyList()
+    }
+
+    return (0 until array.length()).map {
+        val json = array.getJSONObject(it)
+        EntryReference(
+            label = json.getString("label"),
+            entrySlug = json.optStringOrNull("entrySlug"),
+        )
+    }
+}
 
 private fun parseTranslations(array: JSONArray): List<Translation> =
     (0 until array.length()).map {

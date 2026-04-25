@@ -13,6 +13,7 @@
 import { describe, expect, it } from "vitest";
 import generatedData from "@/generated/entries.generated.json";
 import webGeneratedData from "@/generated/entries.web.generated.json";
+import { entryDetailShardLoaders } from "@/generated/entry-detail-shards.generated";
 import { compareMisunderstoodEntries } from "@/lib/content-build.mjs";
 import { getAllEntries, getEntryBySlug } from "@/lib/content";
 
@@ -34,7 +35,9 @@ const {
 } =
   generatedData;
 
-const { entries: webEntries } = webGeneratedData;
+const { entries: webEntries, searchIndexPath } = webGeneratedData as typeof webGeneratedData & {
+  searchIndexPath: string;
+};
 
 /* ---------- top-level structure ---------- */
 
@@ -72,8 +75,8 @@ describe("generated data top-level structure", () => {
 
 /* ---------- entry shape ---------- */
 
-describe("each raw entry keeps the expensive pre-computed fields", () => {
-  it.each(webEntries.map((e) => [e.slug, e]))(
+describe("each full raw entry keeps the expensive pre-computed fields", () => {
+  it.each(entries.map((e) => [e.slug, e]))(
     "%s has relatedSlugs",
     (_slug, entry) => {
       // Related-entry scoring is still computed at build time so the worker
@@ -88,12 +91,34 @@ describe("web snapshot", () => {
     expect(webGeneratedData.catalogVersion).toBe(catalogVersion);
     expect(webGeneratedData.entryCount).toBe(entryCount);
     expect(webGeneratedData.entries).toHaveLength(entries.length);
+    expect(searchIndexPath).toMatch(/^\/catalog\/search-index\.[a-f0-9]{64}\.json$/);
 
     const entry = webGeneratedData.entries[0];
     expect(entry).toBeDefined();
     expect(entry).not.toHaveProperty("body");
     expect(entry).not.toHaveProperty("categorySlugs");
+    expect(entry).not.toHaveProperty("relatedSlugs");
+    expect(entry).not.toHaveProperty("searchText");
+    expect(entry).not.toHaveProperty("seeAlso");
+    expect(entry).not.toHaveProperty("vendorReferences");
+    expect(entry).not.toHaveProperty("tags");
+    expect(entry).not.toHaveProperty("misunderstoodScore");
     expect(entry).not.toHaveProperty("url");
+  });
+});
+
+describe("entry detail shards", () => {
+  it("cover every entry exactly once", async () => {
+    const shards = await Promise.all(
+      Object.values(entryDetailShardLoaders).map(async (loadShard) => {
+        const shardModule = await loadShard();
+        return shardModule.default as Record<string, unknown>;
+      }),
+    );
+    const detailSlugs = shards.flatMap((shard) => Object.keys(shard));
+
+    expect(new Set(detailSlugs).size).toBe(detailSlugs.length);
+    expect(new Set(detailSlugs)).toEqual(new Set(entries.map((entry) => entry.slug)));
   });
 });
 
@@ -115,10 +140,65 @@ describe("runtime entry hydration", () => {
 
     expect(entry).toBeDefined();
     expect(Array.isArray(entry!.seeAlso)).toBe(true);
+    expect(Array.isArray(entry!.resolvedSeeAlso)).toBe(true);
     expect(Array.isArray(entry!.translations)).toBe(true);
     expect(Array.isArray(entry!.vendorReferences)).toBe(true);
+    expect(Array.isArray(entry!.resolvedVendorReferences)).toBe(true);
     expect(typeof entry!.body).toBe("string");
   });
+});
+
+describe("resolved reference metadata", () => {
+  const entrySlugSet = new Set(entries.map((entry) => entry.slug));
+
+  it.each(entries.map((e) => [e.slug, e]))(
+    "%s resolves every see-also and vendor reference without self-links",
+    (slug, entry) => {
+      expect(entry.resolvedSeeAlso).toHaveLength(entry.seeAlso.length);
+      expect(entry.resolvedVendorReferences).toHaveLength(entry.vendorReferences.length);
+
+      for (const reference of [
+        ...entry.resolvedSeeAlso,
+        ...entry.resolvedVendorReferences,
+      ]) {
+        expect(reference.label).toEqual(expect.any(String));
+        expect(reference.entrySlug).toEqual(expect.any(String));
+        expect(entrySlugSet.has(reference.entrySlug)).toBe(true);
+        expect(reference.entrySlug).not.toBe(slug);
+      }
+    },
+  );
+});
+
+describe("editorial quality gates", () => {
+  const generatedPlaceholderPhrases = [
+    "deserves a separate entry because it was already doing connective work",
+    "adjacent AI concept used to frame the practical, cultural, product, or operational meaning",
+    "A neighbouring idea that deserves its own definition before it starts doing rhetorical errands",
+    "that tends to enter the room wearing a logo, a pricing model, and several implied assumptions",
+  ];
+
+  it.each(entries.map((e) => [e.slug, e]))(
+    "%s does not ship generated placeholder phrasing",
+    (_slug, entry) => {
+      const searchableEditorialText = [
+        entry.devilDefinition,
+        entry.plainDefinition,
+        entry.whyExists,
+        entry.misuse,
+        entry.practicalMeaning,
+        entry.example,
+        entry.warningLabel ?? "",
+        entry.note ?? "",
+        entry.body,
+        ...entry.translations.map((translation) => translation.text),
+      ].join("\n");
+
+      for (const phrase of generatedPlaceholderPhrases) {
+        expect(searchableEditorialText).not.toContain(phrase);
+      }
+    },
+  );
 });
 
 describe("each entry has required frontmatter fields", () => {
