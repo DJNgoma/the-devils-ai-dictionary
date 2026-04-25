@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### Share cards
+
+- Open Graph share cards were rebuilt for legibility at thumbnail size: a single-column layout with a Fraunces-set headline, the term and devil's definition front and centre, and high-contrast brand serif type instead of a 22% opacity faux watermark and a decorative book column.
+- The site, dictionary entry, and native iOS and Android share sheets all pull the same web-generated PNG, so the upgrade lands everywhere a card surfaces without a native rebuild.
+
 ## 1.0.5
 
 ### Saved words, sync, and settings

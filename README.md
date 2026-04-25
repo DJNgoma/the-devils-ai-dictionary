@@ -307,7 +307,7 @@ The site includes:
 
 - page-level metadata helpers
 - canonical URLs
-- Open Graph image routes
+- Open Graph image routes (site card at `/opengraph-image`, per-entry cards at `/dictionary/<slug>/opengraph-image`) — single-column, brand-serif layouts in [src/components/og-card.tsx](src/components/og-card.tsx) designed to stay legible at feed-thumbnail size, with Fraunces and Source Serif loaded into `ImageResponse` via [src/lib/og-fonts.ts](src/lib/og-fonts.ts). The native iOS and Android apps fetch the same URLs for share-sheet previews, so a redesign here lands everywhere without a native rebuild.
 - `sitemap.xml`
 - `robots.txt`
 - `manifest.webmanifest`
