@@ -80,6 +80,14 @@ fun NativeHomeScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
+                store.catalogSyncStatusMessage?.let { message ->
+                    CatalogSyncStatusCard(
+                        message = message,
+                        isRefreshing = store.isRefreshingCatalog,
+                        isError = store.catalogSyncStatusIsError,
+                        colors = colors,
+                    )
+                }
                 Text(
                     text = "The Devil's AI Dictionary",
                     style = MaterialTheme.typography.headlineLarge,
@@ -110,14 +118,6 @@ fun NativeHomeScreen(
                         colors = colors,
                         onClick = store::openRandomEntry,
                         modifier = Modifier.weight(1f),
-                    )
-                }
-                store.catalogSyncStatusMessage?.let { message ->
-                    CatalogSyncStatusCard(
-                        message = message,
-                        isRefreshing = store.isRefreshingCatalog,
-                        isError = store.catalogSyncStatusIsError,
-                        colors = colors,
                     )
                 }
                 if (store.pushManager != null &&

@@ -1389,7 +1389,8 @@ final class NativeDictionaryModel: ObservableObject {
         let refreshOutcome = PhoneCatalogManager.shared.lastRefreshOutcome
         isRefreshingCatalog = false
 
-        guard !Task.isCancelled else {
+        if Task.isCancelled {
+            catalogSyncNotice = Self.catalogRefreshInterruptedMessage()
             return
         }
 
@@ -1903,7 +1904,7 @@ final class NativeDictionaryModel: ObservableObject {
             lowercased == "canceled" ||
             lowercased.contains("cancelled") ||
             lowercased.contains("canceled") {
-            return "The refresh was interrupted before the catalogue clerk could finish the paperwork. Try again."
+            return Self.catalogRefreshInterruptedMessage()
         }
 
         if lowercased.contains("offline") ||
@@ -1918,6 +1919,10 @@ final class NativeDictionaryModel: ObservableObject {
         }
 
         return "The catalogue clerk came back empty-handed: \(error)"
+    }
+
+    private static func catalogRefreshInterruptedMessage() -> String {
+        "The refresh was interrupted before the catalogue clerk could finish the paperwork. Try again."
     }
 
     private static func catalogRefreshSuccessMessage(didUpdate: Bool, isRepeatNoChange: Bool) -> String {
@@ -1956,7 +1961,9 @@ final class NativeDictionaryModel: ObservableObject {
                 didUpdate: false,
                 isRepeatNoChange: false
             )
-        case .cancelled, .failed, .unsupportedSchema, nil:
+        case .cancelled:
+            catalogSyncNotice = Self.catalogRefreshInterruptedMessage()
+        case .failed, .unsupportedSchema, nil:
             catalogSyncNotice = nil
         }
     }

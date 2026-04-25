@@ -574,6 +574,14 @@ private struct NativeHomeView: View {
                         .foregroundStyle(NativePalette.mutedText)
                 }
 
+                if let catalogSyncStatusMessage = model.catalogSyncStatusMessage {
+                    NativeCatalogSyncStatusView(
+                        message: catalogSyncStatusMessage,
+                        isRefreshing: model.isRefreshingCatalog,
+                        isError: model.catalogSyncStatusIsError
+                    )
+                }
+
                 Text("The Devil's AI Dictionary")
                     .font(.system(size: 34, weight: .bold, design: .serif))
 
@@ -597,14 +605,6 @@ private struct NativeHomeView: View {
                         model.openRandomEntry()
                     }
                     .buttonStyle(NativeSecondaryButtonStyle())
-                }
-
-                if let catalogSyncStatusMessage = model.catalogSyncStatusMessage {
-                    NativeCatalogSyncStatusView(
-                        message: catalogSyncStatusMessage,
-                        isRefreshing: model.isRefreshingCatalog,
-                        isError: model.catalogSyncStatusIsError
-                    )
                 }
 
                 if model.shouldShowPushPrompt && !model.isDeveloperScreenshotMode {
