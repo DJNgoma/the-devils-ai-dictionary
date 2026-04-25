@@ -1,0 +1,58 @@
+---
+title: "Inference Budget"
+slug: "inference-budget"
+letter: "I"
+categories:
+  - "Economics and operations of AI"
+  - "Infrastructure and deployment"
+  - "Model usage"
+aliases:
+  - "token budget"
+  - "serving budget"
+  - "AI runtime budget"
+devilDefinition: |
+  The line item where intelligence becomes less abstract and more payable within thirty days.
+plainDefinition: |
+  An inference budget is the planned or enforced limit on the cost, latency, tokens, model calls, compute, or provider spend used to run AI features in production.
+whyExists: |
+  Model calls have variable cost and performance characteristics. Without a budget, a successful feature can become a financial incident, and an agent can discover new forms of curiosity at the company's expense.
+misuse: |
+  It gets reduced to token counting. Tokens matter, but so do model choice, retries, tool calls, reasoning effort, cache hits, latency targets, and the number of times a workflow politely tries again.
+practicalMeaning: |
+  In practice it means per-user limits, per-task ceilings, model routing policies, cache strategy, timeout rules, alerting, and deciding which requests deserve the expensive model before the expensive model decides for itself.
+example: |
+  "The inference budget survived launch only after the agent was stopped from spending premium reasoning on password reset emails."
+askNext:
+  - "What is the maximum acceptable cost for this user action?"
+  - "Which requests can use a cheaper model, cache, or shorter reasoning path?"
+  - "Are retries and tool calls counted in the same budget as the visible model response?"
+related:
+  - "inference"
+  - "tokens"
+  - "latency"
+  - "reasoning-effort"
+  - "test-time-compute"
+seeAlso:
+  - "Serving economics"
+  - "Cost controls"
+  - "Runtime policy"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-25"
+updatedAt: "2026-04-25"
+tags:
+  - "cost"
+  - "serving"
+  - "latency"
+  - "operations"
+misunderstoodScore: 4
+translations:
+  - label: "finance meaning"
+    text: "Set a ceiling on how much intelligence a workflow is allowed to buy."
+  - label: "what it usually means in reality"
+    text: "A practical argument between quality, speed, and the bill."
+---
+
+Inference budgets are not anti-intelligence. They are the moment the system admits that cleverness has a marginal cost.

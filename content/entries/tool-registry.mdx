@@ -1,0 +1,57 @@
+---
+title: "Tool Registry"
+slug: "tool-registry"
+letter: "T"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+  - "Model usage"
+aliases:
+  - "agent tool registry"
+  - "tool catalogue"
+  - "MCP registry"
+devilDefinition: |
+  A menu of powers offered to an agent, ideally written by someone who understands the difference between capability and liability.
+plainDefinition: |
+  A tool registry is a structured catalogue of tools an AI system can discover or use, including each tool's name, schema, permissions, owner, description, and operational constraints.
+whyExists: |
+  Agents need a reliable way to know which actions are available and how to call them. As tool ecosystems grow, teams need registries to avoid stale schemas, duplicated integrations, hidden permissions, and the old tradition of guessing from a README last touched during a launch week.
+misuse: |
+  It gets treated as a plugin marketplace with fewer consequences. Registering a tool does not make it safe, maintained, authorised, or suitable for an agent that has just been persuaded by a malicious PDF.
+practicalMeaning: |
+  In practice it means schema versioning, permission boundaries, ownership, environment separation, audit logs, deprecation rules, and a process for deciding which tools an agent sees in a given task.
+example: |
+  "The tool registry made the agent less adventurous by removing three obsolete endpoints and one payroll action nobody remembered approving."
+askNext:
+  - "Who owns each registered tool and its schema?"
+  - "Which permissions travel with the tool, and which are granted per task?"
+  - "How does the registry retire dangerous or stale tools before agents keep calling them out of nostalgia?"
+related:
+  - "tool-use"
+  - "function-calling"
+  - "mcp"
+  - "tool-permissions"
+seeAlso:
+  - "Tool schema"
+  - "Agent capability catalogue"
+  - "Integration governance"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-25"
+updatedAt: "2026-04-25"
+tags:
+  - "agents"
+  - "tools"
+  - "governance"
+  - "schemas"
+misunderstoodScore: 4
+translations:
+  - label: "platform meaning"
+    text: "Keep the agent's available actions discoverable, typed, owned, and governed."
+  - label: "what it usually means in reality"
+    text: "A catalogue that becomes security-critical the minute a model can act on it."
+---
+
+A good tool registry is less like an app store and more like a key cabinet. The labels matter, and so does the lock.

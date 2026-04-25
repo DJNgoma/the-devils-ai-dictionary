@@ -1,0 +1,58 @@
+---
+title: "Prompt Firewall"
+slug: "prompt-firewall"
+letter: "P"
+categories:
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+  - "Model usage"
+aliases:
+  - "LLM firewall"
+  - "AI firewall"
+  - "prompt filter"
+devilDefinition: |
+  A security product that promises to stand between your model and human creativity, a famously restful place to stand.
+plainDefinition: |
+  A prompt firewall is a protective layer that inspects model inputs, outputs, tool calls, or retrieved content for policy violations, prompt injection, data leakage, unsafe instructions, and other risky patterns.
+whyExists: |
+  AI systems accept natural language from users, documents, tools, and websites. That makes ordinary application boundaries porous, so teams need checks that understand text, intent, context, and the strange confidence of a poisoned instruction.
+misuse: |
+  It gets sold as a complete shield. A firewall can reduce known classes of risk, but it cannot replace threat modelling, least-privilege tools, red-team testing, or the habit of not handing production powers to a chatbot with a clipboard.
+practicalMeaning: |
+  In practice it means classifiers, rules, allowlists, deny lists, logging, human review paths, and careful placement around retrieval and tool execution. The hard part is blocking the right things without turning the product into a polite refusal machine.
+example: |
+  "The prompt firewall caught the obvious injection and missed the support document that asked the agent to email payroll with theatrical confidence."
+askNext:
+  - "Where is the firewall placed: before retrieval, after retrieval, before tools, after tools, or merely in the sales deck?"
+  - "What happens when the firewall is unsure?"
+  - "Are blocked requests audited, or are they just counted until the dashboard feels serious?"
+related:
+  - "prompt-injection"
+  - "guardrails"
+  - "tool-poisoning"
+  - "red-teaming"
+seeAlso:
+  - "LLM application security"
+  - "Data loss prevention"
+  - "Policy enforcement"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-04-25"
+updatedAt: "2026-04-25"
+warningLabel: "A control layer, not an absolution layer."
+tags:
+  - "security"
+  - "prompting"
+  - "safety"
+  - "tools"
+misunderstoodScore: 5
+translations:
+  - label: "security meaning"
+    text: "Inspect AI traffic for risky instructions, leakage, and tool abuse."
+  - label: "what it usually means in reality"
+    text: "A useful guardrail that becomes dangerous when everyone starts treating it as the whole fence."
+---
+
+The prompt firewall is most convincing when it produces boring evidence: what it blocked, what it missed, and what the system still refuses to trust it with.

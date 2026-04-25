@@ -1,0 +1,60 @@
+---
+title: "AI Gateway"
+slug: "ai-gateway"
+letter: "A"
+categories:
+  - "Infrastructure and deployment"
+  - "Economics and operations of AI"
+  - "Model usage"
+aliases:
+  - "LLM gateway"
+  - "model gateway"
+  - "AI proxy"
+devilDefinition: |
+  The toll booth installed after everyone realised "just call the model" was not a governance strategy.
+plainDefinition: |
+  An AI gateway is an intermediary service that routes AI requests between applications and model providers, usually adding authentication, logging, rate limits, retries, caching, policy controls, and cost tracking.
+whyExists: |
+  Teams need a common control point for many applications, models, providers, and budgets. A gateway makes it possible to change providers, enforce policy, observe usage, and prevent every product team from inventing its own fragile little tunnel.
+misuse: |
+  It gets marketed as an instant platform. A gateway can centralise traffic, but it cannot decide product quality, fix bad prompts, or turn unclear governance into architecture by standing in the middle.
+practicalMeaning: |
+  In practice it means one place to manage API keys, provider routing, request metadata, redaction, quotas, fallbacks, and dashboards. It also means one more critical dependency that must be boringly reliable.
+example: |
+  "The AI gateway earned its keep when the provider outage became a routing event instead of a company-wide treasure hunt for hard-coded API keys."
+askNext:
+  - "Which controls belong in the gateway, and which belong in the application?"
+  - "Can the gateway fail open, fail closed, or fail expensively?"
+  - "Does routing improve quality and cost, or merely move complexity into a nicer dashboard?"
+related:
+  - "inference-stack"
+  - "model-router"
+  - "guardrails"
+  - "zero-data-retention"
+seeAlso:
+  - "LLM proxy"
+  - "Provider routing"
+  - "Centralised AI operations"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-25"
+updatedAt: "2026-04-25"
+vendorReferences:
+  - "Cloudflare AI Gateway"
+  - "Vercel AI Gateway"
+tags:
+  - "infrastructure"
+  - "routing"
+  - "governance"
+  - "cost"
+misunderstoodScore: 4
+translations:
+  - label: "platform meaning"
+    text: "Put model traffic through one controlled doorway."
+  - label: "what it usually means in reality"
+    text: "The place where security, finance, latency, and developer convenience are invited to disagree in public."
+---
+
+An AI gateway is not glamorous infrastructure, which is why it is often useful. The glamour returns only when the invoice arrives with charts.

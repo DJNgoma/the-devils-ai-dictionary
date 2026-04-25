@@ -1,0 +1,57 @@
+---
+title: "State Compaction"
+slug: "state-compaction"
+letter: "S"
+categories:
+  - "Agents and workflows"
+  - "Retrieval and memory"
+  - "Infrastructure and deployment"
+aliases:
+  - "memory compaction"
+  - "context compaction"
+  - "state summarisation"
+devilDefinition: |
+  The solemn act of turning a long confused session into a shorter confused session with headings.
+plainDefinition: |
+  State compaction is the process of condensing an agent's accumulated context, memory, logs, or working state into a smaller representation that can be carried forward without exceeding context, cost, or latency limits.
+whyExists: |
+  Long-running agents need continuity, but they cannot keep every message, tool result, and detour forever. Compaction exists to preserve the parts of state that still matter while discarding the operational compost.
+misuse: |
+  It gets treated as automatic understanding. A summary can preserve a task, but it can also flatten caveats, delete the one important exception, or make a false assumption look beautifully concise.
+practicalMeaning: |
+  In practice it means deciding what an agent must remember, when to summarise it, how to attach evidence, and whether the compacted state can be audited before it becomes the next model's starting truth.
+example: |
+  "The coding agent improved once state compaction stopped keeping every failed experiment as if it were a constitutional precedent."
+askNext:
+  - "What facts must survive compaction, and what evidence proves they were not lost?"
+  - "Does the compacted state distinguish decisions from guesses?"
+  - "Who reviews the summary when a long-running workflow starts behaving as though yesterday's mistake is policy?"
+related:
+  - "context-rot"
+  - "context-engineering"
+  - "context-window"
+  - "memory-policy"
+seeAlso:
+  - "Session handoff"
+  - "Context pruning"
+  - "Agent memory"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-25"
+updatedAt: "2026-04-25"
+tags:
+  - "agents"
+  - "memory"
+  - "context"
+  - "workflow"
+misunderstoodScore: 4
+translations:
+  - label: "operator meaning"
+    text: "Shrink the working state without accidentally rewriting the job."
+  - label: "what it usually means in reality"
+    text: "A summary that saves tokens, if it does not first save the wrong lesson."
+---
+
+State compaction is useful when it is treated as record-keeping, not poetry. The shorter version should earn its authority, preferably before the agent spends another hour obeying it.
