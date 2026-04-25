@@ -98,4 +98,20 @@ class CatalogUpdateLogicTest {
             ),
         )
     }
+
+    @Test
+    fun `catalogRefreshFailureMessage keeps refresh failures user readable`() {
+        assertEquals(
+            "The catalogue clerk cannot reach production. The internet appears to have left the building with the new terminology.",
+            catalogRefreshFailureMessage("Unable to resolve host thedevilsaidictionary.com"),
+        )
+        assertEquals(
+            "Production took too long to answer. The new jargon may be stuck in committee; try again.",
+            catalogRefreshFailureMessage("Read timed out"),
+        )
+        assertEquals(
+            "The catalogue clerk came back empty-handed: hash mismatch",
+            catalogRefreshFailureMessage("hash mismatch"),
+        )
+    }
 }

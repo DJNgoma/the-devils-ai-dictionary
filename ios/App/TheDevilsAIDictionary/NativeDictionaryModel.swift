@@ -1046,6 +1046,26 @@ final class NativeDictionaryModel: ObservableObject {
         return "The live site has a different catalogue version. Sync now to test the OTA refresh path."
     }
 
+    var catalogSyncStatusMessage: String? {
+        if isRefreshingCatalog {
+            return "Checking whether the jargon has bred overnight."
+        }
+
+        guard let loadError else {
+            return nil
+        }
+
+        return Self.catalogRefreshStatusMessage(for: loadError)
+    }
+
+    var catalogSyncStatusIsError: Bool {
+        !isRefreshingCatalog && loadError != nil
+    }
+
+    var syncCatalogButtonTitle: String {
+        isRefreshingCatalog ? "Syncing..." : "Sync now"
+    }
+
     var pushScheduleStatusMessage: String {
         if pushAuthorizationStatus == "unsupported" {
             return "Local notification scheduling is not enabled for this Apple platform."
@@ -1342,11 +1362,24 @@ final class NativeDictionaryModel: ObservableObject {
     }
 
     func syncCatalogNow() async {
+        guard !isRefreshingCatalog else {
+            return
+        }
+
+        let startedAt = Date()
         isRefreshingCatalog = true
         await PhoneCatalogManager.shared.refreshIfNeeded(force: true)
         refreshFromManager()
+        isRefreshingCatalog = true
+
+        await waitForMinimumCatalogSyncDuration(startedAt: startedAt)
+
+        let didFail = PhoneCatalogManager.shared.refreshError != nil
         isRefreshingCatalog = false
-        await checkLiveCatalog()
+
+        if !didFail {
+            await checkLiveCatalog()
+        }
     }
 
     func simulateNotification(slug: String) async {
@@ -1835,6 +1868,35 @@ final class NativeDictionaryModel: ObservableObject {
         }
 
         applyPendingDeveloperScreenshotPresetIfPossible()
+    }
+
+    private static func catalogRefreshStatusMessage(for error: String) -> String {
+        let lowercased = error.lowercased()
+
+        if lowercased.contains("offline") ||
+            lowercased.contains("not connected") ||
+            lowercased.contains("network connection was lost") ||
+            lowercased.contains("internet") {
+            return "The catalogue clerk cannot reach production. The internet appears to have left the building with the new terminology."
+        }
+
+        if lowercased.contains("timed out") || lowercased.contains("timeout") {
+            return "Production took too long to answer. The new jargon may be stuck in committee; try again."
+        }
+
+        return "The catalogue clerk came back empty-handed: \(error)"
+    }
+
+    private func waitForMinimumCatalogSyncDuration(startedAt: Date) async {
+        let minimumDuration: TimeInterval = 0.75
+        let remaining = minimumDuration - Date().timeIntervalSince(startedAt)
+
+        guard remaining > 0 else {
+            return
+        }
+
+        let nanoseconds = UInt64(remaining * 1_000_000_000)
+        try? await Task.sleep(nanoseconds: nanoseconds)
     }
 
     private func consumePendingNavigation(path: String) {

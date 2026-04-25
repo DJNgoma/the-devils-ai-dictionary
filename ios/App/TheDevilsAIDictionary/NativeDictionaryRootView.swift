@@ -599,6 +599,14 @@ private struct NativeHomeView: View {
                     .buttonStyle(NativeSecondaryButtonStyle())
                 }
 
+                if let catalogSyncStatusMessage = model.catalogSyncStatusMessage {
+                    NativeCatalogSyncStatusView(
+                        message: catalogSyncStatusMessage,
+                        isRefreshing: model.isRefreshingCatalog,
+                        isError: model.catalogSyncStatusIsError
+                    )
+                }
+
                 if model.shouldShowPushPrompt && !model.isDeveloperScreenshotMode {
                     Divider()
 
@@ -735,6 +743,47 @@ private struct NativeHeroDailyReminderPrompt: View {
                     .foregroundStyle(NativePalette.warning)
             }
         }
+    }
+}
+
+private struct NativeCatalogSyncStatusView: View {
+    let message: String
+    let isRefreshing: Bool
+    let isError: Bool
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 10) {
+            if isRefreshing {
+                ProgressView()
+                    .controlSize(.small)
+                    .padding(.top, 1)
+            } else {
+                Image(systemName: isError ? "wifi.exclamationmark" : "checkmark.circle")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(isError ? NativePalette.warning : NativePalette.success)
+                    .padding(.top, 2)
+            }
+
+            Text(message)
+                .font(.system(size: 13, weight: .medium, design: .rounded))
+                .foregroundStyle(isError ? NativePalette.warning : NativePalette.mutedText)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 10)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            (isError ? NativePalette.warning.opacity(0.12) : NativePalette.panelStrong),
+            in: RoundedRectangle(cornerRadius: 14, style: .continuous)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .stroke(
+                    isError ? NativePalette.warning.opacity(0.28) : NativePalette.border,
+                    lineWidth: 1
+                )
+        )
+        .accessibilityElement(children: .combine)
     }
 }
 
@@ -1445,6 +1494,14 @@ private struct NativeSettingsView: View {
                     .font(.system(size: 15, weight: .regular, design: .rounded))
                     .foregroundStyle(model.liveCatalogError == nil ? .primary : NativePalette.warning)
 
+                if let catalogSyncStatusMessage = model.catalogSyncStatusMessage {
+                    NativeCatalogSyncStatusView(
+                        message: catalogSyncStatusMessage,
+                        isRefreshing: model.isRefreshingCatalog,
+                        isError: model.catalogSyncStatusIsError
+                    )
+                }
+
                 NativeSettingsValueRow(label: "Website", value: model.siteBaseURLString)
                 NativeSettingsValueRow(label: "Manifest", value: model.catalogManifestURLString)
                 if let bundledCatalogVersion = model.bundledCatalogVersion {
@@ -1488,12 +1545,21 @@ private struct NativeSettingsView: View {
                 }
 
                 HStack {
+                    Button(model.syncCatalogButtonTitle) {
+                        Task {
+                            await model.syncCatalogNow()
+                        }
+                    }
+                    .buttonStyle(NativePrimaryButtonStyle())
+                    .disabled(model.isRefreshingCatalog)
+
                     Button("Check live site") {
                         Task {
                             await model.checkLiveCatalog()
                         }
                     }
-                    .buttonStyle(NativePrimaryButtonStyle())
+                    .buttonStyle(NativeSecondaryButtonStyle())
+                    .disabled(model.isCheckingLiveCatalog)
                 }
 
                 HStack {

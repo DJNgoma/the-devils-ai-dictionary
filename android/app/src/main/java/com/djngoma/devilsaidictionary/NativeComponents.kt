@@ -204,9 +204,11 @@ fun NativePrimaryButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     leadingIcon: ImageVector? = null,
+    enabled: Boolean = true,
 ) {
     Button(
         onClick = onClick,
+        enabled = enabled,
         modifier = modifier.heightIn(min = NativeLayout.controlMinHeight),
         shape = MaterialTheme.shapes.small,
         colors = ButtonDefaults.buttonColors(
@@ -232,9 +234,11 @@ fun NativeSecondaryButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     leadingIcon: ImageVector? = null,
+    enabled: Boolean = true,
 ) {
     OutlinedButton(
         onClick = onClick,
+        enabled = enabled,
         modifier = modifier.heightIn(min = NativeLayout.controlMinHeight),
         shape = MaterialTheme.shapes.small,
         border = BorderStroke(1.dp, colors.border),

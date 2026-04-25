@@ -31,6 +31,7 @@ import androidx.compose.material.icons.rounded.Shuffle
 import androidx.compose.material.icons.rounded.Visibility
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
@@ -111,6 +112,14 @@ fun NativeHomeScreen(
                         modifier = Modifier.weight(1f),
                     )
                 }
+                store.catalogSyncStatusMessage?.let { message ->
+                    CatalogSyncStatusCard(
+                        message = message,
+                        isRefreshing = store.isRefreshingCatalog,
+                        isError = store.catalogSyncStatusIsError,
+                        colors = colors,
+                    )
+                }
                 if (store.pushManager != null &&
                     store.shouldShowPushPrompt) {
                     HomePushPromptCard(
@@ -161,10 +170,6 @@ fun NativeHomeScreen(
                     }
                 }
             }
-        }
-
-        store.loadError?.let { message ->
-            item { WarningCard(text = message, colors = colors) }
         }
 
         if (store.glossaryCategoryStats.isNotEmpty()) {
@@ -743,6 +748,14 @@ fun NativeSettingsScreen(
                         colors.warning
                     },
                 )
+                store.catalogSyncStatusMessage?.let { message ->
+                    CatalogSyncStatusCard(
+                        message = message,
+                        isRefreshing = store.isRefreshingCatalog,
+                        isError = store.catalogSyncStatusIsError,
+                        colors = colors,
+                    )
+                }
                 NativeSettingsValueRow(label = "Website", value = store.siteBaseUrlString)
                 NativeSettingsValueRow(label = "Manifest", value = store.catalogManifestUrlString)
                 store.bundledCatalogVersion?.let { bundledCatalogVersion ->
@@ -796,9 +809,16 @@ fun NativeSettingsScreen(
                 }
                 NativeActionRow {
                     NativePrimaryButton(
+                        label = store.syncCatalogButtonLabel,
+                        colors = colors,
+                        onClick = store::syncCatalogNow,
+                        enabled = !store.isRefreshingCatalog,
+                    )
+                    NativeSecondaryButton(
                         label = "Check live site",
                         colors = colors,
                         onClick = store::checkLiveCatalog,
+                        enabled = !store.isCheckingLiveCatalog,
                     )
                 }
                 NativeActionRow {
@@ -844,9 +864,10 @@ fun NativeSettingsScreen(
                         onClick = store::probeSlug,
                     )
                     NativeSecondaryButton(
-                        label = "Sync first",
+                        label = store.syncCatalogButtonLabel,
                         colors = colors,
                         onClick = store::syncCatalogNow,
+                        enabled = !store.isRefreshingCatalog,
                     )
                     NativeSecondaryButton(
                         label = "Simulate notification tap",
@@ -916,6 +937,52 @@ fun NativeSettingsScreen(
             }
         }
         }
+    }
+}
+
+@Composable
+private fun CatalogSyncStatusCard(
+    message: String,
+    isRefreshing: Boolean,
+    isError: Boolean,
+    colors: NativeColors,
+) {
+    val tint = if (isError) colors.warning else MaterialTheme.colorScheme.onSurfaceVariant
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(
+                color = if (isError) colors.warning.copy(alpha = 0.12f) else colors.surfaceMuted,
+                shape = MaterialTheme.shapes.medium,
+            )
+            .border(
+                width = 1.dp,
+                color = if (isError) colors.warning.copy(alpha = 0.24f) else colors.border,
+                shape = MaterialTheme.shapes.medium,
+            )
+            .padding(12.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        verticalAlignment = Alignment.Top,
+    ) {
+        if (isRefreshing) {
+            CircularProgressIndicator(
+                modifier = Modifier.size(16.dp),
+                color = colors.accent,
+                strokeWidth = 2.dp,
+            )
+        } else {
+            Icon(
+                imageVector = Icons.Rounded.Refresh,
+                contentDescription = null,
+                tint = tint,
+                modifier = Modifier.size(16.dp),
+            )
+        }
+        Text(
+            text = message,
+            style = MaterialTheme.typography.bodySmall,
+            color = tint,
+        )
     }
 }
 

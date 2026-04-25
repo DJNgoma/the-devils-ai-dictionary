@@ -22,6 +22,30 @@ import java.util.Locale
 import java.util.TimeZone
 import java.util.concurrent.Executors
 
+private const val minimumCatalogRefreshIndicatorMs = 750L
+
+internal fun catalogRefreshFailureMessage(message: String?): String {
+    val fallback = message?.takeIf(String::isNotBlank)
+        ?: "The Android app could not read the live catalogue."
+    val lowercased = fallback.lowercase(Locale.getDefault())
+
+    if (
+        lowercased.contains("offline") ||
+        lowercased.contains("not connected") ||
+        lowercased.contains("network is unreachable") ||
+        lowercased.contains("unable to resolve host") ||
+        lowercased.contains("failed to connect")
+    ) {
+        return "The catalogue clerk cannot reach production. The internet appears to have left the building with the new terminology."
+    }
+
+    if (lowercased.contains("timed out") || lowercased.contains("timeout")) {
+        return "Production took too long to answer. The new jargon may be stuck in committee; try again."
+    }
+
+    return "The catalogue clerk came back empty-handed: $fallback"
+}
+
 enum class NativeTab {
     Home,
     Search,
@@ -471,6 +495,20 @@ class NativeDictionaryStore(
                 "The live site has a different catalogue version. Sync now to test the OTA refresh path."
             }
         }
+
+    val catalogSyncStatusMessage: String?
+        get() =
+            when {
+                isRefreshingCatalog -> "Checking whether the jargon has bred overnight."
+                loadError != null -> loadError
+                else -> null
+            }
+
+    val catalogSyncStatusIsError: Boolean
+        get() = !isRefreshingCatalog && loadError != null
+
+    val syncCatalogButtonLabel: String
+        get() = if (isRefreshingCatalog) "Syncing..." else "Sync now"
 
     val pushOptInStatus: PushOptInStatus
         get() = pushOptInStatusState
@@ -1109,6 +1147,8 @@ class NativeDictionaryStore(
         }
 
         isRefreshingCatalog = true
+        loadError = null
+        val startedAtMs = System.currentTimeMillis()
         val currentVersion = catalogVersion
         backgroundExecutor.execute {
             val result =
@@ -1117,30 +1157,48 @@ class NativeDictionaryStore(
                 }
 
             mainHandler.post {
-                isRefreshingCatalog = false
-                result.onSuccess { update ->
-                    when (update) {
-                        is CatalogUpdateResult.NoChange -> {
-                            recordCatalogManifestCheckedAt(update.checkedAtMs)
-                        }
-
-                        is CatalogUpdateResult.UnsupportedSchema -> {
-                            recordCatalogManifestCheckedAt(update.checkedAtMs)
-                        }
-
-                        is CatalogUpdateResult.Updated -> {
-                            runCatching {
-                                catalogDiskStore.writeCatalogBytes(update.bytes)
-                            }.onSuccess {
-                                applyCatalogSnapshot(update.snapshot)
+                val finishRefresh = {
+                    result.onSuccess { update ->
+                        when (update) {
+                            is CatalogUpdateResult.NoChange -> {
                                 recordCatalogManifestCheckedAt(update.checkedAtMs)
-                                seedCurrentWordIfNeeded()
+                            }
+
+                            is CatalogUpdateResult.UnsupportedSchema -> {
+                                loadError =
+                                    "Production has a newer catalogue format. This build is too old to read the latest jargon without supervision."
+                                recordCatalogManifestCheckedAt(update.checkedAtMs)
+                            }
+
+                            is CatalogUpdateResult.Updated -> {
+                                runCatching {
+                                    catalogDiskStore.writeCatalogBytes(update.bytes)
+                                }.onSuccess {
+                                    applyCatalogSnapshot(update.snapshot)
+                                    recordCatalogManifestCheckedAt(update.checkedAtMs)
+                                    seedCurrentWordIfNeeded()
+                                }.onFailure { error ->
+                                    loadError = catalogRefreshFailureMessage(error.message)
+                                }
                             }
                         }
+                    }.onFailure { error ->
+                        loadError = catalogRefreshFailureMessage(error.message)
                     }
+
+                    isRefreshingCatalog = false
+                    resolvePendingMissingSlugRetry()
                 }
 
-                resolvePendingMissingSlugRetry()
+                val remainingMs =
+                    (minimumCatalogRefreshIndicatorMs - (System.currentTimeMillis() - startedAtMs))
+                        .coerceAtLeast(0L)
+
+                if (remainingMs > 0L) {
+                    mainHandler.postDelayed(finishRefresh, remainingMs)
+                } else {
+                    finishRefresh()
+                }
             }
         }
     }
