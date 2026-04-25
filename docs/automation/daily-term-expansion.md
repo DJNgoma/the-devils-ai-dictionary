@@ -24,8 +24,9 @@ scripts/with-node.sh node scripts/daily-term-automation.mjs prepare --json
 
 That returns a `workspace` path. Change into that directory and do the rest of the run there.
 `prepare` first tries to refresh the source checkout's cached `origin/main` and retries transient failures before giving up.
-For GitHub remotes, the helper prefers HTTPS git transport authenticated through `gh` when `gh auth status` is available, so the automation does not depend on SSH being healthy.
-It prefers `GH_PATH` first, then the Homebrew install at `/opt/homebrew/bin/gh`, before falling back to other local locations such as `~/.local/bin/gh`.
+For GitHub remotes, the helper prefers HTTPS git transport authenticated through a usable `gh` binary, so the automation does not depend on SSH being healthy.
+An explicit `GH_PATH` is authoritative: if that binary cannot run, `prepare` fails clearly instead of falling back to SSH.
+When `GH_PATH` is unset, the helper tries the Homebrew install at `/opt/homebrew/bin/gh` before falling back to other local locations such as `~/.local/bin/gh`.
 `scripts/with-node.sh` now exports `GH_PATH=/opt/homebrew/bin/gh` automatically when that Homebrew build exists, so scheduled runs do not drift back to SSH just because `PATH` was assembled differently.
 If GitHub is briefly unavailable but the source checkout already has a cached `refs/remotes/origin/main`, `prepare` may still succeed in degraded mode by basing the scratch checkout on that cached ref.
 The JSON result reports whether the base was `fresh` or `cached`, plus the exact ref and commit used.

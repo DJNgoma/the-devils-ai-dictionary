@@ -207,7 +207,6 @@ function formatCommandFailure(command, args, result) {
     .join("\n");
 }
 
-let ghAuthAvailableCache;
 let ghCommandCache;
 
 function shellQuote(value) {
@@ -232,7 +231,10 @@ function resolveGhCommand() {
     return ghCommandCache;
   }
 
-  for (const candidate of ghCommandCandidates()) {
+  const explicitGhPath = process.env.GH_PATH;
+  const candidates = explicitGhPath ? [explicitGhPath] : ghCommandCandidates();
+
+  for (const candidate of candidates) {
     if (candidate !== "gh" && !existsSync(candidate)) {
       continue;
     }
@@ -250,26 +252,6 @@ function resolveGhCommand() {
 
   ghCommandCache = null;
   return ghCommandCache;
-}
-
-function hasGithubGhCredentials() {
-  if (ghAuthAvailableCache !== undefined) {
-    return ghAuthAvailableCache;
-  }
-
-  const ghCommand = resolveGhCommand();
-  if (!ghCommand) {
-    ghAuthAvailableCache = false;
-    return ghAuthAvailableCache;
-  }
-
-  ghAuthAvailableCache =
-    spawnSync(ghCommand, ["auth", "status", "--hostname", "github.com"], {
-      encoding: "utf8",
-      stdio: "pipe",
-    }).status === 0;
-
-  return ghAuthAvailableCache;
 }
 
 function toGithubHttpsUrl(remoteUrl) {
@@ -298,13 +280,23 @@ function toGithubHttpsUrl(remoteUrl) {
 function resolveAutomationRemote(originUrl) {
   const githubHttpsUrl = toGithubHttpsUrl(originUrl);
 
-  if (githubHttpsUrl && hasGithubGhCredentials()) {
-    return {
-      fetchTarget: githubHttpsUrl,
-      pushTarget: githubHttpsUrl,
-      useGhCredentialHelper: true,
-      transport: "https-gh",
-    };
+  if (githubHttpsUrl) {
+    const ghCommand = resolveGhCommand();
+
+    if (ghCommand) {
+      return {
+        fetchTarget: githubHttpsUrl,
+        pushTarget: githubHttpsUrl,
+        useGhCredentialHelper: true,
+        transport: "https-gh",
+      };
+    }
+
+    if (process.env.GH_PATH) {
+      throw new Error(
+        `GH_PATH is set to "${process.env.GH_PATH}", but that gh command is not usable. Fix GH_PATH or unset it before running daily-term automation.`,
+      );
+    }
   }
 
   return {
@@ -763,7 +755,6 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
 export {
   ghCommandCandidates,
   gitCommandArgs,
-  hasGithubGhCredentials,
   resolveAutomationRemote,
   resolveGhCommand,
   toGithubHttpsUrl,

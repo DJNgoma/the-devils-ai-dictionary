@@ -207,7 +207,7 @@ async function importAutomationModule() {
   return import(`${pathToFileURL(automationScript).href}?t=${Date.now()}-${Math.random()}`);
 }
 
-function writeFakeGh(file: string) {
+function writeFakeGh(file: string, { authStatus = 0 } = {}) {
   writeFile(
     file,
     [
@@ -217,7 +217,7 @@ function writeFakeGh(file: string) {
       "  exit 0",
       "fi",
       "if [ \"$1\" = \"auth\" ] && [ \"$2\" = \"status\" ]; then",
-      "  exit 0",
+      `  exit ${authStatus}`,
       "fi",
       "if [ \"$1\" = \"auth\" ] && [ \"$2\" = \"git-credential\" ]; then",
       "  exit 0",
@@ -274,6 +274,48 @@ describe("daily-term automation", () => {
       transport: "https-gh",
     });
     expect(gitArgs.some((arg: string) => arg.includes(fakeGh))).toBe(true);
+  });
+
+  it("does not fall back to native transport when pinned gh auth status is unavailable", async () => {
+    const fakeHome = createTempDir("daily-term-automation-gh-auth-down-");
+    const fakeGh = path.join(fakeHome, ".local", "bin", "gh");
+    writeFakeGh(fakeGh, { authStatus: 1 });
+
+    process.env.PATH = "/usr/bin:/bin";
+    process.env.HOME = fakeHome;
+    process.env.GH_PATH = fakeGh;
+
+    const automationModule = await importAutomationModule();
+    const remote = automationModule.resolveAutomationRemote(
+      "git@github.com:DJNgoma/the-devils-ai-dictionary.git",
+    );
+
+    expect(automationModule.resolveGhCommand()).toBe(fakeGh);
+    expect(remote).toMatchObject({
+      fetchTarget: "https://github.com/DJNgoma/the-devils-ai-dictionary.git",
+      pushTarget: "https://github.com/DJNgoma/the-devils-ai-dictionary.git",
+      useGhCredentialHelper: true,
+      transport: "https-gh",
+    });
+  });
+
+  it("fails clearly when an explicit GH_PATH is unusable", async () => {
+    const fakeHome = createTempDir("daily-term-automation-bad-gh-path-");
+    const fakeGh = path.join(fakeHome, ".local", "bin", "missing-gh");
+
+    process.env.PATH = "/usr/bin:/bin";
+    process.env.HOME = fakeHome;
+    process.env.GH_PATH = fakeGh;
+
+    const automationModule = await importAutomationModule();
+
+    expect(() =>
+      automationModule.resolveAutomationRemote(
+        "git@github.com:DJNgoma/the-devils-ai-dictionary.git",
+      ),
+    ).toThrow(
+      `GH_PATH is set to "${fakeGh}", but that gh command is not usable.`,
+    );
   });
 
   it("prepares from a freshly refreshed origin/main when the remote is reachable", () => {
