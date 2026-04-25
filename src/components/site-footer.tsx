@@ -47,6 +47,9 @@ export function SiteFooter() {
           <Link href="/book" className="hover:text-foreground">
             Book
           </Link>
+          <Link href="/updates" className="hover:text-foreground">
+            Updates
+          </Link>
           <Link href="/how-to-read" className="hover:text-foreground">
             How to read
           </Link>

@@ -23,6 +23,7 @@ export const siteConfig = {
 export const navigation = [
   { href: "/", label: "Home" },
   { href: "/dictionary", label: "Dictionary" },
+  { href: "/updates", label: "Updates" },
   { href: "/categories", label: "Categories" },
   { href: "/random", label: "Random" },
   { href: "/about", label: "About" },
@@ -59,6 +60,7 @@ export const mobilePrimaryNavigation = [
 export const mobileSecondaryNavigation = [
   { href: "/settings", label: "Settings" },
   { href: "/book", label: "Book" },
+  { href: "/updates", label: "Updates" },
   { href: "/how-to-read", label: "Guide" },
   { href: "/about", label: "About" },
   { href: "/privacy", label: "Privacy" },
@@ -120,6 +122,10 @@ export function getMobileChromeTitle(pathname: string) {
 
   if (pathname === "/book") {
     return "Book";
+  }
+
+  if (pathname === "/updates") {
+    return "Updates";
   }
 
   if (pathname === "/how-to-read") {

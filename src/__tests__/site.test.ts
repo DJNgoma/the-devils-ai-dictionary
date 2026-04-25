@@ -2,7 +2,10 @@ import { describe, expect, it } from "vitest";
 import {
   categoryMap,
   difficultyLabels,
+  getMobileChromeTitle,
   getCategoryBySlug,
+  mobileSecondaryNavigation,
+  navigation,
   resolveAutoTheme,
   technicalDepthLabels,
   themeOptionsByAppearance,
@@ -51,5 +54,14 @@ describe("site helpers", () => {
     expect(technicalDepthLabels.low).toBe("Light");
     expect(technicalDepthLabels.medium).toBe("Practical");
     expect(technicalDepthLabels.high).toBe("Deep");
+  });
+
+  it("links the recently added updates surface from site navigation", () => {
+    expect(navigation).toContainEqual({ href: "/updates", label: "Updates" });
+    expect(mobileSecondaryNavigation).toContainEqual({
+      href: "/updates",
+      label: "Updates",
+    });
+    expect(getMobileChromeTitle("/updates")).toBe("Updates");
   });
 });

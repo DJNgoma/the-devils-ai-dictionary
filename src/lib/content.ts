@@ -62,6 +62,12 @@ export type SearchableEntry = Pick<
   | "warningLabel"
 >;
 
+export type PublishedEntryBatch = {
+  publishedAt: string;
+  count: number;
+  entries: Entry[];
+};
+
 export type DictionaryCatalogSchedule = DailyWordSchedule & {
   latestPublishedAt: string;
 };
@@ -162,6 +168,28 @@ const dailyWordSchedule: DictionaryCatalogSchedule = {
   latestPublishedAt: generatedData.latestPublishedAt as string,
 };
 
+const publishedEntryBatches: PublishedEntryBatch[] = Array.from(
+  entries.reduce<Map<string, Entry[]>>((groups, entry) => {
+    const batch = groups.get(entry.publishedAt) ?? [];
+    batch.push(entry);
+    groups.set(entry.publishedAt, batch);
+    return groups;
+  }, new Map()),
+  ([publishedAt, batchEntries]) => ({
+    publishedAt,
+    count: batchEntries.length,
+    entries: [...batchEntries].sort((left, right) => {
+      const titleDifference = left.title.localeCompare(right.title);
+      return titleDifference !== 0
+        ? titleDifference
+        : left.slug.localeCompare(right.slug);
+    }),
+  }),
+).sort(
+  (left, right) =>
+    new Date(right.publishedAt).getTime() - new Date(left.publishedAt).getTime(),
+);
+
 /* ---------- public API (all effectively zero-cost reads) ---------- */
 
 export const getAllEntries = cache(async (): Promise<Entry[]> => {
@@ -201,6 +229,21 @@ export async function getRecentlyAddedEntries(_limit = 4) {
     .slice(0, _limit)
     .map((slug) => entryBySlug.get(slug))
     .filter((e): e is Entry => Boolean(e));
+}
+
+export async function getLatestAddedBatch(): Promise<PublishedEntryBatch> {
+  const latestPublishedAt = generatedData.latestPublishedAt as string;
+  return (
+    publishedEntryBatches.find((batch) => batch.publishedAt === latestPublishedAt) ?? {
+      publishedAt: latestPublishedAt,
+      count: 0,
+      entries: [],
+    }
+  );
+}
+
+export async function getPublishedEntryBatches() {
+  return publishedEntryBatches;
 }
 
 export async function getMostMisunderstoodEntries(_limit = 4) {

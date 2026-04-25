@@ -14,7 +14,12 @@ import { describe, expect, it } from "vitest";
 import generatedData from "@/generated/entries.generated.json";
 import webGeneratedData from "@/generated/entries.web.generated.json";
 import { compareMisunderstoodEntries } from "@/lib/content-build.mjs";
-import { getAllEntries, getEntryBySlug } from "@/lib/content";
+import {
+  getAllEntries,
+  getEntryBySlug,
+  getLatestAddedBatch,
+  getPublishedEntryBatches,
+} from "@/lib/content";
 
 const {
   schemaVersion,
@@ -260,6 +265,44 @@ describe("latestPublishedAt", () => {
     }, "");
 
     expect(latestPublishedAt).toBe(newestPublishedAt);
+  });
+
+  it("exposes the complete latest publish batch", async () => {
+    const latestBatch = await getLatestAddedBatch();
+    const expectedSlugs = entries
+      .filter((entry) => entry.publishedAt === latestPublishedAt)
+      .sort((left, right) => {
+        const titleDifference = left.title.localeCompare(right.title);
+        return titleDifference !== 0
+          ? titleDifference
+          : left.slug.localeCompare(right.slug);
+      })
+      .map((entry) => entry.slug);
+
+    expect(latestBatch.publishedAt).toBe(latestPublishedAt);
+    expect(latestBatch.count).toBe(expectedSlugs.length);
+    expect(latestBatch.entries.map((entry) => entry.slug)).toEqual(expectedSlugs);
+  });
+});
+
+describe("published entry batches", () => {
+  it("groups all entries by publishedAt in reverse chronological order", async () => {
+    const batches = await getPublishedEntryBatches();
+    const totalEntries = batches.reduce((total, batch) => total + batch.count, 0);
+
+    expect(totalEntries).toBe(entries.length);
+
+    for (let index = 0; index < batches.length; index++) {
+      const batch = batches[index]!;
+      expect(batch.count).toBe(batch.entries.length);
+      expect(batch.entries.every((entry) => entry.publishedAt === batch.publishedAt)).toBe(true);
+
+      if (index > 0) {
+        const previous = new Date(batches[index - 1]!.publishedAt).getTime();
+        const current = new Date(batch.publishedAt).getTime();
+        expect(previous).toBeGreaterThanOrEqual(current);
+      }
+    }
   });
 });
 

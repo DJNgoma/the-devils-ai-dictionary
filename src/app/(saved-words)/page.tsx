@@ -9,6 +9,7 @@ import { WebNotificationHeroPrompt } from "@/components/web-notification-setting
 import {
   getCategoryStats,
   getDailyWordSchedule,
+  getLatestAddedBatch,
   getLetterStats,
   getLatestPublishedAt,
   getMostMisunderstoodEntries,
@@ -34,6 +35,7 @@ export default async function HomePage() {
     letters,
     categories,
     latestPublishedAt,
+    latestAddedBatch,
     recentEntries,
     misunderstoodEntries,
     searchable,
@@ -44,6 +46,7 @@ export default async function HomePage() {
       getLetterStats(),
       getCategoryStats(),
       getLatestPublishedAt(),
+      getLatestAddedBatch(),
       getRecentlyAddedEntries(),
       getMostMisunderstoodEntries(),
       getSearchableEntries(),
@@ -148,9 +151,19 @@ export default async function HomePage() {
 
       <section className="grid gap-8 xl:grid-cols-2">
         <div className="space-y-5">
-          <div className="labelled-rule">Recently added</div>
+          <div className="flex items-center justify-between gap-4">
+            <div className="labelled-rule">Recently added</div>
+            <Link
+              href="/updates"
+              className="shrink-0 text-sm text-accent hover:text-foreground"
+            >
+              View all {latestAddedBatch.count}
+            </Link>
+          </div>
           <p className="text-sm leading-7 text-foreground-soft">
-            Last words added {formatDate(latestPublishedAt)}.
+            {latestAddedBatch.count} new{" "}
+            {latestAddedBatch.count === 1 ? "word" : "words"} added{" "}
+            {formatDate(latestAddedBatch.publishedAt)}.
           </p>
           <div className="grid gap-5">
             {recentEntries.map((entry) => (
