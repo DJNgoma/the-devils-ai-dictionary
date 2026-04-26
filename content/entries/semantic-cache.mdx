@@ -1,0 +1,57 @@
+---
+title: "Semantic cache"
+slug: "semantic-cache"
+letter: "S"
+categories:
+  - "Infrastructure and deployment"
+  - "Model usage"
+  - "Economics and operations of AI"
+aliases:
+  - "meaning-based cache"
+  - "similarity cache"
+devilDefinition: |
+  A way of avoiding another model call by deciding this new question is close enough to the last one to deserve the same invoice-saving answer.
+plainDefinition: |
+  A semantic cache stores earlier model responses and reuses them when a new request is sufficiently similar in meaning, usually based on embeddings or another similarity measure, instead of sending the request back to the model.
+whyExists: |
+  Model calls cost money and time. Semantic caches exist because many user questions are near-repeats, and it is wasteful to buy fresh intelligence every time someone asks the same thing in a slightly different shirt.
+misuse: |
+  It gets presented as a free latency win, as though similarity were the same thing as correctness. A cache can be fast and still be wrong, stale, or impolitely blind to user-specific context.
+practicalMeaning: |
+  In practice it means choosing an embedding model, setting similarity thresholds, deciding what context is part of the cache key, expiring results before they fossilise, and accepting that a cheaper answer can still be the wrong one.
+example: |
+  "The semantic cache made support look miraculously efficient until it started giving last week's refund policy to this week's exception."
+askNext:
+  - "What parts of the request are included in the cache key besides semantic similarity?"
+  - "How do we invalidate stale answers when the source policy, data, or product behaviour changes?"
+  - "What evidence shows the cache is preserving answer quality rather than merely reducing invoices?"
+related:
+  - "prompt-caching"
+  - "embeddings"
+  - "latency"
+  - "inference-budget"
+seeAlso:
+  - "Prompt Caching"
+  - "Retrieval"
+  - "Response time"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-26"
+updatedAt: "2026-04-26"
+tags:
+  - "caching"
+  - "embeddings"
+  - "latency"
+  - "cost"
+misunderstoodScore: 4
+translations:
+  - label: "finance meaning"
+    text: "Do not pay full price for a question the system has effectively answered already."
+  - label: "what it usually means in reality"
+    text: "A similarity filter in front of the model call, with all the usual ways to become confidently stale."
+diagram: "embeddings"
+---
+
+Semantic caches are useful precisely because they are not magical. They are ordinary infrastructure masquerading as cleverness, which is often the most reliable kind.

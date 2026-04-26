@@ -1,0 +1,57 @@
+---
+title: "Tool sprawl"
+slug: "tool-sprawl"
+letter: "T"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+  - "Economics and operations of AI"
+aliases:
+  - "tool proliferation"
+  - "connector sprawl"
+devilDefinition: |
+  The condition in which an agent platform keeps acquiring capabilities until the menu itself becomes a form of operational risk.
+plainDefinition: |
+  Tool sprawl is the uncontrolled growth of tools, connectors, actions, plugins, or MCP endpoints available to an AI system, especially when their scopes, owners, schemas, and permissions are inconsistent or poorly understood.
+whyExists: |
+  Tool use is where AI systems become useful, so teams keep adding integrations. The trouble arrives when each new connector solves a local problem while making the overall capability surface harder to govern, test, secure, or even describe accurately.
+misuse: |
+  It gets confused with having many tools. Quantity alone is not the sin. Sprawl begins when duplication, stale schemas, hidden permissions, and overlapping functions make the system broader than the organisation can actually reason about.
+practicalMeaning: |
+  In practice it means agents seeing near-duplicate tools, calling the wrong one, failing on inconsistent schemas, inheriting permissions nobody revisited, and forcing operators to discover that discoverability is itself a security question.
+example: |
+  "The assistant had twenty-seven tools, nine ways to read a document, and exactly one adult in the room asking why."
+askNext:
+  - "Which tools are redundant, stale, or too broadly permissioned for the tasks they serve?"
+  - "Who owns each schema and deprecates it before agents keep using it out of habit?"
+  - "Can the agent discover only the tools relevant to the current task, or is it browsing a dangerous buffet?"
+related:
+  - "tool-registry"
+  - "tool-use"
+  - "mcp"
+  - "tool-permissions"
+seeAlso:
+  - "Agent capability catalogue"
+  - "Integration governance"
+  - "Capability boundaries"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-26"
+updatedAt: "2026-04-26"
+tags:
+  - "tools"
+  - "governance"
+  - "schemas"
+  - "permissions"
+misunderstoodScore: 4
+translations:
+  - label: "platform meaning"
+    text: "The tool surface is expanding faster than the organisation's ability to govern it."
+  - label: "what it usually means in reality"
+    text: "A useful stack slowly becoming a confusing and security-relevant cupboard."
+diagram: "mcp"
+---
+
+Tool sprawl is what happens when capability is measured by addition and nobody budgets for subtraction.
