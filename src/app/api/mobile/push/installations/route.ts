@@ -13,10 +13,10 @@ import { upsertPushInstallation } from "@/lib/server/push-installations";
 export const dynamic = "force-dynamic";
 
 const installationSchema = z.object({
-  appVersion: z.string().trim().min(1),
+  appVersion: z.string().trim().min(1).max(64),
   environment: z.enum(["development", "production"]),
-  locale: z.string().trim().min(1),
-  preferredDeliveryHour: z.number().int().min(0).max(23).optional(),
+  locale: z.string().trim().min(1).max(35),
+  preferredDeliveryHour: z.number().int().min(0).max(23).nullable().optional(),
   optInStatus: z.enum(
     clientPushOptInStatuses satisfies readonly [
       ClientPushOptInStatus,
@@ -29,33 +29,46 @@ const installationSchema = z.object({
       ...PushInstallationPlatform[],
     ],
   ),
-  timeZone: z.string().trim().min(1).optional(),
-  token: z.string().trim().min(1),
+  timeZone: z.string().trim().min(1).max(64).nullable().optional(),
+  token: z.string().trim().min(1).max(4096),
 });
 
 export async function POST(request: Request) {
+  let body: unknown;
   try {
-    const payload = installationSchema.parse(await request.json());
+    body = await request.json();
+  } catch {
+    return NextResponse.json(
+      {
+        error: "Request body is not valid JSON.",
+        ok: false,
+      },
+      { status: 400 },
+    );
+  }
+
+  const parsed = installationSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json(
+      {
+        error: "Invalid installation payload.",
+        issues: parsed.error.issues,
+        ok: false,
+      },
+      { status: 400 },
+    );
+  }
+
+  try {
     const env = await getMobilePushEnv();
     const database = requirePushInstallationsDatabase(env);
 
-    await upsertPushInstallation(database, payload);
+    await upsertPushInstallation(database, parsed.data);
 
     return NextResponse.json({
       ok: true,
     });
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      return NextResponse.json(
-        {
-          error: "Invalid installation payload.",
-          issues: error.issues,
-          ok: false,
-        },
-        { status: 400 },
-      );
-    }
-
     return NextResponse.json(
       {
         error:

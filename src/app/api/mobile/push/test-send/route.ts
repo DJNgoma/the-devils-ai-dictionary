@@ -27,8 +27,8 @@ import {
 export const dynamic = "force-dynamic";
 
 const testSendSchema = z.object({
-  slug: z.string().trim().min(1).optional(),
-  token: z.string().trim().min(1).optional(),
+  slug: z.string().trim().min(1).max(256).optional(),
+  token: z.string().trim().min(1).max(4096).optional(),
   platform: z.enum(["ios", "android", "web"]).optional(),
 });
 
@@ -68,7 +68,20 @@ export async function POST(request: Request) {
       );
     }
 
-    const payload = testSendSchema.parse(await request.json());
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        {
+          error: "Request body is not valid JSON.",
+          ok: false,
+        },
+        { status: 400 },
+      );
+    }
+
+    const payload = testSendSchema.parse(body);
     const database = requirePushInstallationsDatabase(env);
     const entries = await getAllEntries();
     const entry = pickEntry(entries, payload.slug);
