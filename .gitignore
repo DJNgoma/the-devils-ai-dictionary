@@ -19,7 +19,6 @@
 
 # production
 /build
-/public/mobile-catalog/
 
 # misc
 .DS_Store
@@ -52,7 +51,6 @@ next-env.d.ts
 /android/app/*.jks
 /android/app/*.keystore
 /android/play-account.json
-/public/mobile-catalog/
 
 # swift package build output
 /shared/swift-core/.build/

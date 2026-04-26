@@ -1,0 +1,414 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-04-26T07:00:00.000Z",
+  "items": [
+    {
+      "slug": "capability-overhang",
+      "label": "Capability overhang",
+      "status": "queued",
+      "notes": "Useful for separating latent system ability from what product and policy currently permit.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "capability-forecasting",
+        "capability-gating",
+        "general-intelligence"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "context-budget",
+      "label": "Context budget",
+      "status": "queued",
+      "notes": "Should connect prompt size, retrieval choices, and cost rather than treating context as free space.",
+      "diagramHint": "context-window",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Model usage",
+        "Retrieval and memory",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "context-window",
+        "inference-budget",
+        "prompt-caching"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "eval-leakage",
+      "label": "Eval leakage",
+      "status": "queued",
+      "notes": "Focus on test contamination and rehearsal rather than generic benchmark grumbling.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Model building"
+      ],
+      "relatedHints": [
+        "evals",
+        "benchmark-overfitting",
+        "golden-dataset"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "safety-debt",
+      "label": "Safety debt",
+      "status": "queued",
+      "notes": "Treat safety shortcuts as maintenance debt with operational consequences, not just policy prose.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "safety-case",
+        "operational-risk",
+        "release-gate"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "retrieval-drift",
+      "label": "Retrieval drift",
+      "status": "queued",
+      "notes": "Different from raw data drift; target retrieval relevance and document freshness over time.",
+      "diagramHint": "rag",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Retrieval and memory",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "retrieval-quality",
+        "data-drift",
+        "rag"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "autonomy-tax",
+      "label": "Autonomy tax",
+      "status": "queued",
+      "notes": "Good for naming the overhead around supervision, recovery, and permissions once a workflow becomes agentic.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "autonomy-deployment",
+        "operational-risk",
+        "agent-workflow"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "approval-theatre",
+      "label": "Approval theatre",
+      "status": "queued",
+      "notes": "Aim at decorative approval steps that do little except reassure the slide deck.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Cultural terms",
+        "Agents and workflows",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "approval-workflow",
+        "rubber-stamp-review",
+        "governance-theatre"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "memory-wall",
+      "label": "Memory wall",
+      "status": "queued",
+      "notes": "Useful for practical limits on persistent or reusable context rather than pure architecture nostalgia.",
+      "diagramHint": "context-window",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Retrieval and memory",
+        "Model usage"
+      ],
+      "relatedHints": [
+        "agent-memory",
+        "context-window",
+        "context-pruning"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "human-escalation",
+      "label": "Human escalation",
+      "status": "queued",
+      "notes": "Should be about when the workflow hands off to a person, not generic human-in-the-loop piety.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "human-in-the-loop",
+        "escalation-path",
+        "fallback-policy"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "agent-reliability",
+      "label": "Agent reliability",
+      "status": "queued",
+      "notes": "Focus on whether long-running agent workflows stay dependable beyond demos.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "agent-harness",
+        "eval-harness",
+        "operational-rollout"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "tool-reliability",
+      "label": "Tool reliability",
+      "status": "queued",
+      "notes": "Useful for the ordinary but critical question of whether tools behave consistently when the model calls them.",
+      "diagramHint": "function-calling",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "tool-use",
+        "tool-registry",
+        "exception-handling"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "workflow-drift",
+      "label": "Workflow drift",
+      "status": "queued",
+      "notes": "Separate end-to-end agent or process drift from base-model behaviour drift.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Economics and operations of AI",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "model-drift",
+        "session-handoff",
+        "repository-automation"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "capability-surface",
+      "label": "Capability surface",
+      "status": "queued",
+      "notes": "This should help distinguish what a system can touch from what marketing says it can do.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Infrastructure and deployment",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "capability-boundaries",
+        "tool-permissions",
+        "external-actions"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "demo-fidelity-gap",
+      "label": "Demo fidelity gap",
+      "status": "queued",
+      "notes": "Good for the distance between a polished demo and the production workflow it implies.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "benchmark-theatre",
+        "pilot-purgatory",
+        "prototype-handoff"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "orchestration-debt",
+      "label": "Orchestration debt",
+      "status": "queued",
+      "notes": "Should describe the hidden cost of stitching together more steps, models, and tools than anyone can explain.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Infrastructure and deployment",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "orchestration",
+        "prompt-debt",
+        "operational-risk"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "prompt-scaffold",
+      "label": "Prompt scaffold",
+      "status": "queued",
+      "notes": "Useful for structured prompting that props up the workflow without pretending to be the workflow.",
+      "diagramHint": null,
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Model usage",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "prompt-architecture",
+        "prompt-hygiene",
+        "system-prompt"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "governance-stack",
+      "label": "Governance stack",
+      "status": "queued",
+      "notes": "A practical term for how controls, approvals, logs, and policies fit together around AI features.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "governance-posture",
+        "runtime-policy",
+        "policy-enforcement"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "model-rollback",
+      "label": "Model rollback",
+      "status": "queued",
+      "notes": "Focus on reversing model changes safely once production reality disagrees with release optimism.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Infrastructure and deployment",
+        "Model usage",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "release-gate",
+        "regression-suite",
+        "model-drift"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "routing-debt",
+      "label": "Routing debt",
+      "status": "queued",
+      "notes": "Useful for stacked routing logic that made sense incrementally and became unreadable collectively.",
+      "diagramHint": "model-routing",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Infrastructure and deployment",
+        "Economics and operations of AI",
+        "Model usage"
+      ],
+      "relatedHints": [
+        "model-routing",
+        "provider-routing",
+        "inference-budget"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "exception-budget",
+      "label": "Exception budget",
+      "status": "queued",
+      "notes": "Should name how many edge-case rescues a workflow can tolerate before the economics stop pretending.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Economics and operations of AI",
+        "Agents and workflows",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "exception-handling",
+        "human-fallback",
+        "operational-risk"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    },
+    {
+      "slug": "tool-broker",
+      "label": "Tool broker",
+      "status": "queued",
+      "notes": "Useful for systems that decide which external capability an agent should see or call.",
+      "diagramHint": "mcp",
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "tool-registry",
+        "mcp",
+        "function-calling"
+      ],
+      "addedAt": "2026-04-26T07:00:00.000Z",
+      "publishedAt": null
+    }
+  ]
+}

@@ -1,15 +1,22 @@
 #!/usr/bin/env node
 
 import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { existsSync } from "node:fs";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+const queueFileRelativePath = "docs/automation/daily-term-queue.json";
+const defaultQueueBatchSize = 7;
+const minimumQueuedTerms = 5;
+const validQueueStatuses = new Set(["queued", "published", "skipped"]);
+
 const allowedPublishPathPatterns = [
   /^content\/entries\/[^/]+\.mdx$/,
   /^scripts\/daily-term-automation\.mjs$/,
+  /^docs\/automation\/daily-term-queue\.json$/,
   /^src\/generated\/entries\.generated\.json$/,
   /^src\/generated\/entries\.web\.generated\.json$/,
   /^src\/generated\/entry-detail-shards\.generated\.ts$/,
@@ -23,9 +30,11 @@ const allowedPublishPathPatterns = [
 
 function usage() {
   console.error(`Usage:
+  node scripts/daily-term-automation.mjs bootstrap --automation-root <path> [--json]
   node scripts/daily-term-automation.mjs prepare [--source-repo <path>] [--json]
+  node scripts/daily-term-automation.mjs queue next [--count <n>] [--json]
   node scripts/daily-term-automation.mjs verify [slug ...] [--json]
-  node scripts/daily-term-automation.mjs publish --message "<commit subject>" [--push] [--json]
+  node scripts/daily-term-automation.mjs publish <slug ...> --message "<commit subject>" [--push] [--json]
 `);
 }
 
@@ -226,6 +235,139 @@ async function fileExists(file) {
   } catch {
     return false;
   }
+}
+
+function parsePositiveInteger(rawValue, { flagName, defaultValue } = {}) {
+  if (rawValue === undefined || rawValue === null || rawValue === "") {
+    if (defaultValue !== undefined) {
+      return defaultValue;
+    }
+
+    throw new Error(`${flagName ?? "value"} is required.`);
+  }
+
+  const parsed = Number.parseInt(String(rawValue), 10);
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    throw new Error(`${flagName ?? "value"} must be a positive integer.`);
+  }
+
+  return parsed;
+}
+
+async function sha256File(file) {
+  const contents = await fs.readFile(file);
+  return createHash("sha256").update(contents).digest("hex");
+}
+
+async function copyDirectory(source, destination) {
+  await fs.rm(destination, { recursive: true, force: true });
+
+  const cloneResult = run("cp", ["-cR", source, destination], { check: false });
+  if (cloneResult.status === 0) {
+    return { copyMode: "clonefile" };
+  }
+
+  const recursiveResult = run("cp", ["-R", source, destination], { check: false });
+  if (recursiveResult.status === 0) {
+    return {
+      copyMode: "recursive",
+      warning: formatCommandFailure("cp", ["-cR", source, destination], cloneResult),
+    };
+  }
+
+  throw new Error(
+    [
+      "Failed to copy directory for daily-term automation.",
+      formatCommandFailure("cp", ["-cR", source, destination], cloneResult),
+      formatCommandFailure("cp", ["-R", source, destination], recursiveResult),
+    ]
+      .filter(Boolean)
+      .join("\n"),
+  );
+}
+
+async function hasNodeModulesSentinel(nodeModulesDirectory) {
+  return fileExists(path.join(nodeModulesDirectory, "gray-matter", "package.json"));
+}
+
+async function loadQueueFile(repoRoot) {
+  const queueFile = path.join(repoRoot, queueFileRelativePath);
+  const queue = await readJson(queueFile);
+
+  if (queue?.schemaVersion !== 1) {
+    throw new Error(`Expected ${queueFileRelativePath} to declare schemaVersion 1.`);
+  }
+
+  if (!Array.isArray(queue.items)) {
+    throw new Error(`Expected ${queueFileRelativePath} to contain an items array.`);
+  }
+
+  for (const item of queue.items) {
+    if (typeof item?.slug !== "string" || item.slug.length === 0) {
+      throw new Error(`Every queue item in ${queueFileRelativePath} must include a slug.`);
+    }
+
+    if (!validQueueStatuses.has(item.status)) {
+      throw new Error(
+        `Queue item "${item.slug}" has invalid status "${item.status}" in ${queueFileRelativePath}.`,
+      );
+    }
+  }
+
+  return { queue, queueFile };
+}
+
+function selectQueueItems(items, requestedCount = defaultQueueBatchSize) {
+  const count = parsePositiveInteger(requestedCount, {
+    flagName: "--count",
+    defaultValue: defaultQueueBatchSize,
+  });
+  const queuedItems = items.filter((item) => item.status === "queued");
+
+  if (queuedItems.length < minimumQueuedTerms) {
+    throw new Error(
+      [
+        `Queue depleted: only ${queuedItems.length} queued term(s) remain in ${queueFileRelativePath}.`,
+        `Add more items before the daily automation runs again. Minimum required: ${minimumQueuedTerms}.`,
+      ].join("\n"),
+    );
+  }
+
+  const selectedItems = queuedItems.slice(0, Math.min(count, queuedItems.length));
+
+  return {
+    requestedCount: count,
+    queuedCount: queuedItems.length,
+    selectedItems,
+    lowQueueWarning: queuedItems.length < count,
+    remainingQueuedAfterSelection: queuedItems.length - selectedItems.length,
+  };
+}
+
+async function updateQueueItemsForPublish(repoRoot, slugs, publishedAt) {
+  const { queue, queueFile } = await loadQueueFile(repoRoot);
+  const queueItemsBySlug = new Map(queue.items.map((item) => [item.slug, item]));
+
+  for (const slug of slugs) {
+    const item = queueItemsBySlug.get(slug);
+    if (!item) {
+      throw new Error(
+        `Queued publish slug "${slug}" does not exist in ${queueFileRelativePath}.`,
+      );
+    }
+
+    if (item.status !== "queued") {
+      throw new Error(
+        `Queued publish slug "${slug}" has status "${item.status}" in ${queueFileRelativePath}; expected "queued".`,
+      );
+    }
+
+    item.status = "published";
+    item.publishedAt = publishedAt;
+  }
+
+  queue.updatedAt = publishedAt;
+  await fs.writeFile(queueFile, `${JSON.stringify(queue, null, 2)}\n`, "utf8");
 }
 
 function sleepMs(durationMs) {
@@ -540,6 +682,131 @@ async function commandPrepare(options) {
   }
 }
 
+async function commandBootstrap(options) {
+  const repoRoot = resolveRepoRoot();
+  const automationRoot = options.values.get("--automation-root") ?? process.env.DAILY_TERM_AUTOMATION_ROOT;
+
+  if (!automationRoot) {
+    throw new Error("bootstrap requires --automation-root <path> or DAILY_TERM_AUTOMATION_ROOT.");
+  }
+
+  const resolvedAutomationRoot = path.resolve(automationRoot);
+  const lockfilePath = path.join(repoRoot, "package-lock.json");
+  await ensureFile(lockfilePath, "bootstrap requires package-lock.json in the automation workspace.");
+
+  const lockfileHash = await sha256File(lockfilePath);
+  const nodeModulesDirectory = path.join(repoRoot, "node_modules");
+  const cacheDirectory = path.join(
+    resolvedAutomationRoot,
+    "node_modules-cache",
+    lockfileHash,
+  );
+
+  await fs.mkdir(path.dirname(cacheDirectory), { recursive: true });
+
+  const warnings = [];
+  let dependencyCacheStatus = "existing";
+  let copyMode = null;
+
+  if (!(await hasNodeModulesSentinel(nodeModulesDirectory))) {
+    if (await hasNodeModulesSentinel(cacheDirectory)) {
+      const copyResult = await copyDirectory(cacheDirectory, nodeModulesDirectory);
+      dependencyCacheStatus = "restored";
+      copyMode = copyResult.copyMode;
+      if (copyResult.warning) {
+        warnings.push(copyResult.warning);
+      }
+    } else {
+      run("bash", ["scripts/with-node.sh", "npm", "ci"], { cwd: repoRoot });
+
+      const stagingCacheDirectory = `${cacheDirectory}.tmp-${process.pid}-${Date.now()}`;
+      const copyResult = await copyDirectory(nodeModulesDirectory, stagingCacheDirectory);
+      copyMode = copyResult.copyMode;
+      if (copyResult.warning) {
+        warnings.push(copyResult.warning);
+      }
+
+      try {
+        await fs.rename(stagingCacheDirectory, cacheDirectory);
+      } catch (error) {
+        if (error?.code === "EEXIST") {
+          await fs.rm(stagingCacheDirectory, { recursive: true, force: true });
+        } else {
+          throw error;
+        }
+      }
+
+      dependencyCacheStatus = "built";
+    }
+  }
+
+  if (!(await hasNodeModulesSentinel(nodeModulesDirectory))) {
+    throw new Error("bootstrap could not prepare a usable node_modules tree for verification.");
+  }
+
+  const result = {
+    workspace: repoRoot,
+    lockfileHash,
+    dependencyCacheStatus,
+    cacheDirectory,
+    copyMode,
+    warnings,
+  };
+
+  if (options.flags.has("--json")) {
+    console.log(JSON.stringify(result, null, 2));
+    return;
+  }
+
+  console.log(`Workspace: ${result.workspace}`);
+  console.log(`Dependency cache: ${dependencyCacheStatus}`);
+  console.log(`Lockfile hash: ${lockfileHash}`);
+  for (const warning of warnings) {
+    console.warn(warning);
+  }
+}
+
+async function commandQueue(options) {
+  const repoRoot = resolveRepoRoot();
+  const [subcommand] = options.positionals;
+
+  if (subcommand !== "next") {
+    throw new Error('queue requires the "next" subcommand.');
+  }
+
+  const requestedCount = parsePositiveInteger(options.values.get("--count"), {
+    flagName: "--count",
+    defaultValue: defaultQueueBatchSize,
+  });
+  const { queue } = await loadQueueFile(repoRoot);
+  const selection = selectQueueItems(queue.items, requestedCount);
+
+  const result = {
+    requestedCount: selection.requestedCount,
+    queuedCount: selection.queuedCount,
+    selectedCount: selection.selectedItems.length,
+    lowQueueWarning: selection.lowQueueWarning,
+    remainingQueuedAfterSelection: selection.remainingQueuedAfterSelection,
+    items: selection.selectedItems,
+  };
+
+  if (options.flags.has("--json")) {
+    console.log(JSON.stringify(result, null, 2));
+    return;
+  }
+
+  console.log(
+    `Selected ${result.selectedCount} queued term(s): ${selection.selectedItems
+      .map((item) => item.slug)
+      .join(", ")}`,
+  );
+  if (selection.lowQueueWarning) {
+    console.warn(
+      `Queue running low: only ${selection.queuedCount} queued term(s) were available.`,
+    );
+  }
+}
+
 async function commandVerify(options) {
   const repoRoot = resolveRepoRoot();
   const requestedSlugs = unique(options.positionals);
@@ -684,6 +951,7 @@ async function commandVerify(options) {
 async function commandPublish(options) {
   const repoRoot = resolveRepoRoot();
   const commitMessage = options.values.get("--message");
+  const expectedSlugs = unique(options.positionals);
   const originUrl = git(repoRoot, "remote", "get-url", "origin").stdout.trim();
   const automationRemote = resolveAutomationRemote(originUrl);
 
@@ -691,10 +959,14 @@ async function commandPublish(options) {
     throw new Error("publish requires --message \"<commit subject>\".");
   }
 
+  if (expectedSlugs.length === 0) {
+    throw new Error("publish requires at least one expected slug argument.");
+  }
+
   const currentBranch = git(repoRoot, "branch", "--show-current").stdout.trim();
-  if (!currentBranch || currentBranch === "main") {
+  if (currentBranch === "main") {
     throw new Error(
-      "publish must run from the isolated automation branch, not directly from main.",
+      "publish must run from an isolated automation workspace, not directly from main.",
     );
   }
 
@@ -711,9 +983,20 @@ async function commandPublish(options) {
   }
 
   const changedSlugs = inferChangedSlugs(repoRoot);
-  if (changedSlugs.length === 0) {
-    throw new Error("No changed entry files were detected.");
+  if (changedSlugs.length !== expectedSlugs.length
+      || changedSlugs.some((slug) => !expectedSlugs.includes(slug))
+      || expectedSlugs.some((slug) => !changedSlugs.includes(slug))) {
+    throw new Error(
+      [
+        "Changed entry slugs do not match the publish arguments.",
+        `Expected: ${expectedSlugs.join(", ")}`,
+        `Detected: ${changedSlugs.join(", ") || "(none)"}`,
+      ].join("\n"),
+    );
   }
+
+  const publishTimestamp = new Date().toISOString();
+  await updateQueueItemsForPublish(repoRoot, expectedSlugs, publishTimestamp);
 
   git(
     repoRoot,
@@ -721,11 +1004,13 @@ async function commandPublish(options) {
     "--",
     "content/entries",
     "scripts/daily-term-automation.mjs",
+    queueFileRelativePath,
     "src/generated/entries.generated.json",
     "src/generated/entries.web.generated.json",
     "src/generated/entry-detail-shards.generated.ts",
     "src/generated/entry-details",
     "public/catalog",
+    "public/mobile-catalog",
   );
   git(repoRoot, "add", "-f", "--", "public/mobile-catalog");
 
@@ -768,7 +1053,7 @@ async function commandPublish(options) {
 
   const head = git(repoRoot, "rev-parse", "HEAD").stdout.trim();
   const result = {
-    branch: currentBranch,
+    branch: currentBranch || null,
     head,
     pushed: options.flags.has("--push"),
     changedSlugs,
@@ -796,8 +1081,14 @@ async function main() {
   const options = parseArgs(rest);
 
   switch (command) {
+    case "bootstrap":
+      await commandBootstrap(options);
+      return;
     case "prepare":
       await commandPrepare(options);
+      return;
+    case "queue":
+      await commandQueue(options);
       return;
     case "verify":
       await commandVerify(options);
@@ -823,7 +1114,11 @@ export {
   buildMisunderstoodSelection,
   ghCommandCandidates,
   gitCommandArgs,
+  isAllowedPublishPath,
+  loadQueueFile,
   resolveAutomationRemote,
   resolveGhCommand,
+  selectQueueItems,
+  sha256File,
   toGithubHttpsUrl,
 };
