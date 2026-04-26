@@ -9,6 +9,7 @@ import { fileURLToPath } from "node:url";
 
 const allowedPublishPathPatterns = [
   /^content\/entries\/[^/]+\.mdx$/,
+  /^scripts\/daily-term-automation\.mjs$/,
   /^src\/generated\/entries\.generated\.json$/,
   /^src\/generated\/entries\.web\.generated\.json$/,
   /^src\/generated\/entry-detail-shards\.generated\.ts$/,
@@ -16,6 +17,8 @@ const allowedPublishPathPatterns = [
   /^public\/catalog\/version\.json$/,
   /^public\/catalog\/catalog\.[a-f0-9]{64}\.json$/,
   /^public\/catalog\/search-index\.[a-f0-9]{64}\.json$/,
+  /^public\/mobile-catalog\/manifest\.json$/,
+  /^public\/mobile-catalog\/entries\.[a-f0-9]{64}\.json$/,
 ];
 
 function usage() {
@@ -717,12 +720,14 @@ async function commandPublish(options) {
     "add",
     "--",
     "content/entries",
+    "scripts/daily-term-automation.mjs",
     "src/generated/entries.generated.json",
     "src/generated/entries.web.generated.json",
     "src/generated/entry-detail-shards.generated.ts",
     "src/generated/entry-details",
     "public/catalog",
   );
+  git(repoRoot, "add", "-f", "--", "public/mobile-catalog");
 
   const stagedStatus = readStatus(repoRoot);
   const unstagedChanges = stagedStatus.filter(

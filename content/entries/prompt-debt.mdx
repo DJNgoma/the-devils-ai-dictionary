@@ -1,0 +1,56 @@
+---
+title: "Prompt debt"
+slug: "prompt-debt"
+letter: "P"
+categories:
+  - "Agents and workflows"
+  - "Model usage"
+  - "Economics and operations of AI"
+aliases:
+  - "instruction debt"
+  - "prompt maintenance debt"
+devilDefinition: |
+  The future cost of every expedient line added to a prompt because shipping today felt nobler than understanding tomorrow.
+plainDefinition: |
+  Prompt debt is the accumulated maintenance burden, fragility, and hidden coupling created when prompts, examples, and guardrails are patched repeatedly without clear structure, tests, ownership, or retirement.
+whyExists: |
+  Prompting is fast, legible, and dangerously hospitable to tactical fixes. Teams keep adding caveats, examples, and exceptions because it works now, while the eventual complexity invoice waits with unusual patience.
+misuse: |
+  It gets romanticised as artisanal prompt craft or dismissed as not real engineering because it lives in text. In truth, prompt debt is ordinary technical debt wearing conversational clothing.
+practicalMeaning: |
+  In practice it means contradictory instructions, duplicated examples, stale references, unexplained magic phrases, harder debugging, slower onboarding, and a model that obeys yesterday's emergency patch long after everyone forgets why it was invited.
+example: |
+  "The prompt looked comprehensive until the fifth exception contradicted the second principle and the model began choosing its favourite manager."
+askNext:
+  - "Who owns this prompt, and what tests prove each instruction still matters?"
+  - "Which lines were added as temporary patches and never retired?"
+  - "Would a smaller prompt plus cleaner tools or policy logic solve the problem more honestly?"
+related:
+  - "prompt-hygiene"
+  - "prompt-revision"
+  - "regression-suite"
+  - "context-rot"
+seeAlso:
+  - "Developer message"
+  - "Task specification"
+  - "Fallback policy"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-26"
+updatedAt: "2026-04-26"
+tags:
+  - "prompts"
+  - "maintenance"
+  - "testing"
+  - "operations"
+misunderstoodScore: 5
+translations:
+  - label: "engineering meaning"
+    text: "A text-shaped pile of shortcuts that will eventually demand architecture."
+  - label: "what it usually means in reality"
+    text: "The prompt still works, but nobody can explain why without opening four old incident documents."
+---
+
+Prompt debt matters because prompts are now product logic by other means. Treating them as disposable notes is a good way to acquire a permanent archaeology project.

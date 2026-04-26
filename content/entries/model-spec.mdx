@@ -1,0 +1,56 @@
+---
+title: "Model spec"
+slug: "model-spec"
+letter: "M"
+categories:
+  - "Product and vendor terms"
+  - "Safety and evaluation"
+  - "Model usage"
+aliases:
+  - "behaviour spec"
+  - "model behaviour specification"
+devilDefinition: |
+  A public document describing how the model ought to behave, which is at least more honest than pretending the behaviour emerged from pure mathematics and good breeding.
+plainDefinition: |
+  A model spec is a provider-authored behavioural specification that describes the intended priorities, refusal patterns, boundaries, and instruction-handling rules for a model or model family.
+whyExists: |
+  Modern models are expected to be useful, safe, steerable, and publicly defensible at once. A specification exists so providers can state what behaviour they are trying to produce and give developers a reference for the rules sitting behind the pleasant interface.
+misuse: |
+  It gets treated as a guarantee, a safety proof, or a substitute for evaluation. A spec can clarify intent. It cannot ensure that every model version, product surface, or edge case will obey the text as faithfully as legal and marketing might prefer.
+practicalMeaning: |
+  In practice it means reading the provider's stated priorities, understanding how instruction hierarchy and refusals are supposed to work, and designing prompts, product expectations, and escalation paths around the fact that the model has house rules you did not personally write.
+example: |
+  "The product team called it a bug. The model spec called it a refusal. The user called it a waste of time."
+askNext:
+  - "Which behaviours in this product come from our prompt stack, and which come from the provider's published rules?"
+  - "How closely does the live model match the current spec in the cases we actually care about?"
+  - "What happens operationally when the provider updates the spec before we update our expectations?"
+related:
+  - "system-prompt"
+  - "instruction-hierarchy"
+  - "policy-enforcement"
+  - "runtime-policy"
+seeAlso:
+  - "System card"
+  - "Responsible release"
+  - "Capability boundaries"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-26"
+updatedAt: "2026-04-26"
+tags:
+  - "policy"
+  - "behaviour"
+  - "providers"
+  - "governance"
+misunderstoodScore: 4
+translations:
+  - label: "developer meaning"
+    text: "The provider's declared behavioural contract, minus the comforting fantasy that declarations enforce themselves."
+  - label: "what it usually means in reality"
+    text: "A document you should read before accusing the model of breaking rules that were never yours to set."
+---
+
+Model specs matter because the era of purely generic models is over. The model arrives with prior instructions, prior politics, and prior notions of what counts as responsible behaviour.

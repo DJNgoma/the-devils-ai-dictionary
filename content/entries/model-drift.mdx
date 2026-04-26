@@ -1,0 +1,56 @@
+---
+title: "Model drift"
+slug: "model-drift"
+letter: "M"
+categories:
+  - "Safety and evaluation"
+  - "Model usage"
+  - "Economics and operations of AI"
+aliases:
+  - "behaviour drift"
+  - "model behaviour drift"
+devilDefinition: |
+  The moment a system that used to behave one way quietly acquires new manners, new vices, or a fresh interpretation of your instructions, and no dashboard feels personally responsible.
+plainDefinition: |
+  Model drift is the change in a model system's behaviour over time, whether because the underlying model changed, surrounding prompts and tools changed, traffic changed, or the environment stopped being the one the original evaluation had in mind.
+whyExists: |
+  AI systems are not static artefacts. Providers update models, teams revise prompts, tools change their schemas, and user behaviour wanders off. The term exists because quality can move even when nobody thinks they touched the main lever.
+misuse: |
+  It gets used as a polite synonym for "something got worse". Sometimes the issue is genuine behaviour drift. Sometimes it is bad retrieval, a broken tool, a prompt edit, or a team discovering that last month's benchmark did not survive contact with this month's traffic.
+practicalMeaning: |
+  In practice it means running comparisons over time, holding out stable evaluation sets, watching sensitive slices rather than averages, and keeping enough version history to identify whether the model changed or the system around it did.
+example: |
+  "The team called it model drift because that sounded dignified. The incident report later revealed a prompt change, a tool timeout, and optimism."
+askNext:
+  - "Which part of the system changed: the base model, the prompt stack, the tools, the routing, or the traffic?"
+  - "What stable evaluation set shows the behaviour actually moved rather than merely encountering a harder week?"
+  - "Can we roll back or replay the previous configuration to isolate the change?"
+related:
+  - "data-drift"
+  - "distribution-shift"
+  - "evals"
+  - "runtime-policy"
+seeAlso:
+  - "Regression suite"
+  - "Quality gate"
+  - "Operational telemetry"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-26"
+updatedAt: "2026-04-26"
+tags:
+  - "evaluation"
+  - "monitoring"
+  - "operations"
+  - "behaviour"
+misunderstoodScore: 5
+translations:
+  - label: "operator meaning"
+    text: "The system changed somewhere, and now you must prove where before someone blames the wrong component."
+  - label: "what it usually means in reality"
+    text: "A behaviour change whose cause may live in the model, the scaffolding, or the surrounding workflow."
+---
+
+Model drift deserves a score of five because teams confuse the label with the diagnosis. The phrase is useful only if it narrows the search rather than sanctifying the shrug.

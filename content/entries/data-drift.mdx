@@ -1,0 +1,56 @@
+---
+title: "Data drift"
+slug: "data-drift"
+letter: "D"
+categories:
+  - "Model building"
+  - "Safety and evaluation"
+  - "Economics and operations of AI"
+aliases:
+  - "input drift"
+  - "distribution drift"
+devilDefinition: |
+  The quietly important fact that the world keeps changing even after the model card has been written in a firm and reassuring tone.
+plainDefinition: |
+  Data drift is the change in the statistical or practical character of input data over time, such that the data seen in production no longer matches the data a model, evaluation set, or workflow was designed around.
+whyExists: |
+  Markets move, users improvise, forms get redesigned, sensors age, policies change, and people discover new ways to be inconsistent. The term exists because models inherit those changes whether the training pipeline feels sentimental about them or not.
+misuse: |
+  It gets blamed whenever performance falls. Sometimes the inputs truly shifted. Sometimes the labels were weak, the prompt is brittle, the retrieval layer is dirty, or the product team simply changed the job and forgot to tell the model.
+practicalMeaning: |
+  In practice it means monitoring input distributions, segmenting by cohort and source, checking for broken fields and changed formats, and deciding when retraining, prompt changes, or simple data cleaning will solve more than another round of theoretical concern.
+example: |
+  "The fraud model had not become philosophical. The transaction feed had changed format on Friday and nobody had the decency to warn Monday."
+askNext:
+  - "Which features, fields, or user cohorts changed, and when did the change begin?"
+  - "Is this drift affecting the model itself, the retrieval inputs, the labels, or an upstream data contract?"
+  - "Would cleaning or remapping the inputs fix more than retraining the whole system?"
+related:
+  - "model-drift"
+  - "distribution-shift"
+  - "data-provenance"
+  - "training-signal-quality"
+seeAlso:
+  - "Data quality"
+  - "Golden dataset"
+  - "Feedback loop"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-04-26"
+updatedAt: "2026-04-26"
+tags:
+  - "data"
+  - "monitoring"
+  - "quality"
+  - "inputs"
+misunderstoodScore: 4
+translations:
+  - label: "operator meaning"
+    text: "The inputs changed their habits, and the old assumptions are now living on nostalgia."
+  - label: "what it usually means in reality"
+    text: "A production data change that will be discovered either by instrumentation or by embarrassment."
+---
+
+Data drift is less glamorous than frontier-model gossip and more likely to ruin a real deployment. The world has poor change-management discipline.
