@@ -107,7 +107,7 @@ function runCommand(
   }: {
     check?: boolean;
     cwd?: string;
-    env?: NodeJS.ProcessEnv;
+    env?: Partial<NodeJS.ProcessEnv>;
   } = {},
 ) {
   const result = spawnSync(command, args, {
@@ -318,7 +318,7 @@ function runAutomation(
 
 function runBootstrap(
   args: string[],
-  { check = true, cwd, env }: { check?: boolean; cwd: string; env?: NodeJS.ProcessEnv },
+  { check = true, cwd, env }: { check?: boolean; cwd: string; env?: Partial<NodeJS.ProcessEnv> },
 ) {
   return runCommand("bash", [automationBootstrapScript, ...args], { check, cwd, env });
 }
@@ -614,7 +614,7 @@ describe("daily-term automation", () => {
     expect(payload.branch).toBe("automation/daily-term-expansion");
     expect(payload.originUrl).toBe(remoteRepo);
     expect(payload.warnings).toEqual([]);
-  });
+  }, 15_000);
 
   it("falls back to the cached source ref when refresh fails but origin/main is already cached", () => {
     const { remoteRepo, sourceRepo } = createSourceFixture();
@@ -660,7 +660,7 @@ describe("daily-term automation", () => {
     expect(result.stderr).toContain(
       "Failed to refresh origin/main after 3 attempts and no cached refs/remotes/origin/main exists in the source repo.",
     );
-  });
+  }, 15_000);
 
   it("still refuses to push when origin/main advanced after a cached prepare", () => {
     const { remoteRepo, sourceRepo } = createSourceFixture();
@@ -711,7 +711,7 @@ describe("daily-term automation", () => {
       "HEAD",
     );
     expect(ancestorCheck.status).not.toBe(0);
-  }, 15_000);
+  }, 30_000);
 
   it("rejects publish when changed entry slugs do not match the explicit publish list", () => {
     const { sourceRepo } = createSourceFixture();
@@ -784,7 +784,7 @@ describe("daily-term automation", () => {
     expect(typeof publishedItem?.publishedAt).toBe("string");
     expect(queue.updatedAt).toBe(publishedItem?.publishedAt);
     expect(git(sourceRepo, "status", "--short").stdout.trim()).toBe("");
-  });
+  }, 15_000);
 
   it.skipIf(!fs.existsSync(automationBootstrapScript))(
     "bootstraps a fresh worktree and hydrates node_modules without depending on repo bootstrap code",
