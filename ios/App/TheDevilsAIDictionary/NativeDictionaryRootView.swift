@@ -1196,6 +1196,8 @@ private struct NativeSettingsView: View {
     @ObservedObject var model: NativeDictionaryModel
     @ObservedObject private var themeManager = ThemeManager.shared
     @AppStorage(NativeDeveloperModeAvailability.storageKey) private var storedDeveloperMode = false
+    @AppStorage(AppLanguageOverride.storageKey)
+    private var storedLanguageOverride = AppLanguageOverride.systemDefaultStoredValue
     @State private var testingSlug = ""
 
     private var developerModeBinding: Binding<Bool> {
@@ -1292,6 +1294,22 @@ private struct NativeSettingsView: View {
                             }
                         }
                     }
+                }
+            }
+
+            // The picker has no meaningful choice until a second `.lproj`
+            // ships in the bundle, so we hide it rather than show a one-item
+            // dropdown. As soon as another localization lands the card
+            // resurfaces automatically.
+            if AppLanguageOverride.availableLanguages().count > 1 {
+                NativeCard {
+                    NativeSectionLabel(text: "Language")
+
+                    Text("Pick the language the app should render in. System default tracks the device's preferred language.")
+                        .font(.system(size: 15, weight: .regular, design: .rounded))
+                        .foregroundStyle(NativePalette.mutedText)
+
+                    NativeLanguagePicker(selection: $storedLanguageOverride)
                 }
             }
 
@@ -1678,6 +1696,65 @@ private struct NativeSettingsValueRow: View {
                 .font(.system(size: 15, weight: .regular, design: .rounded))
                 .textSelection(.enabled)
         }
+    }
+}
+
+private struct NativeLanguagePicker: View {
+    @Binding var selection: String
+
+    private var languages: [String] {
+        AppLanguageOverride.availableLanguages()
+    }
+
+    private var currentLabel: String {
+        if selection.isEmpty {
+            return "System default"
+        }
+        return AppLanguageOverride.displayName(forLanguageCode: selection).capitalizedFirstLetter()
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("App language")
+                .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                .textCase(.uppercase)
+                .foregroundStyle(NativePalette.mutedText)
+
+            Menu {
+                Picker("App language", selection: $selection) {
+                    Text("System default")
+                        .tag(AppLanguageOverride.systemDefaultStoredValue)
+                    ForEach(languages, id: \.self) { code in
+                        Text(AppLanguageOverride.displayName(forLanguageCode: code).capitalizedFirstLetter())
+                            .tag(code)
+                    }
+                }
+            } label: {
+                HStack {
+                    Text(currentLabel)
+                        .font(.system(size: 15, weight: .regular, design: .rounded))
+                    Spacer()
+                    Image(systemName: "chevron.up.chevron.down")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(NativePalette.mutedText)
+                }
+                .padding(.horizontal, 14)
+                .padding(.vertical, 12)
+                .background(NativePalette.panelStrong, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .stroke(NativePalette.border, lineWidth: 1)
+                )
+            }
+            .accessibilityIdentifier("settings.language-picker")
+        }
+    }
+}
+
+private extension String {
+    func capitalizedFirstLetter() -> String {
+        guard let first = first else { return self }
+        return String(first).uppercased() + dropFirst()
     }
 }
 

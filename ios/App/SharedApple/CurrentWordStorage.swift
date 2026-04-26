@@ -228,3 +228,44 @@ struct PushLocalNotificationScheduleMetadata: Codable, Equatable, Sendable {
     let timeZoneIdentifier: String
     let nextScheduledFireAt: Date
 }
+
+/// Persisted preference identifying the language the app should render in,
+/// independently of the device language. The empty string means "follow the
+/// system" — fall back to the OS-resolved locale. Shared across iOS, macOS,
+/// visionOS, and watchOS targets so each scene root can read the same key.
+enum AppLanguageOverride {
+    static let storageKey = "app-language-override"
+    static let systemDefaultStoredValue = ""
+
+    /// Languages the bundle can actually render. Surfaces what Apple's loader
+    /// believes the bundle ships (`Bundle.main.localizations`), filtered to
+    /// drop the synthetic "Base" entry. Falls back to `["en"]` when the bundle
+    /// is too sparse to introspect (UI tests, previews).
+    static func availableLanguages(bundle: Bundle = .main) -> [String] {
+        let bundled = bundle.localizations.filter { $0 != "Base" }
+        let merged = bundled.isEmpty ? ["en"] : bundled
+        var seen = Set<String>()
+        let unique = merged.filter { seen.insert($0).inserted }
+        return unique.sorted { lhs, rhs in
+            displayName(forLanguageCode: lhs).localizedCaseInsensitiveCompare(
+                displayName(forLanguageCode: rhs)
+            ) == .orderedAscending
+        }
+    }
+
+    /// Locale to inject into `\.environment(\.locale, …)` for a given stored
+    /// preference. `nil` means defer to the system — SwiftUI keeps its own
+    /// `\.locale` derived from the OS in that case.
+    static func resolvedLocale(forStoredValue value: String) -> Locale? {
+        let trimmed = value.trimmingCharacters(in: .whitespaces)
+        guard !trimmed.isEmpty else { return nil }
+        return Locale(identifier: trimmed)
+    }
+
+    static func displayName(forLanguageCode code: String) -> String {
+        let presentation = Locale.current
+        return presentation.localizedString(forIdentifier: code)
+            ?? presentation.localizedString(forLanguageCode: code)
+            ?? code
+    }
+}
