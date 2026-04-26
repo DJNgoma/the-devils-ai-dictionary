@@ -150,6 +150,45 @@ describe("POST /api/mobile/push/test-send", () => {
     expect(pushInstallationMocks.listTargetInstallations).not.toHaveBeenCalled();
   });
 
+  it("rejects unauthorized requests when no secret is configured at all", async () => {
+    cloudflareMocks.getMobilePushEnv.mockResolvedValue({
+      ...baseEnv,
+      PUSH_TEST_SEND_SECRET: undefined,
+    });
+
+    const response = await POST(
+      new Request("https://example.com/api/mobile/push/test-send", {
+        body: JSON.stringify({ slug: "agent" }),
+        headers: {
+          authorization: "Bearer push-secret",
+        },
+        method: "POST",
+      }),
+    );
+
+    expect(response.status).toBe(401);
+    expect(pushInstallationMocks.listTargetInstallations).not.toHaveBeenCalled();
+  });
+
+  it("rejects malformed JSON bodies with 400", async () => {
+    const response = await POST(
+      new Request("https://example.com/api/mobile/push/test-send", {
+        body: "not-json",
+        headers: {
+          authorization: "Bearer push-secret",
+        },
+        method: "POST",
+      }),
+    );
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toMatchObject({
+      error: "Request body is not valid JSON.",
+      ok: false,
+    });
+    expect(pushInstallationMocks.listTargetInstallations).not.toHaveBeenCalled();
+  });
+
   it("returns 404 when the requested entry does not exist", async () => {
     const response = await POST(createAuthorizedRequest({ slug: "missing-entry" }));
 

@@ -49,9 +49,25 @@ describe("APNs helpers", () => {
     expect(
       isTerminalApnsFailure({
         ok: false,
+        reason: "Unregistered",
+        status: 410,
+        token: "token-3a",
+      }),
+    ).toBe(true);
+    expect(
+      isTerminalApnsFailure({
+        ok: false,
         reason: "InternalServerError",
         status: 500,
         token: "token-4",
+      }),
+    ).toBe(false);
+    expect(
+      isTerminalApnsFailure({
+        ok: false,
+        reason: "TooManyRequests",
+        status: 429,
+        token: "token-4a",
       }),
     ).toBe(false);
   });
@@ -148,5 +164,37 @@ describe("APNs helpers", () => {
       status: 400,
       token: "token-6",
     });
+  });
+
+  it("surfaces APNs Unregistered (410) without a reason body", async () => {
+    vi.spyOn(globalThis.crypto.subtle, "importKey").mockResolvedValue(
+      {} as CryptoKey,
+    );
+    vi.spyOn(globalThis.crypto.subtle, "sign").mockResolvedValue(
+      new Uint8Array([7, 8, 9]).buffer,
+    );
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(null, { status: 410 }),
+    );
+
+    const result = await sendCurrentWordPush({
+      credentials: {
+        bundleId: "com.example.devils",
+        environment: "production",
+        keyId: "KEY123",
+        privateKey: "-----BEGIN PRIVATE KEY-----\\nAAAA\\n-----END PRIVATE KEY-----",
+        teamId: "TEAM123",
+      },
+      entry: sampleEntry,
+      token: "token-410",
+    });
+
+    expect(result).toEqual({
+      ok: false,
+      reason: undefined,
+      status: 410,
+      token: "token-410",
+    });
+    expect(isTerminalApnsFailure(result)).toBe(true);
   });
 });

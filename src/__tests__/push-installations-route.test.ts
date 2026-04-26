@@ -126,6 +126,112 @@ describe("POST /api/mobile/push/installations", () => {
     expect(pushInstallationMocks.upsertPushInstallation).not.toHaveBeenCalled();
   });
 
+  it("rejects malformed JSON bodies with 400", async () => {
+    const response = await POST(
+      new Request("https://example.com/api/mobile/push/installations", {
+        body: "not-json",
+        method: "POST",
+      }),
+    );
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toMatchObject({
+      error: "Request body is not valid JSON.",
+      ok: false,
+    });
+    expect(pushInstallationMocks.upsertPushInstallation).not.toHaveBeenCalled();
+  });
+
+  it("rejects payloads exceeding the configured length caps", async () => {
+    const response = await POST(
+      new Request("https://example.com/api/mobile/push/installations", {
+        body: JSON.stringify({
+          appVersion: "1.2.3",
+          environment: "production",
+          locale: "en-ZA",
+          optInStatus: "authorized",
+          platform: "ios",
+          token: "x".repeat(4097),
+        }),
+        method: "POST",
+      }),
+    );
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toMatchObject({
+      error: "Invalid installation payload.",
+      ok: false,
+    });
+    expect(pushInstallationMocks.upsertPushInstallation).not.toHaveBeenCalled();
+  });
+
+  it("treats a re-registration of the same token as an idempotent upsert", async () => {
+    pushInstallationMocks.upsertPushInstallation.mockResolvedValue(undefined);
+
+    const payload = {
+      appVersion: "1.2.3",
+      environment: "production" as const,
+      locale: "en-ZA",
+      optInStatus: "authorized" as const,
+      platform: "ios" as const,
+      preferredDeliveryHour: 8,
+      timeZone: "Africa/Johannesburg",
+      token: "device-token",
+    };
+
+    const first = await POST(
+      new Request("https://example.com/api/mobile/push/installations", {
+        body: JSON.stringify(payload),
+        method: "POST",
+      }),
+    );
+    const second = await POST(
+      new Request("https://example.com/api/mobile/push/installations", {
+        body: JSON.stringify(payload),
+        method: "POST",
+      }),
+    );
+
+    expect(first.status).toBe(200);
+    expect(second.status).toBe(200);
+    await expect(first.json()).resolves.toEqual({ ok: true });
+    await expect(second.json()).resolves.toEqual({ ok: true });
+    expect(pushInstallationMocks.upsertPushInstallation).toHaveBeenCalledTimes(2);
+    expect(
+      pushInstallationMocks.upsertPushInstallation.mock.calls[0]?.[1],
+    ).toEqual(
+      pushInstallationMocks.upsertPushInstallation.mock.calls[1]?.[1],
+    );
+  });
+
+  it("accepts a null preferredDeliveryHour from clients", async () => {
+    pushInstallationMocks.upsertPushInstallation.mockResolvedValue(undefined);
+
+    const response = await POST(
+      new Request("https://example.com/api/mobile/push/installations", {
+        body: JSON.stringify({
+          appVersion: "1.2.3",
+          environment: "production",
+          locale: "en-ZA",
+          optInStatus: "authorized",
+          platform: "ios",
+          preferredDeliveryHour: null,
+          token: "device-token",
+        }),
+        method: "POST",
+      }),
+    );
+
+    expect(response.status).toBe(200);
+    expect(pushInstallationMocks.upsertPushInstallation).toHaveBeenCalledWith(
+      expect.any(Object),
+      expect.objectContaining({
+        preferredDeliveryHour: null,
+        token: "device-token",
+      }),
+    );
+  });
+
   it("returns a server error when the D1 binding is unavailable", async () => {
     cloudflareMocks.requirePushInstallationsDatabase.mockImplementation(() => {
       throw new Error("Cloudflare D1 binding `PUSH_INSTALLATIONS_DB` is not configured.");

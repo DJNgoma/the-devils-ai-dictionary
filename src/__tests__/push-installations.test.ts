@@ -80,6 +80,51 @@ describe("push installation persistence", () => {
     expect(statements[0]?.statement.run).toHaveBeenCalledTimes(1);
   });
 
+  it("uses ON CONFLICT to keep re-registration of the same token idempotent", async () => {
+    const { database, statements } = createDatabaseMock();
+    const installation = {
+      token: "token-idem",
+      platform: "ios" as const,
+      environment: "production" as const,
+      optInStatus: "authorized" as const,
+      appVersion: "1.2.3",
+      locale: "en-ZA",
+      preferredDeliveryHour: 7,
+      timeZone: "Africa/Johannesburg",
+    };
+
+    await upsertPushInstallation(database, installation);
+    await upsertPushInstallation(database, installation);
+
+    expect(database.prepare).toHaveBeenCalledTimes(2);
+    const firstQuery = statements[0]?.query ?? "";
+    expect(firstQuery).toContain("ON CONFLICT(token) DO UPDATE SET");
+    expect(firstQuery).not.toMatch(/last_success_at\s*=\s*excluded/u);
+    expect(firstQuery).not.toMatch(/last_success_date_key\s*=\s*excluded/u);
+    expect(firstQuery).not.toMatch(/delivery_claim_date_key\s*=\s*excluded/u);
+    expect(statements[1]?.query).toBe(firstQuery);
+    expect(statements[0]?.statement.bind).toHaveBeenCalledWith(
+      installation.token,
+      installation.platform,
+      installation.environment,
+      installation.optInStatus,
+      installation.appVersion,
+      installation.locale,
+      installation.preferredDeliveryHour,
+      installation.timeZone,
+    );
+    expect(statements[1]?.statement.bind).toHaveBeenCalledWith(
+      installation.token,
+      installation.platform,
+      installation.environment,
+      installation.optInStatus,
+      installation.appVersion,
+      installation.locale,
+      installation.preferredDeliveryHour,
+      installation.timeZone,
+    );
+  });
+
   it("marks successful sends without changing the installation status", async () => {
     const { database, statements } = createDatabaseMock();
 
