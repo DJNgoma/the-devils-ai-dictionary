@@ -628,10 +628,6 @@ private struct NativeHomeView: View {
                         .font(.system(size: 15, weight: .regular, design: .rounded))
                         .foregroundStyle(NativePalette.mutedText)
 
-                    Text("Shared daily across the site, this app, and the watch companion.")
-                        .font(.system(size: 13, weight: .medium, design: .rounded))
-                        .foregroundStyle(NativePalette.mutedText)
-
                     HStack {
                         Button("Open") {
                             model.openTodayWord()
