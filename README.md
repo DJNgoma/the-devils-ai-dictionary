@@ -65,7 +65,7 @@ npm run build:cf
 npm run windows:build
 ```
 
-GitHub Actions is now the canonical production web deployment path for this repo. Use `.github/workflows/deploy-cloudflare.yml` for normal web releases. The workflow builds the Cloudflare artifact once in the production job, runs the lightweight release gate, then deploys the already-built Worker. Use the manual `full_cloudflare_preflight` workflow input only when you need the slower Wrangler dry-run/startup check. Keep `npm run deploy:cf` and `npm run upload:cf` as emergency-only fallback commands.
+GitHub Actions is now the canonical web deployment path for this repo. Pushes to `main` deploy `https://staging.thedevilsaidictionary.com` after validation. Production at `https://thedevilsaidictionary.com` is promoted manually through `.github/workflows/deploy-cloudflare.yml` after staging has been checked. Use the manual `full_cloudflare_preflight` workflow input only when you need the slower Wrangler dry-run/startup check before production. Keep `npm run deploy:cf`, `npm run deploy:cf:staging`, and the upload scripts as emergency-only fallback commands.
 
 The supported Apple toolchain for local builds is `/Applications/Xcode.app` (Xcode 26.4). The helper-backed iOS scripts prefer that toolchain automatically even if `xcode-select` still points at `Xcode-beta.app`. Override it only when you intentionally want the beta:
 
@@ -331,6 +331,10 @@ Production hostnames:
 - Primary: `https://thedevilsaidictionary.com`
 - Redirect: `https://www.thedevilsaidictionary.com` -> `https://thedevilsaidictionary.com`
 
+Staging hostname:
+
+- `https://staging.thedevilsaidictionary.com`
+
 Install dependencies and preview the Workers build locally:
 
 ```bash
@@ -342,6 +346,12 @@ Deploy to Cloudflare Workers:
 
 ```bash
 npm run deploy:cf
+```
+
+Deploy the staging Worker:
+
+```bash
+npm run deploy:cf:staging
 ```
 
 Deploy an already-built Cloudflare artifact without rebuilding:
@@ -363,23 +373,29 @@ Files added for the Cloudflare path:
 Notes:
 
 - Keep using `npm run dev` for ordinary local development. Use `npm run preview:cf` when you want to test the Cloudflare runtime specifically.
+- Use `npm run preview:cf:staging` when the Cloudflare runtime should build with staging canonical URLs.
 - The app no longer relies on runtime filesystem reads for dictionary content. Entries are compiled into `src/generated/entries.generated.json` during `npm run dev` and `npm run build`, which is much less sentimental and considerably more compatible with Workers.
 - `wrangler.jsonc` now pins `NEXT_PUBLIC_SITE_URL` to `https://thedevilsaidictionary.com` so canonical URLs, Open Graph metadata, and sitemap output stay on the apex domain during Workers deploys.
-- `wrangler.jsonc` publishes the Worker to the existing Cloudflare zone routes `thedevilsaidictionary.com/*` and `www.thedevilsaidictionary.com/*` instead of using Worker Custom Domains. This avoids collisions with existing DNS records in the zone.
+- `wrangler.jsonc` publishes the production Worker to the existing Cloudflare zone routes `thedevilsaidictionary.com/*` and `www.thedevilsaidictionary.com/*` instead of using Worker Custom Domains. The `staging` Wrangler environment publishes `devils-ai-dictionary-staging` to `staging.thedevilsaidictionary.com/*`.
 - `wrangler.jsonc` also owns the daily web push cadence through a Cloudflare Cron Trigger at `59 23 * * *` UTC. GitHub Actions keeps a manual fallback workflow, but no longer drives scheduled notification delivery.
 - `cloudflare-worker.mjs` wraps the OpenNext Worker, delegates ordinary requests to `.open-next/worker.js`, and handles the Cloudflare scheduled event by internally calling `/api/mobile/push/daily-send` with `PUSH_TEST_SEND_SECRET`.
 - `src/proxy.ts` permanently redirects the `www` hostname to the apex domain while preserving path and query string.
+- `src/proxy.ts` also adds `X-Robots-Tag: noindex, nofollow` on staging responses, and the staging build emits a disallow-all `robots.txt`.
 - `scripts/run-opennext-cloudflare.mjs` temporarily swaps `src/proxy.ts` into a build-only `src/middleware.ts` while `@opennextjs/cloudflare` still lacks support for Node proxy output. The tracked source stays on the current `proxy` convention.
 - Web push on the site is runtime-configured. The production Worker must have `PUSH_TEST_SEND_SECRET`, `WEB_PUSH_VAPID_PUBLIC_KEY`, `WEB_PUSH_VAPID_PRIVATE_KEY`, and `WEB_PUSH_VAPID_SUBJECT` set as secrets or scheduled daily web delivery cannot complete.
 - Apple web sign-in is also runtime-configured. The production Worker must have `APPLE_SESSION_SECRET`, `APPLE_WEB_CLIENT_ID`, `APPLE_TEAM_ID`, `APPLE_KEY_ID`, and `APPLE_PRIVATE_KEY` set as secrets or the auth routes will fail at runtime. The production deploy workflow now hard-fails when those required secrets are missing. `APPLE_WEB_REDIRECT_URI` may be omitted if the site uses the default `https://thedevilsaidictionary.com/api/auth/apple/callback`.
+- The staging Worker uses a separate D1 database, `devils-ai-dictionary-push-installations-staging`, so saved-word and push-installation tests do not write into production. Set staging Worker secrets separately with `wrangler secret put --env staging <NAME>` before testing web push or Apple web sign-in there. Apple sign-in also needs the staging callback URL, `https://staging.thedevilsaidictionary.com/api/auth/apple/callback`, allowed in the Apple web client configuration.
+- GitHub Actions needs the same `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` secret names in the `staging` environment that already exist in the `production` environment, otherwise the staging deploy job will validate but skip deployment.
+- The deploy workflow treats staging as the web TestFlight lane: `main` validates and deploys staging, then production is a manual `workflow_dispatch` promotion with `target=production`.
 - This deploys to Cloudflare Workers, not Vercel. Yes, the Next.js app can live somewhere other than its birthplace. The custody dispute remains philosophical.
 
 ### Domain linking checklist
 
 1. Ensure `thedevilsaidictionary.com` is delegated to the Cloudflare account that owns the Worker deployment.
-2. Keep both `thedevilsaidictionary.com` and `www.thedevilsaidictionary.com` as proxied DNS records inside that zone.
-3. Deploy the Worker. The repo already declares both route bindings in `wrangler.jsonc`.
-4. Confirm the apex domain serves the site and that `www` redirects to the apex.
+2. Keep `thedevilsaidictionary.com`, `www.thedevilsaidictionary.com`, and `staging.thedevilsaidictionary.com` as proxied DNS records inside that zone. The staging DNS record can be a proxied `CNAME` from `staging` to `thedevilsaidictionary.com`; the Worker route handles the host.
+3. Deploy the staging Worker and confirm `staging.thedevilsaidictionary.com` serves the site with `X-Robots-Tag: noindex, nofollow`.
+4. Promote to production manually through GitHub Actions after staging has been checked.
+5. Confirm the apex domain serves the site and that `www` redirects to the apex.
 
 ## Editorial note
 

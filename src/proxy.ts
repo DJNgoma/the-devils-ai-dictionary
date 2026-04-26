@@ -6,6 +6,7 @@ import { NextResponse } from "next/server";
 
 const PRIMARY_HOST = "thedevilsaidictionary.com";
 const WWW_HOST = `www.${PRIMARY_HOST}`;
+const STAGING_HOST = `staging.${PRIMARY_HOST}`;
 
 function normaliseHost(host: string | null): string {
   return host?.toLowerCase().split(":")[0] ?? "";
@@ -25,7 +26,13 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(url, 308);
   }
 
-  return NextResponse.next();
+  const response = NextResponse.next();
+
+  if (host === STAGING_HOST) {
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
+
+  return response;
 }
 
 export const config = {

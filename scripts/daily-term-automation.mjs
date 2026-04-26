@@ -158,6 +158,22 @@ function readStatus(repoRoot) {
     .map(parseStatusLine);
 }
 
+function stageExistingPaths(repoRoot, paths, { force = false } = {}) {
+  const existingPaths = paths.filter((candidate) => {
+    if (existsSync(path.join(repoRoot, candidate))) {
+      return true;
+    }
+
+    return git(repoRoot, "ls-files", "--", candidate).stdout.trim().length > 0;
+  });
+
+  if (existingPaths.length === 0) {
+    return;
+  }
+
+  git(repoRoot, "add", ...(force ? ["-f"] : []), "--", ...existingPaths);
+}
+
 function isAllowedPublishPath(file) {
   return allowedPublishPathPatterns.some((pattern) => pattern.test(file));
 }
@@ -998,10 +1014,7 @@ async function commandPublish(options) {
   const publishTimestamp = new Date().toISOString();
   await updateQueueItemsForPublish(repoRoot, expectedSlugs, publishTimestamp);
 
-  git(
-    repoRoot,
-    "add",
-    "--",
+  stageExistingPaths(repoRoot, [
     "content/entries",
     "scripts/daily-term-automation.mjs",
     queueFileRelativePath,
@@ -1010,9 +1023,8 @@ async function commandPublish(options) {
     "src/generated/entry-detail-shards.generated.ts",
     "src/generated/entry-details",
     "public/catalog",
-    "public/mobile-catalog",
-  );
-  git(repoRoot, "add", "-f", "--", "public/mobile-catalog");
+  ]);
+  stageExistingPaths(repoRoot, ["public/mobile-catalog"], { force: true });
 
   const stagedStatus = readStatus(repoRoot);
   const unstagedChanges = stagedStatus.filter(
