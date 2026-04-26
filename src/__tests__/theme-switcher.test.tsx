@@ -2,6 +2,7 @@
 
 import { beforeEach, describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 
@@ -28,28 +29,45 @@ beforeEach(() => {
 });
 
 describe("ThemeSwitcher", () => {
-  it("renders the detailed settings controls by default", () => {
+  it("renders the detailed settings controls by default", async () => {
+    const user = userEvent.setup();
+
     renderWithThemeProvider(<ThemeSwitcher />);
 
+    expect(
+      screen.getByRole("button", { name: /Auto appearance/, pressed: true }),
+    ).toBeTruthy();
     expect(screen.getByText("Book in light mode. Night after dark.")).toBeTruthy();
-    expect(screen.getByText("Current")).toBeTruthy();
-    expect(screen.queryByRole("combobox", { name: "Choose a theme" })).toBeNull();
+    expect(screen.queryByRole("checkbox")).toBeNull();
+    expect(screen.queryByRole("combobox", { name: "Appearance" })).toBeNull();
+
+    await user.click(screen.getByRole("button", { name: /Codex/ }));
+
+    expect(screen.getByRole("button", { name: /Codex/, pressed: true })).toBeTruthy();
+    expect(
+      screen.getByRole("button", { name: /Auto appearance/, pressed: false }),
+    ).toBeTruthy();
   });
 
-  it("renders a compact header control when requested", () => {
+  it("renders a compact header control when requested", async () => {
+    const user = userEvent.setup();
+
     renderWithThemeProvider(<ThemeSwitcher variant="compact" />);
 
-    expect(
-      screen.getByRole("checkbox", {
-        name: "Automatically match the site theme to light or dark mode",
-      }),
-    ).toBeTruthy();
+    expect(screen.queryByRole("checkbox")).toBeNull();
     expect(screen.queryByText("Book in light mode. Night after dark.")).toBeNull();
-    expect(screen.queryByText("Current")).toBeNull();
-    expect(
-      (screen.getByRole("combobox", {
-        name: "Choose a theme",
-      }) as HTMLSelectElement).value,
-    ).toBe("book");
+    const select = screen.getByRole("combobox", {
+      name: "Appearance",
+    }) as HTMLSelectElement;
+
+    expect(select.value).toBe("auto");
+
+    await user.selectOptions(select, "devil");
+
+    expect(select.value).toBe("devil");
+
+    await user.selectOptions(select, "auto");
+
+    expect(select.value).toBe("auto");
   });
 });

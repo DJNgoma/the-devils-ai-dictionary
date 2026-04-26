@@ -300,13 +300,16 @@ select {
 
   .mobile-app-bar {
     backdrop-filter: saturate(1.1) blur(8px);
-    @apply sticky top-0 z-50 border-b border-line bg-background/92;
+    @apply sticky top-0 z-50 overflow-hidden border-b border-line bg-background/92;
     padding-top: var(--safe-area-top);
   }
 
   .mobile-app-bar__inner {
     min-height: var(--app-bar-height);
-    @apply mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-4 py-3;
+    box-sizing: border-box;
+    padding-left: calc(1rem + var(--safe-area-left));
+    padding-right: calc(1rem + var(--safe-area-right));
+    @apply mx-auto flex w-full max-w-7xl items-center gap-3 py-3;
   }
 
   .mobile-app-bar__eyebrow {
@@ -486,6 +489,11 @@ select {
 }
 
 @media (max-width: 767px) {
+  .page-shell,
+  .reading-shell {
+    padding-bottom: calc(var(--mobile-nav-height) + var(--safe-area-bottom) + 2rem);
+  }
+
   .surface,
   .surface-strong {
     box-shadow: var(--shadow-mobile);

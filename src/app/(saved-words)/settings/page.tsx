@@ -1,7 +1,9 @@
 import Link from "next/link";
+import { DeveloperSettingsPanel } from "@/components/developer-settings-panel";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { SavedWordsSyncPanel } from "@/components/saved-words-sync-panel";
 import { WebNotificationSettings } from "@/components/web-notification-settings";
+import { shouldShowDeveloperSettings } from "@/lib/feature-flags";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
@@ -12,6 +14,8 @@ export const metadata = buildMetadata({
 });
 
 export default function SettingsPage() {
+  const showDeveloperSettings = shouldShowDeveloperSettings();
+
   return (
     <div className="reading-shell space-y-10">
       <section className="space-y-4">
@@ -28,8 +32,8 @@ export default function SettingsPage() {
           Appearance
         </h2>
         <p className="mt-3 max-w-2xl text-sm leading-7 text-foreground-soft">
-          Auto keeps to Book in light mode and Night after dark. Turn it off if
-          this browser deserves one of the more deliberate editions.
+          Auto keeps to Book in light mode and Night after dark. Choose a manual
+          edition when this browser deserves something more deliberate.
         </p>
         <div className="mt-5 max-w-2xl">
           <ThemeSwitcher />
@@ -50,21 +54,31 @@ export default function SettingsPage() {
         </div>
       </section>
 
-      <SavedWordsSyncPanel />
+      {showDeveloperSettings ? (
+        <DeveloperSettingsPanel>
+          <SavedWordsSyncPanel />
+        </DeveloperSettingsPanel>
+      ) : null}
 
       <section className="surface-strong p-6 sm:p-8">
         <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
           Privacy
         </h2>
         <p className="mt-3 text-sm leading-7 text-foreground-soft">
-          Theme choice and saved words remain in browser storage unless you sign in
-          and sync them. Optional push registration has its own paperwork in the
-          privacy policy.
+          {showDeveloperSettings
+            ? "Theme choice and saved words remain in browser storage unless you sign in and sync them."
+            : "Theme choice and saved words remain in browser storage on this web build."}{" "}
+          Optional push registration has its own paperwork in the privacy policy.
         </p>
         <Link href="/privacy" className="button button-secondary mt-5">
           Read the privacy policy
         </Link>
       </section>
+
+      <div
+        aria-hidden="true"
+        className="h-[calc(var(--mobile-nav-height)+var(--safe-area-bottom)+2rem)] md:hidden"
+      />
     </div>
   );
 }

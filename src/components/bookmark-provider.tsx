@@ -62,6 +62,8 @@ export type SavedWord = {
   savedAt: string;
 };
 
+const emptySavedWordsSnapshot: SavedWord[] = [];
+
 type SavedWordInput = Omit<SavedWord, "savedAt">;
 
 type SavedWordsSessionUser = {
@@ -537,7 +539,11 @@ function getSavedWordsStatusMessage(syncState: SavedWordsSyncState, count: numbe
 
 export function SavedWordsProvider({ children }: { children: React.ReactNode }) {
   const isReady = useSyncExternalStore(subscribeToHydration, () => true, () => false);
-  const savedWords = useSyncExternalStore(subscribeToSavedWords, getSavedWordsSnapshot, () => []);
+  const savedWords = useSyncExternalStore(
+    subscribeToSavedWords,
+    getSavedWordsSnapshot,
+    () => emptySavedWordsSnapshot,
+  );
   const savedWordsRef = useRef(savedWords);
   const [syncState, setSyncState] = useState<SavedWordsSyncState>({
     authStatus: "loading",

@@ -40,7 +40,7 @@ export function MobileAppBar() {
               Back
             </button>
           ) : (
-            <Link href="/" className="flex min-w-0 items-center gap-3">
+            <Link href="/" className="flex min-w-0 flex-1 items-center gap-3 overflow-hidden">
               <span className="brand-mark-mobile">
                 <BrandMark className="size-5" />
               </span>
