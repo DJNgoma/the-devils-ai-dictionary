@@ -9,6 +9,8 @@ struct NativeDictionaryApp: App {
 
     @Environment(\.scenePhase) private var scenePhase
     @StateObject private var model = NativeDictionaryModel(manager: PhoneCurrentWordManager.shared)
+    @AppStorage(AppLanguageOverride.storageKey) private var storedLanguageOverride =
+        AppLanguageOverride.systemDefaultStoredValue
     #if os(iOS)
     @State private var showSplash = !NativeDeveloperModeAvailability.shouldSkipSplashForScreenshots
     #endif
@@ -47,6 +49,11 @@ struct NativeDictionaryApp: App {
                 }
                 #endif
             }
+            .environment(
+                \.locale,
+                AppLanguageOverride.resolvedLocale(forStoredValue: storedLanguageOverride)
+                    ?? Locale.current
+            )
         }
     }
 }
