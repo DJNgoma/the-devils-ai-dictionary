@@ -566,7 +566,7 @@ private struct NativeHomeView: View {
     var body: some View {
         NativeScreen { layout in
             NativeCard(emphasis: true) {
-                NativeSectionLabel(text: "Field guide")
+                NativeSectionLabel(text: "Field guide / \(model.entries.count) terms")
 
                 if let latestPublishedAt = model.latestPublishedAt {
                     Text("Updated \(nativeFormattedDate(latestPublishedAt))")
@@ -582,10 +582,12 @@ private struct NativeHomeView: View {
                     )
                 }
 
-                Text("The Devil's AI Dictionary")
-                    .font(.system(size: 34, weight: .bold, design: .serif))
+                Text("AI terms arrive overdressed. This strips them for parts.")
+                    .font(.system(size: 42, weight: .bold, design: .serif))
+                    .tracking(-1.4)
+                    .lineSpacing(-4)
 
-                Text("A sceptical field guide to the language machines, marketers, founders, and consultants use when they want to sound smarter than they are.")
+                Text("Vendor labels, model lore, and boardroom spells translated before they start asking for budget.")
                     .font(.system(size: 18, weight: .medium, design: .rounded))
                     .foregroundStyle(.primary)
 
@@ -595,16 +597,18 @@ private struct NativeHomeView: View {
                         .foregroundStyle(NativePalette.mutedText)
                 }
 
-                HStack {
-                    Button("Read the book") {
+                HStack(spacing: 12) {
+                    Button("Start the book") {
                         model.presentBook()
                     }
                     .buttonStyle(NativePrimaryButtonStyle())
+                    .frame(maxWidth: .infinity)
 
-                    Button("Random entry") {
+                    Button("Draw a term") {
                         model.openRandomEntry()
                     }
                     .buttonStyle(NativeSecondaryButtonStyle())
+                    .frame(maxWidth: .infinity)
                 }
 
                 if model.shouldShowPushPrompt && !model.isDeveloperScreenshotMode {

@@ -63,7 +63,7 @@ enum SiteTheme: String, CaseIterable, Identifiable, Hashable {
 
     var swatches: (Color, Color, Color) {
         switch self {
-        case .book: (Self.hex("b2552f"), Self.hex("26594a"), Self.hex("f4efe6"))
+        case .book: (Self.hex("9d3f23"), Self.hex("26594a"), Self.hex("f4efe6"))
         case .codex: (Self.hex("0169cc"), Self.hex("751ed9"), Self.hex("f3f8fd"))
         case .absolutely: (Self.hex("cc7d5e"), Self.hex("f9f9f7"), Self.hex("2d2d2b"))
         case .devil: (Self.hex("c92a2a"), Self.hex("f08b57"), Self.hex("170909"))
@@ -98,14 +98,14 @@ struct ThemeColorSet {
         case .book:
             return ThemeColorSet(
                 paper: .hex("f4efe6"),
-                panel: .hex("fffbf5"),
-                panelStrong: .hex("efe7da"),
-                border: .hex("d4c2b0"),
-                accent: .hex("b2552f"),
-                accentMuted: .hex("f7e0cf"),
+                panel: .hex("fffaf1"),
+                panelStrong: .hex("fef4e5"),
+                border: .hex("cdb79f"),
+                accent: .hex("9d3f23"),
+                accentMuted: .hex("f3d5c1"),
                 success: .hex("26594a"),
                 warning: .hex("a63b32"),
-                mutedText: .hex("65584c")
+                mutedText: .hex("5e5044")
             )
         case .codex:
             return ThemeColorSet(
@@ -364,14 +364,14 @@ struct NativeCard<Content: View>: View {
         .background(emphasis ? NativePalette.panelStrong : NativePalette.panel)
         .overlay(
             RoundedRectangle(cornerRadius: 24, style: .continuous)
-                .stroke(NativePalette.border, lineWidth: 1)
+                .stroke(emphasis ? NativePalette.accent.opacity(0.25) : NativePalette.border, lineWidth: 1)
         )
         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
         .shadow(
-            color: Color.black.opacity(emphasis ? 0.10 : 0.05),
-            radius: emphasis ? 18 : 10,
+            color: Color.black.opacity(emphasis ? 0.08 : 0.025),
+            radius: emphasis ? 20 : 8,
             x: 0,
-            y: emphasis ? 10 : 6
+            y: emphasis ? 10 : 4
         )
     }
 }

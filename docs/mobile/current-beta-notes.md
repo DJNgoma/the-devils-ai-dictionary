@@ -2,7 +2,7 @@
 
 This file is the running inventory for the current prerelease line between the
 live App Store build (`1.0.6`) and the current distributed Apple beta from
-this repo state (`1.1.0`, build `27`).
+this repo state (`1.2.0`, build `28`).
 
 Use it for three things:
 
@@ -57,6 +57,12 @@ Use it for three things:
 
 ### Settings, tone, and appearance
 
+- The web home page now opens with a stronger editorial case-file composition
+  instead of a beige hero card trying to pass as a personality.
+- The default Book palette has been tightened across web, iPhone, and Android
+  so it feels warmer, darker, and more intentional.
+- The iPhone and Android home screens now share the same sharper opening copy
+  and primary actions as the web book.
 - Settings copy was rewritten to sound like the book rather than an appliance
   manual.
 - Appearance now supports an Auto mode that resolves to Book in light mode and
@@ -107,6 +113,12 @@ Use it for three things:
 Focus the iPhone pass on the things that changed recently enough to deserve
 deliberate suspicion:
 
+- The Home screen should feel like the dictionary's opening page, not a stack of
+  generic rounded cards.
+- The Book theme should use the warmer accent, readable contrast, and visible
+  swatches across light-mode surfaces.
+- The primary Home actions should read "Start the book" and "Draw a term" and
+  behave correctly at ordinary iPhone widths.
 - See Also and vendor references resolve into real entries instead of loose
   labels.
 - Newly linked entries open from category lists, search results, daily word,
@@ -136,18 +148,32 @@ deliberate suspicion:
 
 ## Current "What to Test" note
 
-The uploaded `en-US` App Store Connect note for build `27` is:
+The intended `en-US` App Store Connect note for build `28` is:
 
 ```text
-Please focus on the 1.1.0 iPhone beta behavior in this build:
+Please focus on the 1.2.0 iPhone beta behaviour in this build:
 
-- Browse and search the expanded dictionary; See Also and vendor references should resolve into real entries instead of loose labels.
-- Open newly linked entries from category lists, search results, daily word, and entry detail screens.
+- The Home screen should feel like the dictionary's opening page, not a stack of generic rounded cards.
+- The Book theme should use the warmer accent, readable contrast, and visible swatches across light-mode surfaces.
+- "Start the book" and "Draw a term" should work cleanly at ordinary iPhone widths.
+- Browse and search the expanded dictionary; See Also and vendor references should still resolve into real entries instead of loose labels.
 - Saved words should still behave as one collection across Today's Word, entry pages, and the Saved tab.
 - Sign in with Apple should keep saved-word sync intact after relaunch.
 - Notifications should allow opt-in, opt-out, and local delivery-hour changes without losing the saved preference after relaunch.
 - Appearance should support Auto mode plus the manual themes, including Devil, without losing the chosen setting.
 - Sharing an entry should include the definition-card image and word link where the target app supports shared files.
+```
+
+Internal note:
+
+```text
+Internal 1.2.0 pass: scrutinise the taste changes first. Home should feel like an editorial opening page, the warmer Book palette should hold contrast, and Start the book / Draw a term should behave at normal iPhone widths. Then recheck saved words, Sign in with Apple, notifications, Auto appearance, and sharing so the polish did not quietly mug the plumbing.
+```
+
+External note:
+
+```text
+The 1.2.0 beta refreshes the opening experience and default Book palette. Please try Home, Start the book, Draw a term, search, saved words, appearance, notifications, and sharing on your usual device. If anything feels like a generic app template wearing a clever sentence, that is useful feedback.
 ```
 
 ## Release-prep notes

@@ -168,7 +168,7 @@ export const themeOptions = [
     value: "book",
     label: "Book",
     appearance: "light",
-    swatches: ["#b2552f", "#26594a", "#f4efe6"],
+    swatches: ["#9d3f23", "#26594a", "#f4efe6"],
   },
   {
     value: "codex",

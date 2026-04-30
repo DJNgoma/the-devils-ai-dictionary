@@ -72,7 +72,7 @@ fun NativeHomeScreen(
     ) {
         item {
             NativeScreenCard(colors = colors, emphasis = true) {
-                SectionLabel(text = "Field guide")
+                SectionLabel(text = "Field guide / ${store.entries.size} terms")
                 store.latestPublishedAt?.let { latestPublishedAt ->
                     Text(
                         text = "Updated ${formatDisplayDate(latestPublishedAt)}",
@@ -89,11 +89,11 @@ fun NativeHomeScreen(
                     )
                 }
                 Text(
-                    text = "The Devil's AI Dictionary",
+                    text = "AI terms arrive overdressed. This strips them for parts.",
                     style = MaterialTheme.typography.headlineLarge,
                 )
                 Text(
-                    text = "A sceptical field guide to the language machines, marketers, founders, and consultants use when they want to sound smarter than they are.",
+                    text = "Vendor labels, model lore, and boardroom spells translated before they start asking for budget.",
                     style = MaterialTheme.typography.bodyLarge,
                 )
                 if (store.developerMode) {
@@ -108,13 +108,13 @@ fun NativeHomeScreen(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     NativePrimaryButton(
-                        label = "Read the book",
+                        label = "Start the book",
                         colors = colors,
                         onClick = store::presentBook,
                         modifier = Modifier.weight(1f),
                     )
                     NativeSecondaryButton(
-                        label = "Random entry",
+                        label = "Draw a term",
                         colors = colors,
                         onClick = store::openRandomEntry,
                         modifier = Modifier.weight(1f),
@@ -1123,7 +1123,7 @@ private fun NativeSettingsValueRow(
 
 private fun themeSwatches(theme: SiteTheme): List<Color> =
     when (theme) {
-        SiteTheme.book -> listOf(Color(0xFFB2552F), Color(0xFF26594A), Color(0xFFF4EFE6))
+        SiteTheme.book -> listOf(Color(0xFF9D3F23), Color(0xFF26594A), Color(0xFFF4EFE6))
         SiteTheme.codex -> listOf(Color(0xFF0169CC), Color(0xFF751ED9), Color(0xFFF3F8FD))
         SiteTheme.absolutely -> listOf(Color(0xFFCC7D5E), Color(0xFFF9F9F7), Color(0xFF2D2D2B))
         SiteTheme.devil -> listOf(Color(0xFFC92A2A), Color(0xFFF08B57), Color(0xFF170909))

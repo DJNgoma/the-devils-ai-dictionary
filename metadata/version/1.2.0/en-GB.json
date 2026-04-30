@@ -1,0 +1,7 @@
+{
+  "description": "The Devil's AI Dictionary cuts through AI hype with sharp, plain-English definitions of AI terms, product labels, and buzzwords. Every entry pairs a devil's definition with a plain definition, then explains why the term exists, how it gets misused, and what it means in practice.\n\nBrowse A-Z, move by category, or search across 700+ entries covering machine learning, large language models, agents, automation, embeddings, infrastructure, vendors, economics, safety, and the rest of the AI lexicon. Save your place, jump in from deep links, and choose from five reading themes: Book, Codex, Absolutely, Devil, and Night.\n\nNo accounts, subscriptions, or ads are required to read. Just a sceptical dictionary for people who want AI jargon explained clearly instead of performed at.",
+  "keywords": "ai dictionary,llm,gpt,agents,chatgpt,GAIC,Gauteng AI Community,African Techno,Daliso Ngoma",
+  "marketingUrl": "https://thedevilsaidictionary.com",
+  "supportUrl": "https://github.com/DJNgoma/the-devils-ai-dictionary/issues",
+  "whatsNew": "Version 1.2.0 gives the dictionary a sharper front door.\n\nThe web home page now reads more like an editorial case file and less like a beige compliance form. The book palette is warmer, darker, and more deliberate, with tighter calls to action and a clearer opening argument.\n\nThe iPhone and Android home screens now carry the same opening tone and colour system, so the native apps feel more like the dictionary and less like a polite settings panel that wandered into publishing."
+}

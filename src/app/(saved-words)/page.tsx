@@ -59,70 +59,82 @@ export default async function HomePage() {
 
   return (
     <div className="page-shell space-y-16 py-10 sm:space-y-20 sm:py-14">
-      <section className="surface-strong overflow-hidden px-6 py-10 sm:px-8 sm:py-12">
-        <div className="editorial-grid gap-10">
-          <div>
-            <p className="page-kicker">
-              Online book{" "}
-              <span className="tracking-normal opacity-60">
-                · {wordCountLabel} {wordLabel} · Updated {formatDate(latestPublishedAt)}
-              </span>
-            </p>
-            <h1 className="page-title mt-4">The Devil&apos;s AI Dictionary</h1>
-            <p className="mt-6 max-w-3xl text-xl leading-9 text-foreground">
-              A sceptical field guide to the language machines, marketers,
-              founders, and consultants use when they want to sound smarter than
-              they are.
-            </p>
-            <p className="mt-5 max-w-3xl text-lg leading-8 text-foreground-soft">
-              This is a reading experience for smart non-beginners: short entries,
-              dry punchlines, then the useful part. The goal is not to sneer at AI.
-              The goal is to separate capability from costume.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+      <section className="home-hero">
+        <div className="home-hero__copy">
+          <p className="page-kicker">
+            Online book{" "}
+            <span className="tracking-normal opacity-60">
+              / {wordCountLabel} {wordLabel} / Updated {formatDate(latestPublishedAt)}
+            </span>
+          </p>
+          <h1 className="home-hero__title">
+            AI terms arrive overdressed. This strips them for parts.
+          </h1>
+          <p className="mt-6 max-w-3xl text-xl leading-9 text-foreground">
+            The Devil&apos;s AI Dictionary translates vendor labels, model lore,
+            and boardroom spells before they start asking for budget.
+          </p>
+          <p className="mt-5 max-w-2xl text-base leading-8 text-foreground-soft sm:text-lg">
+            Read it like a reference book with a raised eyebrow: short entries,
+            dry punchlines, then the useful part.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/book"
                 className="button button-primary"
               >
-                Read the book
+                Start the book
               </Link>
               <Link
                 href="/random"
                 className="button button-secondary"
               >
-                Random entry
+                Draw a random term
               </Link>
-            </div>
-            <WebNotificationHeroPrompt />
-            <div className="mt-5 inline-flex max-w-2xl flex-wrap items-center gap-3 rounded-[var(--radius-control)] border border-line bg-surface px-4 py-3 text-sm leading-7 text-foreground-soft">
-              <span>Prefer the native iPhone app?</span>
-              <a
-                href={siteConfig.appStoreUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="font-medium text-accent hover:text-foreground"
-              >
-                Download it on the App Store
-              </a>
-            </div>
-            <ResumeReadingCard className="mt-6 max-w-2xl" compact hideIfCurrentHref="/" />
           </div>
-          <aside className="surface p-5 sm:p-6">
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-foreground-soft">
-              Why this exists
-            </p>
-            <p className="mt-4 text-lg leading-8 text-foreground">
-              AI jargon is now a tax on clear thought. This book tries to refund
-              some of it.
-            </p>
-            <p className="mt-4 text-sm leading-7 text-foreground-soft">
-              Search the collection, jump to a random entry, or read it like a
-              contrarian reference book. The entries are written to be useful in
-              meetings, product reviews, board decks, and the post-demo walk back.
-            </p>
-          </aside>
+          <WebNotificationHeroPrompt />
+          <div className="home-native-callout">
+            <span>Prefer the native iPhone app?</span>
+            <a
+              href={siteConfig.appStoreUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="font-medium text-accent hover:text-foreground"
+            >
+              Download it on the App Store
+            </a>
+          </div>
+          <ResumeReadingCard className="mt-6 max-w-2xl" compact hideIfCurrentHref="/" />
         </div>
-        <div className="mt-8">
+        <aside className="home-casefile" aria-label="Editorial brief">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.24em] text-accent">
+              Case file
+            </p>
+            <p className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground">
+              Jargon is a tax on clear thought. This refunds a little.
+            </p>
+          </div>
+          <div className="home-proof-grid">
+            <div>
+              <span>{wordCountLabel}</span>
+              <p>{wordLabel} catalogued</p>
+            </div>
+            <div>
+              <span>{latestAddedBatch.count}</span>
+              <p>fresh terms this batch</p>
+            </div>
+            <div>
+              <span>0</span>
+              <p>demo-day incense sticks lit</p>
+            </div>
+          </div>
+          <p className="text-sm leading-7 text-foreground-soft">
+            Useful in meetings, product reviews, board decks, and the quiet walk
+            back after the demo stops being magic.
+          </p>
+        </aside>
+        <div className="home-search">
           <SearchBox defaultValue="" />
         </div>
       </section>

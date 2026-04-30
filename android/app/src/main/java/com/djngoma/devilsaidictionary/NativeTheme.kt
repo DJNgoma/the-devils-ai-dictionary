@@ -40,16 +40,16 @@ private fun themeColors(theme: SiteTheme): NativeColors =
     when (theme) {
         SiteTheme.book -> NativeColors(
             paper = Color(0xFFF4EFE6),
-            surface = Color(0xFFFFFBF5),
-            surfaceStrong = Color(0xFFEFE7DA),
-            surfaceMuted = Color(0xFFF8F1E5),
-            chrome = Color(0xFFF1E6D7),
-            border = Color(0xFFD4C2B0),
-            accent = Color(0xFFB2552F),
-            accentMuted = Color(0xFFF7E0CF),
+            surface = Color(0xFFFFFAF1),
+            surfaceStrong = Color(0xFFFEF4E5),
+            surfaceMuted = Color(0xFFF8EBD9),
+            chrome = Color(0xFFEADCC8),
+            border = Color(0xFFCDB79F),
+            accent = Color(0xFF9D3F23),
+            accentMuted = Color(0xFFF3D5C1),
             warning = Color(0xFFA63B32),
             success = Color(0xFF26594A),
-            foregroundSoft = Color(0xFF65584C),
+            foregroundSoft = Color(0xFF5E5044),
         )
         SiteTheme.codex -> NativeColors(
             paper = Color(0xFFF3F8FD),

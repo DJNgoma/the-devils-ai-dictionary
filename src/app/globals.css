@@ -3,23 +3,23 @@
 :root,
 [data-theme="book"] {
   --background: #f4efe6;
-  --background-muted: #efe7da;
-  --surface: rgba(255, 251, 245, 0.82);
-  --surface-strong: rgba(255, 248, 240, 0.95);
-  --surface-raised: rgba(255, 248, 240, 0.98);
+  --background-muted: #eadcc8;
+  --surface: rgba(255, 250, 241, 0.84);
+  --surface-strong: rgba(254, 244, 229, 0.94);
+  --surface-raised: rgba(255, 250, 241, 0.98);
   --foreground: #231d17;
-  --foreground-soft: #65584c;
-  --line: rgba(75, 56, 36, 0.16);
-  --accent: #b2552f;
-  --accent-soft: rgba(178, 85, 47, 0.12);
+  --foreground-soft: #5e5044;
+  --line: rgba(64, 43, 23, 0.2);
+  --accent: #9d3f23;
+  --accent-soft: rgba(157, 63, 35, 0.13);
   --success: #26594a;
   --warning: #92400e;
   --danger: #a63b32;
   --skill: #7f3d1b;
   --diff-added: #26594a;
   --diff-removed: #a63b32;
-  --shadow: 0 18px 60px rgba(60, 36, 14, 0.11);
-  --shadow-soft: 0 12px 36px rgba(60, 36, 14, 0.08);
+  --shadow: 0 18px 60px rgba(60, 36, 14, 0.1);
+  --shadow-soft: 0 12px 36px rgba(60, 36, 14, 0.07);
   --shadow-mobile: 0 10px 28px rgba(60, 36, 14, 0.08);
   --radius: 1.5rem;
   --radius-card: 1.25rem;
@@ -190,9 +190,17 @@ html {
 body {
   min-height: 100dvh;
   background:
-    radial-gradient(circle at top left, var(--glow-one), transparent 28%),
-    radial-gradient(circle at top right, var(--glow-two), transparent 22%),
-    linear-gradient(180deg, var(--background), var(--background-muted) 50%, var(--background));
+    linear-gradient(rgba(35, 29, 23, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(35, 29, 23, 0.022) 1px, transparent 1px),
+    radial-gradient(circle at 10% 8%, var(--glow-one), transparent 24%),
+    radial-gradient(circle at 90% 16%, var(--glow-two), transparent 22%),
+    linear-gradient(180deg, var(--background), var(--background-muted) 54%, var(--background));
+  background-size:
+    3rem 3rem,
+    3rem 3rem,
+    auto,
+    auto,
+    auto;
   color: var(--foreground);
   font-family: var(--font-body), serif;
   text-rendering: optimizeLegibility;
@@ -266,7 +274,15 @@ select {
 
   .button {
     min-height: var(--control-height);
-    @apply inline-flex items-center justify-center gap-2 rounded-[var(--radius-control)] px-4 py-3 text-sm font-medium;
+    @apply inline-flex items-center justify-center gap-2 rounded-[var(--radius-control)] px-4 py-3 text-sm font-semibold;
+  }
+
+  .button:hover {
+    @apply -translate-y-0.5;
+  }
+
+  .button:active {
+    @apply translate-y-0 scale-[0.98];
   }
 
   .button-primary {
@@ -371,7 +387,7 @@ select {
 
   .surface {
     background: var(--surface);
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-soft);
     @apply rounded-[var(--radius-card)] border border-line backdrop-blur;
   }
 
@@ -379,6 +395,101 @@ select {
     background: var(--surface-strong);
     box-shadow: var(--shadow);
     @apply rounded-[var(--radius-card)] border border-line backdrop-blur;
+  }
+
+  .home-hero {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: minmax(0, 1.48fr) minmax(17rem, 0.82fr);
+    padding: clamp(2rem, 4.5vw, 4.6rem);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius-card) + 0.7rem);
+    background:
+      linear-gradient(105deg, rgba(35, 29, 23, 0.06), transparent 34%),
+      linear-gradient(180deg, var(--surface-strong), color-mix(in srgb, var(--surface-strong) 76%, var(--background-muted)));
+    box-shadow: var(--shadow);
+  }
+
+  .home-hero::before {
+    content: "";
+    position: absolute;
+    inset: 1.2rem auto 1.2rem clamp(1.2rem, 3vw, 2.4rem);
+    width: 0.32rem;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--accent), transparent);
+    opacity: 0.72;
+  }
+
+  .home-hero__copy {
+    min-width: 0;
+    padding-left: clamp(0.3rem, 2vw, 1.3rem);
+  }
+
+  .home-hero__title {
+    max-width: 12ch;
+    margin-top: 1rem;
+    font-family: var(--font-display), serif;
+    font-size: clamp(3.25rem, 8vw, 7.3rem);
+    font-weight: 700;
+    letter-spacing: -0.075em;
+    line-height: 0.87;
+    color: var(--foreground);
+    text-wrap: balance;
+  }
+
+  .home-casefile {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.6rem;
+    border-left: 1px solid var(--line);
+    padding-left: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .home-proof-grid {
+    display: grid;
+    gap: 0;
+    border-block: 1px solid var(--line);
+  }
+
+  .home-proof-grid div {
+    display: grid;
+    grid-template-columns: minmax(4rem, 0.42fr) 1fr;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .home-proof-grid div:last-child {
+    border-bottom: 0;
+  }
+
+  .home-proof-grid span {
+    font-family: var(--font-mono), monospace;
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+    font-weight: 500;
+    line-height: 1;
+    color: var(--accent);
+  }
+
+  .home-proof-grid p {
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: var(--foreground-soft);
+  }
+
+  .home-native-callout {
+    @apply mt-5 inline-flex max-w-2xl flex-wrap items-center gap-3 rounded-[var(--radius-control)] border border-line bg-surface px-4 py-3 text-sm leading-7 text-foreground-soft;
+  }
+
+  .home-search {
+    grid-column: 1 / -1;
+    margin-top: 0.5rem;
   }
 
   .section-title {
@@ -470,7 +581,7 @@ select {
 
   .input-shell {
     min-height: var(--control-height);
-    @apply flex items-center gap-3 rounded-[var(--radius-control)] border border-line bg-surface-strong px-4 py-3 shadow-sm;
+    @apply flex items-center gap-3 rounded-[var(--radius-control)] border border-line bg-surface-raised px-4 py-3 shadow-sm;
   }
 
   .editorial-grid {
@@ -511,6 +622,35 @@ select {
 
   .editorial-grid {
     @apply grid-cols-1;
+  }
+
+  .home-hero {
+    grid-template-columns: 1fr;
+    padding: 1.4rem;
+    border-radius: 1.7rem;
+  }
+
+  .home-hero::before {
+    inset: 0.95rem auto auto 1rem;
+    width: 35%;
+    height: 0.22rem;
+  }
+
+  .home-hero__copy {
+    padding-left: 0;
+    padding-top: 0.8rem;
+  }
+
+  .home-hero__title {
+    max-width: 10ch;
+    font-size: clamp(3.1rem, 17vw, 5rem);
+  }
+
+  .home-casefile {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding-left: 0;
+    padding-top: 1.4rem;
   }
 }
 

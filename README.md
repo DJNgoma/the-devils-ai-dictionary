@@ -118,7 +118,7 @@ The repo ships a native SwiftUI iPhone app in `ios/` and a native Kotlin/Compose
 
 | Platform | Build | What changed |
 |----------|-------|--------------|
-| iOS (TestFlight) | 27 (v1.1.0) | Expanded dictionary links, resolved See Also and vendor references, image-backed sharing, Sign in with Apple saved-word sync, notifications, Auto appearance, and Devil theme |
+| iOS (TestFlight) | 28 (v1.2.0) | Taste pass across web, iPhone, and Android: sharper editorial home, stronger book palette, and less beige compliance furniture |
 | Android (Play internal) | 21 (v1.0.5) | Delivery-hour reminders, Auto appearance, Devil theme, review gating, save-from-Today's-Word, and native settings polish |
 
 ### Recent mobile changes
@@ -134,6 +134,7 @@ The repo ships a native SwiftUI iPhone app in `ios/` and a native Kotlin/Compose
 - Android reached push parity with iOS and gained the Home prompt it was missing
 - Server routes rescued from their underscored exile
 - Current prerelease notes and Apple tester focus now live in [docs/mobile/current-beta-notes.md](docs/mobile/current-beta-notes.md)
+- Version 1.2.0 sharpens the web home page into a stronger editorial case file and carries the same book palette and opening tone into the native home screens
 
 ### Recent web changes
 

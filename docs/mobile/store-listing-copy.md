@@ -80,8 +80,11 @@ The app does not require an account, a subscription, or a payment method to read
 
 ### TestFlight What to Test
 
-Please focus on the current iPhone beta behavior in this build:
+Please focus on the 1.2.0 iPhone beta behaviour in this build:
 
+- Home should feel like an editorial opening page, not a stack of generic rounded cards.
+- The Book theme should use the warmer accent, readable contrast, and visible swatches across light-mode surfaces.
+- "Start the book" and "Draw a term" should work cleanly at ordinary iPhone widths.
 - Fresh install should open the onboarding sheet once, dismiss cleanly, and let "Read the guide" hand off into the fuller in-app guide.
 - Sign in with Apple should succeed, remove the sign-in prompt, and keep saved words synced after relaunch.
 - Saving from Today's Word, any entry, and the Saved tab should all feed the same saved-word collection.
