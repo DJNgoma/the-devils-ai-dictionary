@@ -27,6 +27,8 @@ export const metadata = buildMetadata({
   path: "/",
 });
 
+export const dynamic = "force-static";
+
 export default async function HomePage() {
   const [
     todayWord,

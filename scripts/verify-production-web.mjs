@@ -125,6 +125,12 @@ async function main() {
   assertIncludes("Homepage", home.body, `${expectedMobileManifest.entryCount}`);
   assertIncludes("Homepage", home.body, "AI terms arrive overdressed");
 
+  for (let index = 1; index <= 10; index += 1) {
+    const cacheBustedHome = await fetchText(origin, `/?production-smoke=${index}`);
+    assertIncludes(`Homepage smoke ${index}`, cacheBustedHome.body, "The Devil");
+    assertIncludes(`Homepage smoke ${index}`, cacheBustedHome.body, "Word of the day");
+  }
+
   const catalogVersion = await fetchText(origin, "/catalog/version.json");
   const observedCatalog = JSON.parse(catalogVersion.body);
   assertJsonField("Catalog version", observedCatalog.version, expectedCatalog.version);
