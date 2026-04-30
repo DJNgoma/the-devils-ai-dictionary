@@ -1,22 +1,18 @@
 import Link from "next/link";
 import { CategoryGrid } from "@/components/category-grid";
 import { EntryCard } from "@/components/entry-card";
-import { TodayWordCard } from "@/components/featured-entry";
 import { LetterGrid } from "@/components/letter-grid";
 import { ResumeReadingCard } from "@/components/resume-reading-card";
 import { SearchBox } from "@/components/search-box";
 import { WebNotificationHeroPrompt } from "@/components/web-notification-settings";
 import {
   getCategoryStats,
-  getDailyWordSchedule,
   getDictionaryWordCount,
   getLatestAddedBatch,
   getLetterStats,
   getLatestPublishedAt,
   getMostMisunderstoodEntries,
   getRecentlyAddedEntries,
-  getSearchableEntries,
-  getTodayWord,
 } from "@/lib/content";
 import { buildMetadata } from "@/lib/metadata";
 import { siteConfig } from "@/lib/site";
@@ -31,8 +27,6 @@ export const metadata = buildMetadata({
 
 export default async function HomePage() {
   const [
-    todayWord,
-    todayWordSchedule,
     wordCount,
     letters,
     categories,
@@ -40,11 +34,8 @@ export default async function HomePage() {
     latestAddedBatch,
     recentEntries,
     misunderstoodEntries,
-    searchable,
   ] =
     await Promise.all([
-      getTodayWord(),
-      getDailyWordSchedule(),
       getDictionaryWordCount(),
       getLetterStats(),
       getCategoryStats(),
@@ -52,7 +43,6 @@ export default async function HomePage() {
       getLatestAddedBatch(),
       getRecentlyAddedEntries(),
       getMostMisunderstoodEntries(),
-      getSearchableEntries(),
     ]);
   const wordCountLabel = formatCount(wordCount);
   const wordLabel = wordCount === 1 ? "word" : "words";
@@ -138,12 +128,6 @@ export default async function HomePage() {
           <SearchBox defaultValue="" />
         </div>
       </section>
-
-      <TodayWordCard
-        entries={searchable}
-        schedule={todayWordSchedule}
-        initialEntry={todayWord}
-      />
 
       <section className="space-y-5">
         <div className="labelled-rule">Browse by letter</div>
