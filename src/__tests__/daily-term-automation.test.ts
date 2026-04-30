@@ -833,6 +833,7 @@ describe("daily-term automation", () => {
         {
           cwd: sourceRepo,
           env: {
+            NODE_ENV: process.env.NODE_ENV ?? "test",
             PATH: `${fakeBin}:${process.env.PATH ?? "/usr/bin:/bin"}`,
             DAILY_TERM_BOOTSTRAP_FETCH_RETRY_MS: "1,1,1",
           },
@@ -861,6 +862,7 @@ describe("daily-term automation", () => {
         {
           cwd: sourceRepo,
           env: {
+            NODE_ENV: process.env.NODE_ENV ?? "test",
             PATH: `${fakeBin}:${process.env.PATH ?? "/usr/bin:/bin"}`,
             DAILY_TERM_BOOTSTRAP_FETCH_RETRY_MS: "1,1,1",
           },
@@ -932,6 +934,7 @@ describe("daily-term automation", () => {
         {
           cwd: sourceRepo,
           env: {
+            NODE_ENV: process.env.NODE_ENV ?? "test",
             PATH: `${fakeBin}:${process.env.PATH ?? "/usr/bin:/bin"}`,
             DAILY_TERM_BOOTSTRAP_FETCH_RETRY_MS: "1,1,1",
           },
@@ -972,6 +975,7 @@ describe("daily-term automation", () => {
           check: false,
           cwd: sourceRepo,
           env: {
+            NODE_ENV: process.env.NODE_ENV ?? "test",
             PATH: `${fakeBin}:${process.env.PATH ?? "/usr/bin:/bin"}`,
             DAILY_TERM_BOOTSTRAP_FETCH_RETRY_MS: "1,1,1",
           },
