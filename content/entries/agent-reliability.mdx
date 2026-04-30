@@ -1,0 +1,56 @@
+---
+title: "Agent reliability"
+slug: "agent-reliability"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+  - "Economics and operations of AI"
+aliases:
+  - "agent dependability"
+devilDefinition: |
+  The discipline of asking whether the agent still works after the demo has ended, the happy path has wandered off, and nobody is standing nearby to narrate its competence.
+plainDefinition: |
+  Agent reliability is the degree to which an agent workflow performs its intended task consistently, recoverably, and within policy across real operating conditions rather than only in curated demonstrations.
+whyExists: |
+  Agents fail in compound ways. The model can reason badly, the tool can misbehave, the environment can change, the state can bloat, and the retry logic can turn optimism into repetition. Reliability exists as a term because "the model seemed clever" is not an operations metric.
+misuse: |
+  It gets confused with accuracy on a benchmark or elegance in a single trace. A reliable agent is not merely capable on a good day. It is bounded, observable, and recoverable when the real world behaves like itself.
+practicalMeaning: |
+  In practice it usually means eval harnesses, trace review, timeout policy, retry discipline, rollback paths, tool health checks, escalation routes, and evidence that long-running workflows remain useful after the product team stops hovering over them.
+example: |
+  "The agent was impressive in rehearsal and catastrophic in production, which is another way of saying the reliability conversation had been postponed until the customers joined it."
+askNext:
+  - "How does this agent behave when a tool fails, a dependency stalls, or the goal becomes ambiguous?"
+  - "What evidence shows reliability across runs rather than competence in a single curated trace?"
+  - "Which failures are recoverable automatically, and which must escalate or stop?"
+related:
+  - "agent-harness"
+  - "eval-harness"
+  - "operational-rollout"
+  - "tool-reliability"
+seeAlso:
+  - "Operational telemetry"
+  - "Regression suite"
+  - "Tool Permissions"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-30"
+updatedAt: "2026-04-30"
+tags:
+  - "agents"
+  - "reliability"
+  - "evaluation"
+  - "operations"
+misunderstoodScore: 5
+diagram: "agent-loop"
+translations:
+  - label: "operator meaning"
+    text: "The agent remains useful when the environment stops cooperating."
+  - label: "what it usually means in reality"
+    text: "Evidence that the workflow can complete, recover, or stop sanely under live conditions."
+---
+
+Agent reliability is where product ambition meets the ancient disciplines of systems engineering. The excitement usually survives. The hand-waving usually does not.

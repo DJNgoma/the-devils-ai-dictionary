@@ -1,0 +1,55 @@
+---
+title: "Capability surface"
+slug: "capability-surface"
+letter: "C"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+  - "Safety and evaluation"
+aliases:
+  - "action surface"
+devilDefinition: |
+  The practical map of what the system can actually touch once the marketing prose is forced to remove its jacket and hand over its pockets.
+plainDefinition: |
+  Capability surface is the set of actions, resources, tools, data, and environments an AI system can actually reach or affect in operation.
+whyExists: |
+  Teams need a term that distinguishes abstract capability claims from operational reach. A system may sound clever in a pitch while having a very narrow surface, or sound modest while possessing access broad enough to frighten a responsible operator.
+misuse: |
+  It gets mistaken for intelligence level. Capability surface is not how smart the system is. It is what it is connected to, authorised for, and technically able to affect. Confusing those ideas is how modest demos become surprisingly consequential deployments.
+practicalMeaning: |
+  In practice it usually means tool lists, permission scopes, network reach, writable systems, available APIs, side-effect boundaries, and discovering that a supposedly harmless assistant can in fact touch production, customer records, or outbound communications.
+example: |
+  "The model was not especially brilliant. Its capability surface was the part that kept the security team awake."
+askNext:
+  - "What external systems, data, and actions are genuinely reachable from this workflow?"
+  - "Which parts of that surface are read-only, reversible, or tightly permissioned?"
+  - "How different is the real capability surface from what the product story implies?"
+related:
+  - "capability-boundaries"
+  - "tool-permissions"
+  - "external-actions"
+  - "capability-overhang"
+seeAlso:
+  - "Tool Permissions"
+  - "Capability boundaries"
+  - "External actions"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-30"
+updatedAt: "2026-04-30"
+tags:
+  - "capability"
+  - "permissions"
+  - "tools"
+  - "security"
+misunderstoodScore: 4
+translations:
+  - label: "operator meaning"
+    text: "The area in which the model's choices can become other people's problems."
+  - label: "what it usually means in reality"
+    text: "The real operational reach of the system, regardless of how it is marketed."
+---
+
+Capability surface matters because consequences do not care how poetic the demo sounded. They care what the system was actually allowed to touch.

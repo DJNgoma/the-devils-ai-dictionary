@@ -1,0 +1,55 @@
+---
+title: "Workflow drift"
+slug: "workflow-drift"
+letter: "W"
+categories:
+  - "Agents and workflows"
+  - "Economics and operations of AI"
+  - "Safety and evaluation"
+aliases:
+  - "process drift"
+devilDefinition: |
+  The slow change by which the workflow remains nominally the same while its actual behaviour acquires new shortcuts, new dependencies, and fresh ways to disappoint people.
+plainDefinition: |
+  Workflow drift is the change over time in how an end-to-end AI process behaves because its prompts, tools, routing, policies, operators, or surrounding systems evolve, even if the base model is unchanged.
+whyExists: |
+  Real workflows are layered systems. Tools get swapped, prompts accrete exceptions, queues change, approval rules soften, dependencies age, and humans learn workarounds. The term exists so teams can diagnose end-to-end change without blaming the model for every organisational improvisation.
+misuse: |
+  It becomes useless when it is treated as a vague synonym for decline. Sometimes the workflow has drifted. Sometimes the original design was flimsy, and production merely performed the courtesy of revealing it.
+practicalMeaning: |
+  In practice it usually means traces that look subtly different month to month, new manual steps nobody documented, silent changes in handoff rules, degraded observability, or a workflow whose recovery logic now reflects three incidents and no clear architecture.
+example: |
+  "The model version had not moved in weeks. Workflow drift had, which is why the same task now required two extra tools, one apology, and a human rescue."
+askNext:
+  - "Which part of the process changed: prompts, tools, routing, approvals, or operator behaviour?"
+  - "What traces or replay evidence show when the workflow started behaving differently?"
+  - "Is this drift improving the workflow deliberately, or merely layering sediment on top of it?"
+related:
+  - "model-drift"
+  - "session-handoff"
+  - "repository-automation"
+  - "operational-rollout"
+seeAlso:
+  - "Model drift"
+  - "Operational telemetry"
+  - "Quality gate"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-04-30"
+updatedAt: "2026-04-30"
+tags:
+  - "workflow"
+  - "drift"
+  - "operations"
+  - "monitoring"
+misunderstoodScore: 4
+translations:
+  - label: "operator meaning"
+    text: "The system now behaves differently, and the change lives somewhere in the workflow rather than solely in the model."
+  - label: "what it usually means in reality"
+    text: "End-to-end behaviour has shifted because the surrounding process evolved quietly."
+---
+
+Workflow drift is what happens when systems acquire history faster than they acquire discipline. By the time someone names it, the workaround has usually already become tradition.

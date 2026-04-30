@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-04-30T17:00:07.443Z",
+  "updatedAt": "2026-04-30T17:04:44.204Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -141,7 +141,7 @@
     {
       "slug": "memory-wall",
       "label": "Memory wall",
-      "status": "queued",
+      "status": "published",
       "notes": "Useful for practical limits on persistent or reusable context rather than pure architecture nostalgia.",
       "diagramHint": "context-window",
       "misunderstoodHint": 4,
@@ -155,12 +155,12 @@
         "context-pruning"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:04:44.204Z"
     },
     {
       "slug": "human-escalation",
       "label": "Human escalation",
-      "status": "queued",
+      "status": "published",
       "notes": "Should be about when the workflow hands off to a person, not generic human-in-the-loop piety.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -174,12 +174,12 @@
         "fallback-policy"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:04:44.204Z"
     },
     {
       "slug": "agent-reliability",
       "label": "Agent reliability",
-      "status": "queued",
+      "status": "published",
       "notes": "Focus on whether long-running agent workflows stay dependable beyond demos.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 5,
@@ -193,12 +193,12 @@
         "operational-rollout"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:04:44.204Z"
     },
     {
       "slug": "tool-reliability",
       "label": "Tool reliability",
-      "status": "queued",
+      "status": "published",
       "notes": "Useful for the ordinary but critical question of whether tools behave consistently when the model calls them.",
       "diagramHint": "function-calling",
       "misunderstoodHint": 4,
@@ -212,12 +212,12 @@
         "exception-handling"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:04:44.204Z"
     },
     {
       "slug": "workflow-drift",
       "label": "Workflow drift",
-      "status": "queued",
+      "status": "published",
       "notes": "Separate end-to-end agent or process drift from base-model behaviour drift.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -232,12 +232,12 @@
         "repository-automation"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:04:44.204Z"
     },
     {
       "slug": "capability-surface",
       "label": "Capability surface",
-      "status": "queued",
+      "status": "published",
       "notes": "This should help distinguish what a system can touch from what marketing says it can do.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -252,12 +252,12 @@
         "external-actions"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:04:44.204Z"
     },
     {
       "slug": "demo-fidelity-gap",
       "label": "Demo fidelity gap",
-      "status": "queued",
+      "status": "published",
       "notes": "Good for the distance between a polished demo and the production workflow it implies.",
       "diagramHint": null,
       "misunderstoodHint": 5,
@@ -271,7 +271,7 @@
         "prototype-handoff"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:04:44.204Z"
     },
     {
       "slug": "orchestration-debt",

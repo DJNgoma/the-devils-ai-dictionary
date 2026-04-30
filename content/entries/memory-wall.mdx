@@ -1,0 +1,56 @@
+---
+title: "Memory wall"
+slug: "memory-wall"
+letter: "M"
+categories:
+  - "Retrieval and memory"
+  - "Model usage"
+  - "Economics and operations of AI"
+aliases:
+  - "memory ceiling"
+devilDefinition: |
+  The point at which giving the system more history, more notes, or more retrieved context starts producing less memory and more administrative clutter.
+plainDefinition: |
+  The memory wall is the practical limit at which adding more persistent, retrieved, or reusable context stops improving task performance and starts degrading relevance, latency, cost, or maintainability.
+whyExists: |
+  Systems need ways to retain useful state across turns and sessions, but memory is not an unqualified good. Past a certain point, too much retained material becomes harder to curate, rank, prune, trust, and pay for than it is to use well.
+misuse: |
+  It gets borrowed lazily from hardware lore or treated as proof that "AI memory just does not work". The useful version is more specific: the wall appears when memory management becomes an editorial and operational problem, not when the product team grows bored of trying.
+practicalMeaning: |
+  In practice it usually means stale summaries, duplicated notes, bloated retrieval sets, rising token spend, confused prioritisation, and elaborate memory stores whose main contribution is making the wrong thing easier to fetch repeatedly.
+example: |
+  "They kept adding memory features until the assistant could remember everything except what mattered now. The memory wall had arrived with excellent storage metrics."
+askNext:
+  - "Which retained context is still improving outcomes, and which merely survives by inertia?"
+  - "How is stale or low-value memory pruned, compacted, or re-ranked over time?"
+  - "Is the bottleneck model capacity, retrieval quality, or the cost of curating what the system remembers?"
+related:
+  - "agent-memory"
+  - "context-window"
+  - "context-pruning"
+  - "state-compaction"
+seeAlso:
+  - "Agent memory"
+  - "Context Window"
+  - "Context pruning"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-30"
+updatedAt: "2026-04-30"
+tags:
+  - "memory"
+  - "retrieval"
+  - "context"
+  - "operations"
+misunderstoodScore: 4
+diagram: "context-window"
+translations:
+  - label: "operator meaning"
+    text: "The retained context has become harder to curate than to collect."
+  - label: "what it usually means in reality"
+    text: "A limit where more memory stops helping the task and starts burdening the system."
+---
+
+The memory wall is not an argument against memory. It is an argument against pretending retention automatically produces recall, relevance, or judgement.

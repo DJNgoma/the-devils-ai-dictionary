@@ -1,0 +1,56 @@
+---
+title: "Tool reliability"
+slug: "tool-reliability"
+letter: "T"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+  - "Safety and evaluation"
+aliases:
+  - "tool dependability"
+devilDefinition: |
+  The unfashionable question of whether the supposedly helpful thing the model keeps calling will actually behave the same way twice.
+plainDefinition: |
+  Tool reliability is the consistency, correctness, and recoverability of a tool when invoked by a model or agent under normal and adverse operating conditions.
+whyExists: |
+  An agent is only as dependable as the tools it calls. Even strong reasoning degrades rapidly when the surrounding tools are flaky, under-specified, slow, or capricious about their outputs.
+misuse: |
+  It gets reduced to uptime or successful HTTP responses. A tool can be "up" and still be unreliable because it returns partial state, inconsistent schemas, non-idempotent side effects, or errors too vague for the caller to recover from intelligently.
+practicalMeaning: |
+  In practice it usually means schema stability, timeouts, retries, idempotency, versioning, error semantics, sandbox boundaries, and the quiet labour of making external actions predictable enough that a model can call them without inventing theology around transient failure.
+example: |
+  "The model was blamed for the bad refund flow until someone noticed the payment tool treated duplicate requests as a creative writing exercise."
+askNext:
+  - "Does this tool fail clearly enough for the caller to retry, escalate, or stop?"
+  - "Are schemas, side effects, and permissions stable across versions and environments?"
+  - "What happens when the tool times out halfway through an action that matters?"
+related:
+  - "tool-use"
+  - "tool-registry"
+  - "exception-handling"
+  - "function-calling"
+seeAlso:
+  - "Function Calling"
+  - "Tool Permissions"
+  - "Operational telemetry"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-04-30"
+updatedAt: "2026-04-30"
+tags:
+  - "tools"
+  - "reliability"
+  - "apis"
+  - "operations"
+misunderstoodScore: 4
+diagram: "function-calling"
+translations:
+  - label: "engineering meaning"
+    text: "The tool behaves predictably enough that the caller does not need to hallucinate its failure mode."
+  - label: "what it usually means in reality"
+    text: "A tool that can be called repeatedly without turning ordinary automation into incident archaeology."
+---
+
+Tool reliability rarely headlines the launch deck, which is precisely why it gets to decide whether the launch keeps working a week later.
