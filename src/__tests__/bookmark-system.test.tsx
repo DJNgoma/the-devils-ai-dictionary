@@ -216,15 +216,7 @@ describe("TodayWordCard", () => {
     };
 
     renderWithProvider(
-      <TodayWordCard
-        entries={[]}
-        schedule={{
-          dailyWordSlugs: [],
-          dailyWordStartDate: "2026-03-03",
-          editorialTimeZone: "Africa/Johannesburg",
-        }}
-        initialEntry={entry as never}
-      />,
+      <TodayWordCard entry={entry as never} />,
     );
 
     await waitFor(() => {

@@ -1,48 +1,23 @@
-"use client";
-
 import Link from "next/link";
-import { useSyncExternalStore } from "react";
 import { EntryShareButton } from "@/components/entry-share-button";
 import { OpenInIPhoneAppButton } from "@/components/open-in-iphone-app-button";
 import { SaveWordButton } from "@/components/save-place-button";
-import { getDailyWordSlug, type DailyWordSchedule } from "@/lib/daily-word";
-import type { SearchableEntry } from "@/lib/content";
+import type { Entry } from "@/lib/content";
 
 type TodayWordCardProps = {
-  entries: SearchableEntry[];
-  schedule: DailyWordSchedule;
-  initialEntry: SearchableEntry | null;
+  entry: Entry | null;
 };
 
-function resolveTodayWordEntry(
-  entries: SearchableEntry[],
-  schedule: DailyWordSchedule,
-  referenceDate: Date = new Date(),
-) {
-  const slug = getDailyWordSlug(schedule, referenceDate);
-  return slug ? entries.find((entry) => entry.slug === slug) ?? null : null;
-}
-
-export function TodayWordCard({
-  entries,
-  schedule,
-  initialEntry,
-}: TodayWordCardProps) {
-  const entry = useSyncExternalStore(
-    () => () => {},
-    () => resolveTodayWordEntry(entries, schedule) ?? initialEntry,
-    () => initialEntry,
-  );
-
+export function TodayWordCard({ entry }: TodayWordCardProps) {
   if (!entry) {
     return null;
   }
 
   return (
-    <section className="surface-strong overflow-hidden p-6 sm:p-8">
-      <div className="max-w-3xl">
-        <p className="page-kicker">Today&apos;s word</p>
-        <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+    <section className="today-word-rail" aria-labelledby="word-of-day-heading">
+      <div className="today-word-rail__copy">
+        <p className="page-kicker">Word of the day</p>
+        <h2 id="word-of-day-heading" className="today-word-rail__title">
           {entry.title}
         </h2>
         <p className="mt-5 max-w-2xl text-xl leading-9 text-foreground">
@@ -56,7 +31,7 @@ export function TodayWordCard({
             href={`/dictionary/${entry.slug}`}
             className="button button-primary"
           >
-            Open current word
+            Read today&apos;s word
           </Link>
           <SaveWordButton
             slug={entry.slug}
@@ -73,6 +48,14 @@ export function TodayWordCard({
           <OpenInIPhoneAppButton slug={entry.slug} />
         </div>
       </div>
+      <aside className="today-word-rail__meta" aria-label="Word of the day filing">
+        <span className="chip chip-accent">{entry.letter}</span>
+        {entry.categories.slice(0, 2).map((category) => (
+          <span key={category} className="chip">
+            {category}
+          </span>
+        ))}
+      </aside>
     </section>
   );
 }

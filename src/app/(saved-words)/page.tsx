@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CategoryGrid } from "@/components/category-grid";
 import { EntryCard } from "@/components/entry-card";
+import { TodayWordCard } from "@/components/featured-entry";
 import { LetterGrid } from "@/components/letter-grid";
 import { ResumeReadingCard } from "@/components/resume-reading-card";
 import { SearchBox } from "@/components/search-box";
@@ -13,6 +14,7 @@ import {
   getLatestPublishedAt,
   getMostMisunderstoodEntries,
   getRecentlyAddedEntries,
+  getTodayWord,
 } from "@/lib/content";
 import { buildMetadata } from "@/lib/metadata";
 import { siteConfig } from "@/lib/site";
@@ -27,6 +29,7 @@ export const metadata = buildMetadata({
 
 export default async function HomePage() {
   const [
+    todayWord,
     wordCount,
     letters,
     categories,
@@ -36,6 +39,7 @@ export default async function HomePage() {
     misunderstoodEntries,
   ] =
     await Promise.all([
+      getTodayWord(),
       getDictionaryWordCount(),
       getLetterStats(),
       getCategoryStats(),
@@ -48,7 +52,7 @@ export default async function HomePage() {
   const wordLabel = wordCount === 1 ? "word" : "words";
 
   return (
-    <div className="page-shell space-y-16 py-10 sm:space-y-20 sm:py-14">
+    <div className="page-shell space-y-12 py-6 sm:space-y-20 sm:py-14">
       <section className="home-hero">
         <div className="home-hero__copy">
           <p className="page-kicker">
@@ -128,6 +132,8 @@ export default async function HomePage() {
           <SearchBox defaultValue="" />
         </div>
       </section>
+
+      <TodayWordCard entry={todayWord} />
 
       <section className="space-y-5">
         <div className="labelled-rule">Browse by letter</div>
