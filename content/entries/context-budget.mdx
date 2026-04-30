@@ -1,0 +1,57 @@
+---
+title: "Context budget"
+slug: "context-budget"
+letter: "C"
+categories:
+  - "Model usage"
+  - "Retrieval and memory"
+  - "Economics and operations of AI"
+aliases:
+  - "prompt budget"
+devilDefinition: |
+  The moment long context stops sounding luxurious and starts behaving like a ration book.
+plainDefinition: |
+  A context budget is the practical limit on how much prompt space and generated output a workflow can afford to allocate across instructions, history, retrieved material, tool schemas, and the answer itself.
+whyExists: |
+  Even large context windows are finite, expensive, and slow enough to matter. Teams need a way to think about context as something allocated and traded off, not as an infinitely expandable cupboard.
+misuse: |
+  It gets treated as a posh synonym for context window. The window is the hard ceiling. The budget is the editorial and financial discipline inside that ceiling. Confusing the two is how prompts become sprawling, expensive, and still oddly unhelpful.
+practicalMeaning: |
+  In practice it usually means deciding how much space belongs to system rules, chat history, retrieved evidence, examples, tool definitions, and the reply. It also means accepting that every extra token admitted to the room either evicts something else or enlarges the bill.
+example: |
+  "The feature improved once they treated context as a budget to be allocated rather than a landfill for every document the company had ever regretted."
+askNext:
+  - "Which tokens in this workflow are earning their place and which are merely present?"
+  - "What part of the context can be summarised, retrieved later, or cached instead?"
+  - "How much room must be reserved for tool arguments and the final answer?"
+related:
+  - "context-window"
+  - "context-engineering"
+  - "inference-budget"
+  - "prompt-caching"
+seeAlso:
+  - "Context Window"
+  - "Inference Budget"
+  - "Memory Policy"
+  - "Prompt Caching"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-30"
+updatedAt: "2026-04-30"
+tags:
+  - "context"
+  - "prompts"
+  - "cost"
+  - "retrieval"
+misunderstoodScore: 4
+diagram: "context-window"
+translations:
+  - label: "operator meaning"
+    text: "A fixed allowance for what gets to sit in the model's immediate attention."
+  - label: "what it usually means in reality"
+    text: "Prompt assembly forced to admit that relevance, latency, and spend are all in the same argument."
+---
+
+Teams that ignore the context budget usually rediscover it as latency, truncation, or a quietly heroic cloud invoice.

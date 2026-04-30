@@ -1,0 +1,53 @@
+---
+title: "Eval leakage"
+slug: "eval-leakage"
+letter: "E"
+categories:
+  - "Safety and evaluation"
+  - "Model building"
+aliases:
+  - "evaluation leakage"
+  - "benchmark leakage"
+devilDefinition: |
+  What happens when the exam keeps whispering the answers into the curriculum and everyone still calls the grade objective.
+plainDefinition: |
+  Eval leakage is the contamination of an evaluation by training data, tuning loops, prompt iteration, or repeated rehearsal in ways that make measured performance look more general than it really is.
+whyExists: |
+  The term exists because AI systems are improved by repeated exposure to tasks, examples, and feedback. Without a name for leakage, teams can mistake familiarity with the test for competence on the real job.
+misuse: |
+  It gets invoked every time a benchmark result looks strong. Not every good score is leakage. The phrase is useful when the separation between training and evaluation has genuinely weakened, not when someone merely dislikes the number.
+practicalMeaning: |
+  In practice it usually means guarding holdouts, rotating fresh tasks, avoiding public overexposure of narrow eval sets, and checking whether the optimisation loop has quietly learned the taste of the exam instead of the substance of the task.
+example: |
+  "The leaderboard rise looked impressive until the team realised their bug-fix prompt had been tuned against the very eval cases now serving as proof."
+askNext:
+  - "How clean is the separation between the data used to improve the system and the data used to judge it?"
+  - "What parts of this eval have been exposed repeatedly to prompt tuning, red-teaming, or release review?"
+  - "Do we have any fresh or time-shifted checks that the system has not already rehearsed?"
+related:
+  - "evals"
+  - "benchmark-overfitting"
+  - "golden-dataset"
+seeAlso:
+  - "Evals"
+  - "Benchmark overfitting"
+  - "Golden dataset"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-04-30"
+updatedAt: "2026-04-30"
+tags:
+  - "evaluation"
+  - "benchmarks"
+  - "contamination"
+misunderstoodScore: 5
+translations:
+  - label: "research meaning"
+    text: "The measurement has stopped being as independent as the chart implies."
+  - label: "what it usually means in reality"
+    text: "The system has learned the exam too well for the exam to remain a trustworthy proxy."
+---
+
+Eval leakage is not a moral category. It is a measurement problem with career consequences, which is why people keep trying to discuss it as if it were merely philosophical.

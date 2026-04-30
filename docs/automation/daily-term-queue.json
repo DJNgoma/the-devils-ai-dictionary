@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-04-26T07:00:00.000Z",
+  "updatedAt": "2026-04-30T17:00:07.443Z",
   "items": [
     {
       "slug": "capability-overhang",
       "label": "Capability overhang",
-      "status": "queued",
+      "status": "published",
       "notes": "Useful for separating latent system ability from what product and policy currently permit.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -20,12 +20,12 @@
         "general-intelligence"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:00:07.443Z"
     },
     {
       "slug": "context-budget",
       "label": "Context budget",
-      "status": "queued",
+      "status": "published",
       "notes": "Should connect prompt size, retrieval choices, and cost rather than treating context as free space.",
       "diagramHint": "context-window",
       "misunderstoodHint": 4,
@@ -40,12 +40,12 @@
         "prompt-caching"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:00:07.443Z"
     },
     {
       "slug": "eval-leakage",
       "label": "Eval leakage",
-      "status": "queued",
+      "status": "published",
       "notes": "Focus on test contamination and rehearsal rather than generic benchmark grumbling.",
       "diagramHint": null,
       "misunderstoodHint": 5,
@@ -59,12 +59,12 @@
         "golden-dataset"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:00:07.443Z"
     },
     {
       "slug": "safety-debt",
       "label": "Safety debt",
-      "status": "queued",
+      "status": "published",
       "notes": "Treat safety shortcuts as maintenance debt with operational consequences, not just policy prose.",
       "diagramHint": null,
       "misunderstoodHint": 5,
@@ -78,12 +78,12 @@
         "release-gate"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:00:07.443Z"
     },
     {
       "slug": "retrieval-drift",
       "label": "Retrieval drift",
-      "status": "queued",
+      "status": "published",
       "notes": "Different from raw data drift; target retrieval relevance and document freshness over time.",
       "diagramHint": "rag",
       "misunderstoodHint": 4,
@@ -97,12 +97,12 @@
         "rag"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:00:07.443Z"
     },
     {
       "slug": "autonomy-tax",
       "label": "Autonomy tax",
-      "status": "queued",
+      "status": "published",
       "notes": "Good for naming the overhead around supervision, recovery, and permissions once a workflow becomes agentic.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -116,12 +116,12 @@
         "agent-workflow"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:00:07.443Z"
     },
     {
       "slug": "approval-theatre",
       "label": "Approval theatre",
-      "status": "queued",
+      "status": "published",
       "notes": "Aim at decorative approval steps that do little except reassure the slide deck.",
       "diagramHint": null,
       "misunderstoodHint": 5,
@@ -136,7 +136,7 @@
         "governance-theatre"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:00:07.443Z"
     },
     {
       "slug": "memory-wall",

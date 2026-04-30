@@ -1,0 +1,56 @@
+---
+title: "Autonomy tax"
+slug: "autonomy-tax"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Economics and operations of AI"
+  - "Safety and evaluation"
+aliases:
+  - "agent autonomy tax"
+devilDefinition: |
+  The bill that arrives after you let the agent act on its own and discover independence has an operations department.
+plainDefinition: |
+  Autonomy tax is the extra supervision, permissions work, monitoring, recovery logic, and incident handling required when a workflow is allowed to operate with greater autonomy.
+whyExists: |
+  More autonomous systems can create more value, but they also create more surfaces on which something can go wrong without a human noticing in time. The term exists to name the operational overhead that arrives with that independence.
+misuse: |
+  It gets used either as proof that autonomy is a foolish idea or as a temporary inconvenience that clever architecture will somehow abolish. Neither is serious. The tax can be worth paying, but somebody still has to pay it.
+practicalMeaning: |
+  In practice it usually means sandboxing, permission design, approval rules, rollback paths, richer logs, retry policy, exception handling, and humans who can intervene before the workflow turns initiative into a support ticket.
+example: |
+  "The demo made autonomy look cheap. The autonomy tax appeared later in the form of audit trails, retries, and a supervisor rota nobody had priced."
+askNext:
+  - "What new oversight or recovery burden appears if this workflow acts without immediate human review?"
+  - "Which actions require stronger permissions, reversibility, or incident response once autonomy increases?"
+  - "Is the expected gain large enough to justify the extra operational burden?"
+related:
+  - "agentic-ai"
+  - "tool-permissions"
+  - "agent-workflow"
+  - "inference-budget"
+seeAlso:
+  - "Approval flows"
+  - "Least privilege"
+  - "Capability boundaries"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-30"
+updatedAt: "2026-04-30"
+tags:
+  - "agents"
+  - "autonomy"
+  - "operations"
+  - "permissions"
+misunderstoodScore: 4
+diagram: "agent-loop"
+translations:
+  - label: "operator meaning"
+    text: "Every extra degree of freedom tends to purchase a matching degree of supervision."
+  - label: "what it usually means in reality"
+    text: "The hidden cost of making the workflow less manual and more answerable after the fact."
+---
+
+Autonomy tax is the part founders call friction and operators call Tuesday. The mature version of the discussion is deciding where the tax buys genuine leverage rather than resenting its existence.

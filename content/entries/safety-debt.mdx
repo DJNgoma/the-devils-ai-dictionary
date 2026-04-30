@@ -1,0 +1,53 @@
+---
+title: "Safety debt"
+slug: "safety-debt"
+letter: "S"
+categories:
+  - "Safety and evaluation"
+  - "Economics and operations of AI"
+aliases:
+  - "ai safety debt"
+devilDefinition: |
+  The quiet pile of deferred controls accruing interest while the launch calendar insists the shortcut is only temporary.
+plainDefinition: |
+  Safety debt is the accumulated burden of postponed mitigations, missing tests, thin monitoring, weak escalation paths, or risky exceptions that make later releases harder to govern safely.
+whyExists: |
+  Teams rarely skip safety work because they hate safety. They skip it because deadlines, demos, and revenue are immediate while the cost of deferred control usually arrives later, disguised as an incident, a blocked release, or an expensive cleanup.
+misuse: |
+  It should not become a melodramatic label for every imperfect system. Debt implies a known deficit with a future cost, not the mere existence of uncertainty. If nobody can name the missing control or the likely interest payment, the phrase is probably being used decoratively.
+practicalMeaning: |
+  In practice it usually means unresolved red-team findings, eval blind spots, manual reviewer crutches, unowned exceptions, monitoring gaps, and safety mechanisms that can be bypassed by the first impatient person with production access.
+example: |
+  "They called it a temporary launch exception until the safety debt started charging interest in the form of weekly firefights and increasingly theatrical approvals."
+askNext:
+  - "Which concrete control, test, or escalation path has been deferred here?"
+  - "Who owns paying this debt down, and on what timescale?"
+  - "What future release or incident will become harder because this shortcut now exists?"
+related:
+  - "safety-case"
+  - "operational-risk"
+  - "release-gate"
+seeAlso:
+  - "Safety case"
+  - "Operational risk"
+  - "Release gate"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-04-30"
+updatedAt: "2026-04-30"
+tags:
+  - "safety"
+  - "governance"
+  - "operations"
+  - "risk"
+misunderstoodScore: 5
+translations:
+  - label: "operator meaning"
+    text: "The missing safeguards have not disappeared; they have merely been rescheduled to a more embarrassing moment."
+  - label: "what it usually means in reality"
+    text: "Known control gaps that will make a future launch, audit, or incident materially worse."
+---
+
+Safety debt is one of the few phrases that improves when finance people hear it. Once the debt has a cost curve, the romance of shipping around it tends to fade.

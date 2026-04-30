@@ -1,0 +1,57 @@
+---
+title: "Retrieval drift"
+slug: "retrieval-drift"
+letter: "R"
+categories:
+  - "Retrieval and memory"
+  - "Safety and evaluation"
+  - "Economics and operations of AI"
+aliases:
+  - "retriever drift"
+devilDefinition: |
+  The slow failure mode where the model has not become stupider; the filing system has merely started lying more politely.
+plainDefinition: |
+  Retrieval drift is the gradual degradation of a retrieval system's ability to surface current, relevant, and authorised material as documents, embeddings, metadata, permissions, or user queries change over time.
+whyExists: |
+  Retrieval systems age. Corpora change, language changes, ranking assumptions stop fitting the traffic, and document hygiene rarely improves under pressure. The term exists so teams can name that decay instead of blaming every grounded failure on the model.
+misuse: |
+  It gets confused with generic data drift or used as a vague excuse for any bad answer. Retrieval drift is specifically about the relevance and freshness of what gets found and passed forward, not about every possible quality problem in the stack.
+practicalMeaning: |
+  In practice it usually means stale indexes, outdated embeddings, renamed concepts, broken metadata filters, permission mismatches, and rerankers still optimised for the world as it looked three quarters ago.
+example: |
+  "The agent had not forgotten the policy. Retrieval drift had simply become good at returning last year's version with great confidence."
+askNext:
+  - "What evidence shows the right documents are no longer being retrieved consistently?"
+  - "How often are the index, embeddings, and metadata refreshed against the live corpus?"
+  - "Are permission changes, renamed concepts, or stale filters quietly distorting recall?"
+related:
+  - "rag"
+  - "grounding"
+  - "model-drift"
+  - "data-drift"
+  - "context-poisoning"
+seeAlso:
+  - "Retrieval provenance"
+  - "Operational telemetry"
+  - "Golden dataset"
+  - "Data drift"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-04-30"
+updatedAt: "2026-04-30"
+tags:
+  - "retrieval"
+  - "rag"
+  - "search"
+  - "quality"
+misunderstoodScore: 4
+translations:
+  - label: "operator meaning"
+    text: "The search layer has started ageing out of the task while the model takes the blame."
+  - label: "what it usually means in reality"
+    text: "Grounding failures caused by the retrieval pipeline drifting away from the live corpus and the live query language."
+---
+
+Retrieval drift is unglamorous, which is why it survives so well. Nobody throws a launch party for index hygiene, yet the answer quality keeps depending on it anyway.
