@@ -77,6 +77,58 @@ function workerGzipSize(root) {
   return gzipSync(fs.readFileSync(handlerPath)).byteLength;
 }
 
+function workerStartupFiles(root) {
+  const files = [];
+  const workerPath = path.join(root, ".open-next", "worker.js");
+  const ssrChunkDirectory = path.join(
+    root,
+    ".open-next",
+    "server-functions",
+    "default",
+    ".next",
+    "server",
+    "chunks",
+    "ssr",
+  );
+
+  if (fs.existsSync(workerPath)) {
+    files.push(workerPath);
+  }
+
+  if (fs.existsSync(ssrChunkDirectory)) {
+    for (const filename of fs.readdirSync(ssrChunkDirectory)) {
+      if (filename.includes("root-of-the-server")) {
+        files.push(path.join(ssrChunkDirectory, filename));
+      }
+    }
+  }
+
+  return files;
+}
+
+export function assertWorkerStartupDoesNotEmbedWebSnapshot(root, webSnapshot) {
+  const marker = webSnapshot.entries?.[0]?.title;
+  const startupFiles = workerStartupFiles(root);
+
+  if (!marker || startupFiles.length === 0) {
+    return undefined;
+  }
+
+  const offenders = startupFiles.filter((filePath) =>
+    fs.readFileSync(filePath, "utf8").includes(marker),
+  );
+
+  if (offenders.length > 0) {
+    throw new Error(
+      `Worker startup chunks embed web catalogue marker "${marker}" in ${offenders
+        .map((filePath) => path.relative(root, filePath))
+        .join(", ")}.`,
+    );
+  }
+
+  return `Worker startup catalogue payload: lazy chunk (${startupFiles.length} startup files checked)`;
+}
+
 export function collectCloudflareReleaseGateResults({
   root = process.cwd(),
   budgets = defaultCloudflareReleaseBudgets,
@@ -93,11 +145,16 @@ export function collectCloudflareReleaseGateResults({
 
   results.push(
     assertBudget(
-      "Worker startup web snapshot",
+      "Worker lazy web snapshot",
       fileSize(webSnapshotPath),
       budgets.webSnapshotBytes,
     ),
   );
+
+  const startupCatalogueCheck = assertWorkerStartupDoesNotEmbedWebSnapshot(root, webSnapshot);
+  if (startupCatalogueCheck) {
+    results.push(startupCatalogueCheck);
+  }
 
   results.push(
     assertBudget(

@@ -4,7 +4,6 @@ import {
   getFeaturedEntrySlug,
   type DailyWordSchedule,
 } from "@/lib/daily-word";
-import generatedData from "@/generated/entries.web.generated.json";
 import {
   entryDetailShardLoaders,
   type EntryDetailShardKey,
@@ -92,6 +91,35 @@ export type DictionaryCatalogSchedule = DailyWordSchedule & {
   latestPublishedAt: string;
 };
 
+type GeneratedWebSnapshot = {
+  schemaVersion: number;
+  catalogVersion: string;
+  generatedAt: string;
+  entryCount: number;
+  entries: GeneratedWebEntry[];
+  recentSlugs: string[];
+  misunderstoodSlugs: string[];
+  letterStats: {
+    letter: string;
+    count: number;
+    href: string;
+  }[];
+  categoryStats: {
+    title: string;
+    slug: string;
+    description: string;
+    count: number;
+    sampleTerms: string[];
+  }[];
+  editorialTimeZone: string;
+  dailyWordStartDate: string;
+  dailyWordSlugs: string[];
+  featuredSlug?: string;
+  latestPublishedAt: string;
+  publishedEntryBatches: GeneratedPublishedEntryBatch[];
+  searchIndexPath?: string;
+};
+
 /* ---------- pre-computed data (all heavy work done at build time) ---------- */
 
 type GeneratedWebEntry = Omit<
@@ -172,10 +200,6 @@ const defaultEntryDetails: EntryDetailFields = {
   warningLabel: undefined,
 };
 
-const generatedCatalog = generatedData as typeof generatedData & {
-  searchIndexPath?: string;
-};
-
 function entryDetailShardKeyForEntry(entry: Pick<Entry, "letter">) {
   const key = entry.letter.trim().toLowerCase();
   return Object.hasOwn(entryDetailShardLoaders, key)
@@ -228,59 +252,98 @@ async function hydrateEntry(entry: Entry | undefined) {
   };
 }
 
-const entries = (generatedData.entries as GeneratedWebEntry[]).map(normalizeEntry);
-const dictionaryWordCount =
-  Number.isInteger(generatedCatalog.entryCount) && generatedCatalog.entryCount > 0
-    ? generatedCatalog.entryCount
-    : entries.length;
-const entryBySlug = new Map(entries.map((entry) => [entry.slug, entry]));
-const entryByTitle = new Map(
-  entries.map((entry) => [entry.title.trim().toLowerCase(), entry]),
-);
-const entryByAlias = new Map<string, Entry>();
-
-for (const entry of entries) {
-  for (const alias of entry.aliases) {
-    const key = alias.trim().toLowerCase();
-
-    if (key && !entryByAlias.has(key)) {
-      entryByAlias.set(key, entry);
-    }
-  }
-}
-
-const dailyWordSchedule: DictionaryCatalogSchedule = {
-  dailyWordSlugs: generatedData.dailyWordSlugs as string[],
-  dailyWordStartDate: generatedData.dailyWordStartDate as string,
-  editorialTimeZone: generatedData.editorialTimeZone as string,
-  latestPublishedAt: generatedData.latestPublishedAt as string,
+type ContentState = {
+  generatedData: GeneratedWebSnapshot;
+  entries: Entry[];
+  dictionaryWordCount: number;
+  entryBySlug: Map<string, Entry>;
+  entryByTitle: Map<string, Entry>;
+  entryByAlias: Map<string, Entry>;
+  dailyWordSchedule: DictionaryCatalogSchedule;
+  publishedEntryBatches: PublishedEntryBatch[];
 };
 
-const publishedEntryBatches: PublishedEntryBatch[] = (
-  generatedData.publishedEntryBatches as GeneratedPublishedEntryBatch[]
-).map((batch) => ({
-  publishedAt: batch.publishedAt,
-  count: batch.count,
-  entries: batch.slugs
-    .map((slug) => entryBySlug.get(slug))
-    .filter((entry): entry is Entry => Boolean(entry)),
-}));
+let contentStatePromise: Promise<ContentState> | undefined;
 
-/* ---------- public API (all effectively zero-cost reads) ---------- */
+async function loadGeneratedData() {
+  const generatedModule = await import("@/generated/entries.web.generated.json");
+  return generatedModule.default as GeneratedWebSnapshot;
+}
+
+async function loadContentState(): Promise<ContentState> {
+  const generatedData = await loadGeneratedData();
+  const entries = generatedData.entries.map(normalizeEntry);
+  const dictionaryWordCount =
+    Number.isInteger(generatedData.entryCount) && generatedData.entryCount > 0
+      ? generatedData.entryCount
+      : entries.length;
+  const entryBySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+  const entryByTitle = new Map(
+    entries.map((entry) => [entry.title.trim().toLowerCase(), entry]),
+  );
+  const entryByAlias = new Map<string, Entry>();
+
+  for (const entry of entries) {
+    for (const alias of entry.aliases) {
+      const key = alias.trim().toLowerCase();
+
+      if (key && !entryByAlias.has(key)) {
+        entryByAlias.set(key, entry);
+      }
+    }
+  }
+
+  const dailyWordSchedule: DictionaryCatalogSchedule = {
+    dailyWordSlugs: generatedData.dailyWordSlugs,
+    dailyWordStartDate: generatedData.dailyWordStartDate,
+    editorialTimeZone: generatedData.editorialTimeZone,
+    latestPublishedAt: generatedData.latestPublishedAt,
+  };
+
+  const publishedEntryBatches = generatedData.publishedEntryBatches.map((batch) => ({
+    publishedAt: batch.publishedAt,
+    count: batch.count,
+    entries: batch.slugs
+      .map((slug) => entryBySlug.get(slug))
+      .filter((entry): entry is Entry => Boolean(entry)),
+  }));
+
+  return {
+    generatedData,
+    entries,
+    dictionaryWordCount,
+    entryBySlug,
+    entryByTitle,
+    entryByAlias,
+    dailyWordSchedule,
+    publishedEntryBatches,
+  };
+}
+
+function getContentState() {
+  contentStatePromise ??= loadContentState();
+  return contentStatePromise;
+}
+
+/* ---------- public API (catalogue reads are lazy to keep Worker startup small) ---------- */
 
 export const getAllEntries = cache(async (): Promise<Entry[]> => {
-  return entries;
+  const state = await getContentState();
+  return state.entries;
 });
 
 export async function getDictionaryWordCount() {
-  return dictionaryWordCount;
+  const state = await getContentState();
+  return state.dictionaryWordCount;
 }
 
 export const getEntryBySlug = cache(async (slug: string) => {
-  return hydrateEntry(entryBySlug.get(slug));
+  const state = await getContentState();
+  return hydrateEntry(state.entryBySlug.get(slug));
 });
 
-export function resolveEntryReference(reference: string, { excludeSlug }: { excludeSlug?: string } = {}) {
+export async function resolveEntryReference(reference: string, { excludeSlug }: { excludeSlug?: string } = {}) {
+  const state = await getContentState();
   const trimmed = reference.trim();
 
   if (!trimmed) {
@@ -290,10 +353,10 @@ export function resolveEntryReference(reference: string, { excludeSlug }: { excl
   const normalized = trimmed.toLowerCase();
 
   const match =
-    entryBySlug.get(trimmed) ??
-    entryBySlug.get(slugify(trimmed)) ??
-    entryByTitle.get(normalized) ??
-    entryByAlias.get(normalized);
+    state.entryBySlug.get(trimmed) ??
+    state.entryBySlug.get(slugify(trimmed)) ??
+    state.entryByTitle.get(normalized) ??
+    state.entryByAlias.get(normalized);
 
   if (!match || match.slug === excludeSlug) {
     return undefined;
@@ -303,96 +366,100 @@ export function resolveEntryReference(reference: string, { excludeSlug }: { excl
 }
 
 export async function getRelatedEntries(entry: Entry, limit = 3) {
+  const state = await getContentState();
   return (entry.relatedSlugs ?? [])
     .slice(0, limit)
-    .map((slug) => entryBySlug.get(slug))
+    .map((slug) => state.entryBySlug.get(slug))
     .filter((e): e is Entry => Boolean(e));
 }
 
 export async function getRecentlyAddedEntries(_limit = 4) {
-  return (generatedData.recentSlugs as string[])
+  const state = await getContentState();
+  return state.generatedData.recentSlugs
     .slice(0, _limit)
-    .map((slug) => entryBySlug.get(slug))
+    .map((slug) => state.entryBySlug.get(slug))
     .filter((e): e is Entry => Boolean(e));
 }
 
 export async function getLatestAddedBatch(): Promise<PublishedEntryBatch> {
-  return publishedEntryBatches[0] ?? {
-    publishedAt: generatedData.latestPublishedAt as string,
+  const state = await getContentState();
+  return state.publishedEntryBatches[0] ?? {
+    publishedAt: state.generatedData.latestPublishedAt,
     count: 0,
     entries: [],
   };
 }
 
 export async function getPublishedEntryBatches() {
-  return publishedEntryBatches;
+  const state = await getContentState();
+  return state.publishedEntryBatches;
 }
 
 export async function getMostMisunderstoodEntries(_limit = 4) {
-  return (generatedData.misunderstoodSlugs as string[])
+  const state = await getContentState();
+  return state.generatedData.misunderstoodSlugs
     .slice(0, _limit)
-    .map((slug) => entryBySlug.get(slug))
+    .map((slug) => state.entryBySlug.get(slug))
     .filter((e): e is Entry => Boolean(e));
 }
 
 export async function getLatestPublishedAt() {
-  return generatedCatalog.latestPublishedAt as string;
+  const state = await getContentState();
+  return state.generatedData.latestPublishedAt;
 }
 
 export async function getDailyWordSchedule() {
-  return dailyWordSchedule;
+  const state = await getContentState();
+  return state.dailyWordSchedule;
 }
 
 export async function getSearchIndexPath() {
-  return generatedCatalog.searchIndexPath ?? "/catalog/search-index.json";
+  const state = await getContentState();
+  return state.generatedData.searchIndexPath ?? "/catalog/search-index.json";
 }
 
 export async function getTodayWord(referenceDate = new globalThis.Date()) {
-  const slug = getDailyWordSlug(dailyWordSchedule, referenceDate);
-  return slug ? entryBySlug.get(slug) ?? null : null;
+  const state = await getContentState();
+  const slug = getDailyWordSlug(state.dailyWordSchedule, referenceDate);
+  return slug ? state.entryBySlug.get(slug) ?? null : null;
 }
 
 export async function getFeaturedEntry() {
+  const state = await getContentState();
   const slug = getFeaturedEntrySlug({
-    dailyWordSlugs: generatedData.dailyWordSlugs as string[],
-    dailyWordStartDate: generatedData.dailyWordStartDate as string,
-    editorialTimeZone: generatedData.editorialTimeZone as string,
-    recentSlugs: generatedData.recentSlugs as string[],
-    featuredSlug: generatedData.featuredSlug as string,
+    dailyWordSlugs: state.generatedData.dailyWordSlugs,
+    dailyWordStartDate: state.generatedData.dailyWordStartDate,
+    editorialTimeZone: state.generatedData.editorialTimeZone,
+    recentSlugs: state.generatedData.recentSlugs,
+    featuredSlug: state.generatedData.featuredSlug,
   });
-  const entry = slug ? entryBySlug.get(slug) : null;
+  const entry = slug ? state.entryBySlug.get(slug) : null;
   if (!entry) {
     throw new Error(
-      `Featured entry "${slug ?? generatedData.featuredSlug}" was not found.`,
+      `Featured entry "${slug ?? state.generatedData.featuredSlug}" was not found.`,
     );
   }
   return entry;
 }
 
 export async function getLetterStats() {
-  return generatedData.letterStats as {
-    letter: string;
-    count: number;
-    href: string;
-  }[];
+  const state = await getContentState();
+  return state.generatedData.letterStats;
 }
 
 export async function getCategoryStats() {
-  return generatedData.categoryStats as {
-    title: string;
-    slug: string;
-    description: string;
-    count: number;
-    sampleTerms: string[];
-  }[];
+  const state = await getContentState();
+  return state.generatedData.categoryStats;
 }
 
 export async function getEntriesByCategorySlug(slug: string) {
-  return entries.filter((entry) => entry.categorySlugs.includes(slug));
+  const state = await getContentState();
+  return state.entries.filter((entry) => entry.categorySlugs.includes(slug));
 }
 
 export async function getSearchableEntries(): Promise<SearchableEntry[]> {
-  return entries.map((entry) => ({
+  const state = await getContentState();
+  return state.entries.map((entry) => ({
     aliases: entry.aliases,
     categories: entry.categories,
     categorySlugs: entry.categorySlugs,

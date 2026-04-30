@@ -273,10 +273,9 @@ async function buildEntryIndex() {
     entryDetailsByShard.set(shardKey, shard);
   }
 
-  // The web worker imports the lightweight web snapshot at cold start. Strip
-  // fields that can be reconstructed or lazily hydrated so the worker stays
-  // below the Cloudflare size budget, while keeping the full native snapshot
-  // intact for mobile clients and OTA publishing.
+  // The web worker imports this snapshot lazily. Strip fields that can be
+  // reconstructed or hydrated from shards so dictionary routes stay below the
+  // Cloudflare size budget while the native snapshot remains complete.
   const webSnapshot = {
     ...snapshot,
     searchIndexPath,
