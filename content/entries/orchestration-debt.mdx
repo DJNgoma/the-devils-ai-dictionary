@@ -1,0 +1,56 @@
+---
+title: "Orchestration debt"
+slug: "orchestration-debt"
+letter: "O"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+  - "Economics and operations of AI"
+aliases:
+  - "workflow orchestration debt"
+devilDefinition: |
+  The accumulated complexity produced by adding one more step, one more model, one more fallback, and one more apology until nobody can explain the workflow without a guided tour.
+plainDefinition: |
+  Orchestration debt is the maintenance burden created when an AI workflow accumulates too many steps, branches, models, tools, retries, and special cases for the team to reason about confidently.
+whyExists: |
+  Useful systems rarely stay simple. Teams add retrieval, validators, fallbacks, routing rules, approvals, tool calls, and recovery logic incrementally. The term exists because those sensible additions can eventually produce a coordination layer more fragile and opaque than the problem it was meant to solve.
+misuse: |
+  It should not be used to insult every non-trivial workflow. Some orchestration is necessary. It becomes debt when the layering makes failures harder to predict, ownership harder to assign, and changes harder to ship without accidentally summoning three side effects and an incident review.
+practicalMeaning: |
+  In practice it usually means duplicated logic, hidden dependencies, branching nobody wants to touch, unclear state transitions, and an architecture whose strongest testing strategy is hoping the person who built it is still employed.
+example: |
+  "The workflow was no longer sophisticated. It had simply acquired enough orchestration debt to make every bug look original."
+askNext:
+  - "Which parts of this orchestration still earn their keep, and which survive by historical accident?"
+  - "Can a newcomer explain the main failure paths without interviewing the original builder?"
+  - "What change would be hardest to make safely because the coordination layer has become too tangled?"
+related:
+  - "orchestration"
+  - "prompt-debt"
+  - "operational-risk"
+  - "workflow-drift"
+seeAlso:
+  - "Prompt debt"
+  - "Operational risk"
+  - "Workflow drift"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-04-30"
+updatedAt: "2026-04-30"
+tags:
+  - "orchestration"
+  - "workflow"
+  - "maintenance"
+  - "operations"
+misunderstoodScore: 4
+diagram: "agent-loop"
+translations:
+  - label: "engineering meaning"
+    text: "The coordination layer now costs more to understand and change than the team expected."
+  - label: "what it usually means in reality"
+    text: "Accumulated workflow complexity that keeps producing fresh ways to fail."
+---
+
+Orchestration debt is what happens when a clever workflow wins too many arguments against simplification. The system still works, but each new improvement must now travel through customs.

@@ -1,0 +1,54 @@
+---
+title: "Prompt scaffold"
+slug: "prompt-scaffold"
+letter: "P"
+categories:
+  - "Model usage"
+  - "Agents and workflows"
+aliases:
+  - "prompt framework"
+devilDefinition: |
+  The temporary structure teams build around a model so the workflow can stand upright before the surrounding software has fully learned to do its job.
+plainDefinition: |
+  A prompt scaffold is the structured set of instructions, examples, delimiters, and output constraints used to support a workflow without being the workflow itself.
+whyExists: |
+  Models respond better when tasks are framed clearly. Prompt scaffolds exist because careful structure can stabilise behaviour, reduce ambiguity, and make an immature workflow usable before every surrounding control has been turned into software.
+misuse: |
+  It gets treated as permanent architecture. A scaffold is helpful precisely because it is a support structure, not a substitute for real validation, permissions, retrieval quality, or product logic. When a team starts asking the prompt to carry the whole building, the prompt begins to sag.
+practicalMeaning: |
+  In practice it usually means ordered instructions, explicit roles, few-shot examples, output schemas, reminders about tool use, and the gradual discovery that some recurring prompt discipline deserves to migrate into code, policy, or interface design.
+example: |
+  "The prompt scaffold made the assistant usable. The trouble began when the team mistook that usability for a reason never to build the missing product controls."
+askNext:
+  - "Which parts of this scaffold are genuinely clarifying the task, and which are compensating for missing system design?"
+  - "What elements belong in code, policy, or UI rather than in ever longer instructions?"
+  - "If the scaffold disappeared, what behaviour would the workflow actually lose?"
+related:
+  - "prompt-architecture"
+  - "prompt-hygiene"
+  - "system-prompt"
+  - "context-budget"
+seeAlso:
+  - "Prompt Architecture"
+  - "System Prompt"
+  - "Context budget"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-30"
+updatedAt: "2026-04-30"
+tags:
+  - "prompts"
+  - "workflow"
+  - "structure"
+  - "design"
+misunderstoodScore: 3
+translations:
+  - label: "builder meaning"
+    text: "Useful prompt structure that keeps the workflow upright while the rest of the system catches up."
+  - label: "what it usually means in reality"
+    text: "A support frame for model behaviour, not an excuse to leave system design unfinished forever."
+---
+
+Prompt scaffolds are respectable. The pathology begins when they become load-bearing for problems the application ought to own more directly.

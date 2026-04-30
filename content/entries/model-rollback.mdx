@@ -1,0 +1,55 @@
+---
+title: "Model rollback"
+slug: "model-rollback"
+letter: "M"
+categories:
+  - "Infrastructure and deployment"
+  - "Model usage"
+  - "Safety and evaluation"
+aliases:
+  - "rollback model release"
+devilDefinition: |
+  The dignified way of saying that production reality declined the invitation to share your release optimism.
+plainDefinition: |
+  Model rollback is the controlled reversion from a newly deployed model, prompt stack, or routing configuration back to a previous version after regressions, cost surprises, or safety issues appear.
+whyExists: |
+  AI releases do not fail only by crashing. They also fail by becoming slower, stranger, costlier, or less trustworthy in ways that benchmarks and demos did not predict. The term exists because recovery needs to be designed before the awkwardness arrives.
+misuse: |
+  It gets imagined as a simple button. Real rollback is harder when model changes came bundled with prompt edits, schema changes, routing tweaks, tool updates, or silently shifted provider behaviour. Reverting the label is not the same as restoring the old system.
+practicalMeaning: |
+  In practice it usually means version pinning, release gates, shadow tests, archived prompts, configuration history, and evidence good enough to decide whether the problem lives in the model, the workflow, or the surrounding environment.
+example: |
+  "The rollback was delayed because nobody had preserved the previous prompt bundle, proving once again that release confidence and release hygiene are not twins."
+askNext:
+  - "What exactly must be restored for this rollback to recreate the previous behaviour?"
+  - "Which regressions or risk signals are strong enough to trigger reversal?"
+  - "Can the team compare the old and new configurations cleanly, or only nostalgically?"
+related:
+  - "release-gate"
+  - "regression-suite"
+  - "model-drift"
+  - "runtime-policy"
+seeAlso:
+  - "Release gate"
+  - "Regression suite"
+  - "Model drift"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-04-30"
+updatedAt: "2026-04-30"
+tags:
+  - "rollback"
+  - "models"
+  - "release"
+  - "operations"
+misunderstoodScore: 4
+translations:
+  - label: "release meaning"
+    text: "Return the system to the last version that deserved trust."
+  - label: "what it usually means in reality"
+    text: "A recovery path that only works if the team kept version history, configuration discipline, and the courage to use them."
+---
+
+Model rollback is one of those ideas everyone supports in principle and neglects in implementation. Then production develops opinions, and the omission becomes educational.

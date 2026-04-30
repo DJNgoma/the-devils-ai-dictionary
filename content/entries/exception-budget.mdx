@@ -1,0 +1,55 @@
+---
+title: "Exception budget"
+slug: "exception-budget"
+letter: "E"
+categories:
+  - "Economics and operations of AI"
+  - "Agents and workflows"
+  - "Safety and evaluation"
+aliases:
+  - "edge-case budget"
+devilDefinition: |
+  The number of rescues, overrides, and special-case interventions a workflow can survive before the economics stop pretending to be scalable.
+plainDefinition: |
+  Exception budget is the practical limit on how many manual recoveries, edge-case interventions, or policy exceptions an AI workflow can absorb before its cost, latency, or risk profile becomes unacceptable.
+whyExists: |
+  No live workflow is spotless. Some exceptions are normal. The term exists because teams need a way to ask how much awkward rescue work the operating model can afford before the automation story becomes financially or operationally dishonest.
+misuse: |
+  It gets mistaken for an invitation to normalise bad quality. An exception budget is not permission to accumulate endless weirdness. It is a way of quantifying how much weirdness the system can tolerate while the underlying problems are fixed or the scope is narrowed.
+practicalMeaning: |
+  In practice it usually means counting human rescues, escalations, manual edits, override approvals, and out-of-band clean-up work, then admitting that a workflow needing constant exceptional handling is not cheaper merely because the exceptional labour occurs off the slide.
+example: |
+  "The automation looked efficient until they counted the exceptions, at which point the budget was revealed to be a person with a headset and no lunch break."
+askNext:
+  - "How many manual rescues or policy exceptions occur per hundred runs, and what do they cost?"
+  - "Which categories of exception are tolerable, and which indicate the workflow is not yet viable?"
+  - "Who is carrying the hidden labour created when the budget is exceeded?"
+related:
+  - "exception-handling"
+  - "human-fallback"
+  - "operational-risk"
+  - "human-escalation"
+seeAlso:
+  - "Exception handling"
+  - "Human escalation"
+  - "Operational risk"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-04-30"
+updatedAt: "2026-04-30"
+tags:
+  - "exceptions"
+  - "operations"
+  - "economics"
+  - "support"
+misunderstoodScore: 4
+translations:
+  - label: "operator meaning"
+    text: "The workflow can only need so many special rescues before the business case begins to sweat."
+  - label: "what it usually means in reality"
+    text: "A tolerance limit for how much exceptional human or policy handling the system can afford."
+---
+
+Exception budgets are useful because they force a tedious but revealing question: is the system actually scalable, or is it merely delegating mess to a different ledger?

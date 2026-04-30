@@ -1,0 +1,56 @@
+---
+title: "Routing debt"
+slug: "routing-debt"
+letter: "R"
+categories:
+  - "Infrastructure and deployment"
+  - "Economics and operations of AI"
+  - "Model usage"
+aliases:
+  - "model routing debt"
+devilDefinition: |
+  The cumulative penalty for teaching the system one more clever routing rule every week until no one can tell whether a request is being optimised or merely escorted through bureaucracy.
+plainDefinition: |
+  Routing debt is the complexity and maintenance cost created when model, provider, or workflow routing logic grows incrementally into a tangled set of conditions, overrides, and exceptions.
+whyExists: |
+  Routing starts as prudence. Different tasks deserve different models, costs, latencies, or fallback paths. The trouble begins when each sensible exception remains forever, and the selection logic becomes too convoluted to audit, tune, or trust.
+misuse: |
+  It is not debt merely because routing exists. It becomes debt when the logic obscures why a choice was made, makes outcomes hard to reproduce, or turns cost and quality decisions into a museum of historical compromises.
+practicalMeaning: |
+  In practice it usually means hidden thresholds, manual overrides, duplicated routing policy, provider-specific exceptions, stale heuristics, and debugging sessions where everyone agrees the request took the wrong path but nobody agrees who invited the path into existence.
+example: |
+  "Routing had become so subtle that the team could not explain whether the slow expensive path was a safety measure, a legacy rule, or an artefact of somebody's weekend patch."
+askNext:
+  - "Can the team explain, test, and reproduce the main routing decisions without folklore?"
+  - "Which routing rules still reflect current cost, quality, and risk trade-offs?"
+  - "What would break if the oldest exceptions were removed or consolidated?"
+related:
+  - "model-router"
+  - "provider-routing"
+  - "inference-budget"
+  - "orchestration-debt"
+seeAlso:
+  - "Provider routing"
+  - "Inference Budget"
+  - "Orchestration debt"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-04-30"
+updatedAt: "2026-04-30"
+tags:
+  - "routing"
+  - "cost"
+  - "latency"
+  - "operations"
+misunderstoodScore: 4
+diagram: "model-routing"
+translations:
+  - label: "operator meaning"
+    text: "The request selection logic has become harder to govern than to add to."
+  - label: "what it usually means in reality"
+    text: "Accumulated routing rules whose combined behaviour no longer feels legible."
+---
+
+Routing debt is one of the quieter ways systems become political. Every exception was once reasonable. Their collective behaviour, regrettably, now has a biography.

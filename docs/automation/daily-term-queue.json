@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-04-30T17:04:44.204Z",
+  "updatedAt": "2026-04-30T17:09:40.013Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -276,7 +276,7 @@
     {
       "slug": "orchestration-debt",
       "label": "Orchestration debt",
-      "status": "queued",
+      "status": "published",
       "notes": "Should describe the hidden cost of stitching together more steps, models, and tools than anyone can explain.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -291,12 +291,12 @@
         "operational-risk"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:09:40.013Z"
     },
     {
       "slug": "prompt-scaffold",
       "label": "Prompt scaffold",
-      "status": "queued",
+      "status": "published",
       "notes": "Useful for structured prompting that props up the workflow without pretending to be the workflow.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -310,12 +310,12 @@
         "system-prompt"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:09:40.013Z"
     },
     {
       "slug": "governance-stack",
       "label": "Governance stack",
-      "status": "queued",
+      "status": "published",
       "notes": "A practical term for how controls, approvals, logs, and policies fit together around AI features.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -329,12 +329,12 @@
         "policy-enforcement"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:09:40.013Z"
     },
     {
       "slug": "model-rollback",
       "label": "Model rollback",
-      "status": "queued",
+      "status": "published",
       "notes": "Focus on reversing model changes safely once production reality disagrees with release optimism.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -349,12 +349,12 @@
         "model-drift"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:09:40.013Z"
     },
     {
       "slug": "routing-debt",
       "label": "Routing debt",
-      "status": "queued",
+      "status": "published",
       "notes": "Useful for stacked routing logic that made sense incrementally and became unreadable collectively.",
       "diagramHint": "model-routing",
       "misunderstoodHint": 4,
@@ -369,12 +369,12 @@
         "inference-budget"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:09:40.013Z"
     },
     {
       "slug": "exception-budget",
       "label": "Exception budget",
-      "status": "queued",
+      "status": "published",
       "notes": "Should name how many edge-case rescues a workflow can tolerate before the economics stop pretending.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -389,12 +389,12 @@
         "operational-risk"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:09:40.013Z"
     },
     {
       "slug": "tool-broker",
       "label": "Tool broker",
-      "status": "queued",
+      "status": "published",
       "notes": "Useful for systems that decide which external capability an agent should see or call.",
       "diagramHint": "mcp",
       "misunderstoodHint": 3,
@@ -408,7 +408,7 @@
         "function-calling"
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
-      "publishedAt": null
+      "publishedAt": "2026-04-30T17:09:40.013Z"
     }
   ]
 }

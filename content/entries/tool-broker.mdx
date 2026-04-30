@@ -1,0 +1,55 @@
+---
+title: "Tool broker"
+slug: "tool-broker"
+letter: "T"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "capability broker"
+devilDefinition: |
+  The middleman deciding which external powers the agent may see, request, or be politely denied before curiosity becomes consequences.
+plainDefinition: |
+  A tool broker is the component or service that mediates which tools an agent can discover, select, or invoke, often based on permissions, context, policy, or environment.
+whyExists: |
+  Agents rarely need unrestricted visibility of every available capability. A broker exists to separate tool exposure from tool implementation, making it easier to apply permissions, environment boundaries, capability filtering, or contextual access rules.
+misuse: |
+  It gets described as though brokering itself guarantees security or good judgement. It does not. A broker can make tool access more governable, but it can also become a fashionable wrapper around the same old permission mistakes if the policy behind it is sloppy.
+practicalMeaning: |
+  In practice it usually means registries, capability filters, tenancy rules, environment-aware allowlists, protocol adapters, and a decision point that determines whether the agent gets a calculator, a search index, a payment action, or a polite refusal.
+example: |
+  "The tool broker was the quiet adult in the room. It let the agent discover the search tool and blocked the urge to improvise with production billing."
+askNext:
+  - "Who decides which tools are visible in this context: the agent, the broker, or a policy layer above both?"
+  - "How are permissions, tenancy, and environment boundaries enforced before a tool is exposed?"
+  - "What happens when the broker itself routes the agent to the wrong capability?"
+related:
+  - "tool-registry"
+  - "mcp"
+  - "function-calling"
+  - "tool-permissions"
+seeAlso:
+  - "Tool Registry"
+  - "MCP"
+  - "Tool Permissions"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-04-30"
+updatedAt: "2026-04-30"
+tags:
+  - "tools"
+  - "permissions"
+  - "routing"
+  - "protocols"
+misunderstoodScore: 3
+diagram: "mcp"
+translations:
+  - label: "platform meaning"
+    text: "A controlled gatekeeper between the agent and the set of external capabilities."
+  - label: "what it usually means in reality"
+    text: "The layer deciding which tools are visible and callable before the agent gets ideas."
+---
+
+Tool brokers become interesting the moment they start saying no. Exposing every tool to every agent is not flexibility. It is future incident material with an API.
