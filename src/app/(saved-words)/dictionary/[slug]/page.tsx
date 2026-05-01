@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { Badge } from "@/components/badge";
 import { EntryShareButton } from "@/components/entry-share-button";
 import { EntryCard } from "@/components/entry-card";
@@ -23,6 +23,10 @@ type EntryPageProps = {
   }>;
 };
 
+const legacyEntrySlugRedirects = new Map<string, string>([
+  ["super-apps", "super-app"],
+]);
+
 function Section({
   title,
   children,
@@ -40,7 +44,10 @@ function Section({
 
 export async function generateStaticParams() {
   const entries = await getAllEntries();
-  return entries.map(({ slug }) => ({ slug }));
+  return [
+    ...entries.map(({ slug }) => ({ slug })),
+    ...Array.from(legacyEntrySlugRedirects.keys()).map((slug) => ({ slug })),
+  ];
 }
 
 export async function generateMetadata({ params }: EntryPageProps) {
@@ -61,6 +68,12 @@ export async function generateMetadata({ params }: EntryPageProps) {
 
 export default async function EntryPage({ params }: EntryPageProps) {
   const { slug } = await params;
+  const canonicalSlug = legacyEntrySlugRedirects.get(slug);
+
+  if (canonicalSlug) {
+    permanentRedirect(`/dictionary/${canonicalSlug}`);
+  }
+
   const entry = await getEntryBySlug(slug);
 
   if (!entry) {
