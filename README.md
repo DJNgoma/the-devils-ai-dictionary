@@ -348,6 +348,7 @@ Files added for the Cloudflare path:
 
 - `wrangler.jsonc`
 - `open-next.config.ts`
+- `cloudflare-worker.mjs`
 - `src/proxy.ts`
 - `public/_headers`
 
@@ -357,9 +358,11 @@ Notes:
 - The app no longer relies on runtime filesystem reads for dictionary content. Entries are compiled into `src/generated/entries.generated.json` during `npm run dev` and `npm run build`, which is much less sentimental and considerably more compatible with Workers.
 - `wrangler.jsonc` now pins `NEXT_PUBLIC_SITE_URL` to `https://thedevilsaidictionary.com` so canonical URLs, Open Graph metadata, and sitemap output stay on the apex domain during Workers deploys.
 - `wrangler.jsonc` publishes the Worker to the existing Cloudflare zone routes `thedevilsaidictionary.com/*` and `www.thedevilsaidictionary.com/*` instead of using Worker Custom Domains. This avoids collisions with existing DNS records in the zone.
+- `wrangler.jsonc` also owns the daily web push cadence through a Cloudflare Cron Trigger at `59 23 * * *` UTC. GitHub Actions keeps a manual fallback workflow, but no longer drives scheduled notification delivery.
+- `cloudflare-worker.mjs` wraps the OpenNext Worker, delegates ordinary requests to `.open-next/worker.js`, and handles the Cloudflare scheduled event by internally calling `/api/mobile/push/daily-send` with `PUSH_TEST_SEND_SECRET`.
 - `src/proxy.ts` permanently redirects the `www` hostname to the apex domain while preserving path and query string.
 - `scripts/run-opennext-cloudflare.mjs` temporarily swaps `src/proxy.ts` into a build-only `src/middleware.ts` while `@opennextjs/cloudflare` still lacks support for Node proxy output. The tracked source stays on the current `proxy` convention.
-- Web push on the site is runtime-configured. The production Worker must have `WEB_PUSH_VAPID_PUBLIC_KEY`, `WEB_PUSH_VAPID_PRIVATE_KEY`, and `WEB_PUSH_VAPID_SUBJECT` set as secrets or `/api/web/push/config` will report `enabled: false` and browser subscriptions will stay unavailable.
+- Web push on the site is runtime-configured. The production Worker must have `PUSH_TEST_SEND_SECRET`, `WEB_PUSH_VAPID_PUBLIC_KEY`, `WEB_PUSH_VAPID_PRIVATE_KEY`, and `WEB_PUSH_VAPID_SUBJECT` set as secrets or scheduled daily web delivery cannot complete.
 - Apple web sign-in is also runtime-configured. The production Worker must have `APPLE_SESSION_SECRET`, `APPLE_WEB_CLIENT_ID`, `APPLE_TEAM_ID`, `APPLE_KEY_ID`, and `APPLE_PRIVATE_KEY` set as secrets or the auth routes will fail at runtime. The production deploy workflow now hard-fails when those required secrets are missing. `APPLE_WEB_REDIRECT_URI` may be omitted if the site uses the default `https://thedevilsaidictionary.com/api/auth/apple/callback`.
 - This deploys to Cloudflare Workers, not Vercel. Yes, the Next.js app can live somewhere other than its birthplace. The custody dispute remains philosophical.
 

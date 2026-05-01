@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "main": ".open-next/worker.js",
+  "main": "cloudflare-worker.mjs",
   "name": "devils-ai-dictionary",
   "workers_dev": true,
   "preview_urls": true,
@@ -9,6 +9,11 @@
     "nodejs_compat",
     "global_fetch_strictly_public"
   ],
+  "triggers": {
+    "crons": [
+      "59 23 * * *"
+    ]
+  },
   "vars": {
     "NEXT_PUBLIC_SITE_URL": "https://thedevilsaidictionary.com",
     "FCM_PROJECT_ID": "devils-ai-dictionary"

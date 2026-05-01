@@ -1,9 +1,8 @@
 name: Daily push dispatch
 
 on:
-  schedule:
-    # Temporary cost-control schedule: run once per day at 23:59 UTC.
-    - cron: "59 23 * * *"
+  # Cloudflare Cron Triggers own the production schedule.
+  # Keep this as an emergency manual fallback only.
   workflow_dispatch:
 
 permissions:

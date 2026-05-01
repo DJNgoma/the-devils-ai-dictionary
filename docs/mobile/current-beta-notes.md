@@ -188,6 +188,6 @@ The 1.2.0 beta refreshes the opening experience and default Book palette. Please
   `APPLE_TEAM_ID`, `APPLE_KEY_ID`, `APPLE_PRIVATE_KEY`,
   `APPLE_WEB_CLIENT_ID`, `APPLE_NATIVE_CLIENT_ID`,
   `APPLE_WEB_REDIRECT_URI`, `APPLE_SESSION_SECRET`.
-- If preferred delivery hours are meant to matter in production, the
-  `POST /api/mobile/push/daily-send` job needs to run hourly rather than once a
-  day.
+- Native iOS and Android daily notifications are scheduled locally on device.
+  The shared `POST /api/mobile/push/daily-send` job is web-only and runs from
+  the production Cloudflare Cron Trigger once per day.

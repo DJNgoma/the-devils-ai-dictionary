@@ -77,7 +77,7 @@ curl -X POST https://thedevilsaidictionary.com/api/mobile/push/test-send \
 
 ## QA notes
 
-- If you want per-device delivery hours to mean anything in production, the shared `POST /api/mobile/push/daily-send` route needs to run hourly rather than once a day.
+- Native iOS and Android daily notifications are scheduled locally on device. The shared `POST /api/mobile/push/daily-send` route is now a web-only server path, invoked by the production Cloudflare Cron Trigger once per day.
 - Ordinary app launch should show the last stored word on phone and watch.
 - Manual refresh should replace the current word and persist it.
 - Notification taps should replace the current word with the pushed slug and route the phone to `/dictionary/{slug}`.
