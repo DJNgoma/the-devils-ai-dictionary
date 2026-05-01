@@ -40,10 +40,25 @@ async function restoreProxy() {
 
   await rm(middlewarePath, { force: true });
   await rename(proxyBackupPath, proxyPath);
+  await rm(tempDir, { recursive: true, force: true });
   swappedProxyForMiddleware = false;
 }
 
+async function restoreInterruptedProxySwap() {
+  if (
+    !(await exists(proxyPath)) &&
+    (await exists(middlewarePath)) &&
+    (await exists(proxyBackupPath))
+  ) {
+    await rm(middlewarePath, { force: true });
+    await rename(proxyBackupPath, proxyPath);
+    await rm(tempDir, { recursive: true, force: true });
+  }
+}
+
 async function prepareProxyCompatibilityShim() {
+  await restoreInterruptedProxySwap();
+
   if (!(await exists(proxyPath)) || (await exists(middlewarePath))) {
     return;
   }

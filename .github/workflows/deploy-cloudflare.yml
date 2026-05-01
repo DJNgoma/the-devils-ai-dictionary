@@ -9,8 +9,16 @@ on:
       - main
   workflow_dispatch:
     inputs:
+      target:
+        description: Environment to deploy
+        required: true
+        default: staging
+        type: choice
+        options:
+          - staging
+          - production
       full_cloudflare_preflight:
-        description: Run the full Wrangler dry-run and startup preflight before deployment
+        description: Run the full Wrangler dry-run and startup preflight before production deployment
         required: false
         default: false
         type: boolean
@@ -44,16 +52,18 @@ jobs:
         if: github.event_name == 'pull_request'
         run: npm run build:cf && npm run release-gate:cf
 
-  deploy-production:
-    name: Deploy Production
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+  deploy-staging:
+    name: Deploy Staging
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.target == 'staging')
     needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
       contents: read
       deployments: write
-    environment: production
+    environment:
+      name: staging
+      url: https://staging.thedevilsaidictionary.com
     env:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -71,7 +81,61 @@ jobs:
       - name: Skip deploy when Cloudflare credentials are missing
         if: env.CLOUDFLARE_ACCOUNT_ID == '' || env.CLOUDFLARE_API_TOKEN == ''
         run: |
-          echo "::notice title=Cloudflare deploy skipped::Set CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN to enable production deploys."
+          echo "::notice title=Cloudflare staging deploy skipped::Set CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the staging environment to enable staging deploys."
+
+      - name: Apply staging D1 migrations
+        if: env.CLOUDFLARE_ACCOUNT_ID != '' && env.CLOUDFLARE_API_TOKEN != ''
+        run: npx wrangler d1 migrations apply PUSH_INSTALLATIONS_DB --env staging --remote
+
+      - name: Deploy staging web to Cloudflare
+        if: env.CLOUDFLARE_ACCOUNT_ID != '' && env.CLOUDFLARE_API_TOKEN != ''
+        run: npm run release-gate:cf:dry-run:staging && npm run deploy:cf:staging:built
+
+      - name: Verify staging web runtime
+        if: env.CLOUDFLARE_ACCOUNT_ID != '' && env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          curl --fail --silent --show-error https://staging.thedevilsaidictionary.com/ >/dev/null
+          response=$(curl --fail --silent --show-error https://staging.thedevilsaidictionary.com/api/web/push/config)
+          node - "$response" <<'NODE'
+          const payload = JSON.parse(process.argv[2]);
+
+          if (!payload.enabled || !payload.publicKey) {
+            console.log(
+              "::notice title=Staging web push disabled::Set WEB_PUSH_VAPID_PUBLIC_KEY, WEB_PUSH_VAPID_PRIVATE_KEY, and WEB_PUSH_VAPID_SUBJECT on the staging Worker before push testing.",
+            );
+          }
+          NODE
+
+  deploy-production:
+    name: Deploy Production
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.target == 'production'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      deployments: write
+    environment:
+      name: production
+      url: https://thedevilsaidictionary.com
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Skip deploy when Cloudflare credentials are missing
+        if: env.CLOUDFLARE_ACCOUNT_ID == '' || env.CLOUDFLARE_API_TOKEN == ''
+        run: |
+          echo "::notice title=Cloudflare production deploy skipped::Set CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in the production environment to enable production deploys."
 
       - name: Verify required Cloudflare Worker secrets exist
         if: env.CLOUDFLARE_ACCOUNT_ID != '' && env.CLOUDFLARE_API_TOKEN != ''

@@ -50,5 +50,38 @@
   ],
   "observability": {
     "enabled": true
+  },
+  "env": {
+    "staging": {
+      "name": "devils-ai-dictionary-staging",
+      "vars": {
+        "NEXT_PUBLIC_SITE_URL": "https://staging.thedevilsaidictionary.com",
+        "FCM_PROJECT_ID": "devils-ai-dictionary"
+      },
+      "routes": [
+        {
+          "pattern": "staging.thedevilsaidictionary.com/*",
+          "zone_name": "thedevilsaidictionary.com"
+        }
+      ],
+      "services": [
+        {
+          "binding": "WORKER_SELF_REFERENCE",
+          "service": "devils-ai-dictionary-staging"
+        }
+      ],
+      "d1_databases": [
+        {
+          "binding": "PUSH_INSTALLATIONS_DB",
+          "database_name": "devils-ai-dictionary-push-installations-staging",
+          "database_id": "1e3139d3-4519-4003-b673-7f19723068c3",
+          "preview_database_id": "1e3139d3-4519-4003-b673-7f19723068c3",
+          "migrations_dir": "migrations"
+        }
+      ],
+      "observability": {
+        "enabled": true
+      }
+    }
   }
 }
