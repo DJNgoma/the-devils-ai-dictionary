@@ -8,6 +8,12 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      full_cloudflare_preflight:
+        description: Run the full Wrangler dry-run and startup preflight before deployment
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -35,6 +41,7 @@ jobs:
         run: npm run test:ci
 
       - name: Validate Cloudflare release gate
+        if: github.event_name == 'pull_request'
         run: npm run build:cf && npm run release-gate:cf
 
   deploy-production:
@@ -97,9 +104,21 @@ jobs:
           }
           NODE
 
+      - name: Run full Cloudflare preflight
+        if: env.CLOUDFLARE_ACCOUNT_ID != '' && env.CLOUDFLARE_API_TOKEN != '' && github.event_name == 'workflow_dispatch' && inputs.full_cloudflare_preflight
+        run: npm run release-gate:cf:dry-run
+
+      - name: Build Cloudflare deployment
+        if: env.CLOUDFLARE_ACCOUNT_ID != '' && env.CLOUDFLARE_API_TOKEN != '' && (github.event_name != 'workflow_dispatch' || !inputs.full_cloudflare_preflight)
+        run: npm run build:cf
+
+      - name: Check Cloudflare release gate
+        if: env.CLOUDFLARE_ACCOUNT_ID != '' && env.CLOUDFLARE_API_TOKEN != '' && (github.event_name != 'workflow_dispatch' || !inputs.full_cloudflare_preflight)
+        run: npm run release-gate:cf
+
       - name: Deploy web to Cloudflare
         if: env.CLOUDFLARE_ACCOUNT_ID != '' && env.CLOUDFLARE_API_TOKEN != ''
-        run: npm run release-gate:cf:dry-run && npm run deploy:cf
+        run: npm run deploy:cf:built
 
       - name: Verify production web surface
         if: env.CLOUDFLARE_ACCOUNT_ID != '' && env.CLOUDFLARE_API_TOKEN != ''

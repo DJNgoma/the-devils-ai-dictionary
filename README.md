@@ -65,7 +65,7 @@ npm run build:cf
 npm run windows:build
 ```
 
-GitHub Actions is now the canonical production web deployment path for this repo. Use `.github/workflows/deploy-cloudflare.yml` for normal web releases. Keep `npm run deploy:cf` and `npm run upload:cf` as emergency-only fallback commands.
+GitHub Actions is now the canonical production web deployment path for this repo. Use `.github/workflows/deploy-cloudflare.yml` for normal web releases. The workflow builds the Cloudflare artifact once in the production job, runs the lightweight release gate, then deploys the already-built Worker. Use the manual `full_cloudflare_preflight` workflow input only when you need the slower Wrangler dry-run/startup check. Keep `npm run deploy:cf` and `npm run upload:cf` as emergency-only fallback commands.
 
 The supported Apple toolchain for local builds is `/Applications/Xcode.app` (Xcode 26.4). The helper-backed iOS scripts prefer that toolchain automatically even if `xcode-select` still points at `Xcode-beta.app`. Override it only when you intentionally want the beta:
 
@@ -342,6 +342,14 @@ Deploy to Cloudflare Workers:
 
 ```bash
 npm run deploy:cf
+```
+
+Deploy an already-built Cloudflare artifact without rebuilding:
+
+```bash
+npm run build:cf
+npm run release-gate:cf
+npm run deploy:cf:built
 ```
 
 Files added for the Cloudflare path:
