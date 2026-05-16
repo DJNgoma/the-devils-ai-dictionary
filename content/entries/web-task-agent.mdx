@@ -1,0 +1,52 @@
+---
+title: "Web task agent"
+slug: "web-task-agent"
+letter: "W"
+categories:
+  - "Agents and workflows"
+  - "Model usage"
+aliases:
+  - "web workflow agent"
+  - "web automation agent"
+devilDefinition: |
+  A system asked to finish the web chore, including the tedious middle that demos crop out for morale.
+plainDefinition: |
+  A web task agent is an AI agent designed to complete end-to-end tasks on websites or web applications, often by browsing, filling forms, extracting information, and taking actions.
+whyExists: |
+  Many useful workflows span sites, forms, dashboards, and documents without stable APIs. Web task agents try to automate those flows in the same surface a person would use.
+misuse: |
+  It gets oversold as autonomous web work, when most real web tasks involve fragile state, ambiguous instructions, authentication, recovery, and decisions that should not be hidden behind smooth narration.
+practicalMeaning: |
+  In practice it means decomposing the task, verifying intermediate state, logging actions, asking for approval at consequential steps, and handling the dull failures that make automation honest.
+example: |
+  "The web task agent booked the appointment only after confirming the date, the price, and that the blue button did not secretly mean subscribe forever."
+askNext:
+  - "Which parts of the web task are reversible?"
+  - "Where does the agent need confirmation before acting?"
+  - "How does it recover when the page state changes?"
+related:
+  - "browser-agent"
+  - "action-trace"
+  - "agent-workflow"
+seeAlso:
+  - "Browser agent"
+  - "Agent workflow"
+  - "External actions"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "agents"
+  - "web"
+  - "workflow"
+misunderstoodScore: 4
+diagram: "agent-loop"
+translations:
+  - label: "what it usually means in reality"
+    text: "A browser-driven workflow agent that needs guardrails precisely because it can finish things."
+---
+
+Completing the web task is impressive. Completing the right web task is the part that needs engineering.

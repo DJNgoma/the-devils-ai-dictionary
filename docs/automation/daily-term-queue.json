@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-05-16T06:19:37.882Z",
+  "updatedAt": "2026-05-16T06:24:23.014Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -960,7 +960,7 @@
     {
       "slug": "research-agent",
       "label": "Research agent",
-      "status": "queued",
+      "status": "published",
       "notes": "Focus on systems that plan searches, inspect sources, and produce cited synthesis, not a chatbot that read three snippets and became a librarian.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -974,12 +974,13 @@
         "research-plan",
         "citation-grounding"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:24:23.014Z"
     },
     {
       "slug": "research-plan",
       "label": "Research plan",
-      "status": "queued",
+      "status": "published",
       "notes": "Useful for the explicit search and source strategy before synthesis begins, which is where many confident reports quietly decide their answer.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -992,12 +993,13 @@
         "source-triangulation",
         "citation-grounding"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:24:23.014Z"
     },
     {
       "slug": "citation-grounding",
       "label": "Citation grounding",
-      "status": "queued",
+      "status": "published",
       "notes": "Should separate citations that support the answer from citations that merely stand nearby wearing a tie.",
       "diagramHint": "rag",
       "misunderstoodHint": 4,
@@ -1011,12 +1013,13 @@
         "source-synthesis",
         "retrieval-provenance"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:24:23.014Z"
     },
     {
       "slug": "source-triangulation",
       "label": "Source triangulation",
-      "status": "queued",
+      "status": "published",
       "notes": "Name the habit of checking a claim across independent sources instead of letting one agreeable page become reality.",
       "diagramHint": "rag",
       "misunderstoodHint": 3,
@@ -1029,12 +1032,13 @@
         "retrieval-quality",
         "research-plan"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:24:23.014Z"
     },
     {
       "slug": "browser-agent",
       "label": "Browser agent",
-      "status": "queued",
+      "status": "published",
       "notes": "Focus on agents that operate through a browser surface, where clicking the wrong thing is not a metaphor.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -1048,12 +1052,13 @@
         "web-task-agent",
         "computer-use-agent"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:24:23.014Z"
     },
     {
       "slug": "web-task-agent",
       "label": "Web task agent",
-      "status": "queued",
+      "status": "published",
       "notes": "Useful for agents meant to complete web workflows end to end, including the dull parts that demos crop out for morale.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -1066,12 +1071,13 @@
         "action-trace",
         "agent-workflow"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:24:23.014Z"
     },
     {
       "slug": "action-trace",
       "label": "Action trace",
-      "status": "queued",
+      "status": "published",
       "notes": "Good for the record of external actions taken by a system, especially when accountability needs more than a screenshot and optimism.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -1084,7 +1090,8 @@
         "tool-call-audit",
         "session-replay"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:24:23.014Z"
     },
     {
       "slug": "computer-use-agent",

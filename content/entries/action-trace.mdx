@@ -1,0 +1,52 @@
+---
+title: "Action trace"
+slug: "action-trace"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+aliases:
+  - "agent action trace"
+  - "action log"
+devilDefinition: |
+  The receipt for what the system did, for those awkward moments when the final answer says everything went smoothly.
+plainDefinition: |
+  An action trace is a structured record of external actions an AI system or agent took, including tool calls, browser actions, approvals, inputs, outputs, and resulting state changes.
+whyExists: |
+  Agents increasingly do things outside the chat box. Teams need a way to audit, debug, replay, and explain those actions after the fact.
+misuse: |
+  It gets reduced to a transcript. A useful action trace must capture the action, context, authority, result, and side effect, not merely the sentence the assistant wrote afterwards.
+practicalMeaning: |
+  In practice it means logging enough detail to answer who authorised what, which tool or UI element was touched, what changed, and how to reverse or investigate the action.
+example: |
+  "The action trace showed the assistant submitted the form after the approval gate, which made the apology shorter and the fix more obvious."
+askNext:
+  - "Which external actions are recorded?"
+  - "Does the trace include approvals, inputs, outputs, and state changes?"
+  - "Can the trace support replay or incident investigation?"
+related:
+  - "agent-trace"
+  - "tool-call-audit"
+  - "session-replay"
+seeAlso:
+  - "Agent trace"
+  - "Tool call audit"
+  - "Session replay"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "agents"
+  - "audit"
+  - "actions"
+misunderstoodScore: 4
+diagram: "agent-loop"
+translations:
+  - label: "what it usually means in reality"
+    text: "A record of what the agent actually did, not what it later said it did."
+---
+
+Action traces exist because accountability should not depend on the assistant's memory of its own good intentions.

@@ -1,0 +1,53 @@
+---
+title: "Citation grounding"
+slug: "citation-grounding"
+letter: "C"
+categories:
+  - "Retrieval and memory"
+  - "Safety and evaluation"
+  - "Model usage"
+aliases:
+  - "grounded citations"
+  - "citation support"
+devilDefinition: |
+  The old-fashioned idea that a citation should support the sentence standing on it, not merely loiter nearby.
+plainDefinition: |
+  Citation grounding is the practice of ensuring that cited sources directly support the claims they are attached to in an AI-generated answer.
+whyExists: |
+  AI systems can produce plausible citations, weakly related sources, or citations that support a neighbouring claim but not the actual sentence. Grounding ties claims back to evidence more rigorously.
+misuse: |
+  It gets reduced to "has citations". A footnote can be decorative, stale, irrelevant, or contradicted by the source it points to.
+practicalMeaning: |
+  In practice it means checking claim-level support, preserving source passages or metadata, distinguishing direct evidence from background reading, and refusing to let citations become costume jewellery.
+example: |
+  "The answer had five citations, but citation grounding found that only one supported the revenue claim and the others were standing around looking official."
+askNext:
+  - "Which exact claim does this citation support?"
+  - "Is the source primary, secondary, or merely convenient?"
+  - "Can the cited material be inspected without trusting the model's summary?"
+related:
+  - "grounding"
+  - "source-synthesis"
+  - "retrieval-provenance"
+seeAlso:
+  - "Grounding"
+  - "Source synthesis"
+  - "Retrieval provenance"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "citations"
+  - "grounding"
+  - "research"
+misunderstoodScore: 4
+diagram: "rag"
+translations:
+  - label: "what it usually means in reality"
+    text: "Making citations carry the claim, not decorate it."
+---
+
+A citation is not a moral alibi. It has one job: support the sentence.
