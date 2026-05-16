@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-04-30T17:09:40.013Z",
+  "updatedAt": "2026-05-16T04:43:14.000Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -409,6 +409,928 @@
       ],
       "addedAt": "2026-04-26T07:00:00.000Z",
       "publishedAt": "2026-04-30T17:09:40.013Z"
+    },
+    {
+      "slug": "agent-observability",
+      "label": "Agent observability",
+      "status": "queued",
+      "notes": "Focus on seeing what an agent did, why it did it, which tools it touched, and where the workflow quietly became theatre.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "agent-reliability",
+        "agent-trace",
+        "workflow-drift"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "agent-trace",
+      "label": "Agent trace",
+      "status": "queued",
+      "notes": "Useful for the recorded chain of model calls, tool calls, handoffs, approvals, and mistakes that made the final answer look inevitable.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "trace-replay",
+        "agent-observability",
+        "tool-call-audit"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "handoff-policy",
+      "label": "Handoff policy",
+      "status": "queued",
+      "notes": "Name the rules for when work moves between agents, tools, or humans instead of pretending delegation is a personality trait.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "session-handoff",
+        "task-handoff",
+        "human-escalation"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "delegation-contract",
+      "label": "Delegation contract",
+      "status": "queued",
+      "notes": "Should capture the scope, authority, context, and return format expected when one agent or person hands work to another.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "subagents",
+        "handoff-policy",
+        "task-handoff"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "approval-gate",
+      "label": "Approval gate",
+      "status": "queued",
+      "notes": "Useful for separating meaningful human control from the comforting button someone clicks after the decision has already escaped.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "approval-theatre",
+        "release-gate",
+        "human-escalation"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "permission-prompt",
+      "label": "Permission prompt",
+      "status": "queued",
+      "notes": "Focus on the little consent ritual that decides whether an agent may read, write, send, spend, or damage something real.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "tool-permissions",
+        "approval-gate",
+        "external-actions"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "tool-call-audit",
+      "label": "Tool call audit",
+      "status": "queued",
+      "notes": "Good for the unglamorous record of which tool was called, with what arguments, by whom, and with what consequence.",
+      "diagramHint": "function-calling",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Infrastructure and deployment",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "tool-use",
+        "agent-observability",
+        "tool-reliability"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "tool-result",
+      "label": "Tool result",
+      "status": "queued",
+      "notes": "Should distinguish a tool's returned data from the model's interpretation of it, which is where many tidy lies acquire formatting.",
+      "diagramHint": "function-calling",
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "tool-use",
+        "function-calling",
+        "structured-content"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "structured-content",
+      "label": "Structured content",
+      "status": "queued",
+      "notes": "Useful for tool and protocol outputs that arrive as typed data rather than persuasive paragraphs wearing JSON perfume.",
+      "diagramHint": "function-calling",
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Infrastructure and deployment",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "tool-result",
+        "schema",
+        "mcp"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "resource-link",
+      "label": "Resource link",
+      "status": "queued",
+      "notes": "Focus on references to context that can be fetched or subscribed to, not pasted wholesale into the model like a ransom note.",
+      "diagramHint": "mcp",
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Retrieval and memory",
+        "Infrastructure and deployment",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "mcp-resource",
+        "context-window",
+        "retrieval"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "mcp-resource",
+      "label": "MCP resource",
+      "status": "queued",
+      "notes": "Should explain application-driven context exposed through MCP, distinct from model-controlled tools and prompt-shaped wishful thinking.",
+      "diagramHint": "mcp",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Retrieval and memory",
+        "Infrastructure and deployment",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "mcp",
+        "resource-link",
+        "connected-context"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "mcp-prompt",
+      "label": "MCP prompt",
+      "status": "queued",
+      "notes": "Good for reusable prompt templates exposed by a server, not evidence that the server now understands the business.",
+      "diagramHint": "mcp",
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Model usage",
+        "Infrastructure and deployment",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "mcp",
+        "prompt-scaffold",
+        "system-prompt"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "mcp-roots",
+      "label": "MCP roots",
+      "status": "queued",
+      "notes": "Name the boundary of files or locations a client tells an MCP server it may treat as relevant, which is not the same as permission to eat the disk.",
+      "diagramHint": "mcp",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Infrastructure and deployment",
+        "Safety and evaluation",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "mcp",
+        "tool-permissions",
+        "trust-boundary"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "mcp-registry",
+      "label": "MCP registry",
+      "status": "queued",
+      "notes": "Useful for catalogues of MCP servers and tools, plus the new procurement problem of deciding which helpful stranger may enter the building.",
+      "diagramHint": "mcp",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Infrastructure and deployment",
+        "Product and vendor terms",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "mcp",
+        "tool-registry",
+        "hosted-mcp"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "mcp-sampling",
+      "label": "MCP sampling",
+      "status": "queued",
+      "notes": "Focus on server-requested model generation through a client, where the direction of control is easy to summarise badly and implement worse.",
+      "diagramHint": "mcp",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Infrastructure and deployment",
+        "Agents and workflows",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "mcp",
+        "mcp-elicitation",
+        "tool-permissions"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "mcp-elicitation",
+      "label": "MCP elicitation",
+      "status": "queued",
+      "notes": "Name the protocol path for requesting user input during a workflow, not a licence for the agent to interrogate the office furniture.",
+      "diagramHint": "mcp",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Infrastructure and deployment",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "mcp",
+        "approval-gate",
+        "human-escalation"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "hosted-mcp",
+      "label": "Hosted MCP",
+      "status": "queued",
+      "notes": "Useful for MCP servers run as managed infrastructure, where convenience arrives carrying authentication, tenancy, and vendor questions.",
+      "diagramHint": "mcp",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Infrastructure and deployment",
+        "Product and vendor terms",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "mcp-server",
+        "mcp-registry",
+        "managed-serving"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "prompt-injection-scanner",
+      "label": "Prompt injection scanner",
+      "status": "queued",
+      "notes": "Good for tools that look for hostile instructions in content, while not pretending pattern matching has repealed adversarial creativity.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "prompt-injection",
+        "prompt-firewall",
+        "tool-poisoning"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "guardrail-bypass",
+      "label": "Guardrail bypass",
+      "status": "queued",
+      "notes": "Should describe the path around a safety control, especially when the control was sold as a wall and installed as a curtain.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "guardrails",
+        "prompt-injection",
+        "policy-engine"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "policy-engine",
+      "label": "Policy engine",
+      "status": "queued",
+      "notes": "Focus on runtime rules that decide what a system may do, not the document repository where responsibility goes to rest.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "policy-enforcement",
+        "governance-stack",
+        "guardrails"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "data-exfiltration-path",
+      "label": "Data exfiltration path",
+      "status": "queued",
+      "notes": "Name the route by which sensitive data leaves through tools, logs, prompts, connectors, or a very helpful integration.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Infrastructure and deployment",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "context-poisoning",
+        "tool-poisoning",
+        "trust-boundary"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "context-compaction",
+      "label": "Context compaction",
+      "status": "queued",
+      "notes": "Useful for summarising or compressing working state so a long session can continue without pretending nothing was lost.",
+      "diagramHint": "context-window",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Retrieval and memory",
+        "Model usage",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "context-window",
+        "context-pruning",
+        "memory-boundary"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "memory-boundary",
+      "label": "Memory boundary",
+      "status": "queued",
+      "notes": "Should mark what the system may remember, forget, retrieve, or leak, which is more useful than saying it has memory and smiling.",
+      "diagramHint": "context-window",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Retrieval and memory",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "agent-memory",
+        "context-security-incident-response-statement",
+        "context-compaction"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "session-replay",
+      "label": "Session replay",
+      "status": "queued",
+      "notes": "Focus on reconstructing what happened in a model or agent session, especially after the impressive bit becomes an incident report.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "trace-replay",
+        "agent-trace",
+        "agent-observability"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "reasoning-budget",
+      "label": "Reasoning budget",
+      "status": "queued",
+      "notes": "Name the token, latency, cost, or policy limit on how much deliberation a model gets before everyone calls it decisive.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Model usage",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "compute-budget",
+        "inference-budget",
+        "planning-budget"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "planning-budget",
+      "label": "Planning budget",
+      "status": "queued",
+      "notes": "Useful for the amount of exploration an agent is allowed before it must stop admiring the map and touch the work.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "reasoning-budget",
+        "task-orchestration",
+        "agent-cost-control"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "capability-escalation",
+      "label": "Capability escalation",
+      "status": "queued",
+      "notes": "Should describe when a workflow gains stronger tools, wider access, or higher authority, not merely when the demo gets more confident.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "capability-surface",
+        "tool-permissions",
+        "approval-gate"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "trust-boundary",
+      "label": "Trust boundary",
+      "status": "queued",
+      "notes": "Good for the line between systems, users, tools, and data sources where assumptions should stop and verification should begin.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "data-exfiltration-path",
+        "tool-permissions",
+        "context-poisoning"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "research-agent",
+      "label": "Research agent",
+      "status": "queued",
+      "notes": "Focus on systems that plan searches, inspect sources, and produce cited synthesis, not a chatbot that read three snippets and became a librarian.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Retrieval and memory",
+        "Model usage"
+      ],
+      "relatedHints": [
+        "deep-research",
+        "research-plan",
+        "citation-grounding"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "research-plan",
+      "label": "Research plan",
+      "status": "queued",
+      "notes": "Useful for the explicit search and source strategy before synthesis begins, which is where many confident reports quietly decide their answer.",
+      "diagramHint": null,
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Agents and workflows",
+        "Retrieval and memory"
+      ],
+      "relatedHints": [
+        "research-agent",
+        "source-triangulation",
+        "citation-grounding"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "citation-grounding",
+      "label": "Citation grounding",
+      "status": "queued",
+      "notes": "Should separate citations that support the answer from citations that merely stand nearby wearing a tie.",
+      "diagramHint": "rag",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Retrieval and memory",
+        "Safety and evaluation",
+        "Model usage"
+      ],
+      "relatedHints": [
+        "grounding",
+        "source-synthesis",
+        "retrieval-provenance"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "source-triangulation",
+      "label": "Source triangulation",
+      "status": "queued",
+      "notes": "Name the habit of checking a claim across independent sources instead of letting one agreeable page become reality.",
+      "diagramHint": "rag",
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Retrieval and memory",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "citation-grounding",
+        "retrieval-quality",
+        "research-plan"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "browser-agent",
+      "label": "Browser agent",
+      "status": "queued",
+      "notes": "Focus on agents that operate through a browser surface, where clicking the wrong thing is not a metaphor.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Infrastructure and deployment",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "browser-automation",
+        "web-task-agent",
+        "computer-use-agent"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "web-task-agent",
+      "label": "Web task agent",
+      "status": "queued",
+      "notes": "Useful for agents meant to complete web workflows end to end, including the dull parts that demos crop out for morale.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "relatedHints": [
+        "browser-agent",
+        "action-trace",
+        "agent-workflow"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "action-trace",
+      "label": "Action trace",
+      "status": "queued",
+      "notes": "Good for the record of external actions taken by a system, especially when accountability needs more than a screenshot and optimism.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "agent-trace",
+        "tool-call-audit",
+        "session-replay"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "computer-use-agent",
+      "label": "Computer-use agent",
+      "status": "queued",
+      "notes": "Focus on agents that interact with graphical interfaces, where perception, permissions, timing, and irreversible clicks all become product requirements.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Product and vendor terms",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "desktop-agent",
+        "browser-agent",
+        "screen-grounding"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "screen-grounding",
+      "label": "Screen grounding",
+      "status": "queued",
+      "notes": "Name the link between what an agent sees on screen and the UI element it thinks it is acting on, a small gap with expensive hobbies.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Model usage",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "computer-use-agent",
+        "vision-language-model",
+        "action-trace"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "provenance-signal",
+      "label": "Provenance signal",
+      "status": "queued",
+      "notes": "Useful for markers that indicate where content came from, without pretending a signal is the same thing as proof.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Cultural terms"
+      ],
+      "relatedHints": [
+        "content-provenance",
+        "content-credentials",
+        "synthetic-content-label"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "content-credentials",
+      "label": "Content credentials",
+      "status": "queued",
+      "notes": "Should explain metadata used to carry origin and edit history for media, plus the awkward fact that metadata can have enemies.",
+      "diagramHint": null,
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "content-provenance",
+        "provenance-signal",
+        "synthetic-content-label"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "synthetic-content-label",
+      "label": "Synthetic content label",
+      "status": "queued",
+      "notes": "Focus on labels that disclose AI-generated media or text, and the policy habit of mistaking labels for literacy.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Cultural terms"
+      ],
+      "relatedHints": [
+        "synthetic-data",
+        "content-credentials",
+        "watermarking"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "watermark-removal",
+      "label": "Watermark removal",
+      "status": "queued",
+      "notes": "Name the obvious attack on provenance systems: removing or degrading the marker, then acting surprised that bad actors read documentation too.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Cultural terms"
+      ],
+      "relatedHints": [
+        "watermarking",
+        "content-credentials",
+        "provenance-signal"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "personhood-proof",
+      "label": "Personhood proof",
+      "status": "queued",
+      "notes": "Useful for attempts to prove a user is a real human in a world where bots are cheap and dignity is often an implementation detail.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Cultural terms"
+      ],
+      "relatedHints": [
+        "identity-verification",
+        "synthetic-content-label",
+        "bot-detection"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "model-armor",
+      "label": "Model Armor",
+      "status": "queued",
+      "notes": "Treat as Google Cloud's prompt and response protection surface, not as magic chainmail for every possible model failure.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Safety and evaluation",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "prompt-firewall",
+        "guardrails",
+        "policy-engine"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "golden-set",
+      "label": "Golden set",
+      "status": "queued",
+      "notes": "Good for a trusted evaluation set, while making clear that gold is still a metal people can overfit to.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Model building"
+      ],
+      "relatedHints": [
+        "evals",
+        "eval-harness",
+        "regression-eval"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "judge-model",
+      "label": "Judge model",
+      "status": "queued",
+      "notes": "Focus on a model used to score another model's outputs, which saves time right up until taste, bias, or leakage sends the invoice.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Model building"
+      ],
+      "relatedHints": [
+        "llm-as-a-judge",
+        "evals",
+        "human-evaluation"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "red-team-scenario",
+      "label": "Red-team scenario",
+      "status": "queued",
+      "notes": "Should name a concrete adversarial situation to test, not a dramatic meeting title with snacks.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "red-teaming",
+        "guardrail-bypass",
+        "prompt-injection"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "regression-eval",
+      "label": "Regression eval",
+      "status": "queued",
+      "notes": "Useful for checks that catch old failures returning in new releases, the software equivalent of a familiar bad smell.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Model building",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "eval-harness",
+        "model-rollback",
+        "golden-set"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "eval-dataset",
+      "label": "Eval dataset",
+      "status": "queued",
+      "notes": "Focus on the examples used to test behaviour, including selection bias, freshness, contamination, and the temptation to worship a spreadsheet.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Model building"
+      ],
+      "relatedHints": [
+        "evals",
+        "eval-leakage",
+        "golden-set"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "eval-coverage",
+      "label": "Eval coverage",
+      "status": "queued",
+      "notes": "Name what the tests actually cover, which is often smaller than the confidence their dashboard has learned to project.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Model building"
+      ],
+      "relatedHints": [
+        "eval-harness",
+        "eval-dataset",
+        "regression-eval"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
+    },
+    {
+      "slug": "forward-deployed-engineer",
+      "label": "Forward Deployed Engineer (FDE)",
+      "status": "queued",
+      "notes": "Useful for the embedded technical role that turns customer proximity into implementation leverage, and occasionally into very billable heroics.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Cultural terms",
+        "Economics and operations of AI",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "solutions-engineer",
+        "pilot-purgatory",
+        "enterprise-ai"
+      ],
+      "addedAt": "2026-05-16T04:43:14.000Z"
     }
   ]
 }
