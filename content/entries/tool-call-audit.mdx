@@ -1,0 +1,57 @@
+---
+title: "Tool call audit"
+slug: "tool-call-audit"
+letter: "T"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+  - "Safety and evaluation"
+aliases:
+  - "tool audit"
+  - "tool invocation audit"
+devilDefinition: |
+  The ledger that explains which external capability the model touched before everyone agreed to blame the prompt.
+plainDefinition: |
+  A tool call audit is a reviewable record of tool invocations made by a model or agent, including arguments, results, timing, caller identity, permissions, and side effects.
+whyExists: |
+  Tool use moves AI systems from text generation into action. Once a model can query data, write files, send messages, or change records, the organisation needs a way to inspect what was called and what happened next.
+misuse: |
+  It gets reduced to raw logs nobody can interpret. A useful audit does not merely prove that an endpoint was hit. It shows whether the call was authorised, expected, correctly formed, successful, and tied to an accountable workflow.
+practicalMeaning: |
+  In practice it usually means structured logs, argument capture, result summaries, redaction policy, actor identity, permission state, idempotency markers, and enough retention to investigate incidents without storing every secret forever.
+example: |
+  "The tool call audit showed that the agent had not gone rogue; it had simply been granted a calendar tool, a vague goal, and the confidence of a junior consultant."
+askNext:
+  - "Can we see which tool was called, with which arguments, and under whose authority?"
+  - "Are sensitive values redacted without destroying the evidence needed for review?"
+  - "Can the audit connect tool calls to user-visible outcomes and incidents?"
+related:
+  - "tool-use"
+  - "agent-observability"
+  - "tool-reliability"
+  - "function-calling"
+seeAlso:
+  - "Tool permissions"
+  - "Operational telemetry"
+  - "Data loss prevention"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "tools"
+  - "audit"
+  - "agents"
+  - "operations"
+misunderstoodScore: 4
+diagram: "function-calling"
+translations:
+  - label: "operator meaning"
+    text: "A record of external actions good enough to review after the applause or the incident."
+  - label: "what it usually means in reality"
+    text: "The receipt for model-powered side effects."
+---
+
+Tool call audits are dull until they are missing. Then they become the most exciting document no one wrote.

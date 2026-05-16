@@ -1,0 +1,55 @@
+---
+title: "Permission prompt"
+slug: "permission-prompt"
+letter: "P"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+aliases:
+  - "permission dialog"
+  - "consent prompt"
+devilDefinition: |
+  The small modal window where a large system briefly pretends the user has read the implications.
+plainDefinition: |
+  A permission prompt asks a user or operator to grant, deny, or scope access before a system performs an action or touches data, tools, files, accounts, or external services.
+whyExists: |
+  AI systems increasingly sit near sensitive capabilities: email, calendars, files, payments, code, customer records, and production tools. Permission prompts exist to slow down access and force an explicit decision at the boundary.
+misuse: |
+  They get overused until people click through them as a reflex, or under-specified until "allow" hides too much authority. A prompt that asks for broad access without explaining the concrete action is consent theatre with rounded corners.
+practicalMeaning: |
+  In practice it usually means least-privilege design, clear action descriptions, revocable access, audit trails, sensible defaults, and enough friction that the agent cannot quietly turn convenience into a permissions estate.
+example: |
+  "The permission prompt said the agent wanted to help with email, which turned out to include reading the inbox, drafting replies, and developing opinions about procurement."
+askNext:
+  - "What exact action or data access is being requested?"
+  - "Can the user grant a narrower permission or revoke it later?"
+  - "Is the prompt rare and specific enough that approval still means something?"
+related:
+  - "tool-permissions"
+  - "approval-gate"
+  - "external-actions"
+  - "least-privilege"
+seeAlso:
+  - "Connector permissions"
+  - "Data loss prevention"
+  - "Approval theatre"
+difficulty: "beginner"
+technicalDepth: "low"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "permissions"
+  - "consent"
+  - "agents"
+  - "security"
+misunderstoodScore: 4
+translations:
+  - label: "user meaning"
+    text: "A decision about what the system may touch, not a decoration before the real workflow starts."
+  - label: "what it usually means in reality"
+    text: "The place where product convenience negotiates with future incident response."
+---
+
+No diagram is attached here because the mental model is simpler than the implementation: ask clearly before touching the expensive thing.

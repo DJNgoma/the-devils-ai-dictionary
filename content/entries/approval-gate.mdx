@@ -1,0 +1,56 @@
+---
+title: "Approval gate"
+slug: "approval-gate"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+  - "Economics and operations of AI"
+aliases:
+  - "human approval gate"
+  - "approval checkpoint"
+devilDefinition: |
+  A checkpoint placed between intent and consequence, ideally before consequence has already hired a publicist.
+plainDefinition: |
+  An approval gate is a control point that requires explicit human or system approval before a workflow can perform a sensitive action, proceed to a higher-risk step, or release an output.
+whyExists: |
+  Agent workflows can read data, call tools, spend money, send messages, change records, or trigger downstream systems. Approval gates exist because some actions deserve a pause, evidence, and a responsible decision before automation turns possibility into fact.
+misuse: |
+  It gets treated as safety by interface design. A button labelled "approve" is not a meaningful gate if the reviewer lacks context, cannot reject without penalty, or is asked after the important action has already happened.
+practicalMeaning: |
+  In practice it usually means risk thresholds, reviewer context, audit records, timeout behaviour, rejection paths, escalation rules, and a clear distinction between approval as control and approval as decoration.
+example: |
+  "The approval gate stopped the agent from sending the refund email, though it could do nothing about the three-paragraph apology it had already composed for morale."
+askNext:
+  - "What action is blocked until approval is granted?"
+  - "What evidence does the approver see, and can they meaningfully reject the action?"
+  - "What happens when approval times out or conflicts with the workflow goal?"
+related:
+  - "approval-theatre"
+  - "release-gate"
+  - "human-escalation"
+  - "permission-prompt"
+seeAlso:
+  - "Manual approval"
+  - "Risk acceptance"
+  - "Human in the Loop"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "approval"
+  - "governance"
+  - "agents"
+  - "safety"
+misunderstoodScore: 4
+translations:
+  - label: "operator meaning"
+    text: "A control that can actually stop a risky action before it happens."
+  - label: "what it usually means in reality"
+    text: "A pause point whose value depends entirely on what the approver can see and do."
+---
+
+No diagram is attached here because a gate is only useful when its surrounding authority is clear. A diagram would make the latch look more impressive than the lock.

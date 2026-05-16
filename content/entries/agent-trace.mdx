@@ -1,0 +1,56 @@
+---
+title: "Agent trace"
+slug: "agent-trace"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+aliases:
+  - "agent run trace"
+  - "workflow trace"
+devilDefinition: |
+  The breadcrumb trail left by software that was meant to act independently and then needed a chaperone with a notebook.
+plainDefinition: |
+  An agent trace is a structured record of the steps an agent took during a run, including prompts, model responses, tool calls, observations, decisions, approvals, errors, and final outputs.
+whyExists: |
+  Multi-step agent runs are hard to judge from the final answer alone. The trace gives reviewers a way to see whether the agent followed a sensible path, called the right tools, respected boundaries, and recovered from problems instead of accidentally succeeding.
+misuse: |
+  It gets treated as proof of reasoning rather than evidence of process. A trace can be incomplete, selectively logged, or polished by the platform. It shows what was recorded, not necessarily every cause behind the behaviour.
+practicalMeaning: |
+  In practice it usually means a timeline that developers, auditors, or operators can replay when a workflow fails, costs too much, calls the wrong tool, or produces an answer no one wants to defend from memory.
+example: |
+  "The agent trace looked impressive until step four, where the system ignored the failed lookup and built a procurement recommendation out of manners."
+askNext:
+  - "Which parts of the run are captured, and which are hidden or summarised away?"
+  - "Can this trace be replayed, searched, and tied back to a user-visible outcome?"
+  - "Does the trace expose tool arguments and approvals, or just model prose?"
+related:
+  - "trace-replay"
+  - "agent-observability"
+  - "tool-call-audit"
+  - "agent-reliability"
+seeAlso:
+  - "Reasoning trace"
+  - "Session replay"
+  - "Tool use"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "agents"
+  - "tracing"
+  - "observability"
+  - "audit"
+misunderstoodScore: 4
+diagram: "agent-loop"
+translations:
+  - label: "engineering meaning"
+    text: "A run history that helps explain how the agent got from task to consequence."
+  - label: "what it usually means in reality"
+    text: "The thing everyone asks for once the agent has already done the interesting damage."
+---
+
+An agent trace is not the agent's soul. It is the paperwork left behind when the soul becomes a support ticket.

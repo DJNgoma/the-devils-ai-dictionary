@@ -1,0 +1,54 @@
+---
+title: "Delegation contract"
+slug: "delegation-contract"
+letter: "D"
+categories:
+  - "Agents and workflows"
+  - "Economics and operations of AI"
+aliases:
+  - "agent delegation contract"
+devilDefinition: |
+  The part of delegation where someone finally writes down what "handle this" was supposed to mean.
+plainDefinition: |
+  A delegation contract describes the scope, authority, inputs, constraints, expected output, and completion criteria for work delegated to another agent, tool, team, or person.
+whyExists: |
+  Delegation is useful only when the receiving party knows what it may decide, what it must not touch, what evidence it should return, and how success will be judged. In agent systems, those boundaries need to be explicit because politeness is a poor access-control model.
+misuse: |
+  It gets replaced by hopeful task descriptions. "Research this", "fix the bug", or "take care of onboarding" may be enough for a colleague with context. For an agent or subagent, it often means the missing assumptions become the implementation.
+practicalMeaning: |
+  In practice it usually means bounded write scope, required context, allowed tools, decision rights, output format, stopping conditions, review expectations, and a record of who remains accountable for the delegated work.
+example: |
+  "The subagent did exactly what it was asked, which revealed that the delegation contract had been written in the ancient dialect of managerial fog."
+askNext:
+  - "What is being delegated, and what remains explicitly out of scope?"
+  - "What tools, files, data, or decisions can the delegate touch?"
+  - "What must come back for the caller to trust or review the work?"
+related:
+  - "subagents"
+  - "handoff-policy"
+  - "task-handoff"
+  - "subagent-worktree"
+seeAlso:
+  - "Delegation boundary"
+  - "Task specification"
+  - "Agent workspace"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "agents"
+  - "delegation"
+  - "operations"
+  - "workflow"
+misunderstoodScore: 4
+translations:
+  - label: "operator meaning"
+    text: "A scoped agreement for what the delegate may do and what evidence it must return."
+  - label: "what it usually means in reality"
+    text: "The clause everyone wishes existed after a helpful agent edits the wrong thing beautifully."
+---
+
+No diagram is attached here because the useful shape is not another loop. It is the boundary around the work.

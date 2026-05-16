@@ -1,0 +1,57 @@
+---
+title: "Agent observability"
+slug: "agent-observability"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+aliases:
+  - "agent monitoring"
+  - "agent telemetry"
+devilDefinition: |
+  The art of discovering what the autonomous system did after everyone has finished admiring that it did something.
+plainDefinition: |
+  Agent observability is the ability to inspect an agent workflow across model calls, tool calls, state changes, approvals, errors, costs, and outcomes.
+whyExists: |
+  Agent workflows fail across several layers at once. A bad result may come from the model, the prompt, a tool, stale context, permission design, retry logic, or the handoff between them. Observability exists because a final answer is not enough evidence to debug the route that produced it.
+misuse: |
+  It gets reduced to pretty traces or token charts. A dashboard is not observability if it cannot show what happened, what mattered, who approved it, which tool changed state, and where recovery was still possible.
+practicalMeaning: |
+  In practice it usually means run traces, tool-call logs, prompt and context snapshots, cost breakdowns, approval records, replayable failures, and enough structure for operations to tell whether the agent completed the work or merely produced a confident artefact.
+example: |
+  "The agent observability review found that the model was not confused until the tool returned yesterday's account data with today's schema."
+askNext:
+  - "Can we reconstruct the full run from goal to final action?"
+  - "Which model calls, tool calls, approvals, and state changes are visible after a failure?"
+  - "Does the telemetry help someone fix the workflow, or only admire the smoke?"
+related:
+  - "agent-reliability"
+  - "agent-trace"
+  - "workflow-drift"
+  - "agent-ops"
+seeAlso:
+  - "Operational telemetry"
+  - "Trace replay"
+  - "Tool reliability"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "agents"
+  - "observability"
+  - "operations"
+  - "tracing"
+misunderstoodScore: 4
+diagram: "agent-loop"
+translations:
+  - label: "operator meaning"
+    text: "Enough evidence to explain what the agent did after it stops sounding clever."
+  - label: "what it usually means in reality"
+    text: "Traceable runs, useful logs, and fewer postmortems conducted from vibes."
+---
+
+Agent observability is where autonomy loses its press release and gains a receipt.

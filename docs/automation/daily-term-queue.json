@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-05-16T04:43:14.000Z",
+  "updatedAt": "2026-05-16T05:37:28.271Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -413,7 +413,7 @@
     {
       "slug": "agent-observability",
       "label": "Agent observability",
-      "status": "queued",
+      "status": "published",
       "notes": "Focus on seeing what an agent did, why it did it, which tools it touched, and where the workflow quietly became theatre.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -427,12 +427,13 @@
         "agent-trace",
         "workflow-drift"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T05:37:28.271Z"
     },
     {
       "slug": "agent-trace",
       "label": "Agent trace",
-      "status": "queued",
+      "status": "published",
       "notes": "Useful for the recorded chain of model calls, tool calls, handoffs, approvals, and mistakes that made the final answer look inevitable.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -445,12 +446,13 @@
         "agent-observability",
         "tool-call-audit"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T05:37:28.271Z"
     },
     {
       "slug": "handoff-policy",
       "label": "Handoff policy",
-      "status": "queued",
+      "status": "published",
       "notes": "Name the rules for when work moves between agents, tools, or humans instead of pretending delegation is a personality trait.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -463,12 +465,13 @@
         "task-handoff",
         "human-escalation"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T05:37:28.271Z"
     },
     {
       "slug": "delegation-contract",
       "label": "Delegation contract",
-      "status": "queued",
+      "status": "published",
       "notes": "Should capture the scope, authority, context, and return format expected when one agent or person hands work to another.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -481,12 +484,13 @@
         "handoff-policy",
         "task-handoff"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T05:37:28.271Z"
     },
     {
       "slug": "approval-gate",
       "label": "Approval gate",
-      "status": "queued",
+      "status": "published",
       "notes": "Useful for separating meaningful human control from the comforting button someone clicks after the decision has already escaped.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -500,12 +504,13 @@
         "release-gate",
         "human-escalation"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T05:37:28.271Z"
     },
     {
       "slug": "permission-prompt",
       "label": "Permission prompt",
-      "status": "queued",
+      "status": "published",
       "notes": "Focus on the little consent ritual that decides whether an agent may read, write, send, spend, or damage something real.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -518,12 +523,13 @@
         "approval-gate",
         "external-actions"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T05:37:28.271Z"
     },
     {
       "slug": "tool-call-audit",
       "label": "Tool call audit",
-      "status": "queued",
+      "status": "published",
       "notes": "Good for the unglamorous record of which tool was called, with what arguments, by whom, and with what consequence.",
       "diagramHint": "function-calling",
       "misunderstoodHint": 4,
@@ -537,7 +543,8 @@
         "agent-observability",
         "tool-reliability"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T05:37:28.271Z"
     },
     {
       "slug": "tool-result",
