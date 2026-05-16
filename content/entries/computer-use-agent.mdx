@@ -1,0 +1,53 @@
+---
+title: "Computer-use agent"
+slug: "computer-use-agent"
+letter: "C"
+categories:
+  - "Agents and workflows"
+  - "Product and vendor terms"
+  - "Safety and evaluation"
+aliases:
+  - "computer use agent"
+  - "desktop-use agent"
+devilDefinition: |
+  An agent that can operate the screen, which is a charming way to give ambiguity a mouse cursor.
+plainDefinition: |
+  A computer-use agent is an AI agent that observes and interacts with graphical computer interfaces by reading screens, clicking, typing, dragging, and operating applications.
+whyExists: |
+  Many workflows still live in desktop apps, web pages, and mixed interfaces that do not expose clean APIs. Computer-use agents try to automate those workflows through the same surface a person uses.
+misuse: |
+  It gets mistaken for general competence. GUI control adds perception errors, timing issues, hidden state, permission prompts, irreversible clicks, and a remarkable number of ways to be confidently one pixel wrong.
+practicalMeaning: |
+  In practice it means screen grounding, action traces, confirmation gates, rollback plans, credential handling, and conservative rules around actions that change data or spend money.
+example: |
+  "The computer-use agent found the button and clicked it, which was impressive until everyone remembered the button said delete."
+askNext:
+  - "Which actions can the agent take without confirmation?"
+  - "How does it identify the UI element it is acting on?"
+  - "What records exist when the screen state changes?"
+related:
+  - "desktop-agent"
+  - "browser-agent"
+  - "screen-grounding"
+seeAlso:
+  - "Desktop agent"
+  - "Browser agent"
+  - "Action trace"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "agents"
+  - "computer-use"
+  - "ui-automation"
+misunderstoodScore: 4
+diagram: "agent-loop"
+translations:
+  - label: "what it usually means in reality"
+    text: "An agent operating a graphical interface, where perception errors can become real actions."
+---
+
+The desktop is not an API. It is an API wearing theatre makeup and asking to be clicked.

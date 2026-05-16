@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "catalogVersion": "c0bb2ff592059211a7a6f9a509466a68c2a6da6f0e622faf049cf555fc52b377",
-  "entryCount": 790,
+  "catalogVersion": "53aa2a4df88f57d67269c3eca04a589cb906e1c3e73a4e73652bca5dd1c394db",
+  "entryCount": 797,
   "latestPublishedAt": "2026-05-16",
-  "publishedAt": "2026-05-16T06:22:07.407Z",
-  "snapshotPath": "/mobile-catalog/entries.c0bb2ff592059211a7a6f9a509466a68c2a6da6f0e622faf049cf555fc52b377.json",
-  "sha256": "38760618d0689a8af02a408c7d36de9021547a791533bf582ead2c4ab19de25e",
-  "bytes": 3236401,
+  "publishedAt": "2026-05-16T06:28:02.802Z",
+  "snapshotPath": "/mobile-catalog/entries.53aa2a4df88f57d67269c3eca04a589cb906e1c3e73a4e73652bca5dd1c394db.json",
+  "sha256": "5bc510209946d34327bcc484ab3939e6db17846b0552f2c3cd599a337fb7f701",
+  "bytes": 3263035,
   "compatibility": {
     "minimumAppVersion": null,
     "minimumAppleBuildNumber": null,

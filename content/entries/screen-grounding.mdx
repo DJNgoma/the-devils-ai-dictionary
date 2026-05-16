@@ -1,0 +1,52 @@
+---
+title: "Screen grounding"
+slug: "screen-grounding"
+letter: "S"
+categories:
+  - "Agents and workflows"
+  - "Model usage"
+  - "Safety and evaluation"
+aliases:
+  - "visual grounding"
+  - "UI grounding"
+devilDefinition: |
+  The fragile bargain between what the agent sees and what it is about to click.
+plainDefinition: |
+  Screen grounding is the process of linking an agent's visual understanding of a screen to the specific UI elements, coordinates, text, or controls it intends to act on.
+whyExists: |
+  Computer-use and browser agents need to turn pixels, screenshots, accessibility trees, and instructions into reliable actions. Grounding is the bridge between perception and control.
+misuse: |
+  It gets treated as solved because the model described the screen correctly. Describing a button and safely clicking the intended button are neighbouring skills, not twins.
+practicalMeaning: |
+  In practice it means combining screenshots, accessibility metadata, element selectors, coordinates, confidence checks, and confirmation rules before important actions.
+example: |
+  "Screen grounding failed when the agent clicked the promotional banner instead of the submit button, a small visual distinction with an invoice attached."
+askNext:
+  - "How does the agent identify the target element?"
+  - "What happens when visual and accessibility signals disagree?"
+  - "Are high-risk clicks confirmed before execution?"
+related:
+  - "computer-use-agent"
+  - "multimodal"
+  - "action-trace"
+seeAlso:
+  - "Computer-use agent"
+  - "Multimodal"
+  - "Action trace"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "agents"
+  - "vision"
+  - "ui"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "Connecting visual interpretation to the exact UI action, where small errors become large consequences."
+---
+
+The screen is full of things that look clickable. This is not the same as being wise to click them.

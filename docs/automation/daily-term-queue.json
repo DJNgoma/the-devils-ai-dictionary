@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-05-16T06:24:23.014Z",
+  "updatedAt": "2026-05-16T06:33:21.314Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -1096,7 +1096,7 @@
     {
       "slug": "computer-use-agent",
       "label": "Computer-use agent",
-      "status": "queued",
+      "status": "published",
       "notes": "Focus on agents that interact with graphical interfaces, where perception, permissions, timing, and irreversible clicks all become product requirements.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -1110,12 +1110,13 @@
         "browser-agent",
         "screen-grounding"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:33:21.314Z"
     },
     {
       "slug": "screen-grounding",
       "label": "Screen grounding",
-      "status": "queued",
+      "status": "published",
       "notes": "Name the link between what an agent sees on screen and the UI element it thinks it is acting on, a small gap with expensive hobbies.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -1129,12 +1130,13 @@
         "vision-language-model",
         "action-trace"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:33:21.314Z"
     },
     {
       "slug": "provenance-signal",
       "label": "Provenance signal",
-      "status": "queued",
+      "status": "published",
       "notes": "Useful for markers that indicate where content came from, without pretending a signal is the same thing as proof.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -1147,12 +1149,13 @@
         "content-credentials",
         "synthetic-content-label"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:33:21.314Z"
     },
     {
       "slug": "content-credentials",
       "label": "Content credentials",
-      "status": "queued",
+      "status": "published",
       "notes": "Should explain metadata used to carry origin and edit history for media, plus the awkward fact that metadata can have enemies.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -1165,12 +1168,13 @@
         "provenance-signal",
         "synthetic-content-label"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:33:21.314Z"
     },
     {
       "slug": "synthetic-content-label",
       "label": "Synthetic content label",
-      "status": "queued",
+      "status": "published",
       "notes": "Focus on labels that disclose AI-generated media or text, and the policy habit of mistaking labels for literacy.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -1183,12 +1187,13 @@
         "content-credentials",
         "watermarking"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:33:21.314Z"
     },
     {
       "slug": "watermark-removal",
       "label": "Watermark removal",
-      "status": "queued",
+      "status": "published",
       "notes": "Name the obvious attack on provenance systems: removing or degrading the marker, then acting surprised that bad actors read documentation too.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -1201,12 +1206,13 @@
         "content-credentials",
         "provenance-signal"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:33:21.314Z"
     },
     {
       "slug": "personhood-proof",
       "label": "Personhood proof",
-      "status": "queued",
+      "status": "published",
       "notes": "Useful for attempts to prove a user is a real human in a world where bots are cheap and dignity is often an implementation detail.",
       "diagramHint": null,
       "misunderstoodHint": 5,
@@ -1219,7 +1225,8 @@
         "synthetic-content-label",
         "bot-detection"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:33:21.314Z"
     },
     {
       "slug": "model-armor",
