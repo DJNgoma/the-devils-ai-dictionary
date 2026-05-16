@@ -1,0 +1,53 @@
+---
+title: "MCP roots"
+slug: "mcp-roots"
+letter: "M"
+categories:
+  - "Infrastructure and deployment"
+  - "Safety and evaluation"
+  - "Agents and workflows"
+aliases:
+  - "Model Context Protocol roots"
+  - "roots"
+devilDefinition: |
+  The places a client admits may matter, not a notarised invitation to eat the disk.
+plainDefinition: |
+  MCP roots are client-provided locations, such as folders or workspace boundaries, that tell an MCP server which areas are relevant to the current context.
+whyExists: |
+  Servers often need to understand the project, workspace, or file area a user is working in. Roots provide that boundary without requiring the server to infer relevance from the entire machine or account.
+misuse: |
+  They get confused with permissions. A root can describe relevant scope, but it does not by itself settle what the server may read, write, index, or send elsewhere.
+practicalMeaning: |
+  In practice it means tooling can be more context-aware while still needing explicit access controls, user consent, audit logs, and conservative defaults around sensitive files.
+example: |
+  "The client shared the repository root with the MCP server, which was context, not a romantic commitment to every secret in the home directory."
+askNext:
+  - "What locations are being declared as roots?"
+  - "Which operations are allowed inside those roots?"
+  - "How does the system prevent a root from becoming silent overreach?"
+related:
+  - "mcp"
+  - "tool-permissions"
+  - "permission-prompt"
+seeAlso:
+  - "MCP"
+  - "Tool Permissions"
+  - "Permission prompt"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "mcp"
+  - "permissions"
+  - "workspaces"
+misunderstoodScore: 4
+diagram: "mcp"
+translations:
+  - label: "what it usually means in reality"
+    text: "A declared context boundary that still needs real permissions around it."
+---
+
+Roots are useful because they name the workspace. They are dangerous when teams start treating naming as authorisation.

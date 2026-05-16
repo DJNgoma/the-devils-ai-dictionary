@@ -1,0 +1,53 @@
+---
+title: "MCP registry"
+slug: "mcp-registry"
+letter: "M"
+categories:
+  - "Infrastructure and deployment"
+  - "Product and vendor terms"
+  - "Safety and evaluation"
+aliases:
+  - "Model Context Protocol registry"
+  - "MCP server registry"
+devilDefinition: |
+  A catalogue of helpful doors, followed immediately by the old problem of deciding who gets a key.
+plainDefinition: |
+  An MCP registry is a catalogue or discovery surface for MCP servers, tools, resources, prompts, or integrations that clients and organisations can find, evaluate, and configure.
+whyExists: |
+  As MCP adoption grows, teams need a way to discover available servers and understand what each one exposes. A registry can reduce integration guesswork and make capability discovery less tribal.
+misuse: |
+  It gets treated like a marketplace where listing implies trust. Discovery is not approval, security review, maintenance, or suitability for production use.
+practicalMeaning: |
+  In practice it means procurement, security review, version tracking, owner metadata, permission policies, and a process for removing servers that should no longer be near an assistant.
+example: |
+  "The MCP registry helped the team find the database connector, then ruined the mood by requiring someone to decide whether it was allowed anywhere near production."
+askNext:
+  - "Who curates or approves entries in this registry?"
+  - "What trust, permission, and maintenance signals are visible before installation?"
+  - "How are risky or abandoned MCP servers removed?"
+related:
+  - "mcp"
+  - "tool-registry"
+  - "model-registry"
+seeAlso:
+  - "MCP"
+  - "Tool Registry"
+  - "Model registry"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "mcp"
+  - "registries"
+  - "governance"
+misunderstoodScore: 4
+diagram: "mcp"
+translations:
+  - label: "what it usually means in reality"
+    text: "A discovery layer that becomes a governance problem as soon as anyone can install from it."
+---
+
+Every registry eventually becomes a policy conversation. The only surprise is how often people are surprised.

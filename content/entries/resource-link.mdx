@@ -1,0 +1,53 @@
+---
+title: "Resource link"
+slug: "resource-link"
+letter: "R"
+categories:
+  - "Retrieval and memory"
+  - "Infrastructure and deployment"
+  - "Agents and workflows"
+aliases:
+  - "resource reference"
+  - "linked resource"
+devilDefinition: |
+  A pointer to context, for teams mature enough not to paste the whole filing cabinet into the prompt.
+plainDefinition: |
+  A resource link is a reference to external or application-owned context that can be fetched, displayed, or subscribed to by an AI client instead of being copied wholesale into the model prompt.
+whyExists: |
+  Modern AI clients need access to documents, files, records, datasets, and application state. Links let systems keep context addressable and controlled, while fetching only what the current task actually needs.
+misuse: |
+  It gets treated as access. A link is not permission, freshness, provenance, or relevance. It is just a route to something that still needs governance.
+practicalMeaning: |
+  In practice it means clients can show or retrieve context through stable identifiers, while servers keep ownership of the underlying resource and its access rules.
+example: |
+  "The client passed a resource link to the contract rather than stuffing thirty pages into the context window and hoping attention would become compliance."
+askNext:
+  - "Who is allowed to resolve this resource link?"
+  - "Is the linked content fetched on demand, cached, or embedded?"
+  - "What metadata travels with the link to preserve provenance and freshness?"
+related:
+  - "mcp"
+  - "retrieval"
+  - "context-window"
+seeAlso:
+  - "MCP"
+  - "Retrieval"
+  - "Context Window"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "resources"
+  - "context"
+  - "retrieval"
+misunderstoodScore: 3
+diagram: "mcp"
+translations:
+  - label: "what it usually means in reality"
+    text: "A controlled pointer to context, not a ceremonial dumping of documents into the model."
+---
+
+The healthiest context is often the context that remains outside the prompt until someone has a reason to fetch it.

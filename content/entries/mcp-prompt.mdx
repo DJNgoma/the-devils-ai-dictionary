@@ -1,0 +1,53 @@
+---
+title: "MCP prompt"
+slug: "mcp-prompt"
+letter: "M"
+categories:
+  - "Model usage"
+  - "Infrastructure and deployment"
+  - "Agents and workflows"
+aliases:
+  - "Model Context Protocol prompt"
+  - "MCP prompts"
+devilDefinition: |
+  A reusable instruction bundle, promoted to protocol furniture before someone asks whether it is any good.
+plainDefinition: |
+  An MCP prompt is a reusable prompt template or prompt-like workflow exposed by an MCP server so a client can discover and invoke it with appropriate arguments.
+whyExists: |
+  Some integrations need repeatable ways to start tasks, collect inputs, or frame a domain-specific workflow. Exposing prompts through MCP lets servers offer those patterns without hiding them in client-specific code.
+misuse: |
+  It gets mistaken for business knowledge. A reusable prompt may encode a helpful workflow, but it can also encode yesterday's assumptions with better packaging.
+practicalMeaning: |
+  In practice it means prompt templates become part of the integration surface and need versioning, ownership, review, and testing like any other operational artifact.
+example: |
+  "The MCP prompt helped draft the support summary, which was useful until someone noticed it still asked for a field the CRM had retired in March."
+askNext:
+  - "Who owns and reviews this MCP prompt?"
+  - "What inputs does it require, and how are they validated?"
+  - "Is this prompt a convenience, a policy surface, or accidental product logic?"
+related:
+  - "mcp"
+  - "prompt-scaffold"
+  - "system-prompt"
+seeAlso:
+  - "MCP"
+  - "Prompt scaffold"
+  - "System Prompt"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "mcp"
+  - "prompts"
+  - "workflows"
+misunderstoodScore: 3
+diagram: "mcp"
+translations:
+  - label: "what it usually means in reality"
+    text: "A reusable prompt workflow exposed through MCP, and therefore another thing that can become stale."
+---
+
+Putting a prompt behind a protocol does not make it less prompt-like. It only gives the maintenance debt a better address.

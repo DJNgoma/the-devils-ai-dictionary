@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-05-16T05:37:28.271Z",
+  "updatedAt": "2026-05-16T06:11:41.212Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -549,7 +549,7 @@
     {
       "slug": "tool-result",
       "label": "Tool result",
-      "status": "queued",
+      "status": "published",
       "notes": "Should distinguish a tool's returned data from the model's interpretation of it, which is where many tidy lies acquire formatting.",
       "diagramHint": "function-calling",
       "misunderstoodHint": 3,
@@ -562,12 +562,13 @@
         "function-calling",
         "structured-content"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:11:41.212Z"
     },
     {
       "slug": "structured-content",
       "label": "Structured content",
-      "status": "queued",
+      "status": "published",
       "notes": "Useful for tool and protocol outputs that arrive as typed data rather than persuasive paragraphs wearing JSON perfume.",
       "diagramHint": "function-calling",
       "misunderstoodHint": 3,
@@ -580,12 +581,13 @@
         "schema",
         "mcp"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:11:41.212Z"
     },
     {
       "slug": "resource-link",
       "label": "Resource link",
-      "status": "queued",
+      "status": "published",
       "notes": "Focus on references to context that can be fetched or subscribed to, not pasted wholesale into the model like a ransom note.",
       "diagramHint": "mcp",
       "misunderstoodHint": 3,
@@ -599,12 +601,13 @@
         "context-window",
         "retrieval"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:11:41.212Z"
     },
     {
       "slug": "mcp-resource",
       "label": "MCP resource",
-      "status": "queued",
+      "status": "published",
       "notes": "Should explain application-driven context exposed through MCP, distinct from model-controlled tools and prompt-shaped wishful thinking.",
       "diagramHint": "mcp",
       "misunderstoodHint": 4,
@@ -618,12 +621,13 @@
         "resource-link",
         "connected-context"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:11:41.212Z"
     },
     {
       "slug": "mcp-prompt",
       "label": "MCP prompt",
-      "status": "queued",
+      "status": "published",
       "notes": "Good for reusable prompt templates exposed by a server, not evidence that the server now understands the business.",
       "diagramHint": "mcp",
       "misunderstoodHint": 3,
@@ -637,12 +641,13 @@
         "prompt-scaffold",
         "system-prompt"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:11:41.212Z"
     },
     {
       "slug": "mcp-roots",
       "label": "MCP roots",
-      "status": "queued",
+      "status": "published",
       "notes": "Name the boundary of files or locations a client tells an MCP server it may treat as relevant, which is not the same as permission to eat the disk.",
       "diagramHint": "mcp",
       "misunderstoodHint": 4,
@@ -656,12 +661,13 @@
         "tool-permissions",
         "trust-boundary"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:11:41.212Z"
     },
     {
       "slug": "mcp-registry",
       "label": "MCP registry",
-      "status": "queued",
+      "status": "published",
       "notes": "Useful for catalogues of MCP servers and tools, plus the new procurement problem of deciding which helpful stranger may enter the building.",
       "diagramHint": "mcp",
       "misunderstoodHint": 4,
@@ -675,7 +681,8 @@
         "tool-registry",
         "hosted-mcp"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:11:41.212Z"
     },
     {
       "slug": "mcp-sampling",

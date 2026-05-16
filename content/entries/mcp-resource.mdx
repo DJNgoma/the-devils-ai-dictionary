@@ -1,0 +1,53 @@
+---
+title: "MCP resource"
+slug: "mcp-resource"
+letter: "M"
+categories:
+  - "Retrieval and memory"
+  - "Infrastructure and deployment"
+  - "Agents and workflows"
+aliases:
+  - "Model Context Protocol resource"
+  - "MCP resources"
+devilDefinition: |
+  Context exposed through a protocol, because apparently even the assistant now needs a filing system with manners.
+plainDefinition: |
+  An MCP resource is application-provided context exposed through the Model Context Protocol, such as a file, document, record, page, or other readable item that a client can discover or request.
+whyExists: |
+  MCP separates resources from tools. Tools do things; resources provide context. That distinction helps clients browse, retrieve, display, and reason about external information without turning every read into an action.
+misuse: |
+  It gets blurred into tool use, as though every available resource is something the model may freely consume. Resources still need permissions, scoping, metadata, and a reason to be used.
+practicalMeaning: |
+  In practice it means a server can expose relevant context in a standardised way, while the client decides what to show, fetch, or pass into the model for a specific task.
+example: |
+  "The MCP resource exposed the project brief to the assistant; it did not authorise the assistant to rummage through payroll because curiosity felt agentic."
+askNext:
+  - "What resource types does the MCP server expose?"
+  - "How are permissions and freshness handled for each resource?"
+  - "Which resources are shown to the user, and which are passed into the model?"
+related:
+  - "mcp"
+  - "resource-link"
+  - "connected-context"
+seeAlso:
+  - "MCP"
+  - "Connected context"
+  - "Retrieval"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "mcp"
+  - "resources"
+  - "context"
+misunderstoodScore: 4
+diagram: "mcp"
+translations:
+  - label: "what it usually means in reality"
+    text: "Readable context exposed by an MCP server, not a permission slip for unlimited access."
+---
+
+Resources are where MCP becomes more useful than a pile of tool buttons. They are also where lazy access control starts to look expensive.

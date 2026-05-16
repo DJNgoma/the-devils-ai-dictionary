@@ -1,0 +1,52 @@
+---
+title: "Tool result"
+slug: "tool-result"
+letter: "T"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "tool output"
+  - "tool response"
+devilDefinition: |
+  The evidence returned by the machinery, before the model gives it a haircut and a tone of confidence.
+plainDefinition: |
+  A tool result is the data, error, status, or structured payload returned by an external tool call in an AI workflow.
+whyExists: |
+  Agents and assistants need to distinguish between what an external system actually returned and what the model later says about it. That boundary matters for debugging, audits, citations, retries, and blame.
+misuse: |
+  It gets treated as though the model's summary and the tool's output are the same thing. They are not. A neat paragraph can misread a correct payload, hide a warning, or politely bury a failed call.
+practicalMeaning: |
+  In practice it means preserving raw outputs, errors, timestamps, identifiers, and schemas long enough for the system to explain what happened after the model has finished being fluent.
+example: |
+  "The tool result said the account was inactive; the assistant's summary said the user was probably ready to upgrade, which was generous and entirely unhelpful."
+askNext:
+  - "Can we inspect the raw tool result separately from the model's explanation?"
+  - "Does the system keep errors and partial results, or only successful summaries?"
+  - "Which downstream decisions rely on the tool result rather than the generated prose?"
+related:
+  - "tool-use"
+  - "function-calling"
+  - "tool-call-audit"
+seeAlso:
+  - "Tool Use"
+  - "Function Calling"
+  - "Tool call audit"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "tools"
+  - "agents"
+  - "observability"
+misunderstoodScore: 3
+diagram: "function-calling"
+translations:
+  - label: "what it usually means in reality"
+    text: "The tool's returned payload, not the assistant's tidied-up story about it."
+---
+
+A tool result is where the transcript briefly stops being literature. Preserve that moment.
