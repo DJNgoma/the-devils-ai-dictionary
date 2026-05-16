@@ -1,0 +1,52 @@
+---
+title: "Regression eval"
+slug: "regression-eval"
+letter: "R"
+categories:
+  - "Safety and evaluation"
+  - "Model building"
+  - "Infrastructure and deployment"
+aliases:
+  - "regression evaluation"
+  - "regression test eval"
+devilDefinition: |
+  A check that asks whether an old failure has returned wearing the new release notes.
+plainDefinition: |
+  A regression eval is an evaluation designed to catch previously fixed failures, degraded behaviours, or safety issues that reappear after model, prompt, data, or system changes.
+whyExists: |
+  AI systems change through model updates, prompt edits, retrieval changes, tool revisions, and policy tuning. Regression evals help ensure old problems do not quietly return.
+misuse: |
+  They get treated as comprehensive quality tests. A regression eval usually protects against known failures; it does not prove the system is generally safe or good.
+practicalMeaning: |
+  In practice it means maintaining failure cases, running them before release, tracking pass rates over time, and refusing to delete uncomfortable tests because the dashboard looks nicer without them.
+example: |
+  "The regression eval caught the refund hallucination again, which was irritating mostly because the model sounded so refreshed."
+askNext:
+  - "Which past failures are covered by this eval?"
+  - "What changes trigger the regression suite?"
+  - "Who reviews failures before release proceeds?"
+related:
+  - "eval-harness"
+  - "model-rollback"
+  - "golden-set"
+seeAlso:
+  - "Eval Harness"
+  - "Model rollback"
+  - "Evals"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "evals"
+  - "regression"
+  - "release"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "A check for known bad behaviour returning, not a certificate of overall quality."
+---
+
+Regression evals are institutional memory with a pass/fail column.

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-05-16T06:33:21.314Z",
+  "updatedAt": "2026-05-16T06:50:32.733Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -1231,7 +1231,7 @@
     {
       "slug": "model-armor",
       "label": "Model Armor",
-      "status": "queued",
+      "status": "published",
       "notes": "Treat as Google Cloud's prompt and response protection surface, not as magic chainmail for every possible model failure.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -1245,12 +1245,13 @@
         "guardrails",
         "policy-engine"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:50:32.733Z"
     },
     {
       "slug": "golden-set",
       "label": "Golden set",
-      "status": "queued",
+      "status": "published",
       "notes": "Good for a trusted evaluation set, while making clear that gold is still a metal people can overfit to.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -1263,12 +1264,13 @@
         "eval-harness",
         "regression-eval"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:50:32.733Z"
     },
     {
       "slug": "judge-model",
       "label": "Judge model",
-      "status": "queued",
+      "status": "published",
       "notes": "Focus on a model used to score another model's outputs, which saves time right up until taste, bias, or leakage sends the invoice.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -1281,12 +1283,13 @@
         "evals",
         "human-evaluation"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:50:32.733Z"
     },
     {
       "slug": "red-team-scenario",
       "label": "Red-team scenario",
-      "status": "queued",
+      "status": "published",
       "notes": "Should name a concrete adversarial situation to test, not a dramatic meeting title with snacks.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -1298,12 +1301,13 @@
         "guardrail-bypass",
         "prompt-injection"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:50:32.733Z"
     },
     {
       "slug": "regression-eval",
       "label": "Regression eval",
-      "status": "queued",
+      "status": "published",
       "notes": "Useful for checks that catch old failures returning in new releases, the software equivalent of a familiar bad smell.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -1317,12 +1321,13 @@
         "model-rollback",
         "golden-set"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:50:32.733Z"
     },
     {
       "slug": "eval-dataset",
       "label": "Eval dataset",
-      "status": "queued",
+      "status": "published",
       "notes": "Focus on the examples used to test behaviour, including selection bias, freshness, contamination, and the temptation to worship a spreadsheet.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -1335,12 +1340,13 @@
         "eval-leakage",
         "golden-set"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:50:32.733Z"
     },
     {
       "slug": "eval-coverage",
       "label": "Eval coverage",
-      "status": "queued",
+      "status": "published",
       "notes": "Name what the tests actually cover, which is often smaller than the confidence their dashboard has learned to project.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -1353,12 +1359,13 @@
         "eval-dataset",
         "regression-eval"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:50:32.733Z"
     },
     {
       "slug": "forward-deployed-engineer",
       "label": "Forward Deployed Engineer (FDE)",
-      "status": "queued",
+      "status": "published",
       "notes": "Useful for the embedded technical role that turns customer proximity into implementation leverage, and occasionally into very billable heroics.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -1372,7 +1379,8 @@
         "pilot-purgatory",
         "enterprise-ai"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:50:32.733Z"
     }
   ]
 }

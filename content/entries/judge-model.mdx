@@ -1,0 +1,51 @@
+---
+title: "Judge model"
+slug: "judge-model"
+letter: "J"
+categories:
+  - "Safety and evaluation"
+  - "Model building"
+aliases:
+  - "model judge"
+  - "LLM judge"
+devilDefinition: |
+  A model asked to grade another model, because peer review was not already delicate enough.
+plainDefinition: |
+  A judge model is a model used to evaluate, score, compare, or critique outputs from another model or AI system.
+whyExists: |
+  Human evaluation is expensive and slow. Judge models can help scale assessments of quality, safety, factuality, style, preference, or task success when used carefully.
+misuse: |
+  They get treated as neutral graders. Judge models bring their own biases, blind spots, prompt sensitivity, training contamination, and taste, often with excellent confidence.
+practicalMeaning: |
+  In practice it means validating the judge against human review, testing for bias and leakage, calibrating scores, and remembering that automated evaluation is an instrument, not a magistrate.
+example: |
+  "The judge model preferred the longer answer, which was useful evidence that verbosity had found a robe."
+askNext:
+  - "What human or ground-truth standard validates this judge?"
+  - "Where does the judge model systematically fail?"
+  - "Can teams game the judge without improving the product?"
+related:
+  - "llm-as-a-judge"
+  - "evals"
+  - "human-evaluation"
+seeAlso:
+  - "LLM-as-a-Judge"
+  - "Evals"
+  - "Human evaluation"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "evals"
+  - "judging"
+  - "quality"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "A scalable evaluator that still needs evaluation."
+---
+
+Automating judgement does not remove judgement. It moves the argument to the judge.

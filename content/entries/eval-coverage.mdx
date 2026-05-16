@@ -1,0 +1,51 @@
+---
+title: "Eval coverage"
+slug: "eval-coverage"
+letter: "E"
+categories:
+  - "Safety and evaluation"
+  - "Model building"
+aliases:
+  - "evaluation coverage"
+  - "test coverage for evals"
+devilDefinition: |
+  The distance between what the dashboard says was tested and what the product can actually do in public.
+plainDefinition: |
+  Eval coverage describes which behaviours, tasks, user groups, risk areas, languages, tools, and failure modes are actually represented in an evaluation suite.
+whyExists: |
+  Evaluation results are only meaningful in relation to what was tested. Coverage makes the boundaries of confidence visible.
+misuse: |
+  It gets hidden behind aggregate scores. A high pass rate says little if the eval suite avoids hard cases, rare users, dangerous tools, or the languages where the product is being sold.
+practicalMeaning: |
+  In practice it means mapping product capabilities and risks to tests, identifying blind spots, and reporting gaps with the same seriousness as pass rates.
+example: |
+  "The eval coverage looked excellent until the launch in Portuguese, which had apparently been covered by optimism."
+askNext:
+  - "Which behaviours and user contexts are covered?"
+  - "Which high-risk areas have no evals yet?"
+  - "Do aggregate scores hide weak coverage in important segments?"
+related:
+  - "eval-harness"
+  - "eval-dataset"
+  - "regression-eval"
+seeAlso:
+  - "Eval Harness"
+  - "Eval dataset"
+  - "Regression eval"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "evals"
+  - "coverage"
+  - "quality"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "A map of what the evals actually test, and therefore what they do not."
+---
+
+Coverage is the honest part of an eval report, assuming it is allowed to speak.

@@ -1,0 +1,51 @@
+---
+title: "Golden set"
+slug: "golden-set"
+letter: "G"
+categories:
+  - "Safety and evaluation"
+  - "Model building"
+aliases:
+  - "golden dataset"
+  - "gold set"
+devilDefinition: |
+  The trusted examples everyone optimises against until the model learns the family silver by smell.
+plainDefinition: |
+  A golden set is a curated evaluation dataset treated as a high-quality reference for testing model or system behaviour.
+whyExists: |
+  Teams need stable examples that represent important behaviours, edge cases, regressions, and quality expectations. A golden set provides a repeatable target for evaluation.
+misuse: |
+  It gets treated as objective truth. Golden sets age, encode biases, miss new failure modes, and become dangerous when teams tune to them until the test stops measuring general behaviour.
+practicalMeaning: |
+  In practice it means careful curation, versioning, contamination controls, holdouts, review cycles, and a refusal to let one spreadsheet become the product's conscience.
+example: |
+  "The model improved on the golden set and worsened everywhere else, a traditional ceremony known as overfitting with applause."
+askNext:
+  - "Who curated the golden set, and what is missing from it?"
+  - "How is contamination or overfitting monitored?"
+  - "When is the set refreshed or retired?"
+related:
+  - "evals"
+  - "eval-harness"
+  - "regression-eval"
+seeAlso:
+  - "Evals"
+  - "Eval Harness"
+  - "Eval leakage"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "evals"
+  - "datasets"
+  - "quality"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "A trusted test set, useful until it becomes the thing being memorised."
+---
+
+Gold is valuable. It is also soft enough to dent.

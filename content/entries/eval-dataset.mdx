@@ -1,0 +1,51 @@
+---
+title: "Eval dataset"
+slug: "eval-dataset"
+letter: "E"
+categories:
+  - "Safety and evaluation"
+  - "Model building"
+aliases:
+  - "evaluation dataset"
+  - "test dataset"
+devilDefinition: |
+  The spreadsheet everyone trusts until someone asks who chose the rows.
+plainDefinition: |
+  An eval dataset is a collection of examples, prompts, tasks, labels, expected behaviours, or reference answers used to evaluate an AI model or system.
+whyExists: |
+  Evaluation needs concrete cases. Datasets make behaviour measurable across releases, models, prompts, tools, and policies.
+misuse: |
+  They get mistaken for the world. Eval datasets can be stale, biased, contaminated, too easy, too narrow, or quietly shaped by what the team already knows how to measure.
+practicalMeaning: |
+  In practice it means dataset design, sampling, labelling, versioning, privacy review, contamination checks, and honest reporting of what the dataset does not cover.
+example: |
+  "The eval dataset said the assistant was excellent at support tickets, provided every customer writes like the person who made the dataset."
+askNext:
+  - "What population or behaviour does this dataset represent?"
+  - "How was it sampled, labelled, and refreshed?"
+  - "What important failure modes are absent?"
+related:
+  - "evals"
+  - "eval-leakage"
+  - "golden-set"
+seeAlso:
+  - "Evals"
+  - "Eval leakage"
+  - "Golden set"
+difficulty: "beginner"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "evals"
+  - "datasets"
+  - "testing"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "The examples a system is judged against, and therefore a map of what the team values or forgot."
+---
+
+Every eval dataset has a worldview. Some are merely quieter about it.

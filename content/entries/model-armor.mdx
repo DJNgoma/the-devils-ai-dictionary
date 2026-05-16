@@ -1,0 +1,53 @@
+---
+title: "Model Armor"
+slug: "model-armor"
+letter: "M"
+categories:
+  - "Product and vendor terms"
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+aliases:
+  - "Google Cloud Model Armor"
+devilDefinition: |
+  A safety layer with a heroic name, because apparently "input and output protection" lacked chainmail.
+plainDefinition: |
+  Model Armor is Google Cloud's product surface for adding prompt, response, and content protection controls around AI applications.
+whyExists: |
+  Organisations deploying AI systems need ways to inspect prompts and outputs for policy violations, unsafe content, prompt injection risks, and other application-level safety concerns.
+misuse: |
+  It gets mistaken for universal protection. A safety product can reduce some classes of risk, but it does not remove the need for permissions, architecture, logging, testing, and common sense.
+practicalMeaning: |
+  In practice it means adding a managed safety layer to AI traffic, then deciding which policies apply, what gets blocked, how false positives are handled, and who reviews the exceptions.
+example: |
+  "Model Armor blocked the prompt injection attempt, which was useful and still not a reason to give the assistant write access to everything with a dashboard."
+askNext:
+  - "Which prompts and responses pass through this protection layer?"
+  - "What policies are enforced, and who tunes them?"
+  - "What happens when protection blocks legitimate work or misses a real attack?"
+related:
+  - "prompt-firewall"
+  - "guardrails"
+  - "policy-engine"
+seeAlso:
+  - "Prompt Firewall"
+  - "Guardrails"
+  - "Policy engine"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: true
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+vendorReferences:
+  - "Google Cloud"
+tags:
+  - "google-cloud"
+  - "safety"
+  - "guardrails"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "A managed safety layer, not armour against every failure mode with a model nearby."
+---
+
+Armour helps. It does not make charging at the problem a strategy.
