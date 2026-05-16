@@ -1,0 +1,51 @@
+---
+title: "Policy engine"
+slug: "policy-engine"
+letter: "P"
+categories:
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+aliases:
+  - "runtime policy engine"
+  - "policy decision engine"
+devilDefinition: |
+  The machine that decides what may happen, assuming the rules were written by someone braver than the meeting notes.
+plainDefinition: |
+  A policy engine is a runtime component that evaluates rules, context, permissions, risk signals, or organisational policies to decide what an AI system may see, say, or do.
+whyExists: |
+  AI systems need decisions that should not live only in prompts. Tool calls, data access, approvals, retention, routing, and safety behaviours often need policy enforcement outside the model.
+misuse: |
+  It gets used as a responsible-sounding noun for a folder of guidelines nobody has connected to the system. A policy engine is only meaningful when it actually evaluates and enforces decisions.
+practicalMeaning: |
+  In practice it means encoding policies into testable rules, attaching them to runtime events, logging decisions, and making exceptions visible before they become the real policy.
+example: |
+  "The policy engine blocked the assistant from sending customer data to the external summariser, which was more useful than the slide saying privacy is important."
+askNext:
+  - "Which decisions does the policy engine make at runtime?"
+  - "Where are exceptions logged and reviewed?"
+  - "Can the model override policy, or only request an allowed path?"
+related:
+  - "policy-enforcement"
+  - "governance-stack"
+  - "guardrails"
+seeAlso:
+  - "Policy enforcement"
+  - "Governance stack"
+  - "Guardrails"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "policy"
+  - "governance"
+  - "runtime"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "A runtime decision layer, not a PDF wearing a platform badge."
+---
+
+Policy becomes interesting only when it can say no to software that was about to do something convenient.

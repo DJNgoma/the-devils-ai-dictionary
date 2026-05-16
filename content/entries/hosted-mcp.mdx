@@ -1,0 +1,53 @@
+---
+title: "Hosted MCP"
+slug: "hosted-mcp"
+letter: "H"
+categories:
+  - "Infrastructure and deployment"
+  - "Product and vendor terms"
+  - "Agents and workflows"
+aliases:
+  - "hosted Model Context Protocol"
+  - "managed MCP"
+devilDefinition: |
+  MCP with someone else's uptime promise and your own new questions about tenancy, trust, and the bill.
+plainDefinition: |
+  Hosted MCP refers to MCP servers or MCP-compatible integrations run as managed infrastructure by a vendor, platform, or central internal team.
+whyExists: |
+  Teams do not always want to run every connector themselves. Hosted MCP can reduce setup work, centralise maintenance, and make integrations easier to distribute across clients or organisations.
+misuse: |
+  It gets sold as simplicity while quietly moving the hard questions into authentication, data residency, logging, tenancy, versioning, and vendor dependency.
+practicalMeaning: |
+  In practice it means deciding who operates the server, who can inspect its behaviour, where data flows, how permissions are enforced, and what happens when the hosted layer changes.
+example: |
+  "Hosted MCP saved the team from maintaining the connector, then introduced a procurement meeting so the universe could stay balanced."
+askNext:
+  - "Who operates the hosted MCP server and under what trust model?"
+  - "What data crosses the hosted boundary?"
+  - "Can we pin versions, audit calls, and disable capabilities quickly?"
+related:
+  - "mcp-server"
+  - "mcp-registry"
+  - "managed-serving"
+seeAlso:
+  - "MCP Server"
+  - "MCP registry"
+  - "Managed serving"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "mcp"
+  - "managed-services"
+  - "vendors"
+misunderstoodScore: 4
+diagram: "mcp"
+translations:
+  - label: "what it usually means in reality"
+    text: "A managed MCP server that lowers setup friction while raising trust and operating questions."
+---
+
+Hosted infrastructure is never only hosted. It is hosted somewhere, by someone, under terms someone should probably read.

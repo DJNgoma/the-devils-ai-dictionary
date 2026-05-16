@@ -1,0 +1,52 @@
+---
+title: "MCP sampling"
+slug: "mcp-sampling"
+letter: "M"
+categories:
+  - "Infrastructure and deployment"
+  - "Agents and workflows"
+  - "Safety and evaluation"
+aliases:
+  - "Model Context Protocol sampling"
+devilDefinition: |
+  The part where the server asks the client to make the model think, because control flow was apparently too peaceful.
+plainDefinition: |
+  MCP sampling is the protocol capability that lets an MCP server request model generation through the client, rather than directly calling a model itself.
+whyExists: |
+  Some servers need model assistance during a workflow but should not own model credentials, user context, or policy decisions. Sampling lets the client mediate that generation request.
+misuse: |
+  It is easy to describe as the server "using the model", which hides the important part: the client remains the place where user consent, model choice, policy, and context should be controlled.
+practicalMeaning: |
+  In practice it means the client must decide whether a server's generation request is allowed, what context may be included, and how the resulting text is shown, logged, or passed back.
+example: |
+  "MCP sampling let the planning server ask for a summary, but the client still decided which model, which files, and which secrets were not invited."
+askNext:
+  - "Which server requests are allowed to trigger sampling?"
+  - "What context can the server ask the client to include?"
+  - "How are sampled outputs audited before they influence a workflow?"
+related:
+  - "mcp"
+  - "mcp-resource"
+  - "tool-permissions"
+seeAlso:
+  - "MCP"
+  - "MCP resource"
+  - "Tool Permissions"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "mcp"
+  - "sampling"
+  - "permissions"
+misunderstoodScore: 4
+diagram: "mcp"
+translations:
+  - label: "what it usually means in reality"
+    text: "A server-requested model call mediated by the client, not a free side door to generation."
+---
+
+Sampling is useful precisely because the server does not get to become the whole application by asking nicely.

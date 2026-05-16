@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-05-16T06:11:41.212Z",
+  "updatedAt": "2026-05-16T06:15:32.855Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -687,7 +687,7 @@
     {
       "slug": "mcp-sampling",
       "label": "MCP sampling",
-      "status": "queued",
+      "status": "published",
       "notes": "Focus on server-requested model generation through a client, where the direction of control is easy to summarise badly and implement worse.",
       "diagramHint": "mcp",
       "misunderstoodHint": 4,
@@ -701,12 +701,13 @@
         "mcp-elicitation",
         "tool-permissions"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:15:32.855Z"
     },
     {
       "slug": "mcp-elicitation",
       "label": "MCP elicitation",
-      "status": "queued",
+      "status": "published",
       "notes": "Name the protocol path for requesting user input during a workflow, not a licence for the agent to interrogate the office furniture.",
       "diagramHint": "mcp",
       "misunderstoodHint": 4,
@@ -720,12 +721,13 @@
         "approval-gate",
         "human-escalation"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:15:32.855Z"
     },
     {
       "slug": "hosted-mcp",
       "label": "Hosted MCP",
-      "status": "queued",
+      "status": "published",
       "notes": "Useful for MCP servers run as managed infrastructure, where convenience arrives carrying authentication, tenancy, and vendor questions.",
       "diagramHint": "mcp",
       "misunderstoodHint": 4,
@@ -739,12 +741,13 @@
         "mcp-registry",
         "managed-serving"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:15:32.855Z"
     },
     {
       "slug": "prompt-injection-scanner",
       "label": "Prompt injection scanner",
-      "status": "queued",
+      "status": "published",
       "notes": "Good for tools that look for hostile instructions in content, while not pretending pattern matching has repealed adversarial creativity.",
       "diagramHint": null,
       "misunderstoodHint": 5,
@@ -757,12 +760,13 @@
         "prompt-firewall",
         "tool-poisoning"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:15:32.855Z"
     },
     {
       "slug": "guardrail-bypass",
       "label": "Guardrail bypass",
-      "status": "queued",
+      "status": "published",
       "notes": "Should describe the path around a safety control, especially when the control was sold as a wall and installed as a curtain.",
       "diagramHint": null,
       "misunderstoodHint": 5,
@@ -775,12 +779,13 @@
         "prompt-injection",
         "policy-engine"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:15:32.855Z"
     },
     {
       "slug": "policy-engine",
       "label": "Policy engine",
-      "status": "queued",
+      "status": "published",
       "notes": "Focus on runtime rules that decide what a system may do, not the document repository where responsibility goes to rest.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -793,12 +798,13 @@
         "governance-stack",
         "guardrails"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:15:32.855Z"
     },
     {
       "slug": "data-exfiltration-path",
       "label": "Data exfiltration path",
-      "status": "queued",
+      "status": "published",
       "notes": "Name the route by which sensitive data leaves through tools, logs, prompts, connectors, or a very helpful integration.",
       "diagramHint": null,
       "misunderstoodHint": 5,
@@ -812,7 +818,8 @@
         "tool-poisoning",
         "trust-boundary"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:15:32.855Z"
     },
     {
       "slug": "context-compaction",

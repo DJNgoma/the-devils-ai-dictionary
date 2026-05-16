@@ -1,0 +1,51 @@
+---
+title: "Prompt injection scanner"
+slug: "prompt-injection-scanner"
+letter: "P"
+categories:
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+aliases:
+  - "injection scanner"
+  - "prompt injection detector"
+devilDefinition: |
+  A detector for hostile instructions, useful until someone mistakes a smoke alarm for the fire brigade.
+plainDefinition: |
+  A prompt injection scanner is a tool or model-based check that looks for malicious, conflicting, or policy-breaking instructions in content before that content influences an AI system.
+whyExists: |
+  AI systems increasingly ingest web pages, documents, emails, tickets, and tool outputs. Some of that content will contain instructions designed to override the system, leak data, or steer actions.
+misuse: |
+  It gets treated as a complete defence. Scanners can catch known patterns and suspicious language, but adversarial content adapts, and many attacks work by context rather than obvious wording.
+practicalMeaning: |
+  In practice it means one layer in a wider safety design: content isolation, tool permissions, output checks, audit logs, least privilege, and careful handling of untrusted text.
+example: |
+  "The prompt injection scanner flagged the instruction telling the assistant to ignore security policy, which was helpful but not a reason to let the email call payroll."
+askNext:
+  - "What kinds of injection does the scanner actually detect?"
+  - "What happens when the scanner is uncertain?"
+  - "Which controls still protect the system when scanning misses an attack?"
+related:
+  - "prompt-injection"
+  - "prompt-firewall"
+  - "tool-poisoning"
+seeAlso:
+  - "Prompt Injection"
+  - "Prompt Firewall"
+  - "Tool Poisoning"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "security"
+  - "prompt-injection"
+  - "scanning"
+misunderstoodScore: 5
+translations:
+  - label: "what it usually means in reality"
+    text: "A useful warning layer, not a guarantee that untrusted text has become safe."
+---
+
+Detection is not absolution. It is merely the part of the system willing to admit it has seen trouble before.

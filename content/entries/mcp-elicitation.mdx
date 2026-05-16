@@ -1,0 +1,52 @@
+---
+title: "MCP elicitation"
+slug: "mcp-elicitation"
+letter: "M"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+  - "Safety and evaluation"
+aliases:
+  - "Model Context Protocol elicitation"
+devilDefinition: |
+  A protocol path for asking the user, which is healthier than letting the agent invent consent from posture and vibes.
+plainDefinition: |
+  MCP elicitation is a mechanism for an MCP server to request additional information or confirmation from the user through the client during a workflow.
+whyExists: |
+  Servers sometimes need missing inputs, choices, approvals, or clarifications. Elicitation provides a structured way to ask for them without bypassing the client or pretending the model can infer everything.
+misuse: |
+  It gets treated as a licence to interrupt people until ambiguity gives up. Asking the user is useful only when the request is clear, bounded, and worth their attention.
+practicalMeaning: |
+  In practice it means the client needs good UI, permission rules, and logging around the question being asked, the answer received, and the action that answer enables.
+example: |
+  "MCP elicitation asked the user which account to update before the server performed the action, an innovation also known as not guessing with production data."
+askNext:
+  - "What exactly is the server asking the user to provide?"
+  - "Does the user understand what their answer will authorise?"
+  - "How is the elicited input recorded and bounded?"
+related:
+  - "mcp"
+  - "approval-gate"
+  - "human-escalation"
+seeAlso:
+  - "MCP"
+  - "Approval gate"
+  - "Human escalation"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "mcp"
+  - "user-input"
+  - "approval"
+misunderstoodScore: 4
+diagram: "mcp"
+translations:
+  - label: "what it usually means in reality"
+    text: "A structured way for a server to ask the user something through the client."
+---
+
+Good elicitation is not more questions. It is the one question that stops the system from pretending uncertainty is confidence.

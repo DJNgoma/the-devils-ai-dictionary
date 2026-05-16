@@ -1,0 +1,52 @@
+---
+title: "Data exfiltration path"
+slug: "data-exfiltration-path"
+letter: "D"
+categories:
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+  - "Agents and workflows"
+aliases:
+  - "exfiltration path"
+  - "data leak path"
+devilDefinition: |
+  The route sensitive information takes when a helpful system forgets that not every destination is a colleague.
+plainDefinition: |
+  A data exfiltration path is a route by which sensitive data can leave its intended boundary through prompts, logs, tools, connectors, retrieved content, generated output, or external services.
+whyExists: |
+  AI systems connect models to data and tools. Every new connector, context source, logging stream, browser action, and summary endpoint can become a path for information to move where it should not.
+misuse: |
+  It gets reduced to dramatic breaches, while quieter paths hide in analytics logs, prompt traces, vendor calls, screenshots, exported summaries, and tools that were granted too much scope.
+practicalMeaning: |
+  In practice it means mapping data flows, limiting tool permissions, redacting logs, isolating untrusted content, and treating generated summaries as possible carriers of sensitive information.
+example: |
+  "The data exfiltration path was not the model remembering a secret; it was the agent dutifully pasting the secret into a third-party ticket it had permission to create."
+askNext:
+  - "What sensitive data can reach the model, tools, logs, or vendors?"
+  - "Which outputs or actions can carry that data outside its boundary?"
+  - "Where are redaction, approval, and audit controls applied?"
+related:
+  - "context-poisoning"
+  - "tool-poisoning"
+  - "permission-prompt"
+seeAlso:
+  - "Context Poisoning"
+  - "Tool Poisoning"
+  - "Permission prompt"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "security"
+  - "data-flows"
+  - "tools"
+misunderstoodScore: 5
+translations:
+  - label: "what it usually means in reality"
+    text: "The boring route data actually takes out of bounds, often through a feature everyone approved."
+---
+
+The dangerous path is rarely labelled dangerous. It is usually labelled export, sync, summary, or convenience.
