@@ -4,7 +4,13 @@
 export const entryDetailShardLoaders = {
   "a": () => import("./entry-details/a.json"),
   "b": () => import("./entry-details/b.json"),
-  "c": () => import("./entry-details/c.json"),
+  "c": async () => {
+    const shards = await Promise.all([
+      import("./entry-details/c-1.json"),
+      import("./entry-details/c-2.json"),
+    ]);
+    return { default: Object.assign({}, ...shards.map((shard) => shard.default)) };
+  },
   "d": () => import("./entry-details/d.json"),
   "e": () => import("./entry-details/e.json"),
   "f": () => import("./entry-details/f.json"),
