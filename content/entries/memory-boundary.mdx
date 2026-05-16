@@ -1,0 +1,52 @@
+---
+title: "Memory boundary"
+slug: "memory-boundary"
+letter: "M"
+categories:
+  - "Retrieval and memory"
+  - "Safety and evaluation"
+aliases:
+  - "AI memory boundary"
+  - "memory scope"
+devilDefinition: |
+  The line between useful continuity and an assistant becoming a filing cabinet with social ambitions.
+plainDefinition: |
+  A memory boundary defines what an AI system may remember, retrieve, update, forget, or expose across sessions, users, tools, and contexts.
+whyExists: |
+  Persistent memory can make systems more useful, but it also creates privacy, relevance, contamination, and access-control problems. Boundaries keep memory from becoming an unreviewed second database.
+misuse: |
+  It gets softened into a settings label. The real question is not whether the product "has memory", but what crosses between contexts and who can inspect or delete it.
+practicalMeaning: |
+  In practice it means retention rules, user controls, retrieval scopes, redaction, tenant separation, auditability, and clear defaults for what should not be remembered at all.
+example: |
+  "The memory boundary stopped the assistant from using a private support detail in a sales draft, which was kind of it."
+askNext:
+  - "What information can be stored as memory?"
+  - "Who can read, edit, or delete that memory?"
+  - "How does the system prevent one context's memory from leaking into another?"
+related:
+  - "agent-memory"
+  - "memory-policy"
+  - "context-compaction"
+seeAlso:
+  - "Agent memory"
+  - "Memory policy"
+  - "Context compaction"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "memory"
+  - "privacy"
+  - "retrieval"
+misunderstoodScore: 4
+diagram: "context-window"
+translations:
+  - label: "what it usually means in reality"
+    text: "The rules around what continuity is allowed to survive, where, and for whom."
+---
+
+Memory without boundaries is just retention policy written by optimism.

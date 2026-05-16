@@ -1,0 +1,52 @@
+---
+title: "Capability escalation"
+slug: "capability-escalation"
+letter: "C"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+aliases:
+  - "escalating capabilities"
+  - "tool escalation"
+devilDefinition: |
+  The moment a workflow graduates from asking nicely to holding tools sharp enough to need paperwork.
+plainDefinition: |
+  Capability escalation is the process by which an AI system, agent, or workflow gains access to stronger tools, wider data, higher authority, or more consequential actions.
+whyExists: |
+  Some tasks genuinely require more capability than the initial environment allows. Escalation lets systems request or receive additional powers when the task, user, or approval path justifies them.
+misuse: |
+  It gets hidden inside smooth product flows, where a harmless assistant gradually acquires write access, external actions, payment authority, or sensitive data because nobody wanted to interrupt the demo.
+practicalMeaning: |
+  In practice it means approval gates, permission prompts, scoped credentials, audit trails, rollback paths, and a bias toward granting the smallest new capability that solves the task.
+example: |
+  "The assistant requested capability escalation before deleting the stale records, which gave the user one last chance to notice the word deleting."
+askNext:
+  - "What new capability is being granted?"
+  - "Who or what approves the escalation?"
+  - "How is the added capability scoped, logged, and revoked?"
+related:
+  - "capability-surface"
+  - "tool-permissions"
+  - "approval-gate"
+seeAlso:
+  - "Capability surface"
+  - "Tool Permissions"
+  - "Approval gate"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "agents"
+  - "permissions"
+  - "safety"
+misunderstoodScore: 5
+translations:
+  - label: "what it usually means in reality"
+    text: "A workflow gaining more power, which should be treated as an event, not ambience."
+---
+
+Escalation is not inherently bad. Quiet escalation is where the expensive stories begin.

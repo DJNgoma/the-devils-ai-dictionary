@@ -1,0 +1,53 @@
+---
+title: "Context compaction"
+slug: "context-compaction"
+letter: "C"
+categories:
+  - "Retrieval and memory"
+  - "Model usage"
+  - "Agents and workflows"
+aliases:
+  - "context compression"
+  - "session compaction"
+devilDefinition: |
+  Turning a long conversation into a smaller one and hoping the important bits survived the lift.
+plainDefinition: |
+  Context compaction is the process of summarising, compressing, or otherwise reducing accumulated working context so an AI session can continue within a context window or operational budget.
+whyExists: |
+  Long-running agents and assistants accumulate instructions, tool results, decisions, and user preferences. Compaction keeps the session usable when the raw transcript would exceed limits or become too costly to carry forward.
+misuse: |
+  It gets treated as lossless memory. It is not. Compaction preserves a judgement about what mattered, and that judgement can omit caveats, uncertainty, failed attempts, and inconvenient constraints.
+practicalMeaning: |
+  In practice it means deciding what to keep, what to discard, how to mark uncertainty, and how to recover original evidence when the compacted version starts behaving like an unreliable witness.
+example: |
+  "The context compaction kept the deployment command and forgot why it was forbidden, which is how efficiency becomes a postmortem heading."
+askNext:
+  - "What information is deliberately preserved during compaction?"
+  - "Can the system recover the original transcript or evidence?"
+  - "How are uncertainties and unresolved blockers carried forward?"
+related:
+  - "context-window"
+  - "context-pruning"
+  - "agent-memory"
+seeAlso:
+  - "Context Window"
+  - "Context pruning"
+  - "Agent memory"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "context"
+  - "memory"
+  - "agents"
+misunderstoodScore: 4
+diagram: "context-window"
+translations:
+  - label: "what it usually means in reality"
+    text: "A lossy summary of working state, useful only if everyone remembers it is lossy."
+---
+
+Compaction is where continuity becomes editorial. Treat the editor as fallible.

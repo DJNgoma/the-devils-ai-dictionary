@@ -1,0 +1,51 @@
+---
+title: "Reasoning budget"
+slug: "reasoning-budget"
+letter: "R"
+categories:
+  - "Model usage"
+  - "Economics and operations of AI"
+aliases:
+  - "thinking budget"
+  - "deliberation budget"
+devilDefinition: |
+  The amount of thought a model is allowed before finance, latency, or policy asks it to develop conviction.
+plainDefinition: |
+  A reasoning budget is a limit on the computation, tokens, time, cost, or policy allowance a model may spend on deliberation before producing an answer or action.
+whyExists: |
+  More reasoning can improve some tasks, but it costs money, latency, energy, and sometimes user patience. Systems need controls that decide when deeper reasoning is worth the trade-off.
+misuse: |
+  It gets treated as a quality dial that only turns upward. More deliberation can still reason from bad premises, overfit a neat plan, or spend handsomely to reach the wrong conclusion.
+practicalMeaning: |
+  In practice it means task routing, cost controls, latency targets, confidence thresholds, escalation rules, and a clear idea of which work deserves slower, more expensive thought.
+example: |
+  "The refund bot got a higher reasoning budget for disputed cases and a lower one for checking whether Tuesday comes after Monday."
+askNext:
+  - "Which tasks receive a larger reasoning budget, and why?"
+  - "What happens when the budget is exhausted?"
+  - "Are we buying better judgement, or merely a longer explanation?"
+related:
+  - "compute-budget"
+  - "inference-budget"
+  - "context-budget"
+seeAlso:
+  - "Compute budget"
+  - "Inference Budget"
+  - "Context budget"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "reasoning"
+  - "costs"
+  - "latency"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "A spending limit on deliberation, not a guarantee that the answer deserves its confidence."
+---
+
+The budget buys the opportunity to think. It does not buy wisdom in bulk.

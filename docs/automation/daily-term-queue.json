@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-05-16T06:15:32.855Z",
+  "updatedAt": "2026-05-16T06:19:37.882Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -824,7 +824,7 @@
     {
       "slug": "context-compaction",
       "label": "Context compaction",
-      "status": "queued",
+      "status": "published",
       "notes": "Useful for summarising or compressing working state so a long session can continue without pretending nothing was lost.",
       "diagramHint": "context-window",
       "misunderstoodHint": 4,
@@ -838,12 +838,13 @@
         "context-pruning",
         "memory-boundary"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:19:37.882Z"
     },
     {
       "slug": "memory-boundary",
       "label": "Memory boundary",
-      "status": "queued",
+      "status": "published",
       "notes": "Should mark what the system may remember, forget, retrieve, or leak, which is more useful than saying it has memory and smiling.",
       "diagramHint": "context-window",
       "misunderstoodHint": 4,
@@ -856,12 +857,13 @@
         "context-security-incident-response-statement",
         "context-compaction"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:19:37.882Z"
     },
     {
       "slug": "session-replay",
       "label": "Session replay",
-      "status": "queued",
+      "status": "published",
       "notes": "Focus on reconstructing what happened in a model or agent session, especially after the impressive bit becomes an incident report.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -875,12 +877,13 @@
         "agent-trace",
         "agent-observability"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:19:37.882Z"
     },
     {
       "slug": "reasoning-budget",
       "label": "Reasoning budget",
-      "status": "queued",
+      "status": "published",
       "notes": "Name the token, latency, cost, or policy limit on how much deliberation a model gets before everyone calls it decisive.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -893,12 +896,13 @@
         "inference-budget",
         "planning-budget"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:19:37.882Z"
     },
     {
       "slug": "planning-budget",
       "label": "Planning budget",
-      "status": "queued",
+      "status": "published",
       "notes": "Useful for the amount of exploration an agent is allowed before it must stop admiring the map and touch the work.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -911,12 +915,13 @@
         "task-orchestration",
         "agent-cost-control"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:19:37.882Z"
     },
     {
       "slug": "capability-escalation",
       "label": "Capability escalation",
-      "status": "queued",
+      "status": "published",
       "notes": "Should describe when a workflow gains stronger tools, wider access, or higher authority, not merely when the demo gets more confident.",
       "diagramHint": null,
       "misunderstoodHint": 5,
@@ -930,12 +935,13 @@
         "tool-permissions",
         "approval-gate"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:19:37.882Z"
     },
     {
       "slug": "trust-boundary",
       "label": "Trust boundary",
-      "status": "queued",
+      "status": "published",
       "notes": "Good for the line between systems, users, tools, and data sources where assumptions should stop and verification should begin.",
       "diagramHint": null,
       "misunderstoodHint": 5,
@@ -948,7 +954,8 @@
         "tool-permissions",
         "context-poisoning"
       ],
-      "addedAt": "2026-05-16T04:43:14.000Z"
+      "addedAt": "2026-05-16T04:43:14.000Z",
+      "publishedAt": "2026-05-16T06:19:37.882Z"
     },
     {
       "slug": "research-agent",

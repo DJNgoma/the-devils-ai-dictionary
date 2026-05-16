@@ -1,0 +1,51 @@
+---
+title: "Trust boundary"
+slug: "trust-boundary"
+letter: "T"
+categories:
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+aliases:
+  - "AI trust boundary"
+  - "security boundary"
+devilDefinition: |
+  The line where assumptions should stop travelling unaccompanied.
+plainDefinition: |
+  A trust boundary is the line between systems, users, tools, data sources, models, or organisations where information and actions should be treated as coming from a different level of trust.
+whyExists: |
+  AI systems combine user input, retrieved content, tool outputs, model text, and external services. Boundaries identify where validation, permissions, sanitisation, and audit controls need to change.
+misuse: |
+  It gets drawn after the incident, usually with admirable clarity and no effect on the previous architecture.
+practicalMeaning: |
+  In practice it means separating trusted and untrusted content, constraining tools, validating inputs, limiting data movement, and refusing to let one component's confidence become another component's permission.
+example: |
+  "The web page crossed a trust boundary when it became model context, which is why its instruction to email the database should not have been treated as strategy."
+askNext:
+  - "Where does untrusted content enter the system?"
+  - "Which permissions or assumptions change at this boundary?"
+  - "What validation happens before information crosses it?"
+related:
+  - "data-exfiltration-path"
+  - "tool-permissions"
+  - "context-poisoning"
+seeAlso:
+  - "Data exfiltration path"
+  - "Tool Permissions"
+  - "Context Poisoning"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "security"
+  - "boundaries"
+  - "trust"
+misunderstoodScore: 5
+translations:
+  - label: "what it usually means in reality"
+    text: "A line where validation and permissions must change, not a diagram someone shows after the breach."
+---
+
+Trust boundaries are easiest to see when they were absent. This is not the recommended discovery method.

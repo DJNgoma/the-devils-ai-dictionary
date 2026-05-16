@@ -1,0 +1,52 @@
+---
+title: "Session replay"
+slug: "session-replay"
+letter: "S"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+aliases:
+  - "AI session replay"
+  - "conversation replay"
+devilDefinition: |
+  Reconstructing the assistant's afternoon after it has already made the incident report interesting.
+plainDefinition: |
+  Session replay is the reconstruction of an AI or agent session from prompts, tool calls, model outputs, user actions, state changes, and logs.
+whyExists: |
+  Complex sessions fail in ways that are hard to understand from the final answer alone. Replay helps teams debug behaviour, audit actions, investigate incidents, and improve workflows.
+misuse: |
+  It gets mistaken for perfect truth. Replays depend on what was logged, redacted, retained, sampled, or lost, and they may omit exactly the detail someone later needs.
+practicalMeaning: |
+  In practice it means deciding which events to capture, how to protect sensitive data, how to replay without causing side effects, and how to compare what the model saw with what users saw.
+example: |
+  "Session replay showed that the agent called the billing tool after a summarised warning had dropped the word 'not', which was economical in the worst possible way."
+askNext:
+  - "Which events are captured for replay?"
+  - "Can the session be replayed without repeating external actions?"
+  - "What sensitive data is redacted or retained in the replay record?"
+related:
+  - "trace-replay"
+  - "agent-trace"
+  - "agent-observability"
+seeAlso:
+  - "Trace replay"
+  - "Agent trace"
+  - "Agent observability"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "observability"
+  - "debugging"
+  - "agents"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "A reconstruction of what happened, limited by what the system bothered to record."
+---
+
+Replay is most useful when it is boring enough to be trusted and detailed enough to be rude.

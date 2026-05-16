@@ -1,0 +1,52 @@
+---
+title: "Planning budget"
+slug: "planning-budget"
+letter: "P"
+categories:
+  - "Agents and workflows"
+  - "Economics and operations of AI"
+aliases:
+  - "agent planning budget"
+  - "planning allowance"
+devilDefinition: |
+  The amount of map-staring an agent gets before it must touch the work and risk becoming measurable.
+plainDefinition: |
+  A planning budget is the time, tokens, steps, or cost an agent may spend decomposing a task, exploring options, and deciding a course of action before execution.
+whyExists: |
+  Agents need planning to avoid reckless action, but unlimited planning becomes latency, expense, and sometimes a decorative loop. Budgets keep exploration proportional to the task.
+misuse: |
+  It gets confused with caution. A long plan can still be shallow, and a short plan can be appropriate when the task is routine and reversible.
+practicalMeaning: |
+  In practice it means setting step limits, deciding when to ask a user, when to call tools, when to stop researching, and when to execute a good-enough plan.
+example: |
+  "The agent's planning budget ended after three searches, which spared everyone a fourth theory about the same package.json."
+askNext:
+  - "How many planning steps are allowed before execution?"
+  - "What conditions justify extending the planning budget?"
+  - "How does the agent avoid spending the plan on theatre?"
+related:
+  - "reasoning-budget"
+  - "orchestration"
+  - "agent-cost-control"
+seeAlso:
+  - "Reasoning budget"
+  - "Orchestration"
+  - "Agent Cost Control"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-16"
+updatedAt: "2026-05-16"
+tags:
+  - "agents"
+  - "planning"
+  - "cost-control"
+misunderstoodScore: 4
+diagram: "agent-loop"
+translations:
+  - label: "what it usually means in reality"
+    text: "A limit on pre-action deliberation, so the agent eventually has to do the work."
+---
+
+Planning is a virtue until it starts charging rent.
