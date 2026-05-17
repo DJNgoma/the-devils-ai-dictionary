@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-05-16T06:50:32.733Z",
+  "updatedAt": "2026-05-17T16:20:00.000Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -1381,6 +1381,907 @@
       ],
       "addedAt": "2026-05-16T04:43:14.000Z",
       "publishedAt": "2026-05-16T06:50:32.733Z"
+    },
+    {
+      "slug": "agentic-commerce",
+      "label": "Agentic commerce",
+      "notes": "Names the shift from people browsing shops to agents comparing, negotiating, and buying on their behalf.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Economics and operations of AI",
+        "Cultural terms"
+      ],
+      "relatedHints": [
+        "ai-shopping-agent",
+        "delegated-spending",
+        "agent-wallet"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "agent-wallet",
+      "label": "Agent wallet",
+      "notes": "Useful for spending authority handed to software that can act across tools and payment rails.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Agents and workflows",
+        "Economics and operations of AI",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "delegated-spending",
+        "agent-identity",
+        "tool-layer-risk"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "delegated-authentication",
+      "label": "Delegated authentication",
+      "notes": "Covers how an assistant proves it is acting for a person without simply becoming that person.",
+      "diagramHint": "function-calling",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "agent-identity",
+        "non-human-identity",
+        "agentic-iam"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "delegated-spending",
+      "label": "Delegated spending",
+      "notes": "Names the budget and accountability problem when agents can spend real money, not just produce suggestions.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "agent-wallet",
+        "agentic-commerce",
+        "cost-controls"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "agent-identity",
+      "label": "Agent identity",
+      "notes": "A practical term for giving non-human actors names, credentials, permissions, and audit trails.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "non-human-identity",
+        "agentic-iam",
+        "agent-trace"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "non-human-identity",
+      "label": "Non-human identity",
+      "notes": "Enterprise IAM now has to recognise bots, agents, services, and scripts as first-class risk carriers.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Infrastructure and deployment",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "agent-identity",
+        "agentic-iam",
+        "connector-permissions"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "agent-seat",
+      "label": "Agent seat",
+      "notes": "A licensing term for when software becomes staff and vendors rediscover headcount pricing.",
+      "diagramHint": null,
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "digital-worker",
+        "agent-ops",
+        "cost-tier"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "tool-layer-risk",
+      "label": "Tool-layer risk",
+      "notes": "Captures the risk that moves from model output to what the connected tool can actually do.",
+      "diagramHint": "function-calling",
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "function-calling",
+        "tool-allowlist",
+        "connector-permissions"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "tool-allowlist",
+      "label": "Tool allowlist",
+      "notes": "A crisp operational term for deciding which tools an agent may touch before the demo discovers the delete button.",
+      "diagramHint": "function-calling",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "tool-layer-risk",
+        "tool-access-review",
+        "approval-gate"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "tool-access-review",
+      "label": "Tool access review",
+      "notes": "Governance that becomes useful only when someone checks real permissions, not declared intent.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "tool-allowlist",
+        "connector-permissions",
+        "enterprise-controls"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "tool-approval-fatigue",
+      "label": "Tool approval fatigue",
+      "notes": "Names the human habit of approving repeated agent actions because vigilance does not scale as well as alerts.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Agents and workflows",
+        "Cultural terms",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "approval-loop",
+        "approval-theatre",
+        "tool-layer-risk"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "secure-rag",
+      "label": "Secure RAG",
+      "notes": "Explain that retrieval security is permissions, provenance, and leakage control, not a checkbox on a sales slide.",
+      "diagramHint": "rag",
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Retrieval and memory",
+        "Safety and evaluation",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "rag",
+        "retrieval-permissions",
+        "data-loss-prevention"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "agentic-rag",
+      "label": "Agentic RAG",
+      "notes": "Retrieval that plans, retries, filters, and sometimes makes a larger mess with more confidence.",
+      "diagramHint": "rag",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Retrieval and memory",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "rag",
+        "agent-loop",
+        "retrieval-quality"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "retrieval-permissions",
+      "label": "Retrieval permissions",
+      "notes": "Names the access-control layer that decides whether the model should have found the document in the first place.",
+      "diagramHint": "rag",
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Retrieval and memory",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "secure-rag",
+        "connector-permissions",
+        "data-governance"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "context-perimeter",
+      "label": "Context perimeter",
+      "notes": "Useful for drawing the boundary around what can enter a prompt, memory, retrieval set, or agent workspace.",
+      "diagramHint": "context-window",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Retrieval and memory",
+        "Safety and evaluation",
+        "Model usage"
+      ],
+      "relatedHints": [
+        "context-window",
+        "context-poisoning",
+        "context-pruning"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "semantic-layer",
+      "label": "Semantic layer",
+      "notes": "A fashionable enterprise term that can mean useful business meaning or a paid mist over messy data.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Retrieval and memory",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "data-governance",
+        "enterprise-rag",
+        "connected-context"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "vector-sprawl",
+      "label": "Vector sprawl",
+      "notes": "Names the operational afterlife of every pilot leaving behind an embedding index nobody owns.",
+      "diagramHint": "embeddings",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Retrieval and memory",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "embeddings",
+        "retrieval-drift",
+        "data-governance"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "enterprise-rag",
+      "label": "Enterprise RAG",
+      "notes": "Promises institutional knowledge and usually discovers document hygiene.",
+      "diagramHint": "rag",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Retrieval and memory",
+        "Product and vendor terms",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "secure-rag",
+        "semantic-layer",
+        "document-corpus"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "rag-audit-trail",
+      "label": "RAG audit trail",
+      "notes": "Covers source, retrieval, ranking, and answer evidence once an answer becomes a decision.",
+      "diagramHint": "rag",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Retrieval and memory",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "citation-grounding",
+        "secure-rag",
+        "data-provenance"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "ai-governance-office",
+      "label": "AI governance office",
+      "notes": "The body created to make AI risk legible, ideally before it becomes a suggestion box with stationery.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Cultural terms",
+        "Safety and evaluation",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "model-risk-management",
+        "enterprise-controls",
+        "governance-theatre"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "model-risk-management",
+      "label": "Model risk management",
+      "notes": "A banking and enterprise governance phrase moving into mainstream AI deployments, often with more policy than instrumentation.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "model-inventory",
+        "eval-coverage",
+        "operational-risk"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "model-inventory",
+      "label": "Model inventory",
+      "notes": "Before governing AI, firms must admit how many models, wrappers, endpoints, and spreadsheet miracles exist.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Infrastructure and deployment",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "model-risk-management",
+        "enterprise-ai",
+        "centralised-ai-operations"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "eval-marketplace",
+      "label": "Eval marketplace",
+      "notes": "Bought tests, benchmark packs, and the delicate trade in confidence.",
+      "diagramHint": null,
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "evals",
+        "eval-harness",
+        "benchmark-theatre"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "synthetic-user-research",
+      "label": "Synthetic user research",
+      "notes": "Asking simulated customers what real customers might have said if research were cheaper than humility.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Cultural terms",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "synthetic-customer",
+        "user-research",
+        "persona"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "synthetic-customer",
+      "label": "Synthetic customer",
+      "notes": "Generated personas used in testing, marketing, and strategy, where the customer is always available and suspiciously agreeable.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Cultural terms",
+        "Model usage"
+      ],
+      "relatedHints": [
+        "synthetic-user-research",
+        "synthetic-data",
+        "ai-first"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "voice-clone",
+      "label": "Voice clone",
+      "notes": "Relevant across fraud, media, call centres, and consent; not just a party trick with better acoustics.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Model usage",
+        "Safety and evaluation",
+        "Cultural terms"
+      ],
+      "relatedHints": [
+        "deepfake-consent",
+        "likeness-rights",
+        "audio-overviews"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "deepfake-consent",
+      "label": "Deepfake consent",
+      "notes": "A timely term for likeness, permission, revocation, and the policy problem of proving a yes was real.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Cultural terms"
+      ],
+      "relatedHints": [
+        "deepfake",
+        "voice-clone",
+        "likeness-rights"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "likeness-rights",
+      "label": "Likeness rights",
+      "notes": "Useful for creators, actors, influencers, and ordinary people whose face or voice has become training material with invoices attached.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "deepfake-consent",
+        "voice-clone",
+        "content-provenance"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "synthetic-influencer",
+      "label": "Synthetic influencer",
+      "notes": "The brand ambassador who cannot age, unionise, or remember scandals unless prompted.",
+      "diagramHint": null,
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Cultural terms",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "synthetic-customer",
+        "emotional-retention",
+        "content-credentials"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "slop-filter",
+      "label": "Slop filter",
+      "notes": "Names the defensive layer now needed because generation became cheaper than attention.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Cultural terms",
+        "Safety and evaluation",
+        "Model usage"
+      ],
+      "relatedHints": [
+        "slop-firewall",
+        "content-credentials",
+        "authenticity-crisis"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "slop-firewall",
+      "label": "Slop firewall",
+      "notes": "A filter for inboxes, feeds, search surfaces, and marketplaces trying to keep generated filler from becoming the default atmosphere.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Cultural terms",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "slop-filter",
+        "content-provenance",
+        "answer-engine"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "answer-cart",
+      "label": "Answer cart",
+      "notes": "Fits AI shopping and search: a response that quietly turns recommendation into checkout flow.",
+      "diagramHint": null,
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "agentic-commerce",
+        "answer-engine",
+        "ai-shopping-agent"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "agentic-seo",
+      "label": "Agentic SEO",
+      "notes": "Search optimisation aimed at assistants, answer engines, and purchasing agents rather than human readers.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Cultural terms"
+      ],
+      "relatedHints": [
+        "answer-engine",
+        "ai-overviews",
+        "agentic-commerce"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "ai-shopping-agent",
+      "label": "AI shopping agent",
+      "notes": "A concrete consumer term with clear misuse potential: convenience, persuasion, affiliate incentives, and delegated buyer remorse.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "agentic-commerce",
+        "answer-cart",
+        "delegated-spending"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "ai-app-store",
+      "label": "AI app store",
+      "notes": "Marketplaces of agents, tools, GPTs, skills, MCP servers, and other small boxes of implied trust.",
+      "diagramHint": null,
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "mcp-marketplace",
+        "agent-skills",
+        "skill-loading"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "mcp-marketplace",
+      "label": "MCP marketplace",
+      "notes": "Tool servers become distribution objects and trust has to become more than a README badge.",
+      "diagramHint": "mcp",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Product and vendor terms",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "mcp",
+        "mcp-compliance",
+        "tool-layer-risk"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "mcp-compliance",
+      "label": "MCP compliance",
+      "notes": "Useful for puncturing claims that supporting a protocol automatically means safe, governed, or production-ready.",
+      "diagramHint": "mcp",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "mcp",
+        "mcp-marketplace",
+        "tool-access-review"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "webmcp",
+      "label": "WebMCP",
+      "notes": "A protocol-adjacent term for browser and website tool exposure moving into agent workflows.",
+      "diagramHint": "mcp",
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "mcp",
+        "browser-agent",
+        "agent-protocol-stack"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "agent-protocol-stack",
+      "label": "Agent protocol stack",
+      "notes": "The growing pile of MCP, agent-to-agent messaging, identity, permissions, and audit plumbing beneath the magic.",
+      "diagramHint": "mcp",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "mcp",
+        "agent2agent",
+        "agent-identity"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "agent-sandbox-leakage",
+      "label": "Agent sandbox leakage",
+      "notes": "When isolation exists in the architecture diagram but secrets, files, network calls, or side effects find daylight.",
+      "diagramHint": "worktree",
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Infrastructure and deployment",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "agent-workspace",
+        "data-exfiltration-path",
+        "defensive-security"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "agent-credential-sprawl",
+      "label": "Agent credential sprawl",
+      "notes": "Every useful agent wants tokens, and every token wants to become archaeology.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "agent-identity",
+        "connector-permissions",
+        "agentic-iam"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "agentic-iam",
+      "label": "Agentic IAM",
+      "notes": "Identity and access management once agents act across systems rather than merely request permission politely.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Infrastructure and deployment",
+        "Safety and evaluation",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "agent-identity",
+        "non-human-identity",
+        "delegated-authentication"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "confidential-inference",
+      "label": "Confidential inference",
+      "notes": "For privacy-sensitive deployments where the question is not only what the model says, but who can see the input while it thinks.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Infrastructure and deployment",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "private-inference",
+        "data-handling",
+        "secure-rag"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "private-inference",
+      "label": "Private inference",
+      "notes": "A marketable phrase that needs careful separation between on-device, encrypted, isolated, and merely promised privacy.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Infrastructure and deployment",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "confidential-inference",
+        "edge-model",
+        "data-localisation"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "gpu-broker",
+      "label": "GPU broker",
+      "notes": "The middleman between ambition and available accelerators in a compute-constrained market.",
+      "diagramHint": null,
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "gpu",
+        "compute-scarcity",
+        "cloud-ai-platform"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "ai-data-centre",
+      "label": "AI data centre",
+      "notes": "The physical footprint of intelligence: power, cooling, chips, debt, and local politics.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Infrastructure and deployment",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "compute-scarcity",
+        "power-constrained-ai",
+        "dgx-cloud"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "power-constrained-ai",
+      "label": "Power-constrained AI",
+      "notes": "Names the reality that scaling intelligence now meets grid capacity, not just benchmark appetite.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "ai-data-centre",
+        "compute-budget",
+        "compute-scarcity"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "compute-diplomacy",
+      "label": "Compute diplomacy",
+      "notes": "National AI deals, chip access, data-centre investments, and strategic partnerships dressed as inevitability.",
+      "diagramHint": null,
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Cultural terms",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "sovereign-cloud",
+        "compute-scarcity",
+        "distribution-advantage"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
+    },
+    {
+      "slug": "sovereign-cloud",
+      "label": "Sovereign cloud",
+      "notes": "Pairs with sovereign AI while keeping focus on where models, data, control planes, and legal exposure actually live.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Infrastructure and deployment",
+        "Product and vendor terms",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "data-localisation",
+        "cloud-ai-platform",
+        "compute-diplomacy"
+      ],
+      "status": "queued",
+      "addedAt": "2026-05-17T16:20:00.000Z"
     }
   ]
 }
