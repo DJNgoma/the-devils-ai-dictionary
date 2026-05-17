@@ -27,7 +27,6 @@ export const navigation = [
   { href: "/categories", label: "Categories" },
   { href: "/random", label: "Random" },
   { href: "/about", label: "About" },
-  { href: "/dictionary", label: "Search" },
 ] as const;
 
 export const mobilePrimaryNavigation = [
@@ -40,7 +39,7 @@ export const mobilePrimaryNavigation = [
   {
     id: "search",
     href: "/dictionary",
-    label: "Search",
+    label: "Dictionary",
     icon: "search",
   },
   {
@@ -105,7 +104,7 @@ export function getMobileChromeTitle(pathname: string) {
   }
 
   if (pathname === "/dictionary") {
-    return "Search";
+    return "Dictionary";
   }
 
   if (pathname.startsWith("/dictionary/")) {

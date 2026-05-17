@@ -60,7 +60,7 @@ export function SiteFooter() {
             Privacy
           </Link>
           <Link href="/dictionary" className="hover:text-foreground">
-            Search
+            Dictionary
           </Link>
           <a
             href={siteConfig.appStoreUrl}

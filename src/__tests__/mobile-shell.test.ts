@@ -24,7 +24,7 @@ describe("mobile navigation helpers", () => {
   });
 
   it("returns readable chrome titles", () => {
-    expect(getMobileChromeTitle("/dictionary")).toBe("Search");
+    expect(getMobileChromeTitle("/dictionary")).toBe("Dictionary");
     expect(getMobileChromeTitle("/dictionary/agent")).toBe("Entry");
     expect(getMobileChromeTitle("/categories")).toBe("Categories");
     expect(getMobileChromeTitle("/saved")).toBe("Saved");

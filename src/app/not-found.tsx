@@ -19,12 +19,6 @@ export default function NotFound() {
           >
             Browse dictionary
           </Link>
-          <Link
-            href="/dictionary"
-            className="button button-secondary"
-          >
-            Search
-          </Link>
         </div>
       </div>
     </div>

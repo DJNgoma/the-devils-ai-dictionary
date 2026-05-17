@@ -67,6 +67,20 @@ describe("site helpers", () => {
     });
     expect(getMobileChromeTitle("/updates")).toBe("Updates");
   });
+
+  it("does not duplicate public navigation destinations", () => {
+    const hrefs = navigation.map((item) => item.href);
+
+    expect(new Set(hrefs).size).toBe(hrefs.length);
+    expect(navigation).toContainEqual({
+      href: "/dictionary",
+      label: "Dictionary",
+    });
+    expect(navigation).not.toContainEqual({
+      href: "/dictionary",
+      label: "Search",
+    });
+  });
 });
 
 describe("getMobilePrimaryNavId", () => {
@@ -114,7 +128,7 @@ describe("isMobilePrimaryNavActive", () => {
 describe("getMobileChromeTitle", () => {
   it("titles each known surface with its mobile chrome label", () => {
     expect(getMobileChromeTitle("/saved")).toBe("Saved");
-    expect(getMobileChromeTitle("/dictionary")).toBe("Search");
+    expect(getMobileChromeTitle("/dictionary")).toBe("Dictionary");
     expect(getMobileChromeTitle("/dictionary/agent")).toBe("Entry");
     expect(getMobileChromeTitle("/categories")).toBe("Categories");
     expect(getMobileChromeTitle("/categories/core-concepts")).toBe("Category");

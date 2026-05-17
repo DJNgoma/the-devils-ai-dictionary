@@ -29,10 +29,7 @@ export function SavedPagePanel() {
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link href="/dictionary" className="button button-primary">
-            Browse entries
-          </Link>
-          <Link href="/dictionary" className="button button-secondary">
-            Search
+            Browse dictionary
           </Link>
         </div>
       </div>
@@ -52,10 +49,7 @@ export function SavedPagePanel() {
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link href="/dictionary" className="button button-secondary">
-            Browse more
-          </Link>
-          <Link href="/dictionary" className="button button-secondary">
-            Search the index
+            Browse dictionary
           </Link>
           <button type="button" onClick={clearWords} className="button button-secondary">
             Clear all
