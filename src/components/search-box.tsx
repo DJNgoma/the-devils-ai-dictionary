@@ -8,7 +8,7 @@ type SearchBoxProps = {
 };
 
 export function SearchBox({
-  action = "/search",
+  action = "/dictionary",
   className,
   defaultValue,
   placeholder = "Search for a term, alias, category, or body text",

@@ -19,6 +19,7 @@ const eslintConfig = defineConfig([
     "build/**",
     "coverage/**",
     ".open-next/**",
+    ".wrangler/**",
     "next-env.d.ts",
     "android/**",
     "ios/App/TheDevilsAIDictionary/public/**",

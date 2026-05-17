@@ -187,6 +187,22 @@ describe("DirectoryExplorer URL state", () => {
     });
   });
 
+  it("applies query params without server-provided initial state", async () => {
+    currentPathname = "/dictionary";
+    currentSearch = "q=agent";
+
+    renderExplorer();
+
+    await waitFor(() => {
+      expect((screen.getAllByRole("searchbox")[0] as HTMLInputElement).value).toBe("agent");
+      expect(
+        screen.getByText("1 entry matches your search out of 2 words."),
+      ).toBeDefined();
+    });
+
+    expect(replaceMock).not.toHaveBeenCalled();
+  });
+
   it("normalizes invalid dictionary params back to the canonical URL once", async () => {
     currentPathname = "/dictionary";
     currentSearch =

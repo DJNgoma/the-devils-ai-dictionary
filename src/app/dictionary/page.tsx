@@ -7,13 +7,8 @@ import {
   getSearchIndexPath,
   getSearchableEntries,
 } from "@/lib/content";
-import { normalizeDirectoryExplorerState } from "@/lib/directory-explorer-state";
 import { buildMetadata } from "@/lib/metadata";
 import { formatCount, formatDate } from "@/lib/utils";
-
-type DictionaryPageProps = {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-};
 
 export const metadata = buildMetadata({
   title: "Dictionary browser",
@@ -22,9 +17,9 @@ export const metadata = buildMetadata({
   path: "/dictionary",
 });
 
-export default async function DictionaryPage({
-  searchParams,
-}: DictionaryPageProps) {
+export const dynamic = "force-static";
+
+export default async function DictionaryPage() {
   const [entries, categories, latestPublishedAt, searchIndexPath, wordCount] = await Promise.all([
     getSearchableEntries(),
     getCategoryStats(),
@@ -34,19 +29,6 @@ export default async function DictionaryPage({
   ]);
   const wordCountLabel = formatCount(wordCount);
   const wordLabel = wordCount === 1 ? "word" : "words";
-  const initialState =
-    process.env.NEXT_OUTPUT_MODE === "export"
-      ? {
-          category: "all",
-          depth: "all",
-          difficulty: "all",
-          letter: "all",
-          query: "",
-          vendor: "all",
-        }
-      : normalizeDirectoryExplorerState(await searchParams, {
-          categorySlugs: categories.map((category) => category.slug),
-        });
 
   return (
     <div className="page-shell space-y-10">
@@ -68,12 +50,6 @@ export default async function DictionaryPage({
           entries={entries}
           categories={categories.map(({ title, slug }) => ({ title, slug }))}
           searchIndexPath={searchIndexPath}
-          initialCategory={initialState.category}
-          initialDepth={initialState.depth}
-          initialDifficulty={initialState.difficulty}
-          initialLetter={initialState.letter}
-          initialQuery={initialState.query}
-          initialVendor={initialState.vendor}
         />
       </Suspense>
     </div>

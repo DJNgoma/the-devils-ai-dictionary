@@ -15,6 +15,11 @@ const contentSource = fs.readFileSync(
   "utf8",
 );
 
+const dictionaryPageSource = fs.readFileSync(
+  path.resolve(__dirname, "../app/dictionary/page.tsx"),
+  "utf8",
+);
+
 describe("content.ts has no expensive runtime operations", () => {
   it("does not import zod", () => {
     // Zod validation of 62 entries on every cold start was the #1 cause
@@ -57,5 +62,12 @@ describe("content.ts has no expensive runtime operations", () => {
   it("does not construct Date objects for sorting", () => {
     // Recent/misunderstood sorting must be pre-computed
     expect(contentSource).not.toMatch(/new Date\(/);
+  });
+});
+
+describe("dictionary page avoids request-time search rendering", () => {
+  it("is forced static and does not read server searchParams", () => {
+    expect(dictionaryPageSource).toContain('export const dynamic = "force-static"');
+    expect(dictionaryPageSource).not.toMatch(/\bsearchParams\b/);
   });
 });
