@@ -20,6 +20,11 @@ const dictionaryPageSource = fs.readFileSync(
   "utf8",
 );
 
+const randomPageSource = fs.readFileSync(
+  path.resolve(__dirname, "../app/random/page.tsx"),
+  "utf8",
+);
+
 describe("content.ts has no expensive runtime operations", () => {
   it("does not import zod", () => {
     // Zod validation of 62 entries on every cold start was the #1 cause
@@ -69,5 +74,15 @@ describe("dictionary page avoids request-time search rendering", () => {
   it("is forced static and does not read server searchParams", () => {
     expect(dictionaryPageSource).toContain('export const dynamic = "force-static"');
     expect(dictionaryPageSource).not.toMatch(/\bsearchParams\b/);
+  });
+});
+
+describe("random page avoids client-side slug payloads", () => {
+  it("uses a server redirect instead of shipping every slug to the browser", () => {
+    expect(randomPageSource).toContain('export const dynamic = "force-dynamic"');
+    expect(randomPageSource).toContain("redirect(");
+    expect(randomPageSource).toContain("getRandomEntrySlug");
+    expect(randomPageSource).not.toContain("getAllEntries");
+    expect(randomPageSource).not.toContain("RandomEntryRedirect");
   });
 });

@@ -9,6 +9,9 @@ export const defaultCloudflareReleaseBudgets = {
   detailShardBytes: 160 * 1024,
   mobileSnapshotBytes: 5 * 1024 * 1024,
   workerGzipBytes: 2.8 * 1024 * 1024,
+  updatesRscBytes: 750 * 1024,
+  updatesOpenNextCacheBytes: 3.6 * 1024 * 1024,
+  categoryOpenNextCacheBytes: 3.2 * 1024 * 1024,
 };
 
 function fileSize(filePath) {
@@ -106,6 +109,61 @@ function workerStartupFiles(root) {
   return files;
 }
 
+function findOpenNextCacheBuildDir(root) {
+  const cacheRoot = path.join(root, ".open-next", "cache");
+
+  if (!fs.existsSync(cacheRoot)) {
+    throw new Error(".open-next/cache is missing; run npm run build:cf before the release gate.");
+  }
+
+  const buildDirs = fs
+    .readdirSync(cacheRoot, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => path.join(cacheRoot, entry.name));
+
+  if (buildDirs.length !== 1) {
+    throw new Error(`Expected exactly one OpenNext cache build directory, found ${buildDirs.length}.`);
+  }
+
+  return buildDirs[0];
+}
+
+function assertFileExists(root, relativePath) {
+  const filePath = path.join(root, relativePath);
+
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`${relativePath} is missing.`);
+  }
+
+  return filePath;
+}
+
+export function assertPrerenderAssetFastPath(root) {
+  const requiredAssets = [
+    ".open-next/assets/__opennext-prerender/index.html",
+    ".open-next/assets/__opennext-prerender/index.rsc",
+    ".open-next/assets/__opennext-prerender/updates.html",
+    ".open-next/assets/__opennext-prerender/updates.rsc",
+    ".open-next/assets/__opennext-prerender/categories.html",
+    ".open-next/assets/__opennext-prerender/categories.rsc",
+  ];
+
+  for (const relativePath of requiredAssets) {
+    assertFileExists(root, relativePath);
+  }
+
+  const workerSource = fs.readFileSync(
+    assertFileExists(root, ".open-next/worker.js"),
+    "utf8",
+  );
+
+  if (!workerSource.includes("x-devils-prerender-cache")) {
+    throw new Error(".open-next/worker.js is missing the prerender asset fast path.");
+  }
+
+  return `Prerender asset fast path: ${requiredAssets.length} route assets and worker header present`;
+}
+
 export function assertWorkerStartupDoesNotEmbedWebSnapshot(root, webSnapshot) {
   const marker = webSnapshot.entries?.[0]?.title;
   const startupFiles = workerStartupFiles(root);
@@ -155,6 +213,43 @@ export function collectCloudflareReleaseGateResults({
   if (startupCatalogueCheck) {
     results.push(startupCatalogueCheck);
   }
+
+  results.push(
+    assertBudget(
+      "Updates RSC route payload",
+      fileSize(assertFileExists(root, ".next/server/app/updates.rsc")),
+      budgets.updatesRscBytes,
+    ),
+  );
+
+  const openNextCacheDir = findOpenNextCacheBuildDir(root);
+
+  results.push(
+    assertBudget(
+      "Updates OpenNext prerender cache",
+      fileSize(path.join(openNextCacheDir, "updates.cache")),
+      budgets.updatesOpenNextCacheBytes,
+    ),
+  );
+
+  const categoryCacheDir = path.join(openNextCacheDir, "categories");
+
+  if (fs.existsSync(categoryCacheDir)) {
+    for (const cacheFile of fs
+      .readdirSync(categoryCacheDir)
+      .filter((file) => file.endsWith(".cache"))
+      .sort()) {
+      results.push(
+        assertBudget(
+          `Category OpenNext prerender cache ${cacheFile}`,
+          fileSize(path.join(categoryCacheDir, cacheFile)),
+          budgets.categoryOpenNextCacheBytes,
+        ),
+      );
+    }
+  }
+
+  results.push(assertPrerenderAssetFastPath(root));
 
   results.push(
     assertBudget(

@@ -4,6 +4,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 
 import {
+  assertPrerenderAssetFastPath,
   assertWorkerStartupDoesNotEmbedWebSnapshot,
   assertBudget,
   parseWranglerGzipBytes,
@@ -45,5 +46,29 @@ describe("Cloudflare release gate helpers", () => {
         entries: [{ title: "Abstraction tax" }],
       }),
     ).toThrow(/embed web catalogue marker/);
+  });
+
+  it("requires prerendered assets and the worker fast-path header", () => {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "devils-cf-gate-"));
+    const prerenderDir = path.join(root, ".open-next", "assets", "__opennext-prerender");
+
+    for (const file of [
+      "index.html",
+      "index.rsc",
+      "updates.html",
+      "updates.rsc",
+      "categories.html",
+      "categories.rsc",
+    ]) {
+      fs.mkdirSync(path.dirname(path.join(prerenderDir, file)), { recursive: true });
+      fs.writeFileSync(path.join(prerenderDir, file), "ok");
+    }
+
+    fs.writeFileSync(
+      path.join(root, ".open-next", "worker.js"),
+      'headers.set("x-devils-prerender-cache", "hit");',
+    );
+
+    expect(assertPrerenderAssetFastPath(root)).toMatch(/Prerender asset fast path/);
   });
 });

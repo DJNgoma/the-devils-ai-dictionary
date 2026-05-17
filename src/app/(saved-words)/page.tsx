@@ -81,12 +81,12 @@ export default async function HomePage() {
               >
                 Start the book
               </Link>
-              <Link
+              <a
                 href="/random"
                 className="button button-secondary"
               >
                 Draw a random term
-              </Link>
+              </a>
           </div>
           <WebNotificationHeroPrompt />
           <div className="home-native-callout">
@@ -151,7 +151,11 @@ export default async function HomePage() {
               Start with the slice of the AI conversation you keep hearing badly.
             </p>
           </div>
-          <Link href="/categories" className="text-sm text-accent hover:text-foreground">
+          <Link
+            href="/categories"
+            prefetch={false}
+            className="text-sm text-accent hover:text-foreground"
+          >
             View all categories
           </Link>
         </div>
@@ -162,12 +166,12 @@ export default async function HomePage() {
         <div className="space-y-5">
           <div className="flex items-center justify-between gap-4">
             <div className="labelled-rule">Recently added</div>
-            <Link
+            <a
               href="/updates"
               className="shrink-0 text-sm text-accent hover:text-foreground"
             >
               View all {latestAddedBatch.count}
-            </Link>
+            </a>
           </div>
           <p className="text-sm leading-7 text-foreground-soft">
             {latestAddedBatch.count} new{" "}

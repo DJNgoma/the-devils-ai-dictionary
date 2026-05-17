@@ -44,22 +44,22 @@ export function SiteFooter() {
           </p>
         </div>
         <div className="flex flex-wrap gap-4 text-sm text-foreground-soft">
-          <Link href="/book" className="hover:text-foreground">
+          <a href="/book" className="hover:text-foreground">
             Book
-          </Link>
-          <Link href="/updates" className="hover:text-foreground">
+          </a>
+          <a href="/updates" className="hover:text-foreground">
             Updates
-          </Link>
-          <Link href="/how-to-read" className="hover:text-foreground">
+          </a>
+          <a href="/how-to-read" className="hover:text-foreground">
             How to read
-          </Link>
-          <Link href="/about" className="hover:text-foreground">
+          </a>
+          <a href="/about" className="hover:text-foreground">
             About
-          </Link>
-          <Link href="/privacy" className="hover:text-foreground">
+          </a>
+          <a href="/privacy" className="hover:text-foreground">
             Privacy
-          </Link>
-          <Link href="/dictionary" className="hover:text-foreground">
+          </a>
+          <Link href="/dictionary" prefetch={false} className="hover:text-foreground">
             Dictionary
           </Link>
           <a

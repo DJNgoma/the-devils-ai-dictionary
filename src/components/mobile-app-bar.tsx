@@ -32,7 +32,7 @@ export function MobileAppBar() {
                   return;
                 }
 
-                router.push(backHref);
+                window.location.assign(backHref);
               }}
               className="button button-ghost"
               aria-label="Go back"
@@ -40,7 +40,11 @@ export function MobileAppBar() {
               Back
             </button>
           ) : (
-            <Link href="/" className="flex min-w-0 flex-1 items-center gap-3 overflow-hidden">
+            <Link
+              href="/"
+              prefetch={false}
+              className="flex min-w-0 flex-1 items-center gap-3 overflow-hidden"
+            >
               <span className="brand-mark-mobile">
                 <BrandMark className="size-5" />
               </span>
@@ -83,6 +87,7 @@ export function MobileAppBar() {
               <Link
                 key={item.href}
                 href={item.href}
+                prefetch={false}
                 className="button button-secondary justify-between"
                 onClick={closeMenu}
               >

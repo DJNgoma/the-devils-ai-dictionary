@@ -12,6 +12,7 @@ export function EntryCard({ entry, compact = false }: EntryCardProps) {
   return (
     <Link
       href={`/dictionary/${entry.slug}`}
+      prefetch={false}
       className="surface group block h-full p-4 sm:p-5"
     >
       <div className="flex flex-wrap items-center gap-2">

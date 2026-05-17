@@ -395,6 +395,19 @@ export async function getPublishedEntryBatches() {
   return state.publishedEntryBatches;
 }
 
+export async function getRandomEntrySlug(randomSource = Math.random) {
+  const generatedData = await loadGeneratedData();
+  const slugs = generatedData.dailyWordSlugs;
+
+  if (slugs.length === 0) {
+    return null;
+  }
+
+  const ratio = Math.max(0, Math.min(randomSource(), 0.999999999999));
+  const index = Math.floor(ratio * slugs.length);
+  return slugs[index] ?? null;
+}
+
 export async function getMostMisunderstoodEntries(_limit = 4) {
   const state = await getContentState();
   return state.generatedData.misunderstoodSlugs
@@ -448,8 +461,8 @@ export async function getLetterStats() {
 }
 
 export async function getCategoryStats() {
-  const state = await getContentState();
-  return state.generatedData.categoryStats;
+  const generatedData = await loadGeneratedData();
+  return generatedData.categoryStats;
 }
 
 export async function getEntriesByCategorySlug(slug: string) {

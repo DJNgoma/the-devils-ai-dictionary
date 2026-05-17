@@ -1,8 +1,10 @@
-import { getAllEntries } from "@/lib/content";
-import { RandomEntryRedirect } from "@/components/random-entry-redirect";
+import { redirect } from "next/navigation";
+import { getRandomEntrySlug } from "@/lib/content";
+
+export const dynamic = "force-dynamic";
 
 export default async function RandomPage() {
-  const entries = await getAllEntries();
+  const slug = await getRandomEntrySlug();
 
-  return <RandomEntryRedirect slugs={entries.map((entry) => entry.slug)} />;
+  redirect(slug ? `/dictionary/${slug}` : "/dictionary");
 }

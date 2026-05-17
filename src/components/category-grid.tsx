@@ -17,6 +17,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
         <Link
           key={category.slug}
           href={`/categories/${category.slug}`}
+          prefetch={false}
           className="surface group p-6"
         >
           <div className="flex items-start justify-between gap-4">

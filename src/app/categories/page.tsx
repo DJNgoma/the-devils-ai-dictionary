@@ -9,6 +9,8 @@ export const metadata = buildMetadata({
   path: "/categories",
 });
 
+export const dynamic = "force-static";
+
 export default async function CategoriesPage() {
   const categories = await getCategoryStats();
 

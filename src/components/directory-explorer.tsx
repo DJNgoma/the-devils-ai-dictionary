@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Index } from "flexsearch";
 import {
   useDeferredValue,
@@ -799,12 +798,12 @@ export function DirectoryExplorer({
             Try a plainer term, remove one of the filters, or jump to a random entry
             and work backwards from there.
           </p>
-          <Link
+          <a
             href="/random"
             className="button button-primary mt-6"
           >
             Random entry
-          </Link>
+          </a>
         </div>
       ) : null}
 

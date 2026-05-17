@@ -34,12 +34,12 @@ export default async function BookPage() {
           looking less inevitable.
         </p>
         <div className="flex flex-wrap gap-3">
-          <Link
+          <a
             href="/random"
             className="button button-secondary"
           >
             Random entry
-          </Link>
+          </a>
         </div>
       </section>
 

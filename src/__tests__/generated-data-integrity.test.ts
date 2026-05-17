@@ -15,7 +15,12 @@ import generatedData from "@/generated/entries.generated.json";
 import webGeneratedData from "@/generated/entries.web.generated.json";
 import { entryDetailShardLoaders } from "@/generated/entry-detail-shards.generated";
 import { compareMisunderstoodEntries } from "@/lib/content-build.mjs";
-import { getAllEntries, getDictionaryWordCount, getEntryBySlug } from "@/lib/content";
+import {
+  getAllEntries,
+  getDictionaryWordCount,
+  getEntryBySlug,
+  getRandomEntrySlug,
+} from "@/lib/content";
 
 const {
   schemaVersion,
@@ -149,6 +154,13 @@ describe("runtime entries restore cheap derived fields", () => {
       expect(entry.categorySlugs.length).toBe(entry.categories.length);
       expect(entry.url).toMatch(/^\/dictionary\//);
     }
+  });
+
+  it("chooses random entries from the generated slug schedule", async () => {
+    await expect(getRandomEntrySlug(() => 0)).resolves.toBe(dailyWordSlugs[0]);
+    await expect(getRandomEntrySlug(() => 1)).resolves.toBe(
+      dailyWordSlugs[dailyWordSlugs.length - 1],
+    );
   });
 });
 

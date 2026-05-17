@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { getLatestAddedBatch, getPublishedEntryBatches } from "@/lib/content";
 import { buildMetadata } from "@/lib/metadata";
 import { formatDate } from "@/lib/utils";
@@ -9,6 +8,8 @@ export const metadata = buildMetadata({
     "Browse the newest AI dictionary entries by publish date, with each editorial batch grouped together.",
   path: "/updates",
 });
+
+export const dynamic = "force-static";
 
 function wordLabel(count: number) {
   return count === 1 ? "word" : "words";
@@ -53,7 +54,7 @@ export default async function UpdatesPage() {
 
             <div className="mt-5 divide-y divide-line">
               {batch.entries.map((entry) => (
-                <Link
+                <a
                   key={entry.slug}
                   href={`/dictionary/${entry.slug}`}
                   className="group block py-4 first:pt-0 last:pb-0"
@@ -69,7 +70,7 @@ export default async function UpdatesPage() {
                   <p className="mt-2 text-sm leading-7 text-foreground-soft">
                     {entry.devilDefinition}
                   </p>
-                </Link>
+                </a>
               ))}
             </div>
           </section>

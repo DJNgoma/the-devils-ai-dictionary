@@ -75,6 +75,7 @@ export function MobileBottomNav() {
             <Link
               key={item.href}
               href={item.href}
+              prefetch={false}
               className={cn("mobile-bottom-nav__item", active && "is-active")}
               aria-current={active ? "page" : undefined}
             >

@@ -22,7 +22,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 hidden border-b border-line bg-background/75 backdrop-blur-xl md:block">
       <div className="page-shell flex flex-col gap-4 py-4 sm:py-5">
         <div className="flex items-center justify-between gap-4">
-          <Link href="/" className="group flex min-w-0 items-center gap-3">
+          <Link href="/" prefetch={false} className="group flex min-w-0 items-center gap-3">
             <span className="site-brand-mark">
               <BrandMark className="size-7" />
             </span>
@@ -36,7 +36,7 @@ export function SiteHeader() {
             </span>
           </Link>
           <div className="hidden items-center gap-3 md:flex">
-            <Link href="/settings" className="button button-ghost">
+            <Link href="/settings" prefetch={false} className="button button-ghost">
               Settings
             </Link>
             <ThemeSwitcher variant="compact" />
@@ -48,11 +48,13 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
+                prefetch={false}
                 className={cn(
                   "rounded-full px-3 py-1.5 text-sm text-foreground-soft hover:text-foreground",
                   isActive(pathname, item.href) &&
                     "bg-accent-soft text-accent",
                 )}
+                aria-current={isActive(pathname, item.href) ? "page" : undefined}
               >
                 {item.label}
               </Link>
