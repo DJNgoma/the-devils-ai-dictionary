@@ -65,7 +65,9 @@ npm run build:cf
 npm run windows:build
 ```
 
-GitHub Actions is now the canonical production web deployment path for this repo. Use `.github/workflows/deploy-cloudflare.yml` for normal web releases. The workflow builds the Cloudflare artifact once in the production job, runs the lightweight release gate, then deploys the already-built Worker. Use the manual `full_cloudflare_preflight` workflow input only when you need the slower Wrangler dry-run/startup check. Keep `npm run deploy:cf` and `npm run upload:cf` as emergency-only fallback commands.
+GitHub Actions is now the canonical production web deployment path for this repo. Use `.github/workflows/deploy-cloudflare.yml` for normal web releases. The workflow builds the Cloudflare artifact once in the production job, runs the lightweight release gate, then deploys the already-built Worker. It skips validation and deployment for native-only changes. Use the manual `full_cloudflare_preflight` workflow input only when you need the slower Wrangler dry-run/startup check. Keep `npm run deploy:cf` and `npm run upload:cf` as emergency-only fallback commands.
+
+The CI workflow keeps the repo as a single product codebase, but it does not run every platform lane for every change. `.github/workflows/ci.yml` first classifies changed paths, then runs only the affected web/content, Android, Apple, or shared Swift jobs. Broad dependency and build-surface changes such as `package-lock.json`, `app-version.json`, workflow edits, shared Swift, and platform asset generators intentionally fan out to the native lanes. Use the manual `full_matrix` input when you need a complete cross-platform pass.
 
 The supported Apple toolchain for local builds is `/Applications/Xcode.app` (Xcode 26.4). The helper-backed iOS scripts prefer that toolchain automatically even if `xcode-select` still points at `Xcode-beta.app`. Override it only when you intentionally want the beta:
 

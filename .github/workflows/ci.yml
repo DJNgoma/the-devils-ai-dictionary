@@ -5,13 +5,128 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      full_matrix:
+        description: Run every CI lane regardless of changed paths
+        required: false
+        default: true
+        type: boolean
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+  pull-requests: read
+
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      web_content: ${{ steps.filter.outputs.web_content }}
+      android: ${{ steps.filter.outputs.android }}
+      apple: ${{ steps.filter.outputs.apple }}
+      shared_swift_core: ${{ steps.filter.outputs.shared_swift_core }}
+      full_matrix: ${{ steps.full_matrix.outputs.enabled }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            web_content:
+              - 'src/**'
+              - 'content/**'
+              - 'public/**'
+              - 'tests/**'
+              - 'migrations/**'
+              - 'assets/**'
+              - 'cloudflare-worker.mjs'
+              - 'cloudflare-env.d.ts'
+              - 'wrangler.jsonc'
+              - 'open-next.config.ts'
+              - 'next.config.ts'
+              - 'postcss.config.mjs'
+              - 'tsconfig.json'
+              - 'vitest.config.ts'
+              - 'vitest.setup.ts'
+              - 'eslint.config.mjs'
+              - 'package.json'
+              - 'package-lock.json'
+              - 'app-version.json'
+              - 'scripts/build-content-artifacts.sh'
+              - 'scripts/build-mobile-export.mjs'
+              - 'scripts/cloudflare-release-gate.mjs'
+              - 'scripts/daily-term-automation.mjs'
+              - 'scripts/generate-content-index.mjs'
+              - 'scripts/generate-content-index-fallback.rb'
+              - 'scripts/generate-missing-reference-entries.mjs'
+              - 'scripts/publish-mobile-catalog.mjs'
+              - 'scripts/run-opennext-cloudflare.mjs'
+              - 'scripts/shared-versioning.mjs'
+              - 'scripts/sync-version.mjs'
+              - 'scripts/verify-apple-web-signin.mjs'
+              - 'scripts/verify-production-web.mjs'
+              - 'scripts/with-node.sh'
+              - '.github/workflows/ci.yml'
+            android:
+              - 'android/**'
+              - 'native/android/**'
+              - 'shared/swift-core/**'
+              - 'assets/**'
+              - 'app-version.json'
+              - 'package.json'
+              - 'package-lock.json'
+              - 'scripts/build-swift-android.sh'
+              - 'scripts/fix-android-assets.mjs'
+              - 'scripts/run-capacitor-assets.mjs'
+              - 'scripts/shared-versioning.mjs'
+              - 'scripts/sync-version.mjs'
+              - 'scripts/with-android-java.mjs'
+              - 'scripts/with-node.sh'
+              - '.github/workflows/ci.yml'
+            apple:
+              - 'ios/**'
+              - 'shared/swift-core/**'
+              - 'assets/**'
+              - 'app-version.json'
+              - 'metadata/**'
+              - 'package.json'
+              - 'package-lock.json'
+              - 'scripts/configure-apple-platform-project.rb'
+              - 'scripts/generate-apple-assets.mjs'
+              - 'scripts/ios-*.mjs'
+              - 'scripts/shared-versioning.mjs'
+              - 'scripts/sync-version.mjs'
+              - 'scripts/with-node.sh'
+              - 'scripts/with-xcode.mjs'
+              - '.github/workflows/ci.yml'
+            shared_swift_core:
+              - 'shared/swift-core/**'
+              - 'src/generated/**'
+              - 'public/mobile-catalog/**'
+              - 'app-version.json'
+              - 'package.json'
+              - 'package-lock.json'
+              - 'scripts/build-swift-android.sh'
+              - 'scripts/shared-versioning.mjs'
+              - 'scripts/with-xcode.mjs'
+              - '.github/workflows/ci.yml'
+
+      - id: full_matrix
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.full_matrix }}" == "true" ]]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+
   web-content:
+    needs: changes
+    if: needs.changes.outputs.web_content == 'true' || needs.changes.outputs.full_matrix == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -25,6 +140,8 @@ jobs:
       - run: find public/mobile-catalog -maxdepth 1 -name 'entries.*.json' | grep -q .
 
   android-build:
+    needs: changes
+    if: needs.changes.outputs.android == 'true' || needs.changes.outputs.full_matrix == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -40,8 +157,9 @@ jobs:
       - uses: android-actions/setup-android@v3
       - name: Install Swift 6.3 toolchain
         run: |
-          curl -O https://download.swift.org/swiftly/linux/swiftly-$(uname -m).tar.gz
-          tar zxf swiftly-$(uname -m).tar.gz
+          host_arch="$(uname -m)"
+          curl -O "https://download.swift.org/swiftly/linux/swiftly-${host_arch}.tar.gz"
+          tar zxf "swiftly-${host_arch}.tar.gz"
           ./swiftly init --quiet-shell-followup
           . "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/env.sh"
           hash -r
@@ -72,7 +190,8 @@ jobs:
             exit 1
           fi
           cd "$SDK_BUNDLE"
-          curl -fSL -o ndk.zip https://dl.google.com/android/repository/android-ndk-r27d-$(uname -s).zip
+          host_os="$(uname -s)"
+          curl -fSL -o ndk.zip "https://dl.google.com/android/repository/android-ndk-r27d-${host_os}.zip"
           unzip -qo ndk.zip
           export ANDROID_NDK_HOME="$PWD/android-ndk-r27d"
           ./scripts/setup-android-sdk.sh
@@ -83,6 +202,8 @@ jobs:
       - run: npm run android:ci
 
   ios-build:
+    needs: changes
+    if: needs.changes.outputs.apple == 'true' || needs.changes.outputs.full_matrix == 'true'
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v6
@@ -94,7 +215,41 @@ jobs:
       - run: npm run ios:ci
 
   shared-swift-core:
+    needs: changes
+    if: needs.changes.outputs.shared_swift_core == 'true' || needs.changes.outputs.full_matrix == 'true'
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v6
       - run: npm run swift-core:test
+
+  ci-result:
+    needs:
+      - changes
+      - web-content
+      - android-build
+      - ios-build
+      - shared-swift-core
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report selected CI lanes
+        run: |
+          echo "changes: ${{ needs.changes.result }}"
+          echo "web-content: ${{ needs.web-content.result }}"
+          echo "android-build: ${{ needs.android-build.result }}"
+          echo "ios-build: ${{ needs.ios-build.result }}"
+          echo "shared-swift-core: ${{ needs.shared-swift-core.result }}"
+
+          for result in \
+            "${{ needs.changes.result }}" \
+            "${{ needs.web-content.result }}" \
+            "${{ needs.android-build.result }}" \
+            "${{ needs.ios-build.result }}" \
+            "${{ needs.shared-swift-core.result }}"
+          do
+            case "$result" in
+              failure|cancelled)
+                exit 1
+                ;;
+            esac
+          done

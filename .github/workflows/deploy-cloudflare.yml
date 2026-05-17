@@ -17,13 +17,63 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      web_deploy: ${{ steps.filter.outputs.web_deploy }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            web_deploy:
+              - 'src/**'
+              - 'content/**'
+              - 'public/**'
+              - 'tests/**'
+              - 'migrations/**'
+              - 'assets/**'
+              - 'cloudflare-worker.mjs'
+              - 'cloudflare-env.d.ts'
+              - 'wrangler.jsonc'
+              - 'open-next.config.ts'
+              - 'next.config.ts'
+              - 'postcss.config.mjs'
+              - 'tsconfig.json'
+              - 'vitest.config.ts'
+              - 'vitest.setup.ts'
+              - 'eslint.config.mjs'
+              - 'package.json'
+              - 'package-lock.json'
+              - 'app-version.json'
+              - 'scripts/build-content-artifacts.sh'
+              - 'scripts/build-mobile-export.mjs'
+              - 'scripts/cloudflare-release-gate.mjs'
+              - 'scripts/daily-term-automation.mjs'
+              - 'scripts/generate-content-index.mjs'
+              - 'scripts/generate-content-index-fallback.rb'
+              - 'scripts/generate-missing-reference-entries.mjs'
+              - 'scripts/publish-mobile-catalog.mjs'
+              - 'scripts/run-opennext-cloudflare.mjs'
+              - 'scripts/shared-versioning.mjs'
+              - 'scripts/sync-version.mjs'
+              - 'scripts/verify-apple-web-signin.mjs'
+              - 'scripts/verify-production-web.mjs'
+              - 'scripts/with-node.sh'
+              - '.github/workflows/deploy-cloudflare.yml'
+
   validate:
+    needs: changes
+    if: github.event_name == 'workflow_dispatch' || needs.changes.outputs.web_deploy == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -46,8 +96,10 @@ jobs:
 
   deploy-production:
     name: Deploy Production
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
-    needs: validate
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.changes.outputs.web_deploy == 'true')
+    needs:
+      - changes
+      - validate
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -138,3 +190,29 @@ jobs:
             process.exit(1);
           }
           NODE
+
+  deploy-result:
+    needs:
+      - changes
+      - validate
+      - deploy-production
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report selected deploy lanes
+        run: |
+          echo "changes: ${{ needs.changes.result }}"
+          echo "validate: ${{ needs.validate.result }}"
+          echo "deploy-production: ${{ needs.deploy-production.result }}"
+
+          for result in \
+            "${{ needs.changes.result }}" \
+            "${{ needs.validate.result }}" \
+            "${{ needs.deploy-production.result }}"
+          do
+            case "$result" in
+              failure|cancelled)
+                exit 1
+                ;;
+            esac
+          done
