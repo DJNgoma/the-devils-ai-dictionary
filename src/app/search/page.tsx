@@ -4,7 +4,12 @@ import { useEffect } from "react";
 
 export default function SearchPage() {
   useEffect(() => {
-    window.location.replace(`/dictionary${window.location.search}`);
+    const params = new URLSearchParams(window.location.search);
+    const nextUrl = params.toString()
+      ? `/dictionary#${params.toString()}`
+      : "/dictionary";
+
+    window.location.replace(nextUrl);
   }, []);
 
   return (

@@ -191,7 +191,7 @@ export default async function EntryPage({ params }: EntryPageProps) {
                   href={
                     item.entrySlug
                       ? `/dictionary/${item.entrySlug}`
-                      : `/dictionary?${new URLSearchParams({ q: item.label }).toString()}`
+                      : `/dictionary#${new URLSearchParams({ q: item.label }).toString()}`
                   }
                   className="chip hover:border-accent hover:text-accent"
                 >
