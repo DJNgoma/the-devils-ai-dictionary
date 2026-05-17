@@ -10,7 +10,7 @@ import {
   useState,
   useTransition,
 } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { AppSheet } from "@/components/app-sheet";
 import { EntryCard } from "@/components/entry-card";
 import type { SearchableEntry } from "@/lib/content";
@@ -61,6 +61,16 @@ type ActiveFilterKey =
 const INITIAL_VISIBLE_RESULT_LIMIT = 72;
 const RESULT_LIMIT_INCREMENT = 72;
 
+function readHashSearch() {
+  if (typeof window === "undefined") {
+    return "";
+  }
+
+  return window.location.hash
+    .replace(/^#/, "")
+    .replace(/^\?/, "");
+}
+
 function groupByLetter(entries: SearchableEntry[]) {
   return entries.reduce<Record<string, SearchableEntry[]>>((groups, entry) => {
     groups[entry.letter] ??= [];
@@ -90,7 +100,6 @@ export function DirectoryExplorer({
   initialDepth = "all",
   initialLetter = "all",
 }: DirectoryExplorerProps) {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
@@ -106,13 +115,35 @@ export function DirectoryExplorer({
   const [visibleResultLimit, setVisibleResultLimit] = useState(
     INITIAL_VISIBLE_RESULT_LIMIT,
   );
+  const [hashSearch, setHashSearch] = useState(readHashSearch);
   const trimmedQuery = query.trim();
   const deferredQuery = useDeferredValue(trimmedQuery);
   const searchStoreRef = useRef<EntryIndexStore | null>(null);
   const syncOriginRef = useRef<"local" | "url">("url");
-  const searchParamState = normalizeDirectoryExplorerState(searchParams, {
+  const queryParamState = normalizeDirectoryExplorerState(searchParams, {
     categorySlugs: categories.map((category) => category.slug),
   });
+  const hashParamState = normalizeDirectoryExplorerState(
+    new URLSearchParams(hashSearch),
+    {
+      categorySlugs: categories.map((category) => category.slug),
+    },
+  );
+  const searchParamState = hashSearch ? hashParamState : queryParamState;
+
+  useEffect(() => {
+    const updateHashSearch = () => {
+      setHashSearch(readHashSearch());
+    };
+
+    window.addEventListener("hashchange", updateHashSearch);
+    window.addEventListener("popstate", updateHashSearch);
+
+    return () => {
+      window.removeEventListener("hashchange", updateHashSearch);
+      window.removeEventListener("popstate", updateHashSearch);
+    };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -226,6 +257,9 @@ export function DirectoryExplorer({
       }
     },
   );
+  const commitHashSearch = useEffectEvent((nextSearch: string) => {
+    setHashSearch(nextSearch);
+  });
 
   useEffect(() => {
     applySearchParamState(searchParamState);
@@ -302,26 +336,27 @@ export function DirectoryExplorer({
       currentState,
       searchParamState,
     );
-    const currentSearch = searchParams.toString();
+    const currentHashSearch = hashSearch;
 
     if (syncOriginRef.current === "url" && !stateMatchesUrl) {
       return;
     }
 
-    if (nextSearch === currentSearch) {
+    if (nextSearch === currentHashSearch) {
       return;
     }
 
-    const nextUrl = nextSearch ? `${pathname}?${nextSearch}` : pathname;
-    router.replace(nextUrl, { scroll: false });
+    const nextUrl = nextSearch ? `${pathname}#${nextSearch}` : pathname;
+    window.history.replaceState(null, "", nextUrl);
+    commitHashSearch(nextSearch);
   }, [
     activeCategory,
     activeDepth,
     activeDifficulty,
     activeLetter,
     activeVendor,
+    hashSearch,
     pathname,
-    router,
     searchParamState,
     searchParams,
     trimmedQuery,

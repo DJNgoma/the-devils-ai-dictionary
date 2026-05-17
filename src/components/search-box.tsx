@@ -1,3 +1,6 @@
+"use client";
+
+import type { FormEvent } from "react";
 import { cn } from "@/lib/utils";
 
 type SearchBoxProps = {
@@ -13,8 +16,30 @@ export function SearchBox({
   defaultValue,
   placeholder = "Search for a term, alias, category, or body text",
 }: SearchBoxProps) {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    if (action !== "/dictionary") {
+      return;
+    }
+
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const query = String(formData.get("q") ?? "").trim();
+    const params = new URLSearchParams();
+
+    if (query) {
+      params.set("q", query);
+    }
+
+    const nextUrl = params.toString()
+      ? `/dictionary#${params.toString()}`
+      : "/dictionary";
+
+    window.location.assign(nextUrl);
+  };
+
   return (
-    <form action={action} className={cn("w-full", className)}>
+    <form action={action} onSubmit={handleSubmit} className={cn("w-full", className)}>
       <div className="input-shell">
         <input
           name="q"

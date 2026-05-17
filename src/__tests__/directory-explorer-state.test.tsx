@@ -15,16 +15,8 @@ import type { SearchableEntry } from "@/lib/content";
 let currentPathname = "/search";
 let currentSearch = "";
 
-const replaceMock = vi.fn((nextUrl: string) => {
-  const [, search = ""] = nextUrl.split("?");
-  currentSearch = search;
-});
-
 vi.mock("next/navigation", () => ({
   usePathname: () => currentPathname,
-  useRouter: () => ({
-    replace: replaceMock,
-  }),
   useSearchParams: () => new URLSearchParams(currentSearch),
 }));
 
@@ -120,6 +112,15 @@ function renderExplorer(
   );
 }
 
+function syncBrowserLocation(hash = "") {
+  const search = currentSearch ? `?${currentSearch}` : "";
+  window.history.replaceState(
+    null,
+    "",
+    `${currentPathname}${search}${hash}`,
+  );
+}
+
 describe("normalizeDirectoryExplorerState", () => {
   it("drops multi-value params and invalid filters back to defaults", () => {
     expect(
@@ -156,15 +157,12 @@ describe("DirectoryExplorer URL state", () => {
   beforeEach(() => {
     currentPathname = "/search";
     currentSearch = "";
-    replaceMock.mockReset();
-    replaceMock.mockImplementation((nextUrl: string) => {
-      const [, search = ""] = nextUrl.split("?");
-      currentSearch = search;
-    });
+    syncBrowserLocation();
   });
 
-  it("renders a deep-linked initial state without immediately rewriting the URL", async () => {
+  it("renders a deep-linked initial state and canonicalizes it to the hash", async () => {
     currentSearch = "q=agent&category=core-concepts";
+    syncBrowserLocation();
     const initialState = normalizeDirectoryExplorerState(
       new URLSearchParams(currentSearch),
       {
@@ -187,7 +185,9 @@ describe("DirectoryExplorer URL state", () => {
 
     const categorySelects = screen.getAllByRole("combobox");
     expect((categorySelects[0] as HTMLSelectElement).value).toBe("core-concepts");
-    expect(replaceMock).not.toHaveBeenCalled();
+    expect(window.location.pathname).toBe("/search");
+    expect(window.location.search).toBe("");
+    expect(window.location.hash).toBe("#q=agent&category=core-concepts");
   });
 
   it("states the full dictionary size and filtered total", async () => {
@@ -196,6 +196,7 @@ describe("DirectoryExplorer URL state", () => {
     expect(screen.getByText("2 words in the dictionary.")).toBeDefined();
 
     currentSearch = "q=agent";
+    syncBrowserLocation();
     renderExplorer({ initialQuery: "agent" });
 
     await waitFor(() => {
@@ -226,6 +227,7 @@ describe("DirectoryExplorer URL state", () => {
   it("applies query params without server-provided initial state", async () => {
     currentPathname = "/dictionary";
     currentSearch = "q=agent";
+    syncBrowserLocation();
 
     renderExplorer();
 
@@ -236,13 +238,15 @@ describe("DirectoryExplorer URL state", () => {
       ).toBeDefined();
     });
 
-    expect(replaceMock).not.toHaveBeenCalled();
+    expect(window.location.search).toBe("");
+    expect(window.location.hash).toBe("#q=agent");
   });
 
   it("normalizes invalid dictionary params back to the canonical URL once", async () => {
     currentPathname = "/dictionary";
     currentSearch =
       "q=agent&category=not-real&difficulty=wizard&vendor=bad&depth=void&letter=ZZ";
+    syncBrowserLocation();
     const initialState = normalizeDirectoryExplorerState(
       new URLSearchParams(currentSearch),
       {
@@ -260,58 +264,15 @@ describe("DirectoryExplorer URL state", () => {
     });
 
     await waitFor(() => {
-      expect(replaceMock).toHaveBeenCalledWith("/dictionary?q=agent", {
-        scroll: false,
-      });
+      expect(window.location.pathname).toBe("/dictionary");
+      expect(window.location.search).toBe("");
+      expect(window.location.hash).toBe("#q=agent");
     });
-    expect(replaceMock).toHaveBeenCalledTimes(1);
   });
 
   it("reconciles state when browser history updates the URL", async () => {
     currentSearch = "q=agent";
-    const initialState = normalizeDirectoryExplorerState(
-      new URLSearchParams(currentSearch),
-      {
-        categorySlugs: categories.map((category) => category.slug),
-      },
-    );
-
-    const view = renderExplorer({
-      initialCategory: initialState.category,
-      initialDepth: initialState.depth,
-      initialDifficulty: initialState.difficulty,
-      initialQuery: initialState.query,
-      initialVendor: initialState.vendor,
-    });
-
-    await waitFor(() => {
-      expect((screen.getAllByRole("searchbox")[0] as HTMLInputElement).value).toBe("agent");
-    });
-
-    currentSearch = "q=copilot";
-    view.rerender(
-      <ThemeProvider>
-        <MobileShellController>
-          <DirectoryExplorer
-            categories={categories}
-            entries={entries}
-            initialCategory={initialState.category}
-            initialDepth={initialState.depth}
-            initialDifficulty={initialState.difficulty}
-            initialQuery={initialState.query}
-            initialVendor={initialState.vendor}
-          />
-        </MobileShellController>
-      </ThemeProvider>,
-    );
-
-    await waitFor(() => {
-      expect((screen.getAllByRole("searchbox")[0] as HTMLInputElement).value).toBe("copilot");
-    });
-  });
-
-  it("does not trigger replace loops when the URL already matches the normalized state", async () => {
-    currentSearch = "q=agent&category=core-concepts";
+    syncBrowserLocation();
     const initialState = normalizeDirectoryExplorerState(
       new URLSearchParams(currentSearch),
       {
@@ -331,7 +292,39 @@ describe("DirectoryExplorer URL state", () => {
       expect((screen.getAllByRole("searchbox")[0] as HTMLInputElement).value).toBe("agent");
     });
 
-    expect(replaceMock).not.toHaveBeenCalled();
+    window.history.pushState(null, "", "/search#q=copilot");
+    window.dispatchEvent(new HashChangeEvent("hashchange"));
+
+    await waitFor(() =>
+      expect((screen.getAllByRole("searchbox")[0] as HTMLInputElement).value).toBe("copilot"),
+    );
+  });
+
+  it("uses the hash as the canonical in-page search state", async () => {
+    currentSearch = "";
+    syncBrowserLocation("#q=agent&category=core-concepts");
+    const initialState = normalizeDirectoryExplorerState(
+      new URLSearchParams("q=agent&category=core-concepts"),
+      {
+        categorySlugs: categories.map((category) => category.slug),
+      },
+    );
+
+    renderExplorer({
+      initialCategory: initialState.category,
+      initialDepth: initialState.depth,
+      initialDifficulty: initialState.difficulty,
+      initialQuery: initialState.query,
+      initialVendor: initialState.vendor,
+    });
+
+    await waitFor(() => {
+      expect((screen.getAllByRole("searchbox")[0] as HTMLInputElement).value).toBe("agent");
+    });
+
+    expect(window.location.pathname).toBe("/search");
+    expect(window.location.search).toBe("");
+    expect(window.location.hash).toBe("#q=agent&category=core-concepts");
   });
 
 });
