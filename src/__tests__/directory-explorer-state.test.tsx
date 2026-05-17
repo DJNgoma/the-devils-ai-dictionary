@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { DirectoryExplorer } from "@/components/directory-explorer";
 import { MobileShellController } from "@/components/mobile-shell-controller";
@@ -77,6 +77,24 @@ const entries: SearchableEntry[] = [
     warningLabel: undefined,
   },
 ];
+
+function makeEntry(index: number): SearchableEntry {
+  return {
+    aliases: [],
+    categories: ["Core concepts"],
+    categorySlugs: ["core-concepts"],
+    devilDefinition: `Definition for generated term ${index}.`,
+    difficulty: "beginner",
+    hypeLevel: "medium",
+    isVendorTerm: false,
+    letter: "A",
+    plainDefinition: `Plain definition for generated term ${index}.`,
+    slug: `generated-term-${index}`,
+    technicalDepth: "low",
+    title: `Generated Term ${index}`,
+    warningLabel: undefined,
+  };
+}
 
 function renderExplorer(
   props: Partial<React.ComponentProps<typeof DirectoryExplorer>> = {},
@@ -185,6 +203,24 @@ describe("DirectoryExplorer URL state", () => {
         screen.getByText("1 entry matches your search out of 2 words."),
       ).toBeDefined();
     });
+  });
+
+  it("renders the unfiltered dictionary in batches", () => {
+    const manyEntries = Array.from({ length: 80 }, (_, index) =>
+      makeEntry(index + 1),
+    );
+
+    renderExplorer({ entries: manyEntries });
+
+    expect(screen.getByText("80 words in the dictionary.")).toBeDefined();
+    expect(screen.getByText(/Showing 72 of 80 entries/)).toBeDefined();
+    expect(screen.getByText("Generated Term 72")).toBeDefined();
+    expect(screen.queryByText("Generated Term 73")).toBeNull();
+
+    fireEvent.click(screen.getByRole("button", { name: "Show more" }));
+
+    expect(screen.getByText("Generated Term 73")).toBeDefined();
+    expect(screen.queryByRole("button", { name: "Show more" })).toBeNull();
   });
 
   it("applies query params without server-provided initial state", async () => {

@@ -27,7 +27,7 @@ export const navigation = [
   { href: "/categories", label: "Categories" },
   { href: "/random", label: "Random" },
   { href: "/about", label: "About" },
-  { href: "/search", label: "Search" },
+  { href: "/dictionary", label: "Search" },
 ] as const;
 
 export const mobilePrimaryNavigation = [

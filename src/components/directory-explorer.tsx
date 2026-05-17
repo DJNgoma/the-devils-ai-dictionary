@@ -58,6 +58,9 @@ type ActiveFilterKey =
   | "depth"
   | "letter";
 
+const INITIAL_VISIBLE_RESULT_LIMIT = 72;
+const RESULT_LIMIT_INCREMENT = 72;
+
 function groupByLetter(entries: SearchableEntry[]) {
   return entries.reduce<Record<string, SearchableEntry[]>>((groups, entry) => {
     groups[entry.letter] ??= [];
@@ -100,6 +103,9 @@ export function DirectoryExplorer({
   const [results, setResults] = useState<SearchableEntry[]>(entries);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const [searchRevision, setSearchRevision] = useState(0);
+  const [visibleResultLimit, setVisibleResultLimit] = useState(
+    INITIAL_VISIBLE_RESULT_LIMIT,
+  );
   const trimmedQuery = query.trim();
   const deferredQuery = useDeferredValue(trimmedQuery);
   const searchStoreRef = useRef<EntryIndexStore | null>(null);
@@ -193,6 +199,7 @@ export function DirectoryExplorer({
       }
 
       syncOriginRef.current = "url";
+      setVisibleResultLimit(INITIAL_VISIBLE_RESULT_LIMIT);
 
       if (nextState.query !== currentState.query) {
         setQuery(nextState.query);
@@ -323,6 +330,7 @@ export function DirectoryExplorer({
   const clearFilters = () => {
     markLocalSync();
     startTransition(() => {
+      setVisibleResultLimit(INITIAL_VISIBLE_RESULT_LIMIT);
       setQuery("");
       setActiveCategory("all");
       setActiveDifficulty("all");
@@ -335,6 +343,7 @@ export function DirectoryExplorer({
   const updateQuery = (nextValue: string) => {
     syncOriginRef.current = "local";
     startTransition(() => {
+      setVisibleResultLimit(INITIAL_VISIBLE_RESULT_LIMIT);
       setQuery(nextValue);
 
       const nextLetter = resolveLetterForDirectoryQuery(activeLetter, nextValue);
@@ -346,6 +355,7 @@ export function DirectoryExplorer({
 
   const clearFilter = (key: ActiveFilterKey) => {
     markLocalSync();
+    setVisibleResultLimit(INITIAL_VISIBLE_RESULT_LIMIT);
 
     switch (key) {
       case "query":
@@ -369,7 +379,6 @@ export function DirectoryExplorer({
     }
   };
 
-  const grouped = groupByLetter(results);
   const filterIsActive =
     Boolean(deferredQuery) ||
     activeCategory !== "all" ||
@@ -432,6 +441,11 @@ export function DirectoryExplorer({
   const totalWordCountLabel = formatCount(totalWordCount);
   const resultCountLabel = formatCount(results.length);
   const totalWordLabel = totalWordCount === 1 ? "word" : "words";
+  const visibleResults = results.slice(0, visibleResultLimit);
+  const groupedVisibleResults = groupByLetter(visibleResults);
+  const visibleResultCount = visibleResults.length;
+  const visibleResultCountLabel = formatCount(visibleResultCount);
+  const hasMoreResults = visibleResultCount < results.length;
 
   return (
     <section className="space-y-8">
@@ -497,6 +511,7 @@ export function DirectoryExplorer({
                   type="button"
                   onClick={() => {
                     syncOriginRef.current = "local";
+                    setVisibleResultLimit(INITIAL_VISIBLE_RESULT_LIMIT);
                     setActiveLetter(letter);
                   }}
                   className={cn(
@@ -532,6 +547,7 @@ export function DirectoryExplorer({
               value={activeCategory}
               onChange={(value) => {
                 syncOriginRef.current = "local";
+                setVisibleResultLimit(INITIAL_VISIBLE_RESULT_LIMIT);
                 setActiveCategory(value);
               }}
               options={[
@@ -547,6 +563,7 @@ export function DirectoryExplorer({
               value={activeDifficulty}
               onChange={(value) => {
                 syncOriginRef.current = "local";
+                setVisibleResultLimit(INITIAL_VISIBLE_RESULT_LIMIT);
                 setActiveDifficulty(value);
               }}
               options={[
@@ -562,6 +579,7 @@ export function DirectoryExplorer({
               value={activeVendor}
               onChange={(value) => {
                 syncOriginRef.current = "local";
+                setVisibleResultLimit(INITIAL_VISIBLE_RESULT_LIMIT);
                 setActiveVendor(value);
               }}
               options={[
@@ -575,6 +593,7 @@ export function DirectoryExplorer({
               value={activeDepth}
               onChange={(value) => {
                 syncOriginRef.current = "local";
+                setVisibleResultLimit(INITIAL_VISIBLE_RESULT_LIMIT);
                 setActiveDepth(value);
               }}
               options={[
@@ -608,6 +627,7 @@ export function DirectoryExplorer({
                 type="button"
                 onClick={() => {
                   syncOriginRef.current = "local";
+                  setVisibleResultLimit(INITIAL_VISIBLE_RESULT_LIMIT);
                   setActiveLetter(letter);
                 }}
                 className={cn(
@@ -635,6 +655,7 @@ export function DirectoryExplorer({
             value={activeCategory}
             onChange={(value) => {
               syncOriginRef.current = "local";
+              setVisibleResultLimit(INITIAL_VISIBLE_RESULT_LIMIT);
               setActiveCategory(value);
             }}
             options={[
@@ -650,6 +671,7 @@ export function DirectoryExplorer({
             value={activeDifficulty}
             onChange={(value) => {
               syncOriginRef.current = "local";
+              setVisibleResultLimit(INITIAL_VISIBLE_RESULT_LIMIT);
               setActiveDifficulty(value);
             }}
             options={[
@@ -665,6 +687,7 @@ export function DirectoryExplorer({
             value={activeVendor}
             onChange={(value) => {
               syncOriginRef.current = "local";
+              setVisibleResultLimit(INITIAL_VISIBLE_RESULT_LIMIT);
               setActiveVendor(value);
             }}
             options={[
@@ -678,6 +701,7 @@ export function DirectoryExplorer({
             value={activeDepth}
             onChange={(value) => {
               syncOriginRef.current = "local";
+              setVisibleResultLimit(INITIAL_VISIBLE_RESULT_LIMIT);
               setActiveDepth(value);
             }}
             options={[
@@ -751,7 +775,7 @@ export function DirectoryExplorer({
 
       {!filterIsActive ? (
         <div className="space-y-10">
-          {Object.entries(grouped)
+          {Object.entries(groupedVisibleResults)
             .sort(([left], [right]) => left.localeCompare(right))
             .map(([letter, letterEntries]) => (
               <section key={letter} id={`letter-${letter}`} className="space-y-4">
@@ -768,9 +792,30 @@ export function DirectoryExplorer({
 
       {filterIsActive ? (
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {results.map((entry) => (
+          {visibleResults.map((entry) => (
             <EntryCard key={entry.slug} entry={entry} />
           ))}
+        </div>
+      ) : null}
+
+      {hasMoreResults ? (
+        <div className="surface flex flex-col gap-4 p-5 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
+          <p className="text-sm leading-6 text-foreground-soft">
+            Showing {visibleResultCountLabel} of {resultCountLabel}{" "}
+            {results.length === 1 ? "entry" : "entries"}. Search, filter, or keep
+            loading the shelf in civilised portions.
+          </p>
+          <button
+            type="button"
+            onClick={() =>
+              setVisibleResultLimit((currentLimit) =>
+                currentLimit + RESULT_LIMIT_INCREMENT,
+              )
+            }
+            className="button button-secondary shrink-0"
+          >
+            Show more
+          </button>
         </div>
       ) : null}
     </section>

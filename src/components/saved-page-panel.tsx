@@ -31,7 +31,7 @@ export function SavedPagePanel() {
           <Link href="/dictionary" className="button button-primary">
             Browse entries
           </Link>
-          <Link href="/search" className="button button-secondary">
+          <Link href="/dictionary" className="button button-secondary">
             Search
           </Link>
         </div>
@@ -54,7 +54,7 @@ export function SavedPagePanel() {
           <Link href="/dictionary" className="button button-secondary">
             Browse more
           </Link>
-          <Link href="/search" className="button button-secondary">
+          <Link href="/dictionary" className="button button-secondary">
             Search the index
           </Link>
           <button type="button" onClick={clearWords} className="button button-secondary">

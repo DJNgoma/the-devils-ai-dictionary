@@ -20,7 +20,7 @@ export default function NotFound() {
             Browse dictionary
           </Link>
           <Link
-            href="/search"
+            href="/dictionary"
             className="button button-secondary"
           >
             Search
