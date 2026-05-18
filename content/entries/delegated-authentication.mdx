@@ -1,0 +1,60 @@
+---
+title: "Delegated authentication"
+slug: "delegated-authentication"
+letter: "D"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+aliases:
+  - "agent delegated auth"
+  - "delegated auth"
+devilDefinition: |
+  Letting software prove it acts for you without handing it your whole face and hoping it behaves.
+plainDefinition: |
+  Delegated authentication is the process of allowing an agent, service, or application to access systems on behalf of a user or organisation without simply sharing the user's primary credentials.
+whyExists: |
+  Agents need to act across tools, but password sharing and long-lived human sessions make every action look like the person did it directly. Delegated authentication creates a separate, scoped way to say who authorised the action, what the delegate may do, and when that authority ends.
+misuse: |
+  It is misused when "the user logged in once" becomes permission for an assistant to roam through connected systems. Authentication proves a relationship. It does not automatically prove that every future tool call is wanted, safe, or in scope.
+practicalMeaning: |
+  In practice it means scoped tokens, consent screens, service identities, revocation, expiry, step-up approval, and logs that distinguish the human from the agent acting under delegated authority.
+example: |
+  "The incident review began well once they stopped saying the analyst deleted the records and admitted the agent had borrowed the analyst's session."
+askNext:
+  - "Is the agent using its own scoped credential or impersonating the user?"
+  - "What authority expires automatically, and what must be revoked manually?"
+  - "Can an audit log distinguish human action from delegated agent action?"
+related:
+  - "agent-identity"
+  - "non-human-identity"
+  - "oauth"
+  - "connector-permissions"
+  - "trust-boundary"
+  - "approval-gate"
+seeAlso:
+  - "OAuth delegation"
+  - "Consent scopes"
+  - "Session impersonation"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-18"
+updatedAt: "2026-05-18"
+warningLabel: "If every agent action looks exactly like the user's own session, the audit trail has already resigned."
+tags:
+  - "authentication"
+  - "agents"
+  - "permissions"
+  - "identity"
+misunderstoodScore: 4
+diagram: "function-calling"
+translations:
+  - label: "security meaning"
+    text: "A scoped proof that the delegate is allowed to act, not a copy of the person."
+  - label: "what it usually means in reality"
+    text: "The difference between controlled authority and letting an agent wear a human account as a costume."
+---
+
+Delegation should leave fingerprints. If the system cannot tell whether a person clicked the button or an agent clicked it for them, it has not delegated authority. It has misplaced it.

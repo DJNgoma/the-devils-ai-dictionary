@@ -1,0 +1,59 @@
+---
+title: "Non-human identity"
+slug: "non-human-identity"
+letter: "N"
+categories:
+  - "Infrastructure and deployment"
+  - "Safety and evaluation"
+aliases:
+  - "NHI"
+  - "non human identity"
+  - "machine identity"
+devilDefinition: |
+  Every credential that is not a person, now enjoying the sort of population growth that usually alarms city planners.
+plainDefinition: |
+  Non-human identity is an identity used by a machine, service, script, workload, bot, or agent rather than a human user.
+whyExists: |
+  Modern systems are full of actors that need credentials but do not have a body, a payslip, or an HR exit interview. AI agents make the category more visible because they combine machine credentials with goal-directed behaviour and tool use.
+misuse: |
+  It is misused when teams treat all non-human identities as boring plumbing. A deployment key, a data pipeline, and an agent that can negotiate refunds may all be non-human, but they do not carry the same behavioural risk.
+practicalMeaning: |
+  In practice it means inventorying service accounts, workload identities, agent principals, secrets, certificates, tokens, owners, permissions, rotation schedules, and the awkward number of credentials no one remembers creating.
+example: |
+  "The non-human identity inventory was reassuring until it revealed more active principals than employees and slightly better job security."
+askNext:
+  - "Which non-human identities exist, who owns them, and what can they access?"
+  - "Are agent identities governed differently from ordinary service accounts?"
+  - "How quickly can credentials be rotated, narrowed, or killed?"
+related:
+  - "agent-identity"
+  - "delegated-authentication"
+  - "connector-permissions"
+  - "tool-permissions"
+  - "least-privilege"
+  - "policy-engine"
+seeAlso:
+  - "Service accounts"
+  - "Workload identity"
+  - "Secrets management"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-18"
+updatedAt: "2026-05-18"
+warningLabel: "The identity may be non-human. The breach report will not be."
+tags:
+  - "identity"
+  - "security"
+  - "agents"
+  - "credentials"
+misunderstoodScore: 4
+translations:
+  - label: "security meaning"
+    text: "Credentials and principals for machine actors that still need ownership and limits."
+  - label: "what it usually means in reality"
+    text: "The access-control estate that grew while everyone was busy onboarding humans."
+---
+
+No diagram is attached because the useful work is inventory and governance. A diagram of another loop would only make the credential sprawl look intentional.

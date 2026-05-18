@@ -1,0 +1,59 @@
+---
+title: "Agent wallet"
+slug: "agent-wallet"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Economics and operations of AI"
+  - "Safety and evaluation"
+aliases:
+  - "AI agent wallet"
+  - "wallet for agents"
+devilDefinition: |
+  A purse for software, because apparently the missing feature in autonomous systems was petty cash with an API.
+plainDefinition: |
+  An agent wallet is a payment or value-control mechanism that lets an AI agent hold, request, or use spending authority within defined limits.
+whyExists: |
+  Agents that can book travel, buy supplies, trade compute, or pay other services need something more precise than "use the user's card". A wallet can separate authority, budget, identity, approvals, and audit history from the human's everyday account.
+misuse: |
+  It gets treated as if putting money behind an agent is merely a UX improvement. In reality it changes the risk model: mistaken purchases, fraud, policy bypass, vendor steering, refund handling, and blame assignment all become part of the product.
+practicalMeaning: |
+  In practice it usually means prepaid balances, spending caps, merchant allowlists, approval thresholds, revocation controls, transaction logs, and a painfully explicit answer to who pays when the agent has been cleverly wrong.
+example: |
+  "The agent wallet worked exactly as designed, which is why the team finally noticed that no one had designed a refund policy."
+askNext:
+  - "What can the agent spend, where, and without asking again?"
+  - "Can the wallet be revoked faster than the agent can make a bad decision?"
+  - "Who reviews disputed transactions: support, finance, security, or hope?"
+related:
+  - "delegated-spending"
+  - "agent-identity"
+  - "agentic-commerce"
+  - "spend-limit"
+  - "tool-permissions"
+  - "tool-call-audit"
+seeAlso:
+  - "Payment authority"
+  - "Spending caps"
+  - "Agent escrow"
+difficulty: "advanced"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-05-18"
+updatedAt: "2026-05-18"
+warningLabel: "Once the agent can spend, hallucination becomes an accounting event."
+tags:
+  - "agents"
+  - "wallets"
+  - "payments"
+  - "governance"
+misunderstoodScore: 5
+translations:
+  - label: "product meaning"
+    text: "A bounded way for software to pay without becoming the human's full financial shadow."
+  - label: "what it usually means in reality"
+    text: "A new control surface for spending limits, approvals, identity, and blame."
+---
+
+No diagram is attached because the useful shape is governance, not a loop. The dangerous part is not that the agent can call a payment function. It is that the organisation starts treating that as consent.

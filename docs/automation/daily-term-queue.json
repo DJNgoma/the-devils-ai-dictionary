@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-05-17T16:20:00.000Z",
+  "updatedAt": "2026-05-18T14:18:25.336Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -1398,8 +1398,9 @@
         "delegated-spending",
         "agent-wallet"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-18T14:18:25.336Z"
     },
     {
       "slug": "agent-wallet",
@@ -1417,8 +1418,9 @@
         "agent-identity",
         "tool-layer-risk"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-18T14:18:25.336Z"
     },
     {
       "slug": "delegated-authentication",
@@ -1436,8 +1438,9 @@
         "non-human-identity",
         "agentic-iam"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-18T14:18:25.336Z"
     },
     {
       "slug": "delegated-spending",
@@ -1454,8 +1457,9 @@
         "agentic-commerce",
         "cost-controls"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-18T14:18:25.336Z"
     },
     {
       "slug": "agent-identity",
@@ -1473,8 +1477,9 @@
         "agentic-iam",
         "agent-trace"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-18T14:18:25.336Z"
     },
     {
       "slug": "non-human-identity",
@@ -1491,8 +1496,9 @@
         "agentic-iam",
         "connector-permissions"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-18T14:18:25.336Z"
     },
     {
       "slug": "agent-seat",
@@ -1509,8 +1515,9 @@
         "agent-ops",
         "cost-tier"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-18T14:18:25.336Z"
     },
     {
       "slug": "tool-layer-risk",

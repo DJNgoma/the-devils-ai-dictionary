@@ -1,0 +1,58 @@
+---
+title: "Agent identity"
+slug: "agent-identity"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+aliases:
+  - "AI agent identity"
+  - "identity for agents"
+devilDefinition: |
+  A name badge for software, issued shortly after everyone realises "the bot did it" is not an audit strategy.
+plainDefinition: |
+  Agent identity is the distinct identity assigned to an AI agent or automated actor so its permissions, actions, ownership, and audit trail can be managed separately from a human user or generic service account.
+whyExists: |
+  Agents increasingly act across systems, call tools, request data, and trigger side effects. Giving them a recognisable identity lets teams scope access, attribute actions, rotate credentials, review behaviour, and shut down the right actor when something goes wrong.
+misuse: |
+  It gets confused with branding or personality. Naming an assistant "Milo" is not identity management. The useful question is whether systems can enforce what Milo may touch and prove what Milo actually did.
+practicalMeaning: |
+  In practice it usually means non-human principals, scoped roles, owner metadata, credential lifecycle, run-level attribution, policy checks, and logs that do not collapse the agent into whichever user happened to approve the first prompt.
+example: |
+  "The assistant had a friendly name, a cheerful avatar, and exactly the same permissions as the intern, which explained both the speed and the incident."
+askNext:
+  - "Does the agent have its own enforceable identity?"
+  - "Who owns that identity, reviews its permissions, and disables it?"
+  - "Can each action be tied to the agent, the authorising user, and the run?"
+related:
+  - "non-human-identity"
+  - "delegated-authentication"
+  - "agent-trace"
+  - "tool-call-audit"
+  - "trust-boundary"
+seeAlso:
+  - "Service principals"
+  - "Agent ownership"
+  - "Run attribution"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-18"
+updatedAt: "2026-05-18"
+warningLabel: "A friendly assistant name is not an access-control boundary."
+tags:
+  - "agents"
+  - "identity"
+  - "permissions"
+  - "audit"
+misunderstoodScore: 4
+translations:
+  - label: "platform meaning"
+    text: "A manageable principal for the agent rather than a borrowed human shadow."
+  - label: "what it usually means in reality"
+    text: "The paperwork required before autonomous software is allowed near anything consequential."
+---
+
+No diagram is attached because the core distinction is attribution, not flow. The system either knows which non-human actor did the thing, or it is performing forensics with a blindfold.
