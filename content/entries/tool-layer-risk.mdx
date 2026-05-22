@@ -1,0 +1,63 @@
+---
+title: "Tool-layer Risk"
+slug: "tool-layer-risk"
+letter: "T"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+aliases:
+  - "tool layer risk"
+  - "action-layer risk"
+  - "tool execution risk"
+devilDefinition: |
+  The part of the risk register that begins after the model has stopped talking and the connected software starts obeying.
+plainDefinition: |
+  Tool-layer risk is the risk introduced when an AI system can use external tools, APIs, connectors, or automations that read data, change state, send messages, spend money, or affect other systems.
+whyExists: |
+  Model output is not always the final hazard. In agentic systems, the serious consequence often appears when a model's structured request reaches ordinary software with real permissions.
+misuse: |
+  It is misread as another flavour of hallucination risk. A perfectly plausible tool call can still be unsafe if the tool has the wrong scope, stale context, weak validation, or authority the task never deserved.
+practicalMeaning: |
+  In practice it means mapping every tool to the data it can read, the state it can change, the external parties it can contact, and the controls that stop a bad call from becoming an incident with a timestamp.
+example: |
+  "The model merely chose the refund tool; tool-layer risk arrived when that tool could issue real payments without checking account policy."
+askNext:
+  - "What can this tool actually read, write, send, delete, or spend?"
+  - "Where is model intent validated before it becomes external action?"
+  - "Which failure would be expensive even if the generated text looked reasonable?"
+related:
+  - "function-calling"
+  - "tool-use"
+  - "tool-permissions"
+  - "trust-boundary"
+  - "tool-call-audit"
+  - "data-exfiltration-path"
+  - "tool-allowlist"
+seeAlso:
+  - "Function Calling"
+  - "Tool Use"
+  - "Tool Permissions"
+  - "Trust boundary"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-05-22"
+updatedAt: "2026-05-22"
+warningLabel: "A safe answer can still trigger an unsafe action."
+tags:
+  - "agents"
+  - "tools"
+  - "risk"
+  - "permissions"
+misunderstoodScore: 5
+diagram: "function-calling"
+translations:
+  - label: "operator meaning"
+    text: "The risk created by what connected tools are allowed to do after the model has asked."
+  - label: "what it usually means in reality"
+    text: "The incident surface moves from text generation to permissions, validators, logs, and irreversible side effects."
+---
+
+Tool-layer risk is where product enthusiasm becomes a systems problem. Once the tool can act, the model's mistake is only the opening sentence.

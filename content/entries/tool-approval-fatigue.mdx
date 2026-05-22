@@ -1,0 +1,62 @@
+---
+title: "Tool Approval Fatigue"
+slug: "tool-approval-fatigue"
+letter: "T"
+categories:
+  - "Agents and workflows"
+  - "Cultural terms"
+  - "Safety and evaluation"
+aliases:
+  - "approval fatigue"
+  - "permission fatigue"
+  - "agent approval fatigue"
+devilDefinition: |
+  The condition in which every prompt is urgent, every action needs a click, and the human becomes a well-dressed Enter key.
+plainDefinition: |
+  Tool approval fatigue is the decline in human attention and judgement that happens when people are asked to approve too many agent tool calls, especially when the requests are repetitive, low-context, or poorly prioritised.
+whyExists: |
+  Human approval is a real control for risky actions. It fails when the workflow turns every minor step into an interruption and then acts surprised that the reviewer stops reading.
+misuse: |
+  Teams use approval prompts as proof that a human is in the loop. Often the human is only in the way. If the reviewer cannot distinguish trivial calls from dangerous ones, the approval surface becomes camouflage for weak automation design.
+practicalMeaning: |
+  In practice it means risk-tiered approvals, batched requests, clear summaries, hard stops for irreversible actions, quiet handling for safe routine work, and escalation paths that respect the fact that vigilance is a scarce resource.
+example: |
+  "After the fiftieth calendar lookup, the reviewer approved the file-sharing request too, which is how tool approval fatigue earned its own incident note."
+askNext:
+  - "Which approvals actually require judgement, and which are workflow noise?"
+  - "Does the reviewer see enough context to block the action intelligently?"
+  - "How often does the system ask for approval, and what happens to attention after repetition?"
+related:
+  - "approval-loop"
+  - "approval-theatre"
+  - "manual-approval"
+  - "rubber-stamp-review"
+  - "human-in-the-loop"
+  - "tool-layer-risk"
+  - "approval-gate"
+seeAlso:
+  - "Approval Loop"
+  - "Approval theatre"
+  - "Manual Approval"
+  - "Human in the Loop"
+difficulty: "beginner"
+technicalDepth: "low"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-22"
+updatedAt: "2026-05-22"
+warningLabel: "A tired approver is not a control surface."
+tags:
+  - "approval"
+  - "agents"
+  - "governance"
+  - "operations"
+misunderstoodScore: 5
+translations:
+  - label: "operator meaning"
+    text: "Repeated approvals degrade into habit unless the system protects attention."
+  - label: "what it usually means in reality"
+    text: "A human-in-the-loop design that converted judgement into reflex."
+---
+
+No diagram is attached because the failure is behavioural. The system may show a tidy loop; the person inside it is still human.

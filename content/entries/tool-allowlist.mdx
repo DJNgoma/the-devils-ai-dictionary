@@ -1,0 +1,60 @@
+---
+title: "Tool Allowlist"
+slug: "tool-allowlist"
+letter: "T"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+aliases:
+  - "tool allow-list"
+  - "allowed tools"
+  - "approved tool list"
+devilDefinition: |
+  The list that keeps the demo from discovering the payroll API by vibes.
+plainDefinition: |
+  A tool allowlist is the explicit set of tools, operations, and scopes an AI system is permitted to use for a given task, user, environment, or workflow.
+whyExists: |
+  Agents become safer and easier to reason about when they cannot reach every integration by default. An allowlist turns "the model has tools" into a narrower claim about which tools are available and under which conditions.
+misuse: |
+  It gets treated as a static checkbox. A generous allowlist with broad write access, production credentials, and no review cadence is not a control. It is an invitation with better formatting.
+practicalMeaning: |
+  In practice it means named tools, allowed operations, read and write distinctions, environment boundaries, user-specific scopes, approval thresholds, and a review process for removing access once the prototype has stopped pretending to be temporary.
+example: |
+  "The support agent could read orders and draft refunds, but the tool allowlist kept the actual refund tool behind a separate approval gate."
+askNext:
+  - "Which tools are allowed for this exact workflow, not the platform in general?"
+  - "Does the allowlist distinguish read, draft, write, send, and delete operations?"
+  - "Who can add tools to the list, and how is stale access removed?"
+related:
+  - "tool-permissions"
+  - "function-calling"
+  - "least-privilege"
+  - "approval-gate"
+  - "tool-layer-risk"
+  - "tool-access-review"
+seeAlso:
+  - "Tool Permissions"
+  - "Function Calling"
+  - "Least privilege"
+  - "Approval Gate"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-05-22"
+updatedAt: "2026-05-22"
+tags:
+  - "agents"
+  - "tools"
+  - "permissions"
+  - "controls"
+misunderstoodScore: 4
+diagram: "function-calling"
+translations:
+  - label: "security meaning"
+    text: "Only these tools may be called, and only in these ways."
+  - label: "what it usually means in reality"
+    text: "A permission boundary that needs maintenance, not a screenshot from the launch checklist."
+---
+
+An allowlist is useful because it is boring. The moment it becomes aspirational, the agent has already begun negotiating with production.

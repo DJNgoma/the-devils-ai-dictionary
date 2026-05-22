@@ -1,0 +1,63 @@
+---
+title: "Secure RAG"
+slug: "secure-rag"
+letter: "S"
+categories:
+  - "Retrieval and memory"
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+aliases:
+  - "secure retrieval-augmented generation"
+  - "security-aware RAG"
+devilDefinition: |
+  RAG, with the small inconvenience that the documents still belong to someone.
+plainDefinition: |
+  Secure RAG is retrieval-augmented generation designed with access control, tenant isolation, provenance, leakage prevention, auditability, and prompt-injection resistance around the retrieval and context assembly process.
+whyExists: |
+  Retrieval systems often sit in front of private documents, customer records, source code, contracts, and internal policy. The model should not receive material the user, agent, or workflow was never authorised to see.
+misuse: |
+  It is oversold as a checkbox because the vector database is private, the traffic is encrypted, or the vendor promises not to train on the data. Those may matter, but they do not solve document permissions, poisoned sources, source leakage, or cross-tenant retrieval mistakes.
+practicalMeaning: |
+  In practice it means permission-aware indexing, query-time filtering, source provenance, redaction, data-loss prevention, tenant boundaries, logging, abuse tests, and a clear answer for what happens when the most relevant document is also forbidden.
+example: |
+  "The legal assistant used secure RAG so a junior employee asking about policy did not accidentally retrieve the acquisition memo everyone pretended was invisible."
+askNext:
+  - "Are document permissions enforced before retrieved text reaches the model?"
+  - "How does the system prevent source leakage, poisoned context, and cross-tenant retrieval?"
+  - "Can the audit log explain which sources were retrieved, filtered, cited, or blocked?"
+related:
+  - "rag"
+  - "retrieval-permissions"
+  - "data-loss-prevention"
+  - "data-governance"
+  - "retrieval-provenance"
+  - "prompt-injection"
+  - "prompt-firewall"
+  - "trust-boundary"
+seeAlso:
+  - "RAG"
+  - "Retrieval Permissions"
+  - "Data Loss Prevention"
+  - "Retrieval Provenance"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-22"
+updatedAt: "2026-05-22"
+warningLabel: "A private index is not automatically a permission model."
+tags:
+  - "rag"
+  - "retrieval"
+  - "security"
+  - "permissions"
+misunderstoodScore: 5
+diagram: "rag"
+translations:
+  - label: "security meaning"
+    text: "Retrieval that respects access, provenance, leakage controls, and audit obligations before the model answers."
+  - label: "what it usually means in reality"
+    text: "The hard part of RAG moved from finding documents to deciding which documents were allowed to be found."
+---
+
+Secure RAG is less glamorous than better answers. It is about refusing to improve an answer by stealing context from the wrong cupboard.

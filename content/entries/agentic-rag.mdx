@@ -1,0 +1,60 @@
+---
+title: "Agentic RAG"
+slug: "agentic-rag"
+letter: "A"
+categories:
+  - "Retrieval and memory"
+  - "Agents and workflows"
+aliases:
+  - "agentic retrieval"
+  - "agentic retrieval-augmented generation"
+devilDefinition: |
+  RAG with an errand runner: it can search again, think about the bad search, and occasionally make the mess more methodical.
+plainDefinition: |
+  Agentic RAG is a retrieval-augmented generation pattern where an agent plans, searches, filters, retries, compares sources, or calls retrieval tools iteratively before producing an answer.
+whyExists: |
+  Some questions are too complex for a single search. They need decomposition, multiple queries, source comparison, follow-up retrieval, and a decision about when the evidence is good enough to stop.
+misuse: |
+  It is used as a prestige label for any RAG system with more than one step. Extra loops do not automatically improve grounding. They can add latency, cost, failure paths, and confidence in a more elaborate mistake.
+practicalMeaning: |
+  In practice it means query planning, retrieval tools, loop limits, reranking, source triangulation, provenance capture, fallback behaviour, and evaluations that prove the extra agency is earning its keep.
+example: |
+  "The agentic RAG system answered the policy question by searching the handbook, checking the latest memo, rejecting an obsolete clause, and still needing an eval to prove this was not just expensive browsing."
+askNext:
+  - "What retrieval decisions does the agent make that a fixed pipeline would not?"
+  - "How are loop limits, source quality, and stopping conditions defined?"
+  - "Does agentic retrieval improve measured answer quality enough to justify the extra cost and failure surface?"
+related:
+  - "rag"
+  - "agentic-ai"
+  - "retrieval-strategy"
+  - "retrieval-quality"
+  - "source-triangulation"
+  - "context-assembly"
+  - "secure-rag"
+seeAlso:
+  - "RAG"
+  - "Agentic AI"
+  - "Retrieval Strategy"
+  - "Source Triangulation"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-05-22"
+updatedAt: "2026-05-22"
+tags:
+  - "rag"
+  - "retrieval"
+  - "agents"
+  - "grounding"
+misunderstoodScore: 4
+diagram: "rag"
+translations:
+  - label: "builder meaning"
+    text: "Let an agent decide how to retrieve, not just what to say after retrieval."
+  - label: "what it usually means in reality"
+    text: "A retrieval loop that needs budgets, stopping rules, and evidence that the loop improves more than the slide deck."
+---
+
+Agentic RAG is useful when retrieval is genuinely investigative. It is less useful when a simple search pipeline has been given a cape and a larger bill.

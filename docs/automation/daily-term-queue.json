@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-05-18T14:18:25.336Z",
+  "updatedAt": "2026-05-22T06:16:37.535Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -1535,8 +1535,9 @@
         "tool-allowlist",
         "connector-permissions"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-22T06:16:37.535Z"
     },
     {
       "slug": "tool-allowlist",
@@ -1553,8 +1554,9 @@
         "tool-access-review",
         "approval-gate"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-22T06:16:37.535Z"
     },
     {
       "slug": "tool-access-review",
@@ -1571,8 +1573,9 @@
         "connector-permissions",
         "enterprise-controls"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-22T06:16:37.535Z"
     },
     {
       "slug": "tool-approval-fatigue",
@@ -1590,8 +1593,9 @@
         "approval-theatre",
         "tool-layer-risk"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-22T06:16:37.535Z"
     },
     {
       "slug": "secure-rag",
@@ -1609,8 +1613,9 @@
         "retrieval-permissions",
         "data-loss-prevention"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-22T06:16:37.535Z"
     },
     {
       "slug": "agentic-rag",
@@ -1627,8 +1632,9 @@
         "agent-loop",
         "retrieval-quality"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-22T06:16:37.535Z"
     },
     {
       "slug": "retrieval-permissions",
@@ -1645,8 +1651,9 @@
         "connector-permissions",
         "data-governance"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-22T06:16:37.535Z"
     },
     {
       "slug": "context-perimeter",

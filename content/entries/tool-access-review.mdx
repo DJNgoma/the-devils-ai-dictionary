@@ -1,0 +1,61 @@
+---
+title: "Tool Access Review"
+slug: "tool-access-review"
+letter: "T"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+aliases:
+  - "agent tool review"
+  - "tool permission review"
+  - "tool access audit"
+devilDefinition: |
+  The meeting where the tool list is supposed to become a control surface, not a souvenir from the prototype.
+plainDefinition: |
+  A tool access review is a recurring or pre-release review of which tools an AI system can use, what each tool can do, who owns the access, and whether the permissions still match the workflow's risk.
+whyExists: |
+  Tool access drifts. Prototypes gain connectors, pilots inherit credentials, teams add exceptions, and the original permission story quietly becomes folklore. Review exists to compare the declared design with the live system.
+misuse: |
+  It is reduced to asking whether the team feels comfortable with the current setup. Comfort is not evidence. The review has to inspect real grants, scopes, logs, owners, and revoke paths.
+practicalMeaning: |
+  In practice it means inventorying live connectors, checking read and write scopes, confirming user impersonation rules, sampling audit logs, removing unused tools, and giving somebody accountable the power to say no before the agent says "done".
+example: |
+  "The tool access review found that the calendar agent still had a file-export scope from a prototype nobody wanted to remember."
+askNext:
+  - "Does the review inspect live permissions or only the architecture diagram?"
+  - "Which stale tools, scopes, or credentials were removed last time?"
+  - "Who owns the risk when access is kept for convenience?"
+related:
+  - "tool-allowlist"
+  - "connector-permissions"
+  - "enterprise-controls"
+  - "least-privilege"
+  - "governance-stack"
+  - "tool-call-audit"
+  - "integration-governance"
+seeAlso:
+  - "Tool Allowlist"
+  - "Connector permissions"
+  - "Enterprise Controls"
+  - "Tool-call Audit"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-05-22"
+updatedAt: "2026-05-22"
+tags:
+  - "governance"
+  - "tools"
+  - "permissions"
+  - "audit"
+misunderstoodScore: 4
+translations:
+  - label: "governance meaning"
+    text: "Check what the agent can actually touch, then remove what no longer earns its access."
+  - label: "what it usually means in reality"
+    text: "Permission hygiene with receipts, owners, logs, and the occasional awkward revocation."
+---
+
+No diagram is attached because the useful mental model is not a flowchart. It is a live access register meeting a person with enough authority to close doors.

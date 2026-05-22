@@ -1,0 +1,62 @@
+---
+title: "Retrieval Permissions"
+slug: "retrieval-permissions"
+letter: "R"
+categories:
+  - "Retrieval and memory"
+  - "Safety and evaluation"
+aliases:
+  - "permission-aware retrieval"
+  - "access-controlled retrieval"
+  - "document permissions"
+devilDefinition: |
+  The awkward discovery that a model cannot leak a document it was never allowed to fetch, which is precisely why everyone should check.
+plainDefinition: |
+  Retrieval permissions are the access-control rules that decide which documents, records, chunks, or sources a retrieval system may return for a particular user, agent, tenant, or task.
+whyExists: |
+  RAG systems can search across private corpora faster than organisations can explain their folder permissions. If the retriever ignores access control, the model may faithfully summarise information the requester should never have seen.
+misuse: |
+  Teams apply security after generation, as if a prompt instruction could redact whatever the retrieval layer already exposed. Another common mistake is building one shared index and hoping group memberships remain somebody else's problem.
+practicalMeaning: |
+  In practice it means synchronising document ACLs, enforcing tenant and group filters at retrieval time, handling revocation, testing adversarial queries, auditing blocked sources, and making permission checks part of the retrieval path rather than a footnote.
+example: |
+  "The HR chatbot improved dramatically once retrieval permissions stopped it from treating executive compensation folders as helpful context for everyone."
+askNext:
+  - "Whose permissions are used: the end user, the agent, the service account, or all three?"
+  - "Are access rules enforced before ranking and context assembly?"
+  - "How quickly do permission changes, deletions, and revocations reach the retrieval index?"
+related:
+  - "secure-rag"
+  - "rag"
+  - "connector-permissions"
+  - "data-governance"
+  - "data-loss-prevention"
+  - "retrieval-provenance"
+  - "trust-boundary"
+seeAlso:
+  - "Secure RAG"
+  - "RAG"
+  - "Connector permissions"
+  - "Data Governance"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-05-22"
+updatedAt: "2026-05-22"
+warningLabel: "Post-answer redaction is not retrieval security."
+tags:
+  - "retrieval"
+  - "permissions"
+  - "security"
+  - "rag"
+misunderstoodScore: 5
+diagram: "rag"
+translations:
+  - label: "security meaning"
+    text: "Only retrieve sources the requester is allowed to use before the model sees them."
+  - label: "what it usually means in reality"
+    text: "Your RAG quality problem becomes a data governance problem the moment the documents are not public."
+---
+
+Retrieval permissions are a cure for a very modern embarrassment: producing a well-grounded answer from information that should have stayed unfound.
