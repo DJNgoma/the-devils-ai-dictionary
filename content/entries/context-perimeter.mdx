@@ -1,0 +1,62 @@
+---
+title: "Context Perimeter"
+slug: "context-perimeter"
+letter: "C"
+categories:
+  - "Retrieval and memory"
+  - "Safety and evaluation"
+  - "Model usage"
+aliases:
+  - "context boundary"
+  - "context access boundary"
+  - "prompt perimeter"
+devilDefinition: |
+  The fence around what the model is allowed to know before someone discovers the fence was drawn in pencil.
+plainDefinition: |
+  A context perimeter is the boundary around the information that may enter a prompt, retrieval result, memory store, tool output, or agent workspace for a particular task.
+whyExists: |
+  AI systems assemble answers from many sources: user prompts, documents, memory, tools, policies, and previous turns. The perimeter names the control surface for deciding what belongs inside that assembled working context.
+misuse: |
+  It is weakened when teams treat context as a bigger bucket rather than a governed boundary. More context can mean more leakage, more poisoning, more stale assumptions, and more authority accidentally handed to the model.
+practicalMeaning: |
+  In practice it means defining allowed sources, excluding sensitive or irrelevant material, filtering retrieved chunks, separating tenants and roles, pruning stale memory, and logging what crossed the boundary when an answer mattered.
+example: |
+  "The support agent needed a tighter context perimeter, not another million tokens of customer history and hope."
+askNext:
+  - "Which sources are allowed to enter context for this user, task, and role?"
+  - "What keeps sensitive, stale, poisoned, or irrelevant material outside the prompt?"
+  - "Can the system explain what crossed the perimeter for a disputed answer?"
+related:
+  - "context-window"
+  - "context-poisoning"
+  - "context-pruning"
+  - "secure-rag"
+  - "retrieval-permissions"
+  - "connected-context"
+seeAlso:
+  - "Context Window"
+  - "Context Poisoning"
+  - "Context Pruning"
+  - "Secure RAG"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-26"
+updatedAt: "2026-05-26"
+warningLabel: "A larger context window is not a larger permission model."
+tags:
+  - "context"
+  - "retrieval"
+  - "security"
+  - "memory"
+misunderstoodScore: 5
+diagram: "context-window"
+translations:
+  - label: "operator meaning"
+    text: "The boundary that decides what information may reach the model for this task."
+  - label: "what it usually means in reality"
+    text: "The place where prompt engineering becomes access control, memory hygiene, and audit logging."
+---
+
+The context perimeter is where the cheerful phrase "give it more context" starts receiving questions from security.

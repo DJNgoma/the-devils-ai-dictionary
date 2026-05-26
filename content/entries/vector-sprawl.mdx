@@ -1,0 +1,60 @@
+---
+title: "Vector Sprawl"
+slug: "vector-sprawl"
+letter: "V"
+categories:
+  - "Retrieval and memory"
+  - "Economics and operations of AI"
+  - "Infrastructure and deployment"
+aliases:
+  - "embedding sprawl"
+  - "vector index sprawl"
+  - "index sprawl"
+devilDefinition: |
+  What happens when every pilot leaves behind an embedding index, a bill, and nobody willing to call it production.
+plainDefinition: |
+  Vector sprawl is the uncontrolled growth of embedding indexes, vector databases, duplicate corpora, stale chunks, and retrieval experiments across an organisation.
+whyExists: |
+  Embeddings make prototypes easy to start. They also make it easy to create overlapping indexes with unclear owners, inconsistent refresh schedules, forgotten permissions, and retrieval behaviour no one can compare.
+misuse: |
+  Teams treat it as a storage tidy-up problem when it is usually an ownership, governance, cost, and quality problem. Deleting a vector database is simple; knowing whether anything important depends on it is the invoice.
+practicalMeaning: |
+  In practice it means inventorying indexes, documenting corpora and embedding models, deduplicating sources, enforcing retention and access rules, measuring retrieval quality, and retiring experiments that have quietly become infrastructure.
+example: |
+  "The AI programme paused for vector sprawl remediation after finance found six indexes of the same policies disagreeing at different prices."
+askNext:
+  - "Who owns each vector index, corpus, embedding model, and refresh schedule?"
+  - "Which indexes contain duplicate, stale, restricted, or untraceable data?"
+  - "Can teams compare retrieval quality and cost across these indexes?"
+related:
+  - "embeddings"
+  - "retrieval-drift"
+  - "data-governance"
+  - "document-corpus"
+  - "enterprise-rag"
+seeAlso:
+  - "Embeddings"
+  - "Retrieval Drift"
+  - "Data Governance"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-05-26"
+updatedAt: "2026-05-26"
+warningLabel: "Every forgotten index is still a retrieval system if something can query it."
+tags:
+  - "embeddings"
+  - "retrieval"
+  - "operations"
+  - "governance"
+misunderstoodScore: 4
+diagram: "embeddings"
+translations:
+  - label: "operator meaning"
+    text: "Too many embedding indexes with too little ownership, refresh discipline, or cost control."
+  - label: "what it usually means in reality"
+    text: "The prototype phase has ended, but the prototypes have not received the news."
+---
+
+Vector sprawl is rarely announced. It is usually discovered during a budget review, a security review, or an answer that cites a document retired last quarter.

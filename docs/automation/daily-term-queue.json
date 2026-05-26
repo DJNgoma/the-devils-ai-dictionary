@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-05-22T06:16:37.535Z",
+  "updatedAt": "2026-05-26T14:57:24.265Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -1671,8 +1671,9 @@
         "context-poisoning",
         "context-pruning"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-26T14:57:24.265Z"
     },
     {
       "slug": "semantic-layer",
@@ -1689,8 +1690,9 @@
         "enterprise-rag",
         "connected-context"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-26T14:57:24.265Z"
     },
     {
       "slug": "vector-sprawl",
@@ -1707,8 +1709,9 @@
         "retrieval-drift",
         "data-governance"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-26T14:57:24.265Z"
     },
     {
       "slug": "enterprise-rag",
@@ -1726,8 +1729,9 @@
         "semantic-layer",
         "document-corpus"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-26T14:57:24.265Z"
     },
     {
       "slug": "rag-audit-trail",
@@ -1744,8 +1748,9 @@
         "secure-rag",
         "data-provenance"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-26T14:57:24.265Z"
     },
     {
       "slug": "ai-governance-office",
@@ -1763,8 +1768,9 @@
         "enterprise-controls",
         "governance-theatre"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-26T14:57:24.265Z"
     },
     {
       "slug": "model-risk-management",
@@ -1781,8 +1787,9 @@
         "eval-coverage",
         "operational-risk"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-05-26T14:57:24.265Z"
     },
     {
       "slug": "model-inventory",

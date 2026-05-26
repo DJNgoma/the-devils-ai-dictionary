@@ -1,0 +1,63 @@
+---
+title: "RAG Audit Trail"
+slug: "rag-audit-trail"
+letter: "R"
+categories:
+  - "Retrieval and memory"
+  - "Safety and evaluation"
+  - "Economics and operations of AI"
+aliases:
+  - "retrieval audit trail"
+  - "RAG evidence trail"
+  - "retrieval evidence log"
+devilDefinition: |
+  The receipt for the answer, requested shortly after the answer has become expensive.
+plainDefinition: |
+  A RAG audit trail is the record of which query, sources, chunks, rankings, filters, citations, model inputs, and answer outputs were used when a retrieval-augmented system produced a response.
+whyExists: |
+  Once RAG answers influence support, legal, compliance, medical, financial, or operational decisions, teams need to know what evidence was retrieved, what was excluded, and how the final answer was grounded.
+misuse: |
+  It is confused with showing citations in the user interface. Citations are useful, but an audit trail also needs retriever state, permissions, versions, timestamps, filters, model inputs, and enough detail to reproduce or investigate the answer.
+practicalMeaning: |
+  In practice it means logging retrieval requests, source identities, chunk IDs, ranking scores, permission filters, prompt context, generated claims, cited sources, blocked sources, model versions, and retention rules that will survive contact with compliance.
+example: |
+  "The RAG audit trail showed that the assistant cited the policy correctly and ignored the newer exception nobody had indexed."
+askNext:
+  - "Can a disputed answer be reconstructed from logged retrieval and generation records?"
+  - "Are filtered, blocked, stale, and cited sources all visible to reviewers?"
+  - "How long is the evidence retained, and who may inspect it?"
+related:
+  - "citation-grounding"
+  - "secure-rag"
+  - "data-provenance"
+  - "enterprise-rag"
+  - "retrieval-permissions"
+  - "rag"
+  - "retrieval-provenance"
+seeAlso:
+  - "Citation Grounding"
+  - "Secure RAG"
+  - "Data Provenance"
+  - "Enterprise RAG"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-05-26"
+updatedAt: "2026-05-26"
+warningLabel: "A citation is not an audit trail; it is the visible tip of one."
+tags:
+  - "rag"
+  - "audit"
+  - "retrieval"
+  - "governance"
+misunderstoodScore: 5
+diagram: "rag"
+translations:
+  - label: "compliance meaning"
+    text: "Evidence that shows how a retrieved answer was assembled, grounded, filtered, and produced."
+  - label: "what it usually means in reality"
+    text: "The logs you wish you had collected before someone asked why the answer was trusted."
+---
+
+A RAG audit trail is less exciting than a fluent answer. This is why it tends to matter after the fluent answer has done something memorable.
