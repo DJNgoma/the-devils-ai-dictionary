@@ -1,0 +1,60 @@
+---
+title: "Eval Marketplace"
+slug: "eval-marketplace"
+letter: "E"
+categories:
+  - "Safety and evaluation"
+  - "Product and vendor terms"
+  - "Economics and operations of AI"
+aliases:
+  - "evaluation marketplace"
+  - "benchmark marketplace"
+  - "third-party evals"
+devilDefinition: |
+  A confidence shop, stocked with benchmark packs, review panels, and certificates of seriousness for teams whose own edge cases remain inconveniently proprietary.
+plainDefinition: |
+  An eval marketplace is a vendor or platform that sells evaluation datasets, benchmark tasks, scoring rubrics, human review, automated checks, or testing services for AI models and AI systems.
+whyExists: |
+  It exists because most teams need broader evaluation coverage than they can build alone, and because shared tests can make vendor claims easier to compare. Buying evaluation capacity can be sensible when it complements internal evidence.
+misuse: |
+  It is misused when a purchased test is treated as proof that the actual product is safe, useful, or production-ready. A marketplace eval may measure a general capability, a tidy benchmark, or someone else's risk appetite, not the failure modes waiting in your workflow.
+practicalMeaning: |
+  In practice it means procurement, test selection, data licensing, rater quality, leakage checks, benchmark relevance, custom scenario design, and the dull but necessary work of mapping bought evidence to local release gates.
+example: |
+  "They bought an eval marketplace subscription, then learned that none of the tests involved their refund policy, their users, or their oddly persuasive chatbot."
+askNext:
+  - "Which product decision will this external eval actually inform?"
+  - "How do the test cases map to our real users, data, and failure modes?"
+  - "What internal evals still need to exist because nobody can buy our context?"
+related:
+  - "evals"
+  - "eval-harness"
+  - "benchmark-theatre"
+  - "eval-dataset"
+  - "golden-dataset"
+  - "llm-as-a-judge"
+seeAlso:
+  - "Evals"
+  - "Eval Harness"
+  - "Benchmark Theatre"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-06-14"
+updatedAt: "2026-06-14"
+warningLabel: "A purchased test still has to test your product."
+tags:
+  - "evaluation"
+  - "benchmarks"
+  - "vendors"
+  - "procurement"
+misunderstoodScore: 3
+translations:
+  - label: "evaluation meaning"
+    text: "A market for test sets, scoring systems, review labour, and benchmark infrastructure."
+  - label: "what it usually means in reality"
+    text: "A useful source of evidence, provided nobody mistakes the receipt for a release decision."
+---
+
+The best marketplace evals widen the questions. The worst ones give a nervous team a prettier way to stop asking.

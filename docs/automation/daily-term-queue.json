@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-05-26T14:57:24.265Z",
+  "updatedAt": "2026-06-14T05:08:03.813Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -1806,8 +1806,9 @@
         "enterprise-ai",
         "centralised-ai-operations"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-14T05:08:03.813Z"
     },
     {
       "slug": "eval-marketplace",
@@ -1824,8 +1825,9 @@
         "eval-harness",
         "benchmark-theatre"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-14T05:08:03.813Z"
     },
     {
       "slug": "synthetic-user-research",
@@ -1842,8 +1844,9 @@
         "user-research",
         "persona"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-14T05:08:03.813Z"
     },
     {
       "slug": "synthetic-customer",
@@ -1860,8 +1863,9 @@
         "synthetic-data",
         "ai-first"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-14T05:08:03.813Z"
     },
     {
       "slug": "voice-clone",
@@ -1879,8 +1883,9 @@
         "likeness-rights",
         "audio-overviews"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-14T05:08:03.813Z"
     },
     {
       "slug": "deepfake-consent",
@@ -1897,8 +1902,9 @@
         "voice-clone",
         "likeness-rights"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-14T05:08:03.813Z"
     },
     {
       "slug": "likeness-rights",
@@ -1915,8 +1921,9 @@
         "voice-clone",
         "content-provenance"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-14T05:08:03.813Z"
     },
     {
       "slug": "synthetic-influencer",
