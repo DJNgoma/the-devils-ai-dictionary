@@ -2,7 +2,13 @@
 // Do not edit by hand.
 
 export const entryDetailShardLoaders = {
-  "a": () => import("./entry-details/a.json"),
+  "a": async () => {
+    const shards = await Promise.all([
+      import("./entry-details/a-1.json"),
+      import("./entry-details/a-2.json"),
+    ]);
+    return { default: Object.assign({}, ...shards.map((shard) => shard.default)) };
+  },
   "b": () => import("./entry-details/b.json"),
   "c": async () => {
     const shards = await Promise.all([
@@ -26,7 +32,13 @@ export const entryDetailShardLoaders = {
   "p": () => import("./entry-details/p.json"),
   "q": () => import("./entry-details/q.json"),
   "r": () => import("./entry-details/r.json"),
-  "s": () => import("./entry-details/s.json"),
+  "s": async () => {
+    const shards = await Promise.all([
+      import("./entry-details/s-1.json"),
+      import("./entry-details/s-2.json"),
+    ]);
+    return { default: Object.assign({}, ...shards.map((shard) => shard.default)) };
+  },
   "t": () => import("./entry-details/t.json"),
   "u": () => import("./entry-details/u.json"),
   "v": () => import("./entry-details/v.json"),

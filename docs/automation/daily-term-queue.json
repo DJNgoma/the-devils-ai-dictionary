@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-06-14T05:08:03.813Z",
+  "updatedAt": "2026-06-15T05:07:34.105Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -1940,8 +1940,9 @@
         "emotional-retention",
         "content-credentials"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-15T05:07:34.105Z"
     },
     {
       "slug": "slop-filter",
@@ -1959,8 +1960,9 @@
         "content-credentials",
         "authenticity-crisis"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-15T05:07:34.105Z"
     },
     {
       "slug": "slop-firewall",
@@ -1977,8 +1979,9 @@
         "content-provenance",
         "answer-engine"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-15T05:07:34.105Z"
     },
     {
       "slug": "answer-cart",
@@ -1995,8 +1998,9 @@
         "answer-engine",
         "ai-shopping-agent"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-15T05:07:34.105Z"
     },
     {
       "slug": "agentic-seo",
@@ -2014,8 +2018,9 @@
         "ai-overviews",
         "agentic-commerce"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-15T05:07:34.105Z"
     },
     {
       "slug": "ai-shopping-agent",
@@ -2032,8 +2037,9 @@
         "answer-cart",
         "delegated-spending"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-15T05:07:34.105Z"
     },
     {
       "slug": "ai-app-store",
@@ -2050,8 +2056,9 @@
         "agent-skills",
         "skill-loading"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-15T05:07:34.105Z"
     },
     {
       "slug": "mcp-marketplace",
