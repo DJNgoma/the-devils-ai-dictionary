@@ -1,0 +1,60 @@
+---
+title: "Agent Sandbox Leakage"
+slug: "agent-sandbox-leakage"
+letter: "A"
+categories:
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+  - "Agents and workflows"
+aliases:
+  - "sandbox leakage"
+  - "agent isolation leakage"
+  - "sandbox boundary leakage"
+devilDefinition: |
+  What happens when the box is real, but so are the holes someone forgot to include in the drawing.
+plainDefinition: |
+  Agent sandbox leakage is the unintended movement of data, credentials, files, network access, tool authority, or side effects across the boundary of an environment meant to isolate an agent's work.
+whyExists: |
+  Useful agents need somewhere to read, write, run code, browse, call tools, and test ideas without being handed full production access. Sandboxes provide that containment, but real workflows often share caches, secrets, mounts, logs, sessions, networks, or approval paths.
+misuse: |
+  It gets ignored when "sandboxed" is treated as a complete answer. A sandbox may isolate filesystem changes while still sharing tokens, internet access, browser sessions, package caches, logging streams, or tools with real external consequences.
+practicalMeaning: |
+  In practice it means checking the unpleasant edges: copied environment files, inherited credentials, shared volumes, outbound network rules, persistent browser profiles, unredacted logs, tool scopes, and any command that turns a contained mistake into an external action.
+example: |
+  "The agent was safely sandboxed, apart from the production API token, the shared browser session, and the export tool it used with touching confidence."
+askNext:
+  - "What exactly is isolated, and what state is still shared?"
+  - "Can secrets, logs, files, browser sessions, network calls, or tool side effects cross the boundary?"
+  - "How is leakage tested before the agent receives useful permissions?"
+related:
+  - "sandbox"
+  - "worktree"
+  - "agent-workspace"
+  - "data-exfiltration-path"
+  - "tool-layer-risk"
+  - "defensive-security"
+seeAlso:
+  - "Sandbox"
+  - "Worktree"
+  - "Data exfiltration path"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-06-16"
+updatedAt: "2026-06-16"
+warningLabel: "A sandbox boundary is only useful where it is actually enforced."
+tags:
+  - "agents"
+  - "sandbox"
+  - "security"
+  - "isolation"
+misunderstoodScore: 5
+translations:
+  - label: "security meaning"
+    text: "The isolation boundary exists, but something important can still cross it."
+  - label: "what it usually means in reality"
+    text: "The agent cannot write to the main directory, but it may still know the password and find the internet."
+---
+
+No diagram is attached because the built-in worktree diagram would narrow the problem to Git-style file isolation. This entry is about the wider set of sandbox leaks: credentials, networks, sessions, logs, and tools.

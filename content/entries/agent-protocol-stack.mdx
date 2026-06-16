@@ -1,0 +1,60 @@
+---
+title: "Agent Protocol Stack"
+slug: "agent-protocol-stack"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "agent protocol layer"
+  - "agent interoperability stack"
+  - "AI agent protocol stack"
+devilDefinition: |
+  The supposedly invisible plumbing beneath agent magic, now tall enough to require its own lift.
+plainDefinition: |
+  The agent protocol stack is the collection of protocols, standards, interfaces, identity layers, permission systems, audit mechanisms, and handoff contracts that allow agents to discover tools, exchange tasks, and act across systems.
+whyExists: |
+  Agents do not operate in a vacuum. They need context, tools, credentials, delegation, observability, policy checks, and sometimes other agents. As these pieces standardise, the hidden integration layer becomes a stack rather than a pile of one-off adapters.
+misuse: |
+  It is misused when teams point at a stack diagram as though the hard decisions are solved by having labelled boxes. Protocols can reduce bespoke glue; they cannot remove ownership, trust, failure handling, or the need to decide who is allowed to do what.
+practicalMeaning: |
+  In practice it means architects must track which layer handles discovery, which handles action, which handles identity, which logs decisions, which enforces permissions, and which team receives the incident when the layers politely blame one another.
+example: |
+  "The agent protocol stack looked elegant until the audit log showed three systems agreeing that someone else had authorised the refund."
+askNext:
+  - "Which layers handle discovery, action, identity, permissions, and audit?"
+  - "Where do trust boundaries exist between clients, servers, agents, and users?"
+  - "Which protocol reduces integration work, and which one only moves responsibility into another box?"
+related:
+  - "mcp"
+  - "agent2agent"
+  - "agent-identity"
+  - "delegated-authentication"
+  - "tool-registry"
+  - "agentic-iam"
+seeAlso:
+  - "MCP"
+  - "Agent2Agent"
+  - "Delegated authentication"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-06-16"
+updatedAt: "2026-06-16"
+warningLabel: "A stack diagram is not an accountability model."
+tags:
+  - "agents"
+  - "protocols"
+  - "interoperability"
+  - "governance"
+misunderstoodScore: 4
+diagram: "mcp"
+translations:
+  - label: "architect meaning"
+    text: "The protocol and control layers needed for agents to discover, delegate, authenticate, act, and log."
+  - label: "what it usually means in reality"
+    text: "Less bespoke integration, plus more places where responsibility must be nailed down."
+---
+
+Stacks are useful because they separate concerns. They are dangerous when they also separate consequences.

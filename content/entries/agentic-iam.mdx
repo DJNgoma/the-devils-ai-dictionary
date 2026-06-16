@@ -1,0 +1,60 @@
+---
+title: "Agentic IAM"
+slug: "agentic-iam"
+letter: "A"
+categories:
+  - "Infrastructure and deployment"
+  - "Safety and evaluation"
+  - "Agents and workflows"
+aliases:
+  - "agentic identity and access management"
+  - "AI agent IAM"
+  - "IAM for agents"
+devilDefinition: |
+  Identity and access management after the software stops merely requesting access and starts making plans with it.
+plainDefinition: |
+  Agentic IAM is identity and access management adapted for AI agents that can use tools, delegate tasks, act across systems, and make repeated decisions under scoped authority.
+whyExists: |
+  Traditional IAM already handles users, groups, services, roles, and policies. Agentic systems add non-human actors with goals, tool choices, delegated user authority, temporary tasks, run-level context, and side effects that need attribution and control.
+misuse: |
+  It gets reduced to giving the agent a service account. That may create a credential, but it does not answer who authorised a specific action, which task justified it, how long the authority should last, or what policy stopped the agent from becoming enthusiastic in the wrong system.
+practicalMeaning: |
+  In practice it means agent identities, delegated authentication, just-in-time scopes, policy engines, approval gates, run-level audit trails, credential expiry, revocation, and access reviews that understand software can now be both caller and decision-maker.
+example: |
+  "Agentic IAM arrived after the support agent used a perfectly valid token for a task no one had meant to authorise."
+askNext:
+  - "Does access attach to the agent, the user, the task, the run, or some convenient blur of all four?"
+  - "Which policies constrain tool choice, data access, external actions, and delegated authority?"
+  - "Can access be narrowed or revoked without breaking every agent that once touched the workflow?"
+related:
+  - "agent-identity"
+  - "non-human-identity"
+  - "delegated-authentication"
+  - "connector-permissions"
+  - "tool-permissions"
+  - "agent-credential-sprawl"
+seeAlso:
+  - "Agent identity"
+  - "Non-human identity"
+  - "Connector permissions"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-06-16"
+updatedAt: "2026-06-16"
+warningLabel: "A service account is not an agentic access model."
+tags:
+  - "agents"
+  - "identity"
+  - "iam"
+  - "permissions"
+misunderstoodScore: 4
+translations:
+  - label: "security meaning"
+    text: "IAM that treats agents as controlled actors, not accidental shadows of human accounts."
+  - label: "what it usually means in reality"
+    text: "Access control rebuilt around delegated action, scoped authority, and logs that can survive a postmortem."
+---
+
+No diagram is attached because the core issue is policy and attribution across time. A single flowchart would be too kind to the mess.

@@ -1,0 +1,61 @@
+---
+title: "MCP Compliance"
+slug: "mcp-compliance"
+letter: "M"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+  - "Product and vendor terms"
+aliases:
+  - "Model Context Protocol compliance"
+  - "MCP compliant"
+  - "MCP-compatible compliance"
+devilDefinition: |
+  The moment a protocol badge is asked to do the emotional labour of a security programme.
+plainDefinition: |
+  MCP compliance is a claim that a tool, server, client, or platform follows the Model Context Protocol or a related set of compatibility requirements.
+whyExists: |
+  Protocols need conformance language so implementations can interoperate and buyers can understand which pieces fit together. Compliance can clarify supported capabilities, message shapes, transport expectations, and compatibility with clients.
+misuse: |
+  It gets stretched into a trust claim. Supporting MCP does not prove a server is secure, well governed, maintained, private, least-privilege, or appropriate for production. It mostly says the plumbing can speak the dialect.
+practicalMeaning: |
+  In practice it means separating protocol conformance from organisational controls: authentication, permission review, logging, vendor risk, data handling, version pinning, incident response, and the tedious work a badge cannot perform.
+example: |
+  "The server was MCP compliant, which explained why the client could call it, not why anyone had allowed it access to payroll."
+askNext:
+  - "Which part of MCP is actually supported, and who tested it?"
+  - "What security, privacy, audit, and permission controls sit outside the compliance claim?"
+  - "Does compliance mean interoperable, certified, approved, or merely not immediately broken?"
+related:
+  - "mcp"
+  - "mcp-marketplace"
+  - "tool-access-review"
+  - "tool-layer-risk"
+  - "mcp-registry"
+  - "safety-washing"
+seeAlso:
+  - "MCP"
+  - "Tool Access Review"
+  - "Safety Washing"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-06-16"
+updatedAt: "2026-06-16"
+warningLabel: "Protocol compliance is not security certification."
+tags:
+  - "mcp"
+  - "compliance"
+  - "governance"
+  - "protocols"
+misunderstoodScore: 4
+diagram: "mcp"
+translations:
+  - label: "engineer meaning"
+    text: "The implementation follows enough of the protocol to interoperate."
+  - label: "what it usually means in reality"
+    text: "The compatibility question has been answered; the trust question has merely entered the room."
+---
+
+Compliance language is useful when it stays in its lane. The trouble begins when it is promoted from "speaks protocol" to "safe to buy" without doing the intervening paperwork.

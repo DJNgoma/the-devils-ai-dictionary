@@ -1,0 +1,59 @@
+---
+title: "WebMCP"
+slug: "webmcp"
+letter: "W"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "Web MCP"
+  - "web Model Context Protocol"
+  - "MCP for websites"
+devilDefinition: |
+  The web discovering that if agents are going to click around anyway, it may as well leave them a labelled door.
+plainDefinition: |
+  WebMCP is a protocol-adjacent idea for exposing website, browser, or web application capabilities to agents through MCP-style discovery, resources, tools, or structured actions.
+whyExists: |
+  Browser agents can already inspect pages and perform actions, but ordinary web interfaces are built for humans. A web-facing MCP pattern can make capabilities more explicit, typed, permissioned, and less dependent on brittle clicking.
+misuse: |
+  It gets framed as the end of messy web automation. It is not. Standardised exposure still has to handle identity, consent, rate limits, abuse controls, layout changes, commercial incentives, and the fact that websites may not want agents using them like private APIs.
+practicalMeaning: |
+  In practice it means websites deciding which actions and resources they expose to agents, how users authorise them, what clients can discover, and where the boundary sits between helpful automation and scraping with better manners.
+example: |
+  "WebMCP let the travel site expose a booking search cleanly, which was preferable to watching an agent interpret three pop-ups and a loyalty-programme ambush as interface design."
+askNext:
+  - "Which website capabilities are exposed as structured tools or resources?"
+  - "How are user consent, authentication, rate limits, and abuse handled?"
+  - "Does this replace browser automation, or only tidy the parts the site chooses to expose?"
+related:
+  - "mcp"
+  - "browser-agent"
+  - "browser-use"
+  - "ai-browser"
+  - "mcp-resource"
+  - "agent-protocol-stack"
+seeAlso:
+  - "Browser agent"
+  - "MCP resource"
+  - "AI Browser"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-06-16"
+updatedAt: "2026-06-16"
+tags:
+  - "mcp"
+  - "web"
+  - "browser"
+  - "agents"
+misunderstoodScore: 3
+diagram: "mcp"
+translations:
+  - label: "web platform meaning"
+    text: "Expose selected website capabilities to agents through a more structured interface."
+  - label: "what it usually means in reality"
+    text: "A negotiation between agent convenience, site control, and whether the web wants to become tool-shaped."
+---
+
+The web has spent decades tolerating automation through side doors. WebMCP is the argument for making some of those doors official, lockable, and auditable.

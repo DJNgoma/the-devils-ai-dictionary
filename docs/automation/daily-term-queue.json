@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-06-15T05:07:34.105Z",
+  "updatedAt": "2026-06-16T05:07:52.018Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -2076,8 +2076,9 @@
         "mcp-compliance",
         "tool-layer-risk"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-16T05:07:52.018Z"
     },
     {
       "slug": "mcp-compliance",
@@ -2095,8 +2096,9 @@
         "mcp-marketplace",
         "tool-access-review"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-16T05:07:52.018Z"
     },
     {
       "slug": "webmcp",
@@ -2113,8 +2115,9 @@
         "browser-agent",
         "agent-protocol-stack"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-16T05:07:52.018Z"
     },
     {
       "slug": "agent-protocol-stack",
@@ -2131,8 +2134,9 @@
         "agent2agent",
         "agent-identity"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-16T05:07:52.018Z"
     },
     {
       "slug": "agent-sandbox-leakage",
@@ -2150,8 +2154,9 @@
         "data-exfiltration-path",
         "defensive-security"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-16T05:07:52.018Z"
     },
     {
       "slug": "agent-credential-sprawl",
@@ -2169,8 +2174,9 @@
         "connector-permissions",
         "agentic-iam"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-16T05:07:52.018Z"
     },
     {
       "slug": "agentic-iam",
@@ -2188,8 +2194,9 @@
         "non-human-identity",
         "delegated-authentication"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-16T05:07:52.018Z"
     },
     {
       "slug": "confidential-inference",
