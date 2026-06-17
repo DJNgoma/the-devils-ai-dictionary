@@ -1,0 +1,58 @@
+---
+title: "Private inference"
+slug: "private-inference"
+letter: "P"
+categories:
+  - "Infrastructure and deployment"
+  - "Product and vendor terms"
+aliases:
+  - "privacy-preserving inference"
+  - "private AI inference"
+devilDefinition: |
+  The label vendors reach for when "trust us" has been asked to wear a blazer.
+plainDefinition: |
+  Private inference is a broad claim that model inference is run with privacy protections around user data, prompts, outputs, or business context. It can refer to on-device execution, isolated cloud tenancy, no-training policies, encryption, confidential computing, local models, or some mixture of those things.
+whyExists: |
+  It exists because organisations want AI features without casually donating sensitive data, customer records, trade secrets, or regulated workflows to every inference provider in the chain.
+misuse: |
+  It gets abused by collapsing very different privacy models into one comforting adjective. "Private" may mean the model runs on the device, the vendor does not train on the request, the traffic is encrypted, the data stays in a region, or simply that the sales deck has learned the mood of the room.
+practicalMeaning: |
+  In practice it means pinning the exact privacy claim: where inference runs, who operates it, what data leaves the device or tenant, whether prompts are retained, who holds keys, what is logged, and what legal or technical controls back the promise.
+example: |
+  "The private inference feature sounded settled until procurement asked whether private meant on-device, encrypted, isolated, or merely not used for training."
+askNext:
+  - "Which privacy guarantee is being claimed: location, retention, training exclusion, isolation, encryption, or access control?"
+  - "What data leaves the user's device, tenant, region, or organisation during inference?"
+  - "Can the vendor show the policy and the architecture, or only the adjective?"
+related:
+  - "confidential-inference"
+  - "on-device-ai"
+  - "edge-model"
+  - "data-localisation"
+  - "privacy"
+  - "local-model"
+seeAlso:
+  - "Confidential inference"
+  - "On-device AI"
+  - "Data localisation"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-06-17"
+updatedAt: "2026-06-17"
+warningLabel: "Private is not a technical architecture by itself."
+tags:
+  - "inference"
+  - "privacy"
+  - "deployment"
+  - "vendors"
+misunderstoodScore: 4
+translations:
+  - label: "buyer meaning"
+    text: "The AI feature should not casually expose sensitive inputs to the provider or the world."
+  - label: "what it usually means in reality"
+    text: "A bundle of privacy claims that must be separated before the risk can be understood."
+---
+
+Private inference is a useful phrase only after it stops being a fog machine. Ask which privacy property is doing the work.

@@ -1,0 +1,57 @@
+---
+title: "Confidential inference"
+slug: "confidential-inference"
+letter: "C"
+categories:
+  - "Infrastructure and deployment"
+  - "Safety and evaluation"
+aliases:
+  - "confidential AI inference"
+  - "confidential compute inference"
+devilDefinition: |
+  Privacy theatre for the part where the model has already been invited into the room.
+plainDefinition: |
+  Confidential inference is inference designed so prompts, retrieved context, outputs, and sometimes model weights are protected from unauthorised visibility while the model runs, often through confidential computing, tenant isolation, encryption, access controls, and audit logs.
+whyExists: |
+  It exists because sensitive AI workloads cannot be judged only by whether the vendor promises not to train on the data. Regulated, proprietary, personal, and legally privileged inputs need a clearer account of who can see what during execution.
+misuse: |
+  It is misused when one protected layer is treated as total secrecy. Encrypted transport, a private endpoint, or a trusted execution environment does not automatically solve logging, telemetry, retrieval leakage, administrator access, key custody, output handling, or side-channel risk.
+practicalMeaning: |
+  In practice it means writing down the threat model, mapping which parties can see prompts and outputs, checking what lands in logs or analytics, reviewing retention, proving isolation, and deciding whether the remaining visibility is acceptable rather than merely renamed.
+example: |
+  "The hospital approved confidential inference only after the vendor explained which staff, operators, logs, and support tools could still touch the patient prompts."
+askNext:
+  - "Which parties are prevented from seeing prompts, context, outputs, and model weights?"
+  - "What remains visible through logs, telemetry, support tooling, retrieval systems, or administrator access?"
+  - "Has the confidentiality claim been tested against a specific threat model?"
+related:
+  - "private-inference"
+  - "secure-rag"
+  - "data-handling"
+  - "data-loss-prevention"
+  - "trust-boundary"
+seeAlso:
+  - "Private inference"
+  - "Secure RAG"
+  - "Data loss prevention"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-06-17"
+updatedAt: "2026-06-17"
+warningLabel: "Confidential does not mean nobody can see anything."
+tags:
+  - "inference"
+  - "privacy"
+  - "security"
+  - "confidential-computing"
+misunderstoodScore: 4
+translations:
+  - label: "security meaning"
+    text: "Inference with a defined visibility boundary around sensitive inputs and outputs."
+  - label: "what it usually means in reality"
+    text: "A privacy claim that needs a threat model before anyone should relax."
+---
+
+Confidential inference is useful precisely because it is narrow. The useful question is not whether the word sounds reassuring, but which eyes, systems, logs, and emergency support paths it actually excludes.

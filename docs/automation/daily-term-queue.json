@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-06-16T05:07:52.018Z",
+  "updatedAt": "2026-06-17T05:42:46.840Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -2213,8 +2213,9 @@
         "data-handling",
         "secure-rag"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-17T05:42:46.840Z"
     },
     {
       "slug": "private-inference",
@@ -2231,8 +2232,9 @@
         "edge-model",
         "data-localisation"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-17T05:42:46.840Z"
     },
     {
       "slug": "gpu-broker",
@@ -2249,8 +2251,9 @@
         "compute-scarcity",
         "cloud-ai-platform"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-17T05:42:46.840Z"
     },
     {
       "slug": "ai-data-centre",
@@ -2267,8 +2270,9 @@
         "power-constrained-ai",
         "dgx-cloud"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-17T05:42:46.840Z"
     },
     {
       "slug": "power-constrained-ai",
@@ -2285,8 +2289,9 @@
         "compute-budget",
         "compute-scarcity"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-17T05:42:46.840Z"
     },
     {
       "slug": "compute-diplomacy",
@@ -2303,8 +2308,9 @@
         "compute-scarcity",
         "distribution-advantage"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-17T05:42:46.840Z"
     },
     {
       "slug": "sovereign-cloud",
@@ -2322,8 +2328,9 @@
         "cloud-ai-platform",
         "compute-diplomacy"
       ],
-      "status": "queued",
-      "addedAt": "2026-05-17T16:20:00.000Z"
+      "status": "published",
+      "addedAt": "2026-05-17T16:20:00.000Z",
+      "publishedAt": "2026-06-17T05:42:46.840Z"
     }
   ]
 }
