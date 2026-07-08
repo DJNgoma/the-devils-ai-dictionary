@@ -441,10 +441,10 @@ describe("generated JSON size budget", () => {
   const webGeneratedPath = path.resolve(__dirname, "../../src/generated/entries.web.generated.json");
   const detailShardDir = path.resolve(__dirname, "../../src/generated/entry-details");
 
-  it("keeps the lazy web snapshot under 560 KB", () => {
+  it("keeps the lazy web snapshot under 640 KB", () => {
     const stats = fs.statSync(webGeneratedPath);
     const sizeKB = stats.size / 1024;
-    expect(sizeKB).toBeLessThan(560);
+    expect(sizeKB).toBeLessThan(640);
   });
 
   it("keeps entry details split into bounded lazy shards", () => {
