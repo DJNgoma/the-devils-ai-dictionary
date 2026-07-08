@@ -1,0 +1,59 @@
+---
+title: "Tokens per dollar"
+slug: "tokens-per-dollar"
+letter: "T"
+categories:
+  - "Economics and operations of AI"
+  - "Infrastructure and deployment"
+  - "Model usage"
+aliases:
+  - "tokens/$"
+  - "token efficiency per dollar"
+  - "output per dollar"
+devilDefinition: |
+  The spreadsheet column that ends arguments about "best model" by replacing them with arguments about whose tokens count.
+plainDefinition: |
+  Tokens per dollar is a unit-economics ratio comparing how many tokens a model, provider, or serving setup produces or processes for each unit of spend, used to compare inference cost efficiency across options.
+whyExists: |
+  Model choice, routing, caching, and provider pricing all collapse into money. Teams need a crude but shared yardstick when quality claims arrive without invoices attached.
+misuse: |
+  It is treated as quality. A system can mint cheap tokens while still being wrong, slow, unsafe, or expensive once tool calls, retries, long contexts, and human cleanup are counted. Input and output tokens are also not interchangeable currencies.
+practicalMeaning: |
+  In practice it means comparing providers and models with the same workload shape, including cache hits, reasoning tokens, tool loops, and failure retries, then deciding whether the cheaper path still meets the quality bar you pretended was fixed.
+example: |
+  "Their tokens per dollar looked unbeatable until the evaluation set forced every cheap answer through a second, expensive model."
+askNext:
+  - "Are you counting input, output, reasoning, tool, and retry tokens the same way across options?"
+  - "What quality or latency floor must hold before cheaper tokens are allowed to win?"
+  - "Does the ratio include only model fees, or also serving, egress, eval, and human review?"
+related:
+  - "inference-budget"
+  - "inference-arbitrage"
+  - "tokens"
+  - "inference"
+  - "latency"
+seeAlso:
+  - "Inference budget"
+  - "Inference arbitrage"
+  - "Tokens"
+difficulty: "beginner"
+technicalDepth: "low"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Cheap tokens are not the same as useful answers."
+tags:
+  - "cost"
+  - "tokens"
+  - "economics"
+  - "serving"
+misunderstoodScore: 3
+translations:
+  - label: "finance meaning"
+    text: "How much model traffic you get for each unit of spend."
+  - label: "what it usually means in reality"
+    text: "A rough efficiency score that still needs a quality and latency floor."
+---
+
+Tokens per dollar is useful until someone confuses thrift with taste. Count carefully, then decide what you are willing to buy badly.

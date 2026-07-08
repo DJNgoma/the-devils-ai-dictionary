@@ -1,0 +1,58 @@
+---
+title: "DPO"
+slug: "dpo"
+letter: "D"
+categories:
+  - "Model building"
+  - "Safety and evaluation"
+aliases:
+  - "Direct Preference Optimisation"
+  - "Direct Preference Optimization"
+  - "direct preference optimization"
+devilDefinition: |
+  Teaching the model which answer you preferred without the full RLHF theatre, then discovering that preferences still disagree with each other.
+plainDefinition: |
+  DPO (Direct Preference Optimisation) is a post-training method that aligns a language model to human preference pairs by optimising a classification-style objective, avoiding the separate reward-model and reinforcement-learning loop used in classic RLHF pipelines.
+whyExists: |
+  Preference alignment became central to making models usable, but full RLHF stacks are expensive, brittle, and operationally heavy. DPO offers a simpler path that still uses preferred-versus-rejected examples.
+misuse: |
+  It is treated as a free replacement for all of RLHF, evaluation, and governance. DPO still depends on preference data quality, coverage, and the base model. A clean algorithm does not purify a biased or gamed preference set.
+practicalMeaning: |
+  In practice it means collecting or curating preference pairs, running a preference optimisation stage after supervised fine-tuning, and then measuring whether the model actually behaves better on the tasks and harms you care about — not only on the training pairs.
+example: |
+  "They switched to DPO to simplify post-training, then spent the savings re-labelling preferences the first run had overfitted."
+askNext:
+  - "What preference data is being optimised, and who decided the winners?"
+  - "What evals show improvement beyond the DPO training pairs?"
+  - "Is DPO replacing RLHF entirely, or sitting beside other post-training stages?"
+related:
+  - "rlhf"
+  - "post-training"
+  - "fine-tuning"
+  - "eval-driven-development"
+  - "abuse-testing"
+seeAlso:
+  - "RLHF"
+  - "Post-training"
+  - "Fine-tuning"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "A simpler alignment recipe still inherits the politics of the preference set."
+tags:
+  - "post-training"
+  - "alignment"
+  - "preferences"
+  - "model-building"
+misunderstoodScore: 3
+translations:
+  - label: "training meaning"
+    text: "Align the model to preference pairs without a separate reward-model RL loop."
+  - label: "what it usually means in reality"
+    text: "A lighter post-training step that still lives or dies by preference data quality."
+---
+
+DPO is engineering thrift applied to preference learning. It shortens the pipeline; it does not retire the need to decide what "better" meant.

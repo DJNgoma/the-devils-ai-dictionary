@@ -1,0 +1,59 @@
+---
+title: "Shadow mode"
+slug: "shadow-mode"
+letter: "S"
+categories:
+  - "Safety and evaluation"
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "shadow deployment"
+  - "shadow traffic"
+  - "dark launch for agents"
+devilDefinition: |
+  Letting the new system do everything except the part that can be blamed on it.
+plainDefinition: |
+  Shadow mode is a deployment or evaluation pattern where a model or agent processes real or mirrored inputs in parallel with the live system, producing decisions or side-effect plans that are observed and scored but not applied to production state.
+whyExists: |
+  Teams need evidence on live traffic without betting the business on the first autonomous release. Shadowing turns production into a test bed while keeping irreversible actions behind the current system of record.
+misuse: |
+  It is treated as a substitute for ownership. Shadow traffic can miss rare side effects, permission edges, and the social fact that people behave differently when software is allowed to act. Observing is not the same as surviving contact with write access.
+practicalMeaning: |
+  In practice it means duplicating inputs, logging candidate actions, comparing them to the live path, measuring disagreement and cost, and only promoting authority after the diffs stop being exciting for the wrong reasons.
+example: |
+  "Shadow mode ran for six weeks; the agent agreed with humans often enough that nobody noticed it would have refunded the wrong customers twice a day."
+askNext:
+  - "Which actions are truly inert in shadow mode, and which still touch logs, vendors, or rate limits?"
+  - "How are disagreements between shadow and live systems sampled, judged, and acted on?"
+  - "What promotion criteria end the shadow period, and who can veto them?"
+related:
+  - "eval-driven-development"
+  - "agent-reliability"
+  - "approval-workflow"
+  - "agent"
+  - "inference-budget"
+seeAlso:
+  - "Eval-driven development"
+  - "Agent reliability"
+  - "Approval workflow"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Parallel observation is not a free pass to skip write-path testing."
+tags:
+  - "evaluation"
+  - "agents"
+  - "deployment"
+  - "safety"
+misunderstoodScore: 4
+translations:
+  - label: "ops meaning"
+    text: "Run the candidate system beside production without granting it authority."
+  - label: "what it usually means in reality"
+    text: "A rehearsal with real traffic and carefully faked consequences."
+---
+
+Shadow mode buys time and evidence. It does not buy courage for the day the system is allowed to touch the ledger.

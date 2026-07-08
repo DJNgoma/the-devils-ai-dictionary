@@ -1,0 +1,59 @@
+---
+title: "Prefill/decode split"
+slug: "prefill-decode-split"
+letter: "P"
+categories:
+  - "Infrastructure and deployment"
+  - "Model usage"
+  - "Economics and operations of AI"
+aliases:
+  - "prefill decode split"
+  - "prefill versus decode"
+  - "prompt prefill and decode"
+devilDefinition: |
+  The architectural admission that reading the prompt and inventing the next token are different jobs, even when marketing still sells them as one smooth thought.
+plainDefinition: |
+  Prefill/decode split is a serving architecture pattern that separates the compute-heavy processing of the input prompt (prefill) from the sequential generation of output tokens (decode), often so each phase can be scheduled, batched, cached, or hardware-tuned differently.
+whyExists: |
+  Prompt processing is typically parallel and memory-bandwidth hungry; token generation is sequential and latency-sensitive. Treating them as one uniform workload wastes GPUs, confuses capacity planning, and makes "tokens per second" sound more honest than it is.
+misuse: |
+  It is treated as a guarantee of lower cost or magic speed. A split only helps when the scheduler, KV cache, batching, and hardware placement actually exploit the different shapes of work. Naming the phases is not the same as running them well.
+practicalMeaning: |
+  In practice it means sizing and routing prefill and decode separately, watching TTFT versus inter-token latency, deciding where KV state lives, and refusing to judge the whole stack by a single tokens-per-second slide.
+example: |
+  "The prefill/decode split looked elegant on the architecture diagram until every long prompt still queued behind someone else's multi-turn novel."
+askNext:
+  - "Are prefill and decode measured, scheduled, and capacity-planned as separate workloads?"
+  - "Where does the KV cache live between prefill and decode, and who pays for keeping it warm?"
+  - "Which user-visible metric actually improved: time to first token, tokens per second, cost, or none of the above?"
+related:
+  - "inference-stack"
+  - "kv-cache"
+  - "vllm"
+  - "latency"
+  - "inference"
+seeAlso:
+  - "Inference stack"
+  - "KV cache"
+  - "Latency"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Splitting phases is an engineering choice, not proof the serving problem is solved."
+tags:
+  - "serving"
+  - "inference"
+  - "latency"
+  - "infrastructure"
+misunderstoodScore: 4
+translations:
+  - label: "serving meaning"
+    text: "Prompt processing and token generation are different shapes of work and may be scheduled apart."
+  - label: "what it usually means in reality"
+    text: "A serving redesign that only pays off once KV cache, batching, and capacity math catch up."
+---
+
+No diagram is attached because the useful picture is a capacity and latency trade, not a single product flow. Prefill/decode split is infrastructure honesty dressed as architecture.

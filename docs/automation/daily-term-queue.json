@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-08T21:07:01.372Z",
+  "updatedAt": "2026-07-08T21:19:48.768Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -2335,7 +2335,7 @@
     {
       "slug": "prefill-decode-split",
       "label": "Prefill/decode split",
-      "status": "queued",
+      "status": "published",
       "notes": "Serving architecture term for separating prompt processing from token generation.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -2348,12 +2348,13 @@
         "continuous-batching",
         "kv-cache"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:19:48.768Z"
     },
     {
       "slug": "tokens-per-dollar",
       "label": "Tokens per dollar",
-      "status": "queued",
+      "status": "published",
       "notes": "Unit economics framing for inference buying decisions.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -2366,12 +2367,13 @@
         "cost-per-token",
         "inference-arbitrage"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:19:48.768Z"
     },
     {
       "slug": "proactive-agent",
       "label": "Proactive agent",
-      "status": "queued",
+      "status": "published",
       "notes": "Agents that act without a fresh user turn; needs policy, budgeting, and interruption design.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -2384,12 +2386,13 @@
         "scheduled-agent",
         "approval-workflow"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:19:48.768Z"
     },
     {
       "slug": "shadow-mode",
       "label": "Shadow mode",
-      "status": "queued",
+      "status": "published",
       "notes": "Run the agent or model in parallel without acting; useful for eval and trust building.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -2402,12 +2405,13 @@
         "eval-driven-development",
         "agent-reliability"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:19:48.768Z"
     },
     {
       "slug": "episodic-memory",
       "label": "Episodic memory",
-      "status": "queued",
+      "status": "published",
       "notes": "Remembered interaction episodes, not the whole chat log romanticised as mind.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -2420,12 +2424,13 @@
         "procedural-memory",
         "context-compaction"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:19:48.768Z"
     },
     {
       "slug": "synthetic-media",
       "label": "Synthetic media",
-      "status": "queued",
+      "status": "published",
       "notes": "Generated image, audio, video, and multimodal content as a category.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -2439,12 +2444,13 @@
         "voice-clone",
         "provenance"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:19:48.768Z"
     },
     {
       "slug": "dpo",
       "label": "DPO",
-      "status": "queued",
+      "status": "published",
       "notes": "Direct Preference Optimisation without a separate reward model loop.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -2457,7 +2463,8 @@
         "post-training",
         "sft"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:19:48.768Z"
     },
     {
       "slug": "json-mode",
