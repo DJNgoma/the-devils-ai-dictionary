@@ -983,8 +983,9 @@ describe("daily-term automation", () => {
       );
 
       expect(result.status).not.toBe(0);
-      expect(result.stderr).toContain("Failed to fetch origin/main after 3 attempts.");
-      expect(result.stderr).toContain("simulated fetch failure 3");
+      // Retry schedule "1,1,1" is three delays between tries → four total attempts.
+      expect(result.stderr).toContain("Failed to fetch origin/main after 4 attempts.");
+      expect(result.stderr).toContain("simulated fetch failure 4");
       expect(fs.existsSync(path.join(automationRoot, "workspaces"))).toBe(false);
     },
     30_000,

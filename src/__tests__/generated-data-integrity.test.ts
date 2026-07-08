@@ -124,6 +124,36 @@ describe("web snapshot", () => {
     expect(entry).not.toHaveProperty("misunderstoodScore");
     expect(entry).not.toHaveProperty("url");
   });
+
+  it("interns categories and omits default-empty sparse fields", () => {
+    const dictionary = (
+      webGeneratedData as typeof webGeneratedData & {
+        categoryDictionary?: string[];
+      }
+    ).categoryDictionary;
+
+    expect(Array.isArray(dictionary)).toBe(true);
+    expect(dictionary!.length).toBeGreaterThan(0);
+
+    for (const entry of webEntries) {
+      expect(Array.isArray(entry.categories)).toBe(true);
+      expect(entry.categories.length).toBeGreaterThan(0);
+      expect(entry.categories.every((value) => typeof value === "number")).toBe(true);
+
+      for (const index of entry.categories as number[]) {
+        expect(dictionary![index]).toEqual(expect.any(String));
+      }
+
+      if ("aliases" in entry) {
+        expect(Array.isArray(entry.aliases)).toBe(true);
+        expect(entry.aliases!.length).toBeGreaterThan(0);
+      }
+
+      if ("isVendorTerm" in entry) {
+        expect(entry.isVendorTerm).toBe(true);
+      }
+    }
+  });
 });
 
 describe("entry detail shards", () => {

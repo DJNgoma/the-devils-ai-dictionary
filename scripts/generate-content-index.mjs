@@ -336,11 +336,28 @@ async function buildEntryIndex() {
   }
 
   // The web worker imports this snapshot lazily. Strip fields that can be
-  // reconstructed or hydrated from shards so dictionary routes stay below the
-  // Cloudflare size budget while the native snapshot remains complete.
+  // reconstructed or hydrated from shards, intern repeated category strings,
+  // and omit default-false/empty fields so the hot catalogue grows with term
+  // count instead of with JSON boilerplate. The native/full snapshot stays complete.
+  const categoryDictionary = [];
+  const categoryIndexByName = new Map();
+
+  function categoryIndex(name) {
+    let index = categoryIndexByName.get(name);
+
+    if (index === undefined) {
+      index = categoryDictionary.length;
+      categoryIndexByName.set(name, index);
+      categoryDictionary.push(name);
+    }
+
+    return index;
+  }
+
   const webSnapshot = {
     ...snapshot,
     searchIndexPath,
+    categoryDictionary,
     entries: snapshot.entries.map((entry) => {
       const {
         body,
@@ -363,6 +380,9 @@ async function buildEntryIndex() {
         whyExists,
         tags,
         misunderstoodScore,
+        aliases,
+        isVendorTerm,
+        categories,
         ...rest
       } = entry;
       void body;
@@ -385,7 +405,22 @@ async function buildEntryIndex() {
       void searchText;
       void tags;
       void misunderstoodScore;
-      return rest;
+
+      const compact = {
+        ...rest,
+        categories: categories.map((category) => categoryIndex(category)),
+      };
+
+      // Default-empty / default-false fields are restored at runtime.
+      if (Array.isArray(aliases) && aliases.length > 0) {
+        compact.aliases = aliases;
+      }
+
+      if (isVendorTerm) {
+        compact.isVendorTerm = true;
+      }
+
+      return compact;
     }),
   };
   const webSnapshotText = serializeCatalogSnapshot(webSnapshot);

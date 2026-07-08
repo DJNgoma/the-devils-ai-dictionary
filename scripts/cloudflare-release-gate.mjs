@@ -4,7 +4,15 @@ import { gzipSync } from "node:zlib";
 import { pathToFileURL } from "node:url";
 
 export const defaultCloudflareReleaseBudgets = {
-  webSnapshotBytes: 560 * 1024,
+  // Absolute ceiling only: a hard safety net for Worker import cost.
+  // Day-to-day growth is gated by resolveWebSnapshotBudget() so adding terms
+  // does not require a one-off KiB bump every few dozen entries.
+  webSnapshotBytesCeiling: 896 * 1024,
+  // Fixed overhead for schedule/meta (dailyWordSlugs, publishedEntryBatches, …).
+  webSnapshotMetaBytes: 48 * 1024,
+  // Per-entry allowance after lazy strip + category interning + sparse defaults.
+  // Current compact density is ~600 B/entry; leave margin for longer definitions.
+  webSnapshotBytesPerEntry: 720,
   searchIndexBytes: 2 * 1024 * 1024,
   detailShardBytes: 160 * 1024,
   mobileSnapshotBytes: 5 * 1024 * 1024,
@@ -13,6 +21,27 @@ export const defaultCloudflareReleaseBudgets = {
   updatesOpenNextCacheBytes: 3.6 * 1024 * 1024,
   categoryOpenNextCacheBytes: 3.2 * 1024 * 1024,
 };
+
+/**
+ * Scale the lazy web snapshot budget with catalogue size.
+ * Fails on per-entry regressions; grows automatically with term count until
+ * the absolute ceiling forces a real architecture change (not a budget edit).
+ */
+export function resolveWebSnapshotBudget(
+  entryCount,
+  budgets = defaultCloudflareReleaseBudgets,
+) {
+  const count = Number.isFinite(entryCount) && entryCount > 0 ? entryCount : 0;
+  const metaBytes = budgets.webSnapshotMetaBytes ?? 48 * 1024;
+  const perEntry = budgets.webSnapshotBytesPerEntry ?? 720;
+  const ceiling =
+    budgets.webSnapshotBytesCeiling ??
+    budgets.webSnapshotBytes ??
+    896 * 1024;
+  const scaled = metaBytes + count * perEntry;
+
+  return Math.min(ceiling, scaled);
+}
 
 function fileSize(filePath) {
   return fs.statSync(filePath).size;
@@ -201,11 +230,14 @@ export function collectCloudflareReleaseGateResults({
     throw new Error("src/generated/entry-details.generated.json must not exist; use detail shards.");
   }
 
+  const webSnapshotBytes = fileSize(webSnapshotPath);
+  const webSnapshotBudget = resolveWebSnapshotBudget(webSnapshot.entryCount, budgets);
+
   results.push(
     assertBudget(
-      "Worker lazy web snapshot",
-      fileSize(webSnapshotPath),
-      budgets.webSnapshotBytes,
+      `Worker lazy web snapshot (${webSnapshot.entryCount} entries)`,
+      webSnapshotBytes,
+      webSnapshotBudget,
     ),
   );
 

@@ -118,16 +118,21 @@ type GeneratedWebSnapshot = {
   latestPublishedAt: string;
   publishedEntryBatches: GeneratedPublishedEntryBatch[];
   searchIndexPath?: string;
+  /** Interned category labels for compact web snapshots (indices in entry.categories). */
+  categoryDictionary?: string[];
 };
 
 /* ---------- pre-computed data (all heavy work done at build time) ---------- */
 
 type GeneratedWebEntry = Omit<
   Entry,
+  | "aliases"
   | "askNext"
   | "body"
+  | "categories"
   | "categorySlugs"
   | "example"
+  | "isVendorTerm"
   | "misuse"
   | "note"
   | "practicalMeaning"
@@ -144,6 +149,10 @@ type GeneratedWebEntry = Omit<
   | "tags"
   | "misunderstoodScore"
 > & {
+  /** Category labels, or dictionary indices when categoryDictionary is present. */
+  categories: Array<string | number>;
+  aliases?: string[];
+  isVendorTerm?: boolean;
   askNext?: string[];
   body?: string;
   categorySlugs?: string[];
@@ -212,11 +221,54 @@ const loadEntryDetailShard = cache(async (shardKey: EntryDetailShardKey) => {
   return detailsModule.default as Record<string, Partial<EntryDetailFields>>;
 });
 
-function normalizeEntry(entry: GeneratedWebEntry): Entry {
+function resolveEntryCategories(
+  entry: GeneratedWebEntry,
+  categoryDictionary?: string[],
+): string[] {
+  if (!Array.isArray(entry.categories) || entry.categories.length === 0) {
+    return [];
+  }
+
+  if (entry.categories.every((category) => typeof category === "string")) {
+    return entry.categories;
+  }
+
+  if (!categoryDictionary || categoryDictionary.length === 0) {
+    throw new Error(
+      `Web snapshot entry "${entry.slug}" uses interned categories without categoryDictionary.`,
+    );
+  }
+
+  return entry.categories.map((category) => {
+    if (typeof category === "string") {
+      return category;
+    }
+
+    const label = categoryDictionary[category];
+
+    if (typeof label !== "string" || label.length === 0) {
+      throw new Error(
+        `Web snapshot entry "${entry.slug}" references unknown category index ${category}.`,
+      );
+    }
+
+    return label;
+  });
+}
+
+function normalizeEntry(
+  entry: GeneratedWebEntry,
+  categoryDictionary?: string[],
+): Entry {
+  const categories = resolveEntryCategories(entry, categoryDictionary);
+
   return {
     ...entry,
+    aliases: entry.aliases ?? [],
+    categories,
+    isVendorTerm: entry.isVendorTerm ?? false,
     askNext: entry.askNext ?? defaultEntryDetails.askNext,
-    categorySlugs: entry.categorySlugs ?? entry.categories.map((category) => slugify(category)),
+    categorySlugs: entry.categorySlugs ?? categories.map((category) => slugify(category)),
     body: entry.body ?? defaultEntryDetails.body,
     example: entry.example ?? defaultEntryDetails.example,
     misuse: entry.misuse ?? defaultEntryDetails.misuse,
@@ -272,7 +324,9 @@ async function loadGeneratedData() {
 
 async function loadContentState(): Promise<ContentState> {
   const generatedData = await loadGeneratedData();
-  const entries = generatedData.entries.map(normalizeEntry);
+  const entries = generatedData.entries.map((entry) =>
+    normalizeEntry(entry, generatedData.categoryDictionary),
+  );
   const dictionaryWordCount =
     Number.isInteger(generatedData.entryCount) && generatedData.entryCount > 0
       ? generatedData.entryCount

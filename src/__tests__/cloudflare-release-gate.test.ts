@@ -8,6 +8,8 @@ import {
   assertWorkerStartupDoesNotEmbedWebSnapshot,
   assertBudget,
   parseWranglerGzipBytes,
+  resolveWebSnapshotBudget,
+  defaultCloudflareReleaseBudgets,
 } from "../../scripts/cloudflare-release-gate.mjs";
 
 describe("Cloudflare release gate helpers", () => {
@@ -21,6 +23,17 @@ describe("Cloudflare release gate helpers", () => {
     expect(() => assertBudget("Worker gzip bundle", 11, 10)).toThrow(
       /Worker gzip bundle/,
     );
+  });
+
+  it("scales the web snapshot budget with entry count until the ceiling", () => {
+    const { webSnapshotMetaBytes, webSnapshotBytesPerEntry, webSnapshotBytesCeiling } =
+      defaultCloudflareReleaseBudgets;
+
+    expect(resolveWebSnapshotBudget(100)).toBe(
+      webSnapshotMetaBytes + 100 * webSnapshotBytesPerEntry,
+    );
+    expect(resolveWebSnapshotBudget(10_000)).toBe(webSnapshotBytesCeiling);
+    expect(resolveWebSnapshotBudget(854)).toBeLessThan(webSnapshotBytesCeiling);
   });
 
   it("fails when startup chunks embed the web snapshot marker", () => {

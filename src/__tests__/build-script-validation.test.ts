@@ -441,10 +441,22 @@ describe("generated JSON size budget", () => {
   const webGeneratedPath = path.resolve(__dirname, "../../src/generated/entries.web.generated.json");
   const detailShardDir = path.resolve(__dirname, "../../src/generated/entry-details");
 
-  it("keeps the lazy web snapshot under 640 KB", () => {
+  it("keeps the lazy web snapshot within the growth-scaled budget", () => {
     const stats = fs.statSync(webGeneratedPath);
-    const sizeKB = stats.size / 1024;
-    expect(sizeKB).toBeLessThan(640);
+    const webGenerated = JSON.parse(fs.readFileSync(webGeneratedPath, "utf8"));
+    const entryCount = webGenerated.entryCount ?? webGenerated.entries?.length ?? 0;
+    // Keep in lockstep with scripts/cloudflare-release-gate.mjs.
+    const metaBytes = 48 * 1024;
+    const perEntry = 720;
+    const ceiling = 896 * 1024;
+    const budget = Math.min(ceiling, metaBytes + entryCount * perEntry);
+
+    expect(stats.size).toBeLessThanOrEqual(budget);
+    // Guard against per-entry regressions even when absolute headroom remains.
+    if (entryCount > 0) {
+      const bytesPerEntry = (stats.size - metaBytes) / entryCount;
+      expect(bytesPerEntry).toBeLessThan(perEntry);
+    }
   });
 
   it("keeps entry details split into bounded lazy shards", () => {
