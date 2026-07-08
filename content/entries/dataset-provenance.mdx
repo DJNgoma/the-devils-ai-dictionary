@@ -1,0 +1,55 @@
+---
+title: "Dataset provenance"
+slug: "dataset-provenance"
+letter: "D"
+categories:
+  - "Model building"
+  - "Safety and evaluation"
+aliases:
+  - "data provenance"
+  - "training data provenance"
+devilDefinition: |
+  The paperwork trail for where training data came from, often reconstructed after someone asks an awkward legal question.
+plainDefinition: |
+  Dataset provenance is recorded lineage about sources, licences, collection methods, transformations, and custodians of data used to train or evaluate models.
+whyExists: |
+  Regulators, customers, and incident responders need to know what went into a model. Provenance turns 'the internet' into auditable claims.
+misuse: |
+  Reduced to a single URL list, or invented post hoc. Partial provenance can be more misleading than an honest unknown.
+practicalMeaning: |
+  Track source IDs, licences, consent status, PII handling, and version hashes through pipelines. Treat provenance as production metadata, not slide filler.
+example: |
+  "Dataset provenance stopped at 'web crawl 2023' and hope."
+askNext:
+  - "Can you name sources for a contested capability or bias?"
+  - "Which licences bind redistribution of derivatives?"
+  - "Who owns provenance when vendors supply black-box data mixes?"
+related:
+  - "provenance"
+  - "data-poisoning"
+  - "model-supply-chain"
+seeAlso:
+  - "Provenance"
+  - "Data poisoning"
+  - "Model supply chain"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Unknown origin is a risk register entry, not a flex."
+tags:
+  - "data"
+  - "governance"
+  - "compliance"
+  - "training"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Dataset provenance is recorded lineage about sources, licences, collection methods, transformations, and custodians of data used to train or evaluate models."
+  - label: "what it usually means in reality"
+    text: "Track source IDs, licences, consent status, PII handling, and version hashes through pipelines."
+---
+
+Provenance is memory for datasets. Models inherit amnesia when it is missing.

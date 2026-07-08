@@ -1,0 +1,55 @@
+---
+title: "Hybrid search"
+slug: "hybrid-search"
+letter: "H"
+categories:
+  - "Retrieval and memory"
+aliases:
+  - "hybrid retrieval"
+  - "sparse-dense hybrid search"
+devilDefinition: |
+  Using keywords and vectors together so neither pure keyword pedantry nor pure vibes-based retrieval has to face the user alone.
+plainDefinition: |
+  Hybrid search combines lexical retrieval (for example BM25) with dense vector retrieval, usually via score fusion or reciprocal rank fusion, to improve recall and precision for RAG and search systems.
+whyExists: |
+  Sparse and dense retrievers fail differently. Hybrid systems catch exact identifiers and fuzzy semantics in one pipeline.
+misuse: |
+  Configured once with default weights and never re-tuned. Bad fusion can be worse than the better single method.
+practicalMeaning: |
+  Tune fusion weights on real queries, keep metadata filters, and evaluate on exact-match and semantic query sets separately.
+example: |
+  "Hybrid search finally found both the SKU and the paragraph that explained it."
+askNext:
+  - "How are sparse and dense scores fused?"
+  - "Do you evaluate identifier queries separately from conceptual ones?"
+  - "What is the latency cost of running both retrievers?"
+related:
+  - "rag"
+  - "reranking"
+  - "embeddings"
+seeAlso:
+  - "Rag"
+  - "Reranking"
+  - "Embeddings"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Two mediocre retrievers do not automatically become one good one."
+tags:
+  - "retrieval"
+  - "search"
+  - "rag"
+  - "embeddings"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Hybrid search combines lexical retrieval (for example BM25) with dense vector retrieval, usually via score fusion or reciprocal rank fusion, to improve recall and precision for RAG and search systems."
+  - label: "what it usually means in reality"
+    text: "Tune fusion weights on real queries, keep metadata filters, and evaluate on exact-match and semantic query sets separately."
+diagram: "rag"
+---
+
+Hybrid search is humility about retrieval. Humility still needs metrics.

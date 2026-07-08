@@ -1,0 +1,57 @@
+---
+title: "Model routing"
+slug: "model-routing"
+letter: "M"
+categories:
+  - "Infrastructure and deployment"
+  - "Economics and operations of AI"
+  - "Model usage"
+aliases:
+  - "LLM routing"
+  - "model router"
+devilDefinition: |
+  Sending easy questions to the cheap model and hard ones to the expensive model, until the router becomes the new untested model.
+plainDefinition: |
+  Model routing is the practice of directing each request to a chosen model or endpoint based on rules, classifiers, or policies—typically to balance cost, latency, capability, and risk.
+whyExists: |
+  One model is rarely optimal for every query. Systems needed a control plane for 'good enough versus best available' without rewriting the product for each call.
+misuse: |
+  Presented as free optimisation. Bad routers misclassify hard tasks onto weak models, or thrash between endpoints until latency and bills both rise.
+practicalMeaning: |
+  Define routing features (length, tool need, risk tier), log decisions, measure quality per route, and keep a safe fallback. Treat the router as production logic with tests.
+example: |
+  "Model routing saved money until customer support tickets all got the thrifty brain."
+askNext:
+  - "What signals decide the route, and how are they tested?"
+  - "What is the fallback when the primary model fails?"
+  - "Do you measure task success per route, not only average cost?"
+related:
+  - "inference-arbitrage"
+  - "inference-budget"
+  - "agent-cost-control"
+seeAlso:
+  - "Inference Arbitrage"
+  - "Inference Budget"
+  - "Agent Cost Control"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "The router can become the product’s quiet single point of judgement."
+tags:
+  - "routing"
+  - "cost"
+  - "inference"
+  - "architecture"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Model routing is the practice of directing each request to a chosen model or endpoint based on rules, classifiers, or policies—typically to balance cost, latency, capability, and risk."
+  - label: "what it usually means in reality"
+    text: "Define routing features (length, tool need, risk tier), log decisions, measure quality per route, and keep a safe fallback."
+diagram: "model-routing"
+---
+
+Model routing is budget policy with logits. Policies need audits.

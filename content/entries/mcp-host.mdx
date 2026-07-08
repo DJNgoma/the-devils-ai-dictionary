@@ -1,0 +1,57 @@
+---
+title: "MCP host"
+slug: "mcp-host"
+letter: "M"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+  - "Product and vendor terms"
+aliases:
+  - "MCP application host"
+  - "Model Context Protocol host"
+devilDefinition: |
+  The application that owns the MCP client lifecycle and the consent UX—where responsibility sits when a tool goes rogue.
+plainDefinition: |
+  An MCP host is the application (IDE, desktop agent, chat product) that embeds MCP client capabilities, manages connections to MCP servers, and presents permission surfaces to the user.
+whyExists: |
+  MCP separates servers (tools/resources) from hosts (user-facing apps). Security and UX live largely in the host.
+misuse: |
+  Blaming only servers for abuse when the host granted broad auto-approve. Host policy is the control plane.
+practicalMeaning: |
+  Implement least-privilege defaults, clear consent, server allowlists, and visible tool activity. Treat host security as product security.
+example: |
+  "The MCP host auto-approved a filesystem server and turned a coding session into a data export."
+askNext:
+  - "What does the host auto-approve?"
+  - "Can users inspect and revoke server access?"
+  - "How are dangerous tools labelled?"
+related:
+  - "mcp"
+  - "mcp-client"
+  - "mcp-server"
+seeAlso:
+  - "Mcp"
+  - "MCP client"
+  - "Mcp Server"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Hosts decide whether MCP is power tools or open doors."
+tags:
+  - "mcp"
+  - "agents"
+  - "security"
+  - "product"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "An MCP host is the application (IDE, desktop agent, chat product) that embeds MCP client capabilities, manages connections to MCP servers, and presents permission surfaces to the user."
+  - label: "what it usually means in reality"
+    text: "Implement least-privilege defaults, clear consent, server allowlists, and visible tool activity."
+diagram: "mcp"
+---
+
+MCP hosts are the product. Products own consent.

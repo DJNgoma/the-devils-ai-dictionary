@@ -1,0 +1,56 @@
+---
+title: "Groundedness"
+slug: "groundedness"
+letter: "G"
+categories:
+  - "Safety and evaluation"
+  - "Retrieval and memory"
+aliases:
+  - "grounded generation"
+  - "answer groundedness"
+devilDefinition: |
+  The virtue of staying tethered to the documents you were given, as opposed to freestyling with academic posture.
+plainDefinition: |
+  Groundedness means generated answers remain supported by provided or retrieved evidence rather than unconstrained model priors. It is related to, but not identical with, citation faithfulness and factuality against the world.
+whyExists: |
+  Enterprise RAG promised answers 'from your data.' Teams needed a measurable property for that constraint.
+misuse: |
+  Claimed whenever retrieval runs. A system can retrieve, ignore the evidence, and still sound corporate.
+practicalMeaning: |
+  Score answers against evidence sets, penalise unsupported spans, and design prompts/tools that force extract-then-generate patterns for high-stakes domains.
+example: |
+  "Groundedness looked fine in the demo corpus and collapsed on the first messy policy PDF."
+askNext:
+  - "What is the evidence set for each answer?"
+  - "Do you allow abstention when evidence is weak?"
+  - "Is groundedness evaluated automatically, by humans, or by hope?"
+related:
+  - "citation-faithfulness"
+  - "hallucination"
+  - "rag"
+seeAlso:
+  - "Citation faithfulness"
+  - "Hallucination"
+  - "Rag"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Grounded in documents is not the same as true in the world."
+tags:
+  - "rag"
+  - "evaluation"
+  - "factuality"
+  - "trust"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Groundedness means generated answers remain supported by provided or retrieved evidence rather than unconstrained model priors."
+  - label: "what it usually means in reality"
+    text: "Score answers against evidence sets, penalise unsupported spans, and design prompts/tools that force extract-then-generate patterns for high-stakes domains."
+diagram: "rag"
+---
+
+Groundedness is a leash. Useful leashes still need length limits and inspections.

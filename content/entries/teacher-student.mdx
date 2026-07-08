@@ -1,0 +1,52 @@
+---
+title: "Teacher-student"
+slug: "teacher-student"
+letter: "T"
+categories:
+  - "Model building"
+aliases:
+  - "teacher student distillation"
+  - "student model"
+devilDefinition: |
+  Distillation vocabulary: a big model teaches a small model, and both still need exams.
+plainDefinition: |
+  Teacher-student refers to the pairing in knowledge distillation where a larger or stronger teacher model provides signals that train a smaller student model.
+whyExists: |
+  It is the standard language of distillation setups across deep learning and modern LLM compression.
+misuse: |
+  Stretched into pure metaphor for any mentoring UI. In engineering contexts it should stay tied to training practice.
+practicalMeaning: |
+  Specify what the teacher provides (logits, sequences, preferences), on which data, and how the student is evaluated against the teacher.
+example: |
+  "The teacher-student setup transferred style quickly and factuality slowly."
+askNext:
+  - "What exact teacher signals are used?"
+  - "Is the student evaluated on the teacher's failure modes?"
+  - "When do you refresh the teacher?"
+related:
+  - "model-distillation"
+  - "fine-tuning"
+seeAlso:
+  - "Model distillation"
+  - "Fine Tuning"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Students inherit the teacher's blind spots by default."
+tags:
+  - "distillation"
+  - "training"
+  - "compression"
+  - "models"
+misunderstoodScore: 2
+translations:
+  - label: "technical meaning"
+    text: "Teacher-student refers to the pairing in knowledge distillation where a larger or stronger teacher model provides signals that train a smaller student model."
+  - label: "what it usually means in reality"
+    text: "Specify what the teacher provides (logits, sequences, preferences), on which data, and how the student is evaluated against the teacher."
+---
+
+Teacher-student is a training relationship. Relationships need curricula and tests.

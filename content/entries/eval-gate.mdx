@@ -1,0 +1,55 @@
+---
+title: "Eval gate"
+slug: "eval-gate"
+letter: "E"
+categories:
+  - "Safety and evaluation"
+  - "Economics and operations of AI"
+aliases:
+  - "evaluation gate"
+  - "quality gate"
+devilDefinition: |
+  A release blocker that says the model may not ship until the numbers clear the bar—bureaucracy that sometimes saves you.
+plainDefinition: |
+  An eval gate is a deployment or merge control that requires automated evaluation metrics to meet predefined thresholds before a model, prompt, or agent change is released.
+whyExists: |
+  Without gates, quality and safety regressions ship on vibes and schedule pressure. Gates encode non-negotiables into the pipeline.
+misuse: |
+  Set on vanity metrics, or chronically overridden. A gate that always opens is decoration.
+practicalMeaning: |
+  Choose metrics tied to user harm and product success, version them, limit overrides with audit logs, and keep suites fast enough to run always.
+example: |
+  "The eval gate blocked a prompt change that doubled toxic completions on a quiet slice."
+askNext:
+  - "Which metrics are blocking versus informational?"
+  - "Who can override, and is it rare?"
+  - "How quickly does the suite run in CI?"
+related:
+  - "eval-driven-development"
+  - "release-gate"
+  - "evals"
+seeAlso:
+  - "Eval Driven Development"
+  - "Release Gate"
+  - "Evals"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Gates only work if overrides are exceptional and visible."
+tags:
+  - "evaluation"
+  - "release"
+  - "quality"
+  - "process"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "An eval gate is a deployment or merge control that requires automated evaluation metrics to meet predefined thresholds before a model, prompt, or agent change is released."
+  - label: "what it usually means in reality"
+    text: "Choose metrics tied to user harm and product success, version them, limit overrides with audit logs, and keep suites fast enough to run always."
+---
+
+Eval gates are seatbelts for releases. Unbuckling should be rare and loud.

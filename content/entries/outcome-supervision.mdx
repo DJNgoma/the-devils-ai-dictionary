@@ -1,0 +1,55 @@
+---
+title: "Outcome supervision"
+slug: "outcome-supervision"
+letter: "O"
+categories:
+  - "Safety and evaluation"
+  - "Model building"
+aliases:
+  - "outcome-based supervision"
+  - "final-answer supervision"
+devilDefinition: |
+  Only marking the final answer right or wrong, which is cheap, common, and how lucky guesses get tenure.
+plainDefinition: |
+  Outcome supervision provides labels or rewards solely on final results—correct answer, successful trajectory end state—without grading intermediate steps.
+whyExists: |
+  Final labels are easier to collect at scale than full process traces. Much of modern post-training still depends on them.
+misuse: |
+  Assumed sufficient for teaching robust reasoning. Models can hack outcomes with shallow strategies.
+practicalMeaning: |
+  Use outcome supervision where checkers exist; add process supervision or verifiers for multi-step domains where shortcuts abound.
+example: |
+  "Outcome supervision rewarded the right number arrived at by memorised leakage."
+askNext:
+  - "Is the outcome checker gameable?"
+  - "Do you inspect winning trajectories?"
+  - "When is process signal worth the labelling cost?"
+related:
+  - "process-supervision"
+  - "evals"
+  - "reward-hacking"
+seeAlso:
+  - "Process supervision"
+  - "Evals"
+  - "Reward Hacking"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Right answers can travel on wrong roads."
+tags:
+  - "training"
+  - "supervision"
+  - "evaluation"
+  - "rewards"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Outcome supervision provides labels or rewards solely on final results—correct answer, successful trajectory end state—without grading intermediate steps."
+  - label: "what it usually means in reality"
+    text: "Use outcome supervision where checkers exist; add process supervision or verifiers for multi-step domains where shortcuts abound."
+---
+
+Outcome supervision scales. Scaling can also scale cheating.

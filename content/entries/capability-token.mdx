@@ -1,0 +1,56 @@
+---
+title: "Capability token"
+slug: "capability-token"
+letter: "C"
+categories:
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+  - "Agents and workflows"
+aliases:
+  - "capability-based token"
+  - "task token"
+devilDefinition: |
+  A short-lived permission object for one action—security's way of saying 'not a forever API key taped under the keyboard.'
+plainDefinition: |
+  A capability token is a credential that grants a specific, usually narrow and time-limited authority to perform an action or access a resource, often used for agents and tools.
+whyExists: |
+  Broad long-lived secrets are a disaster in agentic systems. Capability tokens encode least privilege more naturally.
+misuse: |
+  Issued with wide scopes and long TTLs, or logged in plaintext traces. Then they are just fancy passwords.
+practicalMeaning: |
+  Mint per-task tokens, bind audience and path, expire aggressively, and never place raw tokens in prompts if avoidable.
+example: |
+  "The capability token could upload to one bucket for ten minutes; the agent still tried to list the org."
+askNext:
+  - "How narrow is the scope really?"
+  - "What is the TTL and refresh policy?"
+  - "Are tokens redacted from logs and model context?"
+related:
+  - "workload-identity"
+  - "tool-allowlist"
+  - "agentic-iam"
+seeAlso:
+  - "Workload identity"
+  - "Tool allowlist"
+  - "Agentic IAM"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "A token is a key; treat key hygiene as non-negotiable."
+tags:
+  - "security"
+  - "authorization"
+  - "agents"
+  - "credentials"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "A capability token is a credential that grants a specific, usually narrow and time-limited authority to perform an action or access a resource, often used for agents and tools."
+  - label: "what it usually means in reality"
+    text: "Mint per-task tokens, bind audience and path, expire aggressively, and never place raw tokens in prompts if avoidable."
+---
+
+Capability tokens shrink keys to jobs. Jobs should end, and so should keys.

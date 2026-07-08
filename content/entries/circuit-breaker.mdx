@@ -1,0 +1,55 @@
+---
+title: "Circuit breaker"
+slug: "circuit-breaker"
+letter: "C"
+categories:
+  - "Infrastructure and deployment"
+  - "Agents and workflows"
+aliases:
+  - "API circuit breaker"
+  - "model circuit breaker"
+devilDefinition: |
+  The switch that stops calling a failing model before your retry loop becomes a denial-of-service against yourself.
+plainDefinition: |
+  A circuit breaker in AI systems is a resilience pattern that temporarily stops sending traffic to a failing model, tool, or dependency after error thresholds are crossed, then probes for recovery.
+whyExists: |
+  Cascading failures and retry storms are expensive with token APIs and tool backends. Classic reliability patterns moved into LLM stacks.
+misuse: |
+  Configured so tightly that brief blips permanently degrade UX, or so loosely that they never trip. Breakers without alerts are silent amputations.
+practicalMeaning: |
+  Set error-rate and latency thresholds, half-open probes, fallbacks, and dashboards. Distinguish client bugs from dependency outages.
+example: |
+  "The circuit breaker opened on the embedding service and saved the budget from a retry spiral."
+askNext:
+  - "What metrics open and close the breaker?"
+  - "What user experience runs in the open state?"
+  - "Who is alerted when it trips?"
+related:
+  - "fallback-model"
+  - "agent-reliability"
+  - "spend-limit"
+seeAlso:
+  - "Fallback model"
+  - "Agent reliability"
+  - "Spend Limit"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Failing closed forever is just another outage mode."
+tags:
+  - "reliability"
+  - "operations"
+  - "infrastructure"
+  - "resilience"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "A circuit breaker in AI systems is a resilience pattern that temporarily stops sending traffic to a failing model, tool, or dependency after error thresholds are crossed, then probes for recovery."
+  - label: "what it usually means in reality"
+    text: "Set error-rate and latency thresholds, half-open probes, fallbacks, and dashboards."
+---
+
+Circuit breakers are manners for distributed systems. Token APIs need manners too.

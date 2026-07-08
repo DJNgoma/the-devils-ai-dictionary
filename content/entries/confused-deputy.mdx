@@ -1,0 +1,55 @@
+---
+title: "Confused deputy"
+slug: "confused-deputy"
+letter: "C"
+categories:
+  - "Safety and evaluation"
+  - "Agents and workflows"
+aliases:
+  - "confused deputy problem"
+  - "confused-deputy attack"
+devilDefinition: |
+  A privileged helper tricked into abusing its power for someone who should not have it—classic security, now starring agents and tools.
+plainDefinition: |
+  A confused deputy is a program with authority that is misled into exercising that authority on behalf of an attacker; in AI systems this often involves tools, agents, or connectors with broad credentials.
+whyExists: |
+  Agents with tools are deputies. Prompt injection and hostile content try to confuse them into misusing privileges.
+misuse: |
+  Mentioned only as trivia. It is a design threat model for every high-privilege integration.
+practicalMeaning: |
+  Minimise authority, bind actions to user intent with confirmations, separate trusts per tool, and never let untrusted content freely choose privileged operations.
+example: |
+  "The confused deputy fetched the secret because the email said it was urgent and used polite words."
+askNext:
+  - "What authority does each tool identity hold?"
+  - "Can untrusted content trigger privileged tools?"
+  - "Where is user confirmation mandatory?"
+related:
+  - "agent-credential-sprawl"
+  - "tool-allowlist"
+  - "least-privilege"
+seeAlso:
+  - "Agent credential sprawl"
+  - "Tool allowlist"
+  - "Least Privilege"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Politeness in a prompt is not authorisation."
+tags:
+  - "security"
+  - "agents"
+  - "authorization"
+  - "threat-model"
+misunderstoodScore: 5
+translations:
+  - label: "technical meaning"
+    text: "A confused deputy is a program with authority that is misled into exercising that authority on behalf of an attacker; in AI systems this often involves tools, agents, or connectors with broad credenti"
+  - label: "what it usually means in reality"
+    text: "Minimise authority, bind actions to user intent with confirmations, separate trusts per tool, and never let untrusted content freely choose privileged operations."
+---
+
+Confused deputies fail by being too helpful with too much power. Reduce both.

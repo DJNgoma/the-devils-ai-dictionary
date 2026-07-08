@@ -1,0 +1,55 @@
+---
+title: "Self-consistency"
+slug: "self-consistency"
+letter: "S"
+categories:
+  - "Model usage"
+  - "Safety and evaluation"
+aliases:
+  - "self consistency decoding"
+  - "majority vote decoding"
+devilDefinition: |
+  Ask the model several times and trust the popular answer, as if democracy were a substitute for understanding.
+plainDefinition: |
+  Self-consistency is a decoding method that samples multiple reasoning paths and selects the answer that appears most often (or is otherwise aggregated), improving reliability on some reasoning tasks.
+whyExists: |
+  Chain-of-thought is noisy. Majority vote across samples reduces variance without new training.
+misuse: |
+  Assumed to guarantee correctness. Consistent wrong answers remain wrong, and cost scales with sample count.
+practicalMeaning: |
+  Use on tasks with a discrete final answer; measure accuracy versus samples and stop when gains flatten. Prefer verifiers when available.
+example: |
+  "Self-consistency agreed five ways on the wrong unit conversion."
+askNext:
+  - "Is the task answer checkable or only stylistically stable?"
+  - "What sample count is worth the latency?"
+  - "Do you log disagreement rate as a confidence signal?"
+related:
+  - "best-of-n"
+  - "reasoning-model"
+  - "test-time-compute"
+seeAlso:
+  - "Best-of-n"
+  - "Reasoning Model"
+  - "Test Time Compute"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Agreement is not truth."
+tags:
+  - "decoding"
+  - "reasoning"
+  - "test-time-compute"
+  - "reliability"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Self-consistency is a decoding method that samples multiple reasoning paths and selects the answer that appears most often (or is otherwise aggregated), improving reliability on some reasoning tasks."
+  - label: "what it usually means in reality"
+    text: "Use on tasks with a discrete final answer; measure accuracy versus samples and stop when gains flatten."
+---
+
+Self-consistency is ensemble thinking on one model. Ensembles can still share a delusion.

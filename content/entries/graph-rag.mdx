@@ -1,0 +1,54 @@
+---
+title: "Graph RAG"
+slug: "graph-rag"
+letter: "G"
+categories:
+  - "Retrieval and memory"
+  - "Model usage"
+aliases:
+  - "GraphRAG"
+  - "graph-based RAG"
+devilDefinition: |
+  Retrieval that draws little relationship diagrams so the system can pretend it understands structure rather than only nearest neighbours.
+plainDefinition: |
+  Graph RAG is a retrieval pattern that uses a knowledge graph—entities and relations—alongside or instead of pure vector similarity to fetch context for generation.
+whyExists: |
+  Vector search is good at 'aboutness' and weak at multi-hop structure. Graphs reintroduce explicit relationships that embeddings blur.
+misuse: |
+  Sold as automatic enterprise understanding. Building and maintaining a useful graph is the hard part; the acronym is the easy part.
+practicalMeaning: |
+  Start from the queries that need multi-hop relations. Measure whether graph expansion improves answer quality enough to justify extraction and graph ops cost.
+example: |
+  "Graph RAG found the entity link; the edge was last updated when the org chart still lied."
+askNext:
+  - "Who maintains the graph, and how stale is it?"
+  - "Which queries actually need relational traversal?"
+  - "How do you evaluate multi-hop answers beyond vibe demos?"
+related:
+  - "rag"
+  - "hybrid-search"
+seeAlso:
+  - "Rag"
+  - "Hybrid search"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "A graph of bad extractions is structured confusion."
+tags:
+  - "rag"
+  - "knowledge-graph"
+  - "retrieval"
+  - "structure"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Graph RAG is a retrieval pattern that uses a knowledge graph—entities and relations—alongside or instead of pure vector similarity to fetch context for generation."
+  - label: "what it usually means in reality"
+    text: "Start from the queries that need multi-hop relations."
+diagram: "rag"
+---
+
+Graph RAG is structure with a retrieval budget. Structure still rots.

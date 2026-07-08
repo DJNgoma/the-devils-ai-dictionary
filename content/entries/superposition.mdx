@@ -1,0 +1,55 @@
+---
+title: "Superposition"
+slug: "superposition"
+letter: "S"
+categories:
+  - "Model building"
+  - "Safety and evaluation"
+aliases:
+  - "feature superposition"
+  - "neural superposition"
+devilDefinition: |
+  The model packing more concepts into fewer dimensions than should politely fit, which is efficient until you try to interpret a single neuron.
+plainDefinition: |
+  Superposition in interpretability is the hypothesis that neural networks represent more features than they have dimensions by encoding features in overlapping directions, especially when features are sparse.
+whyExists: |
+  It explains why individual neurons often mix concepts and motivates dictionary learning approaches like sparse autoencoders.
+misuse: |
+  Used as a vague excuse that interpretability is impossible. Superposition is a modelling claim, not a surrender flag.
+practicalMeaning: |
+  Expect polysemantic units; use feature-level tools and interventions rather than single-neuron stories alone.
+example: |
+  "Superposition meant the 'dog' direction also part-timed as 'loyalty' and 'hot dog.'"
+askNext:
+  - "Are you interpreting neurons or features?"
+  - "What evidence supports overlapping encoding here?"
+  - "Do interventions behave as the feature story predicts?"
+related:
+  - "sparse-autoencoder"
+  - "mechanistic-interpretability"
+  - "polysemanticity"
+seeAlso:
+  - "Sparse autoencoder"
+  - "Mechanistic interpretability"
+  - "Polysemanticity"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Compressed representations resist naive storytelling."
+tags:
+  - "interpretability"
+  - "theory"
+  - "features"
+  - "research"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Superposition in interpretability is the hypothesis that neural networks represent more features than they have dimensions by encoding features in overlapping directions, especially when features are "
+  - label: "what it usually means in reality"
+    text: "Expect polysemantic units; use feature-level tools and interventions rather than single-neuron stories alone."
+---
+
+Superposition is packing density for features. Packing creates interference.

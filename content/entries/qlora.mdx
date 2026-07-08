@@ -1,0 +1,55 @@
+---
+title: "QLoRA"
+slug: "qlora"
+letter: "Q"
+categories:
+  - "Model building"
+  - "Infrastructure and deployment"
+aliases:
+  - "QLoRA fine-tuning"
+  - "Quantised LoRA"
+devilDefinition: |
+  LoRA on a quantised base so fine-tuning fits on hardware that finance will actually approve.
+plainDefinition: |
+  QLoRA is a fine-tuning method that freezes a quantised base model (commonly 4-bit) and trains LoRA adapters in higher precision, enabling large-model adaptation on smaller GPUs.
+whyExists: |
+  Full fine-tunes of large models are inaccessible to many teams. QLoRA made high-parameter adaptation practical on modest hardware.
+misuse: |
+  Assumed identical to full-precision full fine-tuning. Quantisation and adapter limits can reduce quality on hard tasks.
+practicalMeaning: |
+  Follow established recipes for rank, quant type, and learning rates; evaluate carefully; watch for training instability.
+example: |
+  "QLoRA fine-tuned the 70B on one GPU and still needed a week of eval arguments."
+askNext:
+  - "Which quantisation and LoRA config are you using?"
+  - "How close is quality to a stronger FT baseline?"
+  - "Are adapters versioned and reviewed?"
+related:
+  - "lora"
+  - "quantisation"
+  - "fine-tuning"
+seeAlso:
+  - "LoRA"
+  - "Quantisation"
+  - "Fine Tuning"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Accessible fine-tuning is still fine-tuning with consequences."
+tags:
+  - "fine-tuning"
+  - "quantisation"
+  - "adapters"
+  - "efficiency"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "QLoRA is a fine-tuning method that freezes a quantised base model (commonly 4-bit) and trains LoRA adapters in higher precision, enabling large-model adaptation on smaller GPUs."
+  - label: "what it usually means in reality"
+    text: "Follow established recipes for rank, quant type, and learning rates; evaluate carefully; watch for training instability."
+---
+
+QLoRA is thrift stacked on thrift. Measure what thrift costs in quality.

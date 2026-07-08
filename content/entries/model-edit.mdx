@@ -1,0 +1,55 @@
+---
+title: "Model edit"
+slug: "model-edit"
+letter: "M"
+categories:
+  - "Model building"
+  - "Safety and evaluation"
+aliases:
+  - "model editing"
+  - "weight edit"
+devilDefinition: |
+  A targeted parameter tweak sold as mind surgery, sometimes leaving the patient with new superstitions.
+plainDefinition: |
+  A model edit is a specific change to a model's parameters or associated memory to alter particular behaviours or facts, encompassing techniques like rank-one updates, adapter patches, or constrained fine-tunes.
+whyExists: |
+  Teams need fixes smaller than full retraining when a model is mostly fine but wrong in a critical place.
+misuse: |
+  Stacked edits without regression testing. Multiple local fixes can interact unpredictably.
+practicalMeaning: |
+  Version every edit, run neighbouring-fact and capability regressions, and prefer external knowledge for volatile facts.
+example: |
+  "The model edit corrected the pricing table and invented a new discount for fun."
+askNext:
+  - "What regression suite guards each edit?"
+  - "Is the edit reversible?"
+  - "Would retrieval solve this more cleanly?"
+related:
+  - "knowledge-editing"
+  - "unlearning"
+  - "fine-tuning"
+seeAlso:
+  - "Knowledge editing"
+  - "Unlearning"
+  - "Fine Tuning"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Small diffs can still have large behavioural radii."
+tags:
+  - "model-editing"
+  - "maintenance"
+  - "parameters"
+  - "ops"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "A model edit is a specific change to a model's parameters or associated memory to alter particular behaviours or facts, encompassing techniques like rank-one updates, adapter patches, or constrained f"
+  - label: "what it usually means in reality"
+    text: "Version every edit, run neighbouring-fact and capability regressions, and prefer external knowledge for volatile facts."
+---
+
+Model edits are patches. Patches need tests more than slogans.

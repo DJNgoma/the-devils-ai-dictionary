@@ -1,0 +1,55 @@
+---
+title: "Process reward model"
+slug: "process-reward-model"
+letter: "P"
+categories:
+  - "Model building"
+  - "Safety and evaluation"
+aliases:
+  - "PRM"
+  - "process reward modelling"
+devilDefinition: |
+  A model paid to grade the working, not only the answer, so training can scold the journey as well as the destination.
+plainDefinition: |
+  A process reward model (PRM) scores intermediate reasoning steps or partial solutions, providing denser training or search signal than outcome-only rewards that judge only the final answer.
+whyExists: |
+  Hard tasks have long traces. Waiting until the end to say 'wrong' wastes signal and encourages lucky final guesses after messy reasoning.
+misuse: |
+  Treated as objective truth about reasoning. PRMs can be gamed, miscalibrated, or biased toward verbose-looking steps.
+practicalMeaning: |
+  Use PRMs in search, RL, or critique loops with careful step labels and held-out process evals. Monitor for reward hacking that invents plausible junk steps.
+example: |
+  "The process reward model loved step three; step three was a confident detour into fiction."
+askNext:
+  - "Who labelled the good steps, and on what task distribution?"
+  - "Do you evaluate process quality separately from final accuracy?"
+  - "What stops the policy from optimising PRM quirks?"
+related:
+  - "process-supervision"
+  - "outcome-reward-model"
+  - "test-time-compute"
+seeAlso:
+  - "Process supervision"
+  - "Outcome reward model"
+  - "Test Time Compute"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Step scores are still opinions with weights."
+tags:
+  - "training"
+  - "rewards"
+  - "reasoning"
+  - "rl"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "A process reward model (PRM) scores intermediate reasoning steps or partial solutions, providing denser training or search signal than outcome-only rewards that judge only the final answer."
+  - label: "what it usually means in reality"
+    text: "Use PRMs in search, RL, or critique loops with careful step labels and held-out process evals."
+---
+
+Process rewards try to supervise the path. Paths can still learn to look supervised.

@@ -1,0 +1,56 @@
+---
+title: "Working memory"
+slug: "working-memory"
+letter: "W"
+categories:
+  - "Retrieval and memory"
+  - "Agents and workflows"
+aliases:
+  - "agent working memory"
+  - "short-term memory"
+devilDefinition: |
+  The small mental desk the agent uses right now, not to be confused with the attic it claims is long-term memory.
+plainDefinition: |
+  Working memory in AI systems is the short-lived state used during a task—context window contents, scratchpads, tool results—distinct from durable stores like vector memories or databases.
+whyExists: |
+  Agent designs needed language for ephemeral state versus persistent memory. Capacity and eviction policies differ sharply.
+misuse: |
+  Overloaded to mean any stored fact. If it vanishes when the session ends, it was working memory whether marketing agrees or not.
+practicalMeaning: |
+  Size working memory deliberately, summarise or spill to external stores, and avoid stuffing durable secrets into transient context without need.
+example: |
+  "Working memory held the API response; long-term memory held last month's wrong API response."
+askNext:
+  - "What is discarded at task end?"
+  - "How do you compress or page working state?"
+  - "Which facts must be durable instead?"
+related:
+  - "agent-memory"
+  - "context-window"
+  - "scratchpad"
+seeAlso:
+  - "Agent Memory"
+  - "Context Window"
+  - "Scratchpad"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Context windows are not filing cabinets."
+tags:
+  - "memory"
+  - "context"
+  - "agents"
+  - "state"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Working memory in AI systems is the short-lived state used during a task—context window contents, scratchpads, tool results—distinct from durable stores like vector memories or databases."
+  - label: "what it usually means in reality"
+    text: "Size working memory deliberately, summarise or spill to external stores, and avoid stuffing durable secrets into transient context without need."
+diagram: "context-window"
+---
+
+Working memory is the desk. Desks overflow; plan the overflow.

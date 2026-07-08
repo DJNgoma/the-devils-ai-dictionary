@@ -1,0 +1,56 @@
+---
+title: "JSON mode"
+slug: "json-mode"
+letter: "J"
+categories:
+  - "Model usage"
+  - "Product and vendor terms"
+aliases:
+  - "JSON Mode"
+  - "json output mode"
+devilDefinition: |
+  A toggle that makes the model sound more like a spreadsheet and less like a novelist, then still invents a field your schema never declared.
+plainDefinition: |
+  JSON mode is a vendor feature that steers model output toward syntactically valid JSON objects, usually via decoding constraints or strong instruction bias, without guaranteeing that the JSON matches your application schema.
+whyExists: |
+  Product teams need machine-readable answers more often than essays. A dedicated mode reduces broken braces and free-text apologies when the next step is a parser.
+misuse: |
+  Treated as schema validation, security boundary, or proof the model 'understands' structure. JSON mode can still emit wrong keys, wrong types, and confidently empty objects.
+practicalMeaning: |
+  Use it as a decoding bias, then validate against a real schema, repair or reject failures, and log the miss rate. Prefer true structured-output / schema-constrained decoding when the vendor offers it.
+example: |
+  "JSON mode fixed the curly braces; the invoice total still arrived as a motivational quote."
+askNext:
+  - "Is output validated against a schema after generation?"
+  - "Do you need constrained decoding, or only a softer JSON bias?"
+  - "What happens on schema failure: retry, repair, or human review?"
+related:
+  - "structured-outputs"
+  - "function-calling"
+  - "tool-use"
+seeAlso:
+  - "Structured Outputs"
+  - "Function Calling"
+  - "Tool Use"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "JSON-shaped does not mean application-correct."
+tags:
+  - "structured-output"
+  - "decoding"
+  - "apis"
+  - "model-usage"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "JSON mode is a vendor feature that steers model output toward syntactically valid JSON objects, usually via decoding constraints or strong instruction bias, without guaranteeing that the JSON matches "
+  - label: "what it usually means in reality"
+    text: "Use it as a decoding bias, then validate against a real schema, repair or reject failures, and log the miss rate."
+diagram: "function-calling"
+---
+
+JSON mode is manners for machines. It improves parse rates; it does not replace contracts.

@@ -1,0 +1,56 @@
+---
+title: "Attention sinks"
+slug: "attention-sinks"
+letter: "A"
+categories:
+  - "Model building"
+  - "Infrastructure and deployment"
+aliases:
+  - "attention sink tokens"
+  - "sink tokens"
+devilDefinition: |
+  Tokens that hoard attention mass so long-context streaming does not fall over—an engineering quirk promoted to a named phenomenon.
+plainDefinition: |
+  Attention sinks are tokens (often initial tokens) that absorb a large share of attention in transformer models; preserving them can stabilise behaviour in long-context and sliding-window inference settings.
+whyExists: |
+  Long-context serving exposed brittle attention patterns. Sinks became part of practical streaming and windowing techniques.
+misuse: |
+  Treated as a full theory of attention. They are an empirical and engineering concern more than a product feature users should configure casually.
+practicalMeaning: |
+  If you implement windowed attention or streaming caches, follow methods that preserve sink tokens; validate long-context quality after changes.
+example: |
+  "Attention sinks kept the stream stable after they stopped naively dropping the first tokens."
+askNext:
+  - "Does your serving path preserve sink tokens under windowing?"
+  - "What long-context tests regressed after cache changes?"
+  - "Are you on a method that documents sink handling?"
+related:
+  - "long-context"
+  - "kv-cache"
+  - "context-window"
+seeAlso:
+  - "Long context"
+  - "Kv Cache"
+  - "Context Window"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Streaming optimisations can rewrite model behaviour quietly."
+tags:
+  - "attention"
+  - "long-context"
+  - "serving"
+  - "transformers"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Attention sinks are tokens (often initial tokens) that absorb a large share of attention in transformer models; preserving them can stabilise behaviour in long-context and sliding-window inference set"
+  - label: "what it usually means in reality"
+    text: "If you implement windowed attention or streaming caches, follow methods that preserve sink tokens; validate long-context quality after changes."
+diagram: "context-window"
+---
+
+Attention sinks are a serving detail with model consequences. Details matter at length.

@@ -1,0 +1,55 @@
+---
+title: "Safetensors"
+slug: "safetensors"
+letter: "S"
+categories:
+  - "Infrastructure and deployment"
+  - "Safety and evaluation"
+aliases:
+  - "safe tensors"
+  - "safetensors format"
+devilDefinition: |
+  A weight format that refuses to pickle your machine, which should not have been a revolutionary demand.
+plainDefinition: |
+  Safetensors is a simple, safe tensor serialisation format designed to store model weights without the arbitrary code execution risks associated with pickle-based formats like some PyTorch defaults historically used.
+whyExists: |
+  Loading weights should not be remote code execution. The format became a hygiene default across much of the open model ecosystem.
+misuse: |
+  Treated as complete supply-chain security. Safe loading does not validate model behaviour, licences, or backdoored weights.
+practicalMeaning: |
+  Prefer safetensors distribution, verify checksums/signatures when available, and still evaluate models behaviourally before trust.
+example: |
+  "Safetensors stopped the clever checkpoint from executing a surprise installer."
+askNext:
+  - "Are all production weights in safetensors or equivalent safe formats?"
+  - "Do you verify integrity beyond file extension?"
+  - "Who can publish weights into your registry?"
+related:
+  - "model-supply-chain"
+  - "model-signing"
+  - "open-weight"
+seeAlso:
+  - "Model supply chain"
+  - "Model signing"
+  - "Open Weight"
+difficulty: "beginner"
+technicalDepth: "low"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Safe deserialization is necessary and not sufficient."
+tags:
+  - "security"
+  - "formats"
+  - "supply-chain"
+  - "weights"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Safetensors is a simple, safe tensor serialisation format designed to store model weights without the arbitrary code execution risks associated with pickle-based formats like some PyTorch defaults his"
+  - label: "what it usually means in reality"
+    text: "Prefer safetensors distribution, verify checksums/signatures when available, and still evaluate models behaviourally before trust."
+---
+
+Safetensors is seatbelts for weight loading. Seatbelts do not choose destinations.

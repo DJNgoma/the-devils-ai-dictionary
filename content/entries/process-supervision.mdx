@@ -1,0 +1,55 @@
+---
+title: "Process supervision"
+slug: "process-supervision"
+letter: "P"
+categories:
+  - "Safety and evaluation"
+  - "Model building"
+aliases:
+  - "process-supervised learning"
+  - "step supervision"
+devilDefinition: |
+  Grading the steps, not only the final answer, so models learn that the journey can also be wrong.
+plainDefinition: |
+  Process supervision provides feedback on intermediate reasoning steps or actions—via humans or models—rather than supervising only final outcomes.
+whyExists: |
+  Outcome-only labels are sparse and allow lucky correctness. Process labels teach better trajectories on hard multi-step tasks.
+misuse: |
+  Assumed objective. Process labels encode annotator taste and can reward verbose-looking but empty steps.
+practicalMeaning: |
+  Use process supervision where steps are meaningful and checkable; combine with outcome metrics; watch for reward hacking of the process judge.
+example: |
+  "Process supervision improved proofs until students learned to write steps the grader liked."
+askNext:
+  - "Who labels steps, and with what rubric?"
+  - "Do you measure final task success separately?"
+  - "What gaming behaviours appear?"
+related:
+  - "outcome-supervision"
+  - "chain-of-thought-monitoring"
+  - "evals"
+seeAlso:
+  - "Outcome supervision"
+  - "Chain-of-thought monitoring"
+  - "Evals"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Supervising process is still supervising a proxy."
+tags:
+  - "training"
+  - "supervision"
+  - "reasoning"
+  - "evaluation"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Process supervision provides feedback on intermediate reasoning steps or actions—via humans or models—rather than supervising only final outcomes."
+  - label: "what it usually means in reality"
+    text: "Use process supervision where steps are meaningful and checkable; combine with outcome metrics; watch for reward hacking of the process judge."
+---
+
+Process supervision teaches paths. Paths can be optimised for the teacher.

@@ -1,0 +1,56 @@
+---
+title: "Reranking"
+slug: "reranking"
+letter: "R"
+categories:
+  - "Retrieval and memory"
+  - "Model usage"
+aliases:
+  - "re-ranking"
+  - "cross-encoder reranking"
+devilDefinition: |
+  A second model that reorders search results so the first retrieval pass can remain gloriously imprecise.
+plainDefinition: |
+  Reranking is a second-stage retrieval step that scores a shortlist of candidate documents or passages more carefully—often with a cross-encoder—before they are passed to the generator.
+whyExists: |
+  First-stage retrieval optimises recall and speed. Rerankers trade compute for better precision on the top-k set.
+misuse: |
+  Expected to fix a terrible corpus or query understanding. Rerankers reorder; they do not invent missing documents.
+practicalMeaning: |
+  Rerank a modest candidate set, measure nDCG/recall@k on real queries, and watch latency budgets. Cache when queries repeat.
+example: |
+  "Reranking promoted the right policy paragraph above the FAQ that merely shared keywords."
+askNext:
+  - "How large is the candidate set before rerank?"
+  - "What metric improved in online evaluation?"
+  - "Is the reranker cost justified versus better chunking?"
+related:
+  - "hybrid-search"
+  - "rag"
+  - "retrieval-quality"
+seeAlso:
+  - "Hybrid search"
+  - "Rag"
+  - "Retrieval Quality"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Better order is not better knowledge."
+tags:
+  - "retrieval"
+  - "search"
+  - "rag"
+  - "ranking"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Reranking is a second-stage retrieval step that scores a shortlist of candidate documents or passages more carefully—often with a cross-encoder—before they are passed to the generator."
+  - label: "what it usually means in reality"
+    text: "Rerank a modest candidate set, measure nDCG/recall@k on real queries, and watch latency budgets."
+diagram: "rag"
+---
+
+Reranking is editorial judgement at machine speed. Editors still need a library.

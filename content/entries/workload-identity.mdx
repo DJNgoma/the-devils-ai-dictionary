@@ -1,0 +1,56 @@
+---
+title: "Workload identity"
+slug: "workload-identity"
+letter: "W"
+categories:
+  - "Infrastructure and deployment"
+  - "Safety and evaluation"
+  - "Agents and workflows"
+aliases:
+  - "workload identity federation"
+  - "non-human identity"
+devilDefinition: |
+  Giving software a passport so agents stop borrowing human credentials like a house key under the mat.
+plainDefinition: |
+  Workload identity is a security pattern where non-human workloads—services, jobs, agents—authenticate with cryptographically verifiable identities rather than long-lived shared secrets or person accounts.
+whyExists: |
+  Agents and automation multiply. Shared API keys and human logins do not scale safely to machine actors.
+misuse: |
+  Implemented as another static token renamed 'identity.' Without short life, binding, and policy, it is cosplay.
+practicalMeaning: |
+  Prefer OIDC/SPIFFE-style identities, least privilege, short credentials, and audit trails that name the workload—not only the team.
+example: |
+  "Workload identity let the agent call billing without copying a human's cloud key into a prompt."
+askNext:
+  - "Is identity short-lived and environment-bound?"
+  - "Can you revoke a single workload quickly?"
+  - "Do logs show which workload acted?"
+related:
+  - "agent-identity"
+  - "agentic-iam"
+  - "non-human-identity"
+seeAlso:
+  - "Agent identity"
+  - "Agentic IAM"
+  - "Non-human identity"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "A certificate is only as good as its issuance policy."
+tags:
+  - "security"
+  - "identity"
+  - "agents"
+  - "infrastructure"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Workload identity is a security pattern where non-human workloads—services, jobs, agents—authenticate with cryptographically verifiable identities rather than long-lived shared secrets or person accou"
+  - label: "what it usually means in reality"
+    text: "Prefer OIDC/SPIFFE-style identities, least privilege, short credentials, and audit trails that name the workload—not only the team."
+---
+
+Workload identity is how machines stop impersonating people. People should stop letting them.

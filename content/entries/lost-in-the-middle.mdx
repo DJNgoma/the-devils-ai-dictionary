@@ -1,0 +1,56 @@
+---
+title: "Lost in the middle"
+slug: "lost-in-the-middle"
+letter: "L"
+categories:
+  - "Model usage"
+  - "Retrieval and memory"
+aliases:
+  - "lost in the middle effect"
+  - "middle context neglect"
+devilDefinition: |
+  The documented habit of models reading the beginning and the end carefully while the middle of your prompt becomes decorative.
+plainDefinition: |
+  Lost-in-the-middle describes the empirical finding that language models often use information at the start and end of long contexts more reliably than information placed in the middle.
+whyExists: |
+  Long context marketing met attention and training realities. Practitioners needed a name for positional failure.
+misuse: |
+  Used as fatalism. Careful ordering, reranking, and retrieval can mitigate; it is a bias, not a law of physics.
+practicalMeaning: |
+  Put critical instructions and evidence at edges or in structured slots; retrieve fewer better chunks; evaluate with mid-context needles.
+example: |
+  "Lost-in-the-middle ate the indemnity clause sitting on page fourteen of the pasted contract."
+askNext:
+  - "Where do you place non-negotiable instructions?"
+  - "Do evals include mid-context facts?"
+  - "Would retrieval beat stuffing the whole corpus?"
+related:
+  - "long-context"
+  - "context-rot"
+  - "context-window"
+seeAlso:
+  - "Long context"
+  - "Context Rot"
+  - "Context Window"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Long prompts still have privileged seats."
+tags:
+  - "context"
+  - "attention"
+  - "rag"
+  - "evaluation"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Lost-in-the-middle describes the empirical finding that language models often use information at the start and end of long contexts more reliably than information placed in the middle."
+  - label: "what it usually means in reality"
+    text: "Put critical instructions and evidence at edges or in structured slots; retrieve fewer better chunks; evaluate with mid-context needles."
+diagram: "context-window"
+---
+
+Lost-in-the-middle is a seating chart for attention. Seat your priorities deliberately.

@@ -1,0 +1,56 @@
+---
+title: "Continuous batching"
+slug: "continuous-batching"
+letter: "C"
+categories:
+  - "Infrastructure and deployment"
+  - "Economics and operations of AI"
+aliases:
+  - "in-flight batching"
+  - "iteration-level batching"
+  - "continuous batching"
+devilDefinition: |
+  The serving trick that lets new requests join a GPU party already in progress, so nobody waits for a polite full batch that never quite fills.
+plainDefinition: |
+  Continuous batching is an inference-server scheduling technique that dynamically adds and removes requests from a running batch as prompts arrive and generations finish, keeping accelerators busier than static batching allows.
+whyExists: |
+  Requests do not arrive in neat simultaneous groups, and generations end at different times. Static batches waste capacity waiting for stragglers or empty seats.
+misuse: |
+  Sold as infinite free throughput. Continuous batching still contends for memory, KV cache, and compute; overpacking raises latency for everyone.
+practicalMeaning: |
+  Watch batch size, queue time, TTFT, and tokens-per-second under mixed traffic. Tune max concurrent sequences and memory budgets rather than assuming the buzzword alone multiplies capacity.
+example: |
+  "Continuous batching looked great until every long decode held KV memory hostage."
+askNext:
+  - "What limits concurrency: KV memory, compute, or rate limits?"
+  - "Are interactive and batch jobs isolated or fighting for the same batch slots?"
+  - "Which latency percentile regressed when utilisation went up?"
+related:
+  - "inference-stack"
+  - "prefill-decode-split"
+  - "tokens-per-dollar"
+seeAlso:
+  - "Inference Stack"
+  - "Prefill/decode split"
+  - "Tokens per dollar"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Full GPUs are not the same as happy users."
+tags:
+  - "serving"
+  - "batching"
+  - "inference"
+  - "throughput"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Continuous batching is an inference-server scheduling technique that dynamically adds and removes requests from a running batch as prompts arrive and generations finish, keeping accelerators busier th"
+  - label: "what it usually means in reality"
+    text: "Watch batch size, queue time, TTFT, and tokens-per-second under mixed traffic."
+---
+
+Continuous batching is queue theory with a CUDA accent.

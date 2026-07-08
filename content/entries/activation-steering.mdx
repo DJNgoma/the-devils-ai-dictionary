@@ -1,0 +1,55 @@
+---
+title: "Activation steering"
+slug: "activation-steering"
+letter: "A"
+categories:
+  - "Model building"
+  - "Safety and evaluation"
+aliases:
+  - "activation addition"
+  - "representation steering"
+devilDefinition: |
+  Nudging a model mid-thought by pushing on internal activations, like steering a car from under the bonnet.
+plainDefinition: |
+  Activation steering is a control technique that adds or subtracts vectors in a model's activation space during inference to bias behaviour—style, refusal, or attributes—without changing weights permanently.
+whyExists: |
+  Researchers wanted test-time behavioural control finer than prompts and cheaper than fine-tunes. Activations became a knobs layer.
+misuse: |
+  Sold as reliable alignment. Steering can be brittle across prompts, models, and scales, and may trade one failure mode for another.
+practicalMeaning: |
+  Treat as an experimental control surface with eval suites. Prefer productised guardrails and policies for production unless you can measure stability.
+example: |
+  "Activation steering made the model politer and slightly worse at saying no to bad ideas."
+askNext:
+  - "Which layers and strengths are used, and how were they chosen?"
+  - "What regressions appear under steering?"
+  - "Is this more controllable than a well-tested system prompt for your case?"
+related:
+  - "mechanistic-interpretability"
+  - "representation-engineering"
+  - "guardrails"
+seeAlso:
+  - "Mechanistic interpretability"
+  - "Representation engineering"
+  - "Guardrails"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Internal knobs are not certified moral systems."
+tags:
+  - "interpretability"
+  - "control"
+  - "inference"
+  - "research"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Activation steering is a control technique that adds or subtracts vectors in a model's activation space during inference to bias behaviour—style, refusal, or attributes—without changing weights perman"
+  - label: "what it usually means in reality"
+    text: "Treat as an experimental control surface with eval suites."
+---
+
+Activation steering is influence without retraining. Influence still needs measurement.

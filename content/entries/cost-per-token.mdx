@@ -1,0 +1,55 @@
+---
+title: "Cost per token"
+slug: "cost-per-token"
+letter: "C"
+categories:
+  - "Economics and operations of AI"
+  - "Model usage"
+aliases:
+  - "price per token"
+  - "token pricing"
+devilDefinition: |
+  The unit price that makes two APIs look comparable until you notice one charges for your novel-length system prompt every single turn.
+plainDefinition: |
+  Cost per token is the price charged or estimated for processing or generating a token of text (or multimodal equivalent), usually quoted separately for input and output and used as a rough unit economics measure.
+whyExists: |
+  Usage-based model APIs needed a billable unit finer than seats or servers. Tokens became the common currency of inference spend.
+misuse: |
+  Compared across vendors without matching context length, output ratio, caching, batch discounts, or quality. A cheaper token that forces more retries is not cheaper.
+practicalMeaning: |
+  Model total cost as input tokens, output tokens, cached tokens, tool calls, and failure retries. Track cost per successful task, not only list price per million tokens.
+example: |
+  "Their cost-per-token looked unbeatable until the agent burned three retries correcting itself."
+askNext:
+  - "Are input and output priced differently, and what is your typical ratio?"
+  - "Does the quote include cache hits, batch tiers, or only on-demand list price?"
+  - "What is cost per completed user task after retries and tool calls?"
+related:
+  - "tokens-per-dollar"
+  - "inference-budget"
+  - "context-budget"
+seeAlso:
+  - "Tokens per dollar"
+  - "Inference Budget"
+  - "Context budget"
+difficulty: "beginner"
+technicalDepth: "low"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Unit price without workload shape is theatre."
+tags:
+  - "pricing"
+  - "tokens"
+  - "unit-economics"
+  - "operations"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Cost per token is the price charged or estimated for processing or generating a token of text (or multimodal equivalent), usually quoted separately for input and output and used as a rough unit econom"
+  - label: "what it usually means in reality"
+    text: "Model total cost as input tokens, output tokens, cached tokens, tool calls, and failure retries."
+---
+
+Cost per token is the menu price. The bill is still about appetite and waste.

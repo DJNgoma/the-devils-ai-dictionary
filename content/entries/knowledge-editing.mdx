@@ -1,0 +1,54 @@
+---
+title: "Knowledge editing"
+slug: "knowledge-editing"
+letter: "K"
+categories:
+  - "Model building"
+aliases:
+  - "model knowledge editing"
+  - "fact editing"
+devilDefinition: |
+  Surgical rewrites of what a model believes, until the rest of its brain keeps quoting the old textbook.
+plainDefinition: |
+  Knowledge editing is a family of methods for modifying specific factual associations in a trained model without full retraining, using targeted parameter updates or external memory patches.
+whyExists: |
+  Facts change and errors ship. Full retraining is slow; editors promise local fixes.
+misuse: |
+  Treated as reliable memory surgery. Edits can fail to generalise, interfere with related knowledge, or decay under further training.
+practicalMeaning: |
+  Prefer retrieval for rapidly changing facts. Use editing for narrow static fixes with regression tests across neighbouring knowledge.
+example: |
+  "Knowledge editing fixed the CEO name and broke the subsidiary list."
+askNext:
+  - "How do you test locality and generality of an edit?"
+  - "Is retrieval a simpler source of truth?"
+  - "Who approves factual patches in production?"
+related:
+  - "unlearning"
+  - "fine-tuning"
+  - "model-edit"
+seeAlso:
+  - "Unlearning"
+  - "Fine Tuning"
+  - "Model edit"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Models are not databases with clean row updates."
+tags:
+  - "model-editing"
+  - "facts"
+  - "maintenance"
+  - "research"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Knowledge editing is a family of methods for modifying specific factual associations in a trained model without full retraining, using targeted parameter updates or external memory patches."
+  - label: "what it usually means in reality"
+    text: "Prefer retrieval for rapidly changing facts."
+---
+
+Knowledge editing is tempting because finetuning is heavy. Tempting tools need regression suites.

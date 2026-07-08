@@ -1,0 +1,55 @@
+---
+title: "SGLang"
+slug: "sglang"
+letter: "S"
+categories:
+  - "Infrastructure and deployment"
+  - "Product and vendor terms"
+aliases:
+  - "SGLang runtime"
+  - "SGLang serving"
+devilDefinition: |
+  A serving and structured-generation stack in the open inference ecosystem that people name when vLLM is not the only character in the story.
+plainDefinition: |
+  SGLang is an open-source serving framework focused on efficient LLM execution and structured generation workflows in the broader inference engine ecosystem.
+whyExists: |
+  Teams need runtimes that combine performance with constrained decoding and complex generation programs, not only raw chat completions.
+misuse: |
+  Assumed drop-in identical to every other engine. APIs, features, and performance envelopes differ.
+practicalMeaning: |
+  Evaluate on your structured-output and multi-call workloads, pin versions, and compare latency/memory against alternatives under the same models.
+example: |
+  "SGLang handled the constrained JSON path that the previous server treated as a suggestion."
+askNext:
+  - "Which features do you actually need from the runtime?"
+  - "What is the operational maturity for your team?"
+  - "How do you migrate if the engine stalls?"
+related:
+  - "vllm"
+  - "structured-outputs"
+  - "inference-stack"
+seeAlso:
+  - "Vllm"
+  - "Structured Outputs"
+  - "Inference Stack"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Runtime choice is an architecture decision, not a fashion choice."
+tags:
+  - "serving"
+  - "open-source"
+  - "inference"
+  - "structured-output"
+misunderstoodScore: 2
+translations:
+  - label: "technical meaning"
+    text: "SGLang is an open-source serving framework focused on efficient LLM execution and structured generation workflows in the broader inference engine ecosystem."
+  - label: "what it usually means in reality"
+    text: "Evaluate on your structured-output and multi-call workloads, pin versions, and compare latency/memory against alternatives under the same models."
+---
+
+SGLang is infrastructure with opinions. Benchmark the opinions on your traffic.

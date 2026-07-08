@@ -1,0 +1,55 @@
+---
+title: "PromptOps"
+slug: "prompt-ops"
+letter: "P"
+categories:
+  - "Economics and operations of AI"
+  - "Model usage"
+aliases:
+  - "prompt operations"
+  - "promptOps"
+devilDefinition: |
+  Treating prompts like production code after enough production incidents taught you they already were.
+plainDefinition: |
+  Prompt ops is the practice of versioning, testing, reviewing, and monitoring prompts and prompt templates as operational artefacts in LLM applications.
+whyExists: |
+  Tiny prompt edits change behaviour. Teams needed change control, evals, and ownership rather than wiki folklore.
+misuse: |
+  Reduced to a prompt CMS without tests, or over-processed so experiments freeze. Ops without metrics is bureaucracy.
+practicalMeaning: |
+  Store prompts in git or a versioned store, require eval gates on material changes, and attribute production traces to prompt versions.
+example: |
+  "Prompt ops caught the comma that made the agent skip authentication checks."
+askNext:
+  - "Who can edit production prompts?"
+  - "What eval suite runs before merge?"
+  - "Can you roll back to last week's wording in minutes?"
+related:
+  - "llm-ops"
+  - "prompt"
+  - "eval-harness"
+seeAlso:
+  - "LLMOps"
+  - "Prompt"
+  - "Eval Harness"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Unversioned prompts are unowned behaviour."
+tags:
+  - "prompts"
+  - "operations"
+  - "versioning"
+  - "quality"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Prompt ops is the practice of versioning, testing, reviewing, and monitoring prompts and prompt templates as operational artefacts in LLM applications."
+  - label: "what it usually means in reality"
+    text: "Store prompts in git or a versioned store, require eval gates on material changes, and attribute production traces to prompt versions."
+---
+
+Prompt ops is change management for instructions. Instructions steer systems; treat them accordingly.

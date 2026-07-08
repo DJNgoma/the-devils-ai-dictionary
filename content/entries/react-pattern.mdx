@@ -1,0 +1,55 @@
+---
+title: "ReAct pattern"
+slug: "react-pattern"
+letter: "R"
+categories:
+  - "Agents and workflows"
+  - "Model usage"
+aliases:
+  - "ReAct"
+  - "reason+act"
+  - "ReAct agent"
+devilDefinition: |
+  Reason, act, observe, repeat—until the agent has thought out loud enough to justify the API bill. Not the JavaScript library.
+plainDefinition: |
+  The ReAct pattern interleaves natural-language reasoning with tool actions and observations in a loop, so an agent can plan and gather information step by step.
+whyExists: |
+  Pure chain-of-thought cannot query systems; pure tool calls lack flexible planning text. ReAct combined both in a widely copied recipe.
+misuse: |
+  Confused with React the UI framework, or treated as the only agent architecture. Verbose traces can leak and cost without improving outcomes.
+practicalMeaning: |
+  Bound loop iterations, structure tool schemas tightly, and evaluate whether explicit reasoning text helps versus tool-only policies on your tasks.
+example: |
+  "The ReAct pattern found the answer in three tools and six paragraphs of self-narration."
+askNext:
+  - "What stops infinite reason-act loops?"
+  - "Are reasoning traces logged securely?"
+  - "Would a planner/executor split be clearer?"
+related:
+  - "plan-and-execute"
+  - "tool-use"
+seeAlso:
+  - "Plan and execute"
+  - "Tool Use"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "A popular pattern is still a pattern, not a product."
+tags:
+  - "agents"
+  - "patterns"
+  - "tools"
+  - "reasoning"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "The ReAct pattern interleaves natural-language reasoning with tool actions and observations in a loop, so an agent can plan and gather information step by step."
+  - label: "what it usually means in reality"
+    text: "Bound loop iterations, structure tool schemas tightly, and evaluate whether explicit reasoning text helps versus tool-only policies on your tasks."
+diagram: "agent-loop"
+---
+
+ReAct is a loop with a diary. Diaries should be bounded and secured.

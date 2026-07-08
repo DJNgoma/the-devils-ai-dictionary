@@ -1,0 +1,55 @@
+---
+title: "Acceptance rate"
+slug: "acceptance-rate"
+letter: "A"
+categories:
+  - "Infrastructure and deployment"
+  - "Model usage"
+aliases:
+  - "speculative acceptance rate"
+  - "draft acceptance rate"
+devilDefinition: |
+  In speculative decoding, how often the cheap draft guess survives the expensive model's judgement—also a metaphor for your PR process.
+plainDefinition: |
+  Acceptance rate in speculative decoding is the fraction of draft tokens proposed by a smaller or faster model that the target model accepts, determining how much speedup the scheme actually delivers.
+whyExists: |
+  Speculative decoding only helps when drafts are often right. Acceptance rate is the key efficiency metric.
+misuse: |
+  Quoted from toy prompts as if universal. Acceptance depends on task, temperature, draft quality, and domain shift.
+practicalMeaning: |
+  Measure acceptance on production-like traffic. If rates are low, fix the draft model or abandon speculation for that workload.
+example: |
+  "Acceptance rate looked great on chat and collapsed on code."
+askNext:
+  - "What is acceptance rate on your real traffic?"
+  - "How does it vary by task type?"
+  - "Is end-to-end latency actually better after overhead?"
+related:
+  - "draft-model"
+  - "speculative-decoding"
+  - "tokens-per-dollar"
+seeAlso:
+  - "Draft Model"
+  - "Speculative Decoding"
+  - "Tokens per dollar"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "A low acceptance rate is a slow tax with extra steps."
+tags:
+  - "serving"
+  - "speculative-decoding"
+  - "metrics"
+  - "inference"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Acceptance rate in speculative decoding is the fraction of draft tokens proposed by a smaller or faster model that the target model accepts, determining how much speedup the scheme actually delivers."
+  - label: "what it usually means in reality"
+    text: "Measure acceptance on production-like traffic."
+---
+
+Acceptance rate is whether speculation pays rent.

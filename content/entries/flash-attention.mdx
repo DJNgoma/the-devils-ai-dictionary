@@ -1,0 +1,55 @@
+---
+title: "FlashAttention"
+slug: "flash-attention"
+letter: "F"
+categories:
+  - "Infrastructure and deployment"
+  - "Model building"
+aliases:
+  - "FlashAttention"
+  - "Flash Attention"
+devilDefinition: |
+  An IO-aware attention implementation that made long context less of a memory traffic accident on GPUs.
+plainDefinition: |
+  FlashAttention is a family of exact attention algorithms and kernels that reduce high-bandwidth memory traffic via tiling and recomputation, enabling faster and more memory-efficient attention on GPUs.
+whyExists: |
+  Standard attention materialises large matrices that crush memory bandwidth. Better kernels unlocked practical longer contexts and larger batches.
+misuse: |
+  Cited as a product feature users configure. It is infrastructure; correctness and version compatibility matter more than the brand name in slides.
+practicalMeaning: |
+  Use maintained kernels via your framework, confirm numerical settings, and re-benchmark when CUDA/framework versions change.
+example: |
+  "FlashAttention cut memory enough to raise batch size without rewriting the model."
+askNext:
+  - "Which FlashAttention version does your stack pin?"
+  - "Do training and inference both use it where expected?"
+  - "What is the measured speedup on your shapes?"
+related:
+  - "context-window"
+  - "long-context"
+  - "inference-stack"
+seeAlso:
+  - "Context Window"
+  - "Long context"
+  - "Inference Stack"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Kernel choice is part of your reproducibility story."
+tags:
+  - "kernels"
+  - "attention"
+  - "performance"
+  - "gpus"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "FlashAttention is a family of exact attention algorithms and kernels that reduce high-bandwidth memory traffic via tiling and recomputation, enabling faster and more memory-efficient attention on GPUs"
+  - label: "what it usually means in reality"
+    text: "Use maintained kernels via your framework, confirm numerical settings, and re-benchmark when CUDA/framework versions change."
+---
+
+FlashAttention is plumbing that changed the possible. Plumbing still has versions.

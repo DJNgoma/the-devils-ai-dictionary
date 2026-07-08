@@ -1,0 +1,55 @@
+---
+title: "Chunking"
+slug: "chunking"
+letter: "C"
+categories:
+  - "Retrieval and memory"
+aliases:
+  - "document chunking"
+  - "text chunking"
+devilDefinition: |
+  Cutting documents into bite-sized pieces so retrieval can miss context at a carefully engineered granularity.
+plainDefinition: |
+  Chunking is the process of splitting documents into smaller segments for embedding, indexing, and retrieval, with size and boundary choices that strongly affect RAG quality.
+whyExists: |
+  Models and embedding indexes have finite context. Documents must be portioned to be searchable and injectable into prompts.
+misuse: |
+  Using fixed token sizes that bisect sentences, tables, and legal clauses. Bad chunking permanently cripples otherwise fine models.
+practicalMeaning: |
+  Prefer structure-aware splits (headings, paragraphs, semantic boundaries), tune overlap, and evaluate retrieval on real questions—not only chunk counts.
+example: |
+  "Chunking separated the exception from the rule and the model cited both as absolute."
+askNext:
+  - "Do chunk boundaries respect document structure?"
+  - "What overlap exists for cross-boundary facts?"
+  - "How do you handle tables and lists?"
+related:
+  - "rag"
+  - "embeddings"
+  - "context-window"
+seeAlso:
+  - "Rag"
+  - "Embeddings"
+  - "Context Window"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Retrieval quality often dies at the splitter."
+tags:
+  - "rag"
+  - "indexing"
+  - "retrieval"
+  - "preprocessing"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Chunking is the process of splitting documents into smaller segments for embedding, indexing, and retrieval, with size and boundary choices that strongly affect RAG quality."
+  - label: "what it usually means in reality"
+    text: "Prefer structure-aware splits (headings, paragraphs, semantic boundaries), tune overlap, and evaluate retrieval on real questions—not only chunk counts."
+diagram: "rag"
+---
+
+Chunking is editorial work disguised as ETL. Editorship shows up in answer quality.

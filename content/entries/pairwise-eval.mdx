@@ -1,0 +1,54 @@
+---
+title: "Pairwise eval"
+slug: "pairwise-eval"
+letter: "P"
+categories:
+  - "Safety and evaluation"
+aliases:
+  - "pairwise evaluation"
+  - "side-by-side eval"
+devilDefinition: |
+  Judging two answers by duel rather than absolute score, which often matches human taste and sometimes matches judge bias.
+plainDefinition: |
+  Pairwise eval compares two model outputs head-to-head under the same prompt, producing a preference rather than an absolute grade, commonly used with human or model judges.
+whyExists: |
+  Absolute scoring is hard and noisy. Humans are often better at choosing the better of two than assigning consistent points.
+misuse: |
+  Treated as bias-free. Position bias, verbosity bias, and judge model bias still skew results.
+practicalMeaning: |
+  Randomise order, control for length, use multiple judges, and report win rates with confidence intervals—not just a winner trophy.
+example: |
+  "Pairwise eval preferred the longer answer until they controlled for length."
+askNext:
+  - "Is order randomised?"
+  - "Who or what judges the pair?"
+  - "Do you stratify by task type?"
+related:
+  - "evals"
+  - "judge-model"
+  - "dpo"
+seeAlso:
+  - "Evals"
+  - "Judge model"
+  - "DPO"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "A duel winner can still be wrong for the user."
+tags:
+  - "evaluation"
+  - "preferences"
+  - "metrics"
+  - "judging"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Pairwise eval compares two model outputs head-to-head under the same prompt, producing a preference rather than an absolute grade, commonly used with human or model judges."
+  - label: "what it usually means in reality"
+    text: "Randomise order, control for length, use multiple judges, and report win rates with confidence intervals—not just a winner trophy."
+---
+
+Pairwise eval is comparative judgement. Comparative still needs experimental hygiene.

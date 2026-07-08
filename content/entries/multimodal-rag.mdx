@@ -1,0 +1,56 @@
+---
+title: "Multimodal RAG"
+slug: "multimodal-rag"
+letter: "M"
+categories:
+  - "Retrieval and memory"
+  - "Model usage"
+aliases:
+  - "multi-modal RAG"
+  - "multimodal retrieval augmented generation"
+devilDefinition: |
+  Retrieval that can fetch images, audio, or video clips so the model can misread more kinds of evidence at once.
+plainDefinition: |
+  Multimodal RAG retrieves and conditions generation on non-text or mixed modalities—images, audio, video, PDFs—using embeddings, captions, or specialised indexes alongside text retrieval.
+whyExists: |
+  Enterprise knowledge is not only markdown. Products needed retrieval that matches how evidence actually exists.
+misuse: |
+  Assuming a text RAG pipeline plus a vision model is enough. Chunking, alignment, OCR quality, and latency dominate outcomes.
+practicalMeaning: |
+  Separate indexes per modality when needed, invest in parsing, and evaluate with multimodal questions, not text-only benchmarks.
+example: |
+  "Multimodal RAG retrieved the right diagram and the model still described last year's version."
+askNext:
+  - "How are images and pages chunked and captioned?"
+  - "What is end-to-end latency with large media?"
+  - "How do you cite non-text evidence for users?"
+related:
+  - "rag"
+  - "embeddings"
+  - "hybrid-search"
+seeAlso:
+  - "Rag"
+  - "Embeddings"
+  - "Hybrid search"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "More modalities multiply failure modes."
+tags:
+  - "rag"
+  - "multimodal"
+  - "retrieval"
+  - "search"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Multimodal RAG retrieves and conditions generation on non-text or mixed modalities—images, audio, video, PDFs—using embeddings, captions, or specialised indexes alongside text retrieval."
+  - label: "what it usually means in reality"
+    text: "Separate indexes per modality when needed, invest in parsing, and evaluate with multimodal questions, not text-only benchmarks."
+diagram: "rag"
+---
+
+Multimodal RAG expands the library. Libraries still need catalogues and librarians.

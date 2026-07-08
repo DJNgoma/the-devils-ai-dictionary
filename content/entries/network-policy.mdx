@@ -1,0 +1,56 @@
+---
+title: "Network policy"
+slug: "network-policy"
+letter: "N"
+categories:
+  - "Infrastructure and deployment"
+  - "Safety and evaluation"
+  - "Agents and workflows"
+aliases:
+  - "egress policy"
+  - "agent network policy"
+devilDefinition: |
+  The list of places an agent is allowed to call, written after it already called somewhere regrettable.
+plainDefinition: |
+  Network policy for agents and model integrations defines allowed and denied destinations, protocols, and egress rules so tools cannot reach arbitrary hosts.
+whyExists: |
+  Tool-using agents with open internet access are data exfiltration and lateral-movement machines. Policy is the seatbelt.
+misuse: |
+  Set to 'allow all' in dev and forgotten in prod, or so strict that the agent cannot do its job and humans disable it.
+practicalMeaning: |
+  Default deny, allowlist required domains, separate policies per environment, and log every egress attempt including denials.
+example: |
+  "Network policy blocked the agent's surprise dependency download and saved the week."
+askNext:
+  - "Is egress default-deny with an allowlist?"
+  - "Who can change the allowlist, and is it audited?"
+  - "Do denials alert someone?"
+related:
+  - "egress-control"
+  - "sandbox"
+  - "tool-allowlist"
+seeAlso:
+  - "Egress control"
+  - "Sandbox"
+  - "Tool allowlist"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Open egress is an implied trust decision."
+tags:
+  - "security"
+  - "networking"
+  - "agents"
+  - "policy"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Network policy for agents and model integrations defines allowed and denied destinations, protocols, and egress rules so tools cannot reach arbitrary hosts."
+  - label: "what it usually means in reality"
+    text: "Default deny, allowlist required domains, separate policies per environment, and log every egress attempt including denials."
+---
+
+Network policy is geography for packets. Agents need maps with fences.

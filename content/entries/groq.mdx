@@ -1,0 +1,55 @@
+---
+title: "Groq"
+slug: "groq"
+letter: "G"
+categories:
+  - "Product and vendor terms"
+  - "Infrastructure and deployment"
+aliases:
+  - "Groq LPU"
+  - "Groq Cloud"
+devilDefinition: |
+  The company people name when they want tokens so fast that product managers start believing latency was only a personality problem.
+plainDefinition: |
+  Groq is an inference company known for low-latency serving of open-weight models on its LPU (Language Processing Unit) hardware and cloud API, competing on speed and price rather than training frontier models.
+whyExists: |
+  Open models still need someone to run them quickly and cheaply. Specialised inference hardware and software became a product category of their own.
+misuse: |
+  Confused with model creators, or treated as proof that any model is 'faster' rather than that a particular serving stack is. Hardware advantage is workload- and model-dependent.
+practicalMeaning: |
+  Evaluate Groq as an inference provider: latency percentiles, model catalogue, rate limits, regional availability, and cost against alternatives for your actual traffic shape.
+example: |
+  "They switched the demo to Groq so the chatbot would answer before the slide advanced."
+askNext:
+  - "Which models and context lengths are actually available on the endpoint you plan to use?"
+  - "How do p95 latency and cost compare on your prompt mix, not a vendor slide?"
+  - "What is the failover if the provider is down or rate-limits you?"
+related:
+  - "inference-provider"
+  - "tokens-per-dollar"
+  - "latency"
+seeAlso:
+  - "Inference Provider"
+  - "Tokens per dollar"
+  - "Latency"
+difficulty: "beginner"
+technicalDepth: "low"
+hypeLevel: "medium"
+isVendorTerm: true
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Vendor speed is not model intelligence."
+tags:
+  - "inference"
+  - "vendor"
+  - "latency"
+  - "hardware"
+misunderstoodScore: 2
+translations:
+  - label: "product meaning"
+    text: "Groq is an inference company known for low-latency serving of open-weight models on its LPU (Language Processing Unit) hardware and cloud API, competing on speed and price rather than training frontie"
+  - label: "what it usually means in reality"
+    text: "Evaluate Groq as an inference provider: latency percentiles, model catalogue, rate limits, regional availability, and cost against alternatives for your actual traffic shape."
+---
+
+Groq sells time. The dictionary entry is about that product category, not a hardware romance.

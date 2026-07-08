@@ -1,0 +1,55 @@
+---
+title: "PII redaction"
+slug: "pii-redaction"
+letter: "P"
+categories:
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+aliases:
+  - "PII scrubbing"
+  - "personal data redaction"
+devilDefinition: |
+  Blanking out personal data before logs and models see it, imperfectly, which is still better than shipping the passport number in cleartext.
+plainDefinition: |
+  PII redaction is the process of detecting and removing or masking personally identifiable information in text and artefacts before storage, training, logging, or tool calls.
+whyExists: |
+  LLM pipelines copy data into prompts, traces, and fine-tunes. Redaction reduces privacy and compliance exposure.
+misuse: |
+  Treated as complete anonymisation. Detectors miss novel formats; context can re-identify; audio and images need their own handling.
+practicalMeaning: |
+  Combine detectors, allowlists/denylists, minimisation at collection, and access controls. Test with realistic PII forms from your domain.
+example: |
+  "PII redaction caught emails and missed employee IDs formatted as internal codes."
+askNext:
+  - "Which PII types matter in your jurisdiction and product?"
+  - "Where does unredacted data still flow?"
+  - "How do you evaluate detector recall?"
+related:
+  - "data-loss-prevention"
+  - "context-perimeter"
+  - "privacy"
+seeAlso:
+  - "Data Loss Prevention"
+  - "Context perimeter"
+  - "Privacy"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Redaction is risk reduction, not magic invisibility."
+tags:
+  - "privacy"
+  - "security"
+  - "compliance"
+  - "data"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "PII redaction is the process of detecting and removing or masking personally identifiable information in text and artefacts before storage, training, logging, or tool calls."
+  - label: "what it usually means in reality"
+    text: "Combine detectors, allowlists/denylists, minimisation at collection, and access controls."
+---
+
+PII redaction is hygiene. Hygiene fails open if you stop checking.

@@ -1,0 +1,55 @@
+---
+title: "On-behalf-of"
+slug: "on-behalf-of"
+letter: "O"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+aliases:
+  - "on behalf of"
+  - "delegated authority"
+devilDefinition: |
+  Acting for a user with delegated authority—the difference between helpful automation and borrowed identity.
+plainDefinition: |
+  On-behalf-of describes an agent or service performing actions under delegated authority for a principal user, ideally with scoped tokens and clear audit attribution rather than shared passwords.
+whyExists: |
+  Agents need to email, file, and purchase for people. Delegation patterns from identity systems became central to agent safety.
+misuse: |
+  Implemented as 'login as the user' with full privileges. That is impersonation, not delegation.
+practicalMeaning: |
+  Use OAuth-style delegation, narrow scopes, short lifetimes, user-visible consents, and logs that show agent and principal separately.
+example: |
+  "On-behalf-of access let the agent book travel without holding the CEO password in a prompt."
+askNext:
+  - "What scopes were granted, and can the user revoke them?"
+  - "Do audits show agent versus human actions?"
+  - "Is step-up auth required for sensitive acts?"
+related:
+  - "delegated-authentication"
+  - "agent-identity"
+  - "workload-identity"
+seeAlso:
+  - "Delegated authentication"
+  - "Agent identity"
+  - "Workload identity"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Delegation without scope is a blank cheque."
+tags:
+  - "identity"
+  - "security"
+  - "agents"
+  - "authorization"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "On-behalf-of describes an agent or service performing actions under delegated authority for a principal user, ideally with scoped tokens and clear audit attribution rather than shared passwords."
+  - label: "what it usually means in reality"
+    text: "Use OAuth-style delegation, narrow scopes, short lifetimes, user-visible consents, and logs that show agent and principal separately."
+---
+
+On-behalf-of is power of attorney for software. Write narrow powers.

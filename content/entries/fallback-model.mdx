@@ -1,0 +1,56 @@
+---
+title: "Fallback model"
+slug: "fallback-model"
+letter: "F"
+categories:
+  - "Infrastructure and deployment"
+  - "Agents and workflows"
+aliases:
+  - "model fallback"
+  - "secondary model"
+devilDefinition: |
+  The understudy model that appears when the star is slow, down, or too expensive—sometimes mid-sentence in production.
+plainDefinition: |
+  A fallback model is a secondary model or endpoint used when the primary model fails, times out, is rate-limited, or is policy-blocked, preserving availability at possible quality cost.
+whyExists: |
+  Single-model dependence is fragile. Production systems need degraded modes that still answer.
+misuse: |
+  Configured silently so users never know quality changed, or pointed at a model that cannot perform the same tools and formats.
+practicalMeaning: |
+  Define trigger conditions, quality expectations, feature parity, and user-visible degradation signals. Test fallbacks as first-class paths.
+example: |
+  "The fallback model kept the site up and the legal answers creative."
+askNext:
+  - "What exactly triggers fallback?"
+  - "Does the fallback support the same tools and schemas?"
+  - "Do dashboards separate primary and fallback quality?"
+related:
+  - "model-routing"
+  - "agent-reliability"
+  - "circuit-breaker"
+seeAlso:
+  - "Model routing"
+  - "Agent reliability"
+  - "Circuit breaker"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Availability without honesty is a soft outage."
+tags:
+  - "reliability"
+  - "routing"
+  - "inference"
+  - "operations"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "A fallback model is a secondary model or endpoint used when the primary model fails, times out, is rate-limited, or is policy-blocked, preserving availability at possible quality cost."
+  - label: "what it usually means in reality"
+    text: "Define trigger conditions, quality expectations, feature parity, and user-visible degradation signals."
+diagram: "model-routing"
+---
+
+Fallback models are insurance. Insurance should not be a surprise to the customer.

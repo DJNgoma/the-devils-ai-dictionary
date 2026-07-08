@@ -1,0 +1,55 @@
+---
+title: "LoRA"
+slug: "lora"
+letter: "L"
+categories:
+  - "Model building"
+  - "Infrastructure and deployment"
+aliases:
+  - "Low-Rank Adaptation"
+  - "LoRA adapters"
+devilDefinition: |
+  Low-rank adapters that let you fine-tune without moving every weight, popular because GPUs and patience are finite.
+plainDefinition: |
+  LoRA (Low-Rank Adaptation) fine-tunes models by learning small low-rank update matrices injected into layers, leaving most base weights frozen.
+whyExists: |
+  Full fine-tunes are heavy. LoRA makes adaptation cheaper, more portable, and easier to swap per task.
+misuse: |
+  Assumed equal to full fine-tuning for every domain. Capacity limits and hyperparameter sensitivity remain real.
+practicalMeaning: |
+  Tune rank and target modules, evaluate against full FT when stakes are high, and version adapters like code.
+example: |
+  "LoRA adapted the model to support tone without hosting a second full checkpoint."
+askNext:
+  - "Which modules are adapted, and at what rank?"
+  - "How do you evaluate adapter interference when stacking?"
+  - "Where are adapters stored and approved?"
+related:
+  - "fine-tuning"
+  - "qlora"
+  - "post-training"
+seeAlso:
+  - "Fine Tuning"
+  - "QLoRA"
+  - "Post Training"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Small adapters can still encode large policy changes."
+tags:
+  - "fine-tuning"
+  - "adapters"
+  - "efficiency"
+  - "training"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "LoRA (Low-Rank Adaptation) fine-tunes models by learning small low-rank update matrices injected into layers, leaving most base weights frozen."
+  - label: "what it usually means in reality"
+    text: "Tune rank and target modules, evaluate against full FT when stakes are high, and version adapters like code."
+---
+
+LoRA is thrifty fine-tuning. Thrift still needs evaluation.

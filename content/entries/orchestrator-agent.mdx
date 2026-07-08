@@ -1,0 +1,55 @@
+---
+title: "Orchestrator agent"
+slug: "orchestrator-agent"
+letter: "O"
+categories:
+  - "Agents and workflows"
+aliases:
+  - "orchestrator"
+  - "planner agent"
+devilDefinition: |
+  The manager agent that assigns work to other agents and then discovers management is also a failure mode.
+plainDefinition: |
+  An orchestrator agent coordinates multi-step or multi-agent workflows: decomposing goals, delegating subtasks, integrating results, and handling retries or escalations.
+whyExists: |
+  Complex tasks exceed single-tool loops. Systems needed a control agent that owns the plan while specialists execute.
+misuse: |
+  Stacked until every problem becomes a committee. Orchestrators can amplify errors, duplicate work, and hide accountability.
+practicalMeaning: |
+  Keep one clear owner of state and permissions. Limit fan-out, require structured handoffs, and measure end-to-end success rather than agent count.
+example: |
+  "The orchestrator agent scheduled four specialists to reinvent the same function."
+askNext:
+  - "Who holds durable state and final authority?"
+  - "How are conflicts between specialist agents resolved?"
+  - "What is the human escalation path?"
+related:
+  - "multi-agent"
+  - "supervisor-agent"
+  - "agent-handoff"
+seeAlso:
+  - "Multi Agent"
+  - "Supervisor agent"
+  - "Agent handoff"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "More managers do not guarantee more progress."
+tags:
+  - "agents"
+  - "orchestration"
+  - "workflows"
+  - "multi-agent"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "An orchestrator agent coordinates multi-step or multi-agent workflows: decomposing goals, delegating subtasks, integrating results, and handling retries or escalations."
+  - label: "what it usually means in reality"
+    text: "Keep one clear owner of state and permissions."
+diagram: "agent-loop"
+---
+
+Orchestrators are useful when work is truly multi-part. They are expensive when it is not.

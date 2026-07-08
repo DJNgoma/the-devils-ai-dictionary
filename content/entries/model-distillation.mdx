@@ -1,0 +1,55 @@
+---
+title: "Model distillation"
+slug: "model-distillation"
+letter: "M"
+categories:
+  - "Model building"
+  - "Economics and operations of AI"
+aliases:
+  - "knowledge distillation"
+  - "distillation"
+devilDefinition: |
+  Teaching a smaller model to imitate a larger one so you can serve almost the same answers with a better bill—almost being the expensive word.
+plainDefinition: |
+  Model distillation trains a student model to match a teacher model's outputs or behaviours, transferring capability into a smaller or cheaper model.
+whyExists: |
+  Large models are costly to serve. Distillation is a primary way to compress capability for deployment.
+misuse: |
+  Assumed complete transfer. Students miss long tails, tool skills, and safety behaviours unless those are explicitly distilled and tested.
+practicalMeaning: |
+  Distil on task distributions you care about, evaluate safety and capability separately, and monitor production divergence from the teacher.
+example: |
+  "Model distillation kept the demo smart and dropped the edge-case refusals."
+askNext:
+  - "What teacher behaviours were included in training?"
+  - "Which evals compare student and teacher?"
+  - "Is the student allowed to drift via later fine-tunes?"
+related:
+  - "fine-tuning"
+  - "open-weight"
+  - "inference-budget"
+seeAlso:
+  - "Fine Tuning"
+  - "Open Weight"
+  - "Inference Budget"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Imitation is selective unless you force breadth."
+tags:
+  - "training"
+  - "compression"
+  - "efficiency"
+  - "deployment"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Model distillation trains a student model to match a teacher model's outputs or behaviours, transferring capability into a smaller or cheaper model."
+  - label: "what it usually means in reality"
+    text: "Distil on task distributions you care about, evaluate safety and capability separately, and monitor production divergence from the teacher."
+---
+
+Distillation is apprenticeship at scale. Apprentices skip lessons you do not teach.

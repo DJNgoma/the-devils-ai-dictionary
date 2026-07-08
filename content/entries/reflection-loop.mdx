@@ -1,0 +1,56 @@
+---
+title: "Reflection loop"
+slug: "reflection-loop"
+letter: "R"
+categories:
+  - "Agents and workflows"
+  - "Model usage"
+aliases:
+  - "reflection"
+  - "self-reflection loop"
+devilDefinition: |
+  A second chance for the agent to criticise itself, sometimes productively and sometimes as paid procrastination.
+plainDefinition: |
+  A reflection loop is an agent pattern where the system generates an output, critiques it against criteria, and revises—possibly multiple times—before finishing.
+whyExists: |
+  Single-pass generation misses constraints. Reflection adds a structured improvement cycle without always needing a second model.
+misuse: |
+  Unbounded loops that burn tokens polishing prose. Reflection without external checks can reinforce errors.
+practicalMeaning: |
+  Cap iterations, use explicit rubrics, and stop early when criteria are met. Add external verifiers for code and facts.
+example: |
+  "The reflection loop improved tone three times and never fixed the off-by-one."
+askNext:
+  - "What stopping rule ends reflection?"
+  - "Is there an external verifier?"
+  - "Does iteration improve task metrics or only style?"
+related:
+  - "self-critique"
+  - "agent-reliability"
+  - "evals"
+seeAlso:
+  - "Self-critique"
+  - "Agent reliability"
+  - "Evals"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "More passes are not free intelligence."
+tags:
+  - "agents"
+  - "quality"
+  - "patterns"
+  - "reasoning"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "A reflection loop is an agent pattern where the system generates an output, critiques it against criteria, and revises—possibly multiple times—before finishing."
+  - label: "what it usually means in reality"
+    text: "Cap iterations, use explicit rubrics, and stop early when criteria are met."
+diagram: "agent-loop"
+---
+
+Reflection loops buy revision. Revision needs criteria and a budget.

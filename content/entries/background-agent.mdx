@@ -1,0 +1,56 @@
+---
+title: "Background agent"
+slug: "background-agent"
+letter: "B"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "background coding agent"
+  - "always-on agent"
+devilDefinition: |
+  An agent that keeps working after you close the tab, which is either autonomy or a process you forgot to kill.
+plainDefinition: |
+  A background agent is an agentic system designed to continue multi-step work outside a live chat session—often writing code, filing tickets, or producing artefacts that surface later via notification, PR, or inbox.
+whyExists: |
+  Useful work often takes longer than a single conversation window. Products needed a shape for long-running delegated tasks without blocking a human at the keyboard.
+misuse: |
+  Marketed as 'set and forget' without budgets, kill switches, audit logs, or clear ownership of side effects. Background does not mean unsupervised forever.
+practicalMeaning: |
+  Require explicit scopes, resource limits, progress traces, and human review points for irreversible actions. Treat background agents like batch jobs with credentials, not magic interns.
+example: |
+  "The background agent opened twelve PRs overnight and one production incident."
+askNext:
+  - "What stops the agent when it loops or exceeds budget?"
+  - "Which actions require approval versus silent execution?"
+  - "Where is the durable trace of what it did while nobody watched?"
+related:
+  - "async-agent"
+  - "coding-agent"
+  - "agent-workspace"
+seeAlso:
+  - "Async agent"
+  - "Coding Agent"
+  - "Agent Workspace"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Out of sight is not out of blast radius."
+tags:
+  - "agents"
+  - "async"
+  - "automation"
+  - "operations"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "A background agent is an agentic system designed to continue multi-step work outside a live chat session—often writing code, filing tickets, or producing artefacts that surface later via notification,"
+  - label: "what it usually means in reality"
+    text: "Require explicit scopes, resource limits, progress traces, and human review points for irreversible actions."
+diagram: "agent-loop"
+---
+
+Background agents move work into time you are not staring at. They also move risk there.

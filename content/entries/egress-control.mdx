@@ -1,0 +1,56 @@
+---
+title: "Egress control"
+slug: "egress-control"
+letter: "E"
+categories:
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+  - "Agents and workflows"
+aliases:
+  - "data egress control"
+  - "outbound controls"
+devilDefinition: |
+  Rules for which data may leave a system—because models and agents are enthusiastic correspondents.
+plainDefinition: |
+  Egress control limits outbound data flows from applications, agents, or model integrations to approved destinations, reducing exfiltration and compliance risk.
+whyExists: |
+  LLM tools call the network. Without egress control, sensitive context travels to wherever a prompt or plugin suggests.
+misuse: |
+  Configured only at the corporate proxy while agents use side channels, or so blunt that work moves to shadow tools.
+practicalMeaning: |
+  Combine network allowlists, DLP inspection where appropriate, per-tool credentials, and logging of outbound payloads' metadata.
+example: |
+  "Egress control stopped the agent from pasting the customer export into a random webhook."
+askNext:
+  - "What destinations are allowlisted for each agent?"
+  - "How is sensitive data detected in outbound paths?"
+  - "Who reviews temporary exceptions?"
+related:
+  - "data-loss-prevention"
+  - "tool-allowlist"
+  - "sandbox"
+seeAlso:
+  - "Data Loss Prevention"
+  - "Tool allowlist"
+  - "Sandbox"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "If it can call home, someone will teach it a new home."
+tags:
+  - "security"
+  - "networking"
+  - "dlp"
+  - "agents"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Egress control limits outbound data flows from applications, agents, or model integrations to approved destinations, reducing exfiltration and compliance risk."
+  - label: "what it usually means in reality"
+    text: "Combine network allowlists, DLP inspection where appropriate, per-tool credentials, and logging of outbound payloads' metadata."
+---
+
+Egress control is the door policy for data. Agents test doors.

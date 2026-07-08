@@ -1,0 +1,53 @@
+---
+title: "Data poisoning"
+slug: "data-poisoning"
+letter: "D"
+categories:
+  - "Safety and evaluation"
+  - "Model building"
+aliases:
+  - "training data poisoning"
+  - "poisoning attack"
+devilDefinition: |
+  Corrupting training or retrieval data on purpose so the model learns the attacker's lesson as if it were curriculum.
+plainDefinition: |
+  Data poisoning is an attack that inserts or manipulates training, fine-tuning, or retrieval data to induce targeted misbehaviour, backdoors, or degraded performance.
+whyExists: |
+  Models inherit their data. Adversaries noticed that influencing the corpus can influence the model more cheaply than breaking production later.
+misuse: |
+  Used loosely for any bad data quality. Poisoning implies adversarial intent or strategically planted artefacts, not only messiness.
+practicalMeaning: |
+  Harden data supply chains, review fine-tune corpora, monitor retrieval indexes for suspicious inserts, and test for trigger behaviours.
+example: |
+  "Data poisoning turned a help article into a credential-harvesting script the model loved to quote."
+askNext:
+  - "Who can write to training and retrieval corpora?"
+  - "Do you scan for known trigger patterns?"
+  - "Is third-party data attested and versioned?"
+related:
+  - "eval-leakage"
+  - "context-poisoning"
+seeAlso:
+  - "Eval leakage"
+  - "Context Poisoning"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "If anyone can edit the corpus, anyone can edit the model eventually."
+tags:
+  - "security"
+  - "data"
+  - "attacks"
+  - "training"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Data poisoning is an attack that inserts or manipulates training, fine-tuning, or retrieval data to induce targeted misbehaviour, backdoors, or degraded performance."
+  - label: "what it usually means in reality"
+    text: "Harden data supply chains, review fine-tune corpora, monitor retrieval indexes for suspicious inserts, and test for trigger behaviours."
+---
+
+Data poisoning attacks the curriculum. Guard the curriculum like production.

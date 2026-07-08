@@ -1,0 +1,55 @@
+---
+title: "Model theft"
+slug: "model-theft"
+letter: "M"
+categories:
+  - "Safety and evaluation"
+  - "Economics and operations of AI"
+aliases:
+  - "model extraction"
+  - "weight theft"
+devilDefinition: |
+  Stealing a model by copying weights, distilling behaviour, or walking out with a checkpoint on a drive—IP crime with FLOPs.
+plainDefinition: |
+  Model theft is unauthorised acquisition of proprietary model weights or close behavioural clones through extraction attacks, insider exfiltration, or insecure distribution.
+whyExists: |
+  Models are valuable IP and dual-use artefacts. Theft enables competitors and adversaries to skip training costs.
+misuse: |
+  Applied only to cinematic weight heists. API extraction and distillation can also approximate proprietary behaviour.
+practicalMeaning: |
+  Control weight access, monitor anomalous query patterns, rate-limit and watermark where useful, and treat fine-tune outputs as sensitive.
+example: |
+  "Model theft concerns rose after the internal checkpoint appeared on a public mirror."
+askNext:
+  - "Who can download weights, and is that logged?"
+  - "Do APIs show extraction-like traffic?"
+  - "What is the incident response for leaked checkpoints?"
+related:
+  - "model-supply-chain"
+  - "confidential-inference"
+  - "closed-weight"
+seeAlso:
+  - "Model supply chain"
+  - "Confidential inference"
+  - "Closed Weight"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "If weights are easy to copy, assume someone will try."
+tags:
+  - "security"
+  - "ip"
+  - "extraction"
+  - "economics"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Model theft is unauthorised acquisition of proprietary model weights or close behavioural clones through extraction attacks, insider exfiltration, or insecure distribution."
+  - label: "what it usually means in reality"
+    text: "Control weight access, monitor anomalous query patterns, rate-limit and watermark where useful, and treat fine-tune outputs as sensitive."
+---
+
+Model theft is supply-chain and API security wearing a research hat.

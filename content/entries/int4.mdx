@@ -1,0 +1,55 @@
+---
+title: "INT4"
+slug: "int4"
+letter: "I"
+categories:
+  - "Infrastructure and deployment"
+  - "Model building"
+aliases:
+  - "4-bit quantisation"
+  - "INT4 weights"
+devilDefinition: |
+  Four-bit integers for weights so a laptop can host a model that once needed a small power plant—quality optional, marketing mandatory.
+plainDefinition: |
+  INT4 quantisation stores weights in 4-bit integer formats commonly used for local and edge LLM serving to minimise memory footprint.
+whyExists: |
+  Consumer hardware and edge devices cannot host full-precision large models. Aggressive quantisation is how they fit.
+misuse: |
+  Assumed equal to the full model. Task sensitivity varies; some domains degrade sharply at 4-bit.
+practicalMeaning: |
+  Test on your prompts, prefer methods with calibration, and watch multilingual and coding quality especially.
+example: |
+  "INT4 made the model fit in RAM and made rare entity names optional."
+askNext:
+  - "Which INT4 method and group size?"
+  - "What tasks regressed versus higher precision?"
+  - "Is decode speed actually better on your CPU/GPU?"
+related:
+  - "quantisation"
+  - "qlora"
+  - "on-device-ai"
+seeAlso:
+  - "Quantisation"
+  - "QLoRA"
+  - "On Device Ai"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Fits-in-memory is not passes-your-eval."
+tags:
+  - "quantisation"
+  - "edge"
+  - "local-models"
+  - "compression"
+misunderstoodScore: 2
+translations:
+  - label: "technical meaning"
+    text: "INT4 quantisation stores weights in 4-bit integer formats commonly used for local and edge LLM serving to minimise memory footprint."
+  - label: "what it usually means in reality"
+    text: "Test on your prompts, prefer methods with calibration, and watch multilingual and coding quality especially."
+---
+
+INT4 is aggressive thrift. Thrift shows up in the answers.

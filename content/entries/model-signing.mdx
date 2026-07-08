@@ -1,0 +1,53 @@
+---
+title: "Model signing"
+slug: "model-signing"
+letter: "M"
+categories:
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+aliases:
+  - "signed models"
+  - "model artefact signing"
+devilDefinition: |
+  Cryptographic attestation that a weight file is the one you meant to deploy, not a surprise remix from an untrusted mirror.
+plainDefinition: |
+  Model signing attaches cryptographic signatures or attestations to model artefacts so deployers can verify integrity and authenticity before loading weights into production.
+whyExists: |
+  Weights are large binaries moved across registries and clouds. Integrity checks reduce tampering and mix-up risk.
+misuse: |
+  Treated as proof the model is safe or unbiased. Signatures prove provenance of bits, not goodness of behaviour.
+practicalMeaning: |
+  Sign at publish time, verify at deploy time, manage keys properly, and fail closed on mismatch.
+example: |
+  "Model signing blocked a checkpoint that had the right name and the wrong hash."
+askNext:
+  - "Who holds signing keys, and how are they rotated?"
+  - "Does every environment verify before load?"
+  - "What is the process for emergency hotfixes?"
+related:
+  - "model-supply-chain"
+  - "provenance"
+seeAlso:
+  - "Model supply chain"
+  - "Provenance"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "A valid signature can still belong to a terrible model."
+tags:
+  - "security"
+  - "supply-chain"
+  - "deployment"
+  - "cryptography"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Model signing attaches cryptographic signatures or attestations to model artefacts so deployers can verify integrity and authenticity before loading weights into production."
+  - label: "what it usually means in reality"
+    text: "Sign at publish time, verify at deploy time, manage keys properly, and fail closed on mismatch."
+---
+
+Model signing is checksums with authority. Authority needs key ceremony discipline.

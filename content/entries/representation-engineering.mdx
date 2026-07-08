@@ -1,0 +1,53 @@
+---
+title: "Representation engineering"
+slug: "representation-engineering"
+letter: "R"
+categories:
+  - "Model building"
+  - "Safety and evaluation"
+aliases:
+  - "RepE"
+  - "representation eng"
+devilDefinition: |
+  Editing behaviour by finding directions in activation space, then hoping those directions mean what the paper said on Tuesday.
+plainDefinition: |
+  Representation engineering is a family of methods that identify and manipulate internal representational directions associated with concepts or behaviours to monitor or control models.
+whyExists: |
+  Prompts are blunt. Researchers seek more direct levers on model internals for safety and control research.
+misuse: |
+  Overclaimed as mature product control. Concept directions can be unstable, polysemantic, and evaluation-sensitive.
+practicalMeaning: |
+  Use in research and carefully scoped experiments with strong behavioural evals. Do not substitute for policy, filtering, and access control in production without evidence.
+example: |
+  "Representation engineering reduced sycophancy in the lab and odd politeness regressions in the wild."
+askNext:
+  - "How stable is the direction across prompts and seeds?"
+  - "What side effects appear on unrelated tasks?"
+  - "Is there a simpler external control that works?"
+related:
+  - "activation-steering"
+  - "mechanistic-interpretability"
+seeAlso:
+  - "Activation steering"
+  - "Mechanistic interpretability"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Pretty geometry is not a safety case."
+tags:
+  - "interpretability"
+  - "control"
+  - "research"
+  - "safety"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Representation engineering is a family of methods that identify and manipulate internal representational directions associated with concepts or behaviours to monitor or control models."
+  - label: "what it usually means in reality"
+    text: "Use in research and carefully scoped experiments with strong behavioural evals."
+---
+
+Representation engineering is a research control surface. Production needs boring guarantees too.

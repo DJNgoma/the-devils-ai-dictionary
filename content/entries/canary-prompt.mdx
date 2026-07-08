@@ -1,0 +1,55 @@
+---
+title: "Canary prompt"
+slug: "canary-prompt"
+letter: "C"
+categories:
+  - "Safety and evaluation"
+  - "Economics and operations of AI"
+aliases:
+  - "canary prompts"
+  - "probe prompt"
+devilDefinition: |
+  A fixed probe question you keep asking production so you notice when the model quietly becomes someone else.
+plainDefinition: |
+  A canary prompt is a stable test input (or small set) run continuously or at deploy time to detect behavioural regressions, configuration mistakes, or unexpected model swaps.
+whyExists: |
+  LLM systems drift via prompts, models, tools, and decoding settings. Canaries provide cheap smoke tests in production.
+misuse: |
+  Only one canary that everyone overfits to. Narrow canaries miss broad regressions.
+practicalMeaning: |
+  Maintain a diverse canary pack, alert on unexpected deltas, and keep expected outputs or graded properties versioned beside the prompts.
+example: |
+  "The canary prompt started refusing a benign billing question after a routing change."
+askNext:
+  - "What properties do canaries assert?"
+  - "How fast do alerts fire on delta?"
+  - "Are canaries representative of critical flows?"
+related:
+  - "evals"
+  - "eval-gate"
+  - "hallucination-rate"
+seeAlso:
+  - "Evals"
+  - "Eval gate"
+  - "Hallucination rate"
+difficulty: "intermediate"
+technicalDepth: "low"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "A green canary is necessary and not sufficient."
+tags:
+  - "evaluation"
+  - "monitoring"
+  - "production"
+  - "regression"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "A canary prompt is a stable test input (or small set) run continuously or at deploy time to detect behavioural regressions, configuration mistakes, or unexpected model swaps."
+  - label: "what it usually means in reality"
+    text: "Maintain a diverse canary pack, alert on unexpected deltas, and keep expected outputs or graded properties versioned beside the prompts."
+---
+
+Canary prompts are smoke alarms. Install more than one.

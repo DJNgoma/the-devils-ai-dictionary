@@ -1,0 +1,56 @@
+---
+title: "Long context"
+slug: "long-context"
+letter: "L"
+categories:
+  - "Model usage"
+  - "Infrastructure and deployment"
+aliases:
+  - "long context window"
+  - "extended context"
+devilDefinition: |
+  A context window large enough to hold your entire backlog, and still lose the one sentence that mattered.
+plainDefinition: |
+  Long context refers to models and serving stacks that accept very large input windows—tens or hundreds of thousands of tokens—so more documents, logs, or history fit in a single prompt.
+whyExists: |
+  Users hit window limits constantly. Extending context reduces some RAG complexity and enables new workflows over large artefacts.
+misuse: |
+  Treated as perfect memory and perfect attention. Models still degrade, costs rise, and 'lost in the middle' effects persist.
+practicalMeaning: |
+  Measure accuracy versus length on your tasks, watch cost and latency, and keep retrieval for corpora larger than any honest window.
+example: |
+  "Long context swallowed the PDF and still asked for the page that was already there."
+askNext:
+  - "What is effective context quality at your target length?"
+  - "How does price scale with filled context?"
+  - "When is retrieval still cheaper and more accurate?"
+related:
+  - "context-window"
+  - "context-rot"
+  - "lost-in-the-middle"
+seeAlso:
+  - "Context Window"
+  - "Context Rot"
+  - "Lost in the middle"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Capacity is not comprehension."
+tags:
+  - "context"
+  - "models"
+  - "rag"
+  - "cost"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Long context refers to models and serving stacks that accept very large input windows—tens or hundreds of thousands of tokens—so more documents, logs, or history fit in a single prompt."
+  - label: "what it usually means in reality"
+    text: "Measure accuracy versus length on your tasks, watch cost and latency, and keep retrieval for corpora larger than any honest window."
+diagram: "context-window"
+---
+
+Long context is a bigger desk. Bigger desks still hide papers under other papers.

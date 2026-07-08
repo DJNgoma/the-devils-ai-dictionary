@@ -1,0 +1,55 @@
+---
+title: "FP8"
+slug: "fp8"
+letter: "F"
+categories:
+  - "Infrastructure and deployment"
+  - "Model building"
+aliases:
+  - "8-bit float"
+  - "FP8 training"
+devilDefinition: |
+  Eight-bit floats that let training and inference pack more math into silicon, until someone forgets which FP8 flavour the stack expected.
+plainDefinition: |
+  FP8 is a family of 8-bit floating-point formats used to reduce memory and increase throughput in modern training and inference stacks, with multiple variants and scaling strategies.
+whyExists: |
+  Hardware vendors added FP8 paths as models grew. Software stacks followed to exploit the performance.
+misuse: |
+  Treated as a single standard. Format details, scaling, and kernel support differ and can silently break numerics.
+practicalMeaning: |
+  Pin format and library versions, validate loss curves and evals, and confirm accelerators actually run FP8 kernels for your ops.
+example: |
+  "FP8 training looked fast until the scaler and the checkpoint format disagreed."
+askNext:
+  - "Which FP8 variant and scaling scheme?"
+  - "Are critical layers kept in higher precision?"
+  - "Do evals match FP16/BF16 baselines closely enough?"
+related:
+  - "quantisation"
+  - "inference-stack"
+  - "training"
+seeAlso:
+  - "Quantisation"
+  - "Inference Stack"
+  - "Training"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Bit width is not a complete numerical recipe."
+tags:
+  - "training"
+  - "inference"
+  - "numerics"
+  - "hardware"
+misunderstoodScore: 2
+translations:
+  - label: "technical meaning"
+    text: "FP8 is a family of 8-bit floating-point formats used to reduce memory and increase throughput in modern training and inference stacks, with multiple variants and scaling strategies."
+  - label: "what it usually means in reality"
+    text: "Pin format and library versions, validate loss curves and evals, and confirm accelerators actually run FP8 kernels for your ops."
+---
+
+FP8 is performance with fine print. Read the fine print before the outage.

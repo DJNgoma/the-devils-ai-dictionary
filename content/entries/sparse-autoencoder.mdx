@@ -1,0 +1,53 @@
+---
+title: "Sparse autoencoder"
+slug: "sparse-autoencoder"
+letter: "S"
+categories:
+  - "Model building"
+  - "Safety and evaluation"
+aliases:
+  - "SAE"
+  - "sparse autoencoders"
+devilDefinition: |
+  A tool that tries to untangle the model's mixed thoughts into features humans can name, sometimes successfully.
+plainDefinition: |
+  A sparse autoencoder (SAE) is a model trained to reconstruct activations using a larger sparse feature basis, used in interpretability to find more monosemantic features than raw neurons provide.
+whyExists: |
+  Neurons are often polysemantic. SAEs offer a dictionary-learning approach to decompose activations into more interpretable features.
+misuse: |
+  Treated as complete explanations. Feature dictionaries can be incomplete, unstable, or hard to validate causally.
+practicalMeaning: |
+  Use SAEs as research instrumentation with causal checks. Do not claim full model understanding from a single dictionary.
+example: |
+  "The sparse autoencoder found a feature for 'legal tone' and another for 'actually being right,' which did not fire together."
+askNext:
+  - "What reconstruction and sparsity metrics justify the dictionary?"
+  - "Have features been validated with interventions?"
+  - "How stable are features across seeds?"
+related:
+  - "mechanistic-interpretability"
+  - "superposition"
+seeAlso:
+  - "Mechanistic interpretability"
+  - "Superposition"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "A named feature is a hypothesis until interventions agree."
+tags:
+  - "interpretability"
+  - "features"
+  - "research"
+  - "models"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "A sparse autoencoder (SAE) is a model trained to reconstruct activations using a larger sparse feature basis, used in interpretability to find more monosemantic features than raw neurons provide."
+  - label: "what it usually means in reality"
+    text: "Use SAEs as research instrumentation with causal checks."
+---
+
+Sparse autoencoders are microscopes. Microscopes still need experimental hygiene.

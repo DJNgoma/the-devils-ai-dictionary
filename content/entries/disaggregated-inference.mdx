@@ -1,0 +1,55 @@
+---
+title: "Disaggregated inference"
+slug: "disaggregated-inference"
+letter: "D"
+categories:
+  - "Infrastructure and deployment"
+  - "Economics and operations of AI"
+aliases:
+  - "disaggregated serving"
+  - "disaggregated LLM inference"
+devilDefinition: |
+  Splitting serving stages across machines so each GPU can specialise, and so your network can join the critical path.
+plainDefinition: |
+  Disaggregated inference is an architecture that separates inference phases or components—often prefill and decode, or different model parts—across distinct hardware pools connected by a fast fabric.
+whyExists: |
+  Monolithic serving wastes resources when phases have different compute and memory profiles. Disaggregation aims for higher utilisation and independent scaling.
+misuse: |
+  Copied from a blog without fabric bandwidth math. Network and orchestration overhead can erase gains.
+practicalMeaning: |
+  Only adopt when profiling shows phase imbalance large enough to justify complexity. Measure end-to-end latency under real mixes, not isolated kernels.
+example: |
+  "Disaggregated inference looked elegant until the interconnect became the new GPU."
+askNext:
+  - "Where does KV state move, and at what cost?"
+  - "Can you scale prefill and decode pools independently in production?"
+  - "What failure domains did you add?"
+related:
+  - "prefill-decode-split"
+  - "continuous-batching"
+  - "inference-stack"
+seeAlso:
+  - "Prefill/decode split"
+  - "Continuous batching"
+  - "Inference Stack"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Architecture diagrams do not move bytes for free."
+tags:
+  - "serving"
+  - "infrastructure"
+  - "architecture"
+  - "inference"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Disaggregated inference is an architecture that separates inference phases or components—often prefill and decode, or different model parts—across distinct hardware pools connected by a fast fabric."
+  - label: "what it usually means in reality"
+    text: "Only adopt when profiling shows phase imbalance large enough to justify complexity."
+---
+
+Disaggregation is specialisation with a network tax. Calculate the tax.

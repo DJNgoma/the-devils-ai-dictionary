@@ -1,0 +1,55 @@
+---
+title: "Provenance"
+slug: "provenance"
+letter: "P"
+categories:
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+aliases:
+  - "content provenance"
+  - "artefact provenance"
+devilDefinition: |
+  The story of where an artefact came from, which everyone demands after the artefact has already been trusted.
+plainDefinition: |
+  Provenance is recorded origin and transformation history for data, models, media, or outputs—who created them, from what, when, and under which processes—used for trust, compliance, and debugging.
+whyExists: |
+  Synthetic media, training data disputes, and supply-chain risk made origin claims load-bearing.
+misuse: |
+  Confused with authenticity guarantees. Provenance metadata can be missing, forged, or stripped in transit.
+practicalMeaning: |
+  Capture provenance at creation time, sign where possible, and design products that preserve it through transforms. Combine with policy, not as a sole defence.
+example: |
+  "Provenance showed the image came from the marketing pipeline, not the satellite."
+askNext:
+  - "What events are logged in the provenance chain?"
+  - "Can metadata be stripped by normal export paths?"
+  - "Who verifies signatures or attestations?"
+related:
+  - "c2pa"
+  - "watermarking"
+  - "synthetic-media"
+seeAlso:
+  - "C2PA"
+  - "Watermarking"
+  - "Synthetic media"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "History that is easy to erase is not history you can bet on."
+tags:
+  - "trust"
+  - "compliance"
+  - "media"
+  - "supply-chain"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Provenance is recorded origin and transformation history for data, models, media, or outputs—who created them, from what, when, and under which processes—used for trust, compliance, and debugging."
+  - label: "what it usually means in reality"
+    text: "Capture provenance at creation time, sign where possible, and design products that preserve it through transforms."
+---
+
+Provenance is receipts. Systems that discard receipts are choosing amnesia.

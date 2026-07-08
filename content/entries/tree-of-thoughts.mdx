@@ -1,0 +1,55 @@
+---
+title: "Tree of thoughts"
+slug: "tree-of-thoughts"
+letter: "T"
+categories:
+  - "Model usage"
+  - "Agents and workflows"
+aliases:
+  - "ToT"
+  - "Tree of Thoughts"
+devilDefinition: |
+  Chain-of-thought with a branching strategy board, so the model can explore bad ideas more expensively.
+plainDefinition: |
+  Tree of Thoughts (ToT) is a prompting and search framework that explores multiple intermediate reasoning branches, evaluating partial thoughts and expanding promising paths rather than following a single linear chain.
+whyExists: |
+  Some problems need lookahead, backtracking, and exploration. Linear chain-of-thought is a single trajectory gamble.
+misuse: |
+  Applied to trivial tasks where the tree mostly spends tokens. Evaluation heuristics can be as wrong as the thoughts they score.
+practicalMeaning: |
+  Use when intermediate states are scoreable and the search budget is worth it. Log branches for debugging; cap depth and breadth hard.
+example: |
+  "Tree of Thoughts found a clever plan on branch seven and a cloud bill on every branch."
+askNext:
+  - "What evaluates partial thoughts?"
+  - "What are depth/breadth limits?"
+  - "Does a simpler verifier plus best-of-n suffice?"
+related:
+  - "self-consistency"
+  - "reasoning-model"
+  - "test-time-compute"
+seeAlso:
+  - "Self-consistency"
+  - "Reasoning Model"
+  - "Test Time Compute"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Search multiplies cost faster than insight."
+tags:
+  - "reasoning"
+  - "search"
+  - "prompting"
+  - "test-time-compute"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Tree of Thoughts (ToT) is a prompting and search framework that explores multiple intermediate reasoning branches, evaluating partial thoughts and expanding promising paths rather than following a sin"
+  - label: "what it usually means in reality"
+    text: "Use when intermediate states are scoreable and the search budget is worth it."
+---
+
+Tree of Thoughts is deliberate exploration. Deliberation should be budgeted.

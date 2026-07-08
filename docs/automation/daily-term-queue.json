@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-08T21:19:48.768Z",
+  "updatedAt": "2026-07-08T21:58:41.972Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -2469,7 +2469,7 @@
     {
       "slug": "json-mode",
       "label": "JSON mode",
-      "status": "queued",
+      "status": "published",
       "notes": "Vendor feature that biases toward JSON; not a substitute for schema validation.",
       "diagramHint": "function-calling",
       "misunderstoodHint": 4,
@@ -2482,12 +2482,13 @@
         "function-calling",
         "tool-use"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "groq",
       "label": "Groq",
-      "status": "queued",
+      "status": "published",
       "notes": "LPU inference vendor known for low-latency open-weight serving.",
       "diagramHint": null,
       "misunderstoodHint": 2,
@@ -2500,12 +2501,13 @@
         "tokens-per-dollar",
         "latency"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "continuous-batching",
       "label": "Continuous batching",
-      "status": "queued",
+      "status": "published",
       "notes": "How modern inference servers keep GPUs busy as requests arrive and finish at different times.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -2518,12 +2520,13 @@
         "prefill-decode-split",
         "tokens-per-dollar"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "cost-per-token",
       "label": "Cost per token",
-      "status": "queued",
+      "status": "published",
       "notes": "Simple but often miscompared unit price for generation and context.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -2536,12 +2539,13 @@
         "inference-budget",
         "context-budget"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "background-agent",
       "label": "Background agent",
-      "status": "queued",
+      "status": "published",
       "notes": "Long-running work that continues after the chat window closes.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 3,
@@ -2554,12 +2558,13 @@
         "coding-agent",
         "agent-workspace"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "citation-faithfulness",
       "label": "Citation faithfulness",
-      "status": "queued",
+      "status": "published",
       "notes": "Whether cited sources actually support the generated claim.",
       "diagramHint": "rag",
       "misunderstoodHint": 5,
@@ -2572,12 +2577,13 @@
         "hallucination",
         "rag"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "procedural-memory",
       "label": "Procedural memory",
-      "status": "queued",
+      "status": "published",
       "notes": "Reusable how-to knowledge and skills an agent retains across tasks.",
       "diagramHint": "skill-loading",
       "misunderstoodHint": 4,
@@ -2590,12 +2596,13 @@
         "episodic-memory",
         "skill-loading"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "second-brain",
       "label": "Second brain",
-      "status": "queued",
+      "status": "published",
       "notes": "Personal knowledge system augmented by AI retrieval and summarisation.",
       "diagramHint": "rag",
       "misunderstoodHint": 3,
@@ -2608,12 +2615,13 @@
         "rag",
         "agent-memory"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "process-reward-model",
       "label": "Process reward model",
-      "status": "queued",
+      "status": "published",
       "notes": "Model that scores intermediate reasoning steps for training or search.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -2626,12 +2634,13 @@
         "outcome-reward-model",
         "test-time-compute"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "scratchpad",
       "label": "Scratchpad",
-      "status": "queued",
+      "status": "published",
       "notes": "Private intermediate notes the model or agent uses before a final answer.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -2644,12 +2653,13 @@
         "working-memory",
         "reasoning-model"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "together-ai",
       "label": "Together AI",
-      "status": "queued",
+      "status": "published",
       "notes": "Inference and fine-tuning platform for open models.",
       "diagramHint": null,
       "misunderstoodHint": 2,
@@ -2662,12 +2672,13 @@
         "open-weight",
         "fine-tuning"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "model-routing",
       "label": "Model routing",
-      "status": "queued",
+      "status": "published",
       "notes": "Sending each request to the cheapest/best model that can handle it.",
       "diagramHint": "model-routing",
       "misunderstoodHint": 4,
@@ -2681,12 +2692,13 @@
         "inference-budget",
         "agent-cost-control"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "export-controls",
       "label": "Export controls",
-      "status": "queued",
+      "status": "published",
       "notes": "Chip, model, and software restrictions as AI industrial policy.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -2699,12 +2711,13 @@
         "gpu-broker",
         "sovereign-cloud"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "async-agent",
       "label": "Async agent",
-      "status": "queued",
+      "status": "published",
       "notes": "Agent workflows that return later via notification, PR, ticket, or email rather than blocking a session.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 3,
@@ -2717,12 +2730,13 @@
         "agent-trace",
         "human-in-the-loop"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "groundedness",
       "label": "Groundedness",
-      "status": "queued",
+      "status": "published",
       "notes": "Answers constrained to provided or retrieved evidence rather than free invention.",
       "diagramHint": "rag",
       "misunderstoodHint": 4,
@@ -2735,12 +2749,13 @@
         "hallucination",
         "rag"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "graph-rag",
       "label": "Graph RAG",
-      "status": "queued",
+      "status": "published",
       "notes": "Retrieval that uses graph structure rather than only vector similarity.",
       "diagramHint": "rag",
       "misunderstoodHint": 4,
@@ -2753,12 +2768,13 @@
         "hybrid-search",
         "knowledge-graph"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "digital-twin",
       "label": "Digital twin",
-      "status": "queued",
+      "status": "published",
       "notes": "Simulated person, process, or system; often oversold as a complete clone.",
       "diagramHint": null,
       "misunderstoodHint": 5,
@@ -2771,12 +2787,13 @@
         "personal-ai",
         "simulation"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "outcome-reward-model",
       "label": "Outcome reward model",
-      "status": "queued",
+      "status": "published",
       "notes": "Model that scores final answers for RL or best-of-n selection.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -2789,12 +2806,13 @@
         "rlhf",
         "best-of-n"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "best-of-n",
       "label": "Best-of-n",
-      "status": "queued",
+      "status": "published",
       "notes": "Sample many completions and pick with a judge or reward model.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -2807,12 +2825,13 @@
         "outcome-reward-model",
         "inference-budget"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "fireworks-ai",
       "label": "Fireworks AI",
-      "status": "queued",
+      "status": "published",
       "notes": "Inference platform optimised for open models and function calling workloads.",
       "diagramHint": null,
       "misunderstoodHint": 2,
@@ -2825,12 +2844,13 @@
         "function-calling",
         "open-weight"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "fallback-model",
       "label": "Fallback model",
-      "status": "queued",
+      "status": "published",
       "notes": "Secondary model path when the primary fails, times out, or is refused.",
       "diagramHint": "model-routing",
       "misunderstoodHint": 3,
@@ -2843,12 +2863,13 @@
         "agent-reliability",
         "circuit-breaker"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "compute-governance",
       "label": "Compute governance",
-      "status": "queued",
+      "status": "published",
       "notes": "Who may buy, cluster, and account for large training and inference capacity.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -2861,12 +2882,13 @@
         "power-constrained-ai",
         "ai-data-centre"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "orchestrator-agent",
       "label": "Orchestrator agent",
-      "status": "queued",
+      "status": "published",
       "notes": "The coordinator role in multi-agent systems; avoid pure framework marketing.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -2878,12 +2900,13 @@
         "supervisor-agent",
         "agent-handoff"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "model-card",
       "label": "Model card",
-      "status": "queued",
+      "status": "published",
       "notes": "Documentation artefact for intended use, limits, and evaluation claims.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -2896,12 +2919,13 @@
         "evals",
         "safety-case"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "hybrid-search",
       "label": "Hybrid search",
-      "status": "queued",
+      "status": "published",
       "notes": "Combining lexical and vector retrieval as default enterprise practice.",
       "diagramHint": "rag",
       "misunderstoodHint": 3,
@@ -2913,12 +2937,13 @@
         "reranking",
         "embeddings"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "dataset-provenance",
       "label": "Dataset provenance",
-      "status": "queued",
+      "status": "published",
       "notes": "Where training and eval data came from and under what rights.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -2931,12 +2956,13 @@
         "data-poisoning",
         "model-supply-chain"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "self-consistency",
       "label": "Self-consistency",
-      "status": "queued",
+      "status": "published",
       "notes": "Majority vote across sampled reasoning paths; not free certainty.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -2949,12 +2975,13 @@
         "reasoning-model",
         "test-time-compute"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "personal-ai",
       "label": "Personal AI",
-      "status": "queued",
+      "status": "published",
       "notes": "Persistent assistant oriented around one person's data, prefs, and agency.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -2968,12 +2995,13 @@
         "context-perimeter",
         "second-brain"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "circuit-breaker",
       "label": "Circuit breaker",
-      "status": "queued",
+      "status": "published",
       "notes": "Stop calling a failing tool, model, or vendor before the agent burns the budget.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -2986,12 +3014,13 @@
         "agent-reliability",
         "spend-limit"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "llm-ops",
       "label": "LLMOps",
-      "status": "queued",
+      "status": "published",
       "notes": "Operational practice for prompts, evals, versions, and production models.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -3004,12 +3033,13 @@
         "eval-driven-development",
         "agent-ops"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "supervisor-agent",
       "label": "Supervisor agent",
-      "status": "queued",
+      "status": "published",
       "notes": "Review and gatekeeping agent over worker agents; distinguish from human oversight.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -3022,12 +3052,13 @@
         "human-on-the-loop",
         "approval-theatre"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "responsible-scaling",
       "label": "Responsible scaling",
-      "status": "queued",
+      "status": "published",
       "notes": "Policy framework tying capability thresholds to safety commitments.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -3040,12 +3071,13 @@
         "capability-overhang",
         "frontier-model"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "reranking",
       "label": "Reranking",
-      "status": "queued",
+      "status": "published",
       "notes": "Second-stage ordering of candidates after cheap retrieval.",
       "diagramHint": "rag",
       "misunderstoodHint": 3,
@@ -3058,12 +3090,13 @@
         "rag",
         "retrieval-quality"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "knowledge-editing",
       "label": "Knowledge editing",
-      "status": "queued",
+      "status": "published",
       "notes": "Targeted updates to factual associations without full retraining.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -3075,12 +3108,13 @@
         "fine-tuning",
         "model-edit"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "tree-of-thoughts",
       "label": "Tree of thoughts",
-      "status": "queued",
+      "status": "published",
       "notes": "Branching search over intermediate thoughts; research method and product slogan.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -3093,12 +3127,13 @@
         "reasoning-model",
         "test-time-compute"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "edge-ai",
       "label": "Edge AI",
-      "status": "queued",
+      "status": "published",
       "notes": "Inference near the data source; factory floors and retail as much as phones.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -3110,12 +3145,13 @@
         "private-inference",
         "inference-stack"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "prompt-ops",
       "label": "PromptOps",
-      "status": "queued",
+      "status": "published",
       "notes": "Treating prompts as versioned production assets with review and eval gates.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -3128,12 +3164,13 @@
         "prompt",
         "eval-harness"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "agent-handoff",
       "label": "Agent handoff",
-      "status": "queued",
+      "status": "published",
       "notes": "Transfer of state, authority, and accountability between agents or from agent to human.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -3146,12 +3183,13 @@
         "escalation",
         "agent-identity"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "deepfake",
       "label": "Deepfake",
-      "status": "queued",
+      "status": "published",
       "notes": "Impersonating media; keep distinct from generic synthetic content.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -3164,12 +3202,13 @@
         "deepfake-consent",
         "voice-clone"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "chunking",
       "label": "Chunking",
-      "status": "queued",
+      "status": "published",
       "notes": "Document splitting choices that quietly dominate retrieval quality.",
       "diagramHint": "rag",
       "misunderstoodHint": 4,
@@ -3181,12 +3220,13 @@
         "embeddings",
         "context-window"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "model-edit",
       "label": "Model edit",
-      "status": "queued",
+      "status": "published",
       "notes": "Surgical parameter or representation change to alter a behaviour.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -3199,12 +3239,13 @@
         "unlearning",
         "fine-tuning"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "self-critique",
       "label": "Self-critique",
-      "status": "queued",
+      "status": "published",
       "notes": "Model reviews its draft for errors before presenting an answer.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -3217,12 +3258,13 @@
         "hallucination",
         "evals"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "workload-identity",
       "label": "Workload identity",
-      "status": "queued",
+      "status": "published",
       "notes": "Non-human identity for services and agents that is not a shared API key in a vault slide.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -3236,12 +3278,13 @@
         "agentic-iam",
         "non-human-identity"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "human-on-the-loop",
       "label": "Human on the loop",
-      "status": "queued",
+      "status": "published",
       "notes": "Oversight that watches and can interrupt, distinct from step-by-step approval.",
       "diagramHint": null,
       "misunderstoodHint": 5,
@@ -3254,12 +3297,13 @@
         "approval-workflow",
         "supervisor-agent"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "provenance",
       "label": "Provenance",
-      "status": "queued",
+      "status": "published",
       "notes": "Traceable origin of media and model outputs, not just a watermark sticker.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -3272,12 +3316,13 @@
         "watermarking",
         "synthetic-media"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "working-memory",
       "label": "Working memory",
-      "status": "queued",
+      "status": "published",
       "notes": "Short-lived task state distinct from long-term memory stores.",
       "diagramHint": "context-window",
       "misunderstoodHint": 4,
@@ -3290,12 +3335,13 @@
         "context-window",
         "scratchpad"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "activation-steering",
       "label": "Activation steering",
-      "status": "queued",
+      "status": "published",
       "notes": "Shifting internal activations at inference to bias behaviour.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -3308,12 +3354,13 @@
         "representation-engineering",
         "guardrails"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "long-context",
       "label": "Long context",
-      "status": "queued",
+      "status": "published",
       "notes": "Very large context windows and the quality cliffs that still appear inside them.",
       "diagramHint": "context-window",
       "misunderstoodHint": 4,
@@ -3326,12 +3373,13 @@
         "context-rot",
         "lost-in-the-middle"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "disaggregated-inference",
       "label": "Disaggregated inference",
-      "status": "queued",
+      "status": "published",
       "notes": "Separating prefill and decode fleets as a capacity and cost design.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -3344,12 +3392,13 @@
         "continuous-batching",
         "inference-stack"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "spec-driven-development",
       "label": "Spec-driven development",
-      "status": "queued",
+      "status": "published",
       "notes": "Writing explicit specs so coding agents implement against intent rather than vibes alone.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -3363,12 +3412,13 @@
         "agentic-coding",
         "coding-agent"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "c2pa",
       "label": "C2PA",
-      "status": "queued",
+      "status": "published",
       "notes": "Content authenticity standard for signed media provenance.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -3381,12 +3431,13 @@
         "watermarking",
         "synthetic-media"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "multimodal-rag",
       "label": "Multimodal RAG",
-      "status": "queued",
+      "status": "published",
       "notes": "Retrieval that includes images, audio, video, or mixed documents.",
       "diagramHint": "rag",
       "misunderstoodHint": 3,
@@ -3399,12 +3450,13 @@
         "embeddings",
         "hybrid-search"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "representation-engineering",
       "label": "Representation engineering",
-      "status": "queued",
+      "status": "published",
       "notes": "Reading and writing concept directions in model activations.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -3417,12 +3469,13 @@
         "mechanistic-interpretability",
         "interpretability"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "lost-in-the-middle",
       "label": "Lost in the middle",
-      "status": "queued",
+      "status": "published",
       "notes": "Performance drop for information placed mid-context rather than at the edges.",
       "diagramHint": "context-window",
       "misunderstoodHint": 4,
@@ -3435,12 +3488,13 @@
         "context-rot",
         "context-window"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "acceptance-rate",
       "label": "Acceptance rate",
-      "status": "queued",
+      "status": "published",
       "notes": "Share of draft tokens accepted by the verifier in speculative decoding.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -3453,12 +3507,13 @@
         "speculative-decoding",
         "tokens-per-dollar"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "cli-agent",
       "label": "CLI agent",
-      "status": "queued",
+      "status": "published",
       "notes": "Terminal-native coding/ops agents as a product shape distinct from IDE chat.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 3,
@@ -3471,12 +3526,13 @@
         "claude-code",
         "codex"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "watermarking",
       "label": "Watermarking",
-      "status": "queued",
+      "status": "published",
       "notes": "Signals embedded in generated content; limits and detection arms race.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -3489,12 +3545,13 @@
         "c2pa",
         "synthetic-media"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "embedding-model",
       "label": "Embedding model",
-      "status": "queued",
+      "status": "published",
       "notes": "Specialised model for vector representations used in search and clustering.",
       "diagramHint": "embeddings",
       "misunderstoodHint": 3,
@@ -3507,12 +3564,13 @@
         "hybrid-search",
         "reranking"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "mechanistic-interpretability",
       "label": "Mechanistic interpretability",
-      "status": "queued",
+      "status": "published",
       "notes": "Reverse-engineering circuits and features inside models.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -3525,12 +3583,13 @@
         "sparse-autoencoder",
         "representation-engineering"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "network-policy",
       "label": "Network policy",
-      "status": "queued",
+      "status": "published",
       "notes": "Where an agent may connect: domains, APIs, and egress rules.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -3544,12 +3603,13 @@
         "sandbox",
         "tool-allowlist"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "gui-agent",
       "label": "GUI agent",
-      "status": "queued",
+      "status": "published",
       "notes": "Agents that click, type, and read screens; broader than browser-only.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -3562,12 +3622,13 @@
         "computer-use",
         "agent-sandbox-leakage"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "data-poisoning",
       "label": "Data poisoning",
-      "status": "queued",
+      "status": "published",
       "notes": "Training or retrieval contamination as an attack, not just bad data quality.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -3580,12 +3641,13 @@
         "context-poisoning",
         "supply-chain"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "sparse-autoencoder",
       "label": "Sparse autoencoder",
-      "status": "queued",
+      "status": "published",
       "notes": "Tool for decomposing activations into more monosemantic features.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -3598,12 +3660,13 @@
         "superposition",
         "interpretability"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "ephemeral-environment",
       "label": "Ephemeral environment",
-      "status": "queued",
+      "status": "published",
       "notes": "Disposable runtime for agent code execution that dies after the task.",
       "diagramHint": "worktree",
       "misunderstoodHint": 3,
@@ -3616,12 +3679,13 @@
         "filesystem-scope",
         "coding-agent"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "plan-and-execute",
       "label": "Plan and execute",
-      "status": "queued",
+      "status": "published",
       "notes": "Agent pattern that drafts a plan then carries out steps with tools.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 3,
@@ -3633,12 +3697,13 @@
         "react",
         "orchestrator-agent"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "alignment-faking",
       "label": "Alignment faking",
-      "status": "queued",
+      "status": "published",
       "notes": "Models appearing compliant under scrutiny while pursuing other strategies.",
       "diagramHint": null,
       "misunderstoodHint": 5,
@@ -3650,12 +3715,13 @@
         "sandbagging",
         "evals"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "superposition",
       "label": "Superposition",
-      "status": "queued",
+      "status": "published",
       "notes": "Many features packed into fewer dimensions; core MI hypothesis.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -3668,12 +3734,13 @@
         "mechanistic-interpretability",
         "polysemanticity"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "quantisation",
       "label": "Quantisation",
-      "status": "queued",
+      "status": "published",
       "notes": "Lower-precision weights and activations for cheaper inference.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -3686,12 +3753,13 @@
         "qlora",
         "tokens-per-dollar"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "react-pattern",
       "label": "ReAct pattern",
-      "status": "queued",
+      "status": "published",
       "notes": "Interleaved reasoning and acting loop; distinguish from the React UI library.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -3704,12 +3772,13 @@
         "plan-and-execute",
         "tool-use"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "sandbagging",
       "label": "Sandbagging",
-      "status": "queued",
+      "status": "published",
       "notes": "Underperforming on capability tests strategically or by training artefact.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -3721,12 +3790,13 @@
         "capability-eval",
         "evals"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "polysemanticity",
       "label": "Polysemanticity",
-      "status": "queued",
+      "status": "published",
       "notes": "Neurons or directions that mix multiple concepts.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -3739,12 +3809,13 @@
         "sparse-autoencoder",
         "mechanistic-interpretability"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "fp8",
       "label": "FP8",
-      "status": "queued",
+      "status": "published",
       "notes": "8-bit floating formats used in modern training and inference stacks.",
       "diagramHint": null,
       "misunderstoodHint": 2,
@@ -3757,12 +3828,13 @@
         "inference-stack",
         "training"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "reflection-loop",
       "label": "Reflection loop",
-      "status": "queued",
+      "status": "published",
       "notes": "Agent critiques and revises its own output before finishing.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 3,
@@ -3775,12 +3847,13 @@
         "agent-reliability",
         "evals"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "chain-of-thought-monitoring",
       "label": "Chain-of-thought monitoring",
-      "status": "queued",
+      "status": "published",
       "notes": "Using intermediate reasoning as a safety signal; fragile under pressure.",
       "diagramHint": null,
       "misunderstoodHint": 5,
@@ -3793,12 +3866,13 @@
         "process-supervision",
         "evals"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "attention-sinks",
       "label": "Attention sinks",
-      "status": "queued",
+      "status": "published",
       "notes": "Tokens that absorb attention mass and stabilise long-context streaming.",
       "diagramHint": "context-window",
       "misunderstoodHint": 3,
@@ -3811,12 +3885,13 @@
         "kv-cache",
         "context-window"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "int4",
       "label": "INT4",
-      "status": "queued",
+      "status": "published",
       "notes": "4-bit integer quantisation common in local and edge serving.",
       "diagramHint": null,
       "misunderstoodHint": 2,
@@ -3829,12 +3904,13 @@
         "qlora",
         "on-device-ai"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "on-behalf-of",
       "label": "On-behalf-of",
-      "status": "queued",
+      "status": "published",
       "notes": "Acting for a user with delegated authority rather than shared passwords.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -3847,12 +3923,13 @@
         "agent-identity",
         "workload-identity"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "hallucination-rate",
       "label": "Hallucination rate",
-      "status": "queued",
+      "status": "published",
       "notes": "Measured fabrication frequency; only useful with a defined task and judge.",
       "diagramHint": null,
       "misunderstoodHint": 5,
@@ -3864,12 +3941,13 @@
         "evals",
         "groundedness"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "model-distillation",
       "label": "Model distillation",
-      "status": "queued",
+      "status": "published",
       "notes": "Training a smaller student on a larger teacher; capability transfer with limits.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -3882,12 +3960,13 @@
         "open-weight",
         "inference-budget"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "flash-attention",
       "label": "FlashAttention",
-      "status": "queued",
+      "status": "published",
       "notes": "IO-aware attention kernels that make long context feasible on GPUs.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -3900,12 +3979,13 @@
         "long-context",
         "inference-stack"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "service-account-agent",
       "label": "Service account agent",
-      "status": "queued",
+      "status": "published",
       "notes": "Agent running under a non-human account; identity and blast radius problems.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -3919,12 +3999,13 @@
         "agent-credential-sprawl",
         "non-human-identity"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "confused-deputy",
       "label": "Confused deputy",
-      "status": "queued",
+      "status": "published",
       "notes": "Classic privilege confusion applied to tools and agents with broad credentials.",
       "diagramHint": null,
       "misunderstoodHint": 5,
@@ -3937,12 +4018,13 @@
         "tool-allowlist",
         "least-privilege"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "teacher-student",
       "label": "Teacher-student",
-      "status": "queued",
+      "status": "published",
       "notes": "Distillation pairing language; keep tied to training practice not classroom metaphor alone.",
       "diagramHint": null,
       "misunderstoodHint": 2,
@@ -3954,12 +4036,13 @@
         "fine-tuning",
         "sft"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "paged-attention",
       "label": "PagedAttention",
-      "status": "queued",
+      "status": "published",
       "notes": "KV cache paging used by vLLM-style servers for higher batch efficiency.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -3971,12 +4054,13 @@
         "continuous-batching",
         "inference-stack"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "filesystem-scope",
       "label": "Filesystem scope",
-      "status": "queued",
+      "status": "published",
       "notes": "Which paths an agent may read or write; worktree discipline for real damage control.",
       "diagramHint": "worktree",
       "misunderstoodHint": 4,
@@ -3989,12 +4073,13 @@
         "sandbox",
         "coding-agent"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "pii-redaction",
       "label": "PII redaction",
-      "status": "queued",
+      "status": "published",
       "notes": "Stripping personal data before logs, training, or tool calls; imperfect but necessary.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -4007,12 +4092,13 @@
         "context-perimeter",
         "privacy"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "continued-pretraining",
       "label": "Continued pretraining",
-      "status": "queued",
+      "status": "published",
       "notes": "Further next-token training on domain data before instruction tuning.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -4024,12 +4110,13 @@
         "fine-tuning",
         "post-training"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "sglang",
       "label": "SGLang",
-      "status": "queued",
+      "status": "published",
       "notes": "Structured generation and serving runtime in the open inference ecosystem.",
       "diagramHint": null,
       "misunderstoodHint": 2,
@@ -4042,12 +4129,13 @@
         "structured-outputs",
         "inference-stack"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "proactive-notification",
       "label": "Proactive notification",
-      "status": "queued",
+      "status": "published",
       "notes": "Agent-initiated alerts that need quiet hours, ranking, and false-alarm discipline.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -4060,12 +4148,13 @@
         "ambient-agent",
         "approval-gate"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "egress-control",
       "label": "Egress control",
-      "status": "queued",
+      "status": "published",
       "notes": "Limiting where an agent or model integration may send data.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -4079,12 +4168,13 @@
         "tool-allowlist",
         "sandbox"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "pretraining",
       "label": "Pretraining",
-      "status": "queued",
+      "status": "published",
       "notes": "Large-scale next-token learning that builds the base model.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -4096,12 +4186,13 @@
         "continued-pretraining",
         "scaling-laws"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "gguf",
       "label": "GGUF",
-      "status": "queued",
+      "status": "published",
       "notes": "File format for quantised local models popularised by llama.cpp ecosystems.",
       "diagramHint": null,
       "misunderstoodHint": 2,
@@ -4114,12 +4205,13 @@
         "quantisation",
         "open-weight"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "agent-swarm",
       "label": "Agent swarm",
-      "status": "queued",
+      "status": "published",
       "notes": "Many specialised agents collaborating; often a synonym for coordination debt.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -4132,12 +4224,13 @@
         "multi-agent",
         "agent-sprawl"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "process-supervision",
       "label": "Process supervision",
-      "status": "queued",
+      "status": "published",
       "notes": "Reward or review of intermediate steps rather than only final answers.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -4150,12 +4243,13 @@
         "chain-of-thought-monitoring",
         "evals"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "lora",
       "label": "LoRA",
-      "status": "queued",
+      "status": "published",
       "notes": "Low-rank adapters for efficient fine-tuning.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -4168,12 +4262,13 @@
         "qlora",
         "post-training"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "safetensors",
       "label": "Safetensors",
-      "status": "queued",
+      "status": "published",
       "notes": "Safer tensor serialisation format versus pickle-based weight loading.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -4186,12 +4281,13 @@
         "model-signing",
         "open-weight"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "a2a-protocol",
       "label": "A2A protocol",
-      "status": "queued",
+      "status": "published",
       "notes": "Agent-to-agent interoperability proposals; distinguish from MCP tool access.",
       "diagramHint": "mcp",
       "misunderstoodHint": 4,
@@ -4205,12 +4301,13 @@
         "mcp",
         "agent-protocol-stack"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "outcome-supervision",
       "label": "Outcome supervision",
-      "status": "queued",
+      "status": "published",
       "notes": "Judging only the final result; cheap, incomplete, and common.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -4223,12 +4320,13 @@
         "evals",
         "reward-hacking"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "qlora",
       "label": "QLoRA",
-      "status": "queued",
+      "status": "published",
       "notes": "Quantised LoRA fine-tuning for cheaper adaptation.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -4241,12 +4339,13 @@
         "quantisation",
         "fine-tuning"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "mcp-host",
       "label": "MCP host",
-      "status": "queued",
+      "status": "published",
       "notes": "Application that owns the MCP client lifecycle and user consent surface.",
       "diagramHint": "mcp",
       "misunderstoodHint": 3,
@@ -4260,12 +4359,13 @@
         "mcp-client",
         "mcp-server"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "capability-token",
       "label": "Capability token",
-      "status": "queued",
+      "status": "published",
       "notes": "Short-lived permission object for a specific agent action or resource.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -4279,12 +4379,13 @@
         "tool-allowlist",
         "agentic-iam"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "mcp-client",
       "label": "MCP client",
-      "status": "queued",
+      "status": "published",
       "notes": "Component that connects to MCP servers and exposes tools to a model.",
       "diagramHint": "mcp",
       "misunderstoodHint": 3,
@@ -4297,12 +4398,13 @@
         "mcp-host",
         "mcp-server"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "model-supply-chain",
       "label": "Model supply chain",
-      "status": "queued",
+      "status": "published",
       "notes": "Dependencies from datasets and base models through fine-tunes and tools.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -4316,12 +4418,13 @@
         "provenance",
         "sbom"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "model-signing",
       "label": "Model signing",
-      "status": "queued",
+      "status": "published",
       "notes": "Cryptographic attestation of model artefacts before deployment.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -4334,12 +4437,13 @@
         "provenance",
         "sbom"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "benchmark-saturation",
       "label": "Benchmark saturation",
-      "status": "queued",
+      "status": "published",
       "notes": "When popular tests stop distinguishing models because everyone scores high.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -4352,12 +4456,13 @@
         "eval-leakage",
         "capability-eval"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "capability-eval",
       "label": "Capability eval",
-      "status": "queued",
+      "status": "published",
       "notes": "Measuring what a system can do under controlled conditions, not marketing demos.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -4369,12 +4474,13 @@
         "benchmark-saturation",
         "dangerous-capability"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "dangerous-capability",
       "label": "Dangerous capability",
-      "status": "queued",
+      "status": "published",
       "notes": "Evaluations for cyber, bio, autonomy, and other high-stakes skills.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -4386,12 +4492,13 @@
         "responsible-scaling",
         "safety-case"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "model-theft",
       "label": "Model theft",
-      "status": "queued",
+      "status": "published",
       "notes": "Extraction or leakage of proprietary model weights or behaviour.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -4404,12 +4511,13 @@
         "confidential-inference",
         "closed-weight"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "eval-gate",
       "label": "Eval gate",
-      "status": "queued",
+      "status": "published",
       "notes": "Release blocker tied to automated evaluation thresholds.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -4422,12 +4530,13 @@
         "release-gate",
         "evals"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "canary-prompt",
       "label": "Canary prompt",
-      "status": "queued",
+      "status": "published",
       "notes": "Fixed probe prompts used to detect regressions in production behaviour.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -4440,12 +4549,13 @@
         "eval-gate",
         "hallucination-rate"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "pairwise-eval",
       "label": "Pairwise eval",
-      "status": "queued",
+      "status": "published",
       "notes": "Comparing two outputs head-to-head instead of absolute scoring.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -4457,12 +4567,13 @@
         "judge-model",
         "dpo"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     },
     {
       "slug": "rubric-eval",
       "label": "Rubric eval",
-      "status": "queued",
+      "status": "published",
       "notes": "Scoring against explicit criteria rather than vibe checks.",
       "diagramHint": null,
       "misunderstoodHint": 3,
@@ -4474,7 +4585,8 @@
         "judge-model",
         "eval-harness"
       ],
-      "addedAt": "2026-07-08T21:07:01.372Z"
+      "addedAt": "2026-07-08T21:07:01.372Z",
+      "publishedAt": "2026-07-08T21:58:41.972Z"
     }
   ]
 }

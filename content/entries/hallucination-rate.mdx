@@ -1,0 +1,54 @@
+---
+title: "Hallucination rate"
+slug: "hallucination-rate"
+letter: "H"
+categories:
+  - "Safety and evaluation"
+aliases:
+  - "hallucination frequency"
+  - "fabrication rate"
+devilDefinition: |
+  A percentage that sounds scientific until you ask which task, which judge, and which definition of 'made up.'
+plainDefinition: |
+  Hallucination rate is a measured frequency of fabricated or unsupported claims in model outputs, meaningful only relative to a defined task, evidence set, and evaluation method.
+whyExists: |
+  Teams needed a metric for factual failure. Rates communicate risk better than anecdotes—when defined carefully.
+misuse: |
+  Compared across papers with different judges and tasks as if universal. A single number without protocol is marketing.
+practicalMeaning: |
+  Publish the protocol with the rate: domain, sampling, judge (human/model), and error taxonomy. Track rates per product surface.
+example: |
+  "Hallucination rate fell on the news benchmark and rose on internal policy questions."
+askNext:
+  - "What counts as a hallucination in this measurement?"
+  - "Is the judge calibrated against humans?"
+  - "Which product flows inherit this rate?"
+related:
+  - "hallucination"
+  - "evals"
+  - "groundedness"
+seeAlso:
+  - "Hallucination"
+  - "Evals"
+  - "Groundedness"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "A rate without a method is a vibe with a percent sign."
+tags:
+  - "evaluation"
+  - "metrics"
+  - "factuality"
+  - "quality"
+misunderstoodScore: 5
+translations:
+  - label: "technical meaning"
+    text: "Hallucination rate is a measured frequency of fabricated or unsupported claims in model outputs, meaningful only relative to a defined task, evidence set, and evaluation method."
+  - label: "what it usually means in reality"
+    text: "Publish the protocol with the rate: domain, sampling, judge (human/model), and error taxonomy."
+---
+
+Hallucination rate is only as honest as its measuring stick.

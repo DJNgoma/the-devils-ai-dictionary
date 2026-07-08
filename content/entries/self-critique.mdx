@@ -1,0 +1,55 @@
+---
+title: "Self-critique"
+slug: "self-critique"
+letter: "S"
+categories:
+  - "Model usage"
+  - "Safety and evaluation"
+aliases:
+  - "self critique"
+  - "self-refinement"
+devilDefinition: |
+  Asking the model to mark its own homework, which works until the shared blind spots arrive.
+plainDefinition: |
+  Self-critique is a technique where a model reviews and revises its own draft output according to criteria, often in a second pass, before presenting a final answer.
+whyExists: |
+  First drafts are sloppy. A critique pass can catch instruction misses, tone issues, and some factual slips without a second model.
+misuse: |
+  Trusted as independent audit. The same model can rationalise its errors with polished confidence.
+practicalMeaning: |
+  Use structured rubrics, separate critique prompts, and external checkers for code, math, and citations. Measure whether the second pass helps on your tasks.
+example: |
+  "Self-critique removed the hedging and kept the wrong date."
+askNext:
+  - "What rubric does the critique use?"
+  - "Do you ever use a different model as critic?"
+  - "Which error classes actually decrease after critique?"
+related:
+  - "reflection-loop"
+  - "hallucination"
+  - "evals"
+seeAlso:
+  - "Reflection loop"
+  - "Hallucination"
+  - "Evals"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Reflection is not independent oversight."
+tags:
+  - "prompting"
+  - "quality"
+  - "agents"
+  - "reasoning"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Self-critique is a technique where a model reviews and revises its own draft output according to criteria, often in a second pass, before presenting a final answer."
+  - label: "what it usually means in reality"
+    text: "Use structured rubrics, separate critique prompts, and external checkers for code, math, and citations."
+---
+
+Self-critique is cheap review. Cheap review misses what the author cannot see.

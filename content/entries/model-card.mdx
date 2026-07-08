@@ -1,0 +1,55 @@
+---
+title: "Model card"
+slug: "model-card"
+letter: "M"
+categories:
+  - "Safety and evaluation"
+  - "Model building"
+aliases:
+  - "model cards"
+  - "ML model card"
+devilDefinition: |
+  The nutrition label for a model that vendors fill in with virtues and leave blank where the allergens would be.
+plainDefinition: |
+  A model card is a documentation artefact describing a model's intended use, training data overview, evaluation results, limitations, and ethical considerations, popularised as a transparency practice.
+whyExists: |
+  Models shipped without shared context about scope and failure modes. Cards created a standard-ish place to put that context.
+misuse: |
+  Treated as complete safety proof or marketing brochure. A card can be outdated, selective, or disconnected from the deployed checkpoint.
+practicalMeaning: |
+  Require cards for production models, version them with checkpoints, and link to live eval dashboards rather than static PDFs alone.
+example: |
+  "The model card said 'not for medical use' on page nine of the onboarding that nobody finished."
+askNext:
+  - "Does the card match the exact deployed revision?"
+  - "Which evals are reported, and which are missing?"
+  - "Who updates the card when fine-tunes ship?"
+related:
+  - "system-card"
+  - "evals"
+  - "safety-case"
+seeAlso:
+  - "System Card"
+  - "Evals"
+  - "Safety Case"
+difficulty: "beginner"
+technicalDepth: "low"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Documentation is not runtime enforcement."
+tags:
+  - "documentation"
+  - "governance"
+  - "transparency"
+  - "evaluation"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "A model card is a documentation artefact describing a model's intended use, training data overview, evaluation results, limitations, and ethical considerations, popularised as a transparency practice."
+  - label: "what it usually means in reality"
+    text: "Require cards for production models, version them with checkpoints, and link to live eval dashboards rather than static PDFs alone."
+---
+
+Model cards are necessary paperwork with a conscience. Paperwork still needs maintenance.

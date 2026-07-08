@@ -1,0 +1,56 @@
+---
+title: "Filesystem scope"
+slug: "filesystem-scope"
+letter: "F"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+aliases:
+  - "file access scope"
+  - "workspace scope"
+devilDefinition: |
+  Which paths the agent may touch—the difference between a coding assistant and ransomware with good intentions.
+plainDefinition: |
+  Filesystem scope is the policy defining which directories and files an agent may read or write during a task, often enforced via sandboxes, worktrees, or OS permissions.
+whyExists: |
+  File access is where agents cause durable damage. Scope turns ambient computer access into a defined workspace.
+misuse: |
+  Set to the user's home directory for convenience. Convenience is how secrets and unrelated repos get rewritten.
+practicalMeaning: |
+  Default to a task worktree, deny dotfile and secret paths unless required, and log file mutations. Prefer ephemeral copies for experiments.
+example: |
+  "Filesystem scope kept the agent inside the repo after it tried to 'clean up' SSH keys."
+askNext:
+  - "What is the root the agent can see?"
+  - "Are secrets mounted into that tree?"
+  - "How are writes reviewed before merge?"
+related:
+  - "worktree"
+  - "sandbox"
+  - "coding-agent"
+seeAlso:
+  - "Worktree"
+  - "Sandbox"
+  - "Coding Agent"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Broad file access is root-adjacent social engineering waiting to happen."
+tags:
+  - "security"
+  - "agents"
+  - "sandbox"
+  - "filesystem"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Filesystem scope is the policy defining which directories and files an agent may read or write during a task, often enforced via sandboxes, worktrees, or OS permissions."
+  - label: "what it usually means in reality"
+    text: "Default to a task worktree, deny dotfile and secret paths unless required, and log file mutations."
+diagram: "worktree"
+---
+
+Filesystem scope is property law for agents. Survey the boundaries.

@@ -26,10 +26,22 @@ export const entryDetailShardLoaders = {
   "j": () => import("./entry-details/j.json"),
   "k": () => import("./entry-details/k.json"),
   "l": () => import("./entry-details/l.json"),
-  "m": () => import("./entry-details/m.json"),
+  "m": async () => {
+    const shards = await Promise.all([
+      import("./entry-details/m-1.json"),
+      import("./entry-details/m-2.json"),
+    ]);
+    return { default: Object.assign({}, ...shards.map((shard) => shard.default)) };
+  },
   "n": () => import("./entry-details/n.json"),
   "o": () => import("./entry-details/o.json"),
-  "p": () => import("./entry-details/p.json"),
+  "p": async () => {
+    const shards = await Promise.all([
+      import("./entry-details/p-1.json"),
+      import("./entry-details/p-2.json"),
+    ]);
+    return { default: Object.assign({}, ...shards.map((shard) => shard.default)) };
+  },
   "q": () => import("./entry-details/q.json"),
   "r": () => import("./entry-details/r.json"),
   "s": async () => {

@@ -1,0 +1,55 @@
+---
+title: "Scratchpad"
+slug: "scratchpad"
+letter: "S"
+categories:
+  - "Model usage"
+  - "Agents and workflows"
+aliases:
+  - "model scratchpad"
+  - "agent scratchpad"
+devilDefinition: |
+  The private whiteboard the model uses before speaking in complete sentences, sometimes hidden so you cannot see the mess.
+plainDefinition: |
+  A scratchpad is intermediate working memory—notes, partial plans, or chain-of-thought text—that a model or agent maintains while solving a task before emitting a final user-facing answer.
+whyExists: |
+  Complex tasks benefit from externalised intermediate state. Products needed a word for private reasoning channels separate from the polished response.
+misuse: |
+  Assumed to be truthful, complete, or safe to ignore. Hidden scratchpads can still leak via tools, logs, or side channels, and visible ones can be performative.
+practicalMeaning: |
+  Decide whether intermediates are logged, redacted, or discarded; do not put secrets in prompts if intermediates are stored. Use scratchpads as engineering state, not as a trust oracle.
+example: |
+  "The scratchpad had the right plan; the final answer summarised the wrong half of it."
+askNext:
+  - "Is the scratchpad visible to users, auditors, or only the runtime?"
+  - "What is retained after the task ends?"
+  - "Are tool calls driven from scratchpad state that never appears in the answer?"
+related:
+  - "chain-of-thought"
+  - "working-memory"
+  - "reasoning-model"
+seeAlso:
+  - "Chain Of Thought"
+  - "Working memory"
+  - "Reasoning Model"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Private notes are still part of the system behaviour."
+tags:
+  - "reasoning"
+  - "agents"
+  - "state"
+  - "cot"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "A scratchpad is intermediate working memory—notes, partial plans, or chain-of-thought text—that a model or agent maintains while solving a task before emitting a final user-facing answer."
+  - label: "what it usually means in reality"
+    text: "Decide whether intermediates are logged, redacted, or discarded; do not put secrets in prompts if intermediates are stored."
+---
+
+Scratchpads are where the work gets dirty. Clean answers can still hide dirty process.

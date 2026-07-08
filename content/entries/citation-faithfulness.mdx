@@ -1,0 +1,56 @@
+---
+title: "Citation faithfulness"
+slug: "citation-faithfulness"
+letter: "C"
+categories:
+  - "Safety and evaluation"
+  - "Retrieval and memory"
+aliases:
+  - "faithful citation"
+  - "citation accuracy"
+devilDefinition: |
+  Whether the footnote actually supports the sentence, or merely sat nearby while the model improvised.
+plainDefinition: |
+  Citation faithfulness is the property that a generated claim is actually supported by the sources it cites, not merely that citations exist or that some related document was retrieved.
+whyExists: |
+  RAG and answer engines learned to decorate text with links. Users then needed a word for 'the link does not prove the claim.'
+misuse: |
+  Collapsed into 'has citations' or 'retrieval happened.' A confident bibliography can still be ornamental.
+practicalMeaning: |
+  Evaluate claim-to-span entailment, not link count. Prefer extractive quotes or highlighter-style evidence for high-stakes answers.
+example: |
+  "Citation faithfulness failed: every source was real, and none said what the summary claimed."
+askNext:
+  - "Can a human find the supporting span for each cited claim?"
+  - "Do you score citation presence or claim support?"
+  - "What happens when retrieval is relevant but not sufficient?"
+related:
+  - "groundedness"
+  - "hallucination"
+  - "rag"
+seeAlso:
+  - "Groundedness"
+  - "Hallucination"
+  - "Rag"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "References are not evidence until they bind to the claim."
+tags:
+  - "evaluation"
+  - "rag"
+  - "citations"
+  - "trust"
+misunderstoodScore: 5
+translations:
+  - label: "technical meaning"
+    text: "Citation faithfulness is the property that a generated claim is actually supported by the sources it cites, not merely that citations exist or that some related document was retrieved."
+  - label: "what it usually means in reality"
+    text: "Evaluate claim-to-span entailment, not link count."
+diagram: "rag"
+---
+
+Citation faithfulness is the difference between scholarship and stage dressing.

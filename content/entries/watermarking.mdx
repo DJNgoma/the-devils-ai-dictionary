@@ -1,0 +1,55 @@
+---
+title: "Watermarking"
+slug: "watermarking"
+letter: "W"
+categories:
+  - "Safety and evaluation"
+  - "Model building"
+aliases:
+  - "AI watermarking"
+  - "text watermarking"
+devilDefinition: |
+  Invisible ink for model outputs that detectors argue about while open models shrug and continue unmarked.
+plainDefinition: |
+  Watermarking embeds statistical or cryptographic signals into generated text or media so downstream detectors can estimate whether content came from a particular model or system.
+whyExists: |
+  Societies want provenance and bot-detection tools. Watermarks promise machine-checkable hints without obvious user-visible marks.
+misuse: |
+  Treated as unforgeable proof or universal. Robustness against paraphrase, open-weight models, and detector false positives remain contested.
+practicalMeaning: |
+  Use watermarks as one signal among many. Design policies for false positives and for content that cannot be watermarked.
+example: |
+  "Watermarking caught the bot comments and three humans who write like bots."
+askNext:
+  - "What is the false positive rate on your domain?"
+  - "How robust is the mark to rewrite tools?"
+  - "What happens for models you do not control?"
+related:
+  - "provenance"
+  - "c2pa"
+  - "synthetic-media"
+seeAlso:
+  - "Provenance"
+  - "C2PA"
+  - "Synthetic media"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "A statistical hint is not a courtroom."
+tags:
+  - "safety"
+  - "provenance"
+  - "detection"
+  - "generation"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "Watermarking embeds statistical or cryptographic signals into generated text or media so downstream detectors can estimate whether content came from a particular model or system."
+  - label: "what it usually means in reality"
+    text: "Use watermarks as one signal among many."
+---
+
+Watermarks are clues. Clues need corroboration.

@@ -1,0 +1,55 @@
+---
+title: "Outcome reward model"
+slug: "outcome-reward-model"
+letter: "O"
+categories:
+  - "Model building"
+  - "Safety and evaluation"
+aliases:
+  - "ORM"
+  - "outcome reward modelling"
+devilDefinition: |
+  A judge that only scores the ending, generously ignoring every crime committed on the way there.
+plainDefinition: |
+  An outcome reward model (ORM) scores final answers or completed trajectories without evaluating intermediate reasoning steps, providing a sparse training or ranking signal.
+whyExists: |
+  Labelling full process traces is expensive. Outcome labels are cheaper and still useful for preference training, best-of-n, and RL.
+misuse: |
+  Assumed to teach good reasoning. Models can learn shortcuts, lucky guesses, and answer patterns that score well without robust process.
+practicalMeaning: |
+  Pair ORMs with process checks on hard tasks, diversify seeds, and watch for reward hacking that produces high-scoring wrong methods.
+example: |
+  "The outcome reward model loved the final number; the derivation had borrowed it from the question."
+askNext:
+  - "What is labelled as success, and by whom?"
+  - "Do you inspect trajectories that score high for the wrong reasons?"
+  - "When is process supervision required instead?"
+related:
+  - "process-reward-model"
+  - "rlhf"
+  - "best-of-n"
+seeAlso:
+  - "Process reward model"
+  - "Rlhf"
+  - "Best-of-n"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Sparse rewards teach whatever works, including cheats."
+tags:
+  - "rewards"
+  - "training"
+  - "evaluation"
+  - "rl"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "An outcome reward model (ORM) scores final answers or completed trajectories without evaluating intermediate reasoning steps, providing a sparse training or ranking signal."
+  - label: "what it usually means in reality"
+    text: "Pair ORMs with process checks on hard tasks, diversify seeds, and watch for reward hacking that produces high-scoring wrong methods."
+---
+
+Outcome rewards are efficient. Efficiency is not the same as integrity.

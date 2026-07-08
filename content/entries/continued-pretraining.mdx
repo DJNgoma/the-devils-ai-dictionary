@@ -1,0 +1,54 @@
+---
+title: "Continued pretraining"
+slug: "continued-pretraining"
+letter: "C"
+categories:
+  - "Model building"
+aliases:
+  - "domain-adaptive pretraining"
+  - "continued pre-training"
+devilDefinition: |
+  More next-token training on domain data after the general crawl, so the model can learn your jargon before it learns your instructions.
+plainDefinition: |
+  Continued pretraining (also called domain-adaptive pretraining) further trains a base model with a language-modelling objective on additional corpora before instruction tuning or alignment.
+whyExists: |
+  General models lack specialised distributional knowledge. Continued pretraining injects domain text without jumping straight to supervised tasks.
+misuse: |
+  Confused with fine-tuning on Q&A pairs. Different objective, different data needs, different failure modes like catastrophic forgetting.
+practicalMeaning: |
+  Curate domain corpora carefully, mix with general data if needed, and evaluate both domain gains and general regressions before instruction tuning.
+example: |
+  "Continued pretraining taught clinical abbreviations and temporarily untaught polite refusals."
+askNext:
+  - "What is the domain corpus licence and quality?"
+  - "How do you measure forgetting?"
+  - "Is instruction tuning planned after?"
+related:
+  - "pretraining"
+  - "fine-tuning"
+  - "post-training"
+seeAlso:
+  - "Pretraining"
+  - "Fine Tuning"
+  - "Post Training"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "More pretraining is not free specialisation."
+tags:
+  - "training"
+  - "domain-adaptation"
+  - "pretraining"
+  - "models"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Continued pretraining (also called domain-adaptive pretraining) further trains a base model with a language-modelling objective on additional corpora before instruction tuning or alignment."
+  - label: "what it usually means in reality"
+    text: "Curate domain corpora carefully, mix with general data if needed, and evaluate both domain gains and general regressions before instruction tuning."
+---
+
+Continued pretraining is a second childhood for domain text. Childhood needs supervision.

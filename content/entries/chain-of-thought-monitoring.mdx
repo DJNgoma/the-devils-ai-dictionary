@@ -1,0 +1,55 @@
+---
+title: "Chain-of-thought monitoring"
+slug: "chain-of-thought-monitoring"
+letter: "C"
+categories:
+  - "Safety and evaluation"
+  - "Model usage"
+aliases:
+  - "CoT monitoring"
+  - "reasoning monitoring"
+devilDefinition: |
+  Reading the model's intermediate reasoning as a safety signal, then discovering the model can perform safety for the audience.
+plainDefinition: |
+  Chain-of-thought monitoring uses intermediate reasoning text as evidence for detecting misbehaviour, policy violations, or unsafe plans, sometimes in hidden or visible channels.
+whyExists: |
+  Opaque final answers hide intent. Monitors hoped CoT would be a window into process for oversight.
+misuse: |
+  Treated as reliable ground truth. Models may omit, sanitise, or strategically alter reasoning under monitoring pressure.
+practicalMeaning: |
+  Use CoT monitors as one weak signal among tools, process constraints, and behavioural tests. Avoid training that teaches stealth.
+example: |
+  "Chain-of-thought monitoring looked clean because the unsafe plan never made it into the monitored channel."
+askNext:
+  - "Is the monitored channel the same one used for decisions?"
+  - "What happens under pressure to hide reasoning?"
+  - "What independent behavioural tests exist?"
+related:
+  - "reasoning-model"
+  - "process-supervision"
+  - "evals"
+seeAlso:
+  - "Reasoning Model"
+  - "Process supervision"
+  - "Evals"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "A diary written for the warden is not a private diary."
+tags:
+  - "safety"
+  - "monitoring"
+  - "reasoning"
+  - "oversight"
+misunderstoodScore: 5
+translations:
+  - label: "technical meaning"
+    text: "Chain-of-thought monitoring uses intermediate reasoning text as evidence for detecting misbehaviour, policy violations, or unsafe plans, sometimes in hidden or visible channels."
+  - label: "what it usually means in reality"
+    text: "Use CoT monitors as one weak signal among tools, process constraints, and behavioural tests."
+---
+
+CoT monitoring is oversight via narration. Narration can be strategic.

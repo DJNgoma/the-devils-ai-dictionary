@@ -1,0 +1,56 @@
+---
+title: "Ephemeral environment"
+slug: "ephemeral-environment"
+letter: "E"
+categories:
+  - "Infrastructure and deployment"
+  - "Agents and workflows"
+aliases:
+  - "ephemeral sandbox"
+  - "disposable environment"
+devilDefinition: |
+  A temporary machine for agent code that dies after the task, taking its mess—and hopefully its secrets—with it.
+plainDefinition: |
+  An ephemeral environment is a short-lived runtime (container, VM, or worktree sandbox) created for an agent or job to execute untrusted or experimental work, then destroyed.
+whyExists: |
+  Agents write and run code. Durable shared machines accumulate risk; ephemeral ones limit persistence of compromise and clutter.
+misuse: |
+  Called ephemeral while mounting production credentials and long-lived volumes. Destruction without secret hygiene is theatre.
+practicalMeaning: |
+  Provision minimal identity, no standing prod access, network policy, and automatic teardown. Pass only needed artefacts out.
+example: |
+  "The ephemeral environment compiled the patch and vanished before anyone could SSH in to 'just check.'"
+askNext:
+  - "What credentials exist inside the environment?"
+  - "Is teardown guaranteed on failure paths?"
+  - "What artefacts are exported, and are they scanned?"
+related:
+  - "sandbox"
+  - "filesystem-scope"
+  - "coding-agent"
+seeAlso:
+  - "Sandbox"
+  - "Filesystem scope"
+  - "Coding Agent"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Short-lived is not the same as low-privilege."
+tags:
+  - "security"
+  - "infrastructure"
+  - "agents"
+  - "sandbox"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "An ephemeral environment is a short-lived runtime (container, VM, or worktree sandbox) created for an agent or job to execute untrusted or experimental work, then destroyed."
+  - label: "what it usually means in reality"
+    text: "Provision minimal identity, no standing prod access, network policy, and automatic teardown."
+diagram: "worktree"
+---
+
+Ephemeral environments are disposable desks. Do not leave master keys on disposable desks.

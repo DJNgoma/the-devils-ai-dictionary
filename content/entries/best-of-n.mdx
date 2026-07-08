@@ -1,0 +1,55 @@
+---
+title: "Best-of-n"
+slug: "best-of-n"
+letter: "B"
+categories:
+  - "Model usage"
+  - "Economics and operations of AI"
+aliases:
+  - "best of n sampling"
+  - "BoN"
+devilDefinition: |
+  Generate many answers, pick the prettiest one, and call the sampling bill 'test-time compute.'
+plainDefinition: |
+  Best-of-n is a decoding strategy that samples multiple candidate outputs and selects the best according to a reward model, verifier, or heuristic.
+whyExists: |
+  Single samples are noisy. Searching a small set of candidates often improves quality without changing the base model weights.
+misuse: |
+  Treated as free intelligence. Cost scales with n, and a weak verifier can crown confident nonsense.
+practicalMeaning: |
+  Track quality versus n, latency, and verifier cost. Use early stopping and task-specific verifiers when possible rather than infinite sampling.
+example: |
+  "Best-of-32 fixed the demo and tripled the invoice."
+askNext:
+  - "What selects the winner, and is that selector evaluated?"
+  - "What is the latency budget at your chosen n?"
+  - "Does quality plateau before your spend does?"
+related:
+  - "test-time-compute"
+  - "outcome-reward-model"
+  - "inference-budget"
+seeAlso:
+  - "Test Time Compute"
+  - "Outcome reward model"
+  - "Inference Budget"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "More samples only help if selection is competent."
+tags:
+  - "decoding"
+  - "test-time-compute"
+  - "inference"
+  - "search"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Best-of-n is a decoding strategy that samples multiple candidate outputs and selects the best according to a reward model, verifier, or heuristic."
+  - label: "what it usually means in reality"
+    text: "Track quality versus n, latency, and verifier cost."
+---
+
+Best-of-n is shopping among futures. Shopping needs a good critic.

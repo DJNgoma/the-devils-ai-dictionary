@@ -1,0 +1,56 @@
+---
+title: "MCP client"
+slug: "mcp-client"
+letter: "M"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "MCP protocol client"
+  - "Model Context Protocol client"
+devilDefinition: |
+  The component that dials MCP servers and offers their tools to a model, standing between curiosity and your filesystem.
+plainDefinition: |
+  An MCP client connects to one or more MCP servers, negotiates capabilities, and exposes tools, resources, or prompts to a host application and ultimately to a model.
+whyExists: |
+  MCP defines roles. The client is the connector that makes server capabilities available inside an app session.
+misuse: |
+  Run with ambient high privileges and poor server authentication. Clients are part of the trust boundary.
+practicalMeaning: |
+  Authenticate servers, sandbox tool effects, surface invocations to users, and fail closed on unknown servers.
+example: |
+  "The MCP client listed three servers; only two were supposed to exist in prod."
+askNext:
+  - "How are servers authenticated and allowed?"
+  - "What is visible to the model versus the user?"
+  - "How are tool errors handled?"
+related:
+  - "mcp"
+  - "mcp-host"
+  - "mcp-server"
+seeAlso:
+  - "Mcp"
+  - "MCP host"
+  - "Mcp Server"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "A client is not a passive wire; it enforces or fails to enforce policy."
+tags:
+  - "mcp"
+  - "tools"
+  - "agents"
+  - "integration"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "An MCP client connects to one or more MCP servers, negotiates capabilities, and exposes tools, resources, or prompts to a host application and ultimately to a model."
+  - label: "what it usually means in reality"
+    text: "Authenticate servers, sandbox tool effects, surface invocations to users, and fail closed on unknown servers."
+diagram: "mcp"
+---
+
+MCP clients are gateways. Gateways need guards.

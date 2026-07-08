@@ -1,0 +1,57 @@
+---
+title: "A2A protocol"
+slug: "a2a-protocol"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Product and vendor terms"
+  - "Infrastructure and deployment"
+aliases:
+  - "A2A"
+  - "agent-to-agent protocol"
+devilDefinition: |
+  A proposal for agents to talk to agents as peers, which is either interoperability or a new way to chain prompt injections.
+plainDefinition: |
+  A2A (agent-to-agent) protocols are interoperability proposals for agents to discover, negotiate, and exchange tasks with other agents, distinct from tool-access protocols like MCP.
+whyExists: |
+  Multi-vendor agent ecosystems need shared languages beyond ad hoc webhooks. Standards attempts follow the chaos.
+misuse: |
+  Confused with MCP. Tool access and agent peer protocols solve different layers; neither replaces identity and authorisation design.
+practicalMeaning: |
+  Track the actual spec you implement, map trust boundaries carefully, and assume hostile peers until proven otherwise.
+example: |
+  "The A2A protocol demo looked smooth until one agent delegated a purchase to another agent with shopping addiction."
+askNext:
+  - "What identity binds agent messages?"
+  - "How are delegations scoped and revoked?"
+  - "How does this interact with MCP or tools?"
+related:
+  - "agent2agent"
+  - "mcp"
+  - "agent-protocol-stack"
+seeAlso:
+  - "Agent2agent"
+  - "Mcp"
+  - "Agent protocol stack"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Interop without a threat model is a shared incident format."
+tags:
+  - "agents"
+  - "protocols"
+  - "interoperability"
+  - "standards"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "A2A (agent-to-agent) protocols are interoperability proposals for agents to discover, negotiate, and exchange tasks with other agents, distinct from tool-access protocols like MCP."
+  - label: "what it usually means in reality"
+    text: "Track the actual spec you implement, map trust boundaries carefully, and assume hostile peers until proven otherwise."
+diagram: "mcp"
+---
+
+A2A is diplomacy for software agents. Diplomacy needs treaties and verification.

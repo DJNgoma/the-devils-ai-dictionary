@@ -1,0 +1,54 @@
+---
+title: "PagedAttention"
+slug: "paged-attention"
+letter: "P"
+categories:
+  - "Infrastructure and deployment"
+aliases:
+  - "PagedAttention"
+  - "paged KV cache"
+devilDefinition: |
+  Virtual memory for KV cache so inference servers can pack more sequences without treating GPU RAM like a single luxury hotel room.
+plainDefinition: |
+  PagedAttention is a KV-cache management technique (popularised by vLLM) that stores attention key/value tensors in non-contiguous pages, improving memory utilisation for batched LLM serving.
+whyExists: |
+  Request lengths vary; contiguous preallocation wastes memory. Paging lets servers admit more concurrent sequences.
+misuse: |
+  Cited as automatic infinite context. It improves packing efficiency; it does not remove model context limits.
+practicalMeaning: |
+  Use serving engines that implement it well, monitor fragmentation and preemption, and size pages for your length distribution.
+example: |
+  "PagedAttention raised concurrency until the team noticed they had been paying for empty KV slots."
+askNext:
+  - "What engine implements your paging?"
+  - "How full is KV memory under peak load?"
+  - "Do long requests starve short interactive ones?"
+related:
+  - "kv-cache"
+  - "continuous-batching"
+  - "inference-stack"
+seeAlso:
+  - "Kv Cache"
+  - "Continuous batching"
+  - "Inference Stack"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Better packing still hits a hard memory ceiling."
+tags:
+  - "serving"
+  - "kv-cache"
+  - "vllm"
+  - "memory"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "PagedAttention is a KV-cache management technique (popularised by vLLM) that stores attention key/value tensors in non-contiguous pages, improving memory utilisation for batched LLM serving."
+  - label: "what it usually means in reality"
+    text: "Use serving engines that implement it well, monitor fragmentation and preemption, and size pages for your length distribution."
+---
+
+PagedAttention is OS wisdom applied to transformers. Wisdom still needs capacity planning.

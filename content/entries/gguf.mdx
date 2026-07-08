@@ -1,0 +1,55 @@
+---
+title: "GGUF"
+slug: "gguf"
+letter: "G"
+categories:
+  - "Infrastructure and deployment"
+  - "Product and vendor terms"
+aliases:
+  - "GGUF format"
+  - "gguf model file"
+devilDefinition: |
+  A file format that lets quantised models travel through the llama.cpp universe without reinventing the weight suitcase each time.
+plainDefinition: |
+  GGUF is a binary file format for storing models (often quantised) popular in local inference ecosystems such as llama.cpp-compatible tools.
+whyExists: |
+  Local model distribution needed a practical container for weights, metadata, and quantisation schemes. GGUF became a de facto standard in that niche.
+misuse: |
+  Assumed universal across all serving stacks. Many cloud engines prefer safetensors or vendor formats instead.
+practicalMeaning: |
+  Match GGUF quant type to your quality needs, verify checksums, and track which runtime versions read which GGUF features.
+example: |
+  "The GGUF file fit on the laptop and ran until the quant type met a model it disliked."
+askNext:
+  - "Which quantisation variant is inside the GGUF?"
+  - "Is the source and checksum trustworthy?"
+  - "Does your runtime support this GGUF version?"
+related:
+  - "ollama"
+  - "quantisation"
+  - "open-weight"
+seeAlso:
+  - "Ollama"
+  - "Quantisation"
+  - "Open Weight"
+difficulty: "beginner"
+technicalDepth: "low"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "A convenient format is still a supply-chain artefact."
+tags:
+  - "formats"
+  - "local-models"
+  - "quantisation"
+  - "ecosystem"
+misunderstoodScore: 2
+translations:
+  - label: "technical meaning"
+    text: "GGUF is a binary file format for storing models (often quantised) popular in local inference ecosystems such as llama.cpp-compatible tools."
+  - label: "what it usually means in reality"
+    text: "Match GGUF quant type to your quality needs, verify checksums, and track which runtime versions read which GGUF features."
+---
+
+GGUF is packaging for local weights. Packaging still needs provenance.

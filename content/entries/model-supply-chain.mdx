@@ -1,0 +1,54 @@
+---
+title: "Model supply chain"
+slug: "model-supply-chain"
+letter: "M"
+categories:
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+  - "Model building"
+aliases:
+  - "AI supply chain"
+  - "ML supply chain"
+devilDefinition: |
+  Everything your model depends on before it answers—datasets, base checkpoints, adapters, tools, and the intern who uploaded a weight file.
+plainDefinition: |
+  The model supply chain is the web of datasets, base models, fine-tunes, evaluation sets, tools, and distribution channels that produce and deliver a deployed model system.
+whyExists: |
+  Incidents and regulations made it obvious that models are assembled, not immaculately conceived. Supply chain is where risk accumulates.
+misuse: |
+  Reduced to a logo slide of vendors. Real chains include transitive data licences and unofficial mirrors.
+practicalMeaning: |
+  Inventory components, pin versions, verify artefacts, track licences, and require approval for new upstream sources.
+example: |
+  "The model supply chain included a base model, two adapters, and a dataset nobody could licence."
+askNext:
+  - "Can you list every artefact in the deployed system?"
+  - "Which upstreams can change without your knowledge?"
+  - "What verification exists at each hop?"
+related:
+  - "data-poisoning"
+  - "provenance"
+seeAlso:
+  - "Data poisoning"
+  - "Provenance"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "You inherit the weakest verified link."
+tags:
+  - "supply-chain"
+  - "security"
+  - "governance"
+  - "models"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "The model supply chain is the web of datasets, base models, fine-tunes, evaluation sets, tools, and distribution channels that produce and deliver a deployed model system."
+  - label: "what it usually means in reality"
+    text: "Inventory components, pin versions, verify artefacts, track licences, and require approval for new upstream sources."
+---
+
+Model supply chains are software supply chains with more mystery meat. Inventory them.

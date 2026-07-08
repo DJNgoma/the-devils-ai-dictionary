@@ -1,0 +1,52 @@
+---
+title: "Pretraining"
+slug: "pretraining"
+letter: "P"
+categories:
+  - "Model building"
+aliases:
+  - "pre-training"
+  - "foundation model pretraining"
+devilDefinition: |
+  The long, expensive next-token education that creates a base model before anyone teaches it manners.
+plainDefinition: |
+  Pretraining is large-scale unsupervised (usually next-token) learning on broad corpora that produces a base language model later adapted by fine-tuning, instruction tuning, or alignment.
+whyExists: |
+  General capabilities emerge from broad statistical learning at scale. Pretraining is still the foundation of modern LLMs.
+misuse: |
+  Used loosely for any training. Post-training and pretraining have different data, costs, and risks.
+practicalMeaning: |
+  Track data mix, scale, compute, and evals for base models; treat pretraining runs as major capital and governance events.
+example: |
+  "Pretraining finished; the model could complete code and also complete bad ideas fluently."
+askNext:
+  - "What data mix and filters were used?"
+  - "Which base evals define success?"
+  - "What post-training is planned to shape behaviour?"
+related:
+  - "post-training"
+  - "continued-pretraining"
+seeAlso:
+  - "Post Training"
+  - "Continued pretraining"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Base capability is not product readiness."
+tags:
+  - "training"
+  - "foundation-models"
+  - "compute"
+  - "data"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Pretraining is large-scale unsupervised (usually next-token) learning on broad corpora that produces a base language model later adapted by fine-tuning, instruction tuning, or alignment."
+  - label: "what it usually means in reality"
+    text: "Track data mix, scale, compute, and evals for base models; treat pretraining runs as major capital and governance events."
+---
+
+Pretraining builds the prior. Products are mostly what you do after.

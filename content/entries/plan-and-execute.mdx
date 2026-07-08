@@ -1,0 +1,53 @@
+---
+title: "Plan and execute"
+slug: "plan-and-execute"
+letter: "P"
+categories:
+  - "Agents and workflows"
+aliases:
+  - "plan and execute"
+  - "plan-then-execute"
+devilDefinition: |
+  Draft a plan, then do the plan, then discover the plan was a novel written by someone who had not seen the codebase.
+plainDefinition: |
+  Plan-and-execute is an agent pattern that first produces an explicit plan of steps, then carries out those steps with tools, optionally replanning when reality diverges.
+whyExists: |
+  Interleaved improvisation gets lost. Separating planning from acting can improve structure and reviewability.
+misuse: |
+  Treating the first plan as sacred. Rigid execution of a bad plan is organised failure.
+practicalMeaning: |
+  Allow replanning checkpoints, keep plans short, and verify steps against tests or acceptance criteria rather than vibes.
+example: |
+  "Plan-and-execute step four assumed a database that production retired last year."
+askNext:
+  - "When may the agent replan?"
+  - "Who reviews high-risk plans before execution?"
+  - "How are plan steps tied to verification?"
+related:
+  - "agent-workflow"
+  - "orchestrator-agent"
+seeAlso:
+  - "Agent Workflow"
+  - "Orchestrator agent"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "A plan is a hypothesis about the future of the repo."
+tags:
+  - "agents"
+  - "planning"
+  - "workflows"
+  - "patterns"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Plan-and-execute is an agent pattern that first produces an explicit plan of steps, then carries out those steps with tools, optionally replanning when reality diverges."
+  - label: "what it usually means in reality"
+    text: "Allow replanning checkpoints, keep plans short, and verify steps against tests or acceptance criteria rather than vibes."
+diagram: "agent-loop"
+---
+
+Plan-and-execute is structure. Structure needs feedback loops.

@@ -1,0 +1,55 @@
+---
+title: "Quantisation"
+slug: "quantisation"
+letter: "Q"
+categories:
+  - "Infrastructure and deployment"
+  - "Model building"
+aliases:
+  - "quantization"
+  - "weight quantisation"
+devilDefinition: |
+  Storing weights with fewer bits so inference gets cheaper and everyone argues about how much quality you actually sold.
+plainDefinition: |
+  Quantisation reduces the numeric precision of model weights and/or activations (for example to 8-bit or 4-bit formats) to cut memory and often increase throughput, with some accuracy trade-offs.
+whyExists: |
+  Large models strain memory bandwidth and capacity. Lower precision is one of the main practical compression levers for serving.
+misuse: |
+  Assumed lossless, or compared across methods without task metrics. A '4-bit model' is not a single quality class.
+practicalMeaning: |
+  Benchmark your tasks after quantisation, watch outliers and long-context behaviour, and pick formats your hardware actually accelerates.
+example: |
+  "Quantisation fit the model on one GPU and made the accounting bot forget how invoices work."
+askNext:
+  - "Which scheme and bit-width, and calibrated how?"
+  - "What task metrics regressed?"
+  - "Is the runtime using real low-precision kernels?"
+related:
+  - "inference-stack"
+  - "qlora"
+  - "tokens-per-dollar"
+seeAlso:
+  - "Inference Stack"
+  - "QLoRA"
+  - "Tokens per dollar"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Smaller weights are not automatically the same model."
+tags:
+  - "compression"
+  - "inference"
+  - "serving"
+  - "performance"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "Quantisation reduces the numeric precision of model weights and/or activations (for example to 8-bit or 4-bit formats) to cut memory and often increase throughput, with some accuracy trade-offs."
+  - label: "what it usually means in reality"
+    text: "Benchmark your tasks after quantisation, watch outliers and long-context behaviour, and pick formats your hardware actually accelerates."
+---
+
+Quantisation is compression with opinions. Measure the opinions on your workload.

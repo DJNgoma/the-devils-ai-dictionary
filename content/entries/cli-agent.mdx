@@ -1,0 +1,56 @@
+---
+title: "CLI agent"
+slug: "cli-agent"
+letter: "C"
+categories:
+  - "Agents and workflows"
+  - "Product and vendor terms"
+aliases:
+  - "command-line agent"
+  - "terminal agent"
+devilDefinition: |
+  An agent that lives in the terminal so developers can feel productive while something semi-supervised runs shell commands.
+plainDefinition: |
+  A CLI agent is a coding or operations agent whose primary interface is the command line, using shell, files, and git rather than (or in addition to) an IDE chat panel.
+whyExists: |
+  Much real work is terminal-native. CLI agents fit scripts, SSH sessions, and developer habits better than browser chat.
+misuse: |
+  Given broad shell access without sandboxing. Terminal convenience is also blast radius.
+practicalMeaning: |
+  Constrain working directories, require approvals for destructive commands, log every shell invocation, and prefer ephemeral environments.
+example: |
+  "The CLI agent refactored the service and also reformatted the infrastructure repo for style."
+askNext:
+  - "What commands are allowlisted?"
+  - "Is the working tree isolated?"
+  - "How are secrets kept out of command history and logs?"
+related:
+  - "coding-agent"
+  - "claude-code"
+  - "codex"
+seeAlso:
+  - "Coding Agent"
+  - "Claude Code"
+  - "Codex"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "Shell access is power; power needs policy."
+tags:
+  - "agents"
+  - "developer-tools"
+  - "cli"
+  - "coding"
+misunderstoodScore: 3
+translations:
+  - label: "technical meaning"
+    text: "A CLI agent is a coding or operations agent whose primary interface is the command line, using shell, files, and git rather than (or in addition to) an IDE chat panel."
+  - label: "what it usually means in reality"
+    text: "Constrain working directories, require approvals for destructive commands, log every shell invocation, and prefer ephemeral environments."
+diagram: "agent-loop"
+---
+
+CLI agents meet engineers on their home turf. Home turf includes `rm`.

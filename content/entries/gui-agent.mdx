@@ -1,0 +1,56 @@
+---
+title: "GUI agent"
+slug: "gui-agent"
+letter: "G"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "computer use agent"
+  - "desktop agent"
+devilDefinition: |
+  An agent that clicks buttons like a tired intern, except the intern never had root-adjacent access to your desktop session.
+plainDefinition: |
+  A GUI agent operates graphical interfaces by perceiving screens and issuing clicks, typing, and navigation actions—broader than browser-only agents and including desktop apps.
+whyExists: |
+  Many critical systems only expose GUIs. Automation that cannot click is blocked by legacy software.
+misuse: |
+  Given broad desktop control without sandboxing. UI automation is brittle and high blast radius.
+practicalMeaning: |
+  Constrain apps and accounts, prefer APIs when available, record action traces, and require confirmations for irreversible UI flows.
+example: |
+  "The GUI agent completed the form and also dismissed three security prompts as clutter."
+askNext:
+  - "Which applications and accounts are in scope?"
+  - "How do you recover from UI changes?"
+  - "What requires human confirmation?"
+related:
+  - "browser-agent"
+  - "computer-use"
+  - "agent-sandbox-leakage"
+seeAlso:
+  - "Browser agent"
+  - "Computer Use"
+  - "Agent sandbox leakage"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-08"
+updatedAt: "2026-07-08"
+warningLabel: "If a human can click it, an unconstrained agent can too."
+tags:
+  - "agents"
+  - "automation"
+  - "ui"
+  - "desktop"
+misunderstoodScore: 4
+translations:
+  - label: "technical meaning"
+    text: "A GUI agent operates graphical interfaces by perceiving screens and issuing clicks, typing, and navigation actions—broader than browser-only agents and including desktop apps."
+  - label: "what it usually means in reality"
+    text: "Constrain apps and accounts, prefer APIs when available, record action traces, and require confirmations for irreversible UI flows."
+diagram: "agent-loop"
+---
+
+GUI agents automate the interface layer. The interface layer includes every dangerous button.
