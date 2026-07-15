@@ -8,6 +8,7 @@ This workflow exists so the daily content expansion run can add terms without to
 - Do all editorial work in that fresh worktree, not in `/Users/daliso/Developer/TheDevilsAIDictionary`.
 - Regenerate and verify the catalogue before any commit.
 - Select terms from [`docs/automation/daily-term-queue.json`](./daily-term-queue.json), not by scanning the full catalogue freehand.
+- Before selection, replenish the queue when fewer than seven items remain queued. Research current AI releases, products, infrastructure, economics, safety, and culture from live primary or reputable sources, then append only genuinely useful, non-duplicate candidates to the queue.
 - Only publish diffs that stay inside:
   - `content/entries/*.mdx`
   - `docs/automation/daily-term-queue.json`
@@ -41,13 +42,21 @@ The bootstrap wrapper:
 - hydrates `node_modules` from an automation-owned cache keyed by `sha256(package-lock.json)`
 - stops before drafting if a fresh fetch or dependency install never succeeds
 
-Choose the next queued batch before drafting:
+Check the queue before selection. If fewer than seven items are queued, research enough current terms to restore a useful runway. Discovery must:
+
+- use live sources, preferring official release notes, documentation, system cards, research posts, and reputable reporting
+- compare candidate slugs, labels, and obvious aliases against `content/entries/*.mdx` and every existing queue item
+- avoid rumours, speculative model names, minor version trivia without cultural or commercial relevance, and obscure academic jargon that has not escaped into practice
+- append candidates to `docs/automation/daily-term-queue.json` with `status: "queued"`, useful editorial notes, category and related hints, a deliberate `misunderstoodHint`, and the strongest matching `diagramHint` or `null`
+- add at least seven sound candidates when possible; if fewer than five defensible non-duplicates can be found, stop and report a discovery blocker rather than padding the queue
+
+After any needed replenishment, choose the next queued batch before drafting:
 
 ```bash
 scripts/with-node.sh node scripts/daily-term-automation.mjs queue next --count 7 --json
 ```
 
-The queue file order is authoritative. The worker returns the first queued items in file order, emits a low-queue warning when only five or six queued items remain, and fails early when fewer than five queued items are available.
+The queue file order is authoritative. The worker returns the first queued items in file order, emits a low-queue warning when only five or six queued items remain, and fails early when fewer than five queued items are available. That failure means the replenishment phase did not produce enough defensible candidates; it is not the normal first response to an empty queue.
 
 After writing the queued entries, regenerate and verify the expected slugs:
 
@@ -93,10 +102,11 @@ It also marks the published slugs as `published` in the queue file inside the sa
 ## Editorial checklist
 
 - Read [`docs/content-authoring.md`](../content-authoring.md) before drafting new terms.
+- Inspect queue depth and replenish it through live, deduplicated research when fewer than seven items are queued.
 - Draft only the slugs returned by `queue next`.
 - Avoid recent duplicates from automation memory and from existing published entries.
 - Keep the humour dry and controlled.
 - Use British or South African leaning spelling where natural.
 - Check the `diagramCoverage` field from `verify --json`. If a new term lacks a diagram, either add the strongest matching diagram key or be ready to say why a mental model would be forced.
 - Set `misunderstoodScore` using the rubric in `docs/content-authoring.md`, then check `misunderstoodSelection` from `verify --json` to see whether the term enters the live rail.
-- Treat queue depletion, network failures, missing dependencies, or stale `origin/main` as first-class blockers and report them plainly.
+- Treat failed replenishment, network failures, missing dependencies, or stale `origin/main` as first-class blockers and report them plainly.

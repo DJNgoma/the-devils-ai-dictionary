@@ -1,0 +1,53 @@
+---
+title: "Programmatic tool calling"
+slug: "programmatic-tool-calling"
+letter: "P"
+categories:
+  - "Agents and workflows"
+  - "Model usage"
+aliases: []
+devilDefinition: |
+  Let the model write the orchestration code, thereby saving round trips and concentrating the incident report.
+plainDefinition: |
+  Programmatic tool calling lets a model write code that invokes tools inside a controlled execution container. Intermediate tool results can be filtered, combined, or aggregated there before only the useful output is returned to the model.
+whyExists: |
+  A workflow with many ordinary tool calls requires repeated model turns and can pour large intermediate results into context. Code can perform loops, branching, joins, and filtering more cheaply while preserving the model for planning and interpretation.
+misuse: |
+  It is described as though fewer model round trips mean less complexity. The complexity has moved into generated code, container policy, tool permissions, runtime limits, and debugging traces—places where it can now fail at machine speed.
+practicalMeaning: |
+  The model writes a script, a sandbox runs it, permitted tools execute through controlled call paths, and only selected results return to context. Teams need explicit allowlists, time and resource limits, auditable calls, deterministic fixtures, and a firm answer to whether generated code may touch the network.
+example: |
+  "One generated script replaced twenty tool turns and gave the security review a pleasingly compact object of concern."
+askNext:
+  - "Which tools, networks, files, and secrets can the execution container access?"
+  - "How are generated scripts, intermediate calls, and failures traced?"
+  - "Does the workflow save tokens without hiding decisions that require review?"
+related:
+  - "function-calling"
+  - "tool-use"
+  - "tool-search-tool"
+seeAlso:
+  - "Code execution"
+  - "Sandboxing"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-15"
+updatedAt: "2026-07-15"
+warningLabel: "Efficient orchestration is still code execution."
+vendorReferences:
+  - "Claude Platform"
+tags:
+  - "tools"
+  - "code execution"
+  - "sandbox"
+  - "agents"
+misunderstoodScore: 4
+translations:
+  - label: "engineer meaning"
+    text: "Run a generated tool-using script in a sandbox so the model sees the answer, not every intermediate spreadsheet row."
+diagram: "function-calling"
+---
+
+The optimisation is real. So is the old systems principle that anything allowed to execute code will eventually become the most interesting part of the architecture.

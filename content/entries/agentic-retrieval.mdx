@@ -1,0 +1,54 @@
+---
+title: "Agentic retrieval"
+slug: "agentic-retrieval"
+letter: "A"
+categories:
+  - "Retrieval and memory"
+  - "Agents and workflows"
+aliases: []
+devilDefinition: |
+  RAG with permission to hold a planning meeting before it searches.
+plainDefinition: |
+  Agentic retrieval is a retrieval pipeline that uses a model to plan or decompose a complex question into focused subqueries, executes those searches, reranks and merges the results, and returns grounding data or an answer with source references.
+whyExists: |
+  A single search query often misses implied context, multiple intents, or evidence spread across sources. Planning several targeted queries can improve coverage and give downstream agents stronger grounding for complex questions.
+misuse: |
+  The adjective "agentic" can conceal an expensive query fan-out behind a fashionable noun. More searches do not guarantee better evidence; they can multiply latency, irrelevant chunks, ranking errors, and token charges with admirable initiative.
+practicalMeaning: |
+  Feed the user question and conversation history to a planner, run the resulting keyword, vector, or hybrid subqueries, rerank them, merge the best evidence, and preserve an activity log. Evaluate answer quality against classic retrieval as well as latency, cost, source diversity, and failure on deceptively simple questions.
+example: |
+  "Agentic retrieval split the policy question into four searches, found the missing exception, and invoiced every stage of its curiosity."
+askNext:
+  - "When does query decomposition outperform one well-formed hybrid search?"
+  - "How are subqueries, reranking decisions, citations, and token costs exposed?"
+  - "What prevents the planner from broadening the question beyond the user's authority?"
+related:
+  - "rag"
+  - "agentic-rag"
+  - "context-engineering"
+seeAlso:
+  - "Query decomposition"
+  - "Semantic reranking"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-15"
+updatedAt: "2026-07-15"
+warningLabel: "More queries can improve recall and multiply cost."
+vendorReferences:
+  - "Azure AI Search"
+  - "Microsoft Foundry"
+tags:
+  - "retrieval"
+  - "rag"
+  - "query planning"
+  - "agents"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "Let a model plan several searches before retrieval, then measure whether the extra intelligence beats the extra bill."
+diagram: "rag"
+---
+
+The search box has acquired a planner, a reranker, an activity log, and several additional opportunities to be confidently adjacent to the answer.

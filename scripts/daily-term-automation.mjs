@@ -16,6 +16,7 @@ const validQueueStatuses = new Set(["queued", "published", "skipped"]);
 const allowedPublishPathPatterns = [
   /^content\/entries\/[^/]+\.mdx$/,
   /^scripts\/daily-term-automation\.mjs$/,
+  /^docs\/automation\/daily-term-expansion\.md$/,
   /^docs\/automation\/daily-term-queue\.json$/,
   /^src\/generated\/entries\.generated\.json$/,
   /^src\/generated\/entries\.web\.generated\.json$/,
@@ -1004,6 +1005,7 @@ async function commandPublish(options) {
     "--",
     "content/entries",
     "scripts/daily-term-automation.mjs",
+    "docs/automation/daily-term-expansion.md",
     queueFileRelativePath,
     "src/generated/entries.generated.json",
     "src/generated/entries.web.generated.json",

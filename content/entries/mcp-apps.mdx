@@ -1,0 +1,55 @@
+---
+title: "MCP Apps"
+slug: "mcp-apps"
+letter: "M"
+categories:
+  - "Agents and workflows"
+  - "Product and vendor terms"
+aliases:
+  - "MCP UI apps"
+devilDefinition: |
+  The moment a tool result decides it deserves controls, state, and a small front-end team.
+plainDefinition: |
+  MCP Apps is an official Model Context Protocol extension for interactive user interfaces rendered inside an MCP host. A tool declares a UI resource; after the tool call, the host fetches that resource and renders its HTML in a sandboxed iframe within the conversation.
+whyExists: |
+  Some tool results are awkward as prose or static structured data. Maps, forms, charts, previews, and multi-step controls are easier to understand and operate as interfaces that remain connected to the tool and conversation context.
+misuse: |
+  It gets described as though returning HTML makes an MCP server a complete application platform. Hosts still decide support, sandboxes constrain behaviour, and the server still owns the unglamorous work of data, authentication, state, and safe tool design.
+practicalMeaning: |
+  The server exposes a tool plus a referenced UI resource. A compatible host calls the tool, fetches the resource, and renders it under host-controlled security restrictions. Teams must test host compatibility, content security, accessibility, and what happens when the interface is unavailable.
+example: |
+  "The MCP tool returned an interactive map, which clarified the result and expanded the threat model in one efficient gesture."
+askNext:
+  - "Which MCP hosts support this app and what is the fallback when they do not?"
+  - "What data and actions can cross the sandbox boundary?"
+  - "Does the interface clarify the tool result, or merely relocate the complexity?"
+related:
+  - "mcp"
+  - "tool-result"
+  - "function-calling"
+seeAlso:
+  - "Generative UI"
+  - "MCP resource"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-15"
+updatedAt: "2026-07-15"
+warningLabel: "Interactive output brings interactive attack surface."
+vendorReferences:
+  - "Model Context Protocol"
+  - "ext-apps"
+tags:
+  - "mcp"
+  - "interface"
+  - "tools"
+  - "sandbox"
+misunderstoodScore: 4
+translations:
+  - label: "developer meaning"
+    text: "An MCP tool can return an interface, provided the host agrees to render it and everyone remembers that HTML is executable ambition."
+diagram: "mcp"
+---
+
+Text was never going to contain the tool ecosystem forever. It merely enjoyed a short period of administrative control.

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-08T21:58:41.972Z",
+  "updatedAt": "2026-07-15T10:21:15.798Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -4587,6 +4587,399 @@
       ],
       "addedAt": "2026-07-08T21:07:01.372Z",
       "publishedAt": "2026-07-08T21:58:41.972Z"
+    },
+    {
+      "slug": "machine-payments-protocol",
+      "label": "Machine Payments Protocol",
+      "status": "published",
+      "notes": "HTTP-native payment protocol for agents and services; useful for separating machine-readable settlement from the usual slideware about autonomous commerce.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "agentic-commerce",
+        "machine-payments",
+        "micropayment"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-15T10:21:15.798Z"
+    },
+    {
+      "slug": "universal-commerce-protocol",
+      "label": "Universal Commerce Protocol",
+      "status": "published",
+      "notes": "Google-led open protocol for agent discovery, checkout, and order flows; the universal part still requires everyone else to arrive.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Product and vendor terms",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "agentic-commerce",
+        "ai-shopping-agent",
+        "machine-payments-protocol"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-15T10:21:15.798Z"
+    },
+    {
+      "slug": "mcp-apps",
+      "label": "MCP Apps",
+      "status": "published",
+      "notes": "Official MCP extension for interactive interfaces returned by tools, because plain text eventually wanted buttons and a budget.",
+      "diagramHint": "mcp",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "mcp",
+        "tool-result",
+        "generative-ui"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-15T10:21:15.798Z"
+    },
+    {
+      "slug": "tool-search-tool",
+      "label": "Tool search tool",
+      "status": "published",
+      "notes": "Dynamic discovery and loading of tool schemas when the catalogue is too large to stuff into every prompt.",
+      "diagramHint": "skill-loading",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "relatedHints": [
+        "tool-use",
+        "agent-skills",
+        "context-engineering"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-15T10:21:15.798Z"
+    },
+    {
+      "slug": "programmatic-tool-calling",
+      "label": "Programmatic tool calling",
+      "status": "published",
+      "notes": "Model-written code invokes several tools inside a controlled runtime, reducing round trips while concentrating the consequences.",
+      "diagramHint": "function-calling",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "relatedHints": [
+        "function-calling",
+        "tool-use",
+        "code-interpreter"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-15T10:21:15.798Z"
+    },
+    {
+      "slug": "context-editing",
+      "label": "Context editing",
+      "status": "published",
+      "notes": "Automatic clearing of stale tool results and thinking blocks in long-running agents; memory management with a polite product name.",
+      "diagramHint": "context-window",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Retrieval and memory",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "context-window",
+        "context-compaction",
+        "prompt-caching"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-15T10:21:15.798Z"
+    },
+    {
+      "slug": "agentic-retrieval",
+      "label": "Agentic retrieval",
+      "status": "published",
+      "notes": "Retrieval layer that plans, decomposes, and runs subqueries before returning grounded results; RAG has acquired a project manager.",
+      "diagramHint": "rag",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Retrieval and memory",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "rag",
+        "retrieval-agent",
+        "query-planning"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-15T10:21:15.798Z"
+    },
+    {
+      "slug": "remote-mcp-server",
+      "label": "Remote MCP server",
+      "status": "queued",
+      "notes": "Network-hosted MCP endpoint used as a model tool, with authentication, trust, latency, and approval boundaries now included in the convenience.",
+      "diagramHint": "mcp",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "mcp",
+        "hosted-mcp",
+        "ai-gateway"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z"
+    },
+    {
+      "slug": "background-mode",
+      "label": "Background mode",
+      "status": "queued",
+      "notes": "Asynchronous Responses API jobs for work too long to keep a request open and too important to admit it is a queue.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Agents and workflows",
+        "Infrastructure and deployment",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "responses-api",
+        "async-agent",
+        "durable-execution"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z"
+    },
+    {
+      "slug": "diffusion-language-model",
+      "label": "Diffusion language model",
+      "status": "queued",
+      "notes": "Language model that refines multiple token positions rather than generating strictly left to right; commercially current through Gemini Diffusion.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Core concepts",
+        "Model building",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "generative-model",
+        "latency",
+        "parallel-decoding"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z"
+    },
+    {
+      "slug": "visual-language-action-model",
+      "label": "Vision-language-action model",
+      "status": "queued",
+      "notes": "Model that maps visual and language inputs to robot actions, making multimodality responsible for moving furniture as well as describing it.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Model building",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "multimodal",
+        "physical-ai",
+        "world-model"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z"
+    },
+    {
+      "slug": "web-bot-auth",
+      "label": "Web Bot Auth",
+      "status": "queued",
+      "notes": "HTTP message signatures for verifying AI agents and bots instead of trusting the user-agent string's excellent manners.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Infrastructure and deployment",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "agent-identity",
+        "bot-detection",
+        "workload-identity"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z"
+    },
+    {
+      "slug": "agentic-commerce-protocol",
+      "label": "Agentic Commerce Protocol",
+      "status": "queued",
+      "notes": "OpenAI and Stripe protocol for checkout and delegated payment by agents; a shopping cart with an API and legal questions.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Economics and operations of AI",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "agentic-commerce",
+        "ai-shopping-agent",
+        "machine-payments-protocol"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z"
+    },
+    {
+      "slug": "agent-payments-protocol",
+      "label": "Agent Payments Protocol",
+      "status": "queued",
+      "notes": "Google-led mandate-based authorisation for agent transactions, because delegated spending eventually needs evidence more durable than enthusiasm.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "agentic-commerce",
+        "delegated-authentication",
+        "machine-payments-protocol"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z"
+    },
+    {
+      "slug": "trusted-agent-protocol",
+      "label": "Trusted Agent Protocol",
+      "status": "queued",
+      "notes": "Visa protocol for cryptographically identifying legitimate commerce agents to merchants; trust arrives bearing a payment-network logo.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "agent-identity",
+        "agentic-commerce",
+        "workload-identity"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z"
+    },
+    {
+      "slug": "x402",
+      "label": "x402",
+      "status": "queued",
+      "notes": "Open protocol reviving HTTP 402 for machine and agent payments, usually with stablecoins and the optimism of an unused status code.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Economics and operations of AI",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "machine-payments-protocol",
+        "agentic-commerce",
+        "micropayment"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z"
+    },
+    {
+      "slug": "agent-card",
+      "label": "Agent Card",
+      "status": "queued",
+      "notes": "A2A metadata document advertising an agent's identity, skills, endpoint, and security schemes; a business card that may call tools.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "agent2agent",
+        "agent-identity",
+        "capability-declaration"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z"
+    },
+    {
+      "slug": "generative-ui",
+      "label": "Generative UI",
+      "status": "queued",
+      "notes": "Interfaces assembled from model and tool output in response to a conversation, rather than another paragraph pretending to be a workflow.",
+      "diagramHint": "function-calling",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "relatedHints": [
+        "mcp-apps",
+        "tool-result",
+        "structured-content"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z"
+    },
+    {
+      "slug": "durable-execution",
+      "label": "Durable execution",
+      "status": "queued",
+      "notes": "Persisted workflow state that lets long-running agent jobs survive process failure, retries, and the infrastructure's change of mood.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "background-mode",
+        "async-agent",
+        "checkpointing"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z"
+    },
+    {
+      "slug": "memory-tool",
+      "label": "Memory tool",
+      "status": "queued",
+      "notes": "Client-side tool for creating and updating persistent files across conversations; durable memory whose reliability is partly your storage layer's problem.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Retrieval and memory",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "agent-memory",
+        "mcp-resource",
+        "context-editing"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z"
+    },
+    {
+      "slug": "interleaved-thinking",
+      "label": "Interleaved thinking",
+      "status": "queued",
+      "notes": "Reasoning between tool calls so a model can revise its plan from results instead of completing the original mistake with discipline.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Model usage",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "tool-use",
+        "reasoning-model",
+        "agent-loop-state"
+      ],
+      "addedAt": "2026-07-15T09:53:36.000Z"
     }
   ]
 }

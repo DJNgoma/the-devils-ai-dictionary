@@ -1,0 +1,53 @@
+---
+title: "Context editing"
+slug: "context-editing"
+letter: "C"
+categories:
+  - "Retrieval and memory"
+  - "Agents and workflows"
+aliases: []
+devilDefinition: |
+  The tasteful removal of yesterday's tool output before today's agent mistakes it for scripture.
+plainDefinition: |
+  Context editing selectively removes or replaces content in a growing conversation history before the next model call. Current implementations can clear old tool results or thinking blocks while preserving more recent information needed for continuity.
+whyExists: |
+  Long-running agents accumulate file contents, search results, tool traces, and reasoning state until cost rises or the context limit approaches. Curating stale material can preserve useful working space without restarting the entire session.
+misuse: |
+  It is sold as memory management while sometimes functioning as deletion with reassuring typography. Clearing the wrong evidence can break continuity, hide an earlier constraint, invalidate prompt caches, or leave the model confidently reasoning from the placeholder.
+practicalMeaning: |
+  Define thresholds and retention rules, clear older low-value blocks, and keep enough recent state for the task. Measure task quality, token savings, cache invalidation, and whether audit logs retain what the model no longer sees.
+example: |
+  "Context editing removed the first twelve search results and retained the decision they had supported, which was either efficient or ominous depending on the audit trail."
+askNext:
+  - "What content is eligible for clearing, and what must remain immutable?"
+  - "How does editing affect prompt caching, cost, and reproducibility?"
+  - "Can operators inspect the removed content after the model can no longer see it?"
+related:
+  - "context-window"
+  - "context-compaction"
+  - "prompt-caching"
+seeAlso:
+  - "Tool result clearing"
+  - "Thinking block clearing"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-15"
+updatedAt: "2026-07-15"
+warningLabel: "A shorter context can also be a shorter memory."
+vendorReferences:
+  - "Claude Platform"
+tags:
+  - "context"
+  - "memory"
+  - "agents"
+  - "cost"
+misunderstoodScore: 4
+translations:
+  - label: "operator meaning"
+    text: "Remove stale context deliberately, preserve the audit trail elsewhere, and verify that the agent still remembers the instruction that mattered."
+diagram: "context-window"
+---
+
+Every long-running conversation eventually needs an editor. The difficult part is ensuring the editor has better judgement than the accumulation.

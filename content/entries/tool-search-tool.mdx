@@ -1,0 +1,54 @@
+---
+title: "Tool search tool"
+slug: "tool-search-tool"
+letter: "T"
+categories:
+  - "Agents and workflows"
+  - "Model usage"
+aliases:
+  - "tool search"
+devilDefinition: |
+  A tool for finding tools after the tool list became too large for the model hired to use it.
+plainDefinition: |
+  A tool search tool lets a model discover and load relevant tool definitions on demand instead of placing every available schema in the context window at the start of each request.
+whyExists: |
+  Large tool catalogues consume context and make selection less reliable. Just-in-time discovery keeps the initial prompt smaller and presents the model with a focused set of definitions for the current task.
+misuse: |
+  It is marketed as a cure for tool sprawl when it is chiefly an index over the sprawl. Poor names, overlapping capabilities, weak descriptions, and unsafe tools remain poor after retrieval; they are simply discovered more efficiently.
+practicalMeaning: |
+  Mark some tool definitions for deferred loading, expose a search mechanism, and let the model retrieve a small relevant subset. Evaluate recall, selection accuracy, latency, permission filtering, and what happens when the correct tool is described in the wrong corporate dialect.
+example: |
+  "The agent searched three thousand tools and found the correct one, leaving only the smaller matter of whether it should call it."
+askNext:
+  - "What metadata is indexed and how is search quality evaluated?"
+  - "Are permissions applied before discovery as well as before execution?"
+  - "What is the fallback when the needed tool is not retrieved?"
+related:
+  - "tool-use"
+  - "agent-skills"
+  - "context-engineering"
+seeAlso:
+  - "Dynamic tool discovery"
+  - "Deferred tool loading"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-15"
+updatedAt: "2026-07-15"
+warningLabel: "Discovery quality becomes part of tool reliability."
+vendorReferences:
+  - "Claude Platform"
+tags:
+  - "tools"
+  - "retrieval"
+  - "context"
+  - "agents"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "Retrieve a few tool schemas when needed instead of charging every request rent for the entire catalogue."
+diagram: "skill-loading"
+---
+
+The enterprise first accumulated thousands of capabilities. It then invented search so the agent could experience the same onboarding problem as everyone else.

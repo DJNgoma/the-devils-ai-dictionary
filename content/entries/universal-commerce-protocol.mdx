@@ -1,0 +1,57 @@
+---
+title: "Universal Commerce Protocol"
+slug: "universal-commerce-protocol"
+letter: "U"
+categories:
+  - "Agents and workflows"
+  - "Product and vendor terms"
+  - "Economics and operations of AI"
+aliases:
+  - "UCP"
+devilDefinition: |
+  A common language for agents, merchants, and payment providers, because commerce had not yet produced enough integration work.
+plainDefinition: |
+  Universal Commerce Protocol is an open commerce standard for communication among agent platforms, businesses, payment service providers, and credential providers. It defines discoverable capabilities for checkout, identity linking, orders, and payment-token exchange across transports including REST, MCP, and A2A.
+whyExists: |
+  Agentic shopping otherwise requires one-off integrations for every merchant, platform, and payment provider. UCP supplies shared schemas and composable capabilities so an agent can discover what a business supports and conduct a transaction through a consistent interface.
+misuse: |
+  The word "universal" invites people to describe an ecosystem ambition as present interoperability. A specification can reduce integration variance; it cannot compel merchants, wallets, platforms, or national payment rules to agree on the rest.
+practicalMeaning: |
+  A merchant publishes a profile of supported capabilities and extensions. An agent or platform can then negotiate checkout, identity, order, and payment flows without learning a bespoke API for each shop. Adoption and conformance determine whether the promise reaches the till.
+example: |
+  "The shopping agent supported UCP, which was excellent news for every merchant that also supported UCP."
+askNext:
+  - "Which capabilities and extensions are implemented, not merely named in the specification?"
+  - "How are user authority, payment credentials, and returns handled?"
+  - "Which transports, merchants, and conformance tests work in production today?"
+related:
+  - "agentic-commerce"
+  - "ai-shopping-agent"
+  - "machine-payments-protocol"
+seeAlso:
+  - "Agent Payments Protocol"
+  - "Model Context Protocol"
+  - "Agent2Agent"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-15"
+updatedAt: "2026-07-15"
+warningLabel: "An open standard is not yet an installed market."
+vendorReferences:
+  - "Google"
+  - "ucp.dev"
+tags:
+  - "commerce"
+  - "protocol"
+  - "agents"
+  - "checkout"
+misunderstoodScore: 4
+translations:
+  - label: "merchant meaning"
+    text: "Publish what your shop can do in a form agents can discover, then hope the rest of the market reads the same specification."
+diagram: "agent-loop"
+---
+
+Commerce standards become universal in the same manner as office file formats: gradually, politically, and with several incompatible interpretations of the word.

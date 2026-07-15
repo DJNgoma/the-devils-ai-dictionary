@@ -1,0 +1,56 @@
+---
+title: "Machine Payments Protocol"
+slug: "machine-payments-protocol"
+letter: "M"
+categories:
+  - "Agents and workflows"
+  - "Economics and operations of AI"
+aliases:
+  - "MPP"
+devilDefinition: |
+  HTTP 402, taken down from the attic and given to agents with wallets.
+plainDefinition: |
+  Machine Payments Protocol is an open standard, co-authored by Tempo and Stripe, for paying inline with an HTTP request. A service can answer with `402 Payment Required`, after which the client supplies payment credentials and retries the request.
+whyExists: |
+  Machine clients often need API keys, billing accounts, or a human checkout flow before buying a small unit of service. MPP creates a standard challenge-and-payment exchange for usage-based APIs, agent transactions, and machine-to-machine commerce.
+misuse: |
+  It is presented as though a payment handshake makes an agent commercially trustworthy. The protocol can move money; it does not decide whether the purchase was authorised, sensible, reversible, or made by software anyone should have employed.
+practicalMeaning: |
+  A provider declares a price and accepted payment method in an HTTP challenge. The client chooses whether to pay, attaches proof, and retries. Teams still need spending limits, identity, receipts, dispute handling, and a policy for what the agent may buy before lunch.
+example: |
+  "The research agent used MPP to buy one dataset request, then finance asked why its HTTP client had an expense account."
+askNext:
+  - "Who authorises the payment and sets the per-request and daily limits?"
+  - "What proof, receipt, refund, and dispute path survives after the agent finishes?"
+  - "Which payment rails and currencies does the service actually accept?"
+related:
+  - "agentic-commerce"
+  - "ai-shopping-agent"
+  - "universal-commerce-protocol"
+seeAlso:
+  - "HTTP 402 Payment Required"
+  - "Usage-based billing"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-15"
+updatedAt: "2026-07-15"
+warningLabel: "Payment capability is not purchasing authority."
+vendorReferences:
+  - "Tempo"
+  - "Stripe"
+  - "mpp.dev"
+tags:
+  - "payments"
+  - "protocol"
+  - "agents"
+  - "http"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "A standard way for software to meet a price at the API boundary, plus a new reason to define what the software is allowed to spend."
+diagram: "agent-loop"
+---
+
+The neglected `402` status code has finally found a constituency: software that would like to buy something before a human can schedule procurement.
