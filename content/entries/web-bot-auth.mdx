@@ -1,0 +1,53 @@
+---
+title: "Web Bot Auth"
+slug: "web-bot-auth"
+letter: "W"
+categories:
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+  - "Agents and workflows"
+aliases:
+  - "Web Bot Authentication"
+devilDefinition: |
+  Cryptographic identification for bots, introduced after the user-agent string's long and distinguished career in creative writing.
+plainDefinition: |
+  Web Bot Auth is an approach for letting automated clients prove their identity to websites using HTTP message signatures and associated public-key information. A site can verify that a request was signed by the claimed bot operator instead of relying only on an easily copied user-agent string or source IP.
+whyExists: |
+  Websites increasingly need to distinguish legitimate search, assistant, commerce, and agent traffic from impersonators and abusive automation. Verifiable requests can support differentiated access, rate limits, policy, and accountability as IP-based identification becomes less reliable.
+misuse: |
+  Authentication is easily mistaken for approval. A valid signature can show who controls a key; it does not prove that the bot is beneficial, that the user authorised this visit, or that the requested action should be allowed.
+practicalMeaning: |
+  Bot operators sign defined parts of each HTTP request. Sites retrieve or configure trusted public keys, verify freshness and signature coverage, map the identity to policy, and still apply authorisation, abuse controls, key rotation, and revocation.
+example: |
+  "Web Bot Auth confirmed which crawler had arrived, leaving the website free to decide whether it wanted the crawler indoors."
+askNext:
+  - "Which request components are signed, and how are replayed requests rejected?"
+  - "How are public keys discovered, rotated, and revoked?"
+  - "What access policy follows successful authentication?"
+related:
+  - "agent-identity"
+  - "workload-identity"
+seeAlso:
+  - "HTTP Message Signatures"
+  - "Bot detection"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-16"
+updatedAt: "2026-07-16"
+warningLabel: "Verified identity does not imply authorised behaviour."
+vendorReferences:
+  - "Cloudflare"
+tags:
+  - "bots"
+  - "authentication"
+  - "http"
+  - "signatures"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "Make automated requests cryptographically attributable, then decide what that identity may do."
+---
+
+No built-in diagram is attached because the missing mental model is signature verification and policy enforcement, not one of the catalogue's current agent or protocol flows.

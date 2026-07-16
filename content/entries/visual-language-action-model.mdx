@@ -1,0 +1,51 @@
+---
+title: "Vision-language-action model"
+slug: "visual-language-action-model"
+letter: "V"
+categories:
+  - "Model building"
+  - "Agents and workflows"
+aliases:
+  - "visual-language-action model"
+  - "VLA model"
+  - "VLA"
+devilDefinition: |
+  A multimodal model taught that describing the room was only the first step towards rearranging it.
+plainDefinition: |
+  A vision-language-action model combines visual observations and language instructions to predict actions for a robot or embodied system. Its output may be low-level controls, action tokens, or higher-level plans that another controller executes.
+whyExists: |
+  Robots need to connect what they see and what people ask with what their bodies can safely do. VLA models aim to reuse broad visual and linguistic representations while learning action policies across tasks and environments.
+misuse: |
+  The label is stretched into "general-purpose robot intelligence" after a model succeeds in a curated demonstration. Recognising objects, following familiar instructions, and controlling hardware reliably under physical variation remain different achievements.
+practicalMeaning: |
+  Evaluate the robot, sensors, action space, training demonstrations, task distribution, recovery behaviour, latency, and safety controller together. A capable model can still fail because the camera moved, the gripper slipped, or the room contained an object the benchmark politely omitted.
+example: |
+  "The VLA model understood 'put the mug away'; the remaining question was whether it understood cupboards, breakage, and the finance team's preferred mug."
+askNext:
+  - "What actions does the model output, and what separate controller enforces safety?"
+  - "How well does it generalise beyond the robots, rooms, and tasks in training?"
+  - "What happens when an action fails halfway through execution?"
+related:
+  - "multimodal"
+  - "physical-ai"
+  - "world-model"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-16"
+updatedAt: "2026-07-16"
+warningLabel: "A fluent instruction is not a safe motor command."
+tags:
+  - "robotics"
+  - "multimodal"
+  - "vision"
+  - "actions"
+misunderstoodScore: 4
+translations:
+  - label: "robotics meaning"
+    text: "Use images and instructions to choose actions, while the physical world supplies the edge cases."
+diagram: "agent-loop"
+---
+
+The agent-loop diagram is useful here because perception, action, and fresh observation form the practical control cycle. The machinery remains less forgiving than the arrows.

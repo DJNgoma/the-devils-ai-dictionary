@@ -1,0 +1,54 @@
+---
+title: "Diffusion language model"
+slug: "diffusion-language-model"
+letter: "D"
+categories:
+  - "Core concepts"
+  - "Model building"
+  - "Infrastructure and deployment"
+aliases:
+  - "diffusion LLM"
+  - "text diffusion model"
+devilDefinition: |
+  A language model that drafts several parts at once, bringing parallelism to the ancient art of revising the sentence after seeing the sentence.
+plainDefinition: |
+  A diffusion language model generates text by iteratively refining a partially masked or noisy sequence across multiple token positions. Unlike a conventional autoregressive model, it need not commit to every output token strictly from left to right.
+whyExists: |
+  Iterative parallel refinement can offer different speed, control, and editing trade-offs from sequential decoding. It may allow a model to revise earlier and later parts of an answer together instead of treating every emitted token as irrevocable history.
+misuse: |
+  The name is borrowed from successful image diffusion systems, which tempts people to assume the same mechanics, quality gains, or economics transfer neatly to language. Text is discrete, ordering matters, and benchmark speed is not the same as useful end-to-end latency.
+practicalMeaning: |
+  Buyers should inspect output quality at the claimed latency, the number of refinement steps, serving hardware, streaming behaviour, controllability, and performance on tasks where exact order matters. The architectural difference is real; the product advantage must still be measured.
+example: |
+  "The diffusion language model completed the paragraph in parallel and the evaluation team reviewed its errors in the customary sequence."
+askNext:
+  - "Which token positions are refined in parallel, and over how many steps?"
+  - "Is the speed claim measured at equal quality and on production hardware?"
+  - "How does the model handle streaming, exact formatting, and long outputs?"
+related:
+  - "generative-model"
+  - "latency"
+seeAlso:
+  - "Parallel decoding"
+  - "Autoregressive model"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-16"
+updatedAt: "2026-07-16"
+vendorReferences:
+  - "Google DeepMind"
+  - "Gemini Diffusion"
+tags:
+  - "diffusion"
+  - "language-model"
+  - "decoding"
+  - "latency"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "Generate by repeated parallel refinement instead of making every token wait behind the previous one."
+---
+
+No built-in diagram is attached: the useful contrast is a token-refinement schedule, which the current catalogue diagrams do not show.

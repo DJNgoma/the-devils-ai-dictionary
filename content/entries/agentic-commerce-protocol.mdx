@@ -1,0 +1,56 @@
+---
+title: "Agentic Commerce Protocol"
+slug: "agentic-commerce-protocol"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Economics and operations of AI"
+  - "Product and vendor terms"
+aliases:
+  - "ACP"
+devilDefinition: |
+  A checkout protocol for agents, because the shopping cart has finally found a customer willing to read JSON.
+plainDefinition: |
+  Agentic Commerce Protocol is an open specification from OpenAI and Stripe for connecting AI agents with merchants through product discovery, checkout, and delegated payment flows. It lets an agent help complete a purchase while the merchant remains the seller of record.
+whyExists: |
+  Conventional online checkout assumes a person is navigating a merchant's pages. Agent-led shopping needs structured product and order information, explicit user confirmation, payment delegation, and a transaction path that merchants can integrate without rebuilding their business inside every assistant.
+misuse: |
+  It is presented as though a protocol settles intent, consent, returns, fraud, liability, and merchant adoption. ACP can standardise parts of the exchange; it cannot infer whether the user truly wanted the second pair of shoes.
+practicalMeaning: |
+  Merchants expose compatible checkout capabilities, agents assemble the purchase with user approval, and payment credentials are delegated within defined bounds. Production use still requires inventory truth, tax, shipping, receipts, refunds, dispute handling, and clear confirmation before money moves.
+example: |
+  "The agent completed checkout through ACP, after the user confirmed that 'find something suitable' was not a lifetime purchasing mandate."
+askNext:
+  - "At which exact step does the user confirm the product, total, merchant, and delivery terms?"
+  - "Who is seller of record and who handles returns, disputes, and support?"
+  - "Which merchants and payment methods work in production rather than in the specification?"
+related:
+  - "agentic-commerce"
+  - "ai-shopping-agent"
+  - "machine-payments-protocol"
+seeAlso:
+  - "Universal Commerce Protocol"
+  - "Agent Payments Protocol"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: true
+publishedAt: "2026-07-16"
+updatedAt: "2026-07-16"
+warningLabel: "A checkout path is not blanket purchasing authority."
+vendorReferences:
+  - "OpenAI"
+  - "Stripe"
+tags:
+  - "commerce"
+  - "checkout"
+  - "payments"
+  - "agents"
+misunderstoodScore: 4
+translations:
+  - label: "merchant meaning"
+    text: "Give agents a structured route to checkout while keeping the transaction inside the merchant's operating reality."
+diagram: "agent-loop"
+---
+
+The agent-loop diagram fits because discovery, choice, confirmation, purchase, and result form a governed action cycle. Checkout remains the moment where the loop meets a bank statement.

@@ -1,0 +1,49 @@
+---
+title: "Remote MCP server"
+slug: "remote-mcp-server"
+letter: "R"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "remote Model Context Protocol server"
+devilDefinition: |
+  An MCP server moved onto the network, where every convenient tool call acquires latency, credentials, and someone else's uptime.
+plainDefinition: |
+  A remote MCP server is a network-hosted Model Context Protocol endpoint that exposes tools, resources, or prompts to MCP clients. Unlike a local server process, it sits behind a transport, authentication layer, and operational boundary managed over the network.
+whyExists: |
+  Local MCP servers are useful for personal tools, but shared services need central deployment, updates, access control, and availability. A remote server lets several approved clients use the same managed integration without installing its implementation on every machine.
+misuse: |
+  "Remote" is sometimes treated as a deployment detail that changes nothing. It changes the threat model, failure modes, privacy assumptions, latency, tenancy, and the identity to which each tool call is attributed.
+practicalMeaning: |
+  Teams need to evaluate the server operator, transport security, authorisation scopes, data retention, approval behaviour, rate limits, audit logs, and what happens when the endpoint is slow or unavailable. Standardised discovery does not make a remote capability trustworthy by default.
+example: |
+  "The remote MCP server saved everyone an installation step and gave security a considerably longer questionnaire."
+askNext:
+  - "Who operates the server, and where do requests and results travel?"
+  - "How are users, clients, and individual tool calls authenticated and authorised?"
+  - "What data is retained, and what is the failure path when the server is unavailable?"
+related:
+  - "mcp"
+  - "hosted-mcp"
+  - "ai-gateway"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-16"
+updatedAt: "2026-07-16"
+warningLabel: "A standard protocol is not a trust decision."
+tags:
+  - "mcp"
+  - "remote"
+  - "tools"
+  - "infrastructure"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "A shared MCP integration whose convenience now depends on network, identity, and operator controls."
+diagram: "mcp"
+---
+
+Moving the server out of the laptop removes some installation work. It does not remove the work; it gives the work an operations budget.

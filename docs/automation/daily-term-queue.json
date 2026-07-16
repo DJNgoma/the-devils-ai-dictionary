@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-15T10:21:15.798Z",
+  "updatedAt": "2026-07-16T05:10:17.613Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -4725,7 +4725,7 @@
     {
       "slug": "remote-mcp-server",
       "label": "Remote MCP server",
-      "status": "queued",
+      "status": "published",
       "notes": "Network-hosted MCP endpoint used as a model tool, with authentication, trust, latency, and approval boundaries now included in the convenience.",
       "diagramHint": "mcp",
       "misunderstoodHint": 4,
@@ -4738,12 +4738,13 @@
         "hosted-mcp",
         "ai-gateway"
       ],
-      "addedAt": "2026-07-15T09:53:36.000Z"
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-16T05:10:17.613Z"
     },
     {
       "slug": "background-mode",
       "label": "Background mode",
-      "status": "queued",
+      "status": "published",
       "notes": "Asynchronous Responses API jobs for work too long to keep a request open and too important to admit it is a queue.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 3,
@@ -4757,12 +4758,13 @@
         "async-agent",
         "durable-execution"
       ],
-      "addedAt": "2026-07-15T09:53:36.000Z"
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-16T05:10:17.613Z"
     },
     {
       "slug": "diffusion-language-model",
       "label": "Diffusion language model",
-      "status": "queued",
+      "status": "published",
       "notes": "Language model that refines multiple token positions rather than generating strictly left to right; commercially current through Gemini Diffusion.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -4776,12 +4778,13 @@
         "latency",
         "parallel-decoding"
       ],
-      "addedAt": "2026-07-15T09:53:36.000Z"
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-16T05:10:17.613Z"
     },
     {
       "slug": "visual-language-action-model",
       "label": "Vision-language-action model",
-      "status": "queued",
+      "status": "published",
       "notes": "Model that maps visual and language inputs to robot actions, making multimodality responsible for moving furniture as well as describing it.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -4794,12 +4797,13 @@
         "physical-ai",
         "world-model"
       ],
-      "addedAt": "2026-07-15T09:53:36.000Z"
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-16T05:10:17.613Z"
     },
     {
       "slug": "web-bot-auth",
       "label": "Web Bot Auth",
-      "status": "queued",
+      "status": "published",
       "notes": "HTTP message signatures for verifying AI agents and bots instead of trusting the user-agent string's excellent manners.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -4813,12 +4817,13 @@
         "bot-detection",
         "workload-identity"
       ],
-      "addedAt": "2026-07-15T09:53:36.000Z"
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-16T05:10:17.613Z"
     },
     {
       "slug": "agentic-commerce-protocol",
       "label": "Agentic Commerce Protocol",
-      "status": "queued",
+      "status": "published",
       "notes": "OpenAI and Stripe protocol for checkout and delegated payment by agents; a shopping cart with an API and legal questions.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -4832,12 +4837,13 @@
         "ai-shopping-agent",
         "machine-payments-protocol"
       ],
-      "addedAt": "2026-07-15T09:53:36.000Z"
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-16T05:10:17.613Z"
     },
     {
       "slug": "agent-payments-protocol",
       "label": "Agent Payments Protocol",
-      "status": "queued",
+      "status": "published",
       "notes": "Google-led mandate-based authorisation for agent transactions, because delegated spending eventually needs evidence more durable than enthusiasm.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -4851,7 +4857,8 @@
         "delegated-authentication",
         "machine-payments-protocol"
       ],
-      "addedAt": "2026-07-15T09:53:36.000Z"
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-16T05:10:17.613Z"
     },
     {
       "slug": "trusted-agent-protocol",

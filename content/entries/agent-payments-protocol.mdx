@@ -1,0 +1,56 @@
+---
+title: "Agent Payments Protocol"
+slug: "agent-payments-protocol"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+  - "Economics and operations of AI"
+aliases:
+  - "AP2"
+  - "Agent Payments Protocol 2"
+devilDefinition: |
+  A protocol for giving an agent proof of permission to spend, which is more reassuring than a prompt and less reassuring than the first audit.
+plainDefinition: |
+  Agent Payments Protocol, commonly called AP2, is an open protocol led by Google for agent-initiated payments. It uses cryptographically signed mandates to record what a user authorised, what an agent requested, and the transaction details presented to the payment system.
+whyExists: |
+  Existing payment flows generally assume a person is present at checkout. Agentic transactions need portable evidence of user intent, bounded delegation, and transaction context so merchants, payment providers, and agents can distinguish an authorised purchase from software improvisation.
+misuse: |
+  Mandates are sometimes treated as a complete trust framework. They provide evidence about declared authority, but the surrounding system must still protect keys, interpret limits, prevent replay, verify merchant claims, handle fraud, and resolve disputes.
+practicalMeaning: |
+  A user signs an intent mandate describing permitted action; the agent later produces a cart or transaction mandate with the concrete purchase. Participants verify the signatures and constraints before payment. Implementers still need identity, consent UX, revocation, limits, receipts, and liability rules.
+example: |
+  "AP2 proved the agent had permission to buy the ticket, though not that it had chosen the sensible airport."
+askNext:
+  - "What does each mandate authorise, for how long, and within which spending limits?"
+  - "How are mandates bound to the user, agent, merchant, and final transaction?"
+  - "How are keys revoked and disputes handled when the signed intent is ambiguous?"
+related:
+  - "agentic-commerce"
+  - "delegated-authentication"
+  - "machine-payments-protocol"
+seeAlso:
+  - "Universal Commerce Protocol"
+  - "Agentic Commerce Protocol"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-16"
+updatedAt: "2026-07-16"
+warningLabel: "Signed authority still needs narrow scope and human recourse."
+vendorReferences:
+  - "Google"
+tags:
+  - "payments"
+  - "mandates"
+  - "delegation"
+  - "agents"
+misunderstoodScore: 4
+translations:
+  - label: "payments meaning"
+    text: "Carry signed evidence of user intent into an agent transaction without pretending the signature solves every dispute."
+diagram: "agent-loop"
+---
+
+The agent-loop diagram clarifies the chain from user intent through agent action to payment result. The signatures make that chain evidential; they do not make every decision in it wise.

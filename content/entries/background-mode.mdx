@@ -1,0 +1,53 @@
+---
+title: "Background mode"
+slug: "background-mode"
+letter: "B"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+  - "Product and vendor terms"
+aliases:
+  - "background response"
+  - "background API mode"
+devilDefinition: |
+  An API request allowed to outlive the user's attention span and, with proper engineering, the process that started it.
+plainDefinition: |
+  Background mode is an asynchronous API execution option for long-running model work. The client starts a response, receives an identifier, and retrieves or receives the result later rather than keeping one request connection open until completion.
+whyExists: |
+  Agentic and reasoning workloads can run longer than ordinary HTTP timeouts or interactive user sessions. Background execution gives them a managed lifecycle with status, cancellation, polling, and eventual result retrieval.
+misuse: |
+  It is described as though putting work in the background makes it durable, observable, or safe. Those properties depend on the provider contract and the application's handling of retries, cancellation, duplicate work, retention, and partial failure.
+practicalMeaning: |
+  The product must store the response identifier, expose progress honestly, recover after restarts, decide how often to poll, handle expiry and failure, and tell the user when the result is ready. It is asynchronous execution, not an exemption from lifecycle design.
+example: |
+  "The team enabled background mode, then discovered that 'come back later' still requires somewhere sensible to come back to."
+askNext:
+  - "What states can the job enter, and how does the user learn about each one?"
+  - "Can it be cancelled or safely retried without duplicating side effects?"
+  - "How long are prompts, intermediate state, and results retained?"
+related:
+  - "responses-api"
+  - "async-agent"
+seeAlso:
+  - "Durable execution"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: true
+publishedAt: "2026-07-16"
+updatedAt: "2026-07-16"
+vendorReferences:
+  - "OpenAI"
+tags:
+  - "asynchronous"
+  - "responses"
+  - "jobs"
+  - "lifecycle"
+misunderstoodScore: 3
+translations:
+  - label: "what it usually means in reality"
+    text: "Start long model work now, keep its identifier, and design the product to handle the answer later."
+diagram: "agent-loop"
+---
+
+The foreground is where the demo happens. The background is where the product learns whether it has a job system.
