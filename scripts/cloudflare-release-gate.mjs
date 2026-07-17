@@ -151,6 +151,14 @@ function assertFileExists(root, relativePath) {
 }
 
 export function assertPrerenderAssetFastPath(root) {
+  const wranglerConfig = readJson(path.join(root, "wrangler.jsonc"));
+
+  if (wranglerConfig.assets?.html_handling !== "none") {
+    throw new Error(
+      'wrangler.jsonc assets.html_handling must be "none" so Worker asset fetches do not redirect.',
+    );
+  }
+
   const requiredAssets = [
     ".open-next/assets/__opennext-prerender/index.html",
     ".open-next/assets/__opennext-prerender/index.rsc",

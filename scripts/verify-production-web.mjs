@@ -115,6 +115,9 @@ async function main() {
   const origin = resolveTarget(args.target);
   const expectedCatalog = readJson("public/catalog/version.json");
   const expectedMobileManifest = readJson("public/mobile-catalog/manifest.json");
+  const expectedEntryCount = new Intl.NumberFormat("en-ZA").format(
+    expectedMobileManifest.entryCount,
+  );
   const smokeSlugs = ["tool-broker", "exception-budget", "agent-reliability"];
 
   console.log(`Verifying public web surface at ${origin}.`);
@@ -122,7 +125,7 @@ async function main() {
   const home = await fetchText(origin, "/");
   assertIncludes("Homepage", home.body, "The Devil");
   assertIncludes("Homepage", home.body, "Word of the day");
-  assertIncludes("Homepage", home.body, `${expectedMobileManifest.entryCount}`);
+  assertIncludes("Homepage", home.body, expectedEntryCount);
   assertIncludes("Homepage", home.body, "AI terms arrive overdressed");
 
   for (let index = 1; index <= 10; index += 1) {
@@ -149,7 +152,7 @@ async function main() {
   }
 
   console.log("Public web surface looks healthy:");
-  console.log(`  homepage includes ${expectedMobileManifest.entryCount} entries and Word of the day`);
+  console.log(`  homepage includes ${expectedEntryCount} entries and Word of the day`);
   console.log(`  catalog version ${expectedCatalog.version}`);
   console.log(`  checked entries ${smokeSlugs.join(", ")}`);
 }
