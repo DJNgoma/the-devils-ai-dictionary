@@ -1,0 +1,56 @@
+---
+title: "x402"
+slug: "x402"
+letter: "X"
+categories:
+  - "Agents and workflows"
+  - "Economics and operations of AI"
+  - "Product and vendor terms"
+aliases:
+  - "x402 protocol"
+devilDefinition: |
+  HTTP 402 with a stablecoin wallet and the confidence of a status code finally invited to a meeting.
+plainDefinition: |
+  x402 is an open payment protocol built around HTTP `402 Payment Required`. A server can return payment requirements with a response, after which a client pays through a supported digital-asset rail, supplies proof, and retries the request.
+whyExists: |
+  APIs and autonomous clients often need accounts, subscriptions, API keys, or human checkout before a small purchase. x402 aims to make payment a native part of the request-response exchange so software can buy access to data, compute, or services as needed.
+misuse: |
+  It is described as frictionless machine commerce, which carefully omits wallet custody, network fees, exchange risk, sanctions controls, refunds, tax, failed settlement, and the person eventually asked to explain the wallet activity.
+practicalMeaning: |
+  The service declares an amount, asset, network, recipient, and payment scheme. The client decides whether it may pay, obtains or submits settlement proof, and retries. Production systems still need spending policy, identity, receipts, reconciliation, dispute handling, and idempotent delivery.
+example: |
+  "The agent paid for one API call through x402, converting a missing API key into a finance policy with excellent latency."
+askNext:
+  - "Which assets, networks, facilitators, and settlement guarantees are actually supported?"
+  - "Who controls the wallet and enforces per-request and aggregate spending limits?"
+  - "How are duplicate charges, refunds, receipts, and failed delivery handled?"
+related:
+  - "machine-payments-protocol"
+  - "agentic-commerce"
+  - "ai-shopping-agent"
+seeAlso:
+  - "HTTP 402 Payment Required"
+  - "Micropayment"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-17"
+updatedAt: "2026-07-17"
+warningLabel: "A payment rail is not a purchasing policy."
+vendorReferences:
+  - "Coinbase"
+  - "x402.org"
+tags:
+  - "payments"
+  - "http"
+  - "stablecoins"
+  - "agents"
+misunderstoodScore: 4
+translations:
+  - label: "developer meaning"
+    text: "Let a service quote a machine-readable price at the HTTP boundary and let authorised software settle it."
+diagram: "agent-loop"
+---
+
+The agent-loop diagram fits because the client observes a price, checks policy, pays, retries, and receives a result. The wallet is where the loop acquires consequences.

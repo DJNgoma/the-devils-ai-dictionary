@@ -9,60 +9,54 @@ categories:
 aliases:
   - "OpenAI Codex"
   - "coding agent"
-  - "codex cloud"
-  - "GPT-5.4 in Codex"
+  - "Codex coding experience"
 devilDefinition: |
-  A coding agent for people who looked at autocomplete and thought, "Fine, but can it also open the repo, run the tests, fix the bug, and stop wasting my afternoon?"
+  The coding agent that survived being merged into ChatGPT by keeping the work, the CLI, and—if requested—the old logo.
 plainDefinition: |
-  Codex is OpenAI's coding agent product. Officially, it is designed to read, modify, and run code, either by pairing locally in tools such as the terminal or IDE, or by delegating tasks to isolated cloud sandboxes that can work on repositories in the background.
+  Codex is OpenAI's coding agent and coding workflow. It reads, modifies, and runs code through the ChatGPT desktop app, Codex CLI, IDE extension, web and cloud surfaces; the desktop application may now be named ChatGPT, but Codex remains the name for the coding experience rather than the application as a whole.
 whyExists: |
-  Because plenty of engineering work is not "write me a function". It is inspect the codebase, understand the constraints, make the edit, run the checks, and show the evidence. Codex exists to push beyond suggestion boxes into task execution.
+  Engineering tasks require repository context, shell and editor tools, isolated environments, tests, diffs, and review—not only generated code. Codex packages those capabilities into local pairing and delegated cloud workflows while the broader ChatGPT product handles additional kinds of work.
 misuse: |
-  By talking about Codex as if it were pure autonomous engineering rather than a product built around scoped environments, repo access, tool execution, and human review. The phrase "AI software engineer" tends to arrive several minutes before the conversation about permissions, validation, and merge discipline.
+  The name is used interchangeably for the desktop app, a model, the CLI, cloud tasks, and autonomous software engineering. Current branding adds another trap: "Codex is now ChatGPT" describes the app migration, not the disappearance of Codex as a coding agent or every Codex surface.
 practicalMeaning: |
-  In practice it usually means a coding agent that can navigate a repository, edit files, execute tests and linters, explain what it changed, and work either alongside a developer or in a delegated sandbox. The model underneath may change; the durable product question is still whether it can turn a bounded task into reviewable evidence.
+  Teams should name the surface, model, environment, permissions, and review path. A Codex task may run locally in a repository or in a hosted environment, and its value depends on scoped access, validation, and reviewable evidence rather than the brand printed on the Dock.
 example: |
-  "The value of Codex was not that it could write code in the abstract. The value was that it could take a bounded task, touch the repo, run the checks, and come back with evidence instead of vibes."
+  "Codex remained the coding agent after the app became ChatGPT, proving that product names can merge faster than responsibility boundaries."
 askNext:
-  - "Is Codex paired locally or running as a delegated cloud task?"
-  - "What repo, environment, and tool permissions does it have?"
-  - "Who reviews and validates the work before it lands?"
+  - "Which Codex surface is in use: ChatGPT desktop, CLI, IDE, web, or cloud?"
+  - "What repository, environment, and tool permissions does the task have?"
+  - "Which model and human review path sit behind the Codex label here?"
 related:
   - "chatgpt"
-  - "agent"
-  - "orchestration"
-  - "structured-outputs"
+  - "codex-app"
+  - "codex-cli"
 seeAlso:
   - "ChatGPT"
-  - "Agent"
-  - "Orchestration"
-  - "Tool Use"
+  - "Codex cloud"
 difficulty: "beginner"
 technicalDepth: "medium"
 hypeLevel: "medium"
 isVendorTerm: true
 publishedAt: "2026-03-20"
-updatedAt: "2026-04-25"
-warningLabel: "Product name. Not a synonym for software autonomy in general."
+updatedAt: "2026-07-17"
+warningLabel: "Coding experience, not a precise model or app identifier."
 vendorReferences:
-  - "Codex app"
+  - "OpenAI"
+  - "ChatGPT desktop app"
   - "Codex CLI"
-  - "Codex cloud"
-  - "GPT-5.4 in Codex"
-  - "GPT-5.3-Codex"
+  - "Codex IDE extension"
 tags:
-  - "coding agent"
+  - "coding"
   - "repositories"
+  - "agents"
   - "sandboxes"
 misunderstoodScore: 4
 translations:
   - label: "engineer meaning"
-    text: "A coding agent that is useful when it can show its work, not just narrate its confidence."
-  - label: "what it usually means in reality"
-    text: "A product layer around model-driven coding tasks, repo access, tool execution, and reviewable evidence."
+    text: "OpenAI's coding agent across several surfaces, including the newly branded ChatGPT desktop app."
 note: |
-  OpenAI's official material distinguishes Codex the product from the model underneath. Codex spans local pairing, cloud delegation, app and CLI surfaces, and coding-specific workflows; current model references include GPT-5.4 and GPT-5.3-Codex rather than one timeless "Codex model".
+  OpenAI's current material calls the main desktop product the ChatGPT desktop app while continuing to document Codex CLI, the Codex IDE extension, Codex cloud, and Codex coding workflows. The desktop brand changed; the coding-agent distinction remains useful.
 diagram: "agent-loop"
 ---
 
-Codex is one of the cleaner examples of an "agent" discussion becoming less mystical once the product is described literally. It works on code, inside environments, with tools, under review. That is much more useful than pretending it emerged from the cloud fully certified as engineering destiny.
+The agent-loop diagram remains the useful mental model: inspect the repository, act with tools, observe the result, validate, and continue under review. The Dock icon does not alter the loop.

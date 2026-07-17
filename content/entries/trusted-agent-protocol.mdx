@@ -1,0 +1,55 @@
+---
+title: "Trusted Agent Protocol"
+slug: "trusted-agent-protocol"
+letter: "T"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+  - "Product and vendor terms"
+aliases:
+  - "Visa TAP"
+  - "TAP"
+devilDefinition: |
+  A way for shopping agents to show their papers at the merchant's door, issued by a payment network with an understandable interest in the shopping.
+plainDefinition: |
+  Trusted Agent Protocol is a Visa-led framework for letting commerce agents present cryptographically verifiable identity and transaction context to merchants. It is intended to help merchants distinguish recognised agent traffic from impersonation or unauthorised automation.
+whyExists: |
+  Web shops traditionally infer trust from browser sessions, user actions, accounts, and fraud signals. Agents disturb those assumptions by browsing and buying on someone's behalf, so merchants need stronger evidence about the agent, its operator, and the authority attached to a request.
+misuse: |
+  The word "trusted" is easily promoted from authenticated to benevolent. A valid agent identity does not prove that the user approved this purchase, that the recommendation was sound, or that the merchant should permit every requested action.
+practicalMeaning: |
+  Participating agents attach signed credentials or request evidence that merchants can verify and map to policy. Deployment still requires user consent, authorisation limits, replay protection, key rotation, fraud controls, audit trails, and a decision about which issuers the merchant trusts.
+example: |
+  "TAP confirmed that the visitor was a recognised shopping agent, leaving the merchant to decide whether it should be allowed near the refund policy."
+askNext:
+  - "What identity and authority does the credential prove, and who vouches for it?"
+  - "How are credentials scoped, rotated, revoked, and protected against replay?"
+  - "Which merchant decision changes after verification succeeds?"
+related:
+  - "agent-identity"
+  - "agentic-commerce"
+  - "workload-identity"
+seeAlso:
+  - "Web Bot Auth"
+  - "Agent Payments Protocol"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: true
+publishedAt: "2026-07-17"
+updatedAt: "2026-07-17"
+warningLabel: "Recognised identity is not blanket authority."
+vendorReferences:
+  - "Visa"
+tags:
+  - "agents"
+  - "commerce"
+  - "identity"
+  - "authentication"
+misunderstoodScore: 4
+translations:
+  - label: "merchant meaning"
+    text: "Verify which commerce agent is calling, then apply a policy that remains your responsibility."
+---
+
+No built-in diagram is attached because the missing mental model is credential issuance, signature verification, and merchant policy, not a general agent action loop.

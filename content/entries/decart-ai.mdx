@@ -1,0 +1,57 @@
+---
+title: "Decart AI"
+slug: "decart-ai"
+letter: "D"
+categories:
+  - "Product and vendor terms"
+  - "Model building"
+  - "Infrastructure and deployment"
+aliases:
+  - "Decart"
+  - "Decart AI Lab"
+  - "DecartAI"
+devilDefinition: |
+  An AI lab determined to make generated video arrive before the audience has time to call it rendering.
+plainDefinition: |
+  Decart AI is an AI research and product company focused on real-time generative visual models and world models. Its platform exposes image, video, and live-stream transformation models through APIs and SDKs, including the Lucy model family and Oasis interactive world models.
+whyExists: |
+  Most generative media systems are built around queued jobs and finished outputs. Decart targets interactive use cases where generation must respond continuously to prompts, camera input, reference images, or control actions with low enough latency for live products.
+misuse: |
+  The company name is sometimes used as though it identifies one model or one capability. Decart is the vendor and platform; Lucy is a family of visual editing models, Oasis is a world-model line, and each API has different latency, quality, and integration contracts.
+practicalMeaning: |
+  Teams evaluate Decart as a hosted model and streaming-infrastructure dependency. The decision includes model quality, WebRTC or SDK integration, session quotas, data handling, regional latency, pricing, reliability, safety controls, and whether the product can degrade gracefully when live generation cannot.
+example: |
+  "The prototype used Decart for live video, so the architecture review acquired both a model benchmark and a networking diagram."
+askNext:
+  - "Which Decart model and API surface does this use, and is it real-time or queued?"
+  - "What latency, session limits, data handling, and regional availability apply?"
+  - "Which parts of the result come from model capability and which depend on the streaming stack?"
+related:
+  - "lucy-2-5"
+  - "world-model"
+  - "multimodal"
+seeAlso:
+  - "Oasis"
+  - "Generative video"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: true
+publishedAt: "2026-07-17"
+updatedAt: "2026-07-17"
+warningLabel: "Vendor, platform, and model are three different nouns."
+vendorReferences:
+  - "Decart AI Lab"
+  - "Decart API Platform"
+tags:
+  - "video"
+  - "world-models"
+  - "realtime"
+  - "infrastructure"
+misunderstoodScore: 3
+translations:
+  - label: "buyer meaning"
+    text: "A real-time generative-media vendor whose model choice and streaming contract both belong in the evaluation."
+---
+
+No built-in diagram is attached: Decart's defining boundary joins generative media with live streaming infrastructure, not one of the current text-agent flows.

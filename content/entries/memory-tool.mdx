@@ -1,0 +1,56 @@
+---
+title: "Memory tool"
+slug: "memory-tool"
+letter: "M"
+categories:
+  - "Retrieval and memory"
+  - "Agents and workflows"
+  - "Product and vendor terms"
+aliases:
+  - "client-side memory tool"
+  - "Claude memory tool"
+devilDefinition: |
+  A file cabinet the model may update between conversations, with filing standards supplied by whichever application volunteered to become the archivist.
+plainDefinition: |
+  A memory tool is a client-implemented tool that lets a model read and modify persistent information outside the current conversation. In Anthropic's named implementation, the client provides file-style operations and storage while the model decides what memory to create, retrieve, update, or delete.
+whyExists: |
+  A context window ends with the request, while useful assistants need preferences, project state, and learned instructions to survive across sessions. A tool gives the model explicit operations over durable storage instead of pretending all prior conversation can remain in every prompt.
+misuse: |
+  Memory is marketed as though persistence implies accurate recall. A model can store the wrong conclusion, retrieve stale instructions, expose sensitive material, or keep a confident summary long after the underlying facts have changed.
+practicalMeaning: |
+  The application owns the storage boundary, access controls, retention, deletion, and synchronisation. It should show users what is remembered, separate scopes, defend memory writes from prompt injection, and verify important state against current sources before acting.
+example: |
+  "The memory tool remembered the user's preferred report format and the obsolete project deadline with equal devotion."
+askNext:
+  - "Where is memory stored, who can inspect it, and which conversations share it?"
+  - "What may write, update, or delete a memory, and how are hostile instructions filtered?"
+  - "Which facts must be revalidated against a live source before the agent acts?"
+related:
+  - "agent-memory"
+  - "mcp-resource"
+  - "context-editing"
+seeAlso:
+  - "Selective forgetting"
+  - "Personal data layer"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: true
+publishedAt: "2026-07-17"
+updatedAt: "2026-07-17"
+warningLabel: "Persistent does not mean current, correct, or consented."
+vendorReferences:
+  - "Anthropic"
+  - "Claude API"
+tags:
+  - "memory"
+  - "storage"
+  - "persistence"
+  - "privacy"
+misunderstoodScore: 4
+translations:
+  - label: "developer meaning"
+    text: "Give the model explicit operations over storage you must secure, explain, expire, and occasionally distrust."
+---
+
+No built-in diagram is attached because the difficult part is memory scope, provenance, retention, and mutation; the current retrieval diagram would make those governance questions look like a search pipeline.

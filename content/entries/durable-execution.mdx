@@ -1,0 +1,53 @@
+---
+title: "Durable execution"
+slug: "durable-execution"
+letter: "D"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "durable workflow execution"
+  - "durable agent execution"
+devilDefinition: |
+  Workflow state written down carefully enough that a crashed process cannot take the institutional memory with it.
+plainDefinition: |
+  Durable execution is a workflow model that persists progress and can resume long-running work after process crashes, restarts, timeouts, or infrastructure changes. Completed steps and pending waits are recorded outside the transient worker that happens to be running them.
+whyExists: |
+  Agent jobs increasingly wait on tools, people, schedules, and slow model calls. Keeping that work only in memory makes an ordinary deployment or network failure indistinguishable from forgetting the entire assignment.
+misuse: |
+  Durable is mistaken for exactly once, automatically correct, or permanently retained. Resumption can repeat side effects, preserve bad state, exhaust retries, or revive work whose user authority has expired.
+practicalMeaning: |
+  The system checkpoints workflow state, assigns stable operation identifiers, retries according to policy, makes side effects idempotent where possible, and exposes cancellation and inspection. Engineers must version state, bound retention, and decide how old work behaves after code or permissions change.
+example: |
+  "Durable execution survived the deploy and resumed the agent precisely where it had paused, including the part everyone now wished had been cancelled."
+askNext:
+  - "Which state is persisted, and what event determines the safe resume point?"
+  - "How are retries, duplicate side effects, cancellation, and expired authority handled?"
+  - "Can operators inspect, migrate, or terminate a workflow after the code changes?"
+related:
+  - "background-mode"
+  - "async-agent"
+  - "agent-reliability"
+seeAlso:
+  - "Checkpointing"
+  - "Idempotency"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-17"
+updatedAt: "2026-07-17"
+warningLabel: "Resumable work can resume the wrong thing twice."
+tags:
+  - "workflows"
+  - "persistence"
+  - "retries"
+  - "reliability"
+misunderstoodScore: 4
+translations:
+  - label: "operations meaning"
+    text: "Persist enough workflow history to recover after failure, then engineer every side effect for the possibility of repetition."
+diagram: "agent-loop"
+---
+
+The agent-loop diagram is useful because durable execution preserves the observe-decide-act cycle across waits and failures. The arrows still need checkpoints and idempotency.

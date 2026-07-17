@@ -1,0 +1,57 @@
+---
+title: "Interleaved thinking"
+slug: "interleaved-thinking"
+letter: "I"
+categories:
+  - "Model usage"
+  - "Agents and workflows"
+  - "Product and vendor terms"
+aliases:
+  - "interleaved reasoning"
+  - "thinking between tool calls"
+devilDefinition: |
+  Reasoning allowed to continue after the tool replies, a modest concession to the possibility that reality has amended the original plan.
+plainDefinition: |
+  Interleaved thinking is a model execution pattern in which reasoning occurs between tool calls as well as before the first call. The model can inspect each result, revise its approach, and decide what to do next instead of following a fully formed tool plan unchanged.
+whyExists: |
+  Tool results reveal errors, missing data, changed state, and better routes that cannot be known in advance. Reasoning between calls lets an agent adapt to evidence during a task rather than using tools merely to decorate its initial guess.
+misuse: |
+  It is treated as a guarantee of better judgement or autonomous reliability. More reasoning opportunities can also mean more tokens, latency, wandering plans, unjustified tool calls, and a longer record of the model adapting badly.
+practicalMeaning: |
+  The runtime preserves the model's reasoning and tool context across a sequence, returns each tool result in the required form, and enforces budgets, approvals, and stop conditions around the loop. Teams should evaluate task success and side effects, not the apparent sophistication of the trace.
+example: |
+  "Interleaved thinking let the agent revise its plan after the database disagreed, an innovation known elsewhere as paying attention."
+askNext:
+  - "What new evidence may cause the model to revise, stop, or ask for approval?"
+  - "How are token, latency, tool-call, and side-effect budgets enforced across the loop?"
+  - "Does evaluation reward correct task completion rather than an impressive reasoning trace?"
+related:
+  - "tool-use"
+  - "reasoning-model"
+  - "orchestration"
+seeAlso:
+  - "Extended thinking"
+  - "Agent loop state"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: true
+publishedAt: "2026-07-17"
+updatedAt: "2026-07-17"
+warningLabel: "Adaptive reasoning still needs bounded action."
+vendorReferences:
+  - "Anthropic"
+  - "Claude"
+tags:
+  - "reasoning"
+  - "tools"
+  - "agents"
+  - "adaptation"
+misunderstoodScore: 4
+translations:
+  - label: "what it usually means in reality"
+    text: "Let the model reconsider after each tool result, while the application retains control of time, money, and side effects."
+diagram: "agent-loop"
+---
+
+The agent-loop diagram is the direct mental model: act, observe the result, think again, and either continue or stop. Interleaving improves the opportunity to adapt, not the guarantee of wisdom.

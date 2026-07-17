@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-16T05:10:17.613Z",
+  "updatedAt": "2026-07-17T10:31:49.749Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -4863,7 +4863,7 @@
     {
       "slug": "trusted-agent-protocol",
       "label": "Trusted Agent Protocol",
-      "status": "queued",
+      "status": "published",
       "notes": "Visa protocol for cryptographically identifying legitimate commerce agents to merchants; trust arrives bearing a payment-network logo.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -4877,12 +4877,13 @@
         "agentic-commerce",
         "workload-identity"
       ],
-      "addedAt": "2026-07-15T09:53:36.000Z"
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-17T10:31:49.749Z"
     },
     {
       "slug": "x402",
       "label": "x402",
-      "status": "queued",
+      "status": "published",
       "notes": "Open protocol reviving HTTP 402 for machine and agent payments, usually with stablecoins and the optimism of an unused status code.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -4896,12 +4897,13 @@
         "agentic-commerce",
         "micropayment"
       ],
-      "addedAt": "2026-07-15T09:53:36.000Z"
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-17T10:31:49.749Z"
     },
     {
       "slug": "agent-card",
       "label": "Agent Card",
-      "status": "queued",
+      "status": "published",
       "notes": "A2A metadata document advertising an agent's identity, skills, endpoint, and security schemes; a business card that may call tools.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -4913,12 +4915,13 @@
         "agent-identity",
         "capability-declaration"
       ],
-      "addedAt": "2026-07-15T09:53:36.000Z"
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-17T10:31:49.749Z"
     },
     {
       "slug": "generative-ui",
       "label": "Generative UI",
-      "status": "queued",
+      "status": "published",
       "notes": "Interfaces assembled from model and tool output in response to a conversation, rather than another paragraph pretending to be a workflow.",
       "diagramHint": "function-calling",
       "misunderstoodHint": 4,
@@ -4932,12 +4935,13 @@
         "tool-result",
         "structured-content"
       ],
-      "addedAt": "2026-07-15T09:53:36.000Z"
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-17T10:31:49.749Z"
     },
     {
       "slug": "durable-execution",
       "label": "Durable execution",
-      "status": "queued",
+      "status": "published",
       "notes": "Persisted workflow state that lets long-running agent jobs survive process failure, retries, and the infrastructure's change of mood.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -4950,12 +4954,13 @@
         "async-agent",
         "checkpointing"
       ],
-      "addedAt": "2026-07-15T09:53:36.000Z"
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-17T10:31:49.749Z"
     },
     {
       "slug": "memory-tool",
       "label": "Memory tool",
-      "status": "queued",
+      "status": "published",
       "notes": "Client-side tool for creating and updating persistent files across conversations; durable memory whose reliability is partly your storage layer's problem.",
       "diagramHint": null,
       "misunderstoodHint": 4,
@@ -4968,12 +4973,13 @@
         "mcp-resource",
         "context-editing"
       ],
-      "addedAt": "2026-07-15T09:53:36.000Z"
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-17T10:31:49.749Z"
     },
     {
       "slug": "interleaved-thinking",
       "label": "Interleaved thinking",
-      "status": "queued",
+      "status": "published",
       "notes": "Reasoning between tool calls so a model can revise its plan from results instead of completing the original mistake with discipline.",
       "diagramHint": "agent-loop",
       "misunderstoodHint": 4,
@@ -4986,7 +4992,147 @@
         "reasoning-model",
         "agent-loop-state"
       ],
-      "addedAt": "2026-07-15T09:53:36.000Z"
+      "addedAt": "2026-07-15T09:53:36.000Z",
+      "publishedAt": "2026-07-17T10:31:49.749Z"
+    },
+    {
+      "slug": "lucy-2-5",
+      "label": "Lucy 2.5",
+      "status": "published",
+      "notes": "Decart's 720p realtime video-editing model for prompt- and reference-guided changes across objects, characters, scenes, and styles.",
+      "diagramHint": null,
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Model building",
+        "Model usage",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "decart-ai",
+        "world-model",
+        "multimodal"
+      ],
+      "addedAt": "2026-07-17T10:23:35.000Z",
+      "publishedAt": "2026-07-17T10:31:49.749Z"
+    },
+    {
+      "slug": "decart-ai",
+      "label": "Decart AI",
+      "status": "published",
+      "notes": "Realtime visual-model lab and API platform whose product promise depends as much on streaming infrastructure as on generated pixels.",
+      "diagramHint": null,
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Model building",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "lucy-2-5",
+        "world-model",
+        "multimodal"
+      ],
+      "addedAt": "2026-07-17T10:23:35.000Z",
+      "publishedAt": "2026-07-17T10:31:49.749Z"
+    },
+    {
+      "slug": "lm-studio",
+      "label": "LM Studio",
+      "status": "published",
+      "notes": "Desktop and headless local-model runtime with model downloads, chat, MCP, and OpenAI-compatible serving; the studio is not the model.",
+      "diagramHint": "model-routing",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Infrastructure and deployment",
+        "Model usage"
+      ],
+      "relatedHints": [
+        "local-ai",
+        "ollama",
+        "openai-compatible-api"
+      ],
+      "addedAt": "2026-07-17T10:23:35.000Z",
+      "publishedAt": "2026-07-17T10:31:49.749Z"
+    },
+    {
+      "slug": "local-ai",
+      "label": "Local AI",
+      "status": "published",
+      "notes": "Replace the placeholder entry with a real distinction between local execution, local control, offline operation, and merely local-looking interfaces.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Infrastructure and deployment",
+        "Model usage",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "local-inference",
+        "ollama",
+        "self-hosted-models"
+      ],
+      "addedAt": "2026-07-17T10:23:35.000Z",
+      "publishedAt": "2026-07-17T10:31:49.749Z"
+    },
+    {
+      "slug": "chatgpt",
+      "label": "ChatGPT",
+      "status": "published",
+      "notes": "Update the umbrella product entry for the merged desktop surface: ChatGPT now contains Work mode and the retained Codex coding experience.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Model usage",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "codex",
+        "codex-app",
+        "chatgpt-agent"
+      ],
+      "addedAt": "2026-07-17T10:23:35.000Z",
+      "publishedAt": "2026-07-17T10:31:49.749Z"
+    },
+    {
+      "slug": "codex",
+      "label": "Codex",
+      "status": "published",
+      "notes": "Clarify that Codex remains the coding agent and workflow inside the ChatGPT desktop app, CLI, IDE, and cloud rather than the desktop application's current name.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "relatedHints": [
+        "chatgpt",
+        "codex-app",
+        "codex-cli"
+      ],
+      "addedAt": "2026-07-17T10:23:35.000Z",
+      "publishedAt": "2026-07-17T10:31:49.749Z"
+    },
+    {
+      "slug": "codex-app",
+      "label": "ChatGPT desktop app",
+      "status": "published",
+      "notes": "Replace the generic Codex app placeholder with the current migration: the Codex app is now ChatGPT, the old ChatGPT bundle becomes ChatGPT Classic, and macOS users may retain the Codex Dock icon.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "chatgpt",
+        "codex",
+        "chatgpt-agent"
+      ],
+      "addedAt": "2026-07-17T10:23:35.000Z",
+      "publishedAt": "2026-07-17T10:31:49.749Z"
     }
   ]
 }

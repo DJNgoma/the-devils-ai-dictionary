@@ -1,0 +1,55 @@
+---
+title: "Agent Card"
+slug: "agent-card"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "A2A Agent Card"
+  - "agent card document"
+devilDefinition: |
+  A business card for software that lists its skills, endpoint, and preferred security scheme before asking another machine to delegate something important.
+plainDefinition: |
+  An Agent Card is an Agent2Agent metadata document that describes an agent's identity, endpoint, capabilities, skills, supported interaction modes, and security requirements. Other systems use it to discover how to communicate with the agent and what work it claims to accept.
+whyExists: |
+  Agent-to-agent delegation needs a discoverable contract before a task can be sent. The card gives clients a standard place to inspect an agent's advertised interface instead of relying on bespoke integration notes or hard-coded assumptions.
+misuse: |
+  A capability declaration is often treated as proof of capability. The card is self-description, not an evaluation, authorisation decision, uptime guarantee, or evidence that the agent will perform the advertised skill competently.
+practicalMeaning: |
+  A provider publishes the card, commonly at a well-known location, and keeps it aligned with the live service. Clients fetch it, validate its origin, select compatible methods, negotiate authentication, and apply their own trust policy before delegating work.
+example: |
+  "The Agent Card said the service could plan travel, though it was tactfully silent about missed connections and accountability."
+askNext:
+  - "Who published this card, and how is its origin authenticated?"
+  - "Which advertised skills and interaction modes have been tested against the live endpoint?"
+  - "What separate policy decides whether this agent may receive the task and its data?"
+related:
+  - "agent2agent"
+  - "agent-identity"
+  - "manifest"
+seeAlso:
+  - "Capability declaration"
+  - "Remote MCP server"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-17"
+updatedAt: "2026-07-17"
+warningLabel: "Advertised capability is not demonstrated competence."
+vendorReferences:
+  - "Agent2Agent Protocol"
+tags:
+  - "a2a"
+  - "discovery"
+  - "metadata"
+  - "agents"
+misunderstoodScore: 4
+translations:
+  - label: "integrator meaning"
+    text: "A machine-readable description of how to find and address an agent, not a reference from a previous employer."
+diagram: "agent-loop"
+---
+
+The agent-loop diagram clarifies where the card sits: discovery precedes delegation, action, status, and result. It does not certify any of those later steps.

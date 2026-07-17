@@ -1,0 +1,54 @@
+---
+title: "Generative UI"
+slug: "generative-ui"
+letter: "G"
+categories:
+  - "Product and vendor terms"
+  - "Agents and workflows"
+  - "Model usage"
+aliases:
+  - "generative user interface"
+  - "AI-generated UI"
+devilDefinition: |
+  An interface assembled at the moment of need, sparing the user a wall of text and giving the design system a more immediate crisis.
+plainDefinition: |
+  Generative UI is an interface pattern in which an AI system chooses, assembles, or produces interactive components in response to a user's request and current context. The result may be selected from trusted components, filled from tool data, or generated more freely at runtime.
+whyExists: |
+  Conversational answers are poor containers for forms, comparisons, maps, charts, approvals, and multi-step work. A generated interface can present the relevant controls and information for the task instead of forcing every interaction through prose.
+misuse: |
+  The phrase covers everything from selecting a predefined card to inventing arbitrary front-end code. Treating those as equivalent conceals large differences in accessibility, determinism, security, testing, brand control, and failure behaviour.
+practicalMeaning: |
+  Sensible systems constrain generation to approved components and schemas, bind components to validated tool results, preserve an accessible fallback, and record which actions require confirmation. Teams must test states the model did not choose during the demo.
+example: |
+  "The assistant generated a comparison table with a purchase button, neatly compressing research, interface design, and liability into one panel."
+askNext:
+  - "Is the model selecting trusted components, supplying their data, or generating executable interface code?"
+  - "How are accessibility, validation, permissions, and destructive actions enforced?"
+  - "What usable fallback appears when generation or a supporting tool fails?"
+related:
+  - "mcp-apps"
+  - "tool-result"
+  - "structured-content"
+seeAlso:
+  - "Function calling"
+  - "Adaptive interface"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-17"
+updatedAt: "2026-07-17"
+warningLabel: "Generated interaction still needs designed constraints."
+tags:
+  - "interface"
+  - "components"
+  - "tools"
+  - "interaction"
+misunderstoodScore: 4
+translations:
+  - label: "product meaning"
+    text: "Turn model and tool output into task-specific controls without letting every answer become unreviewed software."
+diagram: "function-calling"
+---
+
+The function-calling diagram fits because useful generative UI usually begins with a structured request, a real tool result, and a controlled presentation of what came back.

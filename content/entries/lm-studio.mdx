@@ -1,0 +1,58 @@
+---
+title: "LM Studio"
+slug: "lm-studio"
+letter: "L"
+categories:
+  - "Product and vendor terms"
+  - "Infrastructure and deployment"
+  - "Model usage"
+aliases:
+  - "LMStudio"
+  - "llmster"
+devilDefinition: |
+  A desktop studio for running models locally, where downloading the weights is the easy part and fitting them into memory becomes the opening act.
+plainDefinition: |
+  LM Studio is a desktop and headless runtime for discovering, downloading, running, chatting with, and serving local AI models. It supports GGUF models through llama.cpp, MLX models on Apple Silicon, MCP tools, its own SDKs and APIs, and OpenAI- and Anthropic-compatible endpoints.
+whyExists: |
+  Local models otherwise require users to assemble runtimes, model files, command-line flags, servers, and interfaces themselves. LM Studio packages those tasks into an approachable application while retaining developer access through a CLI, headless service, and local network APIs.
+misuse: |
+  LM Studio is confused with a model, a guarantee of privacy, or a fully open-source stack. It is a product that runs separately licensed model weights and runtimes; privacy and openness depend on the model, plugins, network settings, telemetry, and integrations actually used.
+practicalMeaning: |
+  A user downloads compatible weights, chooses a runtime and memory settings, loads the model, and chats locally or starts a server. Production-minded users must still handle hardware capacity, model licences, authentication, network exposure, updates, evaluation, and the gap between API compatibility and identical behaviour.
+example: |
+  "LM Studio made the model available on localhost in minutes, after which the team began the longer process of discovering what 'compatible' meant."
+askNext:
+  - "Which model weights, quantisation, runtime, and hardware are actually in use?"
+  - "Is the server restricted to localhost, authenticated, and safe from unintended network exposure?"
+  - "Which OpenAI- or Anthropic-compatible features behave differently from the hosted service?"
+related:
+  - "local-ai"
+  - "ollama"
+  - "openai-compatible-api"
+seeAlso:
+  - "Local inference"
+  - "Self-hosted models"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: true
+publishedAt: "2026-07-17"
+updatedAt: "2026-07-17"
+warningLabel: "Local runtime, model licence, and privacy posture remain separate."
+vendorReferences:
+  - "LM Studio"
+  - "llama.cpp"
+  - "MLX"
+tags:
+  - "local"
+  - "models"
+  - "inference"
+  - "api"
+misunderstoodScore: 4
+translations:
+  - label: "developer meaning"
+    text: "A friendly local-model workbench and server whose convenience does not repeal memory limits or integration testing."
+diagram: "model-routing"
+---
+
+The model-routing diagram fits because LM Studio separates an application or compatible client from the locally selected and loaded model behind its server boundary.

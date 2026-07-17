@@ -1,0 +1,56 @@
+---
+title: "Lucy 2.5"
+slug: "lucy-2-5"
+letter: "L"
+categories:
+  - "Model building"
+  - "Model usage"
+  - "Product and vendor terms"
+aliases:
+  - "Lucy 2.5 Realtime"
+  - "lucy-2.5"
+devilDefinition: |
+  A live video editor that changes the scene while the camera is still filming, leaving post-production with time to reconsider its career.
+plainDefinition: |
+  Lucy 2.5 is Decart's 720p real-time video-editing model. It transforms a live or streamed video using a text prompt, a reference image, or both, and can add, replace, or remove objects, swap characters and backgrounds, change clothing, and apply styles or effects.
+whyExists: |
+  Conventional generative video usually produces a clip after a wait. Interactive filters, virtual try-on, live shopping, games, and broadcast effects need output quickly enough to remain part of the live experience.
+misuse: |
+  "Real-time editing" can sound like ordinary deterministic compositing with better prompts. The model is generating altered frames under latency, consistency, identity, and motion constraints; a convincing short demonstration does not guarantee a stable long session.
+practicalMeaning: |
+  Developers connect a video stream through Decart's SDK or real-time API, select `lucy-2.5`, and update prompts or reference images during the session. They still need to test delay, frame stability, reference adherence, safety, consent, bandwidth, cost, and failure behaviour on their actual cameras and subjects.
+example: |
+  "Lucy 2.5 replaced the jacket during the live stream, saving a reshoot and creating several new meetings about likeness rights."
+askNext:
+  - "What end-to-end latency and frame stability hold over a long session on our network?"
+  - "How closely does the output preserve motion, identity, and the supplied reference image?"
+  - "What consent, moderation, disclosure, and fallback controls surround live transformation?"
+related:
+  - "decart-ai"
+  - "world-model"
+  - "multimodal"
+seeAlso:
+  - "Virtual try-on"
+  - "Synthetic media"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: true
+publishedAt: "2026-07-17"
+updatedAt: "2026-07-17"
+warningLabel: "Real-time generation still has temporal and consent debt."
+vendorReferences:
+  - "Decart AI"
+  - "Decart API Platform"
+tags:
+  - "video"
+  - "realtime"
+  - "editing"
+  - "multimodal"
+misunderstoodScore: 3
+translations:
+  - label: "production meaning"
+    text: "Prompt a live 720p video transformation and then measure whether the edited reality remains stable enough to ship."
+---
+
+No built-in diagram is attached because the useful mental model is a latency-sensitive video stream with temporal feedback, which the catalogue's current diagrams do not show.
