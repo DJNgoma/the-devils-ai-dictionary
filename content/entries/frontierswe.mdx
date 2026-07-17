@@ -1,0 +1,55 @@
+---
+title: "FrontierSWE"
+slug: "frontierswe"
+letter: "F"
+categories:
+  - "Safety and evaluation"
+  - "Agents and workflows"
+aliases:
+  - "Frontier SWE"
+  - "FrontierSWE benchmark"
+devilDefinition: |
+  A coding benchmark assembled from tasks near the edge of human patience, where an early confident submission is mostly a scheduling decision.
+plainDefinition: |
+  FrontierSWE is Proximal's ultra-long-horizon benchmark for coding agents on hard real-world technical challenges. Its tasks span implementation, performance engineering, computational science, and machine-learning research, and are designed to test sustained work near the limits of current human and agent ability.
+whyExists: |
+  Short issue-resolution benchmarks do not measure whether an agent can research an unfamiliar technical domain, optimise systems, run experiments, recover from failed approaches, and validate a result over several hours. FrontierSWE makes those behaviours central.
+misuse: |
+  A leaderboard rank is treated as a pure model property even though the harness, tool environment, time limit, cost, stopping behaviour, repeated trials, and task-specific verifier all shape the outcome. Spending longer can reveal persistence or merely extend the mistake.
+practicalMeaning: |
+  Compare results only when the model, harness, task version, tool access, time and token budgets, trial count, correctness gates, and performance scoring match. Inspect trajectories for premature submission, reward hacking, invalid shortcuts, and useful recovery after failed experiments.
+example: |
+  "The agent spent eight hours on FrontierSWE and submitted the approach it had discovered in minute eleven, now supported by considerably more evidence of confidence."
+askNext:
+  - "Which task category, harness, model, and trial count produced this score?"
+  - "What correctness gate must pass before performance improvements count?"
+  - "Did extra runtime improve the solution, recover from failure, or only delay submission?"
+related:
+  - "repository-benchmark"
+  - "long-horizon-agent"
+  - "eval-harness"
+seeAlso:
+  - "SWE-Marathon"
+  - "DeepSWE"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-17"
+updatedAt: "2026-07-17"
+warningLabel: "Model, harness, budget, and verifier jointly produce the rank."
+vendorReferences:
+  - "Proximal"
+  - "FrontierSWE"
+tags:
+  - "benchmark"
+  - "coding-agents"
+  - "performance"
+  - "research"
+misunderstoodScore: 4
+translations:
+  - label: "evaluation meaning"
+    text: "Give coding agents genuinely difficult multi-hour technical work and score the verified result, not the length of the attempt."
+---
+
+No built-in diagram is attached because the useful mental model is a time-and-quality evaluation surface across heterogeneous technical tasks, which the current catalogue does not depict.

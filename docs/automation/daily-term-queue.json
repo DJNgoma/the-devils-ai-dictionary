@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-17T10:31:49.749Z",
+  "updatedAt": "2026-07-17T15:09:42.718Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -5133,6 +5133,142 @@
       ],
       "addedAt": "2026-07-17T10:23:35.000Z",
       "publishedAt": "2026-07-17T10:31:49.749Z"
+    },
+    {
+      "slug": "kimi",
+      "label": "Kimi",
+      "status": "published",
+      "notes": "Moonshot AI's product and model-family brand; separate the all-in-one agentic workspace from whichever Kimi model is currently selected underneath it.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Model usage",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "kimi-k3",
+        "coding-agent",
+        "long-horizon-agent"
+      ],
+      "addedAt": "2026-07-17T15:00:02.000Z",
+      "publishedAt": "2026-07-17T15:09:42.718Z"
+    },
+    {
+      "slug": "kimi-k3",
+      "label": "Kimi K3",
+      "status": "published",
+      "notes": "Moonshot AI's 2.8T-parameter, native-vision, million-token flagship using KDA and Attention Residuals; distinguish current hosted availability from the promised weight release.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Model building",
+        "Model usage",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "kimi",
+        "mixture-of-experts",
+        "long-context"
+      ],
+      "addedAt": "2026-07-17T15:00:02.000Z",
+      "publishedAt": "2026-07-17T15:09:42.718Z"
+    },
+    {
+      "slug": "deepswe",
+      "label": "DeepSWE",
+      "status": "published",
+      "notes": "DataCurve's 113-task benchmark of original long-horizon software-engineering work; explicitly distinguish it from the older DeepSWE-Preview coding agent.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "repository-benchmark",
+        "coding-agent",
+        "eval-harness"
+      ],
+      "addedAt": "2026-07-17T15:00:02.000Z",
+      "publishedAt": "2026-07-17T15:09:42.718Z"
+    },
+    {
+      "slug": "frontierswe",
+      "label": "FrontierSWE",
+      "status": "published",
+      "notes": "Ultra-long-horizon benchmark built from hard real-world implementation, performance-engineering, computational-science, and ML-research tasks.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "repository-benchmark",
+        "long-horizon-agent",
+        "eval-harness"
+      ],
+      "addedAt": "2026-07-17T15:00:02.000Z",
+      "publishedAt": "2026-07-17T15:09:42.718Z"
+    },
+    {
+      "slug": "terminal-bench-2-1",
+      "label": "Terminal-Bench 2.1",
+      "status": "published",
+      "notes": "Verified revision of Terminal-Bench 2.0 with 26 tasks modified for bugs, resources, timeouts, or reward-hacking robustness.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "terminal-agent",
+        "eval-harness",
+        "benchmark-theatre"
+      ],
+      "addedAt": "2026-07-17T15:00:02.000Z",
+      "publishedAt": "2026-07-17T15:09:42.718Z"
+    },
+    {
+      "slug": "programbench",
+      "label": "ProgramBench",
+      "status": "published",
+      "notes": "Clean-room reconstruction benchmark: agents receive a compiled binary and documentation, then must rebuild the whole program against hidden behavioural tests.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "repository-benchmark",
+        "coding-agent",
+        "eval-harness"
+      ],
+      "addedAt": "2026-07-17T15:00:02.000Z",
+      "publishedAt": "2026-07-17T15:09:42.718Z"
+    },
+    {
+      "slug": "swe-marathon",
+      "label": "SWE-Marathon",
+      "status": "published",
+      "notes": "Twenty multi-hour software-engineering tasks testing sustained autonomous work across library reproductions, full-stack clones, ML engineering, and optimisation.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "long-horizon-agent",
+        "repository-benchmark",
+        "eval-harness"
+      ],
+      "addedAt": "2026-07-17T15:00:02.000Z",
+      "publishedAt": "2026-07-17T15:09:42.718Z"
     }
   ]
 }

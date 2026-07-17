@@ -1,0 +1,55 @@
+---
+title: "DeepSWE"
+slug: "deepswe"
+letter: "D"
+categories:
+  - "Safety and evaluation"
+  - "Agents and workflows"
+aliases:
+  - "DeepSWE benchmark"
+  - "DataCurve DeepSWE"
+devilDefinition: |
+  A software-engineering benchmark with enough room for the agent to reveal whether its plan survives contact with an actual repository.
+plainDefinition: |
+  DeepSWE is DataCurve's benchmark for coding agents on original, long-horizon software-engineering tasks. Its current v1.1 leaderboard covers 113 tasks and reports attempt-level pass@1, task-level pass@4, cost, tokens, duration, steps, and context use across model-and-harness configurations.
+whyExists: |
+  Patch benchmarks built from familiar public issues can suffer contamination, narrow task scope, and compressed score differences. DeepSWE uses original tasks and longer trajectories to expose differences in repository navigation, implementation, verification, persistence, and harness behaviour.
+misuse: |
+  DeepSWE is also the name associated with an older DeepSWE-Preview coding agent trained by Agentica and Together AI. Treating that model and DataCurve's newer benchmark as the same object produces citations that evaluate themselves with impressive efficiency.
+practicalMeaning: |
+  Read the benchmark version, task set, harness, model, reasoning effort, number of attempts, and scoring unit before comparing results. DeepSWE counts context-window failures and agent timeouts as failures while excluding provider, network, and verifier errors from scored attempts.
+example: |
+  "The model led DeepSWE after four attempts per task, which was useful once everyone stopped quoting the number as though it were a single-run success rate."
+askNext:
+  - "Do you mean DataCurve's benchmark or the older DeepSWE-Preview agent?"
+  - "Is the number pass@1, pass@4, or a pooled result across unequal attempts?"
+  - "Which harness, effort, budget, benchmark version, and failure exclusions were used?"
+related:
+  - "repository-benchmark"
+  - "coding-agent"
+  - "eval-harness"
+seeAlso:
+  - "DeepSWE-Preview"
+  - "SWE-bench"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-17"
+updatedAt: "2026-07-17"
+warningLabel: "Benchmark and older coding agent share a name."
+vendorReferences:
+  - "DataCurve"
+  - "Pier"
+tags:
+  - "benchmark"
+  - "coding-agents"
+  - "long-horizon"
+  - "repositories"
+misunderstoodScore: 4
+translations:
+  - label: "evaluation meaning"
+    text: "A long-horizon coding benchmark where model, harness, attempt count, and scoring unit all belong beside the result."
+---
+
+No built-in diagram is attached because the important structure is an evaluation matrix across tasks, repeated trials, harnesses, budgets, and failure classes rather than an agent's internal loop.

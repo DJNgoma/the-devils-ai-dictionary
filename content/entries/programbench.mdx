@@ -1,0 +1,56 @@
+---
+title: "ProgramBench"
+slug: "programbench"
+letter: "P"
+categories:
+  - "Safety and evaluation"
+  - "Agents and workflows"
+aliases:
+  - "Program Bench"
+  - "ProgramBench benchmark"
+devilDefinition: |
+  A clean-room coding benchmark that gives the agent the manual and the binary, then asks it to rediscover why the original codebase had so many files.
+plainDefinition: |
+  ProgramBench evaluates whether software-engineering agents can rebuild complete programs from scratch. Each task provides a compiled executable and documentation but not the source; the agent must design and implement a replacement whose behaviour is checked by hidden tests.
+whyExists: |
+  Most coding benchmarks ask agents to patch an existing repository with its architecture already supplied. ProgramBench tests holistic software construction: requirements discovery, black-box experimentation, architecture, implementation, integration, and behavioural compatibility.
+misuse: |
+  Partial behavioural agreement is described as "rebuilding the program" even when almost no tasks are fully resolved. Hidden tests can expose missing behaviour, but they cannot prove semantic equivalence over every possible input or reward maintainable architecture automatically.
+practicalMeaning: |
+  The public benchmark contains 200 tasks derived from programs to be reconstructed under clean-room constraints. Results distinguish fully resolved instances from "almost" resolved ones that pass at least 95% of behavioural tests; those two columns should not be merged for a friendlier headline.
+example: |
+  "The agent rebuilt 97% of the program's observed behaviour, leaving the remaining 3% to contain authentication and the month-end close."
+askNext:
+  - "Is the reported number fully resolved or at least 95% behaviourally resolved?"
+  - "What black-box access, documentation, internet, and decompilation rules applied?"
+  - "Do the hidden tests cover the behaviours that matter outside the benchmark?"
+related:
+  - "repository-benchmark"
+  - "coding-agent"
+  - "eval-harness"
+seeAlso:
+  - "Clean-room implementation"
+  - "Behavioural equivalence"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-17"
+updatedAt: "2026-07-17"
+warningLabel: "Almost resolved is not the same column as rebuilt."
+vendorReferences:
+  - "Meta Superintelligence Labs"
+  - "Stanford University"
+  - "Harvard University"
+tags:
+  - "benchmark"
+  - "clean-room"
+  - "programs"
+  - "behaviour"
+misunderstoodScore: 4
+translations:
+  - label: "evaluation meaning"
+    text: "Recreate a whole program from its executable behaviour and documentation, then let hidden tests find the missing contract."
+---
+
+No built-in diagram is attached because ProgramBench's key mental model is clean-room reconstruction against a hidden behavioural oracle, not an ordinary tool-calling workflow.

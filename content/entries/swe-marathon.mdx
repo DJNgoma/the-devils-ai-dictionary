@@ -1,0 +1,55 @@
+---
+title: "SWE-Marathon"
+slug: "swe-marathon"
+letter: "S"
+categories:
+  - "Safety and evaluation"
+  - "Agents and workflows"
+aliases:
+  - "SWE Marathon"
+  - "SWE-Marathon benchmark"
+devilDefinition: |
+  Twenty software tasks long enough for an agent to experience optimism, context loss, recovery, and a very expensive second wind.
+plainDefinition: |
+  SWE-Marathon is Abundant AI's benchmark of 20 multi-hour software-engineering tasks spanning library reproductions, full-stack product clones, machine-learning engineering, algorithmic work, and performance optimisation. It tests whether agents can sustain coherent progress over unusually long trajectories.
+whyExists: |
+  Many coding benchmarks reward short repository patches. Real engineering can require hours of design, implementation, testing, research, and recovery across a large deliverable, so SWE-Marathon extends the horizon and verifies the completed system rather than a single edit.
+misuse: |
+  A small task count is dismissed as anecdotal or a long runtime is mistaken for difficulty by itself. The tasks are deliberately expensive and heterogeneous; aggregate resolution rates need uncertainty, per-task evidence, harness details, and scrutiny of whether verifiers resist shortcuts.
+practicalMeaning: |
+  The benchmark publishes 20 executable environments, human reference solutions, multi-layer verification, and a large collection of trial trajectories. Its site reports roughly 1,400 logged trials and less than 26% resolution by frontier agents, making per-task behaviour as important as the headline average.
+example: |
+  "The agent completed the SWE-Marathon task after six hours, a triumph of sustained autonomy and a reminder to inspect the cloud invoice before awarding the medal."
+askNext:
+  - "Which task, harness, model, budget, and number of trials produced this result?"
+  - "How do the verifiers prevent superficial clones, hard-coded outputs, or benchmark-specific shortcuts?"
+  - "Did the agent maintain a coherent plan, recover from failures, and validate the whole deliverable?"
+related:
+  - "long-horizon-agent"
+  - "repository-benchmark"
+  - "eval-harness"
+seeAlso:
+  - "FrontierSWE"
+  - "ProgramBench"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-17"
+updatedAt: "2026-07-17"
+warningLabel: "Long trajectories need task-level evidence, not endurance theatre."
+vendorReferences:
+  - "Abundant AI"
+  - "Harbor"
+tags:
+  - "benchmark"
+  - "long-horizon"
+  - "coding-agents"
+  - "verification"
+misunderstoodScore: 4
+translations:
+  - label: "evaluation meaning"
+    text: "Give an agent multi-hour software work and verify whether coherence survives as long as the task does."
+---
+
+No built-in diagram is attached because the benchmark's defining feature is trajectory length across design, implementation, recovery, and whole-system verification—not the shape of one agent loop.

@@ -1,0 +1,56 @@
+---
+title: "Terminal-Bench 2.1"
+slug: "terminal-bench-2-1"
+letter: "T"
+categories:
+  - "Safety and evaluation"
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "Terminal Bench 2.1"
+  - "Terminal-Bench v2.1"
+devilDefinition: |
+  A terminal-agent benchmark revised after the tasks themselves failed enough evaluation to earn a point release.
+plainDefinition: |
+  Terminal-Bench 2.1 is a verified revision of Terminal-Bench 2.0 for evaluating agents on complex tasks in containerised terminal environments. Its maintainers modified 26 tasks to fix bugs, adjust timeouts or resources, and strengthen robustness against reward hacking.
+whyExists: |
+  Terminal agents must do more than edit a repository: they install dependencies, configure systems, train models, debug asynchronous code, analyse data, handle security work, and complete scientific or operational tasks end to end. The benchmark measures that broader computer-use competence.
+misuse: |
+  Version 2.1 results are compared directly with 2.0 scores as though task fixes cannot move a leaderboard. Scores are also quoted without the agent harness, model configuration, sandbox provider, trial count, or public trajectory requirements that make them interpretable.
+practicalMeaning: |
+  A compliant leaderboard submission runs at least five trials per task, uploads public results through Harbor, and passes automated and maintainer review. Evaluators should record the exact 2.1 dataset, harness, model, reasoning effort, environment, and task-level variance.
+example: |
+  "Terminal-Bench 2.1 fixed the tasks before ranking the agents, a courtesy not every benchmark extends to either party."
+askNext:
+  - "Is this result from Terminal-Bench 2.0, 2.0 Verified, or 2.1?"
+  - "Which agent harness, model settings, sandbox, and trial count were used?"
+  - "Are trajectories public, and how were reward-hacking or infrastructure failures reviewed?"
+related:
+  - "terminal-agent"
+  - "eval-harness"
+  - "benchmark-theatre"
+seeAlso:
+  - "Harbor"
+  - "Terminal-Bench"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-17"
+updatedAt: "2026-07-17"
+warningLabel: "A point release can change both the tasks and the rank."
+vendorReferences:
+  - "Harbor Framework"
+  - "Terminal-Bench"
+tags:
+  - "terminal"
+  - "benchmark"
+  - "agents"
+  - "containers"
+misunderstoodScore: 4
+translations:
+  - label: "evaluation meaning"
+    text: "A repaired terminal-task suite whose version, harness, environment, and repeated trials belong beside every score."
+---
+
+No built-in diagram is attached because the benchmark spans many terminal workflows; a single agent-loop picture would hide the dataset and verification changes that make version 2.1 noteworthy.
