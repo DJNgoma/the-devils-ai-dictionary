@@ -238,6 +238,10 @@ export function collectCloudflareReleaseGateResults({
     "__opennext-prerender",
   );
   const prerenderAssets = [
+    path.join(prerenderAssetDir, "index.html"),
+    path.join(prerenderAssetDir, "index.rsc"),
+    path.join(prerenderAssetDir, "categories.html"),
+    path.join(prerenderAssetDir, "categories.rsc"),
     path.join(prerenderAssetDir, "updates.html"),
     path.join(prerenderAssetDir, "updates.rsc"),
     ...fs
