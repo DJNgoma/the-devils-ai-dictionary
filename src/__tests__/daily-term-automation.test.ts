@@ -217,6 +217,10 @@ function createSourceFixture() {
   );
   writeFile(path.join(seedRepo, "README.md"), "# Daily term automation fixture\n");
   writeFile(
+    path.join(seedRepo, "docs", "automation", "daily-term-expansion.md"),
+    "# Daily term expansion fixture\n",
+  );
+  writeFile(
     path.join(seedRepo, "src", "generated", "entries.generated.json"),
     `${JSON.stringify({ entries: [{ slug: "test-term" }] }, null, 2)}\n`,
   );

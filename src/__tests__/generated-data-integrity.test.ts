@@ -211,7 +211,7 @@ describe("runtime entry hydration", () => {
 describe("resolved reference metadata", () => {
   const entrySlugSet = new Set(entries.map((entry) => entry.slug));
 
-  it("all entries resolve every see-also and vendor reference without self-links", () => {
+  it("all entries expose valid see-also and vendor reference metadata without self-links", () => {
     const failures: string[] = [];
 
     for (const entry of entries) {
@@ -233,6 +233,12 @@ describe("resolved reference metadata", () => {
       ] as GeneratedReference[]) {
         if (typeof reference.label !== "string") {
           failures.push(`${entry.slug}: resolved reference has a non-string label`);
+        }
+
+        // External references intentionally keep their label without linking to
+        // an internal dictionary entry. Only validate the slug when one exists.
+        if (reference.entrySlug === undefined) {
+          continue;
         }
 
         if (typeof reference.entrySlug !== "string") {

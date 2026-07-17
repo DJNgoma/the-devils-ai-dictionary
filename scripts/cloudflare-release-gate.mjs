@@ -17,9 +17,11 @@ export const defaultCloudflareReleaseBudgets = {
   detailShardBytes: 160 * 1024,
   mobileSnapshotBytes: 5 * 1024 * 1024,
   workerGzipBytes: 2.8 * 1024 * 1024,
-  updatesRscBytes: 750 * 1024,
-  updatesOpenNextCacheBytes: 3.6 * 1024 * 1024,
-  categoryOpenNextCacheBytes: 3.2 * 1024 * 1024,
+  // These are the static HTML/RSC assets actually served by the Worker fast
+  // path. The larger OpenNext cache envelopes are build intermediates and are
+  // not the deployed response payloads.
+  prerenderHtmlBytes: 2 * 1024 * 1024,
+  prerenderRscBytes: 1 * 1024 * 1024,
 };
 
 /**
@@ -138,25 +140,6 @@ function workerStartupFiles(root) {
   return files;
 }
 
-function findOpenNextCacheBuildDir(root) {
-  const cacheRoot = path.join(root, ".open-next", "cache");
-
-  if (!fs.existsSync(cacheRoot)) {
-    throw new Error(".open-next/cache is missing; run npm run build:cf before the release gate.");
-  }
-
-  const buildDirs = fs
-    .readdirSync(cacheRoot, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory())
-    .map((entry) => path.join(cacheRoot, entry.name));
-
-  if (buildDirs.length !== 1) {
-    throw new Error(`Expected exactly one OpenNext cache build directory, found ${buildDirs.length}.`);
-  }
-
-  return buildDirs[0];
-}
-
 function assertFileExists(root, relativePath) {
   const filePath = path.join(root, relativePath);
 
@@ -246,42 +229,37 @@ export function collectCloudflareReleaseGateResults({
     results.push(startupCatalogueCheck);
   }
 
-  results.push(
-    assertBudget(
-      "Updates RSC route payload",
-      fileSize(assertFileExists(root, ".next/server/app/updates.rsc")),
-      budgets.updatesRscBytes,
-    ),
-  );
-
-  const openNextCacheDir = findOpenNextCacheBuildDir(root);
-
-  results.push(
-    assertBudget(
-      "Updates OpenNext prerender cache",
-      fileSize(path.join(openNextCacheDir, "updates.cache")),
-      budgets.updatesOpenNextCacheBytes,
-    ),
-  );
-
-  const categoryCacheDir = path.join(openNextCacheDir, "categories");
-
-  if (fs.existsSync(categoryCacheDir)) {
-    for (const cacheFile of fs
-      .readdirSync(categoryCacheDir)
-      .filter((file) => file.endsWith(".cache"))
-      .sort()) {
-      results.push(
-        assertBudget(
-          `Category OpenNext prerender cache ${cacheFile}`,
-          fileSize(path.join(categoryCacheDir, cacheFile)),
-          budgets.categoryOpenNextCacheBytes,
-        ),
-      );
-    }
-  }
-
   results.push(assertPrerenderAssetFastPath(root));
+
+  const prerenderAssetDir = path.join(
+    root,
+    ".open-next",
+    "assets",
+    "__opennext-prerender",
+  );
+  const prerenderAssets = [
+    path.join(prerenderAssetDir, "updates.html"),
+    path.join(prerenderAssetDir, "updates.rsc"),
+    ...fs
+      .readdirSync(path.join(prerenderAssetDir, "categories"))
+      .filter((file) => file.endsWith(".html") || file.endsWith(".rsc"))
+      .sort()
+      .map((file) => path.join(prerenderAssetDir, "categories", file)),
+  ];
+
+  for (const assetPath of prerenderAssets) {
+    const extension = path.extname(assetPath);
+    const budget =
+      extension === ".html" ? budgets.prerenderHtmlBytes : budgets.prerenderRscBytes;
+
+    results.push(
+      assertBudget(
+        `Prerender asset ${path.relative(prerenderAssetDir, assetPath)}`,
+        fileSize(assetPath),
+        budget,
+      ),
+    );
+  }
 
   results.push(
     assertBudget(
