@@ -266,7 +266,7 @@ async function opNextMaybeGetPrerenderedResponse(request, env) {
     const wantsRsc = url.searchParams.has("_rsc") ||
         request.headers.get("accept")?.includes("text/x-component");
     const variant = wantsRsc ? "rsc" : opNextIsRouteAsset(pathname) ? "route" : "html";
-    const assetPath = variant === "route" || variant === "html"
+    const assetPath = variant === "route"
         ? \`\${OP_NEXT_PRERENDER_PREFIX}/\${routePath}\`
         : \`\${OP_NEXT_PRERENDER_PREFIX}/\${routePath}.\${variant}\`;
     const assetUrl = new URL(assetPath, request.url);

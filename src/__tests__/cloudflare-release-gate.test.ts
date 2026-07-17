@@ -65,6 +65,11 @@ describe("Cloudflare release gate helpers", () => {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), "devils-cf-gate-"));
     const prerenderDir = path.join(root, ".open-next", "assets", "__opennext-prerender");
 
+    fs.writeFileSync(
+      path.join(root, "wrangler.jsonc"),
+      JSON.stringify({ assets: { html_handling: "none" } }),
+    );
+
     for (const file of [
       "index.html",
       "index.rsc",
@@ -83,5 +88,26 @@ describe("Cloudflare release gate helpers", () => {
     );
 
     expect(assertPrerenderAssetFastPath(root)).toMatch(/Prerender asset fast path/);
+  });
+
+  it("rejects Cloudflare HTML handling that redirects exact asset filenames", () => {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "devils-cf-gate-"));
+
+    fs.writeFileSync(
+      path.join(root, "wrangler.jsonc"),
+      JSON.stringify({ assets: { html_handling: "auto-trailing-slash" } }),
+    );
+
+    expect(() => assertPrerenderAssetFastPath(root)).toThrow(/html_handling/);
+  });
+
+  it("fetches prerendered HTML by its exact asset filename", () => {
+    const source = fs.readFileSync(
+      path.resolve(__dirname, "../../scripts/run-opennext-cloudflare.mjs"),
+      "utf8",
+    );
+
+    expect(source).toContain('const assetPath = variant === "route"');
+    expect(source).not.toContain('variant === "route" || variant === "html"');
   });
 });
