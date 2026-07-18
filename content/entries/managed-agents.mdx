@@ -1,0 +1,56 @@
+---
+title: "Managed Agents"
+slug: "managed-agents"
+letter: "M"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+  - "Product and vendor terms"
+aliases:
+  - "Gemini API Managed Agents"
+devilDefinition: |
+  The agent still acts autonomously; the cloud provider merely owns the runtime, the controls, and the invoice it autonomously produces.
+plainDefinition: |
+  Managed Agents is Google's Gemini API layer for running production agents with provider-operated infrastructure. Its capabilities include background tasks and connections to remote Model Context Protocol servers, so developers can delegate more of the execution lifecycle to the platform.
+whyExists: |
+  Long-running agents need durable execution, state, tool connectivity, retries, monitoring, security, and resource control. A managed service packages those operational concerns so every team does not build an agent runtime before it can test the agent.
+misuse: |
+  "Managed" is confused with reliable, governed, or maintenance-free. The provider can operate the runtime, but the customer still owns tool permissions, task design, data policy, evaluation, failure handling, cost limits, and the consequences of agent actions.
+practicalMeaning: |
+  Developers can submit work that continues beyond a single request and use remote MCP tools through the Gemini platform. They should evaluate portability, observability, state retention, regional controls, pricing, cancellation, identity, and recovery from partial execution.
+example: |
+  "Managed Agents removed the runtime work, leaving the team free to discover that workflow ownership had not been included in the service."
+askNext:
+  - "Which state, retries, logs, approvals, and cancellation controls does the service manage?"
+  - "How are remote MCP credentials scoped, rotated, and audited?"
+  - "Can the workflow move elsewhere without rebuilding its state and tool contracts?"
+related:
+  - "background-agent"
+  - "remote-mcp-server"
+  - "agent-ops"
+seeAlso:
+  - "Agent runtime"
+  - "Durable execution"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: true
+publishedAt: "2026-07-18"
+updatedAt: "2026-07-18"
+warningLabel: "Managed infrastructure does not manage the meaning of the task."
+vendorReferences:
+  - "Google"
+  - "Gemini API"
+tags:
+  - "agents"
+  - "runtime"
+  - "background-tasks"
+  - "mcp"
+misunderstoodScore: 4
+translations:
+  - label: "platform meaning"
+    text: "Rent the agent execution layer, then remain responsible for what the agent is allowed and expected to do."
+diagram: "agent-loop"
+---
+
+The agent-loop diagram is attached because Managed Agents packages the repeated model, tool, observation, and continuation cycle rather than merely exposing another model endpoint.

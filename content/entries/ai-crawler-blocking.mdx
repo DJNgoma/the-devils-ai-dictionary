@@ -1,0 +1,56 @@
+---
+title: "AI crawler blocking"
+slug: "ai-crawler-blocking"
+letter: "A"
+categories:
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+  - "Economics and operations of AI"
+aliases:
+  - "AI bot blocking"
+  - "AI scraper blocking"
+devilDefinition: |
+  The moment a polite note in robots.txt becomes a locked door because the visitors kept describing consent as a parsing error.
+plainDefinition: |
+  AI crawler blocking is the active denial of bots that collect web content for model training, retrieval, or other AI uses without authorisation. It uses network, application, or platform controls rather than relying only on voluntary instructions such as robots.txt.
+whyExists: |
+  Creators and publishers need enforceable control over access, licensing, attribution, server cost, and commercial reuse. Many automated collectors ignore voluntary exclusions or are difficult to identify, which makes passive preferences insufficient.
+misuse: |
+  Blocking is presented as a complete technical or legal solution. Crawlers can disguise themselves, content may be copied through other channels, legitimate search and accessibility tools can be caught, and preventing collection does not settle rights over copies already made.
+practicalMeaning: |
+  Platforms combine bot identification, rate limits, managed rules, challenges, authentication, allowlists, monitoring, and contractual policy. They must tune false positives, provide creator controls, document exceptions, and decide how authorised AI services receive access.
+example: |
+  "The platform began blocking AI crawlers after robots.txt completed its successful career as a strongly worded suggestion."
+askNext:
+  - "Which bots and uses are blocked, allowed, licensed, or merely logged?"
+  - "How are disguised crawlers detected without breaking search, archives, accessibility, or legitimate automation?"
+  - "What control does each creator have, and how are exceptions or appeals handled?"
+related:
+  - "content-provenance"
+  - "data-provenance"
+  - "data-governance"
+seeAlso:
+  - "robots.txt"
+  - "AI scraping"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-18"
+updatedAt: "2026-07-18"
+warningLabel: "Blocking access today does not recall yesterday's copies."
+vendorReferences:
+  - "Patreon"
+  - "Cloudflare"
+tags:
+  - "crawlers"
+  - "scraping"
+  - "creator-rights"
+  - "access-control"
+misunderstoodScore: 4
+translations:
+  - label: "publisher meaning"
+    text: "Enforce an access policy at the edge, then keep watching because crawlers do not become honest when renamed."
+---
+
+No built-in diagram is attached because this is an edge-access and policy-control problem; the current model and agent diagrams would obscure the enforcement boundary.

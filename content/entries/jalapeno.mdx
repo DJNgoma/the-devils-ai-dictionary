@@ -1,0 +1,56 @@
+---
+title: "Jalapeño"
+slug: "jalapeno"
+letter: "J"
+categories:
+  - "Infrastructure and deployment"
+  - "Economics and operations of AI"
+  - "Product and vendor terms"
+aliases:
+  - "OpenAI Jalapeño"
+  - "Jalapeno"
+devilDefinition: |
+  A custom inference chip for removing the general-purpose margin from a very specialised appetite for tokens.
+plainDefinition: |
+  Jalapeño is a custom inference chip developed by OpenAI and Broadcom for serving large language models. It represents a move towards silicon designed around a frontier lab's own inference workloads rather than relying only on general AI accelerators.
+whyExists: |
+  At large scale, inference cost, power use, memory movement, latency, and supply become strategic constraints. Custom silicon can optimise those trade-offs around a known model stack and reduce dependence on a single accelerator market.
+misuse: |
+  A custom chip is treated as automatic proof of lower costs or technical independence. Its value depends on software support, yields, packaging, memory, networking, utilisation, deployment volume, and whether the models fit the assumptions built into the hardware.
+practicalMeaning: |
+  The chip matters less as a benchmark trophy than as a signal about vertical integration. Procurement and infrastructure teams should ask what workloads it serves, where it is deployed, what stack supports it, and whether claimed savings survive full-system costs.
+example: |
+  "Jalapeño promised cheaper inference once the company had designed the chip, supplied it, integrated it, and achieved the scale described in the first sentence."
+askNext:
+  - "Which models, precisions, batch sizes, and latency targets is the chip designed to serve?"
+  - "Do cost and efficiency claims include memory, networking, software, cooling, and utilisation?"
+  - "Where is it deployed at production scale, and what supply dependencies remain?"
+related:
+  - "inference"
+  - "inference-stack"
+  - "inference-budget"
+seeAlso:
+  - "Custom AI silicon"
+  - "Inference accelerator"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: true
+publishedAt: "2026-07-18"
+updatedAt: "2026-07-18"
+warningLabel: "Custom silicon moves the dependency map; it does not erase it."
+vendorReferences:
+  - "OpenAI"
+  - "Broadcom"
+tags:
+  - "chips"
+  - "inference"
+  - "accelerators"
+  - "infrastructure"
+misunderstoodScore: 3
+translations:
+  - label: "infrastructure meaning"
+    text: "A lab-specific inference accelerator whose economics depend on the whole serving system and enough volume to justify the design."
+---
+
+No built-in diagram is attached because none of the current diagrams shows accelerator, memory, network, and serving-stack economics; model routing would answer a different question.

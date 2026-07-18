@@ -1,0 +1,54 @@
+---
+title: "GPT-Red"
+slug: "gpt-red"
+letter: "G"
+categories:
+  - "Safety and evaluation"
+  - "Model building"
+  - "Agents and workflows"
+aliases:
+  - "GPT Red"
+devilDefinition: |
+  An automated attacker trained to improve the automated defender, because even the adversary now has quarterly objectives.
+plainDefinition: |
+  GPT-Red is OpenAI's automated red-teaming system for finding and strengthening defences against jailbreaks and prompt-injection attacks. Attacker and defender models improve through adversarial self-play rather than relying only on a fixed library of human-written attacks.
+whyExists: |
+  Static safety tests age quickly once models, tools, and attack techniques change. An adaptive attacker can search for new failures, while the defender can learn from the attacks that actually succeeded.
+misuse: |
+  Automated red-teaming is presented as proof that a system is secure. It is still an evaluation and training process shaped by its threat model, tools, incentives, coverage, and stopping conditions; an attacker that did not discover a flaw has not abolished the flaw.
+practicalMeaning: |
+  Teams can use self-improving attack loops to generate harder safety cases and improve filters or model behaviour. They still need independent testing, human review, production monitoring, access controls, and incident response for attacks outside the training game.
+example: |
+  "GPT-Red found a new prompt injection overnight, allowing the morning meeting to call it resilience research instead of an incident rehearsal."
+askNext:
+  - "Which attacker capabilities, tools, languages, and target surfaces are inside the threat model?"
+  - "Does defensive improvement generalise to attacks withheld from the self-play loop?"
+  - "Who independently tests failures that the attacker and defender may both miss?"
+related:
+  - "red-teaming"
+  - "prompt-injection"
+  - "jailbreak"
+seeAlso:
+  - "Adversarial self-play"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: true
+publishedAt: "2026-07-18"
+updatedAt: "2026-07-18"
+warningLabel: "A stronger sparring partner is not a security certificate."
+vendorReferences:
+  - "OpenAI"
+tags:
+  - "red-teaming"
+  - "self-play"
+  - "jailbreaks"
+  - "prompt-injection"
+misunderstoodScore: 4
+translations:
+  - label: "security meaning"
+    text: "Train adaptive attacks and defences together, then test whether either learned anything beyond the training arena."
+diagram: "agent-loop"
+---
+
+The agent-loop diagram is used because the important mental model is iterative: attack, observe, adapt, defend, and repeat.

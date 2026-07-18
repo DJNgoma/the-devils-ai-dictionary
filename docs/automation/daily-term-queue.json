@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-17T15:09:42.718Z",
+  "updatedAt": "2026-07-18T05:51:48.059Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -5269,6 +5269,146 @@
       ],
       "addedAt": "2026-07-17T15:00:02.000Z",
       "publishedAt": "2026-07-17T15:09:42.718Z"
+    },
+    {
+      "slug": "gpt-red",
+      "label": "GPT-Red",
+      "status": "published",
+      "notes": "OpenAI's automated red-teaming system uses adversarial self-play to discover jailbreaks and prompt-injection attacks, then trains stronger attacks and defences from the resulting experience.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Model building",
+        "Agents and workflows"
+      ],
+      "relatedHints": [
+        "red-teaming",
+        "prompt-injection",
+        "jailbreak"
+      ],
+      "addedAt": "2026-07-18T05:27:22.000Z",
+      "publishedAt": "2026-07-18T05:51:48.059Z"
+    },
+    {
+      "slug": "ai-scorecard",
+      "label": "AI scorecard",
+      "status": "published",
+      "notes": "A proposed operating scorecard centred on useful work, cost per successful task, dependability, and return on compute rather than adoption counts or theatrical token totals.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Economics and operations of AI",
+        "Safety and evaluation",
+        "Cultural terms"
+      ],
+      "relatedHints": [
+        "ai-roi",
+        "cost-per-task",
+        "evals"
+      ],
+      "addedAt": "2026-07-18T05:27:22.000Z",
+      "publishedAt": "2026-07-18T05:51:48.059Z"
+    },
+    {
+      "slug": "gpt-live",
+      "label": "GPT-Live",
+      "status": "published",
+      "notes": "OpenAI's real-time speech model generation powering ChatGPT Voice, important as the interaction shifts from turn-based transcription pipelines towards continuous spoken exchange.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Model usage",
+        "Product and vendor terms",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "voice-ai",
+        "realtime-api",
+        "multimodal"
+      ],
+      "addedAt": "2026-07-18T05:27:22.000Z",
+      "publishedAt": "2026-07-18T05:51:48.059Z"
+    },
+    {
+      "slug": "jalapeno",
+      "label": "Jalapeño",
+      "status": "published",
+      "notes": "OpenAI and Broadcom's custom inference chip, marking the commercial move from renting general accelerators to designing silicon around model-serving economics.",
+      "diagramHint": null,
+      "misunderstoodHint": 3,
+      "categoryHints": [
+        "Infrastructure and deployment",
+        "Economics and operations of AI",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "inference-chip",
+        "ai-accelerator",
+        "inference-economics"
+      ],
+      "addedAt": "2026-07-18T05:27:22.000Z",
+      "publishedAt": "2026-07-18T05:51:48.059Z"
+    },
+    {
+      "slug": "managed-agents",
+      "label": "Managed Agents",
+      "status": "published",
+      "notes": "Google's Gemini API layer for production agents, including background tasks and remote MCP, as model providers expand from selling calls to operating the agent runtime.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Infrastructure and deployment",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "agent-runtime",
+        "background-agent",
+        "remote-mcp-server"
+      ],
+      "addedAt": "2026-07-18T05:27:22.000Z",
+      "publishedAt": "2026-07-18T05:51:48.059Z"
+    },
+    {
+      "slug": "autoresearch",
+      "label": "Autoresearch",
+      "status": "published",
+      "notes": "A long-running agent workflow that configures machine-learning experiments, resolves failures, interprets results, and continues the research loop with less human supervision.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Model building",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "coding-agent",
+        "long-horizon-agent",
+        "ai-scientist"
+      ],
+      "addedAt": "2026-07-18T05:27:22.000Z",
+      "publishedAt": "2026-07-18T05:51:48.059Z"
+    },
+    {
+      "slug": "ai-crawler-blocking",
+      "label": "AI crawler blocking",
+      "status": "published",
+      "notes": "Active denial of unauthorised AI-training bots at the network edge, replacing polite robots.txt requests with enforceable controls for creators and publishers.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Infrastructure and deployment",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "robots-txt",
+        "ai-scraping",
+        "content-provenance"
+      ],
+      "addedAt": "2026-07-18T05:27:22.000Z",
+      "publishedAt": "2026-07-18T05:51:48.059Z"
     }
   ]
 }

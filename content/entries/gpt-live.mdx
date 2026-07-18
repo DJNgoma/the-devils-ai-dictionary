@@ -1,0 +1,54 @@
+---
+title: "GPT-Live"
+slug: "gpt-live"
+letter: "G"
+categories:
+  - "Model usage"
+  - "Product and vendor terms"
+  - "Infrastructure and deployment"
+aliases:
+  - "GPT Live"
+devilDefinition: |
+  A voice model fast enough to interrupt naturally and polished enough to make the interruption feel like a feature.
+plainDefinition: |
+  GPT-Live is OpenAI's generation of real-time voice models used for continuous spoken interaction, including ChatGPT Voice. It is designed to handle speech directly with low enough latency for conversation rather than treating voice as a slow exchange of recorded turns.
+whyExists: |
+  Natural conversation depends on timing, interruption, tone, pacing, and rapid response. A live speech system aims to make those behaviours part of the model interaction instead of stitching together a transcript, text model, and separate voice after each turn.
+misuse: |
+  "Real-time" is taken to mean instantaneous, human, or safe in every language and acoustic setting. Latency, turn detection, accents, emotion, hallucinations, network quality, and tool delays still determine whether the conversation works.
+practicalMeaning: |
+  Product teams gain a more fluid spoken interface but must test end-to-end delay, barge-in behaviour, audio quality, transcription or logging policy, disclosure, accessibility, tool-call timing, and graceful fallback under poor network conditions.
+example: |
+  "GPT-Live answered before the customer had finished, demonstrating both low latency and a convincing grasp of call-centre tradition."
+askNext:
+  - "What end-to-end latency holds under our actual network and tool workload?"
+  - "How does the system handle interruption, silence, accents, noise, and overlapping speakers?"
+  - "What audio is retained, transcribed, reviewed, or disclosed to the user?"
+related:
+  - "speech-stack"
+  - "voice-agent"
+  - "multimodal"
+seeAlso:
+  - "Realtime API"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "high"
+isVendorTerm: true
+publishedAt: "2026-07-18"
+updatedAt: "2026-07-18"
+warningLabel: "Conversational latency includes every tool and network hop, not only the model demo."
+vendorReferences:
+  - "OpenAI"
+  - "ChatGPT Voice"
+tags:
+  - "voice"
+  - "realtime"
+  - "audio"
+  - "multimodal"
+misunderstoodScore: 4
+translations:
+  - label: "product meaning"
+    text: "A low-latency spoken model interface whose naturalness still depends on the entire audio and tool pipeline."
+---
+
+No built-in diagram is attached because the useful mental model is a duplex, latency-sensitive audio stream; the current catalogue diagrams describe neither timing nor interruption.

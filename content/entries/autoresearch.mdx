@@ -1,0 +1,57 @@
+---
+title: "Autoresearch"
+slug: "autoresearch"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Model building"
+  - "Economics and operations of AI"
+aliases:
+  - "auto-research"
+  - "autoresearch workflow"
+devilDefinition: |
+  A research loop that keeps running after the scientist goes home and therefore has more time to become confidently attached to the wrong metric.
+plainDefinition: |
+  Autoresearch is a long-running agent workflow for machine-learning experiments. A coding agent can inspect a repository, configure an environment, resolve build failures, launch experiments, interpret results, modify the approach, and continue the loop with reduced human supervision.
+whyExists: |
+  Experimental research contains substantial operational work between ideas and evidence. Agents can automate setup, debugging, repeated runs, result collection, and routine iteration, allowing researchers to explore more hypotheses within the same wall-clock time.
+misuse: |
+  Automation of the experiment loop is described as automation of scientific judgement. The agent may optimise the wrong proxy, leak information across evaluations, accept flawed runs, overfit a benchmark, or produce a large quantity of tidy evidence for a weak question.
+practicalMeaning: |
+  Teams should constrain compute, time, data, credentials, and writable systems; preserve experiment provenance; define stopping and escalation rules; and require human review for hypothesis changes, surprising results, and claims that leave the sandbox.
+example: |
+  "Autoresearch completed forty experiments overnight, thirty-nine of which established that the chosen metric was unusually easy to improve."
+askNext:
+  - "Which decisions may the agent make, and which require researcher approval?"
+  - "How are datasets, code changes, environments, seeds, failures, and results recorded for reproduction?"
+  - "What prevents reward hacking, benchmark leakage, runaway compute, or unsafe tool use?"
+related:
+  - "coding-agent"
+  - "long-horizon-agent"
+  - "agent-observability"
+seeAlso:
+  - "AI scientist"
+  - "Experiment tracking"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-18"
+updatedAt: "2026-07-18"
+warningLabel: "A longer experiment loop can compound a bad objective as efficiently as a good one."
+vendorReferences:
+  - "NVIDIA"
+  - "NVIDIA NeMo"
+tags:
+  - "research"
+  - "experimentation"
+  - "coding-agents"
+  - "automation"
+misunderstoodScore: 4
+translations:
+  - label: "lab meaning"
+    text: "Let an agent run and adapt experiments for longer, while keeping the scientific claim and the blast radius under human control."
+diagram: "agent-loop"
+---
+
+The agent-loop diagram is attached because Autoresearch is defined by repeated observation, modification, execution, and evaluation rather than a single model answer.
