@@ -1,19 +1,22 @@
 #!/usr/bin/env node
+import { pathToFileURL } from "node:url";
+
 // Smoke-test the public Apple web sign-in entrypoint.
 //
 // Hits `/api/auth/apple/start` on the chosen target, refuses to follow the
-// redirect, and asserts that the response is a 302 to
+// redirect, and asserts that the response is a 302 or 307 to
 // `https://appleid.apple.com/auth/authorize` with the expected `client_id`
-// query parameter. Until the Apple Services ID is live and the Cloudflare
-// Worker secret `APPLE_WEB_CLIENT_ID` is set, the route returns a 500 JSON
-// body — this script reports that surface clearly so the failure mode is
-// obvious from CI or the terminal.
+// and `redirect_uri` query parameters. If the Cloudflare Worker secret
+// `APPLE_WEB_CLIENT_ID` is unset, the route returns a 500 JSON body — this
+// script reports that surface clearly so the failure mode is obvious from CI
+// or the terminal.
 //
 // Usage:
 //   node scripts/verify-apple-web-signin.mjs                 # production
 //   node scripts/verify-apple-web-signin.mjs --target=local  # http://localhost:3000
 //   node scripts/verify-apple-web-signin.mjs --target=https://staging.example.com
 //   node scripts/verify-apple-web-signin.mjs --expected-client-id=com.example.web
+//   node scripts/verify-apple-web-signin.mjs --expected-redirect-uri=https://example.com/callback
 
 const DEFAULT_TARGET = "https://thedevilsaidictionary.com";
 const LOCAL_TARGET = "http://localhost:3000";
@@ -22,7 +25,11 @@ const EXPECTED_AUTHORIZE_HOST = "appleid.apple.com";
 const EXPECTED_AUTHORIZE_PATH = "/auth/authorize";
 
 function parseArgs(argv) {
-  const args = { expectedClientId: undefined, target: undefined };
+  const args = {
+    expectedClientId: undefined,
+    expectedRedirectUri: undefined,
+    target: undefined,
+  };
 
   for (const raw of argv) {
     if (raw === "--help" || raw === "-h") {
@@ -37,6 +44,8 @@ function parseArgs(argv) {
       args.target = value || undefined;
     } else if (key === "--expected-client-id") {
       args.expectedClientId = value || undefined;
+    } else if (key === "--expected-redirect-uri") {
+      args.expectedRedirectUri = value || undefined;
     }
   }
 
@@ -69,8 +78,65 @@ Options:
                                 "local" maps to ${LOCAL_TARGET}.
   --expected-client-id=<id>     Apple Services ID expected in the redirect.
                                 Defaults to ${DEFAULT_EXPECTED_CLIENT_ID}.
+  --expected-redirect-uri=<url> Callback URL expected in the redirect.
+                                Defaults to <target>/api/auth/apple/callback.
   -h, --help                    Show this message.`,
   );
+}
+
+export function validateAppleAuthorizeRedirect({
+  expectedClientId,
+  expectedRedirectUri,
+  location,
+}) {
+  let redirectUrl;
+  try {
+    redirectUrl = new URL(location);
+  } catch {
+    throw new Error(`Location header "${location}" was not a valid URL.`);
+  }
+
+  if (redirectUrl.host !== EXPECTED_AUTHORIZE_HOST) {
+    throw new Error(
+      `Expected redirect host "${EXPECTED_AUTHORIZE_HOST}" but got "${redirectUrl.host}". ` +
+        `Full Location: ${location}`,
+    );
+  }
+
+  if (redirectUrl.pathname !== EXPECTED_AUTHORIZE_PATH) {
+    throw new Error(
+      `Expected redirect path "${EXPECTED_AUTHORIZE_PATH}" but got "${redirectUrl.pathname}".`,
+    );
+  }
+
+  const observedClientId = redirectUrl.searchParams.get("client_id");
+
+  if (!observedClientId) {
+    throw new Error("Apple authorize URL did not include a client_id query parameter.");
+  }
+
+  if (observedClientId !== expectedClientId) {
+    throw new Error(
+      `client_id mismatch: server returned "${observedClientId}", expected "${expectedClientId}". ` +
+        `Update the Cloudflare Worker secret APPLE_WEB_CLIENT_ID or pass --expected-client-id.`,
+    );
+  }
+
+  const observedRedirectUri = redirectUrl.searchParams.get("redirect_uri");
+
+  if (!observedRedirectUri) {
+    throw new Error("Apple authorize URL did not include a redirect_uri query parameter.");
+  }
+
+  if (observedRedirectUri !== expectedRedirectUri) {
+    throw new Error(
+      `redirect_uri mismatch: server returned "${observedRedirectUri}", ` +
+        `expected "${expectedRedirectUri}". Update APPLE_WEB_REDIRECT_URI or ` +
+        `NEXT_PUBLIC_SITE_URL, or pass --expected-redirect-uri.`,
+    );
+  }
+
+  return { observedClientId, observedRedirectUri, redirectUrl };
 }
 
 async function main() {
@@ -83,9 +149,15 @@ async function main() {
 
   const targetOrigin = resolveTarget(args.target);
   const expectedClientId = args.expectedClientId ?? DEFAULT_EXPECTED_CLIENT_ID;
+  const expectedRedirectUri =
+    args.expectedRedirectUri ??
+    new URL("/api/auth/apple/callback", targetOrigin).toString();
   const startUrl = `${targetOrigin}/api/auth/apple/start`;
 
-  console.log(`Hitting ${startUrl} (expecting 302 to Apple, client_id=${expectedClientId}).`);
+  console.log(
+    `Hitting ${startUrl} (expecting a redirect to Apple, client_id=${expectedClientId}, ` +
+      `redirect_uri=${expectedRedirectUri}).`,
+  );
 
   let response;
   try {
@@ -114,7 +186,7 @@ async function main() {
     }
 
     throw new Error(
-      `Expected a 302 redirect from ${startUrl} but got ${response.status}.${parsedMessage} ` +
+      `Expected a 302 or 307 redirect from ${startUrl} but got ${response.status}.${parsedMessage} ` +
         `If APPLE_WEB_CLIENT_ID is unset on the worker the route returns 500; ` +
         `set it to the Apple Services ID and re-run.`,
     );
@@ -126,40 +198,12 @@ async function main() {
     throw new Error(`Got ${response.status} from ${startUrl} but no Location header was set.`);
   }
 
-  let redirectUrl;
-  try {
-    redirectUrl = new URL(location);
-  } catch {
-    throw new Error(`Location header "${location}" was not a valid URL.`);
-  }
-
-  if (redirectUrl.host !== EXPECTED_AUTHORIZE_HOST) {
-    throw new Error(
-      `Expected redirect host "${EXPECTED_AUTHORIZE_HOST}" but got "${redirectUrl.host}". ` +
-        `Full Location: ${location}`,
-    );
-  }
-
-  if (redirectUrl.pathname !== EXPECTED_AUTHORIZE_PATH) {
-    throw new Error(
-      `Expected redirect path "${EXPECTED_AUTHORIZE_PATH}" but got "${redirectUrl.pathname}".`,
-    );
-  }
-
-  const observedClientId = redirectUrl.searchParams.get("client_id");
-
-  if (!observedClientId) {
-    throw new Error("Apple authorize URL did not include a client_id query parameter.");
-  }
-
-  const observedRedirectUri = redirectUrl.searchParams.get("redirect_uri");
-
-  if (observedClientId !== expectedClientId) {
-    throw new Error(
-      `client_id mismatch: server returned "${observedClientId}", expected "${expectedClientId}". ` +
-        `Update the Cloudflare Worker secret APPLE_WEB_CLIENT_ID or pass --expected-client-id.`,
-    );
-  }
+  const { observedClientId, observedRedirectUri, redirectUrl } =
+    validateAppleAuthorizeRedirect({
+      expectedClientId,
+      expectedRedirectUri,
+      location,
+    });
 
   console.log("Apple web sign-in start route looks healthy:");
   console.log(`  status        ${response.status}`);
@@ -168,7 +212,14 @@ async function main() {
   console.log(`  redirect_uri  ${observedRedirectUri ?? "<missing>"}`);
 }
 
-main().catch((error) => {
-  console.error(`verify-apple-web-signin: ${error instanceof Error ? error.message : String(error)}`);
-  process.exit(1);
-});
+const isDirectRun =
+  Boolean(process.argv[1]) && import.meta.url === pathToFileURL(process.argv[1]).href;
+
+if (isDirectRun) {
+  main().catch((error) => {
+    console.error(
+      `verify-apple-web-signin: ${error instanceof Error ? error.message : String(error)}`,
+    );
+    process.exit(1);
+  });
+}

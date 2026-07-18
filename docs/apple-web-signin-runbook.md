@@ -1,8 +1,8 @@
-# Apple web sign-in go-live runbook
+# Apple web sign-in verification and recovery runbook
 
 This runbook covers the Apple Developer portal click-path, the Cloudflare Worker secret update, the verification step, and rollback. The worker side is already wired — see `src/app/api/auth/apple/start/route.ts`, `src/app/api/auth/apple/callback/route.ts`, and `src/lib/server/apple-auth.ts`. The deploy workflow at `.github/workflows/deploy-cloudflare.yml` hard-fails when `APPLE_WEB_CLIENT_ID` (and the rest of the Apple secret set) is missing.
 
-The blocker is human-only: an Apple Services ID has to be created in the Apple Developer portal, and the resulting identifier has to be set as the `APPLE_WEB_CLIENT_ID` Worker secret.
+Worker-side go-live is complete. On 2026-07-18, the production start route returned a 307 to Apple's authorize endpoint with the expected Services ID and exact callback URL. The remaining acceptance step is one manual browser round trip through Apple consent and the callback; the start-route verifier cannot perform that authenticated interaction.
 
 ## Targets to match
 
@@ -13,7 +13,9 @@ The blocker is human-only: an Apple Services ID has to be created in the Apple D
 
 The route code reads the client ID via `getAppleWebClientId(env)` and the redirect URI defaults to `<NEXT_PUBLIC_SITE_URL>/api/auth/apple/callback`, so as long as those values match Apple's records the round trip works without further code changes.
 
-## 1. Apple Developer portal — create the Services ID
+## 1. Apple Developer portal — recover or recreate the Services ID
+
+The production redirect shows the expected identifier is configured on the Worker. Use this portal procedure only to inspect, repair, or recreate the Apple-side registration.
 
 1. Sign in at <https://developer.apple.com/account> with an account that has the Admin role on `African Technopreneurs (PTY) LTD - 5CND4GK432`.
 2. Top-right account picker: confirm the team is `African Technopreneurs (PTY) LTD`. If not, switch.
@@ -32,7 +34,9 @@ The route code reads the client ID via `getAppleWebClientId(env)` and the redire
 15. **Save** in the configuration sheet, then **Continue** and **Save** on the Services ID screen.
 16. Apple may show a "Verify domain" prompt with a `.well-known/apple-developer-domain-association.txt` file. The site already serves Sign in with Apple to native clients on this domain, so verification typically completes immediately. If it does not, download the file Apple provides, deploy it under `public/.well-known/`, and re-run the verify step.
 
-## 2. Set the Cloudflare Worker secret
+## 2. Restore the Cloudflare Worker secret
+
+The secret is present in production as of the successful 2026-07-18 start-route check. Use this command only when restoring or deliberately replacing it.
 
 Run from the repo root with `wrangler` authenticated against the production account (`CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` set, or an interactive `wrangler login`):
 
@@ -59,17 +63,19 @@ Expected on success:
 ```
 Hitting https://thedevilsaidictionary.com/api/auth/apple/start ...
 Apple web sign-in start route looks healthy:
-  status        302
+  status        307
   authorize_url https://appleid.apple.com/auth/authorize
   client_id     com.djngoma.devilsaidictionary.web
   redirect_uri  https://thedevilsaidictionary.com/api/auth/apple/callback
 ```
 
-The script also runs against a local dev server (`--target=local`) or any other origin (`--target=https://staging.example.com`). Override the expected Services ID with `--expected-client-id=...` if testing a non-production identifier.
+The script also runs against a local dev server (`--target=local`) or any other origin (`--target=https://staging.example.com`). It requires the redirect URI to match `<target>/api/auth/apple/callback` exactly. Override the expected Services ID with `--expected-client-id=...` or the callback with `--expected-redirect-uri=...` when testing an intentionally different configuration.
 
 If the script fails with `Apple web sign-in requires APPLE_WEB_CLIENT_ID.`, the Worker still doesn't have the secret — re-run step 2 and confirm `wrangler secret list` actually shows it for the production worker (not a preview environment).
 
 If the script fails with `client_id mismatch`, the Worker secret holds a different identifier than the one configured at Apple. Decide which is canonical and align both.
+
+If the script fails with `redirect_uri mismatch`, align `APPLE_WEB_REDIRECT_URI` or `NEXT_PUBLIC_SITE_URL` with the exact return URL registered at Apple. OAuth callback URLs are exact-match configuration, so scheme, host, path, and trailing slash all matter.
 
 If the redirect host or path differs from `appleid.apple.com/auth/authorize`, the route itself has changed — re-read `src/app/api/auth/apple/start/route.ts` before continuing.
 
