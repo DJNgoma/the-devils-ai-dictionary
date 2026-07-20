@@ -1,0 +1,55 @@
+---
+title: "Ledger Agent Stack"
+slug: "ledger-agent-stack"
+letter: "L"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+  - "Product and vendor terms"
+aliases:
+  - "Ledger AgentStack"
+devilDefinition: |
+  A security architecture based on the radical proposition that the probabilistic intern should not hold the treasury keys.
+plainDefinition: |
+  Ledger Agent Stack is Ledger's architecture and toolkit for separating an agent's proposed action from secure authorisation. Agents produce intents; deterministic policies decide what may proceed; and high-risk or out-of-policy actions require human approval on separate secure hardware before signing.
+whyExists: |
+  Agents can search, negotiate, and prepare transactions quickly, but their probabilistic behaviour and exposure to malicious inputs make them poor custodians of private keys. Hardware-enforced policy creates a boundary the agent cannot rewrite through persuasion or prompt injection.
+misuse: |
+  Hardware signing is presented as complete agent governance. A secure signer can enforce the transaction it displays, but only if the intent is represented accurately, the policy is sound, the human understands the action, and surrounding identities, contracts, data, and off-chain effects are trustworthy.
+practicalMeaning: |
+  Organisations inventory agents and accountable owners, express proposed actions as structured intents, define policy in a hardware security boundary, and escalate exceptions for explicit signatures. They still need usable transaction displays, approval design, audit logs, recovery, and controls for actions that do not end in a cryptographic signature.
+example: |
+  "The agent proposed the transfer, the policy rejected it, and the hardware declined to be impressed by the agent's reasoning trace."
+askNext:
+  - "What exact intent is displayed and signed, and can the agent alter its meaning after approval?"
+  - "Which actions remain automatic, and which amounts, counterparties, assets, or exceptions require human signatures?"
+  - "How are agent identity, policy ownership, audit evidence, key recovery, and non-financial actions handled?"
+related:
+  - "agent-wallet"
+  - "agent-payments-protocol"
+  - "tool-permissions"
+seeAlso:
+  - "Hardware security module"
+  - "Transaction signing"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: true
+publishedAt: "2026-07-20"
+updatedAt: "2026-07-20"
+warningLabel: "Agents propose; policy and secure hardware must control what becomes real."
+vendorReferences:
+  - "Ledger"
+tags:
+  - "agent-security"
+  - "hardware-signing"
+  - "policy"
+  - "payments"
+misunderstoodScore: 4
+translations:
+  - label: "control meaning"
+    text: "Let the agent prepare an action, but keep deterministic policy and signing authority outside the model's reach."
+diagram: "function-calling"
+---
+
+The function-calling diagram is attached because the key distinction is between an agent proposing a structured action and an external policy-and-signing boundary deciding whether it executes.

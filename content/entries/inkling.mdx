@@ -1,0 +1,56 @@
+---
+title: "Inkling"
+slug: "inkling"
+letter: "I"
+categories:
+  - "Model building"
+  - "Model usage"
+  - "Product and vendor terms"
+aliases:
+  - "Thinking Machines Inkling"
+  - "Inkling-Small"
+devilDefinition: |
+  A 975-billion-parameter inkling that the open-model market might prefer customisation to another universal personality.
+plainDefinition: |
+  Inkling is Thinking Machines Lab's first open-weight multimodal mixture-of-experts model. It has 975 billion total parameters with 41 billion active, supports up to one million tokens of context, reasons over text, images, and audio, and is designed for customisation through the company's Tinker platform.
+whyExists: |
+  Organisations want capable models they can inspect, host, and adapt rather than only consume through a fixed hosted personality. Inkling combines a large sparse architecture, controllable thinking effort, multimodal training, and an intended fine-tuning path.
+misuse: |
+  Open weights, very large parameter counts, long context, and customisability are bundled into a claim of automatic superiority. Thinking Machines explicitly says Inkling is not the strongest model overall; deployment cost, licence terms, adaptation data, evaluation, and serving quality still decide its usefulness.
+practicalMeaning: |
+  Teams can evaluate the released weights or fine-tune the model through Tinker, alongside the smaller Inkling-Small preview. They should measure their own tasks, hardware fit, active memory, latency, multimodal quality, safety controls, and the operational cost of maintaining a customised branch.
+example: |
+  "Inkling was customisable, which meant the team could finally make the model's failures proprietary."
+askNext:
+  - "Are we using the released weights, Tinker fine-tuning, a hosted endpoint, or Inkling-Small?"
+  - "What hardware, precision, throughput, and context length does our deployment actually sustain?"
+  - "Which evaluation shows that customisation improves our task without damaging broader behaviour?"
+related:
+  - "open-weight"
+  - "mixture-of-experts"
+  - "multimodal"
+seeAlso:
+  - "Tinker"
+  - "Model customisation"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: true
+publishedAt: "2026-07-20"
+updatedAt: "2026-07-20"
+warningLabel: "Open weights create options, not an operations team."
+vendorReferences:
+  - "Thinking Machines Lab"
+  - "Tinker"
+tags:
+  - "open-weights"
+  - "multimodal"
+  - "moe"
+  - "fine-tuning"
+misunderstoodScore: 4
+translations:
+  - label: "model meaning"
+    text: "A large sparse multimodal base model built to be adapted, provided the adapter can also operate what it creates."
+---
+
+No built-in diagram is attached because Inkling's useful mental model combines sparse expert routing, multimodal training, long context, and customisation; no single current diagram covers that architecture.

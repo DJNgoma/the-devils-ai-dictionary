@@ -1,0 +1,59 @@
+---
+title: "Agentic Resource Discovery"
+slug: "agentic-resource-discovery"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+  - "Safety and evaluation"
+aliases:
+  - "ARD"
+  - "Agentic Resource Discovery specification"
+devilDefinition: |
+  A directory for agents that have finally outgrown discovering tools by reading the integration team's bookmarks.
+plainDefinition: |
+  Agentic Resource Discovery is an open specification for publishing, discovering, and verifying tools, APIs, skills, services, and agent endpoints across organisational boundaries. It adds a discovery layer before execution protocols such as MCP, OpenAPI, or A2A are used.
+whyExists: |
+  Agent capabilities are scattered across providers, registries, and private systems. ARD lets domains publish machine-readable catalogues that discovery services can index, so clients can locate resources by task rather than relying only on hard-coded integrations.
+misuse: |
+  Discovery is confused with permission or trust. Finding a signed catalogue and confirming domain ownership does not decide whether a tool is safe, authorised for this user, suitable for the task, or honest about what it does.
+practicalMeaning: |
+  Providers publish an `ai-catalog.json` manifest; registries index those catalogues; and clients search for capabilities before connecting through an execution protocol. Operators still need authentication, authorisation, ranking policy, provenance checks, monitoring, and revocation.
+example: |
+  "ARD found twelve tools for the task, returning tool selection to its traditional home in governance, ranking, and argument."
+askNext:
+  - "Who publishes, verifies, ranks, and removes the resources in this discovery service?"
+  - "How are ownership, freshness, permissions, and compatibility checked before connection?"
+  - "Which protocol actually executes the selected capability, and what policy governs it?"
+related:
+  - "mcp-registry"
+  - "tool-registry"
+  - "agent-card"
+seeAlso:
+  - "Service discovery"
+  - "OpenAPI"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-20"
+updatedAt: "2026-07-20"
+warningLabel: "Discoverable is not authorised, safe, or recommended."
+vendorReferences:
+  - "Google"
+  - "Microsoft"
+  - "GitHub"
+  - "Hugging Face"
+tags:
+  - "discovery"
+  - "registries"
+  - "agents"
+  - "interoperability"
+misunderstoodScore: 4
+translations:
+  - label: "infrastructure meaning"
+    text: "Publish and index machine-readable capability catalogues, then apply the trust and permission decisions the catalogue cannot make."
+diagram: "mcp"
+---
+
+The MCP diagram is attached because ARD sits immediately before tool connection and invocation; it clarifies that discovery complements an execution protocol rather than replacing it.

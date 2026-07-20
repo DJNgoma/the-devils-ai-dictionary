@@ -1,0 +1,55 @@
+---
+title: "Cyber Jailbreak Severity"
+slug: "cyber-jailbreak-severity"
+letter: "C"
+categories:
+  - "Safety and evaluation"
+  - "Model usage"
+aliases:
+  - "CJS"
+  - "Cyber Jailbreak Severity scale"
+devilDefinition: |
+  A five-band scale for distinguishing a cheeky bypass from one that gives an attacker a professionally concerning afternoon.
+plainDefinition: |
+  Cyber Jailbreak Severity is Anthropic's proposed scale for rating the real-world cyber capability unlocked by a model jailbreak. It ranges from CJS-0, informational, to CJS-4, critical, with bands intended to increase exponentially rather than linearly.
+whyExists: |
+  Not every safeguard bypass creates the same risk. A shared scale can help researchers, model developers, and governments describe whether a jailbreak exposes minor undesirable behaviour or reproducible capabilities that materially accelerate serious attackers.
+misuse: |
+  A draft vendor rubric is treated as settled measurement or a universal vulnerability score. Severity still depends on the model, available tools, attacker skill, reproducibility, discoverability, scope, and judgement about real-world consequences.
+practicalMeaning: |
+  Evaluators estimate the capability unlocked, its advantage over existing tools, breadth, reproducibility, and ease of discovery to set an initial floor, then may raise the final band for risks the calculation understates. The assessment should preserve evidence and uncertainty, not merely print `CJS-3` in red.
+example: |
+  "The jailbreak received a CJS score, allowing five dimensions of uncertainty to become one reassuringly precise integer."
+askNext:
+  - "Which model, tools, access level, and attacker baseline does this score assume?"
+  - "How reproducible and discoverable is the jailbreak outside the evaluator's environment?"
+  - "Who assigned the final band, and what evidence or discretion changed the initial score?"
+related:
+  - "jailbreak"
+  - "red-teaming"
+  - "evals"
+seeAlso:
+  - "Vulnerability severity"
+  - "Cyber safeguards"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-20"
+updatedAt: "2026-07-20"
+warningLabel: "A banded score compresses risk; it does not remove the assumptions."
+vendorReferences:
+  - "Anthropic"
+  - "Glasswing"
+tags:
+  - "jailbreaks"
+  - "cybersecurity"
+  - "severity"
+  - "evaluation"
+misunderstoodScore: 4
+translations:
+  - label: "evaluation meaning"
+    text: "Rate what cyber capability a jailbreak actually unlocks, then retain the context that the number tries to hide."
+---
+
+No built-in diagram is attached because CJS is a severity rubric rather than a model, tool, or agent flow.

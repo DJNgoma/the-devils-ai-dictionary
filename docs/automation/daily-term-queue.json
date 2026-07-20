@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-18T05:51:48.059Z",
+  "updatedAt": "2026-07-20T05:20:59.597Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -5409,6 +5409,145 @@
       ],
       "addedAt": "2026-07-18T05:27:22.000Z",
       "publishedAt": "2026-07-18T05:51:48.059Z"
+    },
+    {
+      "slug": "agentic-resource-discovery",
+      "label": "Agentic Resource Discovery",
+      "status": "published",
+      "notes": "Google-led open specification for publishing signed, machine-readable indexes so agents can discover and verify tools, MCP servers, A2A agents, APIs, and related resources across organisational boundaries.",
+      "diagramHint": "mcp",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Infrastructure and deployment",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "mcp-registry",
+        "tool-registry",
+        "agent-card"
+      ],
+      "addedAt": "2026-07-20T05:13:24.000Z",
+      "publishedAt": "2026-07-20T05:20:59.597Z"
+    },
+    {
+      "slug": "gold-eagle",
+      "label": "Gold Eagle",
+      "status": "published",
+      "notes": "US government clearinghouse intended to coordinate validation, disclosure, and remediation of software vulnerabilities found at AI-accelerated scale, particularly for critical infrastructure.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Agents and workflows",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "ai-cybersecurity",
+        "vulnerability-disclosure",
+        "responsible-disclosure"
+      ],
+      "addedAt": "2026-07-20T05:13:24.000Z",
+      "publishedAt": "2026-07-20T05:20:59.597Z"
+    },
+    {
+      "slug": "inkling",
+      "label": "Inkling",
+      "status": "published",
+      "notes": "Thinking Machines Lab's first open-weight multimodal mixture-of-experts model, with text, image, and audio reasoning, controllable thinking effort, a million-token context window, and fine-tuning through Tinker.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Model building",
+        "Model usage",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "open-weight",
+        "mixture-of-experts",
+        "multimodal"
+      ],
+      "addedAt": "2026-07-20T05:13:24.000Z",
+      "publishedAt": "2026-07-20T05:20:59.597Z"
+    },
+    {
+      "slug": "cyber-jailbreak-severity",
+      "label": "Cyber Jailbreak Severity",
+      "status": "published",
+      "notes": "Anthropic's proposed CJS-0 to CJS-4 scale for rating the real-world cyber capability unlocked by a model jailbreak, with exponentially increasing bands rather than a generic pass-or-fail label.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Model usage"
+      ],
+      "relatedHints": [
+        "jailbreak",
+        "red-teaming",
+        "cybersecurity-evaluation"
+      ],
+      "addedAt": "2026-07-20T05:13:24.000Z",
+      "publishedAt": "2026-07-20T05:20:59.597Z"
+    },
+    {
+      "slug": "claude-science",
+      "label": "Claude Science",
+      "status": "published",
+      "notes": "Anthropic's customisable AI workbench for scientists, integrating research tools and packages, auditable artefacts, and flexible compute rather than presenting one chat box as a laboratory.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Model usage"
+      ],
+      "relatedHints": [
+        "ai-scientist",
+        "research-agent",
+        "tool-use"
+      ],
+      "addedAt": "2026-07-20T05:13:24.000Z",
+      "publishedAt": "2026-07-20T05:20:59.597Z"
+    },
+    {
+      "slug": "ghostcommit",
+      "label": "Ghostcommit",
+      "status": "published",
+      "notes": "Named multimodal prompt-injection attack that hides malicious instructions in repository images so AI code-review agents can be steered towards secret theft or supply-chain compromise.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Safety and evaluation",
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "prompt-injection",
+        "multimodal",
+        "supply-chain-attack"
+      ],
+      "addedAt": "2026-07-20T05:13:24.000Z",
+      "publishedAt": "2026-07-20T05:20:59.597Z"
+    },
+    {
+      "slug": "ledger-agent-stack",
+      "label": "Ledger Agent Stack",
+      "status": "published",
+      "notes": "Ledger's open toolkit keeps transaction keys in hardware while agents prepare constrained intents for explicit policy checks and approval, separating proposal from signing authority.",
+      "diagramHint": "function-calling",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "agent-wallet",
+        "agent-payments-protocol",
+        "tool-permissions"
+      ],
+      "addedAt": "2026-07-20T05:13:24.000Z",
+      "publishedAt": "2026-07-20T05:20:59.597Z"
     }
   ]
 }

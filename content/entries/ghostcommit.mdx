@@ -1,0 +1,55 @@
+---
+title: "Ghostcommit"
+slug: "ghostcommit"
+letter: "G"
+categories:
+  - "Safety and evaluation"
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "GhostCommit"
+  - "Ghostcommit attack"
+devilDefinition: |
+  A malicious instruction hidden in an image for the code-review agent that helpfully reads what the human reviewer cannot see.
+plainDefinition: |
+  Ghostcommit is a named multimodal prompt-injection attack against AI-assisted software development and code review. An attacker places instructions in repository images that appear benign to people but can steer a vision-capable agent towards unsafe tool use, secret access, or supply-chain compromise.
+whyExists: |
+  Modern coding agents inspect more than source text: they may analyse screenshots, diagrams, documentation assets, issues, and pull-request media while holding repository or CI permissions. Those extra input channels create an instruction surface that ordinary code review may overlook.
+misuse: |
+  Ghostcommit is treated as a peculiar image bug in one product. The broader problem is untrusted multimodal content crossing into an agent's instruction context while the agent has consequential tools; filtering one encoding does not repair the trust boundary.
+practicalMeaning: |
+  Treat every repository artefact as untrusted data, isolate multimodal analysis from privileged execution, minimise credentials, require approval for sensitive actions, monitor outbound access, and test code-review agents with adversarial images as well as adversarial text.
+example: |
+  "The pull request changed no executable code; the image merely explained to the reviewer bot where the secrets were kept."
+askNext:
+  - "Which repository images and attachments enter the model context, and are they labelled as untrusted data?"
+  - "What secrets, network destinations, commands, and merge actions can the reviewing agent reach?"
+  - "Would a hidden instruction require independent approval before any consequential tool call?"
+related:
+  - "prompt-injection"
+  - "supply-chain-security"
+  - "data-exfiltration-path"
+seeAlso:
+  - "Multimodal prompt injection"
+  - "AI code review"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-20"
+updatedAt: "2026-07-20"
+warningLabel: "A harmless-looking asset can be executable context to an agent."
+vendorReferences:
+  - "Application Security Testing and Evaluation Group"
+tags:
+  - "prompt-injection"
+  - "multimodal"
+  - "code-review"
+  - "supply-chain"
+misunderstoodScore: 5
+translations:
+  - label: "security meaning"
+    text: "An image can carry instructions into a privileged coding agent even when it carries no visible warning for the human reviewer."
+---
+
+No built-in diagram is attached because the important mental model is a multimodal attack path crossing from an untrusted repository asset into privileged tools, which the current diagrams do not show.
