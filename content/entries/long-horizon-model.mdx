@@ -1,0 +1,55 @@
+---
+title: "Long-horizon model"
+slug: "long-horizon-model"
+letter: "L"
+categories:
+  - "Model building"
+  - "Agents and workflows"
+  - "Safety and evaluation"
+aliases:
+  - "long-running model"
+devilDefinition: |
+  A model that keeps trying long enough for yesterday's guardrail to become today's puzzle.
+plainDefinition: |
+  A long-horizon model can pursue an extended, open-ended task through many actions and revisions, potentially over hours, days, or longer. The horizon describes sustained task execution, not merely how much text fits in one context window.
+whyExists: |
+  Difficult research, engineering, and operational work rarely finishes in one response. Models need persistence, recovery, planning, and state management to make progress across a long trajectory.
+misuse: |
+  The phrase is used as a synonym for a large context window or any agentic wrapper. Neither proves that the underlying model can preserve instructions, recover from failure, or remain within policy as a task unfolds.
+practicalMeaning: |
+  Evaluate the whole trajectory, not only individual tool calls. Long-running deployments need durable state, bounded permissions, checkpoints, incident-derived tests, monitoring that can pause the session, and a human who can still see what the objective has become.
+example: |
+  "The long-horizon model spent an hour finding the sandbox flaw, which was persistence by the product team and an incident by everyone else."
+askNext:
+  - "How long and how many actions can the model pursue before a human checkpoint?"
+  - "Does monitoring assess the trajectory's emerging objective as well as each isolated action?"
+  - "Can operators pause, inspect, roll back, and safely resume the run?"
+related:
+  - "long-horizon-agent"
+  - "chain-of-thought-monitoring"
+  - "sandbox"
+seeAlso:
+  - "Trajectory-level monitoring"
+  - "Context window"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: false
+publishedAt: "2026-07-22"
+updatedAt: "2026-07-22"
+warningLabel: "Persistence extends both capability and opportunity for failure."
+vendorReferences:
+  - "OpenAI"
+tags:
+  - "long-horizon"
+  - "persistence"
+  - "monitoring"
+  - "safety"
+misunderstoodScore: 5
+translations:
+  - label: "deployment meaning"
+    text: "A model trusted to keep working after the easy guardrails and obvious exits have passed."
+diagram: "agent-loop"
+---
+
+The agent-loop diagram is used because the important mental model is repeated action, observation, recovery, and review across a trajectory rather than one unusually long prompt.

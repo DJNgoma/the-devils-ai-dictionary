@@ -1,0 +1,55 @@
+---
+title: "NVIDIA Agent Toolkit"
+slug: "nvidia-agent-toolkit"
+letter: "N"
+categories:
+  - "Product and vendor terms"
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "Agent Toolkit"
+devilDefinition: |
+  A toolbox for agents entering simulation, where even the screwdriver now requires a GPU.
+plainDefinition: |
+  NVIDIA Agent Toolkit is a software toolkit for connecting AI agents to tools, skills, and data sources. Its Omniverse expansion adds callable libraries for sensor simulation, GPU-accelerated physics, and preparing or validating 3D assets for physical-AI simulation.
+whyExists: |
+  Robotics and industrial simulations require structured scenes with physical properties, sensors, labels, and usable CAD data, not merely attractive images. Tool interfaces let agents help inspect, transform, test, and validate that material inside existing applications.
+misuse: |
+  Packaging specialised libraries as agent tools is presented as autonomous engineering. The toolkit exposes capabilities; it does not establish that an agent chose the right workflow, produced physically valid assets, or deserves control of the resulting system.
+practicalMeaning: |
+  Developers can call Omniverse components such as ovrtx, ovphysx, and CAD-to-SimReady skills from agent workflows. They still need schemas, permissions, validation criteria, domain review, provenance, and tests against the real simulator or machine.
+example: |
+  "The agent prepared the factory twin overnight, leaving the engineers the modest task of checking whether gravity had survived."
+askNext:
+  - "Which toolkit libraries and agent permissions are enabled in this workflow?"
+  - "How are simulation-ready assets validated beyond the agent's own judgement?"
+  - "Which adoption claims describe shipped integrations rather than experiments or plans?"
+related:
+  - "tool-use"
+  - "physical-ai"
+  - "coding-agent"
+seeAlso:
+  - "Omniverse"
+  - "Simulation-ready asset"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: true
+publishedAt: "2026-07-22"
+updatedAt: "2026-07-22"
+warningLabel: "Callable physics tools do not confer engineering judgement."
+vendorReferences:
+  - "NVIDIA"
+tags:
+  - "agents"
+  - "omniverse"
+  - "simulation"
+  - "physical-ai"
+misunderstoodScore: 4
+translations:
+  - label: "workflow meaning"
+    text: "Give agents callable simulation tools, then retain the validation and authority those tools cannot supply."
+diagram: "agent-loop"
+---
+
+The agent-loop diagram is used because the toolkit's useful mental model is iterative tool invocation: inspect a scene, change it, simulate it, validate it, and decide what happens next.

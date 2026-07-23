@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-20T05:20:59.597Z",
+  "updatedAt": "2026-07-23T05:04:18.385Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -5548,6 +5548,146 @@
       ],
       "addedAt": "2026-07-20T05:13:24.000Z",
       "publishedAt": "2026-07-20T05:20:59.597Z"
+    },
+    {
+      "slug": "long-horizon-model",
+      "label": "Long-horizon model",
+      "status": "published",
+      "notes": "A model capability for pursuing extended, open-ended tasks across long trajectories, where persistence creates safety and control problems that short-run evaluations can miss; distinguish it from an agent wrapper and from context-window length.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Model building",
+        "Agents and workflows",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "long-horizon-agent",
+        "chain-of-thought-monitoring",
+        "sandbox"
+      ],
+      "addedAt": "2026-07-22T06:01:59.000Z",
+      "publishedAt": "2026-07-23T05:04:18.385Z"
+    },
+    {
+      "slug": "helios-ai-rack",
+      "label": "Helios AI rack",
+      "status": "published",
+      "notes": "AMD's integrated rack-scale AI platform combines Instinct MI455X accelerators, EPYC CPUs, Pensando networking, and ROCm; Microsoft has announced Azure deployments, but availability and performance remain forward-looking vendor claims.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Infrastructure and deployment",
+        "Product and vendor terms",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "gpu",
+        "inference",
+        "physical-ai"
+      ],
+      "addedAt": "2026-07-22T06:01:59.000Z",
+      "publishedAt": "2026-07-23T05:04:18.385Z"
+    },
+    {
+      "slug": "nvidia-agent-toolkit",
+      "label": "NVIDIA Agent Toolkit",
+      "status": "published",
+      "notes": "NVIDIA's toolkit connects agents to tools, skills, and data sources; its July Omniverse expansion adds callable sensor simulation, GPU physics, and CAD-to-SimReady capabilities for physical-AI workflows without making an agent an autonomous engineer.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "tool-use",
+        "physical-ai",
+        "coding-agent"
+      ],
+      "addedAt": "2026-07-22T06:01:59.000Z",
+      "publishedAt": "2026-07-23T05:04:18.385Z"
+    },
+    {
+      "slug": "national-ai-infrastructure",
+      "label": "National AI infrastructure",
+      "status": "published",
+      "notes": "Coordinated national-scale compute, networking, data, models, and access arrangements built to support a country's AI programme; use Japan's government-backed Noetra project as a current example while treating NVIDIA's 'world's first' wording as vendor positioning.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Infrastructure and deployment",
+        "Economics and operations of AI",
+        "Cultural terms"
+      ],
+      "relatedHints": [
+        "national-compute",
+        "sovereign-ai",
+        "compute-governance"
+      ],
+      "addedAt": "2026-07-22T06:01:59.000Z",
+      "publishedAt": "2026-07-23T05:04:18.385Z"
+    },
+    {
+      "slug": "ai-credit-pool",
+      "label": "AI credit pool",
+      "status": "published",
+      "notes": "An administratively allocated balance of included AI usage credits for a team or cost centre; GitHub's Copilot implementation makes the pool distinct from a spend budget, quota, or promise that the underlying usage is free.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Economics and operations of AI",
+        "Product and vendor terms",
+        "Model usage"
+      ],
+      "relatedHints": [
+        "usage-tier",
+        "spend-limit",
+        "quota"
+      ],
+      "addedAt": "2026-07-22T06:01:59.000Z",
+      "publishedAt": "2026-07-23T05:04:18.385Z"
+    },
+    {
+      "slug": "claude-apps-gateway",
+      "label": "Claude apps gateway",
+      "status": "published",
+      "notes": "Anthropic's self-hosted AWS control plane for Claude Code and Claude Desktop centralises identity, routing, policy, telemetry, and spend controls; define the named deployment surface rather than repeating the generic AI-gateway entry.",
+      "diagramHint": "model-routing",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Infrastructure and deployment",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "ai-gateway",
+        "model-routing",
+        "claude-code"
+      ],
+      "addedAt": "2026-07-22T06:01:59.000Z",
+      "publishedAt": "2026-07-23T05:04:18.385Z"
+    },
+    {
+      "slug": "ai-data-centre-moratorium",
+      "label": "AI data-centre moratorium",
+      "status": "published",
+      "notes": "A temporary policy pause on qualifying new or expanded data-centre permits while power, environmental, and public-benefit rules are developed; New York's Executive Order 62 is narrow, conditional, and not a blanket or permanent ban.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Economics and operations of AI",
+        "Infrastructure and deployment",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "ai-data-centre",
+        "power-constrained-ai",
+        "compute-governance"
+      ],
+      "addedAt": "2026-07-22T06:01:59.000Z",
+      "publishedAt": "2026-07-23T05:04:18.385Z"
     }
   ]
 }

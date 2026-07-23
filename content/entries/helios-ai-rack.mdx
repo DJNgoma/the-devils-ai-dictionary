@@ -1,0 +1,56 @@
+---
+title: "Helios AI rack"
+slug: "helios-ai-rack"
+letter: "H"
+categories:
+  - "Infrastructure and deployment"
+  - "Product and vendor terms"
+  - "Economics and operations of AI"
+aliases:
+  - "AMD Helios"
+  - "Helios rack-scale platform"
+devilDefinition: |
+  AMD's reminder that the new unit of AI procurement is a cupboard with a power strategy.
+plainDefinition: |
+  Helios is AMD's integrated rack-scale AI platform, combining Instinct MI455X accelerators, sixth-generation EPYC CPUs, Pensando networking, rack design, and the ROCm software stack. Microsoft has announced plans to use Helios-based systems in Azure.
+whyExists: |
+  Frontier training and inference depend on an entire system moving data, coordinating accelerators, cooling hardware, and running software efficiently. Selling the rack as a designed unit reduces the integration work left to a cloud operator or data-centre builder.
+misuse: |
+  A rack announcement is treated as benchmark proof, immediate capacity, or evidence that software portability has been solved. Announced components, future shipments, and vendor performance claims are not the same as measured production service.
+practicalMeaning: |
+  Buyers should evaluate delivered configurations, networking, power and cooling, ROCm compatibility, workload performance, availability, support, and total cost. Microsoft's announced deployment is a customer commitment, not a substitute for those numbers.
+example: |
+  "The Helios slide showed one rack; facilities added the substation, cooling plant, lead times, and a smaller font."
+askNext:
+  - "Which Helios configuration is shipping, and which parts remain announced?"
+  - "What production workload, software version, and power envelope support the performance claim?"
+  - "What integration and portability work remains outside the rack?"
+related:
+  - "gpu"
+  - "inference"
+  - "physical-ai"
+seeAlso:
+  - "Rack-scale AI"
+  - "ROCm"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: true
+publishedAt: "2026-07-22"
+updatedAt: "2026-07-22"
+warningLabel: "An integrated rack is still an announced system until it is delivered and measured."
+vendorReferences:
+  - "AMD"
+  - "Microsoft Azure"
+tags:
+  - "rack-scale"
+  - "accelerators"
+  - "data-centres"
+  - "rocm"
+misunderstoodScore: 4
+translations:
+  - label: "procurement meaning"
+    text: "Buy a co-designed AI system, then verify that the building, software, and workload agree with the brochure."
+---
+
+No built-in diagram is attached because the missing mental model is rack-scale system integration across silicon, networking, power, cooling, and software; none of the current diagrams represents that stack.

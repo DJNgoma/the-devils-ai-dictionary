@@ -1,0 +1,54 @@
+---
+title: "AI credit pool"
+slug: "ai-credit-pool"
+letter: "A"
+categories:
+  - "Economics and operations of AI"
+  - "Product and vendor terms"
+  - "Model usage"
+aliases:
+  - "AI usage credit pool"
+devilDefinition: |
+  Included usage gathered into a pool so finance can watch every team discover the deep end.
+plainDefinition: |
+  An AI credit pool is an allocated balance of included AI usage credits assigned to an organisation, team, or cost centre. Consumption draws from the pool until its limit is reached, after which use may stop or continue as metered spending.
+whyExists: |
+  Enterprise AI plans often bundle allowances with licences while usage varies sharply between teams. Pooling credits provides an accounting boundary for distributing included capacity and deciding who may create overages.
+misuse: |
+  Credits are mistaken for money, compute units, or a hard budget. Their conversion may be vendor-defined, and a pool can coexist with a separate spend limit because included usage and billed overage are different controls.
+practicalMeaning: |
+  GitHub's Copilot implementation calculates a cost centre's pool from assigned licences and lets administrators block usage at the limit or permit additional spend. Operators still need usage reporting, allocation rules, overage policy, and a clear definition of what one credit buys.
+example: |
+  "The AI credit pool prevented overspending until the administrator selected the option that permitted overspending."
+askNext:
+  - "What activity consumes one credit, and can that conversion change?"
+  - "Is the pool an included allowance, a quota, or a cap on billed overages?"
+  - "Who may reallocate credits or allow usage after the pool is exhausted?"
+related:
+  - "usage-tier"
+  - "spend-limit"
+  - "quota"
+seeAlso:
+  - "Cost centre"
+  - "AI unit economics"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-22"
+updatedAt: "2026-07-22"
+warningLabel: "Included credits and a spending ceiling are not the same control."
+vendorReferences:
+  - "GitHub Copilot"
+tags:
+  - "billing"
+  - "credits"
+  - "cost-centres"
+  - "usage"
+misunderstoodScore: 4
+translations:
+  - label: "finance meaning"
+    text: "A vendor-defined allowance assigned to a billing group, with an overage decision waiting at the bottom."
+---
+
+No built-in diagram is attached because the important mental model is a billing ledger that separates included credits, metered overage, and budgets; the current diagrams show model workflows rather than cost allocation.

@@ -1,0 +1,56 @@
+---
+title: "Claude apps gateway"
+slug: "claude-apps-gateway"
+letter: "C"
+categories:
+  - "Product and vendor terms"
+  - "Infrastructure and deployment"
+  - "Economics and operations of AI"
+aliases:
+  - "Claude apps gateway for AWS"
+devilDefinition: |
+  A self-hosted front door for Claude, installed so the organisation may decide who enters and receive one consolidated bill for asking.
+plainDefinition: |
+  Claude apps gateway is an Anthropic-built, self-hosted control plane for governing Claude Code and Claude Desktop in AWS environments. It centralises identity, routing, model and tool policy, telemetry, and spending controls across Amazon Bedrock and Claude Platform on AWS.
+whyExists: |
+  Enterprise use of desktop and coding assistants creates fragmented authentication, provider access, policy, observability, and cost management. A gateway gives administrators one managed path while keeping the control plane inside their AWS account.
+misuse: |
+  The gateway is treated as a model, a universal Claude enterprise tier, or proof that data and tools are safe. Central routing improves control; it does not repair excessive permissions, weak policy, retained prompts, or an unsafe downstream provider configuration.
+practicalMeaning: |
+  Organisations deploy a stateless gateway container backed by PostgreSQL, connect corporate identity, define model and tool rules, and point supported Claude apps through it. They must still operate the service, secure its credentials and database, inspect provider terms, and test failure behaviour.
+example: |
+  "The Claude apps gateway gave every request one governed route and the platform team one more production service."
+askNext:
+  - "Which Claude applications, model providers, and tools actually pass through the gateway?"
+  - "Where are prompts, identities, telemetry, credentials, and policy decisions stored?"
+  - "What happens to active work when the gateway, database, or identity provider fails?"
+related:
+  - "ai-gateway"
+  - "model-routing"
+  - "claude-code"
+seeAlso:
+  - "Claude Desktop"
+  - "Amazon Bedrock"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: true
+publishedAt: "2026-07-22"
+updatedAt: "2026-07-22"
+warningLabel: "A central control plane concentrates governance and operational responsibility."
+vendorReferences:
+  - "Anthropic"
+  - "Amazon Web Services"
+tags:
+  - "gateway"
+  - "claude"
+  - "governance"
+  - "routing"
+misunderstoodScore: 4
+translations:
+  - label: "enterprise meaning"
+    text: "Route supported Claude apps through one self-hosted policy and billing control point, then operate that point properly."
+diagram: "model-routing"
+---
+
+The model-routing diagram is used because the gateway's central mental model is one governed entry point selecting between approved inference providers and model routes.
