@@ -1,0 +1,54 @@
+---
+title: "NVIDIA Medical Physics Simulation"
+slug: "nvidia-medical-physics-simulation"
+letter: "N"
+categories:
+  - "Product and vendor terms"
+  - "Model building"
+  - "Safety and evaluation"
+aliases:
+  - "Medical Physics Simulation framework"
+devilDefinition: |
+  A virtual clinic where medical robots may fail at GPU speed before acquiring patients.
+plainDefinition: |
+  NVIDIA Medical Physics Simulation is an open-source, GPU-accelerated framework within Isaac for Healthcare for modelling anatomy-device interactions, sensors, contact and friction, synthetic edge cases, and medical-robot policies before hardware-heavy testing.
+whyExists: |
+  Medical robotics needs diverse evidence across anatomy, instruments, imaging, and rare failure conditions that are costly or unsafe to gather physically. Parallel simulation can generate training data and expose weak policies earlier in development.
+misuse: |
+  Fast virtual testing is presented as clinical validation, or open source is presented as proof of transparent outcomes. A simulator embeds assumptions about anatomy, materials, sensors, patient variation, and generated dynamics; scale only repeats those assumptions more efficiently.
+practicalMeaning: |
+  Teams can combine classical physics with NVIDIA's generative physics components, run many environments in parallel, and connect simulated anatomy, devices, imaging, and robot learning. They still need simulator validation, real-world testing, clinical expertise, risk management, and regulatory evidence.
+example: |
+  "The catheter policy passed eight thousand simulations, after which the clinical team asked whether the simulated tissue had read the protocol."
+askNext:
+  - "Which anatomical, device, sensor, and failure distributions does the simulator cover?"
+  - "How is simulated behaviour calibrated against physical and clinical evidence?"
+  - "Which claims support training, engineering verification, regulatory evidence, or actual clinical use?"
+related:
+  - "physical-ai"
+  - "simulation"
+  - "synthetic-data"
+seeAlso:
+  - "Isaac for Healthcare"
+  - "Robot policy"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "high"
+isVendorTerm: true
+publishedAt: "2026-07-23"
+updatedAt: "2026-07-23"
+warningLabel: "Simulation can accelerate evidence generation without becoming clinical evidence."
+vendorReferences:
+  - "NVIDIA"
+tags:
+  - "medical-robotics"
+  - "simulation"
+  - "synthetic-data"
+  - "healthcare"
+misunderstoodScore: 4
+translations:
+  - label: "engineering meaning"
+    text: "Train and stress-test medical robots in calibrated virtual environments before spending more cautiously on physical and clinical evidence."
+---
+
+No built-in diagram is attached because the important mental model is a simulation-to-hardware validation ladder, not an agent or retrieval loop.

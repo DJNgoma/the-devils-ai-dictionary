@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-23T05:04:18.385Z",
+  "updatedAt": "2026-07-23T09:37:55.867Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -5688,6 +5688,146 @@
       ],
       "addedAt": "2026-07-22T06:01:59.000Z",
       "publishedAt": "2026-07-23T05:04:18.385Z"
+    },
+    {
+      "slug": "openai-presence",
+      "label": "OpenAI Presence",
+      "status": "published",
+      "notes": "OpenAI's limited-GA enterprise platform for deploying voice and chat agents with scoped system access, policies, guardrails, simulations, escalation rules, and a Codex-assisted improvement loop; it is not a telepresence product or a self-serve agent builder.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Agents and workflows",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "voice-agent",
+        "call-automation",
+        "agent-reliability"
+      ],
+      "addedAt": "2026-07-23T06:37:37.000Z",
+      "publishedAt": "2026-07-23T09:37:55.867Z"
+    },
+    {
+      "slug": "genesis-mission",
+      "label": "Genesis Mission",
+      "status": "published",
+      "notes": "US Department of Energy initiative intended to connect 17 national laboratories, scientific facilities, data, advanced computing, and private AI partners into a unified AI-for-science programme; distinguish the mission and its governance from generic national compute infrastructure.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "national-ai-infrastructure",
+        "national-compute",
+        "research-agent"
+      ],
+      "addedAt": "2026-07-23T06:37:37.000Z",
+      "publishedAt": "2026-07-23T09:37:55.867Z"
+    },
+    {
+      "slug": "anthropic-economic-index-connector",
+      "label": "Anthropic Economic Index connector",
+      "status": "published",
+      "notes": "Claude connector that answers natural-language questions against Anthropic Economic Index data and links back to the underlying dataset; the index measures patterns in Claude usage, not the whole labour market.",
+      "diagramHint": "rag",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Economics and operations of AI",
+        "Retrieval and memory"
+      ],
+      "relatedHints": [
+        "grounding",
+        "citations",
+        "data-provenance"
+      ],
+      "addedAt": "2026-07-23T06:37:37.000Z",
+      "publishedAt": "2026-07-23T09:37:55.867Z"
+    },
+    {
+      "slug": "anthropic-economic-futures-research-fund",
+      "label": "Anthropic Economic Futures Research Fund",
+      "status": "published",
+      "notes": "Anthropic's $200 million external research fund for large studies and pilots on workplace adaptation, retraining, income support, worker stakes, and public investment under AI-driven economic change; keep the funding programme separate from evidence that any proposed intervention works.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Economics and operations of AI",
+        "Product and vendor terms",
+        "Cultural terms"
+      ],
+      "relatedHints": [
+        "labour-substitution",
+        "ai-governance-office",
+        "ai-scorecard"
+      ],
+      "addedAt": "2026-07-23T06:37:37.000Z",
+      "publishedAt": "2026-07-23T09:37:55.867Z"
+    },
+    {
+      "slug": "community-library",
+      "label": "Community library",
+      "status": "published",
+      "notes": "Community-owned, consent-based collection of images or videos plus descriptions that records how a group wants to be represented in AI training and evaluation; Microsoft Research's Community Library Creator structures the process without transferring curatorial authority away from the community.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Model building",
+        "Safety and evaluation",
+        "Cultural terms"
+      ],
+      "relatedHints": [
+        "data-provenance",
+        "data-governance",
+        "synthetic-data"
+      ],
+      "addedAt": "2026-07-23T06:37:37.000Z",
+      "publishedAt": "2026-07-23T09:37:55.867Z"
+    },
+    {
+      "slug": "copilot-impact-dashboard",
+      "label": "Copilot impact dashboard",
+      "status": "published",
+      "notes": "GitHub enterprise dashboard that segments Copilot users into adoption phases and compares activity, merge velocity, pull requests, and code volume; valuable as an adoption view but not causal proof that Copilot produced the observed outcomes.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Economics and operations of AI",
+        "Product and vendor terms",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "ai-scorecard",
+        "metric-fixation",
+        "usage-tier"
+      ],
+      "addedAt": "2026-07-23T06:37:37.000Z",
+      "publishedAt": "2026-07-23T09:37:55.867Z"
+    },
+    {
+      "slug": "nvidia-medical-physics-simulation",
+      "label": "NVIDIA Medical Physics Simulation",
+      "status": "published",
+      "notes": "Open-source, GPU-accelerated Isaac for Healthcare framework for modelling anatomy-device interactions, sensor inputs, synthetic edge cases, and robot policies before physical testing; simulation evidence does not replace clinical validation or regulatory evidence.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Model building",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "physical-ai",
+        "simulation",
+        "synthetic-data"
+      ],
+      "addedAt": "2026-07-23T06:37:37.000Z",
+      "publishedAt": "2026-07-23T09:37:55.867Z"
     }
   ]
 }
