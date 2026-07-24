@@ -1,0 +1,56 @@
+---
+title: "Stateless MCP"
+slug: "stateless-mcp"
+letter: "S"
+categories:
+  - "Agents and workflows"
+  - "Infrastructure and deployment"
+aliases:
+  - "stateless Model Context Protocol"
+  - "MCP stateless core"
+devilDefinition: |
+  A protocol server relieved of remembering you, leaving that duty to every other layer.
+plainDefinition: |
+  Stateless MCP is the July 2026 Model Context Protocol core design in which a server does not need to retain session state between requests. Each request carries enough protocol context to be handled by any suitable server instance, while optional extensions or the application may still maintain state elsewhere.
+whyExists: |
+  Required server-side sessions complicate horizontal scaling, failover, serverless deployment, and routing. Removing that requirement lets requests move between instances without a shared session database and reduces infrastructure work that was not essential to many MCP calls.
+misuse: |
+  Stateless is routinely translated as memoryless. It does not mean the user, model, host, tool, or business workflow has no memory; it means the MCP core does not require the server to keep connection-specific session state. Stateful features can still be added deliberately.
+practicalMeaning: |
+  Review which layer owns authentication, task progress, resumability, and user context. A stateless MCP server should be easy to replace or scale, but the surrounding application still needs explicit persistence, expiry, and privacy rules for any state it keeps.
+example: |
+  "We removed the MCP session database and discovered that the workflow state had merely moved somewhere with a less honest table name."
+askNext:
+  - "Which state has been removed, and which state remains elsewhere?"
+  - "Can any server instance handle the next request safely?"
+  - "How are authentication, retries, and resumable work represented?"
+related:
+  - "mcp"
+  - "mcp-server"
+  - "remote-mcp-server"
+seeAlso:
+  - "Horizontal scaling"
+  - "Session state"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-24"
+updatedAt: "2026-07-24"
+warningLabel: "Stateless protocol handling does not erase application state."
+vendorReferences:
+  - "Model Context Protocol"
+  - "GitHub"
+tags:
+  - "mcp"
+  - "protocols"
+  - "scaling"
+  - "sessions"
+misunderstoodScore: 4
+translations:
+  - label: "infrastructure meaning"
+    text: "Any suitable instance can handle the request without consulting a private MCP session."
+diagram: "mcp"
+---
+
+The MCP diagram is used because statelessness changes the connection boundary, not the existence of hosts, clients, servers, tools, or data sources.

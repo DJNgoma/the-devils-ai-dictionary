@@ -1,0 +1,56 @@
+---
+title: "Silent agent failure"
+slug: "silent-agent-failure"
+letter: "S"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+  - "Infrastructure and deployment"
+aliases:
+  - "silent agent failure"
+  - "behavioural agent failure"
+devilDefinition: |
+  A workflow that returns 200 OK and the wrong answer with impeccable uptime.
+plainDefinition: |
+  A silent agent failure occurs when an agent completes without an infrastructure error but produces an incorrect, incomplete, unauthorised, or otherwise unacceptable outcome. The trace looks operationally healthy until someone evaluates what the agent actually did.
+whyExists: |
+  Conventional monitoring catches crashes, latency spikes, and failed tool calls. Agents can instead skip a prerequisite, claim an action succeeded when it did not, or continue after a tool returned unusable data. Behavioural evaluation is needed because process health and task correctness are different measurements.
+misuse: |
+  The phrase is sometimes used for every disappointing answer. A silent failure is more specific: the system's ordinary success signals remain green while the intended outcome is wrong. A visible exception, refusal, or timeout may still be a failure, but it is not silent in this sense.
+practicalMeaning: |
+  Define outcome-level checks, required steps, policy constraints, and escalation conditions. Sample completed sessions, compare traces with those expectations, cluster recurring failure patterns, and make customer complaints an input rather than the primary monitoring system.
+example: |
+  "The agent closed the case, omitted the refund, and contributed another successful session to the dashboard."
+askNext:
+  - "Which outcome and policy checks run after a session reports success?"
+  - "Can the trace prove that required tools and approvals were actually used?"
+  - "How quickly would a recurring wrong-but-green pattern be detected?"
+related:
+  - "agent-reliability"
+  - "agent-observability"
+  - "agent-trace"
+seeAlso:
+  - "Behavioural evaluation"
+  - "Outcome monitoring"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-24"
+updatedAt: "2026-07-24"
+warningLabel: "A completed session is not evidence of a completed job."
+vendorReferences:
+  - "Amazon Web Services"
+tags:
+  - "agents"
+  - "observability"
+  - "evaluation"
+  - "production"
+misunderstoodScore: 5
+translations:
+  - label: "operations meaning"
+    text: "The service stayed up; the agent's behaviour still failed."
+diagram: "agent-loop"
+---
+
+The agent-loop diagram is used because the failure can hide anywhere between planning, tool use, observation, and the system's declaration that the job is done.

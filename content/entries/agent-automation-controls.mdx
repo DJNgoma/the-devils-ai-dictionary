@@ -1,0 +1,55 @@
+---
+title: "Agent automation controls"
+slug: "agent-automation-controls"
+letter: "A"
+categories:
+  - "Agents and workflows"
+  - "Safety and evaluation"
+  - "Product and vendor terms"
+aliases:
+  - "agent automation control"
+devilDefinition: |
+  The panel where autonomy is converted back into a review queue.
+plainDefinition: |
+  Agent automation controls are mechanisms that explain, preview, constrain, and approve changes proposed by an agent before they alter shared work. GitHub's July 2026 public preview applies the pattern to issue labels, types, assignments, and closure.
+whyExists: |
+  Repository agents can make routine changes faster than people can inspect a backlog, but those changes affect ownership, reporting, and whether work remains visible. Attribution and review make the automation legible and let teams choose which actions may proceed automatically.
+misuse: |
+  A review button is often presented as governance by itself. Controls are useful only when the reason is intelligible, the proposed diff is visible, permissions are narrow, and rejection actually prevents the action. Reviewing every trivial edit also turns autonomy into clerical outsourcing with extra steps.
+practicalMeaning: |
+  Separate low-risk reversible actions from closure, reassignment, and other consequential changes. Log the agent's reason, show the exact proposed mutation, define who may approve it, and retain an audit trail after application.
+example: |
+  "The agent explained why it wanted to close the issue, allowing a human to explain why it would not."
+askNext:
+  - "Which actions apply automatically and which require review?"
+  - "Does the reviewer see the reason and exact proposed change?"
+  - "Can the change be traced, reversed, and attributed afterwards?"
+related:
+  - "approval-workflow"
+  - "repository-automation"
+  - "tool-call-audit"
+seeAlso:
+  - "Human approval"
+  - "Issue automation"
+difficulty: "intermediate"
+technicalDepth: "medium"
+hypeLevel: "medium"
+isVendorTerm: false
+publishedAt: "2026-07-24"
+updatedAt: "2026-07-24"
+warningLabel: "A visible reason is not the same as a justified action."
+vendorReferences:
+  - "GitHub"
+tags:
+  - "agents"
+  - "automation"
+  - "approvals"
+  - "governance"
+misunderstoodScore: 4
+translations:
+  - label: "workflow meaning"
+    text: "Let agents propose shared-state changes without pretending every proposal deserves execution."
+diagram: "agent-loop"
+---
+
+The agent-loop diagram is used because the control sits between a proposed action, human or policy review, execution, and the observation that follows.

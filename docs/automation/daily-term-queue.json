@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-23T09:37:55.867Z",
+  "updatedAt": "2026-07-24T05:19:51.598Z",
   "items": [
     {
       "slug": "capability-overhang",
@@ -5828,6 +5828,145 @@
       ],
       "addedAt": "2026-07-23T06:37:37.000Z",
       "publishedAt": "2026-07-23T09:37:55.867Z"
+    },
+    {
+      "slug": "silent-agent-failure",
+      "label": "Silent agent failure",
+      "status": "published",
+      "notes": "An agent session that finishes cleanly by infrastructure metrics while producing the wrong behavioural outcome; AWS's 23 July AgentCore account gives concrete examples such as skipped approvals, unexecuted actions, and assertions made after tool failure.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "agent-reliability",
+        "agent-observability",
+        "agent-trace"
+      ],
+      "addedAt": "2026-07-24T05:20:00.000Z",
+      "publishedAt": "2026-07-24T05:19:51.598Z"
+    },
+    {
+      "slug": "health-in-chatgpt",
+      "label": "Health in ChatGPT",
+      "status": "published",
+      "notes": "OpenAI's 23 July health experience lets eligible US users connect medical records and Apple Health data inside ChatGPT; keep access limits, privacy boundaries, and the distinction between organising health information and practising medicine explicit.",
+      "diagramHint": "rag",
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Product and vendor terms",
+        "Retrieval and memory",
+        "Safety and evaluation"
+      ],
+      "relatedHints": [
+        "chatgpt",
+        "contextual-integrity",
+        "data-governance"
+      ],
+      "addedAt": "2026-07-24T05:20:00.000Z",
+      "publishedAt": "2026-07-24T05:19:51.598Z"
+    },
+    {
+      "slug": "stateless-mcp",
+      "label": "Stateless MCP",
+      "status": "published",
+      "notes": "The July 2026 MCP core change removes required server-side session state so deployments can scale without keeping a private memory of every connection; separate stateless protocol handling from applications that still maintain user or task state elsewhere.",
+      "diagramHint": "mcp",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Infrastructure and deployment"
+      ],
+      "relatedHints": [
+        "mcp",
+        "mcp-server",
+        "remote-mcp-server"
+      ],
+      "addedAt": "2026-07-24T05:20:00.000Z",
+      "publishedAt": "2026-07-24T05:19:51.598Z"
+    },
+    {
+      "slug": "agent-automation-controls",
+      "label": "Agent automation controls",
+      "status": "published",
+      "notes": "Review and attribution controls for issue changes proposed by agents; GitHub's 23 July public preview exposes why an automation wants to label, type, assign, or close an issue before the change is applied.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Agents and workflows",
+        "Safety and evaluation",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "approval-workflow",
+        "human-in-the-loop",
+        "audit-trail"
+      ],
+      "addedAt": "2026-07-24T05:20:00.000Z",
+      "publishedAt": "2026-07-24T05:19:51.598Z"
+    },
+    {
+      "slug": "recursive-self-improvement",
+      "label": "Recursive self-improvement",
+      "status": "published",
+      "notes": "The stronger claim that an AI system can design and develop a more capable successor, not merely help engineers write code or tune the current model; Anthropic's July discussion says the threshold has not been reached and is not inevitable.",
+      "diagramHint": "agent-loop",
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Model building",
+        "Safety and evaluation",
+        "Cultural terms"
+      ],
+      "relatedHints": [
+        "recursive-improvement",
+        "automated-ai-research",
+        "capability-overhang"
+      ],
+      "addedAt": "2026-07-24T05:20:00.000Z",
+      "publishedAt": "2026-07-24T05:19:51.598Z"
+    },
+    {
+      "slug": "ai-economy-atlas",
+      "label": "AI & Economy ATLAS",
+      "status": "published",
+      "notes": "Google's Activity, Task, Landscape, and Adoption Study uses de-identified activity from Google AI products to describe use across countries, languages, occupations, and tasks; frame it as a large vendor-observed usage dataset, not a census or causal economic study.",
+      "diagramHint": null,
+      "misunderstoodHint": 5,
+      "categoryHints": [
+        "Economics and operations of AI",
+        "Safety and evaluation",
+        "Product and vendor terms"
+      ],
+      "relatedHints": [
+        "anthropic-economic-index",
+        "ai-scorecard",
+        "adoption-metric"
+      ],
+      "addedAt": "2026-07-24T05:20:00.000Z",
+      "publishedAt": "2026-07-24T05:19:51.598Z"
+    },
+    {
+      "slug": "co-operative-time-slicing",
+      "label": "Co-operative time-slicing",
+      "status": "published",
+      "notes": "An llm-d scheduling method that treats reinforcement-learning rollout and gradient steps as interleavable work so independent jobs can share accelerators instead of waiting through each other's idle phases; keep it distinct from generic GPU time-sharing.",
+      "diagramHint": null,
+      "misunderstoodHint": 4,
+      "categoryHints": [
+        "Infrastructure and deployment",
+        "Model building",
+        "Economics and operations of AI"
+      ],
+      "relatedHints": [
+        "reinforcement-learning",
+        "gpu-scheduling",
+        "accelerator-utilisation"
+      ],
+      "addedAt": "2026-07-24T05:20:00.000Z",
+      "publishedAt": "2026-07-24T05:19:51.598Z"
     }
   ]
 }

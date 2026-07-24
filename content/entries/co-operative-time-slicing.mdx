@@ -1,0 +1,56 @@
+---
+title: "Co-operative time-slicing"
+slug: "co-operative-time-slicing"
+letter: "C"
+categories:
+  - "Infrastructure and deployment"
+  - "Model building"
+  - "Economics and operations of AI"
+aliases:
+  - "cooperative time-slicing"
+  - "RL job interleaving"
+devilDefinition: |
+  Teaching expensive accelerators to take turns because their owners finally noticed the invoice.
+plainDefinition: |
+  Co-operative time-slicing is an llm-d scheduling approach that treats discrete reinforcement-learning steps, including rollout sampling and gradient training, as schedulable work. It interleaves steps from independent jobs on shared accelerators to reduce idle hardware between phases.
+whyExists: |
+  Reinforcement-learning post-training alternates between inference-heavy rollout generation and training-heavy parameter updates. Those phases use hardware differently and can stall while waiting for fresh data. Interleaving another job's compatible phase can raise accelerator utilisation without requiring each job to monopolise a cluster.
+misuse: |
+  It can sound like ordinary GPU sharing with a new hyphen. The co-operation depends on the RL workload exposing safe scheduling boundaries and the infrastructure coordinating different phases. Higher utilisation also does not guarantee faster completion for every individual job.
+practicalMeaning: |
+  Measure idle time, phase duration, memory pressure, switching overhead, fairness, and job completion time before and after interleaving. The gain is economic only if reclaimed accelerator capacity exceeds coordination overhead and does not destabilise training.
+example: |
+  "The GPUs stopped waiting for the rollout team and began waiting for the scheduler."
+askNext:
+  - "Which rollout and training steps can be safely interleaved?"
+  - "Does aggregate utilisation improve at the expense of one job's latency?"
+  - "What switching, memory, and coordination overhead is introduced?"
+related:
+  - "post-training"
+  - "gpu-utilisation"
+  - "gpu-broker"
+seeAlso:
+  - "Reinforcement learning"
+  - "Accelerator scheduling"
+difficulty: "advanced"
+technicalDepth: "high"
+hypeLevel: "low"
+isVendorTerm: false
+publishedAt: "2026-07-24"
+updatedAt: "2026-07-24"
+warningLabel: "Higher cluster utilisation can still lengthen an individual job."
+vendorReferences:
+  - "Google Cloud"
+  - "llm-d"
+tags:
+  - "reinforcement-learning"
+  - "scheduling"
+  - "gpu"
+  - "utilisation"
+misunderstoodScore: 4
+translations:
+  - label: "infrastructure meaning"
+    text: "Run another RL job's useful phase while the first job would otherwise leave accelerators idle."
+---
+
+No built-in diagram is used because the current set does not show alternating rollout and training phases sharing accelerator capacity.
