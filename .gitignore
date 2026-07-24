@@ -45,6 +45,7 @@ next-env.d.ts
 
 # OpenNext for Cloudflare build output
 .open-next
+/public/og-images/
 
 # mobile signing material
 /android/keystore.properties

@@ -16,7 +16,7 @@ type ShareDataWithFiles = ShareData & {
 };
 
 export function entryShareImagePath(slug: string) {
-  return `/dictionary/${encodeURIComponent(slug)}/opengraph-image`;
+  return `/og-images/${encodeURIComponent(slug)}.png`;
 }
 
 export function buildEntryShareCaption({

@@ -65,8 +65,8 @@ afterEach(() => {
 });
 
 describe("entry share helpers", () => {
-  it("points at the entry opengraph image route", () => {
-    expect(entryShareImagePath("agent")).toBe("/dictionary/agent/opengraph-image");
+  it("points at the generated entry image asset", () => {
+    expect(entryShareImagePath("agent")).toBe("/og-images/agent.png");
   });
 
   it("builds a caption with the title, definition, and word link", () => {
@@ -95,7 +95,7 @@ describe("EntryShareButton", () => {
     await waitFor(() => expect(share).toHaveBeenCalledTimes(1));
     const payload = share.mock.calls[0][0] as ShareData & { files?: File[] };
 
-    expect(globalThis.fetch).toHaveBeenCalledWith("/dictionary/agent/opengraph-image");
+    expect(globalThis.fetch).toHaveBeenCalledWith("/og-images/agent.png");
     expect(payload.files?.[0]).toBeInstanceOf(File);
     expect(payload.files?.[0]?.name).toBe("devils-ai-dictionary-agent.png");
     expect(payload.url).toMatch(/\/dictionary\/agent$/);

@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   assertPrerenderAssetFastPath,
+  assertOgRendererExcludedFromWorker,
   assertWorkerStartupDoesNotEmbedWebSnapshot,
   assertBudget,
   parseWranglerGzipBytes,
@@ -82,12 +83,45 @@ describe("Cloudflare release gate helpers", () => {
       fs.writeFileSync(path.join(prerenderDir, file), "ok");
     }
 
+    for (const file of ["icon.png", "home.png"]) {
+      const imagePath = path.join(root, ".open-next", "assets", "og-images", file);
+      fs.mkdirSync(path.dirname(imagePath), { recursive: true });
+      fs.writeFileSync(imagePath, "image");
+    }
+
     fs.writeFileSync(
       path.join(root, ".open-next", "worker.js"),
       'headers.set("x-devils-prerender-cache", "hit");',
     );
 
     expect(assertPrerenderAssetFastPath(root)).toMatch(/Prerender asset fast path/);
+  });
+
+  it("rejects an Open Graph renderer left in the deployed Worker", () => {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "devils-cf-gate-"));
+    const rendererPath = path.join(
+      root,
+      ".open-next/server-functions/default/node_modules/next/dist/compiled/@vercel/og/resvg.wasm",
+    );
+    fs.mkdirSync(path.dirname(rendererPath), { recursive: true });
+    fs.writeFileSync(rendererPath, "renderer");
+
+    expect(() => assertOgRendererExcludedFromWorker(root)).toThrow(/renderer WASM/);
+  });
+
+  it("rejects a runtime Open Graph renderer import", () => {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "devils-cf-gate-"));
+    const handlerPath = path.join(
+      root,
+      ".open-next/server-functions/default/handler.mjs",
+    );
+    fs.mkdirSync(path.dirname(handlerPath), { recursive: true });
+    fs.writeFileSync(
+      handlerPath,
+      'await import("next/dist/compiled/@vercel/og/index.edge.js")',
+    );
+
+    expect(() => assertOgRendererExcludedFromWorker(root)).toThrow(/still imports/);
   });
 
   it("rejects Cloudflare HTML handling that redirects exact asset filenames", () => {

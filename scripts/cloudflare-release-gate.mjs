@@ -166,6 +166,8 @@ export function assertPrerenderAssetFastPath(root) {
     ".open-next/assets/__opennext-prerender/updates.rsc",
     ".open-next/assets/__opennext-prerender/categories.html",
     ".open-next/assets/__opennext-prerender/categories.rsc",
+    ".open-next/assets/og-images/icon.png",
+    ".open-next/assets/og-images/home.png",
   ];
 
   for (const relativePath of requiredAssets) {
@@ -182,6 +184,36 @@ export function assertPrerenderAssetFastPath(root) {
   }
 
   return `Prerender asset fast path: ${requiredAssets.length} route assets and worker header present`;
+}
+
+export function assertOgRendererExcludedFromWorker(root) {
+  const defaultFunctionDir = path.join(root, ".open-next", "server-functions", "default");
+  const handlerPath = path.join(defaultFunctionDir, "handler.mjs");
+  const rendererWasmPath = path.join(
+    defaultFunctionDir,
+    "node_modules",
+    "next",
+    "dist",
+    "compiled",
+    "@vercel",
+    "og",
+    "resvg.wasm",
+  );
+
+  if (fs.existsSync(rendererWasmPath)) {
+    throw new Error("The default Worker function still includes the @vercel/og renderer WASM.");
+  }
+
+  if (
+    fs.existsSync(handlerPath) &&
+    fs.readFileSync(handlerPath, "utf8").includes(
+      'import("next/dist/compiled/@vercel/og/index.edge.js")',
+    )
+  ) {
+    throw new Error("The default Worker handler still imports the @vercel/og renderer.");
+  }
+
+  return "Open Graph renderer: generated static assets only";
 }
 
 export function assertWorkerStartupDoesNotEmbedWebSnapshot(root, webSnapshot) {
@@ -238,6 +270,7 @@ export function collectCloudflareReleaseGateResults({
   }
 
   results.push(assertPrerenderAssetFastPath(root));
+  results.push(assertOgRendererExcludedFromWorker(root));
 
   const prerenderAssetDir = path.join(
     root,

@@ -64,7 +64,7 @@ describe("buildMetadata", () => {
     });
 
     expect(og(meta).images[0]).toEqual({
-      url: `${siteConfig.url}/opengraph-image`,
+      url: `${siteConfig.url}/og-images/home.png`,
       width: 1200,
       height: 630,
       alt: "Home",
@@ -75,7 +75,7 @@ describe("buildMetadata", () => {
       title: "Home",
       description: "Landing page",
     });
-    expect(twitterImages(meta)).toEqual([`${siteConfig.url}/opengraph-image`]);
+    expect(twitterImages(meta)).toEqual([`${siteConfig.url}/og-images/home.png`]);
   });
 
   it("uses the per-entry OpenGraph image for dictionary articles", () => {
@@ -83,11 +83,11 @@ describe("buildMetadata", () => {
 
     expect(og(meta).type).toBe("article");
     expect(og(meta).images[0]).toMatchObject({
-      url: `${siteConfig.url}/dictionary/agent/opengraph-image`,
+      url: `${siteConfig.url}/og-images/agent.png`,
       alt: "Agent",
     });
     expect(twitterImages(meta)).toEqual([
-      `${siteConfig.url}/dictionary/agent/opengraph-image`,
+      `${siteConfig.url}/og-images/agent.png`,
     ]);
   });
 
@@ -100,9 +100,9 @@ describe("buildMetadata", () => {
     });
 
     expect(og(meta).images[0]).toMatchObject({
-      url: `${siteConfig.url}/opengraph-image`,
+      url: `${siteConfig.url}/og-images/home.png`,
     });
-    expect(twitterImages(meta)).toEqual([`${siteConfig.url}/opengraph-image`]);
+    expect(twitterImages(meta)).toEqual([`${siteConfig.url}/og-images/home.png`]);
   });
 
   it("ignores the per-entry image when a dictionary path is rendered as a website", () => {
@@ -110,7 +110,7 @@ describe("buildMetadata", () => {
 
     expect(og(meta).type).toBe("website");
     expect(og(meta).images[0]).toMatchObject({
-      url: `${siteConfig.url}/opengraph-image`,
+      url: `${siteConfig.url}/og-images/home.png`,
     });
   });
 
@@ -123,8 +123,8 @@ describe("buildMetadata", () => {
     });
 
     expect(og(meta).images[0]).toMatchObject({
-      url: `${siteConfig.url}/opengraph-image`,
+      url: `${siteConfig.url}/og-images/home.png`,
     });
-    expect(twitterImages(meta)).toEqual([`${siteConfig.url}/opengraph-image`]);
+    expect(twitterImages(meta)).toEqual([`${siteConfig.url}/og-images/home.png`]);
   });
 });

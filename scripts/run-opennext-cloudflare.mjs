@@ -28,6 +28,12 @@ const openNextCacheDir = path.join(openNextDir, "cache");
 const openNextAssetsDir = path.join(openNextDir, "assets");
 const prerenderAssetsDir = path.join(openNextAssetsDir, "__opennext-prerender");
 const workerPath = path.join(openNextDir, "worker.js");
+const defaultHandlerPath = path.join(
+  openNextDir,
+  "server-functions",
+  "default",
+  "handler.mjs",
+);
 const opennextBin = path.join(
   projectRoot,
   "node_modules",
@@ -314,9 +320,32 @@ async function patchWorkerForPrerenderedAssets() {
   console.log("Patched OpenNext worker to serve prerendered static assets first.");
 }
 
+async function patchUnusedOgExternalImport() {
+  const handlerSource = await readFile(defaultHandlerPath, "utf8");
+  const ogImportBranch = /([A-Za-z_$][\w$]*)==="next\/dist\/compiled\/@vercel\/og\/index\.node\.js"\?([A-Za-z_$][\w$]*)=await import\("next\/dist\/compiled\/@vercel\/og\/index\.edge\.js"\):\2=await import\(\1\)/g;
+  const matches = handlerSource.match(ogImportBranch) ?? [];
+
+  if (matches.length === 0) {
+    throw new Error(
+      "OpenNext @vercel/og external-import branch was not found.",
+    );
+  }
+
+  const patchedSource = handlerSource.replace(
+    ogImportBranch,
+    (_match, requestedModule, importedModule) =>
+      `${importedModule}=await import(${requestedModule})`,
+  );
+  await writeFile(defaultHandlerPath, patchedSource, "utf8");
+  console.log(
+    `Removed ${matches.length} unused @vercel/og renderer imports from the Worker handler.`,
+  );
+}
+
 async function installPrerenderedWorkerFastPath() {
   await exportPrerenderedCacheAssets();
   await patchWorkerForPrerenderedAssets();
+  await patchUnusedOgExternalImport();
 }
 
 function runOpenNext() {
